@@ -1,0 +1,74 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:50:48 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 04/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a jour 17/05/1998 (LDP-man-pages-1.19)
+.\"
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.36
+.\" MàJ 21/07/2003 LDP-1.56
+.TH MEMMEM 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+memmem \- Rechercher une sous-chaîne.
+.SH SYNOPSIS
+.nf
+.B #define _GNU_SOURCE
+.br
+.B #include <string.h>
+.sp
+.BI "void *memmem (const void *" meule_de_foin ", size_t " lg_meule ,
+.RS
+.BI "const void *" aiguille ", size_t " lg_aiguille );
+.fi
+.SH DESCRIPTION
+La fonction \fBmemmem()\fP recherche le début de la première occurence
+de la sous\-chaîne \fIaiguille\fP de longueur \fIlg_aiguille\fP au sein
+de la zone de mémoire \fImeule_de_foin\fP de longueur \fIlg_meule\fP.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBmemmem()\fP renvoie un pointeur sur le début de la
+sous-chaîne, ou NULL si aucune sous-chaîne n'est trouveé.
+.SH "CONFORMITÉ"
+Cette fonction est une extensioin GNU.
+.SH BOGUES
+Cette fonction ne fonctionnait pas dans les bibliothèques Linux jusqu'à
+libc 5.0.9 incluse, car les arguments
+`aiguille' (NDT: needle) et `meule_de_foin' (NDT: haystack) étaient
+inversés. De plus la fonction renvoyait un pointeur sur la fin
+de la première occurence de l'\fIaiguille\fP.
+Comme la bibliothèque libc 5.0.9 était largement répandue, cette fonction
+était dangereuse à utiliser.
+.br
+Un bug supplémentaire existait dans toutes les bibliothèques libc\ : Si
+la chaîne \fIaiguille\fP est vide, la fonction renvoie \fImeule_de_foin\fP-1
+(au lieu de \fImeule_de_foin\fP).
+La bibliothèque GlibC 2.0 était encore pire, puisqu'elle renvoie un
+pointeur sur le dernier octet de la `meule_de_foin'. Ceci est corrigé
+dans la GlibC 2.1
+.SH "VOIR AUSSI"
+.BR strstr (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

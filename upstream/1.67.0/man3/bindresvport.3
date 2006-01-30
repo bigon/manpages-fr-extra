@@ -1,0 +1,32 @@
+.\" @(#)bindresvport.3n	2.2 88/08/02 4.0 RPCSRC; from 1.7 88/03/14 SMI
+.\" Traduction 04/01/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man-pages 1.28
+.\" MàJ 21/07/2003 LDP-1.56
+.TH BINDRESVPORT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+bindresvport \- Affecter une socket à un port privilégié.
+.SH SYNOPSIS
+.nf
+.B #include <sys/types.h>
+.B #include <netinet/in.h>
+.LP
+.B int bindresvport(sd, sin)
+.B int sd;
+.B struct sockaddr_in \(**sin;
+.fi
+.SH DESCRIPTION
+.LP
+.B bindresvport()
+sert à affecter un descripteur de socket à un port
+.SM IP
+privilégié, c'est à dire dans l'intervalle 0-1023.
+La routine renvoie 0 si elle réussit, ou -1 en cas d'echec,
+avec 
+.B errno
+contenant le code d'erreur.
+.LP
+Seul le Super-utilisateur peut affecter une socket à un port privilégié. Cette
+fonction échouera pour tous les autres utilisateurs.
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.
+

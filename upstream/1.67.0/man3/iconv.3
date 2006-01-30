@@ -1,0 +1,90 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"
+.\" Traduction 31/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.31
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.36
+.\" MàJ 21/07/2003 LDP-1.56
+.TH ICONV 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+iconv \- Conversion de caractères larges.
+.SH SYNOPSIS
+.nf
+.B #include <iconv.h>
+.sp
+.BI "size_t iconv (iconv_t " cd ,
+.BI "              char ** " inbuf ", size_t * "inbytesleft ,
+.BI "              char ** " outbuf ", size_t * "outbytesleft );
+.fi
+.SH DESCRIPTION
+L'argument \fIcd\fP doit être un descripteur de conversion fourni par la fonction \fBiconv_open\fP.
+.PP
+L'utilisation principale de cette routine est avec \fIinbuf\fP non NULL et \fI*inbuf\fP non NULL.
+Dans ce cas, \fBiconv\fP convertit la séquence multi-octets débutant en \fI*inbuf\fP en une
+séquence multi-octets commençant en \fI*outbuf\fP.
+Au plus \fI*inbytesleft\fP octets seront lus, en partant de \fI*inbuf\fP.
+Au plus \fI*outbytesleft\fP octets seront écrits en commençant en \fI*outbuf\fP.
+.PP
+La fonction \fBiconv\fP convertit un caractère multi-octets à la fois, et pour chaque conversion
+elle augmente \fI*inbuf\fP et diminue \fI*inbytesleft\fP du nombre d'octets d'entrée convertis, et
+elle augmente \fI*outbuf\fP et diminue \fI*outbytesleft\fP du nombre d'octets de sortie écrits.
+Elle met à jour l'état de conversion contenu au sein de \fIcd\fP.
+La conversion peut s'arrêter pour quatre raisons :
+.PP
+1. Une séquence multi-octets invalide a été trouvée en entrée. Dans ce cas la fonction
+renvoie (size_t)(-1) après avoir mis \fBEILSEQ\fP dans \fBerrno\fP. Ensuite \fI*inbuf\fP
+pointera sur le début de la séquence multi-octets invalide.
+.PP
+2. La séquence d'entrée a été convertie entièrement, c'est à dire que \fI*inbytesleft\fP
+est descendu jusqu'à zéro. Dans ce cas \fBiconv\fP renvoie le nombre de conversions irréversibles
+réalisées durant l'appel.
+.PP
+3. Une séquence multi-octets incomplète a été trouvée alors que la séquence d'entrée se terminait.
+Dans ce cas la fonction renvoie (size_t)(-1) après avoir mis \fBEINVAL\fP dans \fBerrno\fP.
+Ensuite \fI*inbuf\fP pointera sur le début de la séquence multi-octets incomplète.
+.PP
+4. Le buffer de sortie n'a plus de place pour stocker le prochain caractère converti. Dans ce
+cas \fBerrno\fP contiendra \fBE2BIG\fP et la fonction renverra (size_t)(-1).
+.PP
+Une autre possibilité se présente quand \fIinbuf\fP ou \fI*inbuf\fP sont NULL, mais ni
+\fIoutbuf\fP, ni \fI*outbuf\fP ne sont NULL. Dans ce cas la fonction \fBiconv\fP essaye
+de mettre l'état de conversion de \fIcd\fP dans l'état initial, et de mémoriser la
+séquence de décalage correspondante dans \fI*outbuf\fP.
+Au maximum \fI*outbytesleft\fP octets seront écrits en commençant en \fI*outbuf\fP.
+Si le buffer de sortie ne contient pas assez de place  pour réinitialiser la séquence, la fonction
+renvoie (size_t)(-1) après avoir mis \fBE2BIG\fP dans \fBerrno\fP. Sinon elle augmente
+\fI*outbuf\fP et dimininue \fI*outbytesleft\fP du nombre d'octets écrits.
+.PP
+Un troisième cas est possible, si \fIinbuf\fP ou \fI*inbuf\fP sont NULL, et \fIoutbuf\fP 
+ou \fI*outbuf\fP sont NULL. Alors, la fonction \fBiconv\fP replace \fIcd\fP dans l'état
+de conversion initial.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBiconv\fP renvoie le nombre de caractères convertis de manière irréversible
+durant l'appel. Les conversions réversibles ne sont pas prises en compte. En cas d'erreur
+la fonction remplit \fBerrno\fP et renvoie (iconv_t)(-1).
+.SH ERREURS
+Les erreurs suivantes peuvent se produire, entre autres :
+.TP
+.B E2BIG
+Il n'y a pas assez de place dans \fI*outbuf\fP.
+.TP
+.B EILSEQ
+Une séquence multi-octets invalide a été trouvée en entrée.
+.TP
+.B EINVAL
+Une séquence multi-octets incomplète a été trouvée en entrée.
+.SH "CONFORMITÉ"
+UNIX98
+.SH "VOIR AUSSI"
+.BR iconv_open (3), 
+.BR iconv_close (3)
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

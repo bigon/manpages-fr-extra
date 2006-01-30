@@ -1,0 +1,56 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright 1993 Rickard E. Faith (faith@cs.unc.edu)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a Jour 15/04/97
+.\" Mise a Jour 18/07/2003 LDP-1.56
+.TH VHANGUP 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+vhangup \- Déconnecter virtuellement un terminal.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.B int vhangup(void);
+.SH DESCRIPTION
+.B vhangup
+simule une déconnexion du terminal courant.
+Cet appel système est utilisé pour que les autres
+utilisateurs aient un écran de connexion
+\*(lqpropre\*(rq.
+.SH "VALEUR RENVOYÉE"
+.B vhangup
+renvoie zéro s'il réussit, ou \-1 s'il échoue auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EPERM
+L'utilisateur n'est pas Super\-User
+.SH CONFORMITÉ
+Cet appel système est spécifique à Linux et ne doit pas être employé
+dans des programmes destinés à être portables.
+.SH "VOIR AUSSI"
+.BR init (8)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

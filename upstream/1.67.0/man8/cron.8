@@ -1,0 +1,80 @@
+.\"/* Copyright 1988,1990,1993 by Paul Vixie
+.\" * All rights reserved
+.\" *
+.\" * Distribute freely, except: don't remove my name from the source or
+.\" * documentation (don't take credit for my work), mark your changes (don't
+.\" * get me blamed for your possible bugs), don't alter or remove this
+.\" * notice.  May be sold if buildable source is provided to buyer.  No
+.\" * warrantee of any kind, express or implied, is included with this
+.\" * software; use at your own risk, responsibility for damages (if any) to
+.\" * anyone resulting from the use of this software rests entirely with the
+.\" * user.
+.\" *
+.\" * Send bug reports, bug fixes, enhancements, requests, flames, etc., and
+.\" * I'll try to keep a version up to date.  I can be reached as follows:
+.\" * Paul Vixie          <paul@vix.com>          uunet!decwrl!vixie!paul
+.\" */
+.\" 
+.\" $Id: cron.8,v 2.2 1993/12/28 08:34:43 vixie Exp $
+.\" 
+.\"
+.\" Traduction 12/12/1998 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 vixie-cron-3.01
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH CRON 8 "30 juillet 2003" "Vixie-cron" "Manuel de l'administrateur Linux"
+.SH NOM
+cron \- Démon permettant de lancer des commandes différées (Vixie Cron).
+.SH SYNOPSIS
+cron
+.SH DESCRIPTION
+.B Cron
+devrait normalement être lancé par un script \fI/etc/rc\fP ou
+\fI/etc/rc.local\fP. Cette commande rend la main immédiatement, il n'est donc
+pas nécessaire de la lancer avec un «\ &\ ».
+.PP
+.B Cron
+recherche dans le répertoire
+.IR /var/spool/cron ,
+des fichiers de crontab ayant des noms existants dans
+.IR /etc/passwd .
+Les fichiers trouvés sont chargés en mémoire.
+.B Cron
+recherche également
+.IR /etc/crontab ,
+qui a un format différent (voir
+.BR crontab (5)).
+
+Ensuite,
+.B cron
+s'éveille toutes les minutes, examine les crontabs mémorisés, et vérifie
+chaque commande pour savoir s'il doit la lancer dans la minute à venir.
+Lors de l'exécution d'une commande, toute sortie est envoyée par mail au
+propriétaire de la crontab (ou à l'utilisateur dont le nom est mentionné
+dans la variable d'environnement MAILTO si elle existe).
+.PP
+De plus,
+.B cron
+vérifie chaque minute si la date de modification de son répertoire de stockage
+(ainsi que la date de
+.IR /etc/crontab )
+a changé. Si c'est le cas,
+.B cron
+examinera les dates de modifications de chaque fichier crontab, et rechargera
+ceux qui ont été changés.
+Ainsi,
+.B cron
+n'a pas besoin d'être redémarré après la modification d'un fichier crontab.
+Notez que la commande
+.BR crontab (1)
+met à jour la date de modification du répertoire de stockage si un
+changement a lieu.
+.SH "VOIR AUSSI"
+.BR crontab (1),
+.BR crontab (5).
+.SH AUTEUR
+.nf
+Paul Vixie <paul@vix.com>
+.SH TRADUCTION
+Christophe Blaess, 1998-2003.

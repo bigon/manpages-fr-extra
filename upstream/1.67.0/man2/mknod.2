@@ -1,0 +1,184 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1992 Drew Eckhardt;
+.\"                               1993 Michael Haardt
+.\"                               1993,1994 Ian Jackson.
+.\" You may distribute it under the terms of the GNU General
+.\" Public Licence. It comes with NO WARRANTY.
+.\"
+.\" 
+.\" Traduction  10/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Mise a Jour 8/04/97
+.\" màj 10/12/1997 (LDP man-pages 1.18)
+.\" màj 30/05/2001 (LDP man-pages 1.36)
+.\" màj 19/01/2002 LDP 1.47
+.\" màj 18/07/2003 LDP 1.56
+.\" màj 30/07/2003 LDP 1.58
+.TH MKNOD 2 "30 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+mknod \- Créer un noeud du système de fichiers.
+.SH SYNOPSIS
+.nf
+.B #include <sys/types.h>
+.B #include <sys/stat.h>
+.B #include <fcntl.h>
+.B #include <unistd.h>
+.sp
+.BI "int mknod(const char *" pathname ", mode_t " mode ", dev_t " dev );
+.fi
+.SH DESCRIPTION
+.B mknod
+crée un noeud du système de fichiers (fichier, fichier spécial de périphérique ou
+tube) appelé
+.IR pathname ,
+avec les attributs
+.I mode
+et
+.IR dev .
+
+L'argument
+.I mode
+définit à la fois les permissions d'utilisation, et le type de noeud
+à créer. C'est une combinaison par 
+.I OU binaire
+( | ) 
+entre l'un des types de noeuds ci-dessous et les permissions d'accès
+pour le nouveau noeud.
+
+Les permissions sont modifiées par le
+.BR umask
+du processus : les permissions effectivement écrites sont
+.BR "(mode & ~umask)" .
+
+Le type de noeud doit être l'un des suivants
+.BR S_IFREG , 
+.BR S_IFCHR , 
+.BR S_IFBLK
+.BR S_IFIFO
+ou
+.BR S_IFSOCK
+.\" (S_IFSOCK since Linux 1.2.4)
+pour indiquer respectivement un fichier normal (vide à la création),
+un fichier spécial mode caractère, un fichier spécial mode bloc,
+un tube nommé (FIFO) ou une socket du domaine Unix.
+On peut également utiliser 0 pour créer un fichier normal.
+
+Si le noeud est de type
+.BR S_IFCHR " or " S_IFBLK
+alors
+.I dev
+doit spécifier les numéros majeurs et mineurs du périphérique
+associé, pour les autres types de noeuds,
+.I dev
+est ignoré.
+
+Si
+.I pathname
+existe déjà, ou est un lien symbolique, l'appel échoue avec l'erreur EEXIST.
+
+Le noeud nouvellement créé aura pour propriétaire l'UID effectif
+du processus. Si le répertoire contenant ce noeud a son bit
+Set\-GID à 1, ou si le système de fichier est monté avec une
+sémantique BSD, le nouveau noeud héritera de l'appartenance au
+groupe de son parent. Sinon il appartiendra au groupe effectif
+du processus.
+.SH "VALEUR RENVOYÉE"
+.BR mknod
+renvoie 0 s'il réussit, ou \-1 s'il échoue, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EPERM
+.I mode
+demande la création d'un noeud autre qu'un fichier régulier
+une FIFO (tube nommé) ou une socket du domaine Unix, alors que
+le processus appelant n'est pas le Super\-User. Cette erreur se
+produit également si le système de fichier contenant
+.I pathname
+ne supporte pas les noeuds du type demandé.
+.TP
+.B EINVAL
+.I mode
+demande la création d'autre chose qu'un fichier normal, fichier
+spécial de périphérique, DIFO ou socket.
+.TP
+.B EEXIST
+.I pathname
+existe déjà
+.TP
+.B EFAULT
+.IR pathname " pointe en\-dehors de l'espace d'adressage accessible."
+.TP
+.B EACCES
+Le répertoire parent n'autorise pas l'écriture au processus, ou l'un
+des répertoires de
+.IR pathname
+n'autorise pas la consultation de son contenu.
+.TP
+.B ENAMETOOLONG
+.IR pathname " trop long."
+.TP
+.B ENOENT
+Un répertoire du chemin d'accès
+.I pathname
+n'existe pas ou est un lien symbolique pointant nulle part.
+.TP
+.B ENOTDIR
+Un élément utilise dans le chemin
+.I pathname
+n'est pas un répertoire.
+.TP
+.B ENOMEM
+Pas assez de mémoire pour le noyau.
+.TP
+.B EROFS
+.I pathname
+serait placé sur un système de fichier en lecture seule.
+.TP
+.B ELOOP
+.I pathname
+contient une référence circulaire (à travers un lien symbolique).
+.TP
+.B ENOSPC
+Le périphérique contenant
+.I pathname
+n'a pas assez de place pour le nouveau noeud.
+.SH "CONFORMITÉ"
+SVr4 (mais l'appel y nécessite des privilèges, alors qu'il n'y en a
+pas besoin dans POSIX), BSD 4.4. La version Linux diffère de celle de
+SVr4 en ceci qu'elle n'a pas besoin de privilèges root pour créer des
+tubes, et qu'elle ne décrit pas les erreurs EMULTIHOP, ENOLINK, et EINTR.
+.SH NOTES
+Posix 1003.1-2001 dit : "Le seul usage portable de
+.BR mknod ()
+est réservé à la création de fichiers spéciaux FIFO. Si le 
+.I mode
+n'est pas S_IFIFO ou si 
+.I dev
+n'est pas 0, alors le comportement de
+.BR mknod ()
+est indéterminé.
+
+Sous Linux
+.B mknod
+ne peut pas être utilisé pour créer des répertoires.
+Il faut créer les répertoires avec
+.BR mkdir ,
+et les FIFO avec
+.BR mkfifo .
+
+Il y a de nombreux problèmes avec le protocole sous-jacent à NFS, certains
+d'entre-eux pouvant affecter
+.BR mknod .
+.SH "VOIR AUSSI"
+.BR fcntl (2),
+.BR mkdir (2),
+.BR mount (2),
+.BR socket (2),
+.BR stat (2),
+.BR umask (2),
+.BR unlink (2),
+.BR mkfifo (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

@@ -1,0 +1,73 @@
+.\" Copyright (C) 1995, Thomas K. Dyas <tdyas@eden.rutgers.edu>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Created   Sat Aug 21 1995     Thomas K. Dyas <tdyas@eden.rutgers.edu>
+.\"
+.\" typo corrected, aeb, 950825
+.\"
+.\" Traduction 12/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a Jour 8/04/97
+.\" Mise a Jour 18/07/2003
+.TH PERSONALITY 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+personality \- Indiquer le domaine d'exécution du processus.
+.SH SYNOPSIS
+.BI "int personality(unsigned long " persona );
+.SH DESCRIPTION
+Linux propose différents domaines d'exécution, ou personnalités, pour
+chaque processus.
+Entre autres choses, le domaine d'exécution indique au noyau la manière
+de convertir les numéros de signaux en actions.
+Le domaine d'exécution permet à Linux d'offrir un support (limité) à
+des fichiers binaires compilés sous d'autres systèmes d'exploitation
+compatibles Unix.
+
+Cette fonction renvoie le domaine d'exécution en cours si
+.B persona
+vaut
+0xFFFFFFFF. Sinon,
+.B personality
+va utiliser le domaine d'exécution référencé par la valeur
+.I persona
+comme domaine d'exécution du processus courant.
+
+.SH "VALEUR RENVOYÉE"
+. personality
+renvoie l'ancienne valeur
+.I persona 
+s'il réussit, ou \-1 s'il échoue, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EINVAL
+.I persona
+ne référence pas un domaine d'exécution valide.
+.PP
+.SH "CONFORMITÉ"
+.B personality
+est spécifique à Linux et ne doit pas être employé dans des
+programmes conçus pour être portables.
+.SH "VOIR AUSSI"
+/usr/include/linux/personality.h
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

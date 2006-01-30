@@ -1,0 +1,175 @@
+.\"  Copyright 2001 walter harms (walter.harms@informatik.uni-oldenburg.de)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified, 2001-12-26, aeb
+.\"
+.\" Traduction 05/05/2002 par Stéphan Rafin (stephan.rafin@laposte.net)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH GETDATE 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+getdate, getdate_r \- Conversion d'une chaîne de caractères en structure tm.
+.br
+.SH SYNOPSIS
+.B "#define _XOPEN_SOURCE"
+.br
+.B "#define _XOPEN_SOURCE_EXTENDED
+.br
+.B "#include <time.h>"
+.sp
+.BI "struct tm *getdate (const char *" string );
+.sp
+.BI "extern int getdate_err;"
+.sp 2
+.B "#define _GNU_SOURCE"
+.br
+.B "#include <time.h>"
+.sp
+.BI "int getdate_r (const char *" string ", struct tm *" res );
+.br
+.SH DESCRIPTION
+La fonction
+.B getdate() 
+convertit une chaîne de caractères pointée par
+.I string
+en une structure tm qu'elle renvoie.
+Cette structure tm est susceptible d'être allouée de façon statique et d'être
+ainsi écrasée lors du prochain appel.
+
+Contrairement à
+.BR strptime (3),
+( qui a un argument 
+.I format
+),
+.B getdate()
+utilise les formats présents dans le fichier 
+dont le chemin d'accès complet est donné par la variable d'environnement
+.BR DATEMSK .
+La première ligne du fichier qui peut être mise en correspondance avec la chaîne passée en paramètre d'entrée
+est utilisée pour la conversion.
+
+La correspondance n'est pas sensible à la casse.
+Les espaces superflus, qu'ils soient dans le motif ou dans la chaîne à convertir, sont ignorés.
+
+Les paramètres de conversion qu'un motif peut contenir sont les mêmes que pour
+.BR strptime (3).
+Un indicateur de conversion supplémentaire est accepté :
+.TP
+.B %Z
+Nom du fuseau horaire.
+.LP
+Lorsque
+.B %Z
+est spécifié, la valeur renvoyée est initialisée à l'heure sous forme structure tm
+correspondant à l'heure courante sous le fuseau horaire indiqué.
+Sinon, elle est initialisée à l'heure sous forme de structure tm correspondant à l'heure locale actuelle.
+.LP
+Lorsque seul le jour de la semaine est donné, le jour pris en compte sera le premier jour correspondant à partir d'aujourd'hui inclus.
+.LP
+Lorsque seul le mois est spécifié (et pas l'année), le mois pris 
+en compte est le premier mois correspondant à partir du mois courant inclus.
+Si aucun jour n'est indiqué, le premier jour du mois est pris par défaut.
+.LP
+Lorsque les heures, minutes et secondes ne sont pas indiquées, l'heure 
+courante (heures, minutes et secondes) est prise par défaut. 
+.LP
+Si aucune date n'est indiquée, mais que l'on connaît l'heure, l'heure prise en compte sera la première occurrence de l'heure correspondante à partir de l'heure courante incluse.
+.SH "VALEUR RENVOYÉE"
+En cas de succès, cette fonction renvoie un pointeur vers une structure
+.BR "struct tm" .
+sinon elle renvoie NULL et positionne la variable globale
+.BR getdate_err .
+La modification éventuelle de 
+.I errno
+est indéfinie.
+.B getdate_err 
+peut prendre les valeurs suivantes\ :
+.TP 4n
+.B 1
+La variable d'environnement DATEMSK vaut null ou n'est pas définie.
+.TP
+.B 2
+Le fichier patron (template) ne peut être ouvert pour être lu.
+.TP
+.B 3
+Impossible de lire l'état du fichier.
+.TP
+.B 4
+Le fichier patron n'est pas un fichier régulier.
+.TP
+.B 5
+Une erreur est survenue en cours de lecture du fichier patron.
+.TP
+.B 6
+Echec d'allocation mémoire (pas assez de mémoire disponible).
+.TP
+.B 7
+Il n'y a pas de ligne dans le fichier qui puisse être mise en correspondance avec l'entrée.
+.TP
+.B 8
+Paramètres d'entrée invalides.
+.SH NOTES
+Puisque 
+.B getdate() 
+n'est pas ré-entrante à cause de l'utilisation de
+.B getdate_err
+et du tampon statique utilisé pour stocker le résultat renvoyé, la glibc
+fournit une variante utilisable en contexte multithread. La fonctionnalité 
+est la même. Le résultat est renvoyé dans le tampon pointé par
+.I res
+et, en cas d'erreur, le code de retour est différent de zéro avec 
+les mêmes valeurs que celles données précédemment pour
+.IR getdate_err .
+.LP
+La spécification POSIX 1003.1-2001 pour
+.B strptime()
+contient des spécifications de conversion utilisant les modificateurs
+.B %E
+ou
+.B %O
+alors que de tels modificateurs ne sont pas indiqués pour
+.BR getdate() .
+L'implantation glibc de
+.B getdate()
+utilise
+.B strptime()
+si bien que les deux fonctions supportent exactement les mêmes conversions automatiquement.
+.LP
+L'implantation glibc ne supporte pas l'indicateur de conversion :
+.B %Z
+.
+.SH ENVIRONNEMENT
+.TP
+.B DATEMSK 
+Fichier contenant les motifs de formatage.
+.TP
+.BR TZ ", " LC_TIME 
+Variables utilisées par \fBstrptime()\fP.
+.SH "CONFORMITÉ"
+ISO 9899, POSIX 1003.1-2001
+.SH "VOIR AUSSI"
+.BR localtime (3),
+.BR strftime (3),
+.BR strptime (3),
+.BR time (3)
+.SH TRADUCTION
+Stéphan Rafin, 2002.

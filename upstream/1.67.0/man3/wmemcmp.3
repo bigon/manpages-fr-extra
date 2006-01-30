@@ -1,0 +1,39 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org> .\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"
+.\" Traduction 29/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" MàJ 21/07/2003 LDP-1.56
+.TH WMEMCMP 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+wmemcmp \- Comparer deux tables de caractères larges.
+.SH SYNOPSIS
+.nf
+.B #include <wchar.h>
+.sp
+.BI "int wmemcmp (const wchar_t *" s1 ", const wchar_t *" s2 ", size_t " n );
+.fi
+.SH DESCRIPTION
+La fonction \fBwmemcmp\fP est l'équivalent pour les caractères larges de la fonction \fBmemcmp\fP.
+Elle compare les \fIn\fP caractères larges commençant en \fIs1\fP aux \fIn\fP commençant en \fIs2\fP.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBwmemcmp\fP renvoie zéro si les tables de caractères larges, de taille \fIn\fP situées en \fIs1\fP et \fIs2\fP
+sont égales.
+Elle renvoie un entier positid si à l'emplacement \fIi\fP de la première différence (\fIi\fP < \fIn\fP), le caractère
+large \fIs1[i]\fP est supérieur à \fIs2[i]\fP.
+Elle renvoie un entier négatif si \fIs1[i]\fP est inférieur à \fIs2[i]\fP.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR memcmp (3),
+.BR wcscmp (3)
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

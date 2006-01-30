@@ -1,0 +1,72 @@
+.\" Written by Michael Haardt, Fri Nov 25 14:51:42 MET 1994
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Modifications, Sun Feb 26 14:39:45 1995, faith@cs.unc.edu
+.\" "
+.\"
+.\" Traduction 07/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a jour le 10/07/1997
+.\" MàJ 21/07/2003 LDP-1.56
+.TH SETJMP 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+setjmp, sigsetjmp \- Sauver le contexte de pile pour un saut non-local.
+.SH SYNOPSIS
+.ad l
+#include <setjmp.h>
+.sp
+.nf
+.BI "int setjmp (jmp_buf " env ");"
+.BI "int sigsetjmp (sigjmp_buf " env ", int " savesigs ");"
+.fi
+.SH DESCRIPTION
+Les fonctions \fBsetjmp()\fP et \fBlongjmp\fP() sont utiles pour gérer les
+erreurs et les interruptions rencontrées dans des routines bas-niveau.
+\fBsetjmp()\fP sauvegarde le contexte de pile et d'environnement dans \fIenv\fP
+afin de l'utiliser ultérieurement avec \fBlongjmp()\fP.
+Le contexte de pile sera invalide si la fonction qui appelle \fBsetjmp()\fP
+se termine.
+.P
+\fBsigsetjmp()\fP est semblable à \fBsetjmp()\fP. Si \fIsavesigs\fP est
+non-nul, l'ensemble des signaux bloqués est sauvegardé dans \fIenv\fP, et
+sera retabli lorsque \fBsiglongjmp()\fP sera invoqué avec ce contexte
+\fIenv\fP.
+
+.SH "VALEUR RENVOYÉE"
+\fBsetjmp()\fP et \fBsigsetjmp()\fP renvoient 0 lorsqu'elles reviennent
+directement, et une valeur non-nulle si elle reviennent à travers un appel
+à \fBlongjmp()\fP ou \fBsiglongjmp()\fP utilisant le contexte sauvegardé.
+.SH "CONFORMITÉ"
+POSIX, ISO 9899 (C99)
+.SH NOTES
+POSIX ne précise pas \fBsetjmp\fP sauve ou non le contexte de signaux.
+(Dans SysV ce n'est pas le cas, dans BSD si mais il existe une fonction
+\fB_setjmp\fP qui ne le fait pas).
+Si vous voulez sauver le masque de signaux, utilisez \fBsigsetjmp\fP.
+.P
+\fBsetjmp()\fP et \fBsigsetjmp()\fP rendent les programmes difficiles
+à comprendre et à maintenir.
+Si possible, essayez d'utiliser une autre méthode.
+.SH "VOIR AUSSI"
+.BR longjmp (3),
+.BR siglongjmp (3).
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

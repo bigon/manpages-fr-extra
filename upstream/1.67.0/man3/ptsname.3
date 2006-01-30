@@ -1,0 +1,38 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\" This page is in the public domain. - aeb
+.\" Traduction Christophe Blaess, <ccb@club-internet.fr>
+.\" MàJ 21/07/2003 LDP-1.56
+.TH PTSNAME 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ptsname \- Obtenir le nom d'un pseudo-terminal esclave.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "char *ptsname(int " fd ");"
+.fi
+.SH DESCRIPTION
+La fonction
+.BR ptsname ()
+renvoie le nom du périphérique pseudo-terminaml esclave (pty) associé
+au pseudo-terminal maître indiqué par
+.IR fd .
+.SH "VALEUR RENVOYÉE"
+Lorsqu'elle réussit, la fonction
+.BR ptsname ()
+renvoie un pointeur sur une chaîne de stockage statique. Le pointeur ne
+doit PAS être libéré.
+.PP
+Si elle échoue,
+.BR ptsname ()
+renvoie un pointeur NULL.
+.SH "CONFORMITÉ"
+POSIX 1003.1-2001.
+Cette fonction fait partie du support pty d'Unix 98. Voir
+.BR pts (4).
+.SH "VOIR AUSSI"
+.BR grantpt (3),
+.BR ttyname (3),
+.BR pts (4)
+.SH TRADUCTION
+Christophe Blaess, 2003.

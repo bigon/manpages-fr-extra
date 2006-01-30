@@ -1,0 +1,81 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 19:40:39 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 23/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 08/07/2005 LDP-1.63
+.\"
+.TH ECVT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ecvt, fcvt \- Conversions de nombres réels en chaînes de caractères.
+.SH SYNOPSIS
+.B #include <stdlib.h>
+.sp
+.BI "char *ecvt (double " number ", size_t " ndigits ", int *" decpt ,
+.BI "int *" sign );
+.sp
+.BI "char *fcvt (double " number ", size_t " ndigits ", int *" decpt ,
+.BI "int *" sign );
+.SH DESCRIPTION
+La fonction \fBecvt()\fP convertit \fInumber\fP en une chaîne de caractères
+de \fIndigits\fP chiffres (\fIndigits\fP étant limité par une valeur spécifique
+au système déterminée par la précision d'un double), terminée par zéro.
+La fonction renvoie un pointeur sur cette chaîne.
+Le chiffre d'ordre le plus élevé est non nul, sauf si
+.I number
+vaut zéro. Le chiffre d'ordre le plus faible est arrondi.
+La chaine elle\-même ne contient pas de point décimal, néanmoins la position
+du point décimal relativement au début de la chaîne est stockée dans
+*\fIdecpt\fP. Une valeur négative de *\fIdecpt\fP signifie que le point
+décimal est à gauche de la chaîne. Si le signe de \fInumber\fP est négatif,
+*\fIsign\fP est rempli avec une valeur non-nulle, sinon il est
+mis à 0. Si
+.I number
+est nul, il n'est pas précisé si *\fIdept\fP vaut zéro ou un.
+.PP
+La fonction \fBfcvt()\fP est identique à \fBecvt()\fP, à la difference que
+\fIndigits\fP indique le nombre de décimales après la virgule.
+.SH "VALEUR RENVOYÉE"
+Les deux fonctions \fBecvt()\fP et \fBfcvt()\fP renvoient un pointeur sur
+une chaîne de caractères statique contenant la représentation ASCII de
+\fInumber\fP.
+La chaine statique est écrasée à chaque appel de \fBecvt()\fP ou \fBfcvt()\fP.
+.SH NOTES
+Ces fonctions sont obsolètes. On recommande plutôt
+.IR sprintf ()
+à leur place.
+Les bibliothèques Linux libc4 et libc5 déclaraient le type de
+.I ndigits
+en
+.BR size_t .
+Certaines localisations (la nôtre par exemple) n'utilisent pas le point
+comme séparateur décimal.
+.SH "VOIR AUSSI"
+.BR gcvt "(3), " sprintf (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

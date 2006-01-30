@@ -1,0 +1,263 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1993 Michael Haardt
+.\" (u31b3hs@pool.informatik.rwth-aachen.de),
+.\" Fri Apr  2 11:32:09 MET DST 1993
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Modified Fri Jul 23 23:47:18 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 12/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a Jour 8/04/97
+.\" màj 26/06/2000 LDP 1.30
+.\" màj 19/01/2002 LDP 1.47
+.\" màj 18/07/2003 LDP 1.56
+.TH PTRACE 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ptrace \- Suivre un processus.
+.SH SYNOPSIS
+.B #include <sys/ptrace.h>
+.sp
+.BI "long ptrace(enum __ptrace_request " requête ", int " pid ", void * " addr ", int " data );
+.SH DESCRIPTION
+L'appel-système
+.B ptrace
+fournit au processus parent un moyen de contrôler l'exécution d'un 
+autre processus et d'éditer son image mémoire.
+L'utilisation primordiale de cette fonction est l'implémentation de points
+d'arrêt pour le débugging.
+.LP
+Le père peut démarrer un suivi en appelant
+.BR fork (2)
+et que le fils créé face un PTRACE_TRACEME, suivi (en général) par un
+.BR exec (3).
+Autrement, le père peut commencer un suivi sur un processus existant en utilisant
+PTRACE_ATTACH.
+.LP
+Le processus fils suivi s'arrêtera à chaque fois qu'un signal lui sera délivré,
+même si le signal est ignoré (à l'exception de SIGKILL qui a les effets habituels).
+Le père sera prévenu à son prochain
+.BR wait (2)
+et pourra inspecter et modifier le processus fils pendant son arrêt.
+Le parent peut également faire continuer l'exécution de son fils, éventuellement
+en ignorant le signal ayant déclenché l'arrêt, ou envoyant un autre signal.
+.LP
+Quand le père a fini le suivi, il peut terminer le fils avec PTRACE_KILL ou
+le faire continuer normalement, non suivi, avec PTRACE_DETACH.
+.LP
+La valeur de l'argument \fIrequête\fP indique précisément l'action à entreprendre.
+.TP
+PTRACE_TRACEME
+Le processus en cours va être suivi par son père. Le parent doit être en attente
+de suivi du fils. Tout signal (sauf SIGKILL) reçu par le processus l'arrêtera,
+et le père sera notifié grâce à
+.BR wait .
+De plus, les appels-ultérieurs à
+.BR exec
+par ce processus lui enverront SIGTRAP, ce qui donne au père la possibilité
+de reprendre le contrôle avant que le nouveau programme continue son exécution?
+Un processus ne doit pas envoyer cette requête si son père n'est pas prêt
+à le suivre. Dans cette requête (\fIpid\fP, \fIaddr\fP, et \fIdata\fP sont ignorés.)
+.LP
+La requête ci-dessus ne sert que dans le processus fils. Les autres ne servent
+que dans le père. Par la suite, \fIpid\fP précise le fils sur lequel agir. Pour
+les requêtes autres que PTRACE_KILL, le fils doit être
+arrêté.
+.TP
+PTRACE_PEEKTEXT, PTRACE_PEEKDATA
+Lire un mot à l'adresse
+.IR addr 
+dans l'espace mémoire du fils et renvoyer la valeur en résultat de
+.BR ptrace .
+Linux ne sépare pas les espaces d'adressage de code et de données, ainsi
+ces deux requêtes sont équivalentes. (\fIdata\fP est ignoré).
+.TP
+PTRACE_PEEKUSR
+Lire un mot à l'adresse
+.I addr
+dans l'espace
+.B USER
+du fils, qui contient les registres et diverses informations sur le processus
+(voir <linux/user.h> et <sys/user.h>). La valeur est renvoyé en résultat de
+.BR ptrace .
+En principe, l'adresse doit être alignée sur une frontière de mots, bien que
+cela varie selon les architectures (\fIdata\fP est ignoré).
+.TP
+PTRACE_POKETEXT, PTRACE_POKEDATA
+Copier un mot depuis l'adresse
+.IR data
+de la mémoire du père vers l'adresse
+.IR addr
+de la mémoire du fils. Comme précédemment, les deux requêtes sont équivalentes.
+.TP
+PTRACE_POKEUSR
+Copier un mot depuis l'emplacement
+.IR data
+de la mémoire du père vers l'emplacement
+.I addr
+dans l'espace
+.B USER
+du processus fils. Comme plus haut, les emplacements doivent être alignés sur une
+frontière de mot. Pour maintenir l'intégrité du noyau, certaines modifications
+de la zone
+.B USER
+sont interdites.
+.TP
+PTRACE_GETREGS, PTRACE_GETFPREGS
+Copier les registres généraux ou du processeur en virgule flottante, vers
+l'adresse \fIdata\fP du père. Voir <linux/user.h> pour les détails sur le
+format des données (\fIaddr\fP est ignoré).
+.TP
+PTRACE_SETREGS, PTRACE_SETFPREGS
+Remplir les registres généraux ou du processeur en virgule flottante, depuis
+le contenu de l'adresse \fIdata\fP du père. Comme pour PTRACE_POKEUSR certaines
+modifications sont interdites. (\fIaddr\fP est ignoré).
+.TP
+PTRACE_CONT
+Redémarrer le processus fils arrêté. Si \fIdata\fP est non-nul et autre que
+SIGSTOP, il est interprété comme un numéro de signal à délivrer au fils\ ; sinon
+aucun signal n'est délivré. On peut ainsi contrôler si un signal envoyé au fils
+doit lui être délivré ou non (\fIaddr\fP est ignoré).
+.TP
+PTRACE_SYSCALL, PTRACE_SINGLESTEP
+Redémarrer le processus fils arrêté comme pour PTRACE_CONT, mais en s'arrangeant
+pour qu'il soit arrêté à la prochaine entrée ou sortie d'un appel-système, ou
+après la prochaine instruction, respectivement. (Le fils sera aussi arrêté
+par l'arrivée d'un signal). Du point de vue du père, le fils semblera être
+arrêté par SIGTRAP. Ainsi, pour PTRACE_SYSCALL l'idée est d'inspecter les
+arguments de l'appel-système au premier arrêt puis de faire un autre PTRACE_SYSCALL
+et d'inspecter la valeur de retour au second arrêt. (\fIadd\fP est ignoré).
+.TP
+PTRACE_KILL
+Envoyer au fils un signal
+.B SIGKILL
+pour le terminer. (\fIaddr\fP et \fIdata\fP sont ignorés).
+.TP
+PTRACE_ATTACH
+Attacher le processus numéro
+.IR pid ,
+pour le suivre. Le comportement du fils est le même que s'il avait fait un
+PTRACE_TRACEME. Le processus appelant devient alors le père pour de nombreuses
+choses (il recevra les notifications d'évènements, et sera indiqué comme le père dans un
+.BR ps (1)).
+Mais
+.BR getppid (2)
+renverra dans le fils le PID du vrai père. Le processus fils va recevoir un
+SIGSTOP, mais il ne sera peut-être pas stoppé tout de suite, utilisez
+.BR wait
+pour attendre son arrêt  (\fIaddr\fP et \fIdata\fP sont ignorés).
+.TP
+PTRACE_DETACH
+Relancer un processus fils comme avec PTRACE_CONT, en commençant pas le détacher,
+ce qui rétablit sa parenté originale. Le processus ne sera plus suivi.
+Bien que cela soit involontaire, sous Linux un processus suivi peut être
+être détaché ainsi quelque soit la méthode employée pour démarrer le suivi.
+(\fIaddr\fP est ignoré).
+.SH NOTES
+Bien que les arguments de
+.B ptrace
+soient interprétés comme dans le prototype plus haut, la bibliothèque GlibC
+déclare
+.B ptrace
+comme une fonction variadique où seul l'argument \fIrequest\fP est fixé.
+Ceci signifie que que les arguments finaux inutiles peuvent être omis, bien
+que cela utilise un comportement non documenté de
+.BR gcc (1).
+.LP
+.BR init (8),
+le processus numéro 1, ne peut pas être suivi.
+.LP
+La disposition du contenu de la mémoire et de la zone USER dépendent du
+système d'exploitation et de l'architecture.
+.LP
+La taille d'un mot, "word" est déterminée par la version du système d'exploitation
+(par exemple 32 bits pour Linux-32-bits, etc.)
+.LP
+Le suivi peut engendrer des modifications subtiles dans le fonctionnement du processus. Par exemple si
+un processus est attaché avec PTRACE_ATTACH, son père original ne peut plus recevoir les
+notifications avec
+.BR wait
+lorsqu'il s'arrête, et il n'y a pas de moyen de simuler cette notification.
+.LP
+Cette page documente le fonctionnement actuel de
+.B ptrace
+sous Linux. Celui-ci peut varier sensiblement sur d'autres types d'Unix.
+De toute façon, l'utilisation de
+.B ptrace
+dépend fortement de l'architecture et du système d'exploitation.
+.LP
+La page de manuel de SunOS décrit 
+.B ptrace
+comme un appel-système "unique and arcane", ce qu'il est.
+Le mécanisme de débogage basé sur le système proc, présent dans Solaris 2
+implémente un sur-ensemble des fonctionnalités de
+.B ptrace
+de manière plus puissante et plus uniforme.
+.SH "VALEUR RENVOYÉE"
+Pour les requêtes PTRACE_PEEK*, 
+.BR ptrace
+renvoie la valeur réclamée et zéro pour les autres requêtes,
+ou \-1 en cas d'échec en remplissant
+.I errno
+avec le code d'erreur.
+Comme la valeur renvoyée par une requête PTRACE_PEEK* peut légitimement être
+\-1, il faut vérifier
+.I errno
+après un tel appel pour vérifier si une erreur s'est produite.
+.SH ERREURS
+.TP
+.B EPERM
+Le processus indiqué ne peut pas être suivi. Cela peut être dû à un manque de privilège du
+parent. Les processus non-root ne peuvent pas suivre les processus auxquels ils
+ne peuvent envoyer de signal, ou ceux qui s'exécutent Set-UID/Set-GID.
+En outre, le processus visé peut être déjà suivi, ou être
+.BR init
+(pid 1).
+.TP
+.B ESRCH
+Le processus indiqué n'existe pas, ou n'est pas suivi par l'appelant,
+ou n'est pas arrêté (pour les requêtes qui en ont besoin).
+.TP
+.B EIO
+La
+.I requête
+n'est pas valide ou une tentative de lecture ou d'écriture dans une zone
+invalide de mémoire a eu lieu. Il peut également y avoir un problème
+d'alignement sur une frontière de mot, ou une tentative de redémarrage
+en envoyant un signal invalide.
+.TP
+.B EFAULT
+Tentative de lire ou écrire dans une zone mémoire invalide du processus ou
+du père. Malheureusement sous Linux, certaines variantes de cette erreur
+déclencheront EIO ou EFAULT plus ou moins arbitrairement.
+.SH "CONFORMITÉ"
+SVr4, SVID EXT, AT&T, X/OPEN, BSD 4.3
+.SH "VOIR AUSSI"
+.BR gdb (1),
+.BR strace (1),
+.BR execve (2),
+.BR fork (2),
+.BR signal (2),
+.BR wait (2)
+.BR exec (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

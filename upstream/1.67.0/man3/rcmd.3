@@ -1,0 +1,199 @@
+.\"	$NetBSD: rcmd.3,v 1.9 1996/05/28 02:07:39 mrg Exp $
+.\"
+.\" Copyright (c) 1983, 1991, 1993
+.\"	The Regents of the University of California.  All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)rcmd.3	8.1 (Berkeley) 6/4/93
+.\"
+.\" Contributed as Linux man page by David A. Holland, 970908
+.\" I have not checked whether the Linux situation is exactly the same.
+.\" Traduction 31/05/1998 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man-pages 1.19
+.\" MàJ 21/07/2003 LDP-1.56
+.TH RCMD 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+rcmd, rresvport, iruserok, ruserok \- Routines renvoyant un flux de données pour une commande invoquée à distance.
+.SH SYNOPSIS
+.nf
+.B #include <unistd.h>
+.sp
+.BI "int rcmd (char ** " ahost ", int " inport ", const char *" locuser ", const char *" remuser ",  const char *" cmd ", int *" fd2p );
+.sp
+.BI "int rresvport ( int *" port );
+.sp
+.BI "int iruserok  (u_int32_t " raddr ", int " superuser ", const char *" ruser ", const char *" luser );
+.sp
+.BI "int ruserok (const char *" rhost ", int " superuser ", const char *" ruser ", const char *" luser );
+.SH DESCRIPTION
+La fonction
+.B rcmd
+est utilisée par le Super-Utilisateur pour éxécuter une commande
+sur une machine distante, en utilisant un shéma d'identification
+basé sur des numéros de ports réservés.
+
+La fonction
+.B rresvport
+renvoie un descripteur sur une socket se trouvant dans l'espace des numéros
+de ports privilégiés.
+
+Les fonctions
+.B iruserok
+et
+.B ruserok
+sont utilisées par les serveurs pour identifier les clients demandant un service
+avec
+.Fn rcmd .
+
+Les 4 fonctions sont déclarées dans le même fichier et sont utilisées par le serveur
+.BR rshd (8)
+entre autres.
+.PP
+La fonction
+.B rcmd
+recherche l'hôte
+.I *ahost
+en utilisant 
+.BR gethostbyname (3),
+puis renvoie \-1 si cet hôte n'existe pas. Sinon
+.I *ahost
+est rempli avec le nom standard de cet hôte, et
+une connexion est établie avec un serveur se trouvant sur l'un
+des ports bien connus
+.I inport .
+.PP
+Si la connexion réussit, une socket dans le domaine Internet, et de
+type
+.B SOCK_STREAM
+est renvoyée à l'appelant, et est fournie à la commande distante en guise de
+.I stdin
+et
+.I stdout .
+Si
+.I fd2p
+est non-nul, un canal auxiliaire est créé pour un processus de contrôle, et son
+descripteur sera placé dans 
+.IR *fd2p .
+Le processus de contrôle renverra les sorties de diagnostique (numéro 2) sur ce
+canal, et acceptera également des octets qu'il considérera comme des
+numéro de signal
+.B UNIX
+à envoyer au groupe de processus de la commande.
+Si
+.I fd2p
+est nul, alors
+.I stderr
+(sortie numéro 2 de la commande distante)
+sera renvoyée sur
+.I stdout
+et rien n'est prévu pour l'envoi de signaux arbitraires au processus distant, bien
+que vous puissiez y parvenir en utilisant des données hors-bande.
+.PP
+Le protocole est décrit en détail dans
+.BR rshd (8).
+.PP
+La fonction
+.B rresvport
+est utilisée pour obtenir une socket attachée à une adresse privilégiée.
+Cette socket est utilisable ensuite pour
+.B rcmd
+et plusieurs autres fonctions.
+Les numéros de ports Internet privilégiés se trouvent dans l'intervalle 0 à 1023.
+Seul le Super-Utilisateur est autorisé à attacher une adresse de ce type à une socket.
+
+.PP
+Les fonctions
+.B iruserok
+et
+.B ruserok
+prennent respectivement en argument une adresse IP et un nom d'hôte distant,
+deux noms d'utilisateurs et un drapeau indiquant si l'utilisateur local est
+Super-utilisateur.
+Ainsi, si l'utilisateur n'est
+.I PAS
+le Super-Utilisateur, elles vérifient le fichier
+.IR /etc/hosts.equiv .
+Si ceci échoue, le fichier
+.I .rhosts
+est recherché dans le répertoire personnel de l'utilisateur local, afin
+de voir si la requête est autorisée.
+.PP
+Si ce fichier n'existe pas, ou s'il ne s'agit pas d'un fichier régulier, 
+ou s'il appartient à quelqu'un d'autre que l'utilisateur local ou
+le super-utilisateur, ou encore s'il est accessible en écriture par quelqu'un
+d'autre que son propriétaire, le test échoue automatiquement.
+Si la machine est listée dans le fichier
+.IR hosts.equiv ,
+ou si les noms d'hôte et d'utilisateur distants sont trouvés dans
+le fichier
+.I .rhosts
+.Fn iruserok
+et
+.Fn ruserok
+renvoient zéro.
+Sinon elles renvoient -1.
+Si le domaine local (obtenu par l'intermédiaire de
+.BR gethostname (2))
+est le même que le domaine distant, seul le nom de machine a besoin d'être
+indiqué.
+.PP
+Si l'adresse IP de l'hôte distant est connue, on
+utilisera de préférence
+.B iruserok
+plutôt que
+.B ruserok 
+qui nécessitent d'avoir un serveur DNS digne de confiance pour le domaine distant.
+.SH DIAGNOSTIQUE
+La fonction
+.B rcmd
+renvoie un descripteur de socket valide si elle réussit, sinon elle renvoie
+-1 et affiche un message de diagnostique sur sa sortie d'erreur standard.
+.PP
+La fonction
+.B rresvport
+renvoie un descripteur de socket valide, attaché à une adresse privilégiée
+si elle réussit. Elle renvoie -1 sinon, et
+.I errno
+contient le code d'erreur.
+Le code d'erreur
+.B EAGAIN
+signifie en réalité ``Tous les ports réseau sont déjà utilisés''.
+.SS "VOIR AUSSI"
+.BR rlogin (1),
+.BR rsh (1),
+.BR rexec (3),
+.BR rexecd (8),
+.BR rlogind (8),
+.BR rshd (8)
+.SH HISTORIQUE
+Ces fonctions sont apparues dans
+.BR "BSD 4.2" .
+.SH TRADUCTION
+Christophe Blaess, 1998-2003.

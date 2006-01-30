@@ -1,0 +1,64 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\" This page is in the public domain. - aeb
+.\" Traduction Christophe Blaess, <ccb@club-internet.fr>
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\"
+.TH GRANTPT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+grantpt \- Accéder à un pseudo-terminal esclave.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "int grantpt(int " fd ");"
+.fi
+.SH DESCRIPTION
+La fonction
+.BR grantpt ()
+modifie le mode et l'appartenant du pseudo-terminal esclave correspondant
+au pseudo-terminal maître référencé par
+.IR fd .
+L'UID de l'esclave est rempli avec l'UID réel du processus appelant.
+Le GID est rempli avec une valeur non spécifiée (par ex\ : tty).
+Le mode de l'esclave est mis à 0620 (crw\-\-w\-\-\-\-).
+.PP
+Le comportement de
+.BR grantpt ()
+est indéterminé si un gestionnaire de signal est installé pour capturer SIGCHLD.
+.SH "VALEUR RENVOYÉE"
+Lorsqu'elle réussit, la fonction
+.BR grantpt ()
+renvoie 0. Sinon, elle renvoie \-1 et configure
+.I errno
+avec le code d'erreur.
+.SH ERREURS.
+.TP
+.B EBADF
+L'argument
+.I fd
+n'est pas un descripteur valide.
+.TP
+.B EINVAL
+L'argument
+.I fd
+est un descripteur mais pas associé avec un pseudo-terminal maître.
+.TP
+.B EACCES
+Le pseudo-terminal esclave n'est pas accessible.
+.SH "CONFORMITÉ"
+POSIX 1003.1-2001
+.SH NOTES
+Il s'agit d'une partie du support pty d'Unix98, voir
+.BR pts (4).
+De nombreux systèmes implémentent cette fonction avec un assistant binaire Set-UID
+appelé «\ pt_chown\ ». Avec le mécanisme devpts de Linux, aucun assistant n'est
+nécessaire.
+.SH "VOIR AUSSI"
+.BR open (2),
+.BR getpt (3),
+.BR ptsname (3),
+.BR unlockpt (3),
+.BR pts (4)
+.SH TRADUCTION
+Christophe Blaess, 2003.

@@ -1,0 +1,118 @@
+.\" Hey emacs, this is -*- nroff -*-
+.\"
+.\" This file is part of locale(1) which displays the settings of the
+.\" current locale.
+.\" Copyright (C) 1994  Jochen Hein (Hein@Student.TU-Clausthal.de)
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.\"
+.\" Traduction 16/07/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 04/07/2005 LDP-1.61
+.\"
+.TH CHARMAP 5 "25 juillet 2003" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+charmap \- Noms symboliques définissant l'encodage des caractères.
+.SH DESCRIPTION
+Une description de table de caractères (charmap) définit une liste des
+caractères disponibles, et leur encodage. Tous les jeux de caractères
+doivent contenir, comme sous-ensemble, le
+.BR "jeu de caractères standards" .
+.SH SYNTAXE
+Le fichier de table de caractères commence par un en-tête contenant les
+mots-clés suivants\ :
+.TP
+.I <codeset>
+suivi du nom du code de l'ensemble.
+.TP
+.I <mb_cur_max>
+suivi du nombre maximum d'octets pour un caractère multi-octets. Ces
+derniers ne sont pas encore supportés à l'heure actuelle. La valeur
+par défaut est 1.
+.TP
+.I <mb_cur_min>
+suivi du nombre minimum d'octets par caractère. Cette valeur est évidemment
+inférieure ou égale à
+.B mb_cur_max.
+Par défaut, elle est égale à ce dernier.
+.TP
+.I <escape_char>
+suivi d'un caractère qui sera interprété comme caractère d'échappement
+pour le reste du fichier, afin d'indiquer les caractères ayant une
+signification spéciale. Par défaut, Par défaut, il s'agit de la barre oblique inverse
+.RB " «\ " \e "\ ».
+.TP
+.I <comment_char>
+suivi d'un caractère qui servira à introduire des commentaires dans le
+reste du fichier. Par défaut, il s'agit du dièse
+.RB " «\ " # "\ ».
+
+.PP
+La définition de la table de caractères elle-même commence avec le mot-clé
+.B CHARMAP
+en colonne 1.
+
+Les lignes suivantes peuvent prendre l'une des formes suivantes pour
+définir l'encodage du caractère\ :
+.TP
+.I <nom-symbolique> <encodage> <commentaires>
+Ceci définit un seul caractère et son encodage.
+
+.TP
+.I <nom-symbolique>...<nom-symbolique> <encodage> <commentaires>
+Ceci définit plusieurs caractères. Ce n'est utile qu'avec les caractères
+multi-octets, qui ne sont pas supportés à l'heure actuelle.
+
+.PP
+La dernière ligne d'un fichier de table de caractères doit contenir
+.BR "END CHARMAP" .
+.SH "NOMS SYMBOLIQUES"
+Le
+.B nom symbolique
+d'un caractère ne doit contenir lui-même que des caractères du
+.B jeu standard.
+Le nom est encadré par < et >.
+Le caractère placé à la suite d'un caractère d'échappement
+.B <escape_char>
+prend sa valeur propre. Par exemple, la chaîne
+.B '<\\\\\\\\\\\\>>'
+représente le nom symbolique
+.B '\\\\>'
+encadré par < et >.
+.SH "ENCODAGE DES CARACTÈRES"
+L'encodage peut rendre l'une des trois formes suivantes\ :
+.TP
+.I <caractère_d_échappement>d<nombre_décimal>
+.TP
+.I <caractère_d_échappement>x<nombre_hexadécimal>
+.TP
+.I <caractère_d_échappement><nombre_octal>
+
+.SH FICHIERS
+.I /usr/share/i18n/charmaps/*
+.SH AUTEUR
+Jochen Hein (jochen.hein@delphi.central.de)
+.SH "CONFORMITÉ"
+POSIX.2
+.SH "VOIR AUSSI"
+.BR locale (1),
+.BR localedef (1),
+.BR setlocale (3),
+.BR localeconv (3),
+.BR locale (5)
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.
+

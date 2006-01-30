@@ -1,0 +1,89 @@
+.\" Copyright 1994 Salvatore Valente (svalente@mit.edu)
+.\" Traduction 08/06/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\" MàJ 30/07/2003 util-linux-2.11y
+.TH KILL 1 "30 juillet 2003" "util-linux" "Manuel de l utilisateur Linux"
+.SH NOM
+kill \- Envoyer un signal à un processus.
+.SH SYNOPSIS
+.BR "kill" " [ \-s signal | \-p ] " " [ -a ] [ \-\- ] " "pid ..."
+.br
+.B "kill -l [ signal ]"
+.SH DESCRIPTION
+La commande
+.B kill
+envoie le signal indiqué aux processus mentionnés. Si on ne précise pas de
+signal, TERM est envoyé. Ce dernier tuera les processus qui ne l'interceptent
+pas. Pour les autres processus, il peut être nécessaire d'envoyer le
+signal KILL (9), qui ne peut pas être
+intercepté.
+.PP
+La plupart des shells modernes ont une commande \fBkill\fP intégrée avec un
+fonctionnement à peu près identique. Les options `-a' et `-p', et la possibilité
+de préciser les processus par le nom de commande sont des extensions.
+.SH OPTIONS
+.TP
+.BR pid ...
+Indique la liste des PID auxquels
+.B kill
+doit envoyer un signal.  Chaque
+.I pid
+peut prendre l'une des cinq formes suivantes\ :
+
+.RS
+.TP
+.I n
+avec
+.I n
+supérieur à 0.  Le processus de PID
+.I n
+recevra le signal.
+.TP
+.B 0
+Tous les processus du groupe de processus de l'appelant seront visés.
+.TP
+.B -1
+Tous les processus avec un PID supérieur à 1 recevront le signal.
+.TP
+.BI - n
+où
+.I n
+est supérieur à 1.
+Tous les processus du goupe
+.I n
+sont visés. Quand on utilise un argument de la forme `-n', pour
+indiquer un groupe de processus, il faut soit avoir indiqué un
+signal au préalable, soit faire précéder l'argument de l'option `--'.
+Sinon il sera considéré comme le numéro du signal à envoyer.
+.TP
+.I nom_commande
+Tous les processus invoqués en utilisant cette commande recevront le signal.
+.RE
+.TP
+.BR \-s
+Indique le signal à envoyer. Celui-ci peut être spécifié par son nom
+ou par son numéro.
+.TP
+.BR \-l
+Affiche une liste des noms de signaux connus. Ceux-ci sont fournis dans
+.I /usr/include/linux/signal.h
+.TP
+.B \-a
+Ne pas restreindre la conversion nom_commande en PID aux seuls processus
+ayant le même UID que l'appelant.
+.TP
+.BR \-p
+Indique que
+.B kill
+doit simplement afficher le PID du processus dont le nom
+est fourni, sans lui envoyer de signal.
+.SH "VOIR AUSSI"
+.BR bash (1),
+.BR tcsh (1),
+.BR kill (2),
+.BR sigvec (2),
+.BR signal (7)
+.SH AUTEUR
+Inspiré de BSD 4.4.  La possibilité de traduire le nom du processus
+en PID a été ajoutée par Salvatore Valente <svalente@mit.edu>.
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

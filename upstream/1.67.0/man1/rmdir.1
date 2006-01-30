@@ -1,0 +1,73 @@
+.\" Traduction 27/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" màj 04/01/1999 - LDP man-pages 1.22
+.\" màj 30/05/2001 - LDP man-pages 1.36
+.\" MàJ 25/07/2003 LDP-1.56
+.TH RMDIR 1L "25 juillet 2003" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+rmdir \- Supprimer des répertoires vides.
+.SH SYNOPSIS
+.BI "rmdir [" options "] [" répertoire... ]
+.sp
+Options POSIX :
+.B "[\-p] [\-\-]"
+.sp
+Options GNU (forme courte):
+.B [\-p]
+.B [\-\-ignore\-fail\-on\-non\-empty]
+.B "[\-\-help] [\-\-version] [\-\-]"
+.SH "DESCRIPTION"
+.B rmdir
+supprime chaque répertoire vide indiqué. 
+([NDT] \fBrmdir\fP = Remove Directory).
+.PP
+Tout argument (autre que
+les options) ne se rapportant pas à un répertoire vide est considéré
+comme une erreur.
+.SH "OPTIONS POSIX"
+.TP
+.B "\-p"
+Effacer les répertoires parents s'ils deviennent vides après
+la suppression des répertoires mentionnés en argument. Ainsi `rmdir \-p
+a/b/c' est équivalent à `rmdir a/b/c; rmdir a/b; rmdir a'.
+.TP
+.B "\-\-"
+Fin explicite de la liste des options.
+.SH "OPTIONS GNU"
+.TP
+.B "\-\-ignore\-fail\-on\-non\-empty"
+Normalement, 
+.B rmdir
+refusera de supprimer un répertoire non-vide. Cette option empêchera
+.B rmdir
+d'échouer en supprimant un répertoire, si cet échec est dû au fait que
+le répertoire n'est pas vide.
+(Nouveauté de fileutils-4.0).
+.TP
+.B "\-p, \-\-parents"
+Comme décrit ci-dessus.
+.SH "OPTIONS STANDARDS GNU"
+.TP
+.B "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer correctement.
+.TP
+.B "\-\-version"
+Afficher le numéro de version sur la sortie standard et se terminer
+correctement.
+.TP
+.B "\-\-"
+Fin des options.
+.SH ENVIRONNEMENT
+Les variables
+LANG, LC_ALL, LC_CTYPE et LC_MESSAGES ont leurs significations habituelles.
+.SH "CONFORMITÉ"
+POSIX 1003.2
+.SH EXEMPLES
+La commande `\fIrmdir foo\fP' n'effacera le répertoire
+.IR foo ,
+que s'il est vide. Si on désire effacer également les répertoires
+non-vides, il faut utiliser `\fIrm -r foo\fP'.
+.SH NOTES
+Cette page décrit la version de \fBrmdir\fP fournie dans le
+paquetage fileutils-4.0. D'autres versions peuvent différer légèrement.
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

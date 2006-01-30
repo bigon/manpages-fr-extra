@@ -1,0 +1,205 @@
+.\" Copyright (c) 1988, 1990 The Regents of the University of California.
+.\" Copyright (c) 1988 Mark Nudleman
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"	@(#)more.1	5.15 (Berkeley) 7/29/91
+.\"
+.\" Revised: Fri Dec 25 15:27:27 1992 by root
+.\" 25Dec92: Extensive changes made by Rik Faith (faith@cs.unc.edu) to
+.\" conform with the more 5.19 currently in use by the Linux community.
+.\"
+.\" Traduction le 10/06/1997 par Michel Quercia (quercia@cal.enst.fr)
+.\"
+.\" MàJ 30/07/2003 util-linux-2.11y
+.TH MORE 1 "30 juillet 2003" "util-linux" "Manuel de l utilisateur Linux"
+.SH NOM
+more \- Filtre lecteur de fichier.
+.SH SYNOPSIS
+\fBmore\fP [\fB-dlfpcsu\fP] [\fB-\fP\fInum\fP] [\fB+/\fP \fImotif\fP]
+[\fB+\fP \fInumligne\fP]
+     [\fIfichier ...\fP]
+.SH DESCRIPTION
+\fBMore\fP
+est un filtre permettant de se déplacer dans un texte écran par écran.
+Cette version est particulièrement primitive. Les utilisateurs doivent
+se convaincre que less(1) constitue une excellente émulation avec
+de nombreuses améliorations.
+.SH OPTIONS
+Les options sur la ligne de commande sont décrites ci-dessous.
+La variable d'environnement \fIMORE\fP peut contenir des options
+supplémentaires (précédées par un tiret (``-'')) mais les options sur la
+ligne de commande ont priorité.
+.TP
+\fB-\fP\fInum\fP
+\fInum\fP est un nombre entier indiquant la taille en lignes de l'écran.
+.TP
+\fB-d\fP
+\fBmore\fP
+affiche le message "[Press space to continue, 'q' to quit.]" pour défiler
+et le message "[Press 'h' for instructions.]" au lieu d'émettre un bip quand
+on appuie sur une touche interdite.
+.TP
+\fB-l\fP
+Normalement \fBmore\fP considère que \fB^L\fP (form feed) est un caractère
+spécial et attend après chaque ligne contenant un form feed. L'option
+\fB-l\fP supprime ce comportement.
+.TP
+\fB-f\fP
+provoque un comptage logique des lignes, c'est à dire que les lignes longues
+ne sont pas découpées.
+.TP
+\fB-p\fP
+Ne pas dérouler\ : efface l'écran avant d'afficher le texte.
+.TP
+\fB-c\fP
+Ne pas dérouler\ : 
+affiche les lignes en partant du haut et en effaçant les fins de ligne au
+fur et à mesure.
+.TP
+\fB-s\fP
+Regroupe les lignes blanches consécutives en une seule.
+.TP
+\fB-u\fP
+Supprime le soulignement.
+.TP
+\fB+/\fP
+L'option \fB+/\fP indique un texte à rechercher dans chaque fichier avant de
+l'afficher.
+.TP
+\fB+\fP\fInum\fP
+Commence à la ligne indiquée.
+.SH COMMANDES
+\fBmore\fP reconnaît un jeu de commandes interactives basé sur celui de vi(1).
+Certaines commandes peuvent être précédées d'un nombre décimal noté k
+ci-dessous. ^X signifie control-X.
+.PP
+.TP
+\fBh\fP ou \fB?\fP
+Aide\ : affiche un résumé des commandes. Si vous les avez toutes oubliées, tâchez
+de vous souvenir de celle-la. 
+.TP
+\fBESPACE\fP
+Affiche les k lignes suivantes.
+Par défaut, k est la taille de l'écran.
+.TP
+\fBz\fP
+Affiche les k lignes suivantes.
+Par défaut k est la taille de l'écran mais l'argument fourni devient la
+nouvelle valeur par défaut.
+.TP
+\fBRETURN\fP
+Affiche les k lignes suivantes.
+Par défaut, k vaut 1 mais l'argument fourni devient la
+nouvelle valeur par défaut.
+.TP
+\fBd\fP ou \fB^D\fP
+Déroule k lignes.
+la valeur par défaut vaut initialement 11
+mais l'argument fourni devient la nouvelle valeur par défaut.
+.TP
+\fBq\fP ou \fBQ\fP ou \fBINTERRUPT\fP
+Arrêt.
+.TP
+\fBs\fP
+Saute k lignes. Par défaut, saute une ligne.
+.TP
+\fBf\fP
+Saute k écrans. Par défaut, saute un écran.
+.TP
+\fBb\fP ou \fB^B\fP
+Recule de k écrans. Par défaut, recule d'un écran.
+.TP
+\fB\&'\fP
+Retourne au point de départ de la dernière recherche.
+.TP
+\fB=\fP
+Affiche le numéro de ligne courant.
+.TP
+\fB/\fP\fImotif\fP
+Recherche la k-ième occurrence d'une expression rationnelle. Par défaut,
+k vaut 1.
+.TP
+\fBn\fP
+Recherche la k-ième occurrence de la dernière expression rationnelle.
+Par défaut k vaut 1.
+.TP
+\fB!\fP\fI<cmd>\fP ou \fB:!\fP\fI<cmd>\fP
+Exécute \fI<cmd>\fP dans un sous-shell.
+.TP
+\fBv\fP
+Lance /usr/bin/vi sur la ligne courante.
+.TP
+\fB^L\fP
+Réaffiche l'écran
+.TP
+\fB:n\fP
+Passe au k-ième fichier suivant. Par défaut k=1.
+.TP
+\fB:p\fP
+Passe au k-ième fichier précédent. Par défaut k=1.
+.TP
+\fB:f\fP
+Affiche le nom et le numéro de ligne du fichier courant.
+.TP
+\fB\&.\fP
+Répète la commande précédente.
+.SH ENVIRONNEMENT
+\fBMore\fP
+utilise les variables d'environnement suivantes quand elles existent\ :
+.TP
+\fIMORE\fP
+Cette variable contient les options préférées pour \fBmore\fP.
+.TP
+\fISHELL\fP
+Shell courant (normalement positionné par le shell au login).
+.TP
+\fITERM\fP
+Spécifie le type de terminal\ ; utilisé par \fBmore\fP pour connaître
+les codes de contrôle de l'écran.
+.SH VOIR AUSSI
+vi(1) less(1)
+.SH AUTEURS
+Eric Shienbrood, UC Berkeley
+.br
+Modifié par Geoff Peck, UCB pour ajouter le soulignement et
+l'espacement simple.
+.br
+Modifié par John Foderaro, UCB pour ajouter \fB-c\fP et la gestion de la
+variable d'environnement \fIMORE\fP.
+.SH HISTORIQUE
+La commande \fBmore\fP est apparue dans BSD 3.0.
+Cette page documente la version 5.19 (Berkeley 6/29/88),
+qui est celle actuellement utilisée par la communauté Linux.
+Cette documentation a été constituée en utilisant les pages de manuel de
+plusieurs autres versions et après un examen exhaustif du code source.
+
+.SH TRADUCTION
+Michel Quercia, 1997.

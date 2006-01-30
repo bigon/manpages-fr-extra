@@ -1,0 +1,72 @@
+.\"  Copyright 2002 walter harms (walter.harms@informatik.uni-oldenburg.de)
+.\"  Distributed under GPL
+.\"  Traduction Christophe Blaess, <ccb@club-internet.fr>
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\"
+.TH GETTTYENT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+getttyent, getttynam, setttyent, endttyent \- Lire le fichier des terminaux.
+.SH SYNOPSIS
+.sp
+.B "#include <ttyent.h>"
+.sp
+.B "struct ttyent *getttyent(void);"
+.sp
+.BI "struct ttyent *getttynam(const char *" nom );
+.sp
+.B "int setttyent(void);"
+.sp
+.B "int endttyent(void);"
+.SH DESCRIPTION
+Ces fonctions fournissent une interface pour le fichier
+.B _PATH_TTYS
+(par exemple
+.IR /etc/ttys ).
+
+La fonction
+.BR setttyent ()
+ouvre le fichier, ou reprend la lecture au début s'il était déjà ouvert.
+
+La fonction
+.BR endttyent ()
+ferme le fichier.
+
+La fonction
+.BR getttynam ()
+recherche un nom de terminal dans le fichier. Elle renvoie un pointeur sur une
+structure ttyent (voir ci-dessous).
+
+La fonction
+.BR getttyent ()
+ouvre le fichier _PATH_TTYS (si besoin) et renvoie la première entrée.
+Si le fichier est déjà ouvert, elle renvoie l'entrée suivante.
+
+.SS "La structure ttyent"
+.nf
+struct ttyent {
+        char    *ty_name;       /* nom du terminal */
+        char    *ty_getty;      /* commande à exécuter (ex : getty) */
+        char    *ty_type;       /* type termcap de terminal */
+        int     ty_status;      /* attributs d'état */
+        char    *ty_window;     /* commande gestionnaire de fenêtres */
+        char    *ty_comment;    /* commentaires */
+};
+.fi
+Le champ
+.I ty_status
+peut valoir
+.br
+.nf
+#define TTY_ON       0x01   /* autoriser les logins (avec ty_getty) */
+#define TTY_SECURE   0x02   /* autoriser login de l'UID zéro */
+.fi
+.SH NOTES
+Sous Linux, le fichier
+.IR /etc/ttys ,
+et les fonctions décrites ci-dessus ne sont pas utilisées.
+.SH "VOIR AUSSI"
+.BR ttyname (3),
+.BR ttyslot (3)
+.SH TRADUCTION
+Christophe Blaess, 2003.

@@ -1,0 +1,287 @@
+.\" Copyright (c) 1994, 1995 Jacques Gelinas (jacques@solucorp.qc.ca)
+.\" Copyright (c) 1995, 1999 Bjorn Ekwall (bj0rn@blox.se)
+.\" Ce programme est distribué en accord avec la Licence Publique Générale Gnu.
+.\" Voir le fichier COPYING dans le répertoire des sources du noyau.
+.\" MàJ 30/07/21 modutils-2.4.22
+.TH MODPROBE 8 "30 juillet 2003" modutils "Manuel de l'administrateur Linux"
+.SH NOM
+modprobe \- Manipulations haut niveau de modules chargeables.
+.SH SYNOPSIS
+.hy 0
+.B modprobe
+[\-adnqv]\ [\-C\ \fIconfig\fR]\ module\ [symbole=valeur\ ... ]
+.br
+.B modprobe
+[\-adnqv] [\-C\ \fIconfig\fR] [\-t\ \fItype\fR] pattern
+.br
+.B modprobe
+\-l [\-C\ \fIconfig\fR] [\-t\ \fItype\fR] pattern
+.br
+.B modprobe
+\-c [\-C\ \fIconfig\fR]
+.br
+.B modprobe
+\-r [\-dnv ] [\-C\ \fIconfig\fR] [ module ...]
+.br
+.B modprobe
+-Vh
+.SH OPTIONS
+.TP
+.BR \-a ", " \-\-all
+Charge \fBtous\fP
+les modules au lieu de s'arrêter après le premier chargement réussi.
+.TP
+.BR \-c ", " \-\-showconfig
+Affiche la configuration courante.
+.TP
+\fB\-C\fR,\ \fB\-\-config\fR\ \fIconfig\fR
+Utilise le fichier de configuration \fIconfigfile\fR plutôt que (le facultatif)
+\fI/etc/modules.conf\fR pour le paramétrage.
+La variable d'environnement \fBMODULECONF\fR peut être aussi utilisée pour
+sélectionner (et surcharger) un fichier de configuration différent du fichier
+par défaut \fI/etc/modules.conf\fR, ou 
+\fI/etc/conf.modules\fR (à éviter).
+.PP
+Quand la variable d'environnement
+.B UNAME_MACHINE
+est remplie, modutils l'utilisera à la place du champ "machine" de
+l'appel-système uname(). Ceci est surtout utile si vous compilez des modules
+64 bits dans un espace utilisateur 32 bits ou
+inversement\ ; remplissez
+.B UNAME_MACHINE
+avec le type de modules construits.
+La version actuelle de modutils ne supporte pas la construction croisée complète
+de modules, elle est limitée au choix entre 32 et 64 bits de l'architecture
+hôte.
+.TP
+.BR \-d ", " \-\-debug
+Affiche des informations sur la représentationt interne de la pile de modules.
+.TP
+.BR \-h ", " \-\-help
+Affiche une page d'aide et se termine.
+.TP
+.BR \-k ", " \-\-autoclean
+Marque les modules pour auto-nettoyage. Utilisé par le noyau quand il appelle
+.B modprobe
+pour satisfaire les dépendances manquantes.
+L'option \fB\-q\fR est impliquée par \fB\-k\fR.
+Ces options seront directement transmises à \fBinsmod\fR.
+.TP
+.BR \-l ", " \-\-list
+Affiche les modules chargeables. 
+.TP
+.BR \-n ", " \-\-show
+Ne rien faire en réalité, indiquer juste ce qui serait fait.
+.TP
+.BR \-q ", " \-\-quiet
+Ne se plaint pas si \fBinsmod\fR échoue au chargement d'un module. Continue
+en silence à essayer d'autres possibilités.
+Cette option sera directement transmise à \fBinsmod\fR.
+.TP
+.BR \-r ", " \-\-remove
+Enlève le module (ou la pile) ou exécute un auto-nettoyage suivant s'il 
+y a des modules indiqués ou non sur la ligne de commande.
+.TP
+.BR \-s ", " \-\-syslog
+Envoyer les messages à syslog plutôt que sur la sortie d'erreur.
+Cette option sera directement transmise à \fBinsmod\fR.
+.TP
+\fB\-t\fR\ \fImoduletype\fR;\ \fB\-\-type\fR\ \fImoduletype\fR
+Ne considère que les modules du type indiqué. modprobe ne s'occupera que des
+modules dont le répertoire inclut exactement "\fI/moduletype/\fR". Il peut
+contenir plusieurs noms\ ; par exemple  "\fB\-t\fR\ \fIdrivers/net\fR" listera
+tous les modules dans \fIxxx/drivers/net/\fR et ses sous-répertoires.
+.TP
+.BR \-v ", " \-\-verbose
+Affiche les commandes au fur et à mesure qu'elles sont exécutées.
+.TP
+.BR "\-V, \-\-version"
+Affiche le numéro de version de modprobe.
+.TP
+.B Note\ :
+Les noms de modules ne contenir ni chemin d'accès (pas de '/'), ni de suffixe
+'.o'. Par example, lp est un nom correct pour
+.BR modprobe ,
+/lib/modules/2.4.21/kernel/char/lp ou lp.o sont invalides. Ceci concerne la
+ligne de commande et les entrées dans les fichiers de configuration.
+.SH DESCRIPTION
+Les utilitaires \fBmodprobe\fP et \fBdepmod\fP rendent un noyau Linux modulaire
+plus facilement gérable pour tous les utilisateurs, administrateurs et les
+développeurs de distribution.
+.PP
+\fBmodprobe\fP utilise un fichier de type "Makefile" pour les dépendances,
+créé par \fBdepmod\fP, pour charger automatiquement les modules corrects depuis
+l'ensemble des modules disponibles dans les répertoires prédéfinis.
+.PP
+\fBmodprobe\fP sert à charger un seul module, la pile de modules dépendants, ou
+tous les modules marqués par une étiquette spécifique.
+.PP
+.B modprobe
+chargera automatiquement la base de modules nécessaire à un ensemble, comme décrit dans le fichier de dépendances modules.dep.
+Si un chargement échoue, la totalité des modules chargés par la commande sera déchargée automatiquement.
+.PP
+.B modprobe
+a deux façons pour charger des modules. La première (le mode d'essai) essaiera de charger un module de la liste (définie par
+.IR pattern ).
+.B modprobe
+arrête le chargement dès qu'un modules est chargé avec succès.
+Cela peut être utilisé pour charger automatiquement un pilote de carte ethernet parmi d'autres.
+.br
+Sinon,
+.B modprobe
+peut charger
+.B tous
+les modules d'une liste.
+Voir les
+.B EXEMPLES
+ci dessous.
+.PP
+Avec l'option
+.B -r,
+modprobe déchargera automatiquement l'ensemble des modules, de la même façon qu'en utilisant
+.BR "rmmod -r" .
+On peut noter que
+.B "modprobe \-r"
+seul fera le ménage parmi les modules inutilisés et lancera les commandes de pré- et de post-enlèvement
+dans le fichier de configuration /etc/modules.conf.
+.PP
+Avec l'option
+.I -l
+combinée avec l'option
+.I -t
+une liste de tous les modules disponibles d'un type donné sera affichée.
+.PP
+L'option
+.I -c
+affichera la configuration courante (par défaut et le fichier de configuration).
+.SH CONFIGURATION
+Le comportement de 
+.B modprobe
+(et de
+.BR depmod )
+peut être modifié par le fichier (optionnel) de configuration
+.BR /etc/modules.conf .
+.br
+Pour une description plus détaillée de ce que peut contenir ce fichier,
+ainsi que la configuration par défaut de
+.B depmod
+et de
+.B modprobe,
+voir
+.IR  modules.conf (5).
+.PP
+Note : les commandes de pré- et de post-enlèvement ne seront \fBpas\fR exécutées si un module
+est déchargé (car ce module est marqué 'autoclean') par kerneld\ !
+Voir plutôt le support des données persistantes.
+.br
+Si vous voulez utiliser les caractéristiques de pré et de post-installation, vous devez enlever
+l'option 'autoclean' pour kerneld et plutôt mettre une commande dans votre "crontab"
+(c'est utilisé par les systèmes kmod); pour effectuer un rafraîchissement toutes les deux minutes\ :
+.br
+ */2 * * * * test \-f /proc/modules && /sbin/modprobe \-r
+.SH STRATÉGIE
+L'idée est que
+.B modprobe
+regardera en premier dans le répertoire contenant les modules compilés pour la version spécifique du noyau en cours d'exécution
+(/lib/modules/2.2.12-20/ par exemple).
+Si le module n'est pas trouvé ici,
+.B modprobe
+ira dans le répertoire commun de la version du noyau (ex. 2.0, 2.2).
+.PP
+Quand vous installez un nouveau noyau, les modules sont déplacés dans le répertoire relatif à la version spécifique
+(et à la version générale) du noyau que vous installez.
+Alors vous devez créer un lien symbolique de ce répertoire vers le répertoire par défaut.
+.PP
+Chaque fois que vous compilez un nouveau noyau, la commande
+.B "make modules_install"
+créera un nouveau répertoire, mais ne change pas le lien par défaut.
+.PP
+Quand vous avez un module non relié à la distribution du noyau vous devez le mettre dans un 
+des répertoires indépendants de la version sous /lib/modules.
+.PP
+C'est la stratégie par défaut. On peut passer outre avec /etc/modules.conf.
+.SH EXEMPLES
+.TP
+modprobe \-t net
+Charge un des modules qui sont stockés dans le répertoire étiqueté "net".
+Chaque module est essayé jusqu'à réussite.
+.TP
+modprobe \-a \-t boot
+Tous les modules qui sont dans les répertoires étiquetés
+.B "boot"
+seront chargés.
+.TP
+modprobe slip
+Cela tentera de charger le module slhc.o si il n'a pas déjà été chargé,
+car le module slip a besoin de fonctionnalités du module slhc.
+Cette dépendance est décrite dans le fichier "modules.dep" qui est créé automatiquement par
+.B depmod
+.TP
+modprobe \-r slip
+déchargera le module slip.
+Il enlèvera aussi le module slhc automatiquement,
+s'il n'est pas utilisé par d'autres modules bien sûr (comme ppp).
+.SH FICHIERS
+.nf
+/etc/modules.conf, (aussi mais à éviter: /etc/conf.modules)
+/lib/modules/*/modules.dep,
+/lib/modules/*
+.fi
+.SH VOIR AUSSI
+.BR depmod (8),
+.BR lsmod (8),
+.BR kerneld (8),
+.BR ksyms (8),
+.BR rmmod (8)
+.SH "MODE DE SÉCURITÉ RENFORCÉE"
+Si l'UID effectif n'est pas égal à l'UID réel, alors \fBmodprobe\fR traite ses
+entrées avec suspicion. Le dernier paramètre est toujours considéré comme un
+nom de module, même s'il débute par '-'. Il ne peut y avoir qu'un nom de module,
+et les options de la type "variable=valeur" sont interdites. Le nom de
+module est toujours traité comme une chaîne, et aucun développement n'est
+réalisé en mode de sécurité renforcé. Toutefois les développements sont toujours
+appliqués aux données lues dans le fichier de configuration.
+.PP
+L'UID effectif peut être différent de l'UID quand modprobe est invoqué par le
+noyau, depuis le 2.4.0-test11. Dans un monde idéal, \fBmodprobe\fR pourrait
+faire confiance au noyau pour ne lui fournir que des paramètres valides.
+Malheureusement, il y a eu au moins une attaque basée sur le passage de
+paramètres non-vérifiés par du code de haut-niveau du noyau.
+Depuis modprobe ne fait plus confiance au noyau.
+.PP
+.ne 8
+\fBmodprobe\fR bascule automatiquement en mode de sécurité renforcé quand
+l'environnement n'est constitué que de ces chaînes\ :
+.nf
+ HOME=/
+ TERM=linux
+ PATH=/sbin:/usr/sbin:/bin:/usr/bin
+.fi
+Ceci correspond à l'exécution de modprobe par le noyau depuis le 2.2 jusqu'au
+2.4.0-test11, même si UID == E-UID, ce qui se produisait sur les noyaux
+anciens.
+.SH "COMMANDES DE JOURNALISATION"
+Si le répertoire \fI/var/log/ksymoops\fR existe et si \fBmodprobe\fR est lancé
+avec un option de chargement ou déchargement de module, alors modprobe 
+journalisera ses actions et codes de retour dans
+\fI/var/log/ksymoops/`date\ +%Y%m%d.log`\fR.
+Il n'y a pas d'option pour désactiver cet enregistrement automatique. Si vous
+voulez l'éviter, ne créez pas \fI/var/log/ksymoops\fR. Lorsque ce répertoire
+existe, il doit appartenir à root, avoir le mode 644 ou 600 et il faudrait
+lancer le script \fBinsmod_ksymoops_clean\fR quotidiennement.
+.SH "UTILITAIRES NÉCESSAIRES"
+.BR depmod (8),
+.BR insmod (8).
+.SH NOTES
+Le motif
+.I pattern
+fourni à modprobe aura souvent besoin d'être protégé pour s'assurer qu'il
+sera correctement interprété.
+.SH AUTEURS
+Jacques Gelinas (jack@solucorp.qc.ca)
+.br
+Bjorn Ekwall (bj0rn@blox.se)
+.SH TRADUCTION
+Jérome Signouret, 2000.
+.br
+Christophe Blaess, 2003.

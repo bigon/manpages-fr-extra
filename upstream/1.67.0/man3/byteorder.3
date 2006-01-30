@@ -1,0 +1,72 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 21:29:05 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 22/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise à jour 21/01/2002 - LDP-man-pages-1.47
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH BYTEORDER 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+byteorder, htonl, htons, ntohl, ntohs \- Conversions d'ordre des octets entre un hôte et un réseau.
+.SH SYNOPSIS
+.nf
+.B #include <netinet/in.h>
+.sp
+.BI "uint32_t htonl (uint32_t " hostlong );
+.sp
+.BI "uint16_t htons (uint16_t " hostshort );
+.sp
+.BI "uint32_t ntohl (uint32_t " netlong );
+.sp
+.BI "uint16_t ntohs (uint16_t " netshort );
+.fi
+.SH DESCRIPTION
+La fonction \fBhtonl()\fP convertit un entier non-signé \fIhostlong\fP depuis
+l'ordre des octets de l'hôte vers celui du réseau.
+.PP
+La fonction \fBhtons()\fP convertit un entier court non-signé \fIhostshort\fP depuis
+l'ordre des octets de l'hôte vers celui du réseau.
+.PP
+La fonction \fBntohl()\fP convertit un entier non-signé \fInetlong\fP depuis
+l'ordre des octets du réseau vers celui de l'hôte.
+.PP
+La fonction \fBntohs()\fP convertit un entier court non-signé \fInetshort\fP depuis
+l'ordre des octets du réseau vers celui de l'hôte.
+.PP
+Sur les i80x86, l'ordre des octets de l'hôte est LSB (Least Significant Byte
+first), c'est à dire octet de poids faible en premier, alors que sur
+les réseaux, notamment l'Internet, l'ordre est MSB (Most
+Significant Byte first) octet de poids fort en premier.
+.SH "CONFORMITÉ"
+BSD 4.3
+.SH "VOIR AUSSI"
+.BR gethostbyname (3),
+.BR getservent (3)
+
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

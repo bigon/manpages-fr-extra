@@ -1,0 +1,79 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright 2003 Abhijit Menon-Sen <ams@wiw.org>
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction Christophe Blaess, <ccb@club-internet.fr>
+.\" MàJ 18/07/2003 LDP-1.56
+.TH TKILL 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+tkill \- Envoyer un signal à un processus unique.
+.SH SYNOPSIS
+.nf
+.B #include <sys/types.h>
+.br
+.B #include <linux/unistd.h>
+.sp
+.B "_syscall2(int, tkill, pid_t, tid, int, sig)"
+.sp
+.B int tkill(pid_t tid, int sig);
+.fi
+.SH DESCRIPTION
+L'appel-système 
+.BR tkill ()
+est analogue à
+.BR kill (2),
+sauf si le processus en question est membre d'un groupe de threads
+(créé en utilisant l'attribut CLONE_THREAD de l'appel-système
+.BR clone (2)).
+Comme tous les processus d'un groupe de threads ont le même PID,
+ils ne peuvent pas être visés individuellement avec
+.BR kill .
+Avec
+.B tkill
+toutefois, on peut s'adresse à un processus donné grâce à son
+TID unique.
+.SH "VALEUR RENVOYÉE"
+S'il réussit l'appel renvoie zéro, sinon il renvoie \-1 et remplit
+.I errno
+avec le code d'erreur.
+.SH ERREURS
+.TP
+.B EINVAL
+Le TID ou le numéro de signal sont invalides.
+.TP
+.B ESRCH
+Il n'y a pas de processus avec le TID indiqué.
+.TP
+.B EPERM
+L'appelant n'a pas la permission d'envoyer un signal au processus indiqué.
+Pour qu'un processus ait le droit d'envoyer un signal, il doit avoir les
+privilèges root, ou son UID réel ou effectif doit être égal à l'UID
+réel ou sauvé du processus récepteur.
+.SH "CONFORMITÉ"
+.B tkill
+est spécifique à Linux et ne doit pas être utilisé dans un programme conçu
+pour être portable.
+.SH "VOIR AUSSI"
+.BR gettid (2),
+.BR kill (2)
+.SH TRADUCTION
+Christophe Blaess, 2003.

@@ -1,0 +1,187 @@
+.\" Copyright (c) 2003 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111,
+.\" USA.
+.\"
+.\" Traduction : Alain Portal
+.\" 08/07/2005 LDP-1.63
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH GETPWENT_R 3 "15 novembre 2003" "GNU" "Manuel du programmeur Linux"
+.SH NOM
+getpwent_r, fgetpwent_r \- Obtenir un enregistrement du fichier passwd de manière réentrante.
+.SH SYNOPSIS
+.nf
+.B "#define _GNU_SOURCE"
+.br
+.B #include <pwd.h>
+.sp
+.BI "int getpwent_r(struct passwd *" pwbuf ", char *" buf ,
+.br
+.BI "               size_t " buflen ", struct passwd **" pwbufp );
+.sp
+.BI "int fgetpwent_r(FILE *" fp ", struct passwd *" pwbuf ", char *" buf ,
+.br
+.BI "                size_t " buflen ", struct passwd **" pwbufp );
+.SH DESCRIPTION
+Les fonctions
+.B getpwent_r()
+et
+.B fgetpwent_r()
+sont les versions réentrantes des fonctions
+.BR getpwent (3)
+et
+.BR fgetpwent (3).
+La première lit l'enregistrement passwd suivant à partir du flux initialisé par
+.BR setpwent (3).
+La seconde lit l'enregistrement passwd suivant à partir du flux
+.I fp
+passé en paramètre.
+.PP
+La structure \fIpasswd\fP est définie dans
+.I <pwd.h>
+de la manière suivante\ :
+.sp
+.RS
+.nf
+struct passwd {
+      char    *pw_name;      /* nom de l'utilisateur */
+      char    *pw_passwd;    /* mot de passe de l'utilisateur */
+      uid_t   pw_uid;        /* ID de l'utilisateur */
+      gid_t   pw_gid;        /* ID du groupe */
+      char    *pw_gecos;     /* nom réel */
+      char    *pw_dir;       /* répertoire personnel */
+      char    *pw_shell;     /* shell */
+};
+.fi
+.RE
+.sp
+Les fonctions non réentrantes renvoient un pointeur sur une zone statique,
+zone qui contient d'autres pointeurs vers le nom, le mot de passe, le champ
+gecos, le répertoire personnel et le shell de l'utilisateur.
+Les fonctions réentrantes décrites ici renvoient tout ceci dans des tampons
+fournis par l'appelant. Il y a tout d'abord le tampon
+.I pwbuf
+qui contient une structure passwd. Puis le tampon
+.I buf
+de taille
+.I buflen
+qui contient les chaînes supplémentaires.
+Le résultat de ces fonctions, la structure passwd lue dans le flux,
+est enregistré dans le tampon
+.RI * pwbuf
+fourni, et un pointeur vers cette structure passwd est renvoyé dans
+.RI * pwbufp .
+.SH "VALEUR RENVOYÉE"
+Si elles réussissent, ces fonctions renvoient 0 et
+.RI * pwbufp
+est un pointeur vers la structure passwd.
+Si elles échouent, ces fonctions renvoient une valeur d'erreur et
+.RI * pwbufp
+est NULL.
+.SH ERREURS
+.TP
+.B ENOENT
+Plus d'entrées.
+.TP
+.B ERANGE
+L'espace tampon fourni est insuffisant. Veuillez essayer à nouveau avec
+un tampon plus grand.
+.SH EXEMPLE
+.nf
+#define _GNU_SOURCE
+#include <pwd.h>
+#include <stdio.h>
+#define BUFLEN 4096
+
+int main() {
+      struct passwd pw, *pwp;
+      char buf[BUFLEN];
+      int i;
+
+      setpwent();
+      while (1) {
+            i = getpwent_r(&pw, buf, BUFLEN, &pwp);
+            if (i)
+                  break;
+            printf("%s (%d)\etHOME %s\etSHELL %s\en",
+                  pwp->pw_name, pwp->pw_uid,
+                  pwp->pw_dir, pwp->pw_shell);
+      }
+      endpwent();
+      return 0;
+}
+.fi
+.\" perhaps add error checking - should use strerror_r
+.\" #include <errno.h>
+.\" #include <stdlib.h>
+.\"         if (i) {
+.\"               if (i == ENOENT)
+.\"                     break;
+.\"               printf("getpwent_r: %s", strerror(i));
+.\"               exit(1);
+.\"         }
+.SH "CONFORMITÉ"
+Ces fonctions sont des extensions GNU, effectuées dans un style ressemblant
+à la version POSIX de fonctions comme
+.BR getpwnam_r (3).
+D'autres systèmes utilisent le prototype
+.sp
+.nf
+.in +4
+struct passwd *
+getpwent_r(struct passwd *pwd, char *buf, int buflen);
+.in
+.fi
+.sp
+ou mieux,
+.sp
+.nf
+.in +4
+int
+getpwent_r(struct passwd *pwd, char *buf, int buflen,
+           FILE **pw_fp);
+.in
+.fi
+.sp
+.SH NOTES
+La fonction
+.B getpwent_r()
+n'est pas vraiment réentrante puisqu'elle partage la position de lecture
+dans le flux avec tous les autres fils (threads).
+.SH "VOIR AUSSI"
+.BR fgetpwent (3),
+.BR getpwent (3),
+.BR getpwnam (3),
+.BR getpwuid (3),
+.BR getpw (3),
+.BR putpwent (3),
+.BR passwd (5)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Alain Portal
+<aportal AT univ-montp2 DOT fr> le 8 juillet 2005
+et révisée le 14 décembre 2005.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ getpwent_r\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

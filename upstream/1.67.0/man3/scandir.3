@@ -1,0 +1,151 @@
+.\" Copyright (C) 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:26:16 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Thu Apr 11 17:11:33 1996 by Andries Brouwer (aeb@cwi.nl):
+.\"     Corrected type of compar routines, as suggested by
+.\"     Miguel Barreiro (enano@avalon.yaix.es).  Added example.
+.\"
+.\" Traduction 07/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 23/12/2005 LDP-1.67
+.\"
+.TH SCANDIR 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+scandir, alphasort, versionsort \- Sélectionner des éléments d'un répertoire.
+.SH SYNOPSIS
+.nf
+.B #include <dirent.h>
+.sp
+.BI "int scandir (const char * " dir ", struct dirent ***" namelist ,
+.RS
+.BI "int (*" select ")(const struct diren t *),"
+.BI "int (*" compar ")(const struct dirent **, const struct dirent **));"
+.RE
+.sp
+.BI "int alphasort (const void *" a ", const void * " b );
+.br
+.BI "int versionsort (const void *" a ", const void * " b );
+.fi
+.SH DESCRIPTION
+La fonction \fBscandir\fP() examine le répertoire \fIdir\fP, en appelant
+\fIselect\fP() pour chaque élément rencontré. Les entrées pour lesquelles
+\fIselect\fP() renvoie une valeur non-nulle sont stockées dans une table
+allouée avec \fBmalloc\fP(), triée avec \fBqsort\fP() en utilisant la
+fonction de comparaison \fIcompar\fP(), puis regroupées dans une table
+\fInamelist\fP allouée avec \fBmalloc\fP().
+Si \fIselect\fP est NULL, toutes les entrées sont sélectionnées.
+.PP
+Les fonctions
+.BR alphasort ()
+et
+.BR versionsort ()
+peuvent être utilisées comme fonction de comparaison
+dans la fonction \fBscandir\fP().
+La première trie les entrées du répertoire en
+ordre alphabétique en utilisant
+.BR strcoll (3),
+la seconde en utilisant
+.BR strverscmp (3)
+sur les chaînes \fI(*a)->d_name\fP et \fI(*b)->d_name\fP.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBscandir\fP() renvoie le nombre d'entrées de repertoire
+selectionnées ou \-1 en cas d'erreur.
+.PP
+Les fonctions
+.BR alphasort ()
+et
+.BR versionsort ()
+renvoient un entier négatif, nul, ou positif
+si le premier argument est respectivement inférieur, égal ou
+supérieur au second.
+.SH "ERREURS"
+.TP
+.B ENOMEM
+Pas assez de mémoire.
+.SH "CONFORMITÉ"
+Aucune de ces fonctions n'est décrite par POSIX.
+LSB a rendu obsolète l'appel bibliothèque
+.BR alphasort ()
+et ne comporte jamais
+.BR scandir ().
+.LP
+Les fonctions
+.BR scandir ()
+et
+.BR alphasort ()
+proviennent de BSD 4.3 et sont disponibles sous Linux depuis libc4.
+Les bibliothèques libc4 et libc5 utilisent le prototype plus précis
+.sp
+.nf
+.BI "int alphasort(const struct dirent **" a ", const struct dirent **" b );
+.fi
+.sp
+mais la GlibC 2.0 est revenue au prototype BSD imprécis.
+.LP
+La fonction
+.BR versionsort ()
+est une extension GNU, disponible depuis la GlibC 2.1.
+Depuis la GlibC 2.1, la fonction
+.BR alphasort ()
+invoque
+.BR strcoll "(3)\ ;"
+alors qu'auparavant elle employait
+.BR strcmp (3).
+.SH EXEMPLE
+.nf
+/* Afficher le contenu du répertoire en ordre inverse */
+#include <dirent.h>
+main(){
+    struct dirent **namelist;
+    int n;
+
+    n = scandir(".", &namelist, 0, alphasort);
+    if (n < 0)
+        perror("scandir");
+    else {
+        while(n--) {
+            printf("%s\en", namelist[n]->d_name);
+            free (namelist [n]);
+        }
+        free (namelist);
+    }
+}
+.fi
+.SH "VOIR AUSSI"
+.BR opendir (3),
+.BR readdir (3),
+.BR closedir (3),
+.BR rewinddir (3),
+.BR seekdir (3),
+.BR strcmp (3),
+.BR strcoll (3),
+.BR strverscmp (3),
+.BR telldir (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

@@ -1,0 +1,48 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Traduction 28/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" Mise à jour 25/01/2002 - LDP-man-pages-1.47
+.\" MàJ 21/07/2003 LDP-1.56
+.TH FPUTWS 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+fputws \- Écrire dans un flux une chaîne de caractères larges.
+.SH SYNOPSIS
+.nf
+.B #include <wchar.h>
+.sp
+.BI "int fputws (const wchar_t *" ws ", FILE *" stream );
+.fi
+.SH DESCRIPTION
+La fonction \fBfputws\fP est l'équivalent pour caractères larges de la fonction \fBfputs\fP.
+Elle écrit la chaîne de caractères larges commençant en \fIws\fP, jusqu'au caractère L'\\0' final
+non compris, dans le flux \fIstream\fP.
+.PP
+Pour une version de cette fonction ignorant les verrouillages, voir
+.BR unlocked_stdio (3).
+.SH "VALEUR RENVOYÉÉ"
+La fonction \fBfputws\fP renvoie un entier non négatif si elle réussit, ou -1 en cas d'erreur.
+.SH "CONFORMITÉ	"
+ISO/ANSI C, UNIX98
+.SH NOTES
+Le comportement de \fBfputws\fP dépend de la catégorie LC_CTYPE de la localisation.
+.PP
+En l'absence d'information supplémentaire transmise à l'appel fopen(), on peut raisonnablement
+supposer que \fBfputws\fP écrira en fait une séquence multi-octets correspondant à la chaîne de
+caractères larges \fIws\fP.
+.SH "VOIR AUSSI"
+.BR fputwc (3),
+.BR unlocked_stdio (3)
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

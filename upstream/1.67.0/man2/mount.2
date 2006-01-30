@@ -1,0 +1,315 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright 1993 Rickard E. Faith (faith@cs.unc.edu)
+.\" Copyright 1994 Andries E. Brouwer (aeb@cwi.nl)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" "
+.\" 
+.\" Traduction  10/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Mise a Jour 8/04/97
+.\" Mise a Jour 30/05/2001 LDP-man-pages-1.36
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.37
+.\" màj 19/01/2002 LDP 1.47
+.\" màj 18/07/2003 LDP 1.56
+.TH MOUNT 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+mount, umount, umount2 \- Monter / démonter des systèmes de fichiers.
+.SH SYNOPSIS
+.B #include <sys/mount.h>
+.sp
+.BI "int mount(const char *" source ", const char * " cible
+.BI ", const char * " filesystemtype ", unsigned long " mountflags
+.BI ", const void * " data );
+.sp
+.BI "int umount(const char *" cible );
+.sp 
+.BI "int umount2(const char *" target ", int " flags );
+.SH DESCRIPTION
+.B mount
+attache le système de fichiers spécifié par 
+.I source
+(qui est généralement un nom de périphérique, mais peut aussi être un répertoire
+ou un objet fictif) au
+répertoire indiqué par
+.IR cible .
+
+.BR umount " et " umount2
+suppriment l'attachement du système de fichiers monté sur le répertoire
+.IR cible .
+
+Seul le Super\-User peut monter ou démonter des systèmes de fichiers.
+Depuis Linux 2.4 un même système de fichiers peut être visible en différents
+points, et plusieurs montages peuvent être empilés au même 
+point.
+
+L'argument
+.IR filesystemtype
+prend une des valeurs listées dans
+.I /proc/filesystems
+(par exemple "ext2", "minix", "msdos", "proc", "nfs", "iso9660" etc).
+Des types supplémentaires peuvent être disponibles lorsque les modules
+appropriés sont chargés.
+
+L'argument
+.IR mountflags
+peut avoir le nombre magique 0xC0ED (\fBMS_MGC_VAL\fP) dans ses 16 bits de poids
+forts (ceci était obligatoire dans les versions antérieures à la 2.4, mais
+ne l'est plus), et certains attributs de montage (définis dans <linux/fs.h> pour
+libc4 ou libc5 et dans <sys/mount.h> pour GlibC2)
+comme bits de poids faibles\ :
+.TP
+.B MS_BIND 
+(Depuis Linux 2.4)
+.\" since 2.4.0-test9 
+Effectuer un montage lié, rendant un fichier ou une arborescence visibles en
+un autre point du système de fichiers.
+Les montages liés peuvent traverses les froontières entre systèmes de fichiers
+et ouvrir une porte dans une prison
+.BR chroot (2).
+Les arguments
+.IR filesystemtype ", " mountflags ", et " data
+sont ignorés.
+.\" with the exception of the "hidden" MS_REC mountflags bit
+.TP
+.B MS_DIRSYNC
+(Depuis Linux 2.5.19.)
+Rendre synchrones les modifications sur les répertoires du système de fichiers.
+(Cette propriété peut-être obtenue pour les répertoires individuels ou
+les sous-arborescences en utilisant
+.BR chattr (8)).
+.TP
+.B MS_MANDLOCK
+Autoriser les verrouillages impératifs sur le système de fichiers.
+(Le verrouillage impératif devra tooutefois être validé fichier par fichier,
+comme décrit dans
+.BR fcntl (2)).
+.\" FIXME: More can be said about MS_MOVE
+.TP
+.B MS_MOVE
+Déplace une sous-arborescence.
+.I source 
+indique un point de montage existant et
+.I target 
+indique son nouvel emplacement.
+Le déplacement est atomique, à aucun moment la sous-arborescence est démontée.
+Les arguments
+.IR filesystemtype ", " mountflags ", et " data
+sont ignorés.
+.TP
+.B MS_NOATIME 
+Ne pas mettre à jour les dates d'accès pour (tous) les fichiers du
+système de fichiers.
+.TP
+.B MS_NODEV
+Ne pas autoriser la présence de fichiers spéciaux de périphérique sur le
+système de fichier.
+.TP
+.B MS_NODIRATIME
+Ne pas mettre à jour les dates d'accès pour les répertoires du système
+de fichiers.
+.TP
+.B MS_NOEXEC
+Ne pas permettre l'exécution de programme depuis le système de fichiers.
+.\" (Possibly useful for a file system that contains non-Linux executables.
+.\" Often used as a security feature, e.g. to make sure that restricted
+.\" users cannot execute files uploaded using ftp or so.)
+.TP
+.B MS_NOSUID
+Ne pas tenir compte des bits Set-UID et Set-GID lors de l'exécution de programmes
+sur le système de fichiers.
+.\" (This is a security feature to prevent users executing set-UID and
+.\" set-GID programs from removable disk devices.)
+.TP
+.B MS_RDONLY
+Monter le système de fichiers en lecture seule.
+.TP
+.B MS_REMOUNT
+Reinitialiser un montage ezxistant. Ceci permet de modifier les attributs
+.I mountflags
+et
+.I data
+d'un montage existant sans avoir besoin de démonter et remonter le système
+de fichiers
+.I source
+et
+.I target
+doivent avoir les mêmes valeurs que durant l'appel
+.BR mount ()
+initial\ ;
+.I filesystemtype
+est ignoré.
+.TP
+.B MS_SYNCHRONOUS
+Rendre synchrones les écitures sur le système de fichiers (comme si l'option
+.B O_SYNC
+de
+.BR open (2)
+était indiqué à chaque ouverture sur ce système de fichiers).
+.PP
+Depuis Linux 2.4, les attributs
+.BR MS_NODEV ", " MS_NOEXEC ", et " MS_NOSUID
+sont configurables de manière variable sur chaque point de montage.
+.PP
+L'argument
+.IR data
+est interprété différemment suivant le type de système de fichiers.
+Typiquement, c'est une chaîne d'options comprises par le système de
+fichiers, séparées par des virgules.
+Voir
+.BR mount (8)
+pour des détails sur les options disponibles pour chaque type de système.
+.PP
+.\" Note: the kernel naming differs from the glibc naming
+.\" umount2 is the glibc name for what the kernel now calls umount
+.\" and umount is the glibc name for oldumount
+Depuis Linux 2.1.116 l'appel-système
+.BR umount2 ()
+fonctionne comme
+.BR umount (),
+mais dispose d'options supplémentaire
+.I flags
+configurant le comportement de l'opération\ :
+.TP
+.B MNT_FORCE
+Forcer le démontage, même si le système de fichiers est occupé.
+(Depuis 2.1.116. Seulement pour les montages NFS).
+.TP
+.B MNT_DETACH
+Faire un détachement paresseux\ : rendre le point de montage invalide pour
+les nouveaux accès, et réaliser le démontage complet lorsque le point
+ne sera plus occupé (Depuis 2.4.11).
+.SH "VALEUR RENVOYÉE"
+.BR mount et umount
+renvoient 0 s'ils réussissent, ou \-1 s'ils échouent, auquel cas
+.I errno
+contient le code d'erreur.  
+.SH ERREURS
+Les erreurs détaillées ici sont indépendantes du type de système de fichiers.
+Chaque type de système peut avoir des codes d'erreurs spécifiques, et un
+comportement particulier. Voir les sources du noyau pour plus de details...
+
+.TP 
+.B EPERM
+L'utilisateur n'est pas le Super\-User
+.TP
+.B ENODEV
+.I Filesystemtype
+n'est pas configuré dans le noyau
+.TP
+.B ENOTBLK
+.I Source
+n'est pas un fichier spécial en mode bloc.
+.TP
+.B EBUSY
+.I Source
+est déjà monté, ou ne peut pas être remonté en lecture seule
+car il y a des fichiers ouverts en écriture, ou ne peut
+pas être monté sur
+.I cible
+car
+.I cible
+est occupé (c'est le répertoire de travail d'un processus, le point de
+montage d'un autre périphérique, des fichiers y sont ouverts, etc...)
+Ou le démontage est impossible car le point est occupé.
+.TP
+.B EINVAL
+.I Source
+a un superbloc invalide, ou on tente un remontage alors que
+.I source
+n'était pas encore monté sur
+.IR cible .
+Ou un démontage est demandé sur
+.I cible
+qui n'est pas un point de montage.
+Ou un déplacement est demandé alors que
+.I source
+n'est pas un point de montage ou est '/'.
+.TP
+.B ENOTDIR
+Le second argument, ou un préfixe du premier argument n'est
+pas un répertoire.
+.TP
+.B EFAULT
+L'un des arguments pointe en\-dehors de l'espace d'adressage accessible.
+.TP
+.B ENOMEM
+Pas assez de mémoire pour le noyau.
+.TP
+.B ENAMETOOLONG
+Un des arguments est plus long que MAXPATHLEN.
+.TP
+.B ENOENT
+Un répertoire des arguments n'existe pas ou est un lien symbolique pointant nulle part.
+.TP
+.B ELOOP
+Trop de liens symboliques rencontrés dans un chemin, ou
+un déplacement a été tenté dans lequel
+.I cible
+est un descendant de
+.IR source .
+.TP
+.B EACCES
+Un élément de chemin d'accès n'est pas consultable,
+.br
+ou on tente de monter un système de fichier en lecture seule sans
+préciser l'attribut MS_RDONLY,
+.br
+ou le fichier périphérique 
+.I Source
+est sur un système de fichiers monté avec l'attribut MS_NODEV.
+.TP
+.B ENXIO
+Le nombre majeur du périphérique
+.I source
+est invalide.
+.TP
+.B EMFILE
+Table de montage pleine.
+.SH "CONFORMITÉ"
+Ces fonctions sont spécifiques à Linux et ne doivent pas être
+employées dans des programmes conçus pour être portables.
+.SH HISTORIQUE
+La fonction
+.B umount
+originale était invoquée \fIumount(device)\fP et renvoyait ENOTBLK si
+l'argument était autre chose qu'un périphérique en mode bloc.
+Dans Linux 0.98p4 un appel \fIumount(répertoire)\fP fut ajouté, afin de
+gérer des périphériques anonymes.
+Dans Linux 2.3.99-pre7 l'appel \fIumount(device)\fP fut supprimé, en ne gardant
+que \fIumount(répertoire)\fP (car maintenant les périphériques peuvent être
+montés en plusieurs endroits, et l'indication du périphérique ne suffit plus).
+.LP
+L'attribut original MS_SYNC a été renommé MS_SYNCHRONOUS dans Linux 1.1.69
+car un MS_SYNC différent existait dans <mman.h>.
+.LP
+Avant Linux 2.4, une tentative d'exécution d'un programme Set-UID ou Set-GID
+sur un système de fichier monté avec l'attribut
+.B MS_NOSUID
+échouait avec l'erreur
+.BR EPERM .
+Depuis Linux 2.4 les bits Set-UID et Set-GID sont juste ignorés silencieusement
+dans ce cas.
+.SH "VOIR AUSSI"
+.BR mount (8),
+.BR umount (8)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

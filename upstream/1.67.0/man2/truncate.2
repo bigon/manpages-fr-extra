@@ -1,0 +1,187 @@
+.\" Copyright (c) 1983, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)truncate.2	6.9 (Berkeley) 3/10/91
+.\"
+.\" Modified Sat Jul 24 12:46:33 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a Jour 15/04/97
+.\" Mise a Jour 18/05/99 - LDP-man-pages-1.23
+.\" màj 26/06/2000 LDP 1.30
+.\" màj 30/08/2000 LDP 1.30
+.\" màj 18/07/2003 LDP 1.56
+.TH TRUNCATE 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+truncate, ftruncate \- Tronquer un fichier à une longueur donnée.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.br
+.B #include <sys/types.h>
+.sp
+.BI "int truncate(const char *" path ", off_t " length );
+.br
+.BI "int ftruncate(int " fd ", off_t " length );
+.SH DESCRIPTION
+Les appels
+.B truncate
+et
+.B ftruncate
+tronquent le fichier référencé par
+.I path
+ou par le descripteur
+.I fd
+à une longueur maximale de
+.I length
+octets.
+.LP
+Si le fichier était plus long, les données supplémentaires sont perdues.
+Si le fichier était plus court, il est étendu, et
+la portion supplémentaire est remplie de zéros.
+.LP
+Le pointeur de position n'est pas modifié.
+.LP
+Si la taille est modifiée, les champs ctime et mtime du fichier sont
+mis à jour, et les bits Set-UID et Set-GID sont effacés.
+.LP
+Avec
+.BR ftruncate ,
+le fichier doit être ouvert en écriture\ ; avec
+.BT truncate ,
+il doit être accessible en écriture.
+.SH "VALEUR RENVOYÉE"
+.BR truncate ,
+et
+.BR ftruncate
+renvoient 0 s'ils réussissent et \-1 s'ils échouent, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+Pour
+.BR truncate :
+.TP
+.B EACCES
+Le fichier n'est pas accessible en écriture, ou un élément du chemin
+d'accès ne permet pas le parcours.
+.TP
+.B EFAULT
+.I Path
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B EFBIG
+L'argument
+.I length
+dépasse la taille maximum d'un fichier.
+.TP
+.B EINTR
+Un signal a été capturé durant l'exécution.
+.TP
+.B EINVAL
+L'argument
+.I length
+est négatif ou plus grand que la taille maximale d'un fichier.
+.TP
+.B EIO
+Une erreur d'entrée/sortie bas niveau s'est produite.
+.TP
+.B EISDIR
+Le fichier est en réalité un répertoire
+.TP
+.B ELOOP
+Le chemin contient une référence circulaire (à travers un lien symbolique)
+.TP
+.B ENAMETOOLONG
+Un composant du chemin dépasse 255 caractères ou
+le chemin complet dépasse 1023 caractères.
+.TP
+.B ENOENT
+Le fichier n'existe pas
+.TP
+.B ENOTDIR
+un composant du chemin d'accès n'est pas un répertoire
+.TP
+.B EROFS
+Le fichier se trouve sur un système de fichiers en lecture seule.
+.TP
+.B ETXTBSY
+Le fichier est un programme actuellement en cours d'exécution.
+.PP
+Pour
+.BR ftruncate
+les mêmes erreurs sont possibles, sauf qu'au lieu des problèmes avec
+.IR path ,
+on peut en avoir avec
+.IR fd " :"
+.TP
+.B EBADF
+L'argument
+.I fd
+n'est pas un descripteur valide.
+.TP
+.BR EBADF " ou " EINVAL
+L'argument
+.I fd
+n'est pas ouvert en écriture.
+.TP
+.B EINVAL
+L'argument
+.I fd
+n'est pas un descripteur de fichier normal.
+.SH CONFORMITÉ
+BSD 4.4, SVr4 (cette fonction est apparue dans BSD 4.2).
+POSIX 1003.1-1996 décrit
+.BR ftruncate .
+POSIX 1003.1-2001 décrit aussi
+.IR truncate ,
+en tant qu'extension XSI.
+.LP
+SVr4 mentionne des conditions d'erreurs supplémentaires pour
+.BR truncate
+EMFILE, EMULTIHOP, ENFILE, ENOLINK. La version SVr4 de
+.BR ftruncate
+dispose de l'erreur supplémentaire EAGAIN.
+.SH NOTES
+La description ci-dessus est celle des systèmes compatibles XSI.
+Pour les systèmes non compatiables,le standard POSIX autorise
+deux comportements pour
+.B ftruncate
+quand
+.I length
+dépasse la longueur du fichier
+(notez que
+.B truncate
+n'est pas du tout spécifié dans un tel environnement)\ :
+soit renvoyer une erreur, soit étendre le fichier.
+(La plupart des Unix suivent le comportement XSI).
+.SH "VOIR AUSSI"
+.BR open (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

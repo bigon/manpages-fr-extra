@@ -1,0 +1,309 @@
+.\" Copyright 1993 Giorgio Ciucci (giorgio@crcc.it)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 18/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\"
+.TH IPC 5 "25 juillet 2003" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+ipc \- Mécanisme Système V de communication entre processus.
+.SH SYNOPSIS
+.nf
+.B
+# include <sys/types.h>
+.B
+# include <sys/ipc.h>
+.B
+# include <sys/msg.h>
+.B
+# include <sys/sem.h>
+.B
+# include <sys/shm.h>
+.SH DESCRIPTION
+Cette page de manuel documente l'implémentation sous Linux des
+mécanismes Système V de communication entre processus\ :
+les files de messages, les ensembles de sémaphores, et les
+segments de mémoire partagée.
+Par la suite, le mot
+.B ressource
+se rapportera à l'un de ces mécanismes.
+.SS Autorisations d'accès aux ressources.
+Pour chaque ressource, le système utilise une structure commune, de type
+.BR "struct ipc_perm" ,
+pour enregistrer les informations permettant de déterminer les autorisations
+concernant les opérations ipc.
+la structure
+.B ipc_perm
+définie dans le fichier
+.I <sys/ipc.h>
+inclut les membres suivants\ :
+.sp
+.nf
+.sp
+    ushort cuid;   /* UID du créateur     */
+    ushort cgid;   /* GID du créateur     */
+    ushort uid;    /* UID du propriétaire */
+    ushort gid;    /* GID du propriétaire */
+    ushort mode;   /* Autorisations r/w   */
+.fi
+.PP
+Le membre
+.B mode
+de la structure
+.B ipc_perm
+définit, sur ses 9 bits de poids faibles, les permissions d'accès à la ressource,
+pour un processus effectuant un appel système ipc.
+Les permissions sont interprétées ainsi (nombres en octal)\ :
+.sp
+.nf
+	0400	Lecture par le propriétaire.
+	0200	Écriture par le propriétaire.
+.sp .5
+	0040	Lecture par le groupe.
+	0020	Écriture par le groupe.
+.sp .5
+	0004	Lecture par les autres.
+	0002	Écriture par les autres.
+.fi
+.PP
+Les bits 0100, 0010 et 0001 (bits exécution) ne sont pas utilisés par ces appels
+systèmes.
+De plus,
+"écriture"
+a la signification
+"modification"
+pour un ensemble de sémaphores.
+.PP
+Le même fichier d'en-tête définit également les constantes symboliques suivantes\ :
+.TP 14
+.B IPC_CREAT
+Créer une entrée si la clé n'existe pas.
+.TP
+.B IPC_EXCL
+Échouer si la clé existe.
+.TP
+.B IPC_NOWAIT
+Retourner une erreur éventuellement, mais ne pas attendre.
+.TP
+.B IPC_PRIVATE
+Clé privée.
+.TP
+.B IPC_RMID
+Supprimer la ressource.
+.TP
+.B IPC_SET
+Positionner une option concernant la ressource.
+.TP
+.B IPC_STAT
+Obtenir les options concernant la ressource.
+.PP
+Notez que
+.B IPC_PRIVATE
+est du type
+.B key_t
+alors que les autres constantes symboliques sont des options que l'on regroupe
+avec un OU binaire (|) dans une variable de type
+.BR int .
+.SS Files de messages.
+Une file de message est définie par un entier positif unique
+.RI "(son " msqid )
+et dispose d'une structure associée de type
+.BR "struct msqid_ds" ,
+définie dans
+.IR <sys/msg.h> ,
+qui contient les membres suivants\ :
+.sp
+.nf
+  struct ipc_perm msg_perm;
+  ushort msg_qnum;   /* nb messages dans la file    */
+  ushort msg_qbytes; /* octets maxi dans la file    */
+  ushort msg_lspid;  /* PID dernier appel msgsnd    */
+  ushort msg_lrpid;  /* PID dernier appel msgrcv    */
+  time_t msg_stime;  /* heure dernier appel msgsnd  */
+  time_t msg_rtime;  /* heure dernier appel msgrcv  */
+  time_t msg_ctime;  /* heure dernière modification */
+.fi
+.TP 11
+.B msg_perm
+est la structure
+.B ipc_perm
+qui indique les permissions d'accès sur la file de messages.
+.TP
+.B msg_qnum
+est le nombre de messages actuellement dans la file.
+.TP
+.B msg_qbytes
+Nombre maximal d'octets pour le contenu d'un message de la file.
+.TP
+.B msg_lspid
+PID du processus qui a effectué le dernier appel système
+.BR msgsnd .
+.TP
+.B msg_lrpid
+PID du processus qui a effectué le dernier appel système
+.BR msgrcv .
+.TP
+.B msg_stime
+heure du dernier appel système
+.BR msgsnd .
+.TP
+.B msg_rtime
+heure du dernier appel système
+.BR  msgcv .
+.TP
+.B msg_ctime
+heure du dernier appel système qui a modifié un membre de la structure
+.BR msqid_ds .
+.SS Jeux de sémaphores.
+Un ensemble de sémaphores est défini par un entier positif unique
+.RI "(son " semid )
+et dispose d'une structure associée de type
+.BR "struct semid_ds" ,
+définie dans
+.IR <sys/sem.h> ,
+qui contient les membres suivants\ :
+.sp
+.nf
+  struct ipc_perm sem_perm;
+  time_t sem_otime;  /* heure dernière opération    */
+  time_t sem_ctime;  /* heure dernière modification */
+  ushort sem_nsems;  /* nb sémaphores dans le jeu   */
+.fi
+.TP 11
+.B sem_perm
+est la structure
+.B ipc_perm
+qui indique les permissions d'accès sur l'ensemble de sémaphores.
+.TP
+.B sem_otime
+Heure du dernier appel système
+.BR semop .
+.TP
+.B sem_ctime
+Heure du dernier appel système
+.BR semctl ,
+qui a modifié un membre de la structure ci-dessus ou l'état d'un
+sémaphore de l'ensemble.
+.TP
+.B sem_nsems
+Nombre de sémaphores dans l'ensemble.
+Chaque sémaphore est référencé par un nombre positif ou nul dans l'intervalle
+.B 0
+a
+.BR sem_nsems\-1 .
+.PP
+Un sémaphore est une structure
+.B "struct sem"
+contenant les membres suivants\ :
+.sp
+.nf
+ushort semval;  /* Valeur du sémaphore                  */
+ushort sempid;  /* PID dernière opération               */
+ushort semncnt; /* Nb proc. en attente incrément semval */
+ushort semzcnt; /* Nb proc. en attente de semval = 0    */
+.fi
+.TP 11
+.B semval
+Valeur du sémaphore\ : entier positif ou nul.
+.TP
+.B sempid
+PID du dernier processus ayant effectué une opération sur
+le sémaphore.
+.TP
+.B semncnt
+Nombre de processus bloqués en attente de l'incrémentation de
+.BR semval .
+.TP
+.B semznt
+Nombre de processus bloqués en attente de la nullité de
+.BR semval .
+.SS Segments de mémoire partagée.
+Un segment de mémoire partagée est défini par un entier positif unique
+.RI "(son " shmid )
+et dispose d'une structure associée de type
+.BR "struct shmid_ds" ,
+définie dans
+.IR <sys/shm.h> ,
+qui contient les membres suivants\ :
+.sp
+.nf
+    struct ipc_perm shm_perm;
+    int    shm_segsz;  /* taille segment              */
+    ushort shm_cpid;   /* PID créateur segment        */
+    ushort shm_lpid;   /* PID dernière opération      */
+    short  shm_nattch; /* Nombre d'attachements       */
+    time_t shm_atime;  /* Heure dernier attachement   */
+    time_t shm_dtime;  /* Heure dernier détachement   */
+    time_t shm_ctime;  /* Heure dernière modification */
+.fi
+.TP 11
+.B shm_perm
+est la structure
+.B ipc_perm
+qui indique les permissions d'accès sur le segment de mémoire partagée.
+.TP
+.B shm_segsz
+Taille en octets du segment.
+.TP
+.B shm_cpid
+PID du processus ayant créé le segment.
+.TP
+.B shm_lpid
+PID du processus ayant effectué le dernier appel système
+.B shmat
+ou
+.BR shmdt .
+.TP
+.B shm_nattch
+Nombre d'attachements en cours pour ce segment.
+.TP
+.B shm_atime
+Heure du dernier appel système
+.BR shmat .
+.TP
+.B shm_dtime
+Heure du dernier appel système
+.BR shmdt .
+.TP
+.B shm_ctime
+Heure du dernier appel système
+.B shmctl
+qui a modifié la structure
+.BR shmid_ds .
+.SH "VOIR AUSSI"
+.BR ftok (3),
+.BR msgctl (2),
+.BR msgget (2),
+.BR msgrcv (2),
+.BR msgsnd (2),
+.BR semctl (2),
+.BR semget (2),
+.BR semop (2),
+.BR shmat (2),
+.BR shmctl (2),
+.BR shmget (2),
+.B shmdt (2).
+
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.
+

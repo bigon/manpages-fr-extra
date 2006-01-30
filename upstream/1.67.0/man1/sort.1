@@ -1,0 +1,242 @@
+.\" Traduction 14/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH SORT 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+sort \- Trier les lignes d'un fichier texte.
+.SH SYNOPSIS
+.B sort
+[\-cmus] [\-t séparateur] [\-o fichier_de_sortie] [\-T répertoire_temporaire]
+[\-bdfiMnr] [+POS1 [\-POS2]] [\-k POS1[,POS2]] [fichier...]
+.br
+.B sort
+{\-\-help,\-\-version}
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR sort .
+
+.B sort
+trie, regroupe ou compare toutes les lignes des fichiers indiqués.
+Si aucun fichier n'est fourni, ou si le nom `\-' est mentionné,
+la lecture se fera depuis l'entrée standard.
+
+Par défaut,
+.B sort
+écrit ses résultats sur la sortie standard.
+.PP
+.B sort
+peut opérer suivant trois modes : tri (par défaut), regroupement, et
+vérification de l'ordre. Les options suivantes modifient le mode
+opératoire :
+.TP
+.I \-c
+([NDT] c = check - vérifier)
+Vérifie si les fichiers fournis sont déjà triés : s'ils ne le sont
+pas, afficher un message d'erreur, et terminer avec un code de
+retour valant 1.
+.TP
+.I \-m
+([NDT] m = merge - melanger)
+Regrouper les fichiers indiqués en les triant. Chaque fichier d'entrée
+doit déjà être trié individuellement. Il est toujours possible de
+trier plutôt que de réunir, le regroupement est fourni parce qu'il est
+plus rapide dans les cas où il fonctionne.
+.PP
+La comparaison de deux lignes se fait ainsi :
+Si un champ clé a été indiqué, 
+.B sort
+compare chaque paire de champs, dans l'ordre précisé sur la ligne
+de commande, jusqu'à ce qu'une différence soit trouvée, ou qu'il
+ne reste plus de champs.
+.PP 
+Si l'une des options globales
+.I Mbdfinr
+est utilisée, et si aucun champ clé n'est indiqué,
+.B sort
+compare les lignes entières en fonction des options globales.
+.PP 
+Finalement, si toutes les clés sont égales, en dernier ressort
+.B sort
+compare les lignes octet par octet suivant l'ordre défini sur
+la machine. Cette dernière comparaison accepte l'option globale
+.IR -r .
+L'option
+.I \-s
+(stable) inhibe cette comparaison en dernier recours afin que les
+lignes considérées comme égales restent à leurs positions relatives.
+Si aucun champ clé, et aucune option ne sont fournis, 
+.I \-s
+est sans effet.
+.PP
+La version GNU de
+.B sort
+n'a pas de limitation concernant la longueur des lignes d'entrée ou les
+caractères autorisés. De plus, si le dernier octet d'une ligne d'entrée
+n'est pas un saut de ligne (NewLine), la version GNU de
+.B sort
+en ajoute un automatiquement.
+.PP
+Si la variable d'environnement
+.B TMPDIR
+est configurée,
+.B sort
+utilise ce répertoire pour stocker les fichiers temporaires à la place
+du répertoire par défaut /tmp. L'option
+.I "\-T répertoire_temporaire"
+permet également de sélectionner un répertoire pour placer les fichiers
+temporaires, elle a priorité sur la variable d'environnement.
+.PP
+Les options suivantes affectent l'ordre des lignes de sortie. Elles
+peuvent être mentionnées globalement, ou appliquées à un champ clé
+spécifique. Si aucun champ clé n'est indiqué, les options globales 
+s'appliquent aux comparaisons des lignes entières, sinon elles sont
+transmises aux champs clés n'ayant pas d'option spécifique.
+.TP
+.I \-b
+Ignorer les blancs en début de ligne pendant la recherche de la clé
+de tri sur chaque ligne.
+.TP
+.I \-d
+Trier dans l'ordre des répertoires téléphoniques : ignorer pour le
+tri tous les caractères autres que les lettres, les chiffres et les blancs.
+.TP
+.I \-f
+Considérer les minuscules comme leur équivalent en majuscule pendant
+le tri. Ainsi `b' est trié de manière équivalente a `B'. ([NDT] Bien
+entendu, cela ne fonctionne pas avec les minuscules accentuées...)
+.TP
+.I \-i
+Ignorer pour le tri les caractères en dehors de l'intervalle ASCII
+octal 040-0176 (bornes comprises).
+.TP
+.I \-M
+Une chaîne initiale, consistant en un nombre quelconque de blancs, suivi
+de trois lettres correspondant à une abréviation de mois est convertie
+en majuscules avant d'être comparée dans l'ordre `JAN' < `FEB' < ... < `DEC.'
+Les noms invalides sont considérés comme inférieurs aux noms valides.
+([NDT] Qu'en-est-il vis-à-vis de la localisation ?)
+.TP
+.I \-n
+Comparer suivant la valeur arithmétique d'une chaîne numérique initiale
+composée d'espaces éventuelles, suivies optionnellement du signe \-, et
+de zéro ou plusieurs chiffres, éventuellement suivis d'un point décimal
+et de zéro ou plusieurs chiffres.
+.TP
+.I \-r
+Inverser l'ordre de tri, afin que les lignes avec la plus grande
+valeur de clé apparaissent en premier.
+.PP
+Les autres options sont :
+.TP
+.I "\-o fichier_de_sortie"
+Écrire dans le
+.I fichier_de_sortie
+plutôt que sur la sortie standard.
+Si
+.I fichier_de_sortie
+est également un fichier d'entrée,
+.B sort
+copie les données dans un fichier temporaire avant le tri pour pouvoir
+écrire correctement ses résultats dans le
+.IR fichier_de_sortie .
+.TP
+.I "\-t caractère_séparateur"
+Utiliser le
+.I caractère_séparateur
+afin de distinguer les champs pour  rechercher la clé de tri sur chaque
+ligne. Par défaut le séparateur de champs est une chaîne blanche entre
+chaînes non-blanches. Ceci signifie qu'avec l'entrée ` foo bar',
+.B sort
+distingue deux champs ` foo' et ` bar'. Le séparateur n'appartient
+ni au champ précédent, ni au champ suivant.
+.TP
+.I \-u
+Pour l'action par défaut, ou pour l'action
+.IR \-m ,
+n'afficher que la première séquence de lignes considérées comme
+égales. Pour l'action
+.IR \-c ,
+vérifier qu'aucune lignes consécutives ne soient égales.
+.TP
+.I "+POS1 [\-POS2]"
+Indiquer un champ à utiliser comme clé de tri pour chaque ligne. Le
+champ consiste en une portion de de ligne débutant à la position POS1,
+et s'étendant jusqu'à POS2 non-inclue (ou jusqu'à la fin de la ligne
+si POS2 n'est pas mentionnée). Les positions des champs et des caractères
+sont numérotées à partir
+de 0.
+.TP
+.I "\-k POS1[,POS2]"
+Une autre syntaxe possible pour indiquer les clés de tri.
+Les positions des champs et des caractères sont numérotées à partir de 1.
+.PP
+Une position est de la forme \fIf\fP.\fIc\fP, où \fIf\fP est le numéro
+du champ à utiliser, et \fIc\fP le numéro du premier caractère depuis le
+début du champ (avec \fI+pos\fP) ou depuis la fin du champ précédent
+(avec \fI\-pos\fP).  La partie .\fIc\fP de la position peut être
+omise, auquel cas le caractère considéré est le premier du champ.
+Si l'option
+.I \-b
+est choisie, la partie .\fIc\fP d'une spécification de champ est comptée
+à partir du premier caractère non-blanc du champ (pour \fI+pos\fP)
+ou à partir du premier caractère non-blanc suivant le champ précédent
+(pour \fI\-pos\fP).
+.PP
+Un argument \fI+pos\fP ou \fI-pos\fP peut également avoir un préfixe
+constitué d'une des lettres d'option
+.I Mbdfinr
+auquel cas les options globales ne s'appliquent pas à ce champ.
+l'option
+.I \-b
+peut être attachée indépendamment aux parties \fI+pos\fP ou \fI\-pos\fP
+d'une spécification de champ. Si elle est héritée d'une option globale,
+elle s'appliquera aux deux parties.
+Si une option
+.I \-n
+ou
+.I \-M
+est utilisée, ceci implique que l'option
+.I \-b
+s'applique aux deux spécifications \fI+pos\fP et \fI\-pos\fP.
+Les clés peuvent s'étendre sur plusieurs champs.
+.PP
+De plus quand la version GNU de
+.B sort
+est invoquée avec un seul argument, les options suivantes sont reconnues :
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+.SH COMPATIBILITÉ
+.PP
+Les implémentations historiques (BSD et System V) de
+.B sort
+diffèrent quant à leur interprétation de certaines options, notamment 
+.IR \-b ,
+.IR \-f ,
+et
+.IR \-n .
+La version GNU suit le comportement POSIX, qui est généralement
+(mais pas toujours) celui de la version System V.
+Suivant POSIX
+.I \-n
+n'implique plus obligatoirement
+.IR \-b .
+Pour assurer l'homogénéité,
+.I \-M
+a été modifiée de la même manière.
+Dans certains cas, assez obscurs, ceci peut affecter la signification
+des positions de caractères dans les spécifications de champs.
+Si ceci vous perturbe, vous pouvez ajouter explicitement un
+.IR \-b .
+.SH BOGUES
+Les différentes significations des numéros de champs en fonction de
+l'utilisation ou non de l'option
+.I -k
+induit une confusion certaine.
+C'est la faute à POSIX !
+
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

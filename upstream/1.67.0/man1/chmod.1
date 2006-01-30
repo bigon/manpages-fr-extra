@@ -1,0 +1,178 @@
+.\" Traduction 29/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" màj 15/12/1998 - LDP man-pages 1.22
+.\" màj 05/06/1999 - LDP man-pages 1.23
+.\" màj 30/05/2001 - LDP man-pages 1.36
+.\" MàJ 21/07/2003 LDP-1.56
+.TH CHMOD 1 "21 juillet 2003" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+chmod \- Modifier les autorisations d'accès à un fichier.
+.SH SYNOPSIS
+.BI "chmod [" options "] " "mode fichier..."
+.sp
+Options POSIX :
+.B "[\-R] [\-\-]"
+.sp
+Mode GNU :
+.B [\-\-reference= ficref ]
+.sp
+Options GNU (forme courte):
+.B [\-cfvR]
+.B "[\-\-help] [\-\-version] [\-\-]"
+.SH DESCRIPTION
+.B chmod
+modifie les permissions d'accès de chacun des fichiers indiqués,
+en suivant l'indication de
+.IR mode ,
+qui peut être une représentation symbolique du changement à effectuer,
+ou un nombre octal représentant le motif binaire des nouvelles 
+autorisations.
+.PP
+Le format symbolique des changements de mode est
+`[ugoa...][[+-=][rwxXstugo...]...][,...]'.  
+
+Plusieurs opérations symboliques peuvent être séparées par des virgules.
+.PP
+Une combinaison des lettres `ugoa' contrôle la catégorie d'accès à modifier.
+Il peut s'agir de l'utilisateur possédant le fichier (u), 
+des autres utilisateurs du même groupe que le fichier (g),
+des utilisateurs n'appartenant pas au groupe du fichier (o),
+ou de tous les utilisateurs (a).
+Si aucune catégorie n'est indiquée, l'ensemble (a) est
+pris par défaut, mais les bits correspondant à des bits à 1 du
+umask ne sont pas affectés.
+.PP
+L'opérateur `+' autorise un accès, l'opérateur `-' interdit un
+accès, et l'opérateur `=' autorise exclusivement
+l'accès indiqué.
+
+.PP
+Les lettres `rwxXstugo' sélectionne le type d'autorisation concernée :
+.TP
+r
+lecture,
+.TP
+w
+écriture,
+.TP
+x
+exécution (ou parcours pour les répertoires),
+.TP
+X
+exécution, uniquement si le fichier est un répertoire, ou s'il a déjà une
+autorisation d'exécution pour une des catégories d'utilisateur (s'il s'agit
+donc bien d'un fichier exécutable),
+.TP
+s
+utiliser l'ID du propriétaire ou du groupe propriétaire du fichier
+lors de l'exécution,
+.TP
+t
+(sticky-bit)
+conserver le code du programme sur le périphérique de swap après
+exécution. Non documenté par POSIX, il s'agit du comportement original, mais
+de nos jours il sert uniquement pour les répertoires. Il indique que seuls
+le propriétaire du répertoire, et le propriétaire d'un fichier qui s'y
+trouve ont le droit de supprimer ce fichier. C'est typiquement utilisé
+pour les répertoires comme /tmp ayant une autorisation d'écriture générale.
+.TP
+u
+les permissions dont dispose actuellement le propriétaire du fichier,
+.TP
+g
+les permissions dont disposent actuellement les autres membres du
+groupe propriétaire du fichier,
+.TP
+o
+les permissions dont disposent tous les autres utilisateurs.
+.PP
+Une valeur numérique pour le \fImode\fP est constituée de 1 à 4 chiffres
+en octal (0 a 7), calculés en additionnant les bits de valeurs 4, 2,
+et 1. Un bit non mentionné étant considéré comme nul. Le premier chiffre
+correspond aux attributs Set-UID (4), Set-GID (2), et conservation du
+code en mémoire [`sticky bit'] (1).
+Le second chiffre correspond aux autorisations
+de lecture (4), écriture (2) et exécution pour l'utilisateur propriétaire
+du fichier. Les troisième et quatrième chiffres correspondent respectivement
+aux autorisations d'accès pour les membres du groupe du fichier, et pour
+les autres utilisateurs.
+.PP
+.B chmod
+ne modifie jamais les autorisations d'accès des liens symboliques,
+l'appel système
+.BR chmod (2)
+ne peut pas les modifier. Ceci n'est pas un problème puisque ces
+autorisations ne sont jamais prises en compte. En fait,
+.B chmod
+modifie les autorisations d'accès du fichier cible du lien symbolique
+à condition que le lien soit explicitement mentionné sur
+la ligne de commande.
+En revanche,
+.B chmod
+ignore purement et simplement les liens symboliques qu'il rencontre
+lors des descentes récursives de répertoires.
+.SH OPTIONS POSIX
+.TP
+.B "\-R"
+Modifier récursivement les autorisations des répertoires et de leurs contenus.
+.TP
+.B "\-\-"
+Indique la fin explicite de la liste des options.
+.SH "DESCRIPTION GNU SUPPLÉMENTAIRE"
+Une extension GNU (ajoutée avec les outils fileutils 4.0) permet d'utiliser
+.BI "\-\-reference=" "ficref"
+comme description de mode : le mode sera le même que celui du fichier
+.IR ficref .
+.SH OPTIONS GNU
+.TP
+.B "\-c, \-\-changes"
+Ne décrire que les fichiers dont les permissions ont réellement changé.
+.TP
+.B "\-f, \-\-silent, \-\-quiet"
+Ne pas afficher de messages d'erreurs concernant les fichiers dont les
+autorisations n'ont pas pu être modifiées.
+.TP
+.B "\-v, \-\-verbose"
+Décrire les modifications apportées.
+.TP
+.B "\-R, \-\-recursive"
+Modifier récursivement les autorisations des répertoires et de leurs contenus.
+.SH "OPTIONS GNU STANDARDS"
+.TP
+.B "\-\-help"
+Afficher un message d'aide, et terminer normalement.
+.TP
+.B "\-\-version"
+Afficher le numéro de version et terminer normalement.
+.SH ENVIRONNEMENT
+LANG, LC_ALL, LC_CTYPE et LC_MESSAGES ont leurs significations habituelles.
+Pour les systèmes conformes XSI : NLSPATH a sa signification habituelle.
+.SH "CONFORMITÉ"
+POSIX 1003.2 ne documente que l'option -R. Toutes les autres options peuvent
+ne pas être portables.
+
+POSIX ne décrit pas l'utilisation du bit `t' (sticky). Le standard ne
+précise pas non plus si
+.B chmod
+doit préserver la cohérence en effaçant ou en refusant de positionner les
+bits Set-UID ou Set-GID si tous les bits d'exécution sont effacés.
+.SH "MODES NON STANDARDS"
+Nous avons décrit plus haut le comportement du bit `t' sur les répertoires.
+Chaque système attache une signification personnel à ce bit. En particulier
+Linux adopte le comportement de System V (void SVID version 3), en utilisant
+le bit Set-GID des fichiers sans autorisation d'exécution pour le groupe
+comme un verrou. Pour plus de détails voyez le fichier
+.IR /usr/src/linux/Documentation/mandatory.txt .
+.SH NOTES
+Cette page décrit la version de
+.B chmod
+que l'on rencontre dans le paquetage fileutils-4.0. D'autres versions
+peuvent varier légèrement.
+.SH "VOIR AUSSI"
+.BR chattr (1),
+.BR chown (1),
+.BR install (1),
+.BR chmod (2),
+.BR stat (2),
+.BR umask (2)
+.SH TRADUCTION
+Christophe Blaess, 1997-2003

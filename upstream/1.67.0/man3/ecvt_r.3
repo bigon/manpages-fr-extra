@@ -1,0 +1,80 @@
+.\" Copyright (C) 2002 Andries Brouwer <aeb@cwi.nl>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" This replaces an earlier man page written by Walter Harms
+.\" <walter.harms@informatik.uni-oldenburg.de>.
+.\"
+.\" MàJ 21/07/2003 LDP-1.56
+.TH ECVT_R 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ecvt_r, fcvt_r, qecvt_r, qfcvt_r \- Convertir un réel en chaîne.
+.SH SYNOPSIS
+.B #include <stdlib.h>
+.sp
+.BI "char *ecvt_r(double " nombre ", int " nb_chiffres ", int *" decpt ,
+.BI "int *" sign ", char *" tampon ", size_t " longueur );
+.sp
+.BI "char *fcvt_r(double " nombre ", int " nb_chiffres ", int *" decpt ,
+.BI "int *" sign ", char *" tampon ", size_t " longueur );
+.sp
+.BI "char *qecvt_r(long double " nombre ", int " nb_chiffres ", int *" decpt ,
+.BI "int *" sign ", char *" tampon ", size_t " longueur );
+.sp
+.BI "char *qfcvt_r(long double " nombre: ", int " nb_chiffres ", int *" decpt ,
+.BI "int *" sign ", char *" tampon ", size_t " longueur );
+.SH DESCRIPTION
+Les fonctions
+.BR ecvt_r ,
+.BR fcvt_r ,
+.BR qecvt_r
+et
+.BR qfcvt_r
+sont identiques à
+.BR ecvt ,
+.BR fcvt ,
+.BR qecvt
+et
+.BR qfcvt ,
+respectivement, sauf qu'elles ne renvoient pas leurs résultats dans
+un tampon statique, mais utilisent à la place le
+.I tampon
+inidiqué dont la
+.IR longueur
+est précisée.
+Voir
+.BR ecvt (3)
+et
+.BR qecvt (3).
+.SH NOTES
+Ces fonctions sont obsolètes. L'utilisation de
+.IR sprintf ()
+est recommandée à leur place.
+.SH "CONFORMITÉ"
+Ce sont des extensions GNU.
+.SH "VOIR AUSSI"
+.BR ecvt (3),
+.BR qecvt (3),
+.BR sprintf (3)
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2002"
+.br
+Christophe Blaess, 2003.

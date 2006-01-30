@@ -1,0 +1,204 @@
+'\" t
+.\" @(#)lilo.8 1.0 950728 aeb
+.\" This page is based on the lilo docs, which carry the following
+.\" COPYING condition:
+.\"
+.\" LILO program code, documentation and auxiliary programs are
+.\" Copyright 1992-1994 Werner Almesberger.
+.\" All rights reserved.
+.\" 
+.\" Redistribution and use in source and binary forms of parts of or the
+.\" whole original or derived work are permitted provided that the
+.\" original work is properly attributed to the author. The name of the
+.\" author may not be used to endorse or promote products derived from
+.\" this software without specific prior written permission. This work
+.\" is provided "as is" and without any express or implied warranties.
+.\"
+.\" Original version, Andries Brouwer (aeb@cwi.nl), 950728
+.\" Added t directive, as Daniel Quinlan asked, 950824
+.\"
+.\" Traduction 17/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.TH LILO 8 "17 octobre 1996" Lilo "Manuel de l'administrateur Linux"
+.SH NOM
+lilo \- Installer le chargeur lilo.
+.SH SYNOPSIS
+Fonction principale :
+.LP
+.B " /sbin/lilo"
+\- Installer le chargeur lilo
+.LP
+Autres utilisations :
+.LP
+.B " /sbin/lilo -q"
+\- Obtenir la carte des noyaux gérés.
+.br
+.B " /sbin/lilo -R"
+\- Positionner les attributs par défaut pour le prochain boot.
+.br
+.B " /sbin/lilo -I"
+\- Rechercher le chemin d'accès au noyau en cours d'utilisation.
+.br
+.B " /sbin/lilo {-u|-U}"
+\- Désinstaller Lilo.
+.SH DESCRIPTION
+.LP
+.B lilo
+installe le chargeur Lilo, qui sera activé au prochain démarrage de
+la machine. Il dispose de nombreuses options.
+.LP
+.TP
+.B \-\^v
+Augmente la quantité de commentaires. Ajouter un ou plusieurs
+\fB-v\fP rendra Lilo de plus en plus volubile.
+.TP
+.B \-\^q
+Affiche la carte des noyaux actuellement gérés, et qui
+sont proposés lors du démarrage de la machine.
+.B lilo
+gère une carte, située par défaut dans le fichier
+.IR "/boot/map" ,
+contenant les noms et les positions des divers noyaux
+à proposer lors du démarrage.
+Cette option liste les noms des systèmes proposés lors
+du boot.
+.TP
+.BI "\-\^m " map\-file
+Utiliser le fichier 
+.I map\-file
+pour stocker la carte plutôt que celui par défaut.
+.TP
+.BI "\-\^C " config\-file
+.B lilo
+lit les instructions à propos des systèmes à gérer dans
+un fichier de configuration, par défaut
+.IR "/etc/lilo.conf" .
+Cette option permet d'indiquer un autre fichier de configuration.
+.TP
+.BI "\-\^d " délai
+Si vous avez indiqué plusieurs noyaux, en pressant SHIFT durant
+le démarrage de la machine, Lilo vous proposera un choix des
+divers systèmes utilisables.
+Après l'expiration d'un certain délai, le premier noyau
+de la liste est lancé. Cette option permet de configurer
+le 
+.I délai
+désiré (en dixièmes de secondes).
+.TP
+.BI "\-\^D " étiquette
+Utilise le noyau associé à
+.I étiquette
+plutôt que le premier de la liste, en tant que système
+par défaut.
+.TP
+.BI "\-\^r " root\-directory
+Avant toute chose, effectue un \fIchroot\fP vers le répertoire
+indiqué. Cette option sert à réparer la configuration après
+avoir booté depuis une disquette de secours.
+.TP
+.BI "\-\^t "
+Juste un essai. Ne pas modifier vraiment le secteur de boot
+ou le fichier carte.
+A utiliser avec \fB-v\fP pour s'assurer de ce que
+.B lilo
+va faire.
+.TP
+.B "\-\^c"
+Autoriser la compression de la carte. Ceci va permettre de
+grouper les requêtes de lecture sur des secteurs adjacents.
+Cette option accélère le démarrage (surtout sur disquette).
+.TP
+.BI "\-\^f " disk\-tab
+Indique un fichier décrivant les paramètres géométriques
+du disque. Le fichier par défaut est
+.IR /etc/disktab .
+.TP
+.BI "\-\^i " boot\-sector
+Indique un fichier à installer en tant que nouveau secteur
+de boot. Le fichier par défaut est
+.IR /boot/boot.b .
+.TP
+.BI "\-\^l"
+Utilise un adressage linéaire des secteurs, plutôt qu'un adressage
+secteur/tête/cylindre.
+.TP
+.BI "\-\^L"
+Utilise des Adresses de Blocs Logiques 32 bits, plutôt qu'un adressage
+secteur/tête/cylindre, ce qui donne accès aux disques supérieurs à 8.4\ Go
+.TP
+.BI "\-\^P " "{fix|ignore}"
+Corrige (fix) ou ignore les tables de partitions endommagées, c'est
+à dire les tables dont les adresses linéaires et secteur/tête/cylindre
+ne correspondent pas.
+.TP
+.BI "\-\^s " save\-file
+Quand
+.B lilo
+écrase le secteur de boot, il sauvegarde l'ancien contenu dans un
+fichier, par défaut
+.I /boot/boot.NNNN
+ou NNNN dépend du périphérique. Cette option précise un autre fichier
+de sauvegarde du secteur de boot. En l'associant avec l'option
+\fB-u\fP on indique depuis quel fichier restaurer le secteur.
+.TP
+.BI "\-\^S " save\-file
+Normalement
+.B lilo
+n'écrasera pas un fichier de sauvegarde existant. Cette option
+autorise l'écrasement.
+.TP
+.BI "\-\^u " device\-name
+Désinstallation de 
+.BR lilo ,
+en recopiant le fichier de sauvegarde sur le secteur de boot.
+Un horodatage du fichier est vérifié.
+.TP
+.BI "\-\^U " device\-name
+Idem, sans vérification de l'horodatage
+.TP
+.BI "\-\^R " "command line"
+Cette option indique les commandes par défaut lors du prochain
+redémarrage du système. Ensuite Lilo effacera ces commandes, elles
+ne sont utilisées qu'une seule fois.
+Ceci est typiquement utilisé dans les scripts de redémarrage,
+juste avant d'appeler `shutdown \-r'.
+.TP
+.BI "\-\^I " "label"
+L'étiquette associée au noyau en cours d'utilisation est stockée
+après le démarrage dans la variable d'environnement BOOT_IMAGE.
+Cette commande affichera l'étiquette sur stdout.
+.TP
+.B "\-\^V"
+Afficher le numéro de version.
+
+.LP
+Les lignes de commandes ci-dessus correspondent aux mots
+clés du fichier de configuration ainsi :
+.IP
+.TS
+l l.
+-b bootdev	boot=bootdev
+-c	compact
+-d dsec	delay=dsec
+-D label	default=label
+-i bootsector	install=bootsector
+-f file	disktab=file
+-l	linear
+-L	lba32
+-m mapfile	map=mapfile
+-P fix	fix-table
+-P ignore	ignore-table
+-s file	backup=file
+-S file	force-backup=file
+-v	verbose=level
+.TE
+.SH "VOIR AUSSI"
+lilo.conf(5).
+.br
+La distribution de Lilo contient une documentation très complète.
+.SH "AUTEUR"
+Werner Almesberger (almesber@bernina.ethz.ch).
+.br
+John Coffman (johninsd@san.rr.com) (extensions lba32).
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

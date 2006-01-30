@@ -1,0 +1,63 @@
+.\" Written by Eric L. Pederson <eric@winternet.com> for the entertainment
+.\" of the denizens of alt.sysadmin.recovery.
+.\"
+.\" Traduction 02/06/1999 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH BOSSKILL 8 "25 juillet 2003" ASR "Manuel de l'administrateur Linux"
+.SH NOM
+bosskill \- Envoyer un signal éventuellement mortel à votre chef.
+.SH SYNOPSIS
+.B bosskill 
+.I [ \-signal ] <chef>
+.SH DESCRIPTION
+.B bosskill
+envoie le signal TERM (terminer, 15) au
+.I chef
+indiqué.
+On peut indiquer un nom, ou un numéro de signal précédé par «\ -\ »
+en premier argument, pour remplacer le signal TERM. Le chef
+visé doit appartenir à la hiérarchie de l'administrateur-système.
+
+Voici la liste de tous les signaux avec leurs effets, tels qu'ils sont
+décrits dans <signal.h>\ :
+.HP 1.5i
+SIGHUP	1    Reprendre. Oblige le
+.I chef
+à relire les clauses de son contrat et à se rendre compte qu'il ne
+connaît rien à l'administration-système, ni à la vie en général d'ailleurs.
+.HP
+SIGINT	2    Interruption. Protège pendant une heure l'administrateur\-système des interruptions dues au
+.IR chef .
+.HP
+SIGQUIT	3    Quitter. Oblige le chef à démissionner sans explication.
+.HP
+SIGILL	4    Instruction illégale. Le chef craint d'avoir donné un ordre illégal et sa conscience le tourmente.
+.HP
+SIGTRAP	5    Débogage. Affiche l'emplacement exact du chef.
+.HP
+SIGABRT	6    Abandon. Le chef arrête son travail en cours, rentre chez lui et reprendra demain.
+.HP
+SIGKILL	9    Tuer. Au suivant\ !
+.HP
+SIGBUS	10   Erreur de bus. Le chef n'arrive pas à se rendre à son lieu de travail.
+.HP
+SIGSEGV	11   Débordement de segment. Le chef réalise qu'il essaye de faire un travail pour lequel il n'est pas compétent, et il abandonne.
+.HP
+SIGSYS	12   Mauvais argument. Le chef a perdu.
+.HP
+SIGPIPE	13   Fumer la pipe. Le chef inhale quelques bouffées d'une fumée aux reflets verdâtres, et se met à planer.
+.HP
+SIGALRM	14   Alarme. Le chef sursaute et tombe à la renverse. À utiliser quand le chef est en face de son propre chef.
+.HP
+SIGTERM	15   Signal de fin. Le chef est viré.
+
+.SH BOGUES
+L'envoi du signal SIGABRT à un chef qui se trouve déjà chez lui a pour conséquence
+de le voir tourner en rond, désœuvré pendant deux heures environ.
+
+.SH HISTORIQUE
+Écrit par Eric L. Pederson <eric@bofh.org.uk>.
+
+.SH TRADUCTION
+Christophe Blaess, 1999.

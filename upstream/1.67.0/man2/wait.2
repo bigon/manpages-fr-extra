@@ -1,0 +1,265 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" (c) 1993 by Thomas Koenig (ig25@rz.uni-karlsruhe.de)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" License.
+.\"
+.\" Modified Sat Jul 24 13:30:06 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Sun Aug 21 17:42:42 1994 by Rik Faith (faith@cs.unc.edu)
+.\"          (Thanks to koen@win.tue.nl (Koen Holtman))
+.\" Modified Wed May 17 15:54:12 1995 by Rik Faith (faith@cs.unc.edu)
+."           To remove *'s from status in macros (Thanks to Michael Shields).
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a jour 15/04/97
+.\" Mise a jour 19/07/97
+.\" Mise à jour 09/04/99 - LDP-man-pages 1.22
+.\" Mise à jour 30/08/2000 - LDP-man-pages 1.31
+.\" Mise à jour 04/06/2001 - LDP-man-pages 1.36
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.37
+.\" Mise à jour 20/01/2002 - LDP-man-pages-1.47
+.\" Mise à jour 18/07/2003 - LDP-man-pages-1.56
+.TH WAIT 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+wait, waitpid \- Attendre la fin d'un processus.
+.SH SYNOPSIS
+.B #include <sys/types.h>
+.br
+.B #include <sys/wait.h>
+.sp
+.BI "pid_t wait (int * " "status" );
+.br
+.BI "pid_t waitpid (pid_t " pid ", int * " status ", int " options );
+.SH DESCRIPTION
+La fonction
+.B wait
+suspend l'exécution du processus courant jusqu'à ce qu'un enfant
+se termine, ou jusqu'à ce qu'un signal à intercepter arrive.
+Si un processus fils s'est déjà terminé au moment de l'appel
+(il est devenu "zombie"), la fonction revient immédiatement.
+Toutes les ressources utilisées par le fils sont libérées.
+
+La fonction
+.B waitpid
+suspend l'exécution du processus courant jusqu'à ce que le 
+processus fils numéro
+.I pid
+se termine, ou jusqu'à ce qu'un signal à intercepter arrive.
+Si le fils mentionné par
+.I pid
+s'est déjà terminé au moment de l'appel
+(il est devenu "zombie"), la fonction revient immédiatement.
+Toutes les ressources utilisées par le fils sont libérées.
+
+La valeur de
+.I pid
+peut également être l'une des suivantes :
+.IP "< \-1"
+attendre la fin de n'importe quel processus fils
+appartenant à un groupe de processus d'ID 
+.IR pid .
+.IP \-1
+attendre la fin de n'importe quel fils. C'est le même
+comportement que
+.B wait.
+.IP 0
+attendre la fin de n'importe quel processus fils du même groupe
+que l'appelant.
+.IP "> 0"
+attendre la fin du processus numéro
+.IR pid .
+.PP
+La valeur de l'argument option
+.I options
+est un 
+.I OU
+binaire entre les constantes suivantes :
+.TP
+.B WNOHANG
+ne pas bloquer si aucun fils ne s'est terminé.
+.TP
+.B WUNTRACED
+recevoir l'information concernant également les fils bloqués (mais non suivis par
+.BR trace (2))
+si on ne l'a pas encore reçue. L'état des fils suivis est fourni même sans
+cette option
+.PP
+(Pour les options spécifiques à Linux, voir plus bas).
+.PP
+Si
+.I status
+est non
+.BR NULL ,
+.B wait
+et
+.B waitpid
+y stockent l'information sur la terminaison du fils.
+
+Cette information peut être analysée avec les macros suivantes,
+qui réclament en argument le buffer
+.I status
+(un \fBint\fP, et non pas un pointeur sur ce buffer).
+.TP
+.BI WIFEXITED( status )
+non nul si le fils s'est terminé normalement
+.TP
+.BI WEXITSTATUS( status )
+donne le code de retour tel qu'il a été mentionné dans l'appel
+.B exit()
+ou dans le
+.B return
+de la routine
+.B main.
+Cette macro ne peut être évaluée que si 
+.B WIFEXITED
+est non nul.
+.TP
+.BI WIFSIGNALED( status )
+indique que le fils s'est terminé à cause d'un signal non
+intercepté.
+.TP
+.BI WTERMSIG( status )
+donne le numéro du signal qui a causé la fin du fils. Cette
+macro ne peut être évaluée que si
+.B WIFSIGNALED
+est non nul.
+.TP
+.BI WIFSTOPPED( status )
+indique que le fils est actuellement arrêté. Cette macro n'a de
+sens que si l'on a effectué l'appel avec l'option
+.BR WUNTRACED .
+.TP
+.BI WSTOPSIG( status )
+donne le numéro du signal qui a causé l'arrêt du fils. Cette macro
+ne peut être évaluée que si
+.B WIFSTOPPED
+est non nul.
+.LP
+Certaines versions d'Unix (Linux, Solaris, mais pas AIX ou SunOS) définissent
+aussi une macro
+.BI WCOREDUMP( status )
+Pour vérifier si le processus fils a créé un fichier core. N'utilisez ceci
+qu'encadré par #ifdef WCOREDUMP ... #endif.
+.SH "VALEUR RENVOYÉE"
+En cas de réussite, le PID du fils qui s'est terminé est renvoyé,
+en cas d'échec \-1 est renvoyé et
+.I errno
+contient le code d'erreur.
+Si
+.B WNOHANG
+a été employé et qu'aucun fils ne s'est terminé, zéro est renvoyé.
+.SH "ERREURS"
+.TP
+.B ECHILD
+Le processus indiqué par
+.I pid
+n'existe pas, ou n'est pas un fils du processus appelant.
+(Ceci peut arriver pour son propre fils si l'action de SIGCHLD est
+placé sur SIG_IGN, voir également le passage de la section NOTES concernant les threads).
+.TP
+.B EINVAL
+L'argument
+.I options
+est invalide.
+.TP
+.B EINTR
+.B WNOHANG
+n'est pas indiqué, et un signal à intercepter ou
+.B SIGCHLD
+a été reçu.
+.SH NOTES
+Les spécifications Single Unix décrivent un attribut SA_NOCLDWAIT
+(non supportés sous Linux) permettant (lorsqu'il est positionné) aux
+processus fils se terminant de ne pas devenir zombies, comme quand
+l'action pour SIGCHLD est fixée à SIG_IGN. Un appel
+à
+.I wait()
+ou
+.I waitpid()
+bloquera jusqu'à ce qu'un fils se termine, puis échouera avec
+.I errno
+contenant ECHILD.
+.LP
+Le standard POSIX original laissait le comportement avec SIGCHLD à
+SIG_IGN non spécifié.
+Les standards ultérieurs, y compris SUSv2 et POSIX 1003.1-2001 spécifent
+que le comportement décrit ci-dessus est une option XSI.
+Linux ne se conforme pas au second des deux points décrits\ :
+Si un appel
+.BR wait "() ou " waitpid ()
+est fait alors que SIGCHLD est ignoré, alors l'appel se comportera comme
+si SIGCHLD n'était pas ignoré, c'est à dire qu'il bloquera jusqu'à la
+première fin d'un fils et renverra le PID et l'état du fils.
+
+.SH SPÉCIFICITÉS LINUX
+Dans le noyau Linux, un thread ordonnancé par le noyau n'est pas différent
+d'un simple processus. En fait, un thread est juste un processus qui est créé
+à l'aide de la routine - spécifique Linux - 
+.BR clone (2).
+Les routines portables, comme
+.BR pthread_create (3)
+sont implémentées en appelant
+.BR clone (2).
+Avant Linux 2.4, un thread était simplement un cas particulier de processus, et
+en conséquence un thread ne pouvait pas attendre les enfants d'un autre thread,
+même si ce dernier appartenait au même groupe de threads.
+Toutefois, POSIX réclame une telle fonctionnalité, et depuis Linux 2.4
+un thread peut, par défaut, attendre les enfants des autres threads
+du même groupe.
+.LP
+Les 
+.I options
+suivantes sont spécifiques à Linux, et 
+servent pour les enfants créés avec
+.BR clone (2).
+.TP
+.B __WCLONE
+.\" since 0.99pl10
+Attendre uniquement des enfants clones. Sinon, attendre uniquement les
+enfants non-clones (un enfant "clone" est un enfant qui
+n'envoie pas de signal, ou un autre signal que
+.B SIGCHLD
+à son père à sa terminaison).
+Cette option est ignorée si
+.B __WALL
+est aussi indiqué.
+.TP
+.B __WALL
+.\" since patch-2.3.48
+(Depuis Linux 2.4) Attendre tous les enfants, quelques soient leurs
+types (clone ou non-clone).
+.TP
+.B __WNOTHREAD
+.\" since patch-2.4.0-test8
+(Depuis Linux 2.4) Ne pas attendre les enfants des autres threads du même
+groupe de threads. Ceci était le cas par défaut avant Linux 2.4.
+.SH "CONFORMITÉ"
+SVr4, POSIX.1
+.SH "VOIR AUSSI"
+.BR clone (2),
+.BR ptrace (2),
+.BR signal (2),
+.BR wait4 (2),
+.BR pthread_create (3),
+.BR signal (7)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

@@ -1,0 +1,57 @@
+.\" Traduction 14/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH UNEXPAND 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+unexpand \- Convertir les espaces en tabulation.
+.SH SYNOPSIS
+.B unexpand
+[\-tab1[,tab2[,...]]] [\-t tab1[,tab2[,...]]] [\-a]
+[\-\-tabs=tab1[,tab2[,...]]] [\-\-all] [\-\-help] [\-\-version] [fichier...]
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR unexpand .
+
+.B unexpand
+recopie le contenu de chacun des fichiers indiqués sur la sortie standard,
+en remplaçant les chaînes de deux espaces ou plus par autant de tabulations
+que possible, suivies d'autant d'espaces que nécessaire.
+
+Si aucun fichier n'est fourni, ou si le nom `\-' est mentionné, la lecture
+se fera depuis l'entrée standard.
+
+Par défaut
+.B unexpand
+ne convertit que les espaces et les tabulations en début de ligne (ceux qui
+précèdent tous caractères non-blancs).
+Il conserve les caractères BackSpace en sortie, ceux-ci diminuant le nombre
+de colonnes dans le calcul des tabulations.
+
+Par défaut, les taquets de tabulations sont placés toutes les 8 colonnes.
+.SS OPTIONS
+.TP
+.I "\-, \-t, \-\-tabs tab1[,tab2[,...]]"
+Si une seule valeur est indiquée, positionner les taquets de tabulation
+tous les \fItab1\fP espaces (par défaut 8). Sinon, placer les taquets en
+colonnes \fItab1\fP, \fItab2\fP, etc... (numérotée à partir de 0)
+après le dernier taquet, les espaces et les tabulations ne seront
+pas modifiées. Si les taquets sont spécifiés par l'option
+.I \-t
+ou
+.IR \-\-tabs ,
+ils peuvent être séparés par des blancs ou des virgules.
+Cette options implique l'utilisation de l'option
+.IR \-a .
+.TP
+.I "\-a, \-\-all"
+Convertir toutes les chaînes de deux espaces au minimum, et pas seulement
+les chaînes en début de ligne.
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

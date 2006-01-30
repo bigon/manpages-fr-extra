@@ -1,0 +1,134 @@
+.\" Copyright (C) 2002 Andries Brouwer <aeb@cwi.nl>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" This replaces an earlier man page written by Walter Harms
+.\" <walter.harms@informatik.uni-oldenburg.de>.
+.\"
+.\" Traduction Christophe Blaess (ccb@club-internet.fr)
+.\" MàJ 21/07/2003 LDP-1.57
+.TH TTYSLOT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ttyslot \- Trouver l'emplacement du terminal en cours dans un fichier.
+.SH SYNOPSIS
+.sp
+.BR "#include <unistd.h>"       "    /* sur les systèmes BSD */"
+.br
+.BR "#include <stdlib.h>"       "    /* sur les systèmes V   */"
+.sp
+.B "int ttyslot(void);"
+.SH DESCRIPTION
+La fonction
+.BR ttyslot ()
+renvoie la position de l'entrée du terminal en cours dans un fichier.
+.LP
+"Dans quel fichier\ ?" demandez-vouz... Bonne question\ ; voyons un peu d'histoire.
+.SS "HISTOIRE ANCIENNE"
+Il existaut un fichier
+.I /etc/ttys
+dans Unix V6, qui était consulté par
+.BR init (8)
+afin de savoir que faire sur chaque terminal.
+Chaque ligne était composée de trois caractères.
+Le premier était '0' ou '1', le '0' signifiant "ignoré".
+Le second caractère indiquait le terminal\ : '8' signifiant "/dev/tty8".
+Le troisième caractère était un argument pour
+.BR getty (8)
+indiquant la séquence de vitesses à essayer ('-' signifiait "essayer à partir
+de 110 bauds"). Ainsi une ligne typique était "18-".
+Une déconnexion sur une ligne se faisait en changeant le '1' en '0', en 
+envoyant un signal à init, en rechangeant à l'inverse et en renvoyant un signal.
+.LP
+Sous Unix V7  le format a changé\ :  le second caractère devenait
+l'argument pour
+.BR getty (8)
+indiquant la séquence de vitesses à essayer ('0' signifiait "essayer en boucle
+300-1200-150-110 baud" et '4' signifiait "console DECwriter") tandis que
+le reste de la ligne contenait le nom du terminal. Une ligne typique était
+"14console".
+.LP
+Les système ultérieurs utilisèrent une syntaxe plus élaborée.
+Les systèmes type Sys-V employaient
+.I /etc/inittab
+à la place.
+.SS "HISTOIRE ANCIENNE (BIS)"
+D'autre part, il existe un fichier
+.I /etc/utmp
+listant les gens actuellement connectés. Il est géré par
+.BR login (8).
+Il a une taille fixe, et la position appropriée dans le fichier est
+déterminée par
+.BR login (8)
+en utilisant l'appel
+.BR ttyslot ()
+pour trouver le numéro de la ligne dans
+.IR /etc/ttys
+(à partir de 1).
+.SS "SÉMANTIQUE DE TTYSLOT"
+Ainsi, la fonction
+.BR ttyslot ()
+renvoie l'index du terminal de contrôle du processus appelant dans le
+fichier
+.IR /etc/ttys ,
+qui est aussi (en principe) l'index de l'entrée pour l'utilisateur en cours
+dans le fichier
+.IR /etc/utmp .
+BSD utilise encore le fichier
+.IR /etc/ttys ,
+mais pas les système SyS-V, qui ne peuvent donc pas si référer.
+Sur ces systèmes, la documentation dit que
+.BR ttyslot ()
+renvoie l'index de l'utilisateur appelant dans la base de donnée
+de comptabilité des utilisateurs.
+.SH "VALEUR RENVOYÉE"
+Si elle réussit, cette fonction renvoie le numéro d'entrée.
+Si elle échoue (par exemple si aucun des descripteurs 0, 1 ou 2 n'est
+associé avec un terminal trouvé dans la base de données), elle renvoie
+0 sur Unix V6 et V7 les systèmes BSD, mais \-1 sur les autres systèmes V.
+.SH NOTES
+Le fichier utmp se rencontre à divers endroits sur les différents systèmes,
+comme
+.IR /etc/utmp ,
+.IR /var/adm/utmp ,
+.IR /var/run/utmp .
+.LP
+L'implémentation de cette fonction dans la GlibC 2 lit le fichier
+.BR _PATH_TTYS ,
+défini dans
+.I <ttyent.h>
+comme "/etc/ttys". Elle renvoie 0 en cas d'erreur.
+Comme les systèmes Linux n'ont habituellement pas de "/etc/ttys", elle
+renverra toujours 0.
+.LP
+Minix avait aussi
+.IR fttyslot ( fd ).
+.SH HISTORIQUE
+.BR ttyslot ()
+est apparu dans Unix V7.
+.SH "CONFORMITÉ"
+XPG2. Legacy dans SUSv2. Supprimé dans SUSv3.
+SUSv2 demande un \-1 en cas d'erreur.
+.SH "VOIR AUSSI"
+.BR getttyent (3),
+.BR ttyname (3),
+.BR utmp (5)
+.SH TRADUCTION
+Christophe Blaess, 2003.

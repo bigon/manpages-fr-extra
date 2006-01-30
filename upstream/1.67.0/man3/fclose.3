@@ -1,0 +1,111 @@
+.\" Copyright (c) 1990, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" This code is derived from software contributed to Berkeley by
+.\" Chris Torek and the American National Standards Committee X3,
+.\" on Information Processing Systems.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)fclose.3	6.7 (Berkeley) 6/29/91
+.\"
+.\" Converted for Linux, Mon Nov 29 15:19:14 1993, faith@cs.unc.edu
+.\"
+.\" Traduction 23/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" maj 09/04/99 - LDP-man-pages-1.22
+.\" maj 30/08/2000 - LDP-man-pages-1.31
+.\" Mise à jour 04/06/2001 - LDP-man-pages-1.36
+.\" Mise à jour 25/01/2002 - LDP-man-pages-1.47
+.\" MàJ 21/07/2003 LDP-1.56
+.TH FCLOSE 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+fclose \- Fermer un flux.
+.SH SYNOPSIS
+.B #include <stdio.h>
+.sp
+.BI "int fclose (FILE *" stream );
+.SH DESCRIPTION
+La fonction
+.B fclose
+dissocie le flux nommé
+.I stream
+du fichier sous-jacent. Si le flux était utilisé en sortie, toutes les
+données contenues dans le buffer sont d'abord écrites, en utilisant
+.BR fflush (3).
+.SH "VALEUR RENVOYÉE"
+Si la fonction réussit intégralement, elle renvoie 0,
+sinon elle renvoie
+.B EOF
+et
+.I errno
+contient le code d'erreur. Dans tous les cas, tout autre
+accès ultérieur au flux (y compris un autre appel de
+.BR fclose "())"
+conduit à un comportement indéfini.
+.SH ERREURS
+.TP
+.B EBADF
+Le descripteur de fichier sous-jacent au
+.I stream
+n'est pas valide.
+.\"  This error cannot occur unless you are mixing ANSI C stdio operations and
+.\"  low-level file operations on the same stream. If you do get this error,
+.\"  you must have closed the stream's low-level file descriptor using
+.\"  something like close(fileno(fp)).
+.PP
+La fonction
+.B fclose
+peut également échouer et positionner
+.I errno
+avec l'une quelconque des erreurs décrites par
+.BR close (2),
+.BR write (2)
+ou
+.BR fflush (3).
+.SH NOTES
+Remarquez que
+.B fclose
+ne vide que les buffers fournis par la bibliothèque C dans l'espace utilisateur.
+Pour s'assurer que les données sont écrites physiquement sur le disque, il faut
+vider les buffers du noyau à l'aide par exemple de
+.BR sync (2)
+ou
+.BR fsync (2).
+.SH "CONFORMITÉ"
+La fonction
+.B fclose
+est conforme à ANSI X3.159-1989 (``ANSI C'').
+.SH "VOIR AUSSI"
+.BR close (2),
+.BR fcloseall (3),
+.BR fflush (3),
+.BR fopen (3), 
+.BR setbuf (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

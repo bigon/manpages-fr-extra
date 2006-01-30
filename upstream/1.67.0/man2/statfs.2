@@ -1,0 +1,257 @@
+.\" Copyright (C) 2003 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" With contributions from Walter Harms, 2003-08-17
+.\"
+.\" Traduction 13/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/04/1997
+.\" Màj 11/12/1997 LDP-1.18
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 04/06/2001 LDP-1.36
+.\" Màj 06/06/2001 LDP-1.37
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 13/06/2005 LDP-1.59
+.\" Màj 27/06/2005 LDP-1.60
+.\"
+.TH STATFS 2 "22 août 2003" "Linux 2.6.0" "Manuel du programmeur Linux"
+.SH NOM
+statfs, fstatfs \- Obtenir des statistiques sur le système de fichiers.
+.SH SYNOPSIS
+.BR #include <sys/vfs.h>    " "/* or <sys/statfs.h> */"
+.sp
+.BI "int statfs(const char *" path ", struct statfs *" buf );
+.br
+.BI "int fstatfs(int " fd ", struct statfs *" buf );
+.SH DESCRIPTION
+La fonction
+.B statfs
+renvoie des informations à propos d'un système de fichiers monté.
+.I path
+est le nom d'un fichier quelconque dans le système de fichiers.
+.I buf
+est un pointeur sur une structure
+.I statfs
+approximativement définie comme suit\ :
+
+.RS
+.nf
+struct statfs {
+   long    f_type;     /* type de système de fichier        */
+   long    f_bsize;    /* Taille optimale de bloc           */
+   long    f_blocks;   /* Nombre total de blocs             */
+   long    f_bfree;    /* Blocs libres                      */
+   long    f_bavail;   /* Blocs libres pour utilisateurs    */
+   long    f_files;    /* Nombres de noeuds                 */
+   long    f_ffree;    /* Nombre de noeuds libres           */
+   fsid_t  f_fsid;     /* ID du système de fichiers         */
+   long    f_namelen;  /* Longueur maxi des noms de fichier */
+};
+
+Types de systèmes de fichiers\ :
+
+   ADFS_SUPER_MAGIC       0xadf5
+   AFFS_SUPER_MAGIC       0xADFF
+   BEFS_SUPER_MAGIC       0x42465331
+   BFS_MAGIC              0x1BADFACE
+   CIFS_MAGIC_NUMBER      0xFF534D42
+   CODA_SUPER_MAGIC       0x73757245
+   COH_SUPER_MAGIC        0x012FF7B7
+   CRAMFS_MAGIC           0x28cd3d45
+   DEVFS_SUPER_MAGIC      0x1373
+   EFS_SUPER_MAGIC        0x00414A53
+   EXT_SUPER_MAGIC        0x137D
+   EXT2_OLD_SUPER_MAGIC   0xEF51
+   EXT2_SUPER_MAGIC       0xEF53
+   EXT3_SUPER_MAGIC       0xEF53
+   HFS_SUPER_MAGIC        0x4244
+   HPFS_SUPER_MAGIC       0xF995E849
+   HUGETLBFS_MAGIC        0x958458f6
+   ISOFS_SUPER_MAGIC      0x9660
+   JFFS2_SUPER_MAGIC      0x72b6
+   JFS_SUPER_MAGIC        0x3153464a
+   MINIX_SUPER_MAGIC      0x137F  /* Minix original   */
+   MINIX_SUPER_MAGIC2     0x138F  /* Minix 30 caract. */
+   MINIX2_SUPER_MAGIC     0x2468  /* Minix V2         */
+   MINIX2_SUPER_MAGIC2    0x2478  /* Minix V2 30 car. */
+   MSDOS_SUPER_MAGIC      0x4d44
+   NCP_SUPER_MAGIC        0x564c
+   NFS_SUPER_MAGIC        0x6969
+   NTFS_SB_MAGIC          0x5346544e
+   OPENPROM_SUPER_MAGIC   0x9fa1
+   PROC_SUPER_MAGIC       0x9fa0
+   QNX4_SUPER_MAGIC       0x002f
+   REISERFS_SUPER_MAGIC   0x52654973
+   ROMFS_MAGIC            0x7275
+   SMB_SUPER_MAGIC        0x517B
+   SYSV2_SUPER_MAGIC      0x012FF7B6
+   SYSV4_SUPER_MAGIC      0x012FF7B5
+   TMPFS_MAGIC            0x01021994
+   UDF_SUPER_MAGIC        0x15013346
+   UFS_MAGIC              0x00011954
+   USBDEVICE_SUPER_MAGIC  0x9fa2
+   VXFS_SUPER_MAGIC       0xa501FCF5
+   XENIX_SUPER_MAGIC      0x012FF7B4
+   XFS_SUPER_MAGIC        0x58465342
+   _XIAFS_SUPER_MAGIC     0x012FD16D
+.fi
+.RE
+.PP
+Personne ne sait ce que
+.I f_fsid
+est supposé contenir (voir plus loin).
+.PP
+Les champs indéfinis pour un système de fichiers donné sont mis à 0.
+.B fstatfs
+renvoie les mêmes informations concernant un fichier ouvert référencé par
+.IR fd .
+.SH "VALEUR RENVOYÉE"
+.BR statfs
+et
+.BR fstatfs
+renvoient zéro s'ils réussissent.
+En cas d'échec \-1 est renvoyé, et
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EBADF
+(fstatfs)
+.I fd
+n'est pas un descripteur de fichier ouvert valide.
+.TP
+.B EACCES
+(statfs)
+Un élément du chemin d'accès
+.IR path
+ne permet pas le parcours.
+.TP
+.B ELOOP
+(statfs)
+.IR path
+contient une référence circulaire (à travers un lien symbolique).
+.TP
+.B ENAMETOOLONG
+(statfs)
+.I path
+est trop long.
+.TP
+.B ENOENT
+(statfs)
+Le fichier indiqué par
+.I path
+n'existe pas.
+.TP
+.B ENOTDIR
+(statfs)
+Un élément du chemin d'accès
+.I path
+n'est pas un répertoire.
+.TP
+.B EFAULT
+.I buf
+ou
+.I path
+pointent en dehors de l'espace d'adressage accessible.
+.TP
+.B EINTR
+L'appel a été interrompu par un signal.
+.TP
+.B EIO
+Une erreur d'entrée-sortie s'est produite pendant la lecture
+dans le système de fichiers.
+.TP
+.B ENOMEM
+Pas assez de mémoire pour le noyau.
+.TP
+.B ENOSYS
+Le système de fichiers ne supporte pas cet appel.
+.B EOVERFLOW
+Certaines valeurs sont trop grandes pour être représentées dans la structure
+retournée.
+.PP
+.SH CONFORMITÉ
+La routine
+.B statfs
+de Linux a été inspirée par celle de BSD 4.4, mais n'emploie pas
+la même structure.
+.SH "NOTES SUR f_fsid"
+Solaris, Irix et POSIX ont un appel-système
+.BR statvfs (2)
+qui renvoie une
+.B "struct statvfs"
+(définie dans
+.IR "<sys/statvfs.h>" )
+contenant un
+.B "unsigned long"
+.IR f_fsid .
+Linux, SunOS, HPUX, 4.4BSD ont un appel-système
+.I statfs
+qui renvoie une
+.B "struct statfs"
+(définie dans
+.IR "<sys/vfs.h>" )
+contenant un
+.B fsid_t
+.IR f_fsid ,
+où
+.I fsid_t
+est défini comme une
+.BR "struct { int val[2]; }" .
+La même chose vaut pour FreeBSD, sauf que le fichier d'en-tête est
+.IR "<sys/mount.h>" .
+
+L'idée générale est que
+.I f_fsid
+contient quelque chose qui permette que la paire
+.RI ( f_fsid , ino )
+identifie un fichier de manière unique.
+Certains systèmes utilisent (une variation sur) le numéro de périphérique
+combiné au type de système de fichiers.
+Plusieurs systèmes restreignent l'accès au champ
+.I f_fsid
+pour le Super\-user, (et indique zéro pour les utilisateurs normaux), car ce champ
+est utilisé dans la manipulation du système de fichiers lors d'exportation par
+NFS, et sa valeur peut être considérée comme un élément de sécurite.
+.LP
+Sous certains systèmes, le
+.I fsid
+peut être utilisé en second paramètre de
+l'appel-système
+.IR sysfs() .
+.SH NOTES
+Le noyau a les appels système statfs, fstatfs, statfs64, fstatfs64
+pour supporter cet appel de la bibliothèque.
+
+Certains systèmes ont seulement <sys/vfs.h>, d'autres ont aussi
+<sys/statfs.h>, où le premier inclus le dernier. Aussi, il semble qu'inclure
+le premier soit le meilleur choix.
+
+LSB a déprécié les appels bibliothèque
+.I [f]statfs()
+et nous demande d'utiliser
+.I [f]statvfs()
+à la place.
+.SH "VOIR AUSSI"
+.BR stat (2),
+.BR statvfs (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

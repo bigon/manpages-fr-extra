@@ -1,0 +1,227 @@
+.\" Copyright (c) 1990, 1993
+.\"	The Regents of the University of California.  All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"	@(#)mpool.3	8.1 (Berkeley) 6/4/93
+.\"
+.\" Traduction 11/05/1999 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man-pages-1.23
+.\" MàJ 21/07/2003 LDP-1.56
+.TH MPOOL 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.UC 7
+.SH NOM
+mpool, mpool_open, mpool_filter, mpool_new, mpool_get, mpool_put, mpool_sync, mpool_close \- Partage d'ensembles de buffers mémoires.
+.SH SYNOPSIS
+.nf
+.ft B
+#include <db.h>
+#include <mpool.h>
+
+MPOOL *
+mpool_open (DBT *clé, int fd, pgno_t pagesize, pgno_t maxcache);
+
+void
+mpool_filter (MPOOL *mp, void (*pgin)(void *, pgno_t, void *),
+.ti +5
+void (*pgout)(void *, pgno_t, void *), void *pgcookie);
+
+void *
+mpool_new (MPOOL *mp, pgno_t *pgnoaddr);
+
+void *
+mpool_get (MPOOL *mp, pgno_t pgno, u_int flags);
+
+int
+mpool_put (MPOOL *mp, void *pgaddr, u_int flags);
+
+int
+mpool_sync (MPOOL *mp);
+
+int
+mpool_close (MPOOL *mp);
+.ft R
+.fi
+.SH DESCRIPTION
+.IR Mpool
+est l'interface de la bibliothèque fournissant une gestion de fichiers
+par des buffers mémoires découpés en pages.
+Les buffers peuvent être partagés entre les processus.
+.PP
+La fonction
+.I mpool_open
+initialise un ensemble de buffers mémoire.
+L'argument
+.I clé
+est la chaîne d'octets utilisée pour négocier entre plusieurs processus
+désireux de partager des buffers.
+Si les buffers de fichiers sont projetés en mémoire partagée, tous les
+processus utilisant la même clé partageront les buffers.
+Si la
+.I clé
+est NULL, les buffers sont projetés en mémoire privée.
+L'argument
+.I fd
+est un descripteur du fichier sous-jacent qui doit être accessible directement
+en n'importe quel point.
+Si la
+.I clé
+n'est pas NULL et correspond à un fichier déjà projeté, l'argument
+.I fd
+est ignoré.
+.PP
+Le fichier est découpé en pages de la taille
+.I pagesize
+(en octets).
+L'argument
+.I maxcache
+est le nombre maximal de pages du fichier sous-jacent, résidant dans le
+cache à un instant donné.
+Cette valeur ne dépend pas du nombre de processus qui partageront les
+buffers d'un fichier, mais la plus grande valeur de tous les processus
+partageant le fichier sera prise en compte.
+.PP
+La fonction
+.I mpool_filter
+sert à rendre transparent le traitement des pages en entrée et sortie.
+Si la fonction
+.I pgin
+est spéficiée, elle sera appelée à chaque fois qu'un buffer est lu depuis
+le fichier vers la mémoire.
+Si la fonction
+.I pgout
+est spéficiée, elle sera appelée à chaque fois qu'un buffer est écrit
+dans le fichier.
+Ces deux fonctions sont appelées avec le pointeur
+.IR pgcookie ,
+le numéro de page, et un pointeur sur la page lue ou écrite.
+.PP
+La fonction
+.I mpool_new
+prend en argument un pointeur MPOOL et une adresse.
+Si une nouvelle page peut être allouée, elle renvoie un
+pointeur sur cette page, et son numéro est stocké à l'adresse
+.IR pgnoaddr .
+Sinon elle renvoie NULL et remplit
+.IR errno .
+.PP
+La fonction
+.I mpool_get
+prend en argument un pointeur MPOOL et un numéro de page.
+Si la page existe, elle renvoie un pointeur dessus. Sinon elle
+renvoie NULL et remplit
+.IR errno .
+Le paramètre flags n'est pas utilisé actuellement.
+.PP
+La fonction
+.I mpool_put
+débloque la page référencée par
+.IR pgaddr .
+.I Pgaddr
+doit être une adresse que l'on a obtenue précédement avec
+.I mpool_get
+ou
+.IR mpool_new .
+La valeur d'attribut 
+.I flags
+est indiquée avec un
+.I OU
+binaire entre les valeurs suivantes :
+.TP
+MPOOL_DIRTY
+La page a été modifiée est doit être ré-écrite dans le fichier.
+.PP
+.I Mpool_put
+renvoie 0 en cas de succès et -1 si une erreur se produit.
+.PP
+La fonction
+.I mpool_sync
+écrit toutes les pages modifiées associée au pointeur MPOOL dans le
+fichier.
+.I Mpool_sync
+renvoie 0 en cas de succès et -1 si une erreur se produit.
+.PP
+La fonction
+.I mpool_close
+libère toute mémoire allouée pour l'ensemble de buffers mémoire correspondant
+au cookie.
+Les pages modifiées ne sont
+.B pas
+écrites dans le fichier.
+.I Mpool_close
+renvoie 0 en cas de succès et -1 si une erreur se produit.
+.SH ERREURS
+La fonction
+.I mpool_open
+peut échouer et remplir
+.I errno
+avec n'importe quel code d'erreur renvoyé par la routine
+.IR malloc (3).
+.PP
+La fonction
+.I mpool_get
+peut échouer et renvoyer dans
+.I errno
+le code suivant :
+.TP 15
+[EINVAL]
+L'enregistrement demandé n'existe pas.
+.PP
+Les fonctions
+.I mpool_new
+et
+.I mpool_get
+peuvent échouer et remplir 
+.I errno
+avec n'importe quel code d'erreur renvoyé par les routines
+.IR read (2) ,
+.IR write (2) ,
+et
+.IR malloc (3).
+.PP
+La fonction
+.I mpool_sync
+peut échouer et renvoyer dans
+.I errno
+n'importe quel code d'erreur renvoyé par la routine
+.IR write (2).
+.PP
+La fonction
+.I mpool_close
+peut échouer et renvoyer dans
+.I errno
+n'importe quel code d'erreur renvoyé par la routine
+.IR free (3).
+.SH "VOIR AUSSI"
+.IR dbopen (3),
+.IR btree (3),
+.IR hash (3),
+.IR recno (3)
+.SH TRADUCTION
+Christophe Blaess, 1999-2003.

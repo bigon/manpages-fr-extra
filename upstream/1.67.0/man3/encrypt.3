@@ -1,0 +1,147 @@
+.\" Copyright 2000 Nicolás Lichtmaier <nick@debian.org>
+.\" Created 2000-07-22 00:52-0300
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" Traduction 29/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" Màj 04/06/2001 LDP-1.36
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\"
+.TH ENCRYPT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+encrypt, setkey, encrypt_r, setkey_r \- Crypter des messages de 64 bits.
+.SH SYNOPSIS
+.B #define _XOPEN_SOURCE
+.br
+.B #include <unistd.h>
+.sp
+.BI "void encrypt(char " block "[64], int " edflag );
+.sp
+.B #define _XOPEN_SOURCE
+.br
+.B #include <stdlib.h>
+.sp
+.BI "void setkey(const char *" key );
+.sp
+.B #define _GNU_SOURCE
+.br
+.BI "#include <crypt.h>"
+.sp
+.BI "void setkey_r (const char *" key ", struct crypt_data *" data );
+.br
+.BI "void encrypt_r (char *" block ", int " edflag ", struct crypt_data *" data );
+.sp
+Édition des liens avec
+.BR -lcrypt .
+.SH DESCRIPTION
+Ces fonctions cryptent et décryptent des messages de 64 bits. La fonction
+.BR setkey ()
+permet de fournir la clef à utiliser pour
+.BR encrypt ().
+Le paramètre
+.I key
+est une table d'octets, chacun ayant la valeur 0 ou 1. L'octet
+.I key[n]
+où n=8*q-1 est ignoré, ce qui ramène la clef à 56 bits effectifs.
+.PP
+La fonction
+.BR encrypt ()
+modifie le tampon transmis, en le cryptant si le paramètre
+.I edflag
+vaut 0, et en le décryptant s'il vaut 1. Le paramètre
+.I block
+est, comme le paramètre
+.IR key ,
+une représentation de la valeur à encoder sous forme de vecteur de bits.
+Le résultat est renvoyé dans le même vecteur.
+.PP
+Ces fonctions ne sont pas réentrantes, c'est-à-dire que la clef est stockée
+dans une zone de stockage statique. Les fonctions
+.B setkey_r ()
+et
+.B encrypt_r ()
+sont des versions réentrantes. Elles utilisent la structure suivante pour
+contenir la clef\ :
+.RS
+.nf
+struct crypt_data {
+      char keysched[16 * 8];
+      char sb0[32768];
+      char sb1[32768];
+      char sb2[32768];
+      char sb3[32768];
+      char crypt_3_buf[14];
+      char current_salt[2];
+      long int current_saltbits;
+      int  direction, initialized;
+};
+.fi
+.RE
+Avant d'appeler
+.BR setkey_r() ,
+positionnez
+.I data->initialized
+à zéro.
+.SH "VALEUR RENVOYÉES"
+Ces routines ne renvoient pas de valeur.
+.SH ERREURS
+Mettez
+.I errno
+à zéro avant d'appeler les routines ci-dessus. Si elles réussissent, elle
+n'est pas modifiée. Sinon, elle peut valoir\ :
+.TP
+.BR ENOSYS
+La fonction n'est pas disponible. (Par exemple à cause des restrictions
+américaines sur l'exportation de routines cryptographiques...)
+.SH EXEMPLE
+Avec la GlibC 2.2, il faudra lier cet exemple avec la bibliothèque libcrypt.
+Pour servir à quelque chose, les tables key[] et txt[] devraient être
+remplies avec des zones significatives. Notez que l'en-tête <crypt.h> donne
+toujours les prototypes de setkey() et encrypt().
+.sp
+.nf
+#include <crypt.h>
+
+main() {
+  char key[64];      /* bit pattern for key */
+  char txt[64];      /* bit pattern for messages */
+  setkey(key);
+  encrypt(txt, 0);   /* encode */
+  encrypt(txt, 1);   /* decode */
+}
+.fi
+.SH "NOTE"
+Dans la GlibC 2.2, ces fonctions utilisent l'algorithme DES.
+.SH "CONFORMITÉ"
+Les fonctions
+.BR encrypt ()
+et
+.BR setkey ()
+sont conformes SVID, SUSv2, et POSIX 1003.1-2001.
+Les fonctions
+.BR encrypt_r ()
+et
+.BR setkey_r ()
+sont des extensions GNU.
+.SH "VOIR AUSSI"
+.BR cbc_crypt (3)
+.BR crypt (3)
+.BR ecb_crypt (3)
+.BR fcrypt (3)
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

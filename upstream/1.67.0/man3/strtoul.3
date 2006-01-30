@@ -1,0 +1,130 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sun Jul 25 10:54:03 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Fixed typo, aeb , 950823
+.\"
+.\" Traduction 10/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH STRTOUL 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+strtoul, strtoull, strtouq \- Convertir une chaîne en entier long non-signé.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "unsigned long int strtoul (const char *" nptr ", char **" endptr ,
+.BR int " base" )
+.sp
+.BI "unsigned long long int"
+.BI "strtoull(const char *" nptr ", char **" endptr ", int " base );
+.fi
+.SH DESCRIPTION
+La fonction \fBstrtoul()\fP convertit la chaîne \fInptr\fP en un entier
+long en fonction de l'argument \fIbase\fP, qui doit être dans l'intervalle
+2 à 36 (bornes comprises), ou avoir la valeur spéciale 0.
+.PP
+La chaîne peut commencer par un nombre quelconque d'espaces ou de 
+caractères interprétés comme tels par
+.BR isspace (3) .
+Un signe éventuel `+' ou `-' peut suivre.
+Si \fIbase\fP vaut 0 ou 16, la chaîne peut inclure un préfixe
+`0x' et le nombre sera interprété en base 16. Sinon, une \fIbase\fP
+valant zéro est interprétée comme 10 (décimale) sauf si le caractère
+suivant est `0', auquel cas la base est 8 (octale).
+.PP
+Le reste de la chaîne est converti en une valeur entière longue, en
+s'arrêtant au premier caractère qui ne soit pas un chiffre valide.
+Dans les bases supérieures a 10, la lettre `A' (majuscule ou minuscule)
+représente 10, `B' représente 11, et ainsi de suite jusqu'à `Z'
+représentant 35.
+.PP
+Si \fIendptr\fP n'est pas NULL, \fBstrtoul()\fP stocke l'adresse du premier
+caractère invalide dans \fI*endptr\fP.  S'il n'y avait aucun chiffre valide,
+\fBstrtoul()\fP stocke la valeur originale de \fInptr\fP dans
+\fI*endptr\fP.  (Donc, si \fI*nptr\fP n'est pas `\\0' et si \fI**endptr\fP
+vaut `\\0' en retour, la chaîne entière est valide.)
+.PP
+La fonction
+.BR strtoull ()
+travaille comme
+.BR strtoul ()
+mais renvoie une valeur entière "long long" non signée.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBstrtoul()\fP renvoie soit le résultat de la conversion,
+soit, s'il y avait un signe moins, l'inverse du résultat de la conversion
+à moins que la valeur originale provoque un débordement, auquel cas
+\fBstrtoul()\fP renvoie ULONG_MAX et \fIerrno\fP contient le code d'erreur
+ERANGE.
+La même chose est vraie pour
+.BR strtoull ()
+avec ULLONG_MAX à la place de ULONG_MAX.
+.SH "ERREURS"
+.TP
+.B ERANGE
+La chaîne donnée est hors limites. La valeur a été arrondie.
+.TP
+.B EINVAL
+(pas dans C99)
+La
+.I base
+indiquée n'est pas supportée.
+.LP
+L'implémentation peut aussi mettre \fIerrno\fP à \fBEINVAL\fP si aucune
+conversion n'a été réalisée (pas de chiffres trouvés, et renvoyé zéro).
+.SH NOTES
+Dans des localisations autre que "C", d'autres chaînes peuvent être
+acceptées. (Par exemple, un signe séparateur de milliers peut être
+accepté).
+.LP
+BSD a aussi
+.sp
+.in +4n
+.nf
+.BI "u_quad_t"
+.BI "strtouq(const char *" nptr ", char **" endptr ", int " base );
+.sp
+.in -4n
+.fi
+avec une définition exactement analogue. Suivant l'architecture, cela peut
+âtre équivalent à
+.B strtoull()
+ou
+.BR strtoul() .
+.SH "CONFORMITÉ"
+.BR stroul() " :"
+SVID 3, BSD 4.3, ISO 9899 (C99), POSIX.
+.BR strtoull() " :"
+ISO 9899 (C99) et POSIX-2001.
+.SH "VOIR AUSSI"
+.BR atof (3),
+.BR atoi (3),
+.BR atol (3),
+.BR strtod (3),
+.BR strtol (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

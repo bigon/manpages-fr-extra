@@ -1,0 +1,87 @@
+.\" Copyright (C) 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:06:49 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Fri Aug 25 23:17:51 1995 by Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Traduction 09/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\"	mise a jour 25/01/97
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 04/07/2005 LDP-1.61
+.\"
+.TH STRCPY 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+strcpy, strncpy \- Copier une chaîne.
+.SH SYNOPSIS
+.nf
+.B #include <string.h>
+.sp
+.BI "char *strcpy (char *" dest ", const char *" src );
+.sp
+.BI "char *strncpy (char *" dest ", const char *" src ", size_t " n );
+.fi
+.SH DESCRIPTION
+La fonction \fBstrcpy()\fP copie la chaîne pointée par \fIsrc\fP
+(y compris le caractère «\ \e0\ » final) dans la chaîne pointée par
+\fIdest\fP.  Les deux chaînes ne doivent pas se chevaucher. La chaîne
+\fIdest\fP doit être assez grande pour accueillir la copie.
+.PP
+La fonction \fBstrncpy()\fP est identique, sauf que seuls les
+\fIn\fP premiers octets de \fIsrc\fP sont copiés. Ainsi, s'il n'y a pas
+de caractère nul dans les \fIn\fP premiers octets de \fIsrc\fP, la chaîne
+résultante ne disposera de caractère nul final.
+.PP
+Dans le cas où la longueur de
+.I src
+est inférieure à
+.IR n ,
+la fin de
+.I dest
+sera remplie avec des caractères nuls.
+.SH "VALEUR RENVOYÉE"
+Les fonctions \fBstrcpy()\fP et \fBstrncpy()\fP renvoient un pointeur
+sur la chaîne destination \fIdest\fP.
+.SH "BOGUES"
+Si la chaîne destination de \fBstrcpy()\fP n'est pas assez grande
+(c'est à dire si le programmeur est stupide ou paresseux et n'a pas
+verifié la taille avant la copie) tout peut arriver\ !
+Le débordement de chaîne de caractères de longueur fixée est l'une
+des techniques préférées des pirates. Les caractères en excès peuvent
+en effet déborder dans une zone de code ou de pile, et être interprétés
+comme des instructions, qui seront exécutées avec l'UID du programme.
+Il s'agit d'un moyen classique d'obtenir un accès «\ root\ » avec les
+programmes Set-UID système.
+.SH "CONFORMITÉ"
+SVID 3, POSIX, BSD 4.3, ISO 9899
+.SH "VOIR AUSSI"
+.BR bcopy (3),
+.BR memccpy (3),
+.BR memcpy (3),
+.BR memmove (3),
+.BR wcscpy (3),
+.BR wcsncpy (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

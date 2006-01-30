@@ -1,0 +1,43 @@
+.TH PTHREAD_EXIT 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+.SH NOM
+pthread_exit \- termine le thread appelant.
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+
+.BI "void pthread_exit(void *" retval ");"
+
+.SH DESCRIPTION
+.B "pthread_exit"
+termine l'exécution du thread appelant. Tous les gestionnaires de nettoyage
+enregistrés pour le thread courant par
+.BR "pthread_cleanup_push" (3)
+sont exécutés dans l'ordre inverse d'enregistrement.
+Les fonctions de fin pour les données spécifiques au thread sont
+ensuite appelées pour toutes les clés qui ont une valeur non
+.B "NULL"
+associée dans le thread appelant (voir
+.BR "pthread_key_create" (3)).
+Enfin, l'exécution du thread appelant est arrêtée.
+
+L'argument
+.I "retval"
+est la valeur de retour du thread. Il peut être consulté par un autre thread en
+utilisant
+.BR "pthread_join" (3).
+
+.SH "VALEUR RENVOYÉE"
+La fonction
+.B "pthread_exit"
+ne rend jamais la main.
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+.BR "pthread_create" (3),
+.BR "pthread_join" (3).
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+

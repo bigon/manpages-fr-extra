@@ -1,0 +1,94 @@
+.\" Copyright (c) 1996 Free Software Foundation, Inc.
+.\" Ce programme est distribué en accord avec la Licence Publique Générale Gnu.
+.\" Voir le fichier COPYING dans le répertoire des sources du noyau.
+.\" MàJ 30/07/21 modutils-2.4.22
+.TH MODINFO 8 "30 juillet 2003" modutils "Manuel de l'administrateur Linux"
+.SH NOM
+modinfo \- Informations à propos d'un module du noyau.
+.SH SYNOPSIS
+.B modinfo
+[ options ] <module_file>
+.SH DESCRIPTION
+L'utilitaire
+.B modinfo
+examine le fichier objet
+.I module_file
+associé à un module du noyau et affiche les informations qu'il peut y
+recueillir.
+.SS OPTIONS
+.TP
+.BR \-a ", " \-\-author
+Affiche l'auteur du module.
+.TP
+.BR \-d ", " \-\-description
+Affiche une description du module.
+.TP
+.BI \-f format_string ", \-\-format " format_string
+Utilise la chaîne de format spécifiée par l'utilisateur pour extraire
+les valeurs de la section ELF de
+.I module_file
+qui contient l'information sur le module.
+Les remplacements consistent en un signe de pourcentage suivi du nom d'étiquette
+entre accolades.
+Un nom d'étiquette
+.I %{filename}
+est toujours supporté, même si le module n'a pas de section modinfo.
+.I %{kernel_version}
+affiche le numéro de version du noyau pour lequel le module a été compilé.
+.I %{{using_checksums}
+renvoie 1 si le module a des numéros de version sur les symboles et 0 ou
+<none> sinon.
+
+Un nom d'étiquette
+.I %{parm}
+est spécial\ : la chaîne de format est répétée pour chaque paramètre connu du
+module (ce qui peut être zéro fois) et
+.I %{parm}
+est remplacé par la description du paramètre du modules (un paramètre sur
+chaque ligne).
+
+De plus,
+.I %a\fR,
+.I %d\fR,
+.I %l\fR,
+.I %n
+et
+.I %p
+peuvent servir à remplacer
+.I %{author}\fR,
+.I %{description}\fR,
+.I %{filename}\fR,
+.I %{license}
+et
+.I %{parm}\fR,
+respectivement.
+.TP
+.BR \-h ", " \-\-help
+Affiche un court message d'aide.
+.TP
+.BR \-l ", " \-\-license
+Affiche la licence du module.
+.TP
+.BR \-n ", " \-\-filename
+Affiche le nom du fichier du module.
+.TP
+.BR \-p ", " \-\-parameters
+Affiche le type de paramètres que le module accepte.
+.TP
+.BR \-V ", " \-\-version
+Affiche la version de 
+.BR modinfo .
+.PP
+Si aucune option n'est fournie, l'affichage par défaut est nom de fichier,
+description, auteur, licence et paramètres.
+.SH "VOIR AUSSI"
+.BR insmod (8),
+.BR modprobe (8),
+.BR depmod (8),
+.BR rmmod (8),
+.BR lsmod (8),
+.BR ksyms (8)
+.SH TRADUCTION
+Jérome Signouret, 2000.
+.br
+Christophe Blaess, 2003.

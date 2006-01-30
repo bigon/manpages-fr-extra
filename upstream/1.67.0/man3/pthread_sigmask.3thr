@@ -1,0 +1,185 @@
+.TH PTHREAD_SIGNAL 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+
+.SH NOM
+pthread_sigmask, pthread_kill, sigwait \- gestion des signaux dans les threads
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+.br
+.B #include <signal.h>
+
+.BI "int pthread_sigmask(int " how ", const sigset_t *" newmask ", sigset_t *" oldmask ");"
+
+.BI "int pthread_kill(pthread_t " thread ", int " signo ");"
+
+.BI "int sigwait(const sigset_t *" set ", int *" sig ");"
+
+.SH DESCRIPTION
+
+.B "pthread_sigmask"
+change le masque des signaux pour le thread appelant tel que décrit par les
+arguments
+.I "how"
+et \fInewmask\fP. Si
+.I "oldmask"
+ne vaut pas
+.BR "NULL" ,
+le précédent masque de signaux est sauvegardé dans l'emplacement pointé par
+.IR "oldmask" .
+
+La signification des arguments
+.I "how"
+et 
+.I "newmask"
+est la même que pour
+.BR "sigprocmask" (2).
+Si 
+.I "how"
+vaut
+.BR "SIG_SETMASK" ,
+le masque de signal est positionné à
+.IR "newmask" .
+Si 
+.I "how"
+vaut
+.BR "SIG_BLOCK" ,
+les signaux indiqués par
+.I "newmask"
+sont ajoutés au masque de signaux courant. Si
+.I "how"
+vaut
+.BR "SIG_UNBLOCK" ,
+les signaux indiqués par
+.I "newmask"
+sont retirés du masque courant.
+
+N.B. : Les masques de signaux sont définis par thread, mais la gestion des
+signaux et les gestionnaires associés, tels que mis en place par
+.BR "sigaction" (2),
+sont partagés par tous les threads.
+
+.B "pthread_kill"
+envoie le signal numéro
+.I "signo"
+au thread
+.IR "thread" .
+Le signal est reçu et géré tel que décrit dans
+.BR "kill" (2).
+
+.B "sigwait"
+suspend le thread appelant jusqu'à ce que l'un des signaux définis dans 
+.I "set"
+soit envoyé au thread appelant. Le numéro du signal reçu est alors sauvegardé
+dans l'emplacement pointé par
+.I "sig"
+et la fonction rend la main. Les signaux définis dans
+.I "set"
+doivent être bloqués et non ignorés lorsque l'on entre dans
+.BR "sigwait" .
+Si l'un des signaux reçus possède un gestionnaire de signal, cette fonction
+.I "n'est pas"
+appelée.
+
+.SH ANNULLATION
+
+.B "sigwait"
+est un point d'annulation.
+
+.SH "VALEUR RENVOYÉE"
+En cas de succès, 0 est renvoyé. En cas d'échec, un code d'erreur non nul est
+renvoyé.
+
+.SH ERREURS
+
+La fonction
+.B "pthread_sigmask"
+renvoie l'un des codes d'erreur suivants en cas de problème\ :
+.RS
+.TP
+.B "EINVAL"
+.I "how"
+n'est ni 
+.BR "SIG_SETMASK" ,
+ni
+.BR "SIG_BLOCK" ,
+ni 
+.B "SIG_UNBLOCK"
+
+.TP
+.B "EFAULT"
+.I "newmask"
+ou 
+.I "oldmask"
+pointe en dehors de l'espace mémoire du processus.
+.RE
+
+La fonction
+.B "pthread_kill"
+renvoiz l'un des codes d'erreur suivants en cas de problème\ :
+.RS
+.TP
+.B "EINVAL"
+.I "signo"
+n'est pas un masque de signaux valide.
+
+.TP
+.B "ESRCH"
+le thread 
+.I "thread"
+n'existe pas (par exemple, il s'est déjà achevé)
+.RE
+
+La fonction
+.B "sigwait"
+ne renvoie jamais de code d'erreur.
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+.BR "sigprocmask" (2),
+.BR "kill" (2),
+.BR "sigaction" (2),
+.BR "sigsuspend" (2).
+
+.SH NOTES
+
+Afin que
+.B "sigwait"
+fonctionne de manière fiable, les signaux que l'on attend doivent être bloqués
+dans tous les threads, pas seulement le thread appelant, sinon les sémantiques
+de POSIX concernant le traitement du signal ne garantissent pas que le thread
+appelant
+.B "sigwait"
+sera celui recevant le signal. La meilleur manière d'assurer cela est de
+bloquer ces signals avant de créer les threads puis de ne jamais débloquer ces
+signaux dans aucun de ces threads sauf en appelant
+.BR "sigwait" .
+
+.SH BOGUES
+La gestion des signaux dans LinuxThreads ne respecte pas celle définie par le
+standard POSIX. Selon le standard, un signal "asynchrone" (externe) doit être
+dérouté vers le processus tout entier (c'est à dire vers tous les threads le
+composant) mais seul l'un d'eux doit le gérer. Celui-ci peut être n'importe
+lequel des threads ne bloquant pas le signal.
+
+Dans LinuxThreads, chaque thread est un processus par rapport au noyau,
+possédant son propre PID, aussi les signaux extérieurs sont toujours envoyés
+vers un thread particulier. Si, par exemple, un autre thread est bloqué dans
+.B "sigwait"
+sur ce signal, il ne sera pas relancé.
+
+L'implémentation de
+.B "sigwait"
+par LinuxThreads installe un gestionnaire de signaux vide pour les signaux
+définis dans
+.I "set"
+durant l'attente. Comme les gestionnaires de signaux sont partagés
+par tous les threads, les autres threads ne doivent pas attacher leurs propres
+gestionnaires sur ces signaux, mais doivent bloquer ces signaux (ce qui est
+de toute façon recommandé -- voir la rubrique NOTES).
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+.br
+Christophe Blaess, 2003.

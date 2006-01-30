@@ -1,0 +1,41 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\" This man page was written by Jeremy Phelps <jphelps@notreached.net>.
+.\" Redistribute and modify at will.
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 08/07/2005 LDP-1.63
+.\" Màj 20/07/2005 LDP-1.64
+.\"
+.TH GETPT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+getpt \- Ouvre un pseudo-terminal maître (PTM).
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.B "int getpt(void)"
+.fi
+.SH DESCRIPTION
+.B getpt ()
+ouvre un pseudo-terminal maître et renvoie son descripteur de fichier.
+C'est équivalent à
+.BI "open(" \fI"/dev/ptmx" , O_RDWR|O_NOCTTY )
+sur les systèmes Linux, mais le pseudo-terminal peut être situé ailleurs
+sur certains systèmes qui emploient aussi la GlibC Gnu.
+
+.SH "VALEUR RENVOYÉE"
+.B getpt ()
+renvoie un descripteur de fichier ouvert s'il réussit. Sinon il renvoie
+\-1 et remplit
+.I errno
+avec un code d'erreur.
+.SH CONFORMITÉ
+.B getpt ()
+est spécifique à la GlibC GNU.
+.SH "VOIR AUSSI
+.BR ptmx (4),
+.BR grantpt (3),
+.BR unlockpt (3),
+.BR ptsname (3)
+.SH TRADUCTION
+Christophe Blaess, 2003.

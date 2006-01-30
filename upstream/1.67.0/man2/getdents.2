@@ -1,0 +1,125 @@
+.\" Copyright 1995 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Written 11 June 1995 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified 22 July 1995 by Michael Chastain (mec@duracef.shout.net):
+.\"   Derived from 'readdir.2'.
+.\"
+.\" Traduction  11/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\"
+.TH GETDENTS 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+getdents \- Obtenir les points d'entrée d'un répertoire.
+.SH SYNOPSIS
+.nf
+.B #include <unistd.h>
+.B #include <linux/types.h>
+.B #include <linux/dirent.h>
+.B #include <linux/unistd.h>
+.sp
+.B _syscall3(int, getdents, uint, fd, struct dirent *, dirp, uint, count);
+.sp
+.BI "int getdents(unsigned int " fd ", struct dirent *" dirp ", unsigned int " count );
+.fi
+.SH DESCRIPTION
+Ce n'est pas la fonction qui vous intéresse. Veuillez regarder
+.BR readdir (3)
+pour l'interface de la fonction de même nom de la bibliothèque C
+conforme à la spécification POSIX. Cette page documente l'interface
+de l'appel système du noyau.
+.PP
+L'appel système
+.B getdents
+lit plusieurs structures
+.I dirent
+depuis un répertoire pointé
+par le descripteur de fichier
+.I fd
+et les place dans la zone de mémoire pointée par
+.IR dirp .
+Le paramètre
+.I count
+est la taille de la zone mémoire.
+.PP
+La structure
+.I dirent
+est déclarée ainsi :
+.PP
+.RS
+.nf
+struct dirent
+{
+    long d_ino;                 /* numéro d'i-noeud            */
+    off_t d_off;                /* distance au prochain dirent */
+    unsigned short d_reclen;    /* longueur de ce dirent       */
+    char d_name [NAME_MAX+1];   /* nom de fichier (fini par 0) */
+}
+.fi
+.RE
+.PP
+.I d_ino
+est un numéro d'i-noeud.
+.I d_off
+est la distance entre le début du répertoire et le début de la prochaine structure
+.IR dirent .
+.I d_reclen
+est la taille complète de
+.IR dirent .
+.I d_name
+est le nom de fichier terminé par un caractère nul.
+.PP
+Cette fonction remplace
+.BR readdir (2).
+.SH "VALEUR RENVOYÉE"
+.B getdents
+renvoie le nombre d'octets lus s'il réussit (0 en fin de répertoire),
+ou \-1 s'il échoue, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EBADF
+.IR fd
+n'est pas un descripteur de fichier valide.
+.TP
+.B EFAULT
+L'argument pointe en dehors de l'espace d'adressage disponible.
+.TP
+.B EINVAL
+Le buffer de résultat est trop petit.
+.TP
+.B ENOENT
+Répertoire inexistant.
+.TP
+.B ENOTDIR
+Le descripteur de fichier ne pointe pas sur un répertoire.
+.SH CONFORMITÉ
+SVr4, SVID.  SVr4 documente les erreurs supplémentaires
+ENOLINK, et EIO.
+.SH "VOIR AUSSI"
+.BR readdir (2),
+.BR readdir (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

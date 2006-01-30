@@ -1,0 +1,141 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1992 Drew Eckhardt;
+.\"                               1993 Michael Haardt, Ian Jackson.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified Sat Jul 24 13:35:59 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Sun Nov 28 17:19:01 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Sat Jan 13 12:58:08 MET 1996 by Michael Haardt (michael@cantor.informatik.rwth-aachen.de)
+.\" 
+.\" Traduction  12/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Mise a Jour 15/04/97
+.\" Mise à jour 13/11/99 (LDP-man-pages 1.24)
+.\" Mise à jour 04/06/2001 (LDP-man-pages 1.36)
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.37
+.\" Mise à jour 20/01/2002 - LDP-man-pages-1.47
+.\" Mise à jour 18/07/2003 - LDP-man-pages-1.56
+.TH WRITE 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+write \- Écrire dans un descripteur de fichier.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.BI "ssize_t write(int " fd ", const void *" buf ", size_t " count );
+.SH DESCRIPTION
+.B write
+écrit jusqu'à
+.I count
+octets dans le fichier associé au descripteur
+.I fd
+depuis le buffer pointé par
+.I buf.
+POSIX réclame qu'une lecture avec \fBread()\fP effectuée après le
+retour d'une écriture avec \fBwrite()\fP, renvoie les nouvelles
+données. Notez que tous les systèmes de fichiers ne sont pas
+compatibles avec POSIX.
+.SH "VALEUR RENVOYÉE"
+.B write
+renvoie le nombre d'octets écrits (0 signifiant aucune écriture), 
+ou \-1 s'il échoue,
+auquel cas
+.I errno
+contient le code d'erreur.
+Si \fIcount\fP vaut zéro, et si le descripteur est associé à un
+fichier normal, 0 sera renvoyé sans effets de bord. Pour un
+fichier spécial, les résultats ne sont pas portables.
+.SH ERREURS
+.TP
+.B EBADF
+.I fd
+n'est pas un descripteur de fichier valide, ou n'est pas ouvert
+en écriture.
+.TP
+.B EINVAL
+.I fd
+correspond à un objet ne permettant pas l'écriture.
+.TP
+.B EFAULT
+.I buf
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B EFBIG
+Tentative d'écrire un fichier dont la taille dépasse un maximum dépendant
+de l'implémentation ou du processus, ou d'écrire à une position qui dépasse
+le déplacement maximal autorisé.
+.TP
+.B EPIPE
+.I fd
+est connecté à un tube (pipe) ou une socket dont l'autre extrémité est
+fermée. Quand ceci se produit, le processus écrivain reçoit un signal
+.B SIGPIPE .
+S'il intercepte, bloque ou ignore ce signal, 
+.B EPIPE
+est renvoyé.
+.TP
+.B EAGAIN
+L'écriture est non\-bloquante (attribut
+.B O_NONBLOCK
+du descripteur), et l'opération devrait bloquer.
+.TP
+.B EINTR
+L'appel système a été interrompu par un signal avant d'avoir pu écrire
+quoique ce soit.
+.TP
+.B ENOSPC
+Le périphérique correspondant à 
+.I fd
+n'a plus de place disponible.
+.TP
+.B EIO
+Une erreur d'entrée/sortie bas niveau s'est produite durant la modification
+de l'i-noeud.
+.PP
+D'autres erreurs peuvent se produire suivant le type d'objet associé à
+.IR fd .
+.SH "CONFORMITÉ"
+SVr4, SVID, POSIX, X/OPEN, BSD 4.3.  SVr4 mentionne des conditions d'erreur
+supplémentaires EDEADLK, ENOLCK, ENOLNK, ENOSR, ENXIO, EPIPE, et ERANGE.
+Sous SVr4, un appel \fBwrite\fP() peut être interrompu, et renvoyer EINTR à
+n'importe quel moment, pas seulement avant l'écriture des données.
+.SH NOTES
+Une réussite de
+.B write
+n'offre aucune garantie que les données se trouvent sur le disque.
+En fait, sur certaines implémentations erronées, elle ne garantie même pas
+que l'espace suffisant a été réservé pour les données.
+La seule manière d'être sûr de la réussite est d'invoquer
+.BR fsync (2)
+après avoir écrit les données.
+.SH "VOIR AUSSI"
+.BR close (2),
+.BR fcntl (2), 
+.BR fsync (2),
+.BR ioctl (2), 
+.BR lseek (2),
+.BR open (2),
+.BR read (2), 
+.BR select (2),
+.BR fwrite (3),
+.BR writev (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

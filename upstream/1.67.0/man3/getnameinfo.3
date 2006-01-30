@@ -1,0 +1,210 @@
+.\" This page is in the public domain.
+.\" Almost all details are from RFC 2553.
+.\"
+.\" Traduction 08/05/2002 par Stéphan Rafin (stephan.rafin@laposte.net)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+
+.TH getnameinfo 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+getnameinfo \- Traduction d'adresse en nom de façon indépendante du protocole
+.SH SYNOPSIS
+.nf
+.B #include <sys/socket.h>
+.B #include <netdb.h>
+.sp
+.BI "int getnameinfo(const struct sockaddr *" "sa" ", socklen_t " "salen" ,
+.BI "                char *" "host" ", size_t " "hostlen" ,
+.BI "                char *" "serv" ", size_t " "servlen" ", int " "flags" );
+.fi
+.SH DESCRIPTION
+La fonction
+.BR getnameinfo (3)
+est définie afin de traduire des adresses en noms de noeuds de façon indépendante du protocole. Elle combine les fonctionnalités de
+.BR gethostbyaddr (3)
+et
+.BR getservbyport (3)
+et constitue la réciproque de 
+.BR getaddrinfo (3).
+Le paramètre
+.I sa
+est un pointeur vers l'adresse d'une structure de socket générique
+(de type
+.I sockaddr_in
+ou
+.IR sockaddr_in6 )
+de taille
+.IR salen
+qui contient l'adresse IP d'entrée et le numéro de port.
+Les parmètres
+.I host
+et
+.I serv
+sont des pointeurs vers des tampons (de tailles respectives
+.I hostlen
+et 
+.I servlen
+) destinés à recevoir les valeurs renvoyées.
+
+L'appelant peut préciser qu'aucun nom d'hôte (ou qu'aucun nom de service)
+n'est nécessaire en fournissant NULL comme paramètre
+.I host
+(ou
+.IR serv )
+ou bien en passant un argument
+.I hostlen
+(ou
+.IR servlen )
+valant zéro. Quoi qu'il en soit, au moins un nom d'hôte ou un nom de service
+doit être demandé.
+
+Le paramètre
+.I flags
+modifie le comportement de 
+.BR getnameinfo (3)
+comme indiqué ci dessous :
+.TP
+.B NI_NOFQDN
+renvoie seulement la partie nom de l'hôte du FQDN (Fully-Qualified Domain Name) pour les hôtes locaux.
+.TP
+.B NI_NUMERICHOST
+La forme numérique du nom de l'hôte est renvoyée.
+.\" For example, by calling
+.\" .I inet_ntop()
+.\" instead of
+.\" .IR gethostbyaddr() .
+(Même si ce drapeau n'est pas levé, cela arrivera également lorsque le
+nom du noeud ne pourra pas être résolu.)
+.TP
+.B NI_NAMEREQD
+renvoie une erreur si le nom de l'hôte ne peut être résolu.
+.TP
+.B NI_NUMERICSERV
+L'adresse du service est renvoyée sous forme numérique, par exemple
+sous la forme de son numéro de port.
+.TP
+.B NI_DGRAM
+Indique que le service est plutôt basé sur des datagrammes (UDP)
+que sur un flux connecté (TCP). Ce drapeau est nécessaire pour les
+quelques ports (512-514) qui ont des services différents selon
+le protocole utilisé : UDP ou TCP.
+.SH "VALEUR RENVOYÉE"
+En cas de succès, 0 est renvoyé, et, les noms du noeud et du service, s'ils
+sont demandés, sont renseignés sous forme de chaînes à zéro terminal, éventuellement
+tronquées afin de s'adapter aux tailles des tampons spécifiés.
+En cas d'erreur, une valeur non nulle est renvoyée, et 
+.I errno
+est affectée de façon adéquate.
+.SH ERREURS
+.TP
+.B EAI_AGAIN
+Le nom ne peut être résolu en ce moment. Réessayer plus tard.
+.TP
+.B EAI_BADFLAGS
+Le paramètre
+.I flags
+n'est pas valide.
+.TP
+.B EAI_FAIL
+Une erreur irrécupérable est survenue.
+.TP
+.B EAI_FAMILY
+La famille d'adresse n'a pas été reconnue,
+ou bien la taille de l'adresse était invalide pour la famille spécifiée.
+.TP
+.B EAI_MEMORY
+Pas assez de mémoire.
+.TP
+.B EAI_NONAME
+Le nom ne peut être résolu avec les paramètres fournis.
+NI_NAMEREQD est spécifié et le nom de l'hôte ne peut être localisé,
+ou bien, on n'a demandé ni un nom d'hôte ni un nom de service.
+.TP
+.B EAI_SYSTEM
+Une erreur système a eu lieu. Le code d'erreur peut être lu dans 
+.IR errno .
+.SH FICHIERS
+/etc/hosts
+.br
+/etc/nsswitch.conf
+.br
+/etc/resolv.conf
+.SH NOTE
+Afin d'aider les programmeurs à choisir des tailles raisonnables
+pour les tampons fournis,
+.I <netdb.h>
+définit les constantes
+.RS
+.nf
+# define NI_MAXHOST      1025
+.br
+# define NI_MAXSERV      32
+.fi
+.RE
+La première est la constante MAXDNAME présente dans les versions récentes du 
+fichier header  
+.I <arpa/nameser.h>
+de BIND. 
+La deuxième est déterminée en se basant sur les services répertoriés 
+dans la RFC "Assigned numbers" (Numéros affectés) actuelle.
+.SH EXEMPLES
+Le code suivant essaie d'obtenir le nom de l'hôte ainsi que le nom du service
+sous forme numérique, et ce, pour une adresse de socket donnée. Remarquez qu'il
+ n'y a aucune référence à une quelconque famille d'adresse codée en dur.
+
+.RS
+.nf
+  struct sockaddr *sa;    /* input */
+  char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
+
+  if (getnameinfo(sa, sa->sa_len, hbuf, sizeof(hbuf), sbuf,
+      sizeof(sbuf), NI_NUMERICHOST | NI_NUMERICSERV) == 0)
+          printf("host=%s, serv=%s\en", hbuf, sbuf);
+.fi
+.RE
+
+La version suivante vérifie si l'adresse de la socket peut
+se voir associer un nom. 
+
+.RS
+.fi
+  struct sockaddr *sa;    /* input */
+  char hbuf[NI_MAXHOST];
+
+  if (getnameinfo(sa, sa->sa_len, hbuf, sizeof(hbuf),
+      NULL, 0, NI_NAMEREQD))
+         printf("could not resolve hostname");
+  else
+         printf("host=%s\en", hbuf);
+.fi
+.RE
+.SH "CONFORMITÉ"
+RFC 2553. (Voir aussi XNS, révision 5.2.)
+.SH "VOIR AUSSI"
+.BR getaddrinfo (3),
+.BR gethostbyaddr (3),
+.BR getservbyname (3),
+.BR getservbyport (3),
+.BR inet_ntop (3),
+.BR socket (3),
+.BR hosts (5),
+.BR services (5),
+.BR hostname (7),
+.BR named (8)
+.LP
+R. Gilligan, S. Thomson, J. Bound et W. Stevens,
+.IR "Basic Socket Interface Extensions for IPv6" ,
+RFC 2553, Mars 1999.
+.LP
+Tatsuya Jinmei et Atsushi Onoe,
+.IR "An Extension of Format for IPv6 Scoped Addresses" ,
+internet draft, travail en cours.
+ftp://ftp.ietf.org/internet-drafts/draft-ietf-ipngwg-scopedaddr-format-02.txt
+.LP
+Craig Metz,
+.IR "Protocol Independence Using the Sockets API" ,
+compte rendu du sujet freenix\ :
+conférence technique annuelle USENIX 2000, juin 2000.
+http://www.usenix.org/publications/library/proceedings/usenix2000/freenix/metzprotocol.html
+.SH TRADUCTION
+Stéphan Rafin, 2002.

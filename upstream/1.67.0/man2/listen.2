@@ -1,0 +1,133 @@
+.\" Copyright (c) 1983, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)listen.2	6.5 (Berkeley) 3/10/91
+.\"
+.\" Modified Fri Jul 23 22:07:54 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 950727 by aeb, following a suggestion by Urs Thuermann
+.\" (urs@isnogud.escape.de)
+.\"
+.\" Traduction  11/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Mise a Jour 8/04/97
+.\" Mise a Jour 21/09/98 LDP-man-pages-1.20
+.\" Mise a Jour 30/05/01 LDP-man-pages-1.36
+.\" Mise a Jour 18/07/03 LDP-man-pages-1.56
+.TH LISTEN 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+listen \- Attendre des connexions sur une socket.
+.SH SYNOPSIS
+.B #include <sys/socket.h>
+.sp
+.BI "int listen(int " s ", int " backlog );
+.SH DESCRIPTION
+Pour accepter des connexions, une socket est d'abord créée avec
+.BR socket (2),
+puis le désir d'accepter des connexions entrantes, et la limite
+de la file d'entrée sont indiqués avec
+.BR listen ,
+ensuite les connexions seront acceptées avec
+.BR accept (2).
+L'appel système
+.B listen
+s'applique seulement aux sockets de type
+.B SOCK_STREAM
+ou
+.B SOCK_SEQPACKET.
+.PP
+Le paramètre
+.I backlog
+définit une longueur maximale pour la file des connexions en attente.
+Si une nouvelle connexion arrive alors que la file est pleine, le
+client reçoit une erreur indiquant
+.BR ECONNREFUSED ,
+ou, si le protocole sous-jacent supporte les retransmissions, la requête
+peut être ignorée afin qu'un nouvel essai réussisse.
+.NOTES
+Le comportement de
+.I backlog
+a été modifié sur les sockets TCP dans Linux 2.2.
+Il s'agit à présent de la longueur de la file d'attente pour les socket
+.I totalement
+établies en attente d'acceptation, plutôt que les requêtes de connexion
+incomplètes. La longueur maximale de la file d'attente des connexions
+incomplètes peut être configurée avec l'appel sysctl
+.BR tcp_max_syn_backlog .
+Lorsque les syncookies sont activés, il n'y a pas de longueur maximale
+et la configuration sysctl est ignorée.
+Voir
+.BR tcp (7)
+pour plus de détail.
+.SH "VALEUR RENVOYÉE"
+.BR listen
+renvoie 0 si il réussit, ou \-1 en cas d'échec, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EADDRINUSE
+Une autre socket est déjà à l'écoute sur le même port.
+.TP
+.B EBADF
+.I s
+n'est pas un descripteur valide
+.TP
+.B ENOTSOCK
+L'argument
+.I s
+n'est pas une socket.
+.TP
+.B EOPNOTSUPP
+Le type de socket ne supporte pas l'appel système
+.BR listen.
+.SH CONFORMITÉ
+SVr4, BSD (l'appel système
+.B listen
+est apparu dans BSD 4.2).
+.SH BOGUES
+Si la socket est de type
+.B AF_INET
+(internet), et si l'argument
+.I backlog
+est supérieur à la constante
+.B SOMAXCONN 
+(128 dans Linux 2.0 et 2.2), il est silencieusement ramené à
+.BR SO_MAXCONN .
+Pour la portabilité des applications, ne vous fiez pas à
+cette valeur puisque BSD (et d'autres dérivés) limitent
+l'argument
+.I backlog 
+à 5.
+.SH "VOIR AUSSI"
+.BR accept (2),
+.BR connect (2),
+.BR socket (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

@@ -1,0 +1,141 @@
+.\" Copyright (c) 1996 Andries Brouwer
+.\" This page is somewhat derived from a page that was
+.\" (c) 1980, 1989, 1991 The Regents of the University of California
+.\" and had been heavily modified by Rik Faith and myself.
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Traduction 24/08/2000 par Frédéric Delanoy (delanoy_f@yahoo.com)
+.\" Correspond à mount-v2.11n
+.\" MàJ 30/07/2003 mount-2.11y - ccb
+.TH UMOUNT 8 "30 juillet 2003" mount "Manuel de l'administrateur Linux"
+.SH NOM
+umount \- Démonter des systèmes de fichiers.
+.SH SYNOPSIS
+.BI "umount [\-hV]"
+.LP
+.BI "umount -a [\-dflnrv] [\-t " typesf "] [\-O " options ]
+.br
+.BI "umount [\-dflnrv] " "rép " | " périphérique " [...]
+.SH DESCRIPTION
+La commande
+.B umount
+détache le(s) système(s) de fichiers mentionné(s) de la hiérarchie des
+fichiers. Un système de fichiers est spécifié en donnant le nom du
+répertoire dans lequel il a été monté. Fournir le périphérique spécial
+sur lequel réside le système de fichiers peut également fonctionner,
+mais est obsolète, principalement parce cela échouera si ce périphérique
+a été monté dans plus d'un répertoire.
+
+Notez qu'un système de fichiers ne peut être démonté quand il est «\ occupé\ »,
+par exemple quand il y a des fichiers ouverts dessus, quand certains
+processus y ont leur répertoire de travail, ou quand un fichier d'échange
+y est utilisé. L'un de ces processus «\ récalcitrants\ » pourrait même être
+.B umount
+lui\-même\ : il ouvre la libc, qui peut ouvrir à son tour des fichiers
+locaux. Un démontage paresseux évite ce problème.
+
+Options de la commande
+.BR umount "\ :"
+.TP
+.B \-V
+Afficher le numéro de version et se terminer.
+.TP
+.B \-h
+Afficher un message d'aide et se terminer.
+.TP
+.B \-v
+Activer le mode verbeux.
+.TP
+.B \-n
+Démonter sans écrire dans
+.IR /etc/mtab .
+.TP
+.B \-r
+Si le démontage échoue, essayer de remonter en lecture seule.
+.TP
+.B \-d
+Dans le cas d'un montage via un périphérique boucle (loop), alors libérer
+aussi ce périphérique.
+.TP
+.B \-a
+Démonter tous les systèmes de fichiers décrits dans
+.IR /etc/mtab .
+(Avec
+.B umount
+versions 2.7 et ultérieures, le système de fichiers
+.I proc
+n'est pas démonté.)
+.TP
+.BI \-t " typesf"
+Indiquer que les actions devraient uniquement être entreprises sur les
+systèmes de fichiers du type spécifié. Plusieurs types peuvent être
+spécifiés dans une liste, en les séparant par des virgules.
+La liste des types de systèmes de fichiers peut être préfixée par
+.B no
+pour spécifier les systèmes de fichiers pour lesquels aucune action ne
+doit être menée.
+.TP
+.BI \-O " options"
+Indiquer que les actions ne devraient êtres entreprises que sur les
+systèmes de fichiers dont les \fIoptions\fR sont spécifiées dans
+.IR /etc/fstab .
+Plusieurs options peuvent être spécifiées dans une liste, en les séparant par
+des virgules. Chaque option peut être préfixée par
+.B no
+pour spécifier les options pour lesquelles aucune action ne doit être menée.
+.TP
+.B \-f
+Forcer le démontage (dans le cas d'un système NFS inaccessible).
+Requiert un noyau 2.1.116 ou ultérieur.
+.TP
+.B \-l
+Démontage paresseux. Détacher maintenant le système de fichiers de la 
+hiérarchie de systèmes de fichiers, et nettoyer toutes les références vers le 
+système de fichiers dès qu'il n'est plus occupé. (Requiert un noyau 2.4.11 ou 
+ultérieur.)
+
+.SH "LE PÉRIPHÉRIQUE LOOP"
+La commande
+.B umount
+libérera le périphérique loop (boucle) associé au mount (s'il existe),
+au cas où il trouve l'option «\ loop=...\ » dans
+.IR /etc/mtab ,
+ou si l'option \-d est indiquée.
+Tous les périphériques loop restants peuvent être libérés en utilisant la
+commande «\ losetup -d\ »\ ; voyez
+.BR losetup (8).
+
+.SH FICHIERS
+.I /etc/mtab
+table des systèmes de fichiers montés
+
+.SH "VOIR AUSSI"
+.BR umount (2),
+.BR mount (8),
+.BR losetup (8).
+
+.SH HISTORIQUE
+Une commande
+.B umount
+est apparue dans la Version 6 du UNIX AT&T.
+
+.SH TRADUCTION
+Frédéric Delanoy <\fIdelanoy_f@yahoo.com\fR>, 2002.
+.br
+Christophe Blaess, 2003.

@@ -1,0 +1,55 @@
+.\" Traduction 02/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH NOHUP 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+nohup \- Exécuter un programme en le rendant insensible aux déconnexions.
+.SH SYNOPSIS
+.B nohup
+commande [arg...]
+.br
+.B nohup
+{\-\-help,\-\-version}
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR nohup .
+
+.B nohup
+exécute la
+.I commande
+désirée en ignorant les signaux HANGUP (déconnexion), avec une priorité
+d'ordonnancement incrémentée de 5, afin que cette commande continue à
+s'exécuter en arrière-plan après la déconnexion de l'utilisateur.
+
+Si le flux de sortie standard est un tty, celui-ci, ainsi que le flux standard
+d'erreur sont redirigés afin d'être ajoutés au fichier `nohup.out'.
+
+Si ce fichier n'est pas accessible en écriture, ils sont redirigés
+vers `$HOME/nohup.out'. 
+Si ce dernier fichier n'est pas non plus accessible en écriture, la commande
+n'est pas exécutée.
+.PP
+Lorsque
+.B nohup
+crée le fichier `nohup.out' ou `$HOME/nohup.out', il ne lui donne
+aucune permission d'accès pour les membres du groupe ou pour les
+autres utilisateurs. Par contre, il ne modifie pas les autorisations
+d'accès si le fichier existe déjà.
+.PP
+.B nohup
+ne bascule pas automatiquement la commande exécutée en arrière-plan. Il
+faut le réclamer explicitement en ajoutant un `&' à la fin de la ligne
+de commande.
+.SS OPTIONS
+Quand la version GNU de
+.B nohup
+est invoquée avec un seul argument, elle reconnaît les options suivantes :
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

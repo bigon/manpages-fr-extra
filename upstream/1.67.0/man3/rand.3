@@ -1,0 +1,179 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\"
+.\" Modified 1993-03-29, David Metcalfe
+.\" Modified 1993-04-28, Lars Wirzenius
+.\" Modified 1993-07-24, Rik Faith (faith@cs.unc.edu)
+.\" Modified 1995-05-18, Rik Faith (faith@cs.unc.edu) to add
+.\"          better discussion of problems with rand on other systems.
+.\"          (Thanks to Esa Hyyti{ (ehyytia@snakemail.hut.fi).)
+.\" Modified 1998-04-10, Nicolás Lichtmaier <nick@debian.org>
+.\"          with contribution from Francesco Potorti <F.Potorti@cnuce.cnr.it>
+.\" Modified 2003-11-15, aeb, added rand_r
+.\"
+.\" Traduction 05/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 08/07/2005 LDP-1.63
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH RAND 3 "15 novembre 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+rand, rand_r, srand \- Générateur de nombres pseudo-aléatoires.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.B int rand (void);
+.sp
+.BI "int rand_r(unsigned int *" seedp );
+.sp
+.BI "void srand (unsigned int " seed );
+.fi
+.SH DESCRIPTION
+La fonction \fBrand()\fP renvoie un entier pseudo-aléatoire entre 0 et
+\fBRAND_MAX\fP.
+.PP
+La fonction \fBsrand()\fP utilise son argument comme «\ graine\ » pour la
+génération d'une nouvelle séquence de nombres pseudo-aléatoires, qui seront
+fournis par \fBrand()\fP.
+Ces séquences sont reproductibles en appelant \fBsrand()\fP avec la
+même valeur de graine.
+.PP
+Si aucune graine originale n'est fournie, la fonction \fBrand()\fP commence en
+utilisant la valeur 1.
+.PP
+La fonction
+.B rand()
+n'est ni réentrante ni sûre en contexte multi-threads, car elle utilise
+un état interne modifié à chaque appel. Il peut s'agir simplement de la valeur
+de graine aléatoire pour l'appel suivant, ou il peut s'agir de quelquechose
+de plus compliqué. Afin d'obtenir un comportement reproductible dans une
+application multi-threads, cet état doit être stocké dans une variable fournie
+explicitement. La fonction
+.B rand_r()
+est appelée avec un pointeur sur un unsigned int qui servira d'état d'interne.
+Il s'agit d'une donnée très petite pour stocker la valeur d'état, cette
+fonction sera donc un générateur pseudo-aléatoire faible. Essayez donc
+.BR drand48_r (3)
+à sa place.
+.SH "VALEUR RENVOYÉE"
+Les fonctions \fBrand()\fP et \fBrand_r()\fP renvoient un nombre entier
+entre 0 et RAND_MAX.
+La fonction \fBsrand()\fP ne renvoie aucune valeur.
+.SH EXEMPLE
+POSIX 1003.1-2003 fournit l'exemple suivant d'une implémentation de
+.B rand()
+et
+.BR srand() ,
+potentiellement utile lorsqu'on a besoin de la même séquence sur deux
+machines différentes.
+.sp
+.nf
+    static unsigned long suivant = 1;
+
+    /* RAND_MAX supposé être égal à 32767 */
+    int mon_rand(void) {
+        suivant = suivant * 1103515245 + 12345;
+        return((unsigned)(suivant/65536) % 32768);
+    }
+
+    void mon_srand(unsigned graine) {
+        suivant = graine;
+    }
+.fi
+.SH NOTES
+Les versions de \fBrand()\fP et \fBsrand()\fP de la bibliothèque C de Linux
+utilisent le même générateur de nombres aléatoires que \fBrandom()\fP et
+\fBsrandom()\fP, ainsi les bits de poids faibles sont tout aussi imprévisibles
+que les bits de poids forts.
+Ceci n'est pas le cas avec les anciennes implémentations de
+.B rand()
+ou d'actuelles implémentations sur des systèmes différents,
+où les bits de poids faibles n'étaient pas «\ aussi aléatoires\ » que ceux
+de poids forts. N'utilisez pas cette fonction dans des applications conçues
+pour être portables et lorsqu'un bon caractère aléatoire est nécessaire.
+.PP
+FreeBSD ajoute une fonction
+.sp
+.in +5
+.B void sranddev(void);
+.in
+.sp
+qui initialise la graine pour son mauvais générateur de nombres aléatoires
+.B rand()
+avec une valeur obtenue avec son bon générateur de nombres aléatoires
+.BR random() .
+Étrange.
+.PP
+Dans
+.I Numerical Recipes in C: The Art of Scientific Computing
+(William H. Press, Brian P. Flannery, Saul A. Teukolsky, William
+T. Vetterling; New York: Cambridge University Press, 1990 (1st ed,
+p. 207)), le commentaire suivant apparaît\ :
+.RS
+«\ Si vous désirez engendrer un entier aléatoire entre 1 et 10, vous devez
+toujours procéder en utilisant les bits de poids forts, comme dans\ :
+.RS
+.sp
+j=1+(int) (10.0*rand()/(RAND_MAX+1.0));
+.sp
+.RE
+et jamais ainsi\ :
+.RS
+.sp
+j=1+(rand() % 10);
+.sp
+.RE
+(car cette dernière version utilise les bits de poids faibles).\ »
+.RE
+.PP
+La génération de nombres aléatoires est un domaine complexe. Le livre
+.I Numerical Recipes in C
+(référence ci\-dessus)
+fournit une excellente présentation pratique d'un générateur aléatoire
+dans le chapitre 1 (Random Numbers).
+.PP
+Pour une discussion plus théorique, qui aborde également en profondeur
+d'autres domaines, voir le chapitre 3 (Random Numbers) du livre de
+Donald E. Knuth
+.IR "The Art of Computer Programming" ,
+volume 2 (Seminumerical Algorithms), 2nd ed.; Reading, Massachusetts:
+Addison-Wesley Publishing Company, 1981.
+.SH "CONFORMITÉ"
+Les fonctions
+.B rand()
+et
+.B srand()
+sont conformes à SVID 3, BSD 4.3, ISO 9899, POSIX 1003.1-2003.
+La fonction
+.B rand_r()
+vient de POSIX 1003.1-2003.
+.SH "VOIR AUSSI"
+.BR drand48 (3),
+.BR random (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

@@ -1,0 +1,146 @@
+.\"
+.\" Extended attributes system calls manual pages
+.\"
+.\" (C) Andreas Gruenbacher, February 2001
+.\" (C) Silicon Graphics Inc, September 2001
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111,
+.\" USA.
+.\"
+.\" Traduction Christophe Blaess
+.\" MàJ 18/07/2003 - LDP-1.56
+.TH SETXATTR 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+setxattr, lsetxattr, fsetxattr \- Fixer les attributs étendus.
+.SH SYNOPSIS
+.fam C
+.nf
+.B #include <sys/types.h>
+.B #include <attr/xattr.h>
+.sp
+.BI "int setxattr (const char\ *" chemin ", const char\ *" nom ",
+.BI "\t\t\t const void\ *" valeur ", size_t " taille ", int " options );
+.BI "int lsetxattr (const char\ *" chemin ", const char\ *" nom ",
+.BI "\t\t\t const void\ *" valeur ", size_t " taille ", int " options );
+.BI "int fsetxattr (int " descripteur ", const char\ *" nom ",
+.BI "\t\t\t const void\ *" valeur ", size_t " taille ", int " options );
+.fi
+.fam T
+.SH DESCRIPTIONLes attributs étendus sont des paires
+.IR nom :\c
+.I valeur 
+associées aux i-noeuds (fichiers, répertoires, liens symboliques, etc).
+Ce sont des extensions des attributs normaux qui sont associés avec tous les
+i-noeuds du système (les informations renvoyées
+par 
+.BR stat (2).
+Une description complète des concepts d'attributs étendus est disponible dans
+.BR attr (5).
+.PP
+.B setxattr
+écrit la
+.I valeur
+dans l'attribut étendu identifié par le
+.I nom
+et associé avec le
+.I chemin
+dans le système de fichiers
+La 
+.I taille
+de la
+.I valeur
+doit être spcifiée
+.PP
+.B lsetxattr
+est identique à 
+.BR setxattr ,
+sauf dans le cas d'un lien symbolique, où il traite le lien lui-même
+et non le fichier qu'il vise.
+.PP
+.B fsetxattr
+est identique à
+.BR setxattr ,
+seulement on écrit l'attribut du fichier ouvert indiqué par le
+.I descripteur
+(renvoyé par
+.BR open (2))
+plutôt que par un
+.IR chemin .
+.PP
+Le
+.I nom
+d'un attribut étendu est une simple chaîne terminée par un caractère nul.
+Le nom inclut un préfixe d'espace de noms - il peut y avoir plusieurs espaces
+de noms disjoints associés avec un i-noeud donné.
+La valeur d'un attribut étendu est un bloc de données littérales ou binaires
+d'une longueur donnée.
+.PP
+Le paramètre
+.I option
+permet d'affiner la sémantique de l'opétation.
+XATTR_CREATE indique une création pure, avec un échec si
+l'attribut existe déjà.
+XATTR_REPLACE indique un remplacement, échouant si l'attribut
+n'existe pas.
+Par défaut (pas d'option), l'attribut sera créé s'il le faut,
+ou remplacé s'il existe déjà.
+.SH "VALEUR RENVOYÉE"
+S'ils réussissent, ces appels renvoient un nombre positif correspondant à la
+taille de la valeur de l'attribut étendu.
+En cas d'échec, ils renvoient \-1 et remplissent
+.I errno
+avec un code d'erreur.
+.PP
+Si XATTR_CREATE est indiqué et que l'attribut existe,
+.I errno
+contiendra EEXIST.
+Si XATTR_REPLACE est demandé et si l'attribut n'existe pas
+.I errno
+sera remplis avec ENOATTR.
+.PP
+S'il n'y a pas assez d'espace pour stocker l'attribut étendu,
+.I errno
+vaudra ENOSPC, ou EDQUOT si le problème vient du système de quotas.
+.PP
+Si les attributs étendus ne sont pas suportés par le système de fichiers ou le noyau
+.I errno
+contient ENOTSUP.
+.PP 
+Les erreurs documentés pour l'appel-système
+.BR stat (2)
+sont également applicables ici.
+.SH AUTEURS
+Andreas Gruenbacher,
+.RI < a.gruenbacher@computer.org >
+et l'équipe de développement SGI XFS,
+.RI < linux-xfs@oss.sgi.com >. 
+Envoyez les rapports de bogues et les commentaires (en anglais) à ces adresses.
+.SH "VOIR AUSSI"
+.BR getfattr (1),
+.BR setfattr (1),
+.BR open (2),
+.BR stat (2),
+.BR getxattr (2),
+.BR listxattr (2),
+.BR removexattr (2),
+.BR attr (5)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.
+

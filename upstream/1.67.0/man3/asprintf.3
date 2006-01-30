@@ -1,0 +1,73 @@
+.\" Copyright (C) 2001 Andries Brouwer <aeb@cwi.nl>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Text fragments inspired by Martin Schulze <joey@infodrom.org>.
+.\" 
+.\" Traduction 19/04/2002 par Stéphan Rafin (stephan.rafin@laposte.net)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH ASPRINTF 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+asprintf, vasprintf \- Ecriture formatée dans une chaîne allouée 
+.SH SYNOPSIS
+.B #define _GNU_SOURCE
+.br
+.B #include <stdio.h>
+.sp
+.BI "int asprintf(char **" strp ", const char *" fmt ", ...);"
+.sp
+.BI "int vasprintf(char **" strp ", const char *" fmt ", va_list " ap );
+.SH DESCRIPTION
+Les fonctions
+.B asprintf
+et
+.B vasprintf
+sont similaires à
+.B sprintf
+et
+.BR vsprintf ,
+si ce n'est qu'elles allouent une chaîne de caractères de taille suffisante pour
+contenir la sortie, y compris le NUL terminal,
+et qu'elles renvoient un pointeur vers cette chaîne via le premier paramètre.
+Ce pointeur devra être passé en paramètre à
+.BR free (3)
+afin de libérer la zone allouée lorsqu'elle ne sera plus nécessaire.
+.SH "VALEUR RENVOYÉE"
+En cas de succès, ces fonctions renvoient le nombre de caractères imprimés,
+tout comme
+.BR sprintf (3).
+Si l'allocation mémoire n'a pas été possible, ou qu'une autre erreur est survenue,
+ces fonctions renvoient \-1, et la valeur de 
+.I strp
+est indéfinie.
+.SH NOTES
+Ces fonctions sont des extensions GNU et sont absentes des standards C et POSIX.
+Elles sont également disponibles sous *BSD.
+L'implantation FreeBSD affecte à
+.I strp
+la valeur NULL en cas d'erreur.
+.SH "VOIR AUSSI"
+.BR free (3),
+.BR malloc (3),
+.BR printf (3)
+.SH TRADUCTION
+Stéphan Rafin, 2002.

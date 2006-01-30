@@ -1,0 +1,91 @@
+.\" Copyright (C) 2001 Andries Brouwer <aeb@cwi.nl>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 20/05/2002 par Stéphan Rafin (stephan.rafin@laposte.net)
+.\"
+.\" MàJ 21/07/2003 LDP-1.56
+.TH TIMEGM 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+timegm, timelocal \- Fonctions réciproques de gmtime and localtime.
+.SH SYNOPSIS
+.nf
+.B #include <time.h>
+.sp
+.BI "time_t timelocal (struct tm *" tm );
+.sp
+.BI "time_t timegm (struct tm *" tm );
+.SH DESCRIPTION
+Les fonctions 
+.B timelocal()
+et
+.B timegm()
+sont les réciproques de
+.BR localtime (3)
+et
+.BR gmtime (3).
+.SH NOTES
+Ces fonctions sont des extensions GNU.
+La fonction 
+.B timelocal()
+est équivalente à la fonction standard POSIX
+.BR mktime (3).
+Il n'y a aucune raison de l'utiliser.
+.LP
+Afin d'obtenir une version portable de
+.BR timegm() ,
+positionnez la variable d'environnement
+.B TZ
+à UTC, appelez
+.B mktime()
+et restaurez la valeur de 
+.BR TZ .
+Soit un code similaire à 
+
+.RS
+.nf
+#include <time.h>
+#include <stdlib.h>
+
+time_t my_timegm (struct tm *tm) {
+    time_t ret;
+    char *tz;
+
+    tz = getenv("TZ");
+    setenv("TZ", "", 1);
+    tzset();
+    ret = mktime(tm);
+    if (tz)
+        setenv("TZ", tz, 1);
+    else
+        unsetenv("TZ");
+    tzset();
+    return ret;
+}
+.fi
+.RE
+.SH "VOIR AUSSI"
+.BR gmtime (3),
+.BR localtime (3),
+.BR mktime (3),
+.BR tzset (3)
+.SH TRADUCTION
+Stéphan Rafin, 2002.

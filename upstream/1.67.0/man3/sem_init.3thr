@@ -1,0 +1,196 @@
+.TH SEMAPHORES 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+
+.SH NOM
+sem_init, sem_wait, sem_trywait, sem_post, sem_getvalue, sem_destroy \- opérations sur les sémaphores.
+
+.SH SYNOPSIS
+.B #include <semaphore.h>
+
+.BI "int sem_init(sem_t *" sem ", int " pshared ", unsigned int " valeur ");"
+
+.BI "int sem_wait(sem_t * " sem ");"
+
+.BI "int sem_trywait(sem_t * " sem ");"
+
+.BI "int sem_post(sem_t * " sem ");"
+
+.BI "int sem_getvalue(sem_t * " sem ", int * " sval ");"
+
+.BI "int sem_destroy(sem_t * " sem ");"
+
+.SH DESCRIPTION
+Cette page de manuel documente les sémaphores du standard POSIX 1003.1b, à ne
+pas confondre avec ceux des IPC Système V tels que décrits par
+.BR "ipc" (5),
+.BR "semctl" (2)
+et 
+.BR "semop" (2).
+
+Les sémaphores sont des compteurs pour les ressources partagées par plusieurs
+threads. Les opérations de base sur les sémaphores sont :
+.RS
+.TP
+incrémenter le compteur de manière atomique
+.TP
+attendre que le compteur soit non-nul et décrémenter le compteur de manière atomique.
+.RE
+
+.B "sem_init"
+initialise le sémaphore pointé par
+.IR "sem" .
+Le compteur associé au sémaphore est initialisé à
+.IR "valeur" .
+L'argument
+.I "pshared"
+indique si le sémaphore est local au processus courrant (\fIpshared\fP est zéro)
+ou partagé entre plusieurs processus (\fIpshared\fP n'est pas nulle).
+LinuxThreads ne gère actuellement pas les sémaphores partagés entre plusieurs
+processus, donc
+.B "sem_init"
+renvoie toujours l'erreur
+.B "ENOSYS"
+si 
+.I "pshared"
+n'est pas nul.
+
+.B "sem_wait"
+suspend le thread appelant jusqu'à ce que le sémaphore pointé par
+.I "sem"
+ait un compteur non nul. Alors, le compteur du sémaphore est atomiquement
+décrémenté.
+
+.B "sem_trywait"
+est une variante non bloquante de
+.BR "sem_wait" .
+Si le sémaphore pointé par 
+.I "sem"
+a une valeur non nulle, le compteur est atomiquement décrémenté et
+.B "sem_trywait"
+retourne immédiatement 0. Si le compteur du sémaphore est zéro,
+.B "sem_trywait"
+retourne immédiatement en indiquant l'erreur
+.BR "EAGAIN" .
+
+.B "sem_post"
+incrémente atomiquement le compteur du sémaphore pointé par
+.IR "sem" .
+Cetts fonction ne bloque jamais et peut être utilisée de manière fiable dans un
+gestionnaire de signaux.
+
+.B "sem_getvalue"
+sauvegarde à l'emplacement pointé par
+.I "sval"
+la valeur courrante du compteur du sémaphore 
+.IR "sem" .
+
+.B "sem_destroy"
+détruit un sémaphore, libérant toutes les ressources qu'il possédait. Aucun
+thread ne doit être bloqué sur ce sémaphore quand
+.B "sem_destroy"
+est appelée. Dans l'implémentation LinuxThreads, aucune ressource ne peut
+être associée à un sémaphore, donc
+.B "sem_destroy"
+ne fait actuellement rien si ce n'est vérifier qu'aucun thread n'est
+bloqué sur ce sémaphore.
+
+.SH ANNULATION
+
+.B "sem_wait"
+est un point d'annulation.
+
+.SH "SIGNAUX ASYNCHRONE"
+
+Sur les processeurs proposant une opération test_et_échange (Intel 486,
+Pentium+, Alpha, PowerPC, MIPS II, Motorola 68k), la fonction
+.B "sem_post"
+est atomique en ce qui concerne le traitement ds signaux asynchrones. Elle peut
+donc être appelée par un gestionnaire de signal. C'est la seule fonction de
+synchronisation de threads définie par POSIX qui soit réentrante vis-à-vis des
+signaux asynchrones.
+
+Sur les Intel 386 et les Sparc, l'implémentation courante de
+.B "sem_post"
+par LinuxThreads n'est pas atomique car le langage machine ne fournit pas
+d'instructions atomiques. L'utilisation de sem_post dans un gestionnaire de
+signal n'est donc pas fiable, deux signaux simultanés pouvant amener à
+n'enregistrer qu'une seule action.
+
+.SH "VALEUR RENVOYÉE"
+
+Les fonctions
+.B "sem_wait"
+et 
+.B "sem_getvalue"
+renvoient toujours 0. Toutes les autres fonctions relatives aux sémaphores
+renvoient zéro en cas de succès et -1 en cas d'erreur. Dans ce dernier cas, la
+variable
+.BR "errno"
+est positionné au code d'erreur correspondant.
+
+.SH ERREURS
+
+La fonction
+.B "sem_init"
+remplit
+.B "errno"
+avec l'un des codes d'erreur suivants\ :
+.RS
+.TP
+.B "EINVAL"
+.I "valeur"
+dépasse la valeur maximale du compteur.
+.B "SEM_VALUE_MAX"
+.TP
+.B "ENOSYS"
+.I "pshared"
+n'est pas zéro.
+.RE
+
+La fonction
+.B "sem_trywait"
+remplit 
+.B "errno"
+avc l'un des codes d'erreur suivants\ :
+.RS
+.TP
+.B "EAGAIN"
+le compteur du sémaphore vaut actuellement 0.
+.RE
+
+La fonction
+.B "sem_post"
+remplit 
+.B "errno"
+avec l'un des codes d'erreur suivants\ :
+.RS
+.TP
+.B "ERANGE"
+après l'incrémentation, la valeur du sémaphore aurait dépassé
+.B "SEM_VALUE_MAX"
+(Le compteur du sémaphore n'est pas modifié dans ce cas)
+.RE
+
+La fonction
+.B "sem_destroy"
+remplit 
+.B "errno"
+avec l'un des codes d'erreur suivants\ :
+.RS
+.TP
+.B "EBUSY"
+certains threads sont actuellement bloqués en attente sur le sémaphore.
+.RE
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+.BR "pthread_mutex_init" (3),
+.BR "pthread_cond_init" (3),
+.BR "pthread_cancel" (3),
+.BR "ipc" (5).
+
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+

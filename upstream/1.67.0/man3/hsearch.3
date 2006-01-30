@@ -1,0 +1,202 @@
+.\" Copyright 1993 Ulrich Drepper (drepper@karlsruhe.gmd.de)
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" References consulted:
+.\"     SunOS 4.1.1 man pages
+.\" Modified Sat Sep 30 21:52:01 1995 by Jim Van Zandt <jrv@vanzandt.mv.com>
+.\" Remarks from dhw@gamgee.acad.emich.edu Fri Jun 19 06:46:31 1998
+.\" Modified 2001-12-26, 2003-11-28, 2004-05-20, aeb
+.\"
+.\" Traduction 04/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 23/12/2005 LDP-1.67
+.\"
+.TH HSEARCH 3 "20 mai 2004" LDP "Manuel du programmeur Linux"
+.SH NOM
+hsearch, hcreate, hdestroy \- Gestion de table de hachage.
+.SH SYNOPSIS
+.B #include <search.h>
+.sp
+.BI "ENTRY *hsearch (ENTRY " item ", ACTION " action );
+.sp
+.BI "int hcreate (unsigned " nel );
+.sp
+.B "void hdestroy (void);"
+.sp 2
+.B #define _GNU_SOURCE
+.br
+.B #include <search.h>
+.sp
+.BI "int hcreate_r(size_t " nel ", struct hsearch_data *" tab );
+.sp
+.BI "int *hsearch_r(ENTRY " item ", ACTION " action ,
+.BI "ENTRY **" ret ", struct hsearch_data *" tab );
+.sp
+.BI "void hdestroy_r(struct hsearch_data *" tab );
+.SH DESCRIPTION
+Les trois fonctions
+.BR hcreate (),
+.BR hsearch (),
+et
+.BR hdestroy ()
+permettent à l'utilisateur de créer une table (une seule à la fois) de
+hachage du type \fBENTRY\fP (définie dans \fI<search.h>\fP) qui associe
+une clé avec des données quelconques.
+.PP
+La table doit d'abord être créée avec la fonction \fBhcreate\fP().
+\fInel\fP est une estimation du nombre d'éléments dans la table.
+La fonction \fBhcreate\fP() permet d'augmenter cette valeur, afin
+d'améliorer les performances de la table de hachage.
+.PP
+La fonction \fBhdestroy\fP() libère la mémoire occupée par la table, afin
+de pouvoir en construire une nouvelle.
+.PP
+L'argument \fIitem\fP est du type \fBENTRY\fP, qui est définie dans
+\fI<search.h>\fP ainsi\ :
+.sp
+.nf
+  typedef struct entry {
+      char *\fIkey\fP;
+      void *\fIdata\fP;
+  } ENTRY;
+.fi
+.sp
+Le champ \fIkey\fP pointe sur une chaîne de caractères ASCII terminée par un
+caractère nul. Cette chaîne est la clé de recherche.
+Le champ \fIdata\fP pointe sur les données associées à cette clé.
+La fonction \fBhsearch\fP() recherche dans la table un élément associé
+à la même clé que \fIitem\fP (comparées avec
+.BR strcmp (3)),
+et si elle réussit, elle renvoie un pointeur sur cet élément.
+Le paramètre \fIaction\fP détermine ce que fera \fBhsearch\fP() si la
+recherche est infructueuse.
+Si \fIaction\fP vaut \fBENTER\fP, \fBhsearch\fP() insèrera une copie
+de \fIitem\fP. Si \fIaction\fP vaut \fBFIND\fP, elle renverra \fBNULL\fP.
+.PP
+Les fonctions
+.BR hcreate_r (),
+.BR hsearch_r (),
+.BR hdestroy_r ()
+sont des versions réentrantes qui permettent d'utiliser plusieurs tables
+simultanément. Le dernier argument utilisé identifie la table. La structure
+sur laquelle il pointe doit être mise à zéro avant le premier appel à
+.BR hcreate_r ().
+.SH "VALEUR RENVOYÉE"
+\fBhcreate\fP() et \fBhcreate_r\fP() renvoie zéro si la table NE peut PAS être installée.
+.LP
+\fBhsearch\fP() renvoie \fINULL\fP si l'action est \fIENTER\fP et si la
+table est pleine ou si l'action est \fIFIND\fP et si l'\fIitem\fP n'est
+pas trouvé dans la table.
+.LP
+\fBhsearch_r\fP() renvoie zéro si \fIaction\fP est \fBENTER\fP et si
+la table de hachage est pleine, ou zéro sinon.
+.SH ERREURS
+POSIX documente l'erreur\ :
+.TP
+.B ENOMEM
+Plus de mémoire.
+.LP
+L'implémentation glibc renvoie les deux erreurs suivantes\ :
+.TP
+.B ENOMEM
+La table est pleine et \fIaction\fP vaut \fBENTER\fP.
+.TP
+.B ESRCH
+Le paramètre \fIaction\fP vaut \fBFIND\fP et aucun élément n'a été
+trouvé dans la table.
+.SH  CONFORMITÉ
+Les fonctions
+.BR hcreate (),
+.BR hsearch (),
+et
+.BR hdestroy ()
+viennent de SVID, et sont décrites dans POSIX 1003.1-2001.
+Les fonctions
+.BR hcreate_r (),
+.BR hsearch_r (),
+.BR hdestroy_r ()
+sont des extensions GNU.
+.SH BOGUES
+SVID et POSIX 1003.1-2001 précisent que \fIaction\fP n'est significative que
+pour les recherches infructueuses\ ; ainsi ENTER ne devrait avoir aucune
+influence pour une recherche réussie. Les implémentations libC et GlibC
+mettent à jour \fIdata\fP de la clé \fIkey\fP fournie dans ce cas.
+.LP
+Les entrées ne peuvent être qu'ajoutées dans la table, on ne peut pas les
+supprimer individuellement.
+.SH EXEMPLE
+.PP
+Le programme suivant insère 24 éléments dans une table de hachage, puis
+affiche quelques uns d'entre-eux.
+.nf
+
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <search.h>
+  char *data[]= { "alpha",   "bravo",  "charlie", "delta",    "echo",
+                  "foxtrot", "golf",   "hotel",   "india",    "juliet",
+                  "kilo",    "lima",   "mike",    "november", "oscar",
+                  "papa",    "quebec", "romeo",   "sierra",   "tango",
+                  "uniform", "victor", "whisky",  "x-ray",    "yankee"
+                  "zoulou"
+  };
+
+int
+main ()
+{
+    ENTRY e, *ep;
+    int i;
+
+    /* On commence avec une petite table, qu'on agrandit ensuite */
+
+    hcreate(30);
+    for (i = 0; i < 24; i++) {
+        e.key = data[i];
+        /* Les données sont de simples entiers, pas des pointeurs */
+        e.data = (char *)i;
+        ep = hsearch(e, ENTER);
+        /* Il ne devrait pas y avoir d'échec */
+        if (ep == NULL) {
+            fprintf (stderr, "Échec\\n");
+	    exit(1);
+	}
+    }
+    for (i = 22; i < 26; i++)  {
+    /* Afficher 2 entrées, et vérifier que 2 autres sont absentes */
+        e.key = data[i];
+        ep = hsearch(e, FIND);
+        printf ("%9.9s -> %9.9s:%d\\n", e.key,
+	        ep?ep->key:"NULL",
+                ep ? (int)(ep->data) : 0);
+    }
+    return (0);
+}
+.fi
+.SH "VOIR AUSSI"
+.BR bsearch (3),
+.BR lsearch (3),
+.BR tsearch (3),
+.BR malloc (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

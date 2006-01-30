@@ -1,0 +1,239 @@
+.\" Copyright (c) 1990, 1993
+.\"	The Regents of the University of California.  All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"	@(#)btree.3	8.4 (Berkeley) 8/18/94
+.\"
+.\" Traduction 06/05/1999 par Christophe Blaess (ccb@club-internet.fr)
+.\"                       LDP-man-pages-1.23
+.\" MàJ 21/07/2003 LDP-1.56
+.TH BTREE 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+btree \- Méthodes d'accès à une base de données en arbre binaire.
+.SH SYNOPSIS
+.nf
+.ft B
+#include <sys/types.h>
+#include <db.h>
+.ft R
+.fi
+.SH DESCRIPTION
+La routine
+.IR dbopen
+est l'interface de bibliothèque pour les fichiers de base de données.
+L'un des formats de fichier supportés est le type des arbres binaires.
+La description générale des méthodes d'accès à une base de données
+est fournie dans la page de manuel
+.IR dbopen (3).
+La page présente ne décrit que les informations spécifiques aux arbres
+binaires.
+.PP
+Une telle structure de données est un arbre équilibré, trié, mémorisant
+les paires clés-données associées. 
+.PP
+La structure de données spécifique aux méthodes d'accès aux arbres binaires,
+et que l'on transmet à
+.I dbopen
+est définie dans le fichier d'en-tête <db.h> ainsi :
+.PP
+typedef struct {
+.RS
+u_long flags;
+.br
+u_int cachesize;
+.br
+int maxkeypage;
+.br
+int minkeypage;
+.br
+u_int psize;
+.br
+int (*compare)(const DBT *key1, const DBT *key2);
+.br
+size_t (*prefix)(const DBT *key1, const DBT *key2);
+.br
+int lorder;
+.RE
+} BTREEINFO;
+.PP
+Les éléments de cette structures sont les suivants :
+.TP
+flags
+Cet attribut est rempli avec un OU binaire entre les valeurs suivantes :
+.RS
+.TP
+R_DUP
+Autoriser les clés dupliquées dans l'arbre, c'est à dire, permettre l'insertion
+même si la clé existe déjà dans l'arbre.
+Le comportement par défaut, comme décrit dans
+.IR dbopen (3),
+est d'écraser la clé existante ou d'échouer si la valeur d'attribut
+R_NOOVERWRITE est indiquée.
+L'attribut R_NOOVERWRITE a priorité sur R_DUP, et une tentative d'insertion
+de clé déjà existante échouera s'ils sont tous les deux mentionnés.
+.IP
+Si la base de données contient des clés dupliquées, l'ordre de
+récupération des paires clé-valeur est indéfini si l'on utilise
+la routine
+.IR get .
+Toutefois la routine
+.I seq
+avec l'attribut R_CURSOR positionné renvoie la clé "logiquement première"
+de chaque groupe de clés dupliquées. 
+.RE
+.TP
+cachesize
+Une suggestion de taille maximale (en octets) du cache mémoire.
+Cette valeur est
+.B seulement
+indicative, et les méthodes d'accès alloueront plus de mémoire plutôt que
+d'échouer.
+Comme chaque recherche examine la page racine de l'arbre, le cache des
+pages les plus récemment consultées améliore les temps d'accès.
+De plus, les écritures physiques sont retardées aussi longtemps que possible,
+ainsi un cache, même modeste, peut améliorer sensiblement les opérations
+d'entrée/sortie. Bien sûr l'utilisation d'un cache augmente la probabilité
+(jamais nulle toutefois) de corruption ou de perte de données si le
+système se plante alors qu'un arbre est en cours de modification.
+Si 
+.I cachesize
+vaut 0 (pas de taille indiquée) on utilise un cache par défaut.
+.TP
+maxkeypage
+Le nombre maximum de clés qui seront stockées sur une seule page.
+Pas encore implémenté.
+.TP
+minkeypage
+Le nombre minimum de clés qui seront stockées sur la même page. Cette valeur
+sert à déterminer quelles clés seront stockées sur des pages de débordement.
+Lorsqu'un clé ou une donnée est plus grande que la taille de page divisée
+par le nombre minimum de clés, elle est stockée sur des pages de
+débordement plutôt que sur la page elle-même.
+Si
+.I minkeypage
+est nulle (pas de nombre minimum de clés indiqué), on utilise la valeur 2.
+.TP
+psize
+Taille (en octets) des pages utilisées pour les noeuds de l'arbre. La taille
+minimale est 512 octets, et la taille maximale 64 K.
+Si
+.I psize
+vaut 0, (pas de taille indiquée), la taille de page est choisie en fonction
+de la taille des blocs d'entrée/sortie du système de fichiers sous-jacent.
+.TP
+compare
+Fonction de comparaison de clé. Elle doit renvoyer un entier inférieur, égal
+ou supérieur à zéro lorsque le premier argument est respectivement inférieur,
+égal ou supérieur au second.
+La même fonction de comparaison doit toujours être utilisé pour un arbre donné,
+même lors de la réouverture ultérieure de la base de données.
+Si
+.I compare
+vaut NULL (pas de fonction indiquée), les clés sont comparées de manière
+lexicographique, les clés les plus courtes considérées comme inférieures aux
+clés les plus longues.
+.TP
+prefix
+Fonction de comparaison avec préfixe.
+Si elle est fournie, cette routine doit renvoyer le nombre d'octets du second
+argument clé qui sont nécessaires pour déterminer s'il est supérieur au
+premier argument. Si les clés sont égales, on doit renvoyer la longueur de
+la clé. Remarquez que l'utilité d'une telle routine dépend dans une très
+large mesure du type de données manipulées, mais il arrive que cette routine
+fournisse des réductions significatives de taille d'arbre et de temps de
+recherche.
+Si
+.I prefix
+vaut NULL (pas de fonction indiquée),
+.B et
+si aucune fonction de comparaison n'est mentionnée, une routine de comparaison
+lexicographique est employée.
+Si
+.I prefix
+est NULL mais si un routine de comparaison est founie, aucune comparaison
+de préfixe n'est effectuée.
+.TP
+lorder
+L'ordre des octets pour les entiers stockés dans la base de données.
+Ce nombre doit représenter l'ordre sous forme d'entier. Par exemple l'ordre
+poids faible-poids fort (big endian) est représenté par le nombre 4321.
+Si
+.I lorder
+vaut 0 (pas d'ordre indiqué), on utilise l'ordre des octets du système hôte.
+.PP
+Si le fichier existe déjà (et si le drapeau O_TRUNC) n'est pas spécifié),
+les valeurs indiquées par les paramètres flags, lorder, et psize sont
+ignorées, et remplacées par les valeurs fournies lors de la création
+de l'arbre.
+.PP
+Le balayage séquentiel de l'arbre vers l'avant se déroule de la plus petite
+clé vers la plus grande.
+.PP
+L'espace libéré par la destruction des paires clés/données n'est jamais
+récupéré, bien qu'il soit théoriquement disponible pour être ré-utilisé. Ceci
+signifie qu'une base de données en arbre binaire ne fait que grandir.
+Il faut donc éviter les destructions exagérées, ou reconstruire régulièrement
+un nouvel arbre en balayant systématiquement l'ancien.
+.PP
+Les recherches, les insertions et les suppressions dans un arbre binaire
+s'effectuent en O lg base N, où base représente le facteur de remplissage
+moyen.
+Souvent, l'insertion de données déjà ordonnées dans un arbre binaire résulte
+en un facteur d'insertion faible. Cette implémentation a été modifiée pour
+rendre l'insertion d'éléments ordonnés encore plus profitable. Ceci
+donne un facteur de remplissage de pages encore meilleur. 
+.SH ERREURS
+Les routines d'accès aux
+.I "arbres binaires"
+peuvent échouer et renvoyer dans
+.I errno
+le code de toutes les erreurs indiquées pour les routines de la bibliothèque
+.IR dbopen (3).
+.SH "VOIR AUSSI"
+.IR dbopen (3),
+.IR hash (3),
+.IR mpool (3),
+.IR recno (3)
+.sp
+.IR "The Ubiquitous B-tree" ,
+Douglas Comer, ACM Comput. Surv. 11, 2 (June 1979), 121-138.
+.sp
+.IR "Prefix B-trees" ,
+Bayer and Unterauer, ACM Transactions on Database Systems, Vol. 2, 1
+(March 1977), 11-26.
+.sp
+.IR "The Art of Computer Programming Vol. 3: Sorting and Searching" , 
+D.E. Knuth, 1968, pp 471-480.
+
+.SH BOGUES
+Seuls les ordres d'octets big-endian et little-endian fonctionnent.
+
+.SH TRADUCTION
+Christophe Blaess, 1999-2003.

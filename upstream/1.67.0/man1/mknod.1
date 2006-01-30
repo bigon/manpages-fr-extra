@@ -1,0 +1,112 @@
+.\" Traduction 21/12/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" màj 15/12/1998 LDP man-page 1.22
+.\" MàJ 25/07/2003 LDP-1.56
+.TH MKNOD 1 "25 juillet 2003" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+mknod \- Créer des fichiers spéciaux.
+.SH SYNOPSIS
+.BI "mknod [" options "] " nom " {bc} " "numéro_majeur numéro_mineur"
+.br
+.B "mknod [" options "] " nom  " p"
+.sp
+Options GNU (forme courte)\ :
+.BI "[\-m " mode "] [\-\-mode=mode] [\-\-help] [\-\-version]"
+.SH DESCRIPTION
+.B mknod
+crée une FIFO, un fichier spécial en mode caractère, ou un fichier
+spécial en mode bloc, avec le
+.I nom
+indiqué.
+.PP
+Un fichier spécial est un ensemble de trois valeurs (une booléenne, et
+deux entiers) enregistré dans un système de fichiers. La valeur booléenne
+indique s'il s'agit d'un fichier caractères ou blocs, et les deux entiers
+correspondent aux numéros majeur et mineur.
+.PP
+Ainsi un fichier spécial ne prend quasiment pas de place sur le disque,
+et est utilisé pour dialoguer avec le système d'exploitation, pas pour
+enregistrer des données. Généralement les fichiers spéciaux concernent
+des périphériques matériels (disques, bandes, ttys, imprimantes) ou
+des services fournis par le système d'exploitation (/dev/null, /dev/random).
+.PP
+Les fichiers en mode bloc sont des périphériques comme des disques (où les
+données sont accessibles à travers un numéro de bloc, et où il est
+intéressant d'avoir une mémoire cache par bloc). Tous les autres périphériques
+sont en mode caractère. Autrefois la distinction se faisait autrement, les
+entrées/sorties en mode bloc étaient bufferisées, pas les autres.
+.PP
+La commande
+.B mknod
+permet de créer ce type fichiers.
+.PP
+Les arguments fournis à la suite du
+.I nom
+indiquent le type de fichier à créer\ :
+.RS
+.TP
+.B p 
+pour une FIFO
+.TP
+.B b 
+pour un fichier spécial en mode bloc (avec buffer)
+.TP
+.B c
+pour un fichier spécial en mode caractère (sans buffer)
+.RE
+.PP
+La version GNU de
+.B mknod
+dispose de l'option
+.B u
+("unbuffered") synonyme de
+.BR c .
+.PP
+Lorsque l'on crée un fichier spécial bloc ou caractère, les numéros
+majeur et mineur correspondant au périphérique doivent être précisés
+après le type de fichier, en décimal, en octal commençant par 0, ou 
+(version GNU seulement) en hexadécimal précédé de 0x.
+Par défaut le mode de création est 0666 ('a+rw') moins les bits se trouvant
+dans le umask.
+.SS OPTIONS
+.TP
+.I "\-m, \-\-mode mode"
+Indique les autorisations d'accès au fichier, 
+.I mode
+étant fourni sous forme symbolique, comme pour
+.BR chmod (1),
+les permissions par défaut étant utilisées comme valeur de départ.
+.SH "OPTIONS STANDARDS GNU"
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard, et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard, et se terminer
+normalement.
+.TP
+.I "\-\-"
+Terminer la liste des options.
+.SH "CONFORMITÉ"
+POSIX ne décrit pas cette commande, considérée comme non portable, et
+recommande d'utiliser plutôt
+.BR mkfifo (1)
+pour créer des FIFOs.
+SVID dispose d'une commande
+.I /etc/mknod
+ayant la même syntaxe mais sans l'option mode.
+.SH NOTES
+Sur un système Linux (1.3.22 ou plus récent) le fichier
+.I /usr/src/linux/Documentation/devices.tex
+contient une liste des noms de périphériques, avec le type, et
+les numéros majeurs et mineurs.
+.LP
+Cette page décrit la version de
+.B mknod
+trouvée dans le paquetage fileutils-4.0.
+D'autres versions peuvent diverger légèrement.
+.SH VOIR AUSSI
+.BR chmod (1),
+.BR mkfifo (1),
+.BR mknod (2).
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

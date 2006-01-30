@@ -1,0 +1,113 @@
+.\" Copyright (c) 1990, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" This code is derived from software contributed to Berkeley by
+.\" Chris Torek and the American National Standards Committee X3,
+.\" on Information Processing Systems.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)ferror.3	6.8 (Berkeley) 6/29/91
+.\"
+.\"
+.\" Converted for Linux, Mon Nov 29 14:24:40 1993, faith@cs.unc.edu
+.\"
+.\"
+.\" Traduction 23/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 04/06/2001 LDP-1.36
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\"
+.TH FERROR 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ferror, clearerr, feof, fileno \- Vérifier et réinitialiser les états d'un flux.
+.SH SYNOPSIS
+.B #include <stdio.h>
+.sp
+.BI "void clearerr (FILE *" stream );
+.br
+.BI "int feof (FILE *" stream );
+.br
+.BI "int ferror (FILE *" stream );
+.br
+.BI "int fileno (FILE *" stream );
+.SH DESCRIPTION
+La fonction
+.B clearerr
+efface les indicateurs d'erreur et de fin de fichier du flux pointé par
+.IR stream .
+.PP
+La fonction
+.B feof
+teste l'indicateur de fin de fichier concernant le flux pointé par
+.IR stream ,
+et renvoie une valeur non nulle si cet indicateur est actif. L'indicateur
+de fin de fichier ne peut être réinitialisé que par la fonction
+.BR clearerr .
+.PP
+La fonction
+.B ferror
+teste l'indicateur d'erreur concernant le flux pointé par
+.IR stream ,
+et envoie une valeur non nulle si cet indicateur est actif. L'indicateur
+d'erreur ne peut être réinitialisé que par la fonction
+.BR clearerr .
+.PP
+La fonction
+.B fileno
+renvoie le descripteur de fichier, de type entier, correspondant au flux
+.IR stream .
+.PP
+Pour les versions de ces fonctions ignorant les verrouillages, voir
+.BR unlocked_stdio (3).
+.SH ERREURS
+Ces fonctions ne devraient pas échouer, et ne positionnent donc pas
+la variable
+.IR errno .
+(Toutefois, si
+.B fileno
+détecte que son argument n'est pas un flux valide, il doit renvoyer
+\-1 et remplir
+.I errno
+avec
+.BR EBADF .)
+.SH CONFORMITÉ
+Les fonctions
+.BR clearerr ,
+.BR feof ,
+et
+.BR ferror
+sont conformes à X3.159-1989 (``ANSI C'').
+.SH "VOIR AUSSI"
+.BR open (2),
+.BR stdio (3),
+.BR unlocked_stdio (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003

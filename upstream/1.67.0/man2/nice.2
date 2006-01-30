@@ -1,0 +1,92 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1992 Drew Eckhardt (drew@cs.colorado.edu), March 28, 1992
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified by Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de)
+.\" Modified Sat Jul 24 14:51:55 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\"
+.\" Traduction  10/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 17/01/2002 LDP-1.38
+.\" Màj 19/01/2002 LDP-1.47
+.\" Màj 19/07/2003 LDP-1.53
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH NICE 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+nice \- Augmenter la courtoisie du processus.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.BI "int nice(int " inc );
+.SH DESCRIPTION
+.B nice
+ajoute
+.I inc
+à la valeur de courtoisie processus appelant, le rendant donc moins
+prioritaire.
+Seul le Super\-User peut spécifier
+une valeur
+.I inc
+négative (ce qui rend le processus plus prioritaire).
+.SH "VALEUR RENVOYÉE"
+.BR nice
+renvoie 0 s'il réussit, ou \-1 s'il échoue, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EPERM
+Tentative d'augmenter la priorité du processus
+(en diminuant sa courtoisie) avec un
+.IR inc
+négatif sans être Super\-User.
+.SH "CONFORMITÉ"
+SVr4, SVID EXT, AT&T, X/OPEN, BSD 4.3. Toutefois, la valeur de retour
+sous Linux avec la GlibC (jusqu'à Glibc 2.2.4) n'est pas standard, voir
+ci-dessous. SVr4 documente un code d'erreur
+supplémentaire EINVAL.
+.SH NOTES
+Notez que SUSv2 et  POSIX 1003.1-2003 indiquent que cet appel-système renvoie
+la nouvelle valeur de courtoisie, tandis que l'appel-système Linux et la
+routine de la GlibC (jusqu'à GlibC 2.2.4)
+renvoient 0 en cas de réussite. La nouvelle valeur de courtoisie peut être
+obtenue grâce à
+.BR getpriority (2).
+Remarquez également que dans une implémentation où
+.B nice
+renvoie la nouvelle valeur de courtoisie, un code de retour \-1 est
+tout à fait possible. Pour détecter les erreurs, il faut mettre
+.I errno
+à zéro avant l'appel, et examiner sa valeur si
+.B nice
+renvoie \-1.
+.SH "VOIR AUSSI"
+.BR nice (1),
+.BR getpriority (2),
+.BR setpriority (2),
+.BR fork (2),
+.BR renice (8)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

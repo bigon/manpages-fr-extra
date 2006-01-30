@@ -1,0 +1,122 @@
+.\" Traduction 23/12/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH EXPR 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+expr \- Évaluer des expressions.
+.SH SYNOPSIS
+.B expr
+expression...
+.br
+.B expr
+{\-\-help,\-\-version}
+.br
+.SH DESCRIPTION
+Cette page de manuel décrit la version GNU de
+.BR expr .
+
+.B expr
+évalue une expression, et imprime le résultat sur la sortie standard.
+
+Chaque élément minimal de l'expression doit être fourni comme argument
+indépendant. Les opérandes peuvent être des nombres ou des chaînes de
+caractères. Les chaînes n'ont pas besoin d'être encadrées pour \fBexpr\fP,
+mais il est généralement nécessaire de le faire pour les protéger du shell.
+
+.B expr
+transforme tout argument apparaissant en position d'opérande en un entier,
+ou en une chaîne suivant le type d'opération à appliquer.
+.PP
+Les opérateurs sont (par ordre décroissant de priorité)\ :
+.IP "\fI|\fP"
+Renvoie son premier argument s'il n'est pas nul, et si sa valeur n'est pas
+zéro, sinon il renvoie son second argument. Il s'agit de l'opération 'OU'
+habituelle.
+.IP "\fI&\fP"
+Si aucun des deux arguments n'est nul, et si aucune valeur n'est 0, renvoie
+son premier argument. Sinon il renvoie 0.
+.IP "\fI<\fP\0 \fI<=\fP\0 \fI=\fP\0 \fI==\fP\0 \fI!=\fP\0 \fI>=\fP\0 \fI>\fP"
+Compare les arguments et renvoie 1 si la relation est vraie, 0 sinon.
+(\fI==\fP est un synonyme de \fI=\fP.)
+\fBexpr\fP transforme les deux arguments en nombres. La comparaison est
+numérique. Si la transformation en nombre échoue, une comparaison de type
+lexicographique est choisie.
+.IP "\fI+\fP\0 \fI-\fP"
+Effectuent une opération arithmétique. Les deux arguments sont transformés
+en nombres et une erreur se produit si c'est impossible.
+.IP "\fI*\fP\0 \fI/\fP\0 \fI%\fP"
+Effectuent une opération arithmétique (le `%' est l'opération `modulo' comme
+en C). Les deux arguments sont transformés en nombres et une erreur se produit
+si c'est impossible.
+.IP "\fI:\fP"
+Effectue une recherche de sous-chaîne. Les arguments sont considérés comme
+des chaînes. Le second est une expression rationnelle avec un `^' ajouté
+implicitement au début. Le premier argument est comparé à ce motif.
+Si la correspondance réussit, et si une partie de la chaîne est
+encadrée par `\e(' et `\e)', cette partie sera renvoyée comme valeur
+de l'expression \fI:\fP. Sinon l'opération renvoie un entier représentant
+le nombre de caractères mis en correspondance. Si la comparaison échoue,
+l'opérateur \fI:\fP renvoie une chaîne nulle si l'encadrement `\e(' et `\e)'
+est utilisé, et renvoie 0 sinon. On ne peut utiliser qu'un seul encadrement
+`\e(' et `\e)'.
+.TP
+De plus, les mots-clés suivants sont valides :
+.TP
+.BI match " chaîne exp_rationnelle"
+Une autre manière de faire une mise en correspondance. Le résultat est
+le même que ``\fIchaîne\fP\ \fB:\fP \fIexp_rationnelle\fP''.
+.TP
+.BI substr " chaîne pos lg"
+Renvoie la partie de \fIchaîne\fP commençant à la position \fIpos\fP et
+de longueur maximale \fIlg\fP.  Si \fIpos\fP ou \fIlg\fP est négatif, ou
+non-numérique, \fIsubstr\fP renvoie une chaîne nulle.
+.TP
+.BI index " chaîne classe_caractères"
+Renvoie la position de la première occurrence du premier caractère appartenant
+à \fIclasse_caractères\fP dans la \fIchaîne\fP. Si aucun caractère de la
+\fIclasse_caractères\fP n'est trouvé dans \fIchaîne\fP, 0 est renvoyé.
+.TP
+.BI length " chaîne"
+Renvoie la longueur de la \fIchaîne\fP.
+.PP
+Les parenthèses servent à grouper les opérations comme d'habitude. Les mots-clés
+ne peuvent pas être utilisés comme chaînes.
+.SS OPTIONS
+Quand la version GNU de
+.B expr
+est invoquée avec un unique argument, les options suivantes sont reconnues :
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard, et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard, et se terminer normalement.
+.SH EXEMPLES
+.PP
+Pour ajouter 1 à la variable shell
+.IR a " :"
+.IP
+a=\`expr $a + 1\`
+.PP
+On peut utiliser l'expression suivante pour imprimer la partie sans répertoire d'un nom
+de fichier situé dans la variable
+.IR a
+(La valeur de
+.IR a
+n'a pas besoin de contenir de `/'):
+.IP
+expr $a : '.*/\e(\^.*\e)' '\^|' $a
+.LP
+Remarquez la protection des méta-caractères du shell.
+.PP
+.B expr
+renvoie les codes de retour suivants :
+.PP
+0 si l'expression n'est ni nulle ni 0,
+.br
+1 si l'expression est nulle ou 0,
+.br
+2 si l'expression est invalide.
+
+.SH TRADUCTION
+Christophe Blaess, 1997.

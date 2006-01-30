@@ -1,0 +1,112 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 19:26:03 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 03/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH GETPROTOENT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+getprotoent, getprotobyname, getprotobynumber, setprotoent, endprotoent \- Accéder aux protocoles.
+.SH SYNOPSIS
+.nf
+.B #include <netdb.h>
+.sp
+.B struct protoent *getprotoent (void);
+.sp
+.BI "struct protoent *getprotobyname (const char *" name );
+.sp
+.BI "struct protoent *getprotobynumber (int " proto );
+.sp
+.BI "void setprotoent (int " stayopen );
+.sp
+.B void endprotoent (void);
+.fi
+.SH DESCRIPTION
+La fonction \fBgetprotoent()\fP lit la ligne suivante du fichier
+\fI/etc/protocols\fP et renvoie une structure \fIprotoent\fP
+contenant la division des divers champs de la ligne.  Le fichier
+\fI/etc/protocols\fP est ouvert si nécessaire.
+.PP
+La fonction \fBgetprotobyname()\fP renvoie une structure \fIprotoent\fP
+correspondant à la ligne du fichier \fI/etc/protocols\fP qui concerne
+le protocole appelé \fIname\fP.
+.PP
+La fonction \fBgetprotobynumber()\fP renvoie une structure \fIprotoent\fP
+pour la ligne correspondant au protocole numéro \fInumber\fP.
+.PP
+La fonction \fBsetprotoent()\fP ouvre le fichier \fI/etc/protocols\fP
+et ramène le pointeur au début. Si \fIstayopen\fP est vrai (valant 1),
+alors le fichier ne sera pas refermé entre les appels successifs à
+\fBgetprotobyname()\fP ou \fBgetprotobynumber()\fP.
+.PP
+La fonction \fBendprotoent()\fP referme le fichier \fI/etc/protocols\fP.
+.PP
+La structure \fIprotoent\fP est définie dans \fI<netdb.h>\fP ainsi :
+.sp
+.RS
+.nf
+.ne 5
+.ta 8n 16n 32n
+struct protoent {
+  char   *p_name;    /* Nom officiel du protocole */
+  char  **p_aliases; /* Liste d'alias             */
+  int     p_proto;   /* Numéro du protocole       */
+}
+.ta
+.fi
+.RE
+.PP
+Les membres de la structure \fIprotoent\fP sont :
+.TP
+.I p_name
+Le nom officiel du protocole.
+.TP
+.I p_aliases
+Une liste, terminée par zéro, d'autres noms pour le protocole.
+.TP
+.I p_proto
+Le numéro du protocole.
+.SH "VALEUR RENVOYÉE"
+Les fonctions \fBgetprotoent()\fP, \fBgetprotobyname()\fP et
+\fBgetprotobynumber()\fP renvoient une structure \fIprotoent\fP, ou un
+pointeur NULL si une erreur se produit, ou si la fin du fichier est atteinte.
+.SH FICHIERS
+.PD 0
+.TP
+.I /etc/protocols
+Base de donnée des protocoles
+.PD
+.SH "CONFORMITÉ"
+BSD 4.3
+.SH "VOIR AUSSI"
+.BR getservent (3),
+.BR getnetent (3),
+.BR protocols (5)
+
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

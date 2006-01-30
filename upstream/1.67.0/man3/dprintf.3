@@ -1,0 +1,77 @@
+.\" Copyright (C) 2001 Andries Brouwer <aeb@cwi.nl>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Text fragments inspired by Martin Schulze <joey@infodrom.org>.
+.\"
+.\" Traduction 24/04/2002 par Stéphan Rafin (stephan.rafin@laposte.net)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH DPRINTF 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+dprintf, vdprintf \- Ecriture formatée dans un descripteur de fichier
+.SH SYNOPSIS
+.B #define _GNU_SOURCE
+.br
+.B #include <stdio.h>
+.sp
+.BI "int dprintf(int " fd ", const char *" format ", ...);"
+.sp
+.BI "int vdprintf(int " fd ", const char *" format ", va_list " ap );
+.SH DESCRIPTION
+Les fonctions
+.B dprintf
+et
+.B vdprintf
+(telles qu'elles apparaissent dans la librairie glibc2) sont les homologues parfaites de 
+.B fprintf
+et
+.BR vfprintf ,
+si ce n'est qu'elles écrivent dans un descripteur de fichier
+.I fd
+plutôt que dans un flux donné.
+.SH NOTES
+Ces fontions sont des extensions GNU et ne sont pas présentes dans les standards C ou POSIX.
+Les noms ont clairement été mal choisis.
+Plusieurs systèmes (comme MacOs) possèdent des fonctions incompatibles appelées
+.IR dprintf ,
+qui sont généralement des versions de debug de
+.IR printf ,
+et qui ont potentiellement un prototype tel que 
+
+.BI "void dprintf (int level, const char *" format ", ...);"
+
+où le premier paramètre est le niveau de debug (et où la sortie est redirigée vers
+.IR stderr ).
+De plus,
+.B dprintf
+(ou
+.BR DPRINTF )
+est également le nom d'une macro bien connue fournissant une version debug de printf.
+Il vaut donc mieux éviter d'utiliser cette fonction dans les programmes 
+souhaitant être portables.
+
+.IR fdprintf
+aurait été un meilleur nom.
+.SH "VOIR AUSSI"
+.BR printf (3)
+.SH TRADUCTION
+Stéphan Rafin, 2002.

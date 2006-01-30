@@ -1,0 +1,42 @@
+.\" Page originale A.S.R : chastise.3
+.\" Traduction 02/06/1999 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 21/07/2003
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH CHATIMENT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+chatiment \- Fonction de bibliothèque pour punir les utilisateurs.
+.SH SYNOPSIS
+.nf
+.B #include <asr.h>
+.sp
+.BI "int chatiment (const char *" nom );
+.fi
+.SH DESCRIPTION
+La fonction
+.B chatiment
+prend en argument un nom d'utilisateur et prépare un environnement pour
+le punir. Ceci inclut la modification des quotas de CPU (si possible),
+la reconfiguration du courrier électronique avec un filtrage particulier,
+et, pour les récidivistes l'insertion d'un  «\ rm -rf $HOME &\ »
+en première place du fichier de login de l'utilisateur.
+.SH "VALEUR RENVOYEE"
+Normalement,
+.B chatiment
+renvoie un compteur indiquant le nombre de fois où l'utilisateur a
+déjà été \fBchatié\fP, mais si une erreur se produit il renvoie
+.B -1
+sans autre explication, quoiqu'il se soit produit.
+.SH NOTE IMPORTANTE
+N'appelez jamais la fonction
+.B chatiment
+depuis un gestionnaire de signaux, elle n'est
+.B pas
+ré\-entrante et n'est peut être pas non plus utilisable
+avec les threads d'ailleurs.
+.SH AUTEUR
+Cette page de manuel a été écrite par Ingvar Mattsson, pour la collection
+des pages de
+.BR alt.sysadmin.recovery .
+.SH TRADUCTION
+Christophe Blaess, 1999-2003.

@@ -1,0 +1,57 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Traduction 28/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" MàJ 21/07/2003 LDP-1.56
+.TH FWIDE 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+fwide \- Fixer et déterminer les orientations d'un flux.
+.SH SYNOPSIS
+.nf
+.B #include <wchar.h>
+.sp
+.BI "int fwide (FILE * " flux ", int " mode );
+.fi
+.SH DESCRIPTION
+Lorsque le \fImode\fP vaut zéro, la fonction \fBfwide\fP détermine l'orientation
+du \fIflux\fP. Elle renvoie une valeur positive si le \fIflux\fP est orienté
+caractères-larges. Elle renvoie une valeur négative si le \fIflux\fP est orienté octets,
+c'est à dire si les entrées/sorties par caractères sont autorisées, mais pas celles
+par caractères larges. Elle renvoie zéro si le \fIflux\fP n'a pas encore d'orientation.
+Dans ce cas, l'opération d'entrée/sortie suivante peut changer son orientation (octets
+s'il s'agit d'une opération normale, caractères-larges si c'est une opération avec
+des caractères larges).
+.PP
+une fois qu'un flux a une orientation, elle ne peut pas être changée, et persistera jusqu'à sa fermeture.
+.PP
+Quand le \fImode\fP est non-nul, la fonction \fBfwide\fP essaye d'abord de fixer l'orientation
+correspondante pour le \fIflux\fP (caractères-larges si le \fImode\fP est positif, octets s'il est négatif).
+Puis elle renvoie une valeur correspondant à l'orientation réelle, comme précédemment.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBfwide\fP renvoie l'orientation du \fIflux\fP, après l'avoir éventuellement modifiée.
+Une valeur supérieure à zéro représente une orientation caractères-larges, une valeur inférieure à zéro
+une orientation octets, une valeur nulle représentant une orientation non-décidée.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR fprintf (3),
+.BR fwprintf (3)
+.SH NOTES
+Une sortie de caractères larges dans un flux orienté octets peut être réalisée avec la fonction
+\fBfprintf\fP en utilisant les directives %lc et %ls.
+.PP
+Les sorties de caractères dans un flux orienté caractères-larges sont possibles en utilisant
+les directives %c et %s de la fonction \fBfwprintf\fP.
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

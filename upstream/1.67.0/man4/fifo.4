@@ -1,0 +1,68 @@
+.\" This man page is Copyright (C) 1999 Claus Fischer.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\"
+.\" 990620 - page created - aeb@cwi.nl
+.\"
+.\" Traduction 09/01/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man-pages 1.28
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 04/07/2005 LDP-1.61
+.\"
+.TH FIFO 4 "25 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+fifo \- Fichier spécial file FIFO, tube nommé.
+.SH DESCRIPTION
+Un fichier spécial de file FIFO (First In, First Out) est
+l'équivalent d'un tube (pipeline), sauf qu'il est accessible en
+tant que partie du système de fichiers. Il peut être ouvert
+par plusieurs processus, tant en lecture qu'en écriture.
+Lorsque des processus échangent des données par le biais d'une
+file FIFO, le noyau transfère les informations de manière interne,
+sans passer par une écriture réelle dans le système de fichier.
+Ainsi, le fichier spécial FIFO n'a pas de véritable contenu, c'est
+essentiellement un point de référence pour que les processus puissent
+accéder au tube en employant un nom dans le système de fichiers.
+.PP
+Le noyau assimile exactement un tube à chaque fichier spécial
+FIFO ouvert par au moins un processus. La file FIFO doit être
+ouverte aux deux extrémités (lecture et écriture) avant que
+des données puissent y transiter. Normalement, l'ouverture
+d'une file FIFO est bloquante jusqu'à ce que l'autre côté soit
+aussi ouvert.
+.PP
+Un processus peut ouvrir une FIFO en mode non bloquant. Dans ce cas,
+l'ouverture en lecture seule réussira même si personne n'a encore ouvert
+le côté écriture. L'ouverture en écriture seule échouera avec l'erreur
+ENXIO si l'autre extrémité n'a pas encore été ouverte.
+.PP
+Sous Linux, l'ouverture d'une file FIFO en lecture et écriture
+réussira aussi bien en mode bloquant que non bloquant. POSIX ne
+précise pas ce comportement. Ceci peut servir à ouvrir une FIFO
+en écriture, même si aucun lecteur n'est prêt. Un processus
+qui utilise les deux côtés d'une FIFO pour communiquer avec
+lui-même doit être très prudent pour éviter les situations
+de blocage.
+.SH NOTES
+Quand un processus essaye d'écrire dans une FIFO qui n'a pas
+été ouverte en lecture de l'autre côté, le processus reçoit un signal SIGPIPE.
+
+Un fichier spécial de file FIFO peut être créé à l'aide de la
+fonction
+.BR mkfifo (3),
+et est mentionné de manière particulière avec un
+.IR "ls -l" .
+.SH "VOIR AUSSI"
+.BR mkfifo (3),
+.BR mkfifo (1),
+.BR pipe (2),
+.BR socketpair (2),
+.BR open (2),
+.BR signal (2),
+.BR sigaction (2)
+
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.
+

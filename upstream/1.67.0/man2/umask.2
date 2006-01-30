@@ -1,0 +1,63 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1992 Drew Eckhardt (drew@cs.colorado.edu), March 28, 1992
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified by Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de)
+.\" Modified Sat Jul 24 12:51:53 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a Jour 15/04/97
+.\" màj 11/12/1997 (LDP man-pages 1.18)
+.\" màj 18/07/2003 (LDP man-pages 1.56)
+.TH UMASK 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+umask \- Fixer le masque de création de fichiers.
+.SH SYNOPSIS
+.B #include <sys/types.h>
+.br
+.B #include <sys/stat.h>
+.BI "mode_t umask(mode_t " mask );
+.SH DESCRIPTION
+.B umask
+fixe le masque de création de fichiers à la valeur
+.I mask 
+& 0777.
+
+Ce masque est utilisé par
+.BR open (2)
+pour positionner les permissions d'accès initiales sur les fichiers
+nouvellement créés.
+Les bits contenus dans le umask sont éliminés de l'argument
+\fBmode\fP de l'appel
+.BR open (2).
+Par exemple la valeur par défaut 022 pour le umask fournit une autorisation
+d'accès 0666 & ~022 = 0644 = rw-r--r-- dans le cas où le \fBmode\fP vaut 0666).
+.SH "VALEUR RENVOYÉE"
+Cet appel système n'échoue jamais, et la valeur précédente du masque
+est renvoyée.
+.SH "CONFORMITÉ"
+SVr4, SVID, POSIX, X/OPEN, BSD 4.3
+.SH "VOIR AUSSI"
+.BR creat (2), 
+.BR open (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

@@ -1,0 +1,111 @@
+.\" Copyright 2000 Sam Varshavchik <mrsam@stop.mail-abuse.org>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References: RFC 2553
+.\" Traduction 31/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.31
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.36
+.\" MàJ 21/07/2003 LDP-1.56
+.TH INET_PTON 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+inet_pton \- Créer une structure d'adresse réseau.
+.SH SYNOPSIS
+.nf
+.B #include <sys/types.h>
+.B #include <sys/socket.h>
+.B #include <arpa/inet.h>
+.sp
+.BI "int inet_pton(int " af ", const char * " src ", void * " dst );
+.SH DESCRIPTION
+Cette fonction convertit la chaîne de caractères
+.I src
+en une structure d'adresse réseau de la famille
+.IR af ,
+puis copie cette structure dans
+.IR dst .
+.PP
+La fonction
+.BR inet_pton (3)
+étend les possibilités de la fonction
+.BR inet_addr (3)
+pour supporter de multiples familles d'adresses. L'utilisation de
+.BR inet_addr (3)
+est désormais déconseillée, au profit de la fonction
+.BR inet_pton (3).
+Les familles d'adresses suivantes sont dès à présent supportées :
+.TP
+.B AF_INET
+.I src
+doit pointer sur une chaîne de caractère contenant une adresse réseau IPv4
+au format décimal pointé "\fIddd.ddd.ddd.ddd\fP".
+L'adresse est alors convertie 
+en une structure
+.I struct in_addr
+et copiée dans
+.IR dst,
+qui doit donc contenir au minimum
+.I sizeof(struct in_addr)
+octets.
+.TP
+.B AF_INET6
+.I src
+pointe sur une chaîne de caractères contenant une adresse réseau IPv6 dans un
+format IPv6 autorisé.
+L'adresse est convertie en une
+structure
+.I struct in6_addr
+et copiée dans
+.IR dst,
+qui doit donc contenir au moins
+.I sizeof(struct in6_addr)
+octets.
+.PP
+Certains formats hexadécimaux ou octaux légitimes pour les adresses
+.B AF_INET
+ne sont pas supportés par
+.IR inet_pton ,
+qui les rejettera.
+.SH "VALEUR RENVOYÉE"
+.B inet_pton
+renvoie une valeur négative et remplit
+.I errno
+avec la valeur
+.B EAFNOSUPPORT
+si 
+.I af
+ne contient pas une famille d'adresse valide.
+Elle renvoie une valeur nulle si
+.I src
+ne contient pas une adresse réseau valide
+pour la famille indiquée.
+Enfin, une valeur positive est renvoyée si la conversion a eu lieu 
+avec succès.
+.SH "VOIR AUSSI"
+.BR inet_ntop (3)
+.SH BOGUES
+.B AF_INET6
+ne reconnait pas les adresses IPv4.
+Il faut dans ce cas fournir dans
+.I src
+une adresse IPv4 projetée dans l'espace IPv6
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

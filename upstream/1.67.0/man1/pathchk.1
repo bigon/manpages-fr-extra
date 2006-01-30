@@ -1,0 +1,57 @@
+.\" Traduction 09/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH PATHCHK 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+pathchk \- Vérifier la validité et la portabilité d'un nom de fichier.
+.SH SYNOPSIS
+.B pathchk
+[-p] [\-\-portability] [\-\-help] [\-\-version] nom_de_fichier...
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.B pathchk
+([NDT \fBpathchk\fP = Path Check - Vérification de chemin).
+
+Pour chaque
+.I nom_de_fichier
+indiqué sur la ligne de commande,
+.B pathchk
+affiche un message si l'une des conditions suivantes n'est pas vérifiée\ :
+
+.br
+\(bu tous les répertoires existants dans le chemin du
+.I nom_de_fichier
+disposent de l'autorisation de parcours (exécution)
+.br
+\(bu la longueur du
+.I nom_de_fichier
+n'est pas supérieure à la limite imposée par le système de fichiers
+.br
+\(bu la longueur de chacun des composants du
+.I nom_de_fichier
+correspondant à un répertoire existant n'est pas supérieur à la taille
+maximale d'un nom de fichier.
+.PP
+Le code de retour vaut :
+
+.nf
+0 si tous les fichiers ont réussi tous les tests,
+1 sinon.
+.fi
+.SS OPTIONS
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-p, \-\-portability"
+Plutôt que d'utiliser les tailles limites imposées par le système de fichiers
+pour vérifier les longueurs, utiliser les valeurs minimales déclarées dans
+la norme POSIX.1 pour assurer la portabilité. Vérifier également que les
+noms de fichiers ne comportent que des caractères appartenant à un
+ensemble portable.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

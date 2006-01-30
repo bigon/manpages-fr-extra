@@ -1,0 +1,143 @@
+.\" Traduction 07/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH SU 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+su \- Executer un shell avec un User-ID et un Group-ID différents.
+.SH SYNOPSIS
+.B su
+[\-flmp] [\-c commande] [\-s shell] [\-\-login] [\-\-fast]
+[\-\-preserve-environment] [\-\-command=commande] [\-\-shell=shell] [\-]
+[\-\-help] [\-\-version] [utilisateur [arg...]]
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR su .
+
+.B su
+permet à un utilisateur de se transformer temporairement en un autre
+utilisateur. 
+
+Un shell est exécute avec les UID, GID effectifs et
+réels, ainsi que les groupes supplémentaires de l'\fIutilisateur\fP
+indiqué. 
+
+Si aucun nom d'\fIutilisateur\fP n'est mentionné, le nom
+\fBroot\fP, le Super-Utilisateur, est utilisé par défaut.
+
+Le shell exécuté est celui mentionné dans l'enregistrement correspondant
+à l'\fIutilisateur\fP dans le fichier /etc/passwd. Si aucun shell n'y est
+indiqué, /bin/sh est exécuté par défaut.
+
+Si l'\fIutilisateur\fP dispose d'un mot de passe, 
+.B su
+le réclame, à moins qu'il n'ait été invoque avec un UID réel valant 0 (celui
+du Super-Utilisateur).
+.PP
+Par défaut,
+.B su
+ne change pas de répertoire. Il positionne les variables d'environnement
+`HOME' et `SHELL' à partir des valeurs lues dans le fichier des mots
+de passe, et si l'\fIutilisateur\fP demandé n'est pas root, renseigne
+les variables `USER' et `LOGNAME'.  Par défaut le shell exécuté
+n'est pas un shell de connexion.
+.PP
+Si un ou plusieurs arguments sont fournis, ils sont transmis comme
+arguments supplémentaires au shell.
+.PP
+.B su
+ne gère pas spécifiquement /bin/sh ou tout autre shell
+(en positionnant argv[0] a "-su", en transmettant la commande -c 
+seulement à certains shells, etc...)
+.PP
+Sur les systèmes disposant de la journalisation syslog,
+.B su
+peut être compilé afin de fournir des rapports d'échec, et éventuellement
+de réussite des tentatives d'utilisation de
+.BR su .
+.PP
+Ce programme ne gère pas le "groupe wheel" utilisé pour restreindre
+l'accès par 
+.B su
+au compte Super-Utilisateur, car il pourrait aider des administrateurs
+système fascistes à disposer d'un pouvoir incontrôlé
+sur les autres utilisateurs.
+.SS OPTIONS
+.TP
+.I "\-c COMMANDE, \-\-command=COMMANDE"
+Transmet la COMMANDE (sur une seule ligne) au shell avec l'option
+.I \-c
+plutôt que démarrer un shell interactif.
+.TP
+.I "\-f, \-\-fast"
+Transmet l'argument
+.I \-f
+au shell.  Ceci n'a probablement de signification que pour
+.B csh
+et
+.BR tcsh ,
+pour lesquels l'option
+.I \-f
+évite la lecture du fichier de démarrage (.cshrc). Avec les shells de
+type Bourne, l'option
+.I \-f
+désactive le développement des motifs génériques dans les noms de fichiers,
+ce qui n'est généralement pas le but recherché.
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-, \-l, \-\-login"
+Appelle le shell sous forme de shell de connexion. Voici ce que cela
+signifie : Invalider toutes les variables d'environnement sauf `TERM',
+`HOME', et `SHELL' (qui sont renseignées comme décrit ci-dessus), ainsi
+que `USER' et `LOGNAME' (qui sont alors remplies même pour le Super-Utilisateur).
+Remplir `PATH' avec une valeur par défaut donnée lors de la compilation.
+Se déplacer dans le répertoire HOME de l'utilisateur. Ajouter
+"\-" au nom du shell, pour que celui-ci lise son ou ses fichiers de démarrage.
+.TP
+.I "\-m, \-p, \-\-preserve\-environment"
+Ne pas changer les variables d'environnement `HOME', `USER', `LOGNAME', et
+`SHELL'. Exécuter le shell correspondant à la variable d'environnement
+`SHELL' plutôt que celui présent dans l'enregistrement
+/etc/passwd de l'utilisateur, à moins que ce dernier ait un shell
+restreint, et que l'appelant ne soit pas le Super-Utilisateur.
+Un shell est restreint s'il n'est pas dans la liste
+/etc/shells, ou dans une liste fournie lors de la compilation si
+ce dernier fichier n'existe pas.
+Le comportement de cette option peut être partiellement modifiée avec
+les options
+.I \-\-login
+et
+.IR \-\-shell .
+.TP
+.I "\-s, \-\-shell shell"
+Exécute le shell indiqué plutôt que celui présent dans
+l'enregistrement /etc/passwd de l'utilisateur, à moins que 
+ce dernier ait un shell
+restreint, et que l'appelant ne soit pas le Super-Utilisateur.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH Pourquoi GNU SU ne gère-t-il pas le groupe `wheel' (par Richard Stallman)
+Il peut arriver qu'un petit groupe d'utilisateurs essayent de s'approprier
+l'ensemble du système. Par exemple, en 1984, quelques utilisateurs du
+laboratoire d'I.A du MIT ont tentés de prendre le pouvoir en modifiant
+le mot de passe de l'opérateur sur le système Twenex, et en
+gardant ce mot de passe secret. (J'ai pu les en empêcher en modifiant le noyau, et
+restaurer ainsi les autres accès, mais je ne saurais pas en faire autant
+sous Unix).
+.PP
+Néanmoins, il arrive parfois que les chefs fournissent le mot
+de passe de root à un utilisateur ordinaire.
+Avec le mécanisme habituel de \fBsu\fP,
+une fois que quelqu'un connaît ce mot de passe, il peut le transmettre
+à ses amis. Le principe du "groupe wheel" rend ce partage impossible,
+ce qui renforce la puissance des chefs.
+.PP
+Je me situe du cote du peuple, pas du côté des chefs. Si vous avez l'habitude
+de soutenir les patrons et les administrateurs systèmes quoi qu'ils fassent,
+cette idée peut vous paraître étrange au premier abord.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

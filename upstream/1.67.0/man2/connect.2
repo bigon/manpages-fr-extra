@@ -1,0 +1,226 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright 1993 Rickard E. Faith (faith@cs.unc.edu)
+.\" Portions extracted from /usr/include/sys/socket.h, which does not have
+.\" any authorship information in it.  It is probably available under the GPL.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\"
+.\" Other portions are from the 6.9 (Berkeley) 3/10/91 man page:
+.\"
+.\" Copyright (c) 1983 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"     This product includes software developed by the University of
+.\"     California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\" Traduction 10/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" mise a jour 05/04/1997
+.\" mise a jour 09/07/1997
+.\" mise à jour 18/05/99 - LDP-man-pages-1.23
+.\" mise à jour 30/05/01 - LDP-man-pages-1.36
+.\" mise à jour 18/07/03 - LDP-man-pages-1.56
+.TH CONNECT 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+connect \- Débuter une connexion sur une socket.
+.SH SYNOPSIS
+.B #include <sys/types.h>
+.br
+.B #include <sys/socket.h>
+.sp
+.BI "int connect(int " sockfd ", struct sockaddr *" serv_addr ,
+.BI "socklen_t " addrlen );
+.SH DESCRIPTION
+Le paramètre
+.I sockfd
+est une socket.
+Si la socket est du type
+.BR SOCK_DGRAM ,
+alors
+.I serv_adr
+est l'adresse à laquelle les datagrammes seront envoyés par défaut, et
+la seule adresse depuis laquelle ils seront reçus. Si la socket est du type
+.B SOCK_STREAM
+ou
+.BR SOCK_SEQPACKET ,
+cette fonction tente de se connecter à une autre socket. L'adresse de
+l'autre socket est indiquée par
+.BR serv_addr,
+qui doit être une adresse (de longueur
+.IR addrlen )
+dans le même domaine que la socket.
+Chaque domaine de communication interprète le paramètre
+.BR serv_addr,
+à sa manière.
+.PP
+En général, les sockets des protocoles orientés connexion ne réussissent un appel
+.B connect
+qu'une seule fois, alors qu'une socket d'un protocole sans connexion peut appeler
+.B connect
+plusieurs fois pour changer son affectation. Une socket sans connexion
+peut interrompre son affectation en se connectant sur une adresse avec le membre
+.I sa_family
+de la structure
+.B sockaddr
+à la valeur
+.BR AF_UNSPEC .
+.SH "VALEUR RENVOYÉE"
+.BR connect
+renvoie 0 s'il réussit, ou \-1 s'il échoue, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+Voici une liste d'erreurs générales concernant les sockets, il
+peut en exister d'autres spécifiques au domaine employé.
+.TP
+.B EBADF
+Mauvais descripteur.
+.TP
+.B EFAULT
+La structure d'adresse pointe en dehors de l'espace d'adressage.
+.TP
+.B ENOTSOCK
+Le descripteur ne correspond pas à une socket.
+.TP
+.B EISCONN
+La socket est déjà connectée.
+.TP
+.B ECONNREFUSED
+La connexion est refusée par le serveur.
+.TP
+.B ETIMEDOUT
+Dépassement du délai maximum pendant la connexion. Le serveur peut être trop
+chargé pour accepter une nouvelle connexion. Remarquez que pour les sockets
+IP, le délai peut être très long si les syncookies sont activés sur le serveur.
+.TP
+.B ENETUNREACH
+Le réseau est inaccessible.
+.TP
+.B EADDRINUSE
+L'adresse est déjà utilisée.
+.TP
+.B EINPROGRESS
+La socket est non-bloquante, et la connexion ne peut pas être établie
+immédiatement. Il est alors possible d'utiliser
+.BR select (2)
+ou
+.BR poll (2)
+pour attendre que la socket soit disponible en écriture. Une fois que
+.B select
+confirme la possibilité d'écrire, utilisez
+.BR getsockopt (2)
+pour lire l'option 
+.B SO_ERROR
+du niveau 
+.B SOL_SOCKET
+et déterminer si
+.B connect
+s'est terminé avec succès
+.RB ( SO_ERROR
+vaut zéro) ou en échec
+.RB ( SO_ERROR
+contient l'un des codes d'erreurs listés ici,
+indiquant le problème).
+.TP
+.B EALREADY
+La socket est non-bloquante et une tentative de connexion précédente ne
+s'est pas encore terminée.
+.TP
+.B EAGAIN
+Pas de port local disponible, ou pas assez de place dans les tables de routage. Pour
+.B PF_INET
+voir l'appel sysctl
+.B net.ipv4.ip_local_port_range
+dans
+.BR ip (7)
+pour savoir comment augmenter le nombre de ports locaux.
+.TP
+.B EAFNOSUPPORT
+L'adresse transmise n'appartient pas à la famille indiquée dans
+son champ
+.IR sa_family .
+.TP
+.B EACCES, EPERM
+L'utilisateur a tenté de connecter une adresse broadcast sans avoir activé
+l'attribut broadcast, ou la demande de connexion a échoué à cause des
+règles d'un firewall local.
+.SH CONFORMITÉ
+SVr4, 4.4BSD (La fonction
+.B connect
+est apparue en premier dans BSD 4.2).  SVr4 décrit des erreurs
+générales
+.BR EADDRNOTAVAIL ,
+.BR EINVAL ,
+.BR EAFNOSUPPORT , 
+.BR EALREADY ,
+.BR EINTR ,
+.BR EPROTOTYPE ,
+et
+.BR ENOSR .
+Il décrit
+également plusieurs causes d'erreurs non présentées ici.
+.SH NOTE
+Le troisième argument de
+.B connect
+est en fait un int (et c'est ce qu'utilisent BSD 4.*, libc4 et libc5).
+Une certaine confusion POSIX résulte du "socklen_t" actuel. Les propositions
+de standard n'ont pas encore été adoptées, mais glibc2 les suit déjà et
+utilise socklen_t. Pour plus de détails voir
+.BR accept (2).
+.SH BOGUES
+La déconnexion d'une socket en appelant
+.B connect
+avec un adresse de type
+.B AF_UNSPEC
+n'est pas encore implémentée.
+.SH "VOIR AUSSI"
+.BR accept (2), 
+.BR bind (2),
+.BR listen (2), 
+.BR socket (2), 
+.BR getsockname (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

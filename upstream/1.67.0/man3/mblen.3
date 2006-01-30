@@ -1,0 +1,111 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:59:43 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 04/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH MBLEN 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+mblen \- Déterminer la taille du prochain caractère multi-octets.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "int mblen (const char *" s ", size_t " n );
+.fi
+.SH DESCRIPTION
+Si
+.I s
+n'est pas un pointeur
+.BR NULL ,
+la fonction
+.B mblen
+inspecte au plus
+.I n
+octets de la chaine commençant à l'adresse
+.I s
+et extrait le caractère multi-octets suivant. Elle utilise un état de décalage
+statique et anonyme, uniquement connu de la routine
+.BR mblen ().
+Si le caractère multi-octets n'est pas le caractère large nul, elle renvoie
+le nombre d'octes consommés dans
+.IR s .
+Si c'est le caractère large nul, elle renvoie 0.
+.PP
+Si les
+.I n
+octets commençant à l'adresse
+.I s
+ne contiennent pas un caractère multi-octets complet,
+.BR mblen ()
+renvoie \-1. Ceci peut arriver même si
+.I n
+est supérieur à
+.BR MB_CUR_MAX ,
+si la chaîne multi-octets contient des séquences de décalages redondantes.
+.PP
+Si la chaîne multi-octets commençant en
+.I s
+contient une séquence invalide avant le prochaine caractère complet,
+.BR mblen ()
+renvoie aussi \-1.
+.PP
+Si
+.I s
+est un pointeur
+.BR NULL ,
+la fonction
+.BR mblen ()
+reinitialise l'état de décalage (connue d'elle seule), et renvoie une valeur
+non-nulle si le codage a un état de décalage non-trivial, ou zéro si
+le codage est sans état.
+.SH "VALEUR RENVOYÉE"
+La fonction
+.BR mblen ()
+renvoie le nombre d'octets analysés dans la séquence multi-octets commençant en
+.IR s ,
+si un caractère large non-nul a été reconnu.
+Elle renvoie zéro, si un caractère large nul a été trouvé.
+Elle renvoie \-1 si une séquence multi-octets invalide ou un caractère
+multi-octets incomplet ont été rencontrés.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR mbrlen (3)
+.SH NOTES
+Le comportement de
+.BR mblen ()
+dépdent de la catégorie
+.B LC_CTYPE
+de la localisation en cours.
+.PP
+La fonction
+.BR mbrlen ()
+fournit une meilleure interface pour la même fonctionnalité.
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

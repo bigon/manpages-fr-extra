@@ -1,0 +1,111 @@
+.\" Traduction 08/06/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\" MàJ 30/07/2003 PSMISC-21.2
+.TH KILLALL 1 "30 juillet 2003" "psmisc "Manuel de l'utilisateur Linux"
+.SH NOM
+killall \- Envoyer un signal à des processus indiqués par leurs noms.
+.SH SYNOPSIS
+.ad l
+.B killall
+.RB [ \-e , --exact ]
+.RB [ \-g , \-\-process-group ]
+.RB [ \-i , \-\-interactive ]
+.RB [ \-q , \-\-quiet ]
+.RB [ \-v , \-\-verbose ]
+.RB [ \-w , \-\-wait ]
+.RB [ \-V, \-\-version ]
+.RB [ \-S , \-\-sid ]
+.RB [ \-c , \-\-context ]
+.RB [ \-s , \-\-signal
+.IR signal ]
+.RB [ \-\- ]
+.I nom ...
+.br
+.B killall
+.RB \-l
+.br
+.B killall
+.RB \-V, \-\-version
+.ad b
+.SH DESCRIPTION
+.B killall
+envoie un signal à tous les processus en train d'exécuter les commandes
+mentionnées. Si aucun signal n'est précisé, TERM est envoyé.
+.PP
+Les signaux peuvent être indiqués soit par leur nom (par exemple \fB\-HUP\fP)
+soit par leur numéro (par exemple \fB\-1\fP).
+Le signal 0 (vérifier que le processus existe) n'a pas de nom.
+.PP
+Si le nom de la commande contient un slash (\fB/\fP),
+les processus exécutant ce fichier seront sélectionnés, indépendamment de
+leurs noms.
+.PP
+\fBkillall\fP renvoie un code non-nul si aucun processus n'a été trouvé
+pour une au moins des commandes précisées.
+Si un processus au moins a reçu un signal pour chaque commande mentionnée,
+\fBkillall\fP renvoie zéro.
+.PP
+Un processus \fBkillall\fP ne s'envoie jamais de signal à lui\-même
+(mais il peut en envoyer à d'autres processus \fBkillall\fP).
+.SH OPTIONS
+.IP "\fB\-e\fP, \fB\-\-exact\fP"
+Demander une correspondance exacte pour les noms très longs. Si un nom de
+commande est plus long que 15 caractères, il peut être tronqué (s'il est
+swappé, par ex.) Ainsi, \fBkillall\fP tuera tout ce qui correspond aux 15
+premiers caractères. Avec l'option \fB\-e\fP, les entrées partielles sont
+sautées, et \fBkillall\fP affiche un message pour chacune d'entre-elles si
+\fB\-v\fP est spécifiée avec \fB\-e\fP.
+.IP "\fB\-g\fP, \fB\-\-process-group\fP"
+Tuer le groupe auquel le processus appartient. Les signal n'est envoyé qu'une
+seule fois au groupe, même si plusieurs processus lui appartenant ont été
+trouvés.
+.IP "\fB\-i\fP, \fB\-\-interactive\fP"
+Demander confirmation interactivement avant l'émission du signal.
+.IP "\fB\-l\fP, \fB\-\-list\fP"
+Afficher la liste de tous les signaux connus.
+.IP "\fB\-q\fP, \fB\-\-quiet\fP"
+Ne pas se plaindre si aucun processus n'est tué.
+.IP "\fB\-v\fP, \fB\-\-verbose\fP"
+Afficher un compte-rendu de l'émission du signal.
+.IP "\fB\-V\fP, \fB\-\-version\fP"
+Afficher un numéro de version.
+.IP "\fB\-w\fP, \fB\-\-wait\fP"
+Attendre que tous les processus tués meurent. \fBkillall\fP vérifiera une
+fois par seconde s'il existe encore un processus visé, et ne reviendra que
+lorsqu'il n'y en aura plus. Notez que \fBkillall\fP peut attendre
+indéfiniment si le signal est ignoré, n'a pas d'effet ou si le processus
+reste à l'état zombie.
+.IP \fB\-S\fP
+(Flask seulement) Ne tuer que les processus avec le SID indiqué. Impossible
+avec \fB-c\fP. Doit précéder les autres arguments sur la ligne de commande.
+.IP \fB\-c\fP
+(Flask seulement) Ne tuer que les processus avec le contexte de sécurité
+indiqué. Impossible avec \fB-S\fP. Doit précéder les autres arguments sur la
+ligne de commande.
+.SH FICHIERS
+.nf
+/proc	emplacement du pseudo-système de fichiers Proc.
+.fi
+.SH "BOGUES"
+La sélection des processus par nom de fichier ne fonctionne que pour
+les exécutables qui sont maintenus ouverts pendant l'exécution. Un
+exécutable corrompu ne peut pas être tué de cette manière.
+.PP
+Attention, la commande \fBkillall\fP \fInom\fP n'a peut-être pas la
+même signification sur des systèmes non-Linux, tout spécialement
+lorsqu'elle est invoquée par un utilisateur privilégié...
+.PP
+\fBkillall \-w\fP ne détecte pas si un processus disparaît et est remplacé
+par un nouveau processus avec le même PID entre deux examens.
+
+.SH AUTEUR
+Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
+Since version 20 Craig Small <csmall@small.dropbear.id.au>
+.SH "VOIR AUSSI"
+.BR kill (1),
+.BR fuser (1),
+.BR pgrep (1),
+.BR pidof (1),
+.BR ps (1),
+.BR kill (2)
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

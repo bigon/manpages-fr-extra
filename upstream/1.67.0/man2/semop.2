@@ -1,0 +1,426 @@
+.\" Copyright 1993 Giorgio Ciucci (giorgio@crcc.it)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a Jour 8/04/97
+.\" Mise a Jour 18/07/2003   LDP-1.56
+.\" MàJ 25/07/2003 LDP-1.57
+.\" MàJ 30/07/2003 LDP-1.58
+.TH SEMOP 2 "30 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+semop, semtimedop \- Opérations sur les sémaphores.
+.SH SYNOPSIS
+.nf
+.B #include <sys/types.h>
+.B #include <sys/ipc.h>
+.B #include <sys/sem.h>
+.fi
+.sp
+.BI "int semop (int " semid ,
+.BI "struct sembuf *" sops ,
+.BI "unsigned " nsops  );
+.sp
+.BI "int semtimedop (int " semid ,
+.BI "struct sembuf *" sops ,
+.BI "unsigned " nsops ,
+.BI "struct timespec *" timeout );
+.SH DESCRIPTION
+Un sémaphore est représenté par une structure anonyme
+incluant les membres suivants\ :
+.sp
+.in +4n
+.nf
+unsigned short  semval;   /* valeur du sémaphore   */
+unsigned short  semzcnt;  /* # Attente pour zéro   */
+unsigned short  semncnt;  /* # Attente d'incrément */
+pid_t           sempid;   /* dernier processus agissant */
+.sp 
+.in -4n
+.fi 
+La fonction
+.B semop
+effectue des opérations sur les membres de l'ensemble de sémaphores identifié par
+.IR semid .
+Chacun des
+.I nsops
+éléments dans le tableau pointé par
+.I sops
+indique une opération à effectuer sur un sémaphore 
+en utilisant une structure
+.B "struct sembuf"
+définie comme suit:
+.sp
+.in +4n
+.nf
+  short sem_num;  /* Numéro du sémaphore (0=premier) */ 
+  short sem_op;   /* Opération sur le sémaphore      */
+  short sem_flg;  /* Options pour l'opération        */
+.sp
+.in -4n
+.fi
+Les options possibles pour
+.B sem_flg
+sont
+.B IPC_NOWAIT
+et
+.BR SEM_UNDO .
+Si une opération indique l'option
+.BR SEM_UNDO ,
+elle sera annulée lorsque le processus se terminera.
+.PP
+L'ensemble des opérations contenues dans
+.I sops
+est effectué
+.IR atomiquement .
+Les opérations sont toutes réalisées en même temps, et seulement si elle
+peuvent toutes être effectuées.
+Le comportement de l'appel-système si toutes les opérations ne sont pas
+réalisables dépend de la présence de l'attribut
+.B IPC_NOWAIT
+dans les champs
+.I sem_flg
+décrits plus bas.
+
+Chaque opération est effectuée sur le
+.BR sem_num \-ième
+sémaphore de l'ensemble. Le premier sémaphore est le
+numéro
+.B 0 .
+Pour chaque sémaphore l'opération est l'une des trois décrites
+ci-dessous.
+.PP
+Si l'argument
+.B sem_op
+est un entier positif, la fonction ajoute cette
+valeur à
+.BR  semval .
+De plus si
+.B SEM_UNDO
+est demandé, le système met à jour le compteur "undo" du sémaphore
+.RI ( semadj ).
+Cette opération n'est jamais bloquante.
+Le processus appelant doit avoir l'autorisation de modification
+sur le jeu de sémaphores.
+.PP
+Si 
+.B sem_op
+vaut zéro le processus attend que 
+.B semval
+soit nul. Plusieurs cas sont possibles :
+Si
+.B semval
+vaut zéro, l'appel système continue immédiatement
+Sinon, si l'on a réclamé
+.B IPC_NOWAIT
+dans
+.BR sem_flg ,
+l'appel système échoue (en annulant les actions précédentes)
+et
+.B errno
+contient
+le code d'erreur
+.BR EAGAIN .
+Autrement
+.B semzcnt
+est incrémenté
+de 1 et le processus s'endort jusqu'à ce que l'un
+des évènements suivants se produise\ :
+.IP \(bu
+.I semval
+devient égal à 0, alors
+.I semzcnt
+est décrémenté. L'appel système continue
+.IP \(bu
+Le jeu de sémaphores est supprimé. L'appel système
+échoue et
+.I errno
+contient le code d'erreur
+.BR EIDRM .
+.IP \(bu
+Le processus reçoit un signal à intercepter, la
+valeur de 
+.I semzcnt
+est décrémentée et l'appel système échoue avec
+.I errno
+contenant le code d'erreur
+.BR EINTR .
+.IP \(bu
+La limite temporelle indiquée par
+.I timeout
+dans un
+.B semtimedop
+a expiré\ : l'appel-système échoue avec
+.I errno
+contenant
+.BR EAGAIN .
+.PP
+Si
+.B sem_op
+est inférieur à zéro, le processus appelant doit avoir 
+l'autorisation de modification sur le jeu de sémaphores.
+Si
+.B semval
+est supérieur ou égal à la valeur absolue de
+.BR sem_op ,
+la valeur absolue de 
+.B sem_op
+est soustraite de
+.BR semval .
+Si 
+.B SEM_UNDO
+est indiqué, le système met à jour le compteur "undo" du
+sémaphore. Puis l'appel système continue.
+Autrement si l'on a réclamé
+.B IPC_NOWAIT
+dans
+.BR sem_flg ,
+l'appel système échoue (annulant les actions précédentes
+et
+.B errno
+contient le code d'erreur
+.BR EAGAIN .
+Sinon
+.B semncnt
+est décrémenté de un et le processus s'endort jusqu'à ce
+que l'un des évènements suivants se produise :
+.IP \(bu
+.I semval
+devient supérieur ou égal à la valeur absolue de 
+.IR sem_op ,
+alors la valeur
+.I semncnt
+est décrémentée, la valeur absolue de
+.I sem_op
+est soustraite de
+.I semval
+et si
+.B SEM_UNDO
+est demandé le système met à jour le compteur "undo" du
+sémaphore. Puis l'appel système continue.
+.IP \(bu
+Le jeu de sémaphores est supprimé. L'appel système
+échoue et
+.B errno
+contient le code d'erreur
+.BR EIDRM .
+.IP \(bu
+Le processus reçoit un signal à intercepter, la
+valeur de 
+.B semncnt
+est décrémentée et l'appel système échoue avec
+.B errno
+contenant le code d'erreur
+.BR EINTR .
+.IP \(bu
+La limite temporelle indiqué par
+.I timeout
+dans un
+.B semtimedop
+a expiré\ : l'appel-système échoue avec
+.I errno
+contenant
+.BR EAGAIN .
+.PP
+en cas de succès, le membre 
+.B sempid
+de la structure
+.B sem
+de chacun des sémaphores indiqués dans le tableau pointé par
+.I sops
+est rempli avec le PID du processus appelant.
+Enfin
+.B sem_otime
+est fixé à l'heure actuelle.
+.PP
+La fonction
+.B semtimedop
+se comporte comme
+.B semop
+sauf que dans le cas où le processus doit dormir, la
+durée maximale du sommeil est limitée par la valeur
+spécifiée dans la structure
+.B timespec
+dont l'adresse est transmise dans le paramètre
+.IR timeout .
+Si la limite indiquée a été atteint,
+l'appel-système échoue avec
+.I errno
+contenant
+.B EAGAIN
+(et aucune opération de
+.I sops
+n'est réalisée).
+Si le paramètre
+.I timeout
+est
+.BR NULL ,
+alors
+.B semtimedop
+se comporte exactement comme
+.BR semop .
+.SH "VALEUR RENVOYÉE"
+. semop
+renvoie la valeur
+.BR 0 ,
+s'il réussit et
+.B \-1
+s'il échoue auquel cas 
+.B errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B E2BIG
+l'argument
+.I nsops
+est supérieur à
+.BR SEMOPM ,
+le nombre maximal d'opérations par appel système.
+.TP
+.B EACCES
+Le processus appelant n'a pas les permissions d'accès nécessaires.
+.TP
+.B EAGAIN
+Une opération a échoué et
+.BR IPC_NOWAIT
+a été indiqué dans l'argument
+.IR sem_flg ,
+ou la durée limite indiquée dans
+.I timeout
+a expiré.
+.TP
+.B EFAULT
+.I sops
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B EFBIG
+La valeur de
+.B sem_num
+est inférieure à 0 ou supérieure ou égale au nombre de
+sémaphores dans l'ensemble.
+.TP
+.B EIDRM
+Le jeu de sémaphores a été supprimé.
+.TP
+.B EINTR
+Un signal a été reçu pendant l'attente.
+.TP
+.B EINVAL
+L'ensemble de sémaphores n'existe pas ou
+.I semid
+est inférieur à zéro, ou
+.I nsops
+n'a pas une valeur positive.
+.TP
+.B ENOMEM
+L'argument
+.I sem_flg
+de certaines opérations demande
+.B SEM_UNDO
+et le système n'a pas assez de mémoire pour allouer les structures nécessaires.
+.TP
+.B ERANGE
+.B semop + semval
+est supérieur à
+.BR SEMVMX.
+.SH NOTES
+Les structures
+.B sem_undo
+d'un processus ne sont pas héritées par ses enfants lors d'un
+.BR fork (2).
+par contre elles sont transmises lors d'un
+.BR execve (2).
+.PP
+.B semop
+n'est jamais relancé automatiquement après avoir été interrompu par un gestionnaire
+de signal quelque soit l'attribut
+.B SA_RESTART
+durant l'installation du gestionnaire.
+.PP
+.I semadj
+est un entier pour le processus qui représente simplement le compte (négatif)
+des opérations sur le sémaphore réalisées par
+l'attribut
+.BR SEM_UNDO .
+Quand la valeur d'un sémaphore est fixée directement par une requête
+.B SETVAL
+ou
+.B SETALL
+de
+.BR semctl (2),
+la valeur
+.I semadj
+correspondante est effacée dans tous les processus.
+.PP
+Les valeurs \fIsemval\fP, \fIsempid\fP, \fIsemzcnt\fP, et \fIsemnct\fP
+pour un sémaphore peuvent être retrouvées avec des appels
+.BR semctl (2)
+spécifiques.
+.PP
+Les limites système suivantes concernent
+.B semop :
+.TP
+.B SEMOPM
+Nombre maximal d'opérations pour un appel système
+.BR semop (32).
+.TP
+.B SEMVMX
+Valeur maximale pour
+.BR semval " :"
+dépendante de l'implémentation (32767).
+.PP
+L'implémentation n'a pas de limites intrinsèques pour
+la valeur maximale d'effacement en sortie
+.RB ( SEMAEM ), 
+le nombre de structure d'annulation sur le système
+.RB ( SEMMNU ),
+et le nombre maximal de structures d'annulation pour un processus.
+.SH BOGUES
+Quand un processus se termine, l'ensemble des structures
+.I semadj
+qui lui sont associées servent à annuler les effets de toutes les opérations
+sur les sémaphores réalisées avec
+l'attribut.
+.BR SEM_UNDO .
+Ceci pose un problème\ : si l'une (ou plusieurs) des modifications sur les
+sémaphores demande une descente du compteur d'un sémaphore en-dessous de
+zéro, que doit faire l'implémentation\ ?
+Une approche possible consiste à bloquer jusqu'à ce que la modification
+du sémaphore soit possible.
+C'est néanmoins peu désirable car la terminaison du processus peut
+bloquer pendant une période arbitrairement longue.
+Une autre possibilité est d'ignorer la modification
+du sémaphore (comme un échec lorsque
+.B IPC_NOWAIT
+est spécifié durant une opération).
+Linux adopte une troisième approche\ : décroître la valeur du sémaphore
+autant que possible (jusqu'à zéro) et permettre au processus de
+se terminer immédiatement.
+.SH "CONFORMITÉ"
+SVr4, SVID.  SVr4 documente les conditions d'erreur supplémentaires
+EINVAL, EFBIG, et ENOSPC.
+.SH "VOIR AUSSI"
+.BR ipc (5),
+.BR semctl (2),
+.BR semget (2),
+.BR sigaction (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

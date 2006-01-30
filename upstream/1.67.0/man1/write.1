@@ -1,0 +1,107 @@
+.\" Traduction 07/08/2000 par Frédéric Delanoy (delanoy_f@yahoo.com)
+.\" (util-linux v2.11n)
+.\"
+.\" Copyright (c) 1989, 1993
+.\"	The Regents of the University of California.  All rights reserved.
+.\"
+.\" This code is derived from software contributed to Berkeley by
+.\" Jef Poskanzer and Craig Leres of the Lawrence Berkeley Laboratory.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)write.1	8.1 (Berkeley) 6/6/93
+.\"
+.\" Modified for Linux, Sun Mar 12 10:21:01 1995, faith@cs.unc.edu
+.\"
+.\" MàJ 30/07/2003 util-linux-2.11y
+.TH WRITE 1 "30 juillet 2003" "util-linux" "Manuel de l utilisateur Linux"
+.SH NOM
+write \- Envoyer un message à un autre utilisateur.
+.SH SYNOPSIS
+.BI write " utilisateur " [ nom_terminal ]
+.SH DESCRIPTION
+.B Write
+vous permet de communiquer avec d'autres utilisateurs, en copiant des
+lignes de votre terminal sur les leurs.
+.PP
+Quand vous exécutez la commande
+.B write
+, l'utilisateur à qui vous écrivez reçoit un message de la forme\ :
+.PP
+.RS
+Message de votrenom@votremachine sur votreterminal à hh:mm ...
+.RE
+.PP
+Toutes les lignes suivantes que vous entrerez seront copiées sur le
+terminal de l'utilisateur spécifié. Si l'autre utilisateur veut
+répondre, il doit également lancer
+.B write.
+.PP
+Quand vous avez terminé, entrez un caractère de fin de fichier (EOF)
+ou un caractère d'interruption. L'autre utilisateur verra le
+message
+.B EOF
+qui indique que la conversation est terminée.
+.PP
+Vous pouvez empêcher quiconque (à l'exception du super\-utilisateur)
+de vous écrire en utilisant la commande
+.BR mesg (1).
+Certaines commandes, par exemple
+.BR nroff (1)
+et
+.BR pr (1),
+peuvent désactiver automatiquement l'écriture sur votre terminal, afin
+que leur sortie ne soit pas écrasée.
+.PP
+Si l'utilisateur que vous voulez joindre est connecté sur plus d'un
+terminal, vous pouvez spécifier sur quel terminal écrire en spécifiant
+le nom du terminal comme second opérande pour la commande
+.B write.
+Sinon, vous pouvez laisser
+.B write
+sélectionner un des terminaux\ ; il prendra celui le moins souvent
+oisif (idle), afin que dans le cas où l'utilisateur est connecté au
+travail et par après à la maison, le message aille au bon endroit (à
+la maison).
+.PP
+La convention traditionnelle utilisée pour écrire à quelqu'un est que
+lorsque la chaîne de caractères «\ \-o\ » est placée dans ou à la fin
+d'une ligne, c'est au tour de l'autre personne à parler. La chaîne
+«\ oo\ » signifie que la personne concernée croit que la conversation
+est terminée.
+.SH "VOIR AUSSI"
+.BR mesg (1),
+.BR talk (1),
+.BR who (1)
+.SH HISTORIQUE
+Une commande
+.B write
+est apparue dans la version 6 du UNIX AT&T.
+.SH TRADUCTION
+Frédéric Delanoy <\fIdelanoy_f at yahoo.com\fR>, 2000.

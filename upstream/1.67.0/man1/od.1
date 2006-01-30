@@ -1,0 +1,231 @@
+.\" Traduction 13/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH OD 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+od \- Afficher le contenu d'un fichier en octal ou sous d'autres formats.
+.SH SYNOPSIS
+.B od
+[\-abcdfhiloxv] [\-s[longueur]] [\-w[largeur]] [\-A base] [\-j nb_octets]
+[\-N nb_octets] [\-t type] [\-\-skip\-bytes=nb_octets] [\-\-address\-radix=base]
+[\-\-read\-bytes=nb_octets] [\-\-format=type] [\-\-output\-duplicates]
+[\-\-strings[=longueur]] [\-\-width[=largeur]] [\-\-traditional]
+[\-\-help] [\-\-version] [file...]
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.B od
+([NDT] \fBod\fP = Octal Dump).
+
+.B od
+affiche sur la sortie standard le contenu des fichiers indiqués. Si aucun
+fichier n'est fourni, ou si le nom `\-' est mentionné, c'est le contenu
+de l'entrée standard qui est affiché.
+
+Chaque ligne de sortie est constituée d'une colonne représentant le décalage
+par rapport au début du fichier, suivi d'une ou plusieurs colonnes de
+données, dans un format contrôlé par les options.
+
+Par défaut
+.B od
+affiche les décalages en octal, et les données contenues dans le fichier
+sous forme de nombres en octal de deux octets.
+.LP
+.SS OPTIONS
+.TP
+.I "\-A, \-\-address\-radix=base"
+Sélectionner la
+.I base
+dans laquelle les décalages sont affichées.
+.I base
+peut prendre l'une des valeurs suivantes :
+.RS
+.IP d
+décimale
+.IP o
+octale
+.IP x
+hexadécimale
+.IP n
+aucune (ne pas afficher les décalages)
+.RE
+.sp
+La base par défaut est octale.
+.TP
+.I "\-j, \-\-skip\-bytes=n"
+Sauter
+.I n
+octets en entrée avant la mise en forme et l'affichage. Si
+.I n
+commence par `0x' ou `0X', il est interprété en hexadécimal. Autrement,
+il est interprété en octal s'il commence par `0', et en décimal sinon.
+En ajoutant `b', la valeur est multipliée par 512, en ajoutant `k' par
+1024 et en ajoutant `m' par 1048576.
+.TP
+.I "\-N, \-\-read\-bytes=n"
+Afficher au maximum
+.I n
+octets de chaque fichier d'entrée. Les préfixes et suffixes de
+.B n
+sont interprétés comme ceux de l'option
+.IR \-j .
+.TP
+.I "\-t, \-\-format=type"
+Sélectionner le format d'affichage des résultats.
+.I type
+est une chaîne composée d'un ou plusieurs indicateurs de type
+décrits ci-dessous. Si plusieurs indicateurs sont indiqués, ou
+si cette option est répétée plusieurs fois,
+.B od
+affichera une copie de chaque ligne de sortie en utilisant chacun
+des types spécifiés, dans l'ordre des arguments.
+.RS
+.IP a
+caractères littéraux
+.IP c
+caractères ASCII ou séquences d'échappement préfixées par BackSlash
+.IP d
+valeurs décimales signées
+.IP f
+valeurs en virgule flottante
+.IP o
+valeurs octales
+.IP u
+valeurs décimales non signées
+.IP x
+valeurs hexadécimales
+.RE
+.sp
+Pour tous les types, sauf `a' et `c', vous pouvez préciser le nombre
+d'octets à utiliser pour interpréter chaque nombre dans le format
+indiqué. Pour cela, on fait suivre la lettre indiquant le type d'un
+nombre entier décimal. On peut également utiliser l'un des types
+génériques des compilateurs C en ajoutant une des lettres suivantes après le type.
+Pour les valeurs entières (d, o, u, x):
+.RS
+.IP C
+char
+.IP S
+short
+.IP I
+int
+.IP L
+long
+.RE
+.sp
+Pour les réels en virgule flottante (f):
+.RS
+.IP F
+float
+.IP D
+double
+.IP L
+long double
+.RE
+.TP
+.I "\-v, \-\-output\-duplicates"
+Afficher les lignes identiques consécutives. Par défaut, lorsque
+deux (ou plus) lignes successives de résultat sont identiques,
+.B od
+n'affiche que la première, et imprime un astérisque sur les lignes
+suivantes.
+.TP
+.I "\-s, \-\-strings[=n]"
+Plutôt que l'affichage normal, ne présenter que les chaînes
+de caractères trouvées dans les lignes d'entrée, et s'étendant
+sur au moins
+.I n
+caractères ASCII graphiques (ou de mise en page), terminées par
+un caractère NUL. Si
+.I n
+est omis, la valeur 3 est utilisée par défaut.
+.TP
+.I "\-w, \-\-width[=n]"
+Afficher
+.I n
+octets d'entrée par ligne. Cette valeur doit être un multiple commun aux
+tailles des types de sortie spécifiés.
+Si
+.I n
+est omis, la valeur par défaut est 32 octets. Si cette option n'est pas
+mentionnée, la valeur par défaut est 16.
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+.PP
+Les options suivantes sont d'anciennes spécifications, antérieures à POSIX,
+équivalentes aux nouvelles options POSIX.
+La version GNU de
+.B od
+accepte toutes les combinaisons d'options correspondant à l'ancien et
+au nouveau style. Les spécifications de format s'ajoutent.
+.TP
+.I "\-a"
+Afficher des caractères littéraux, équivalent à
+.IR "\-t\ a" .
+.TP
+.I "\-b"
+Afficher des valeurs octales, équivalent à
+.IR "\-t oC" .
+.TP
+.I "\-c"
+Afficher des caractères ASCII ou des séquences préfixées par BackSlash,
+équivalent à
+.IR "\-t c" .
+.TP
+.I "\-d"
+Afficher des entiers courts en décimal non signé, équivalent à
+.IR "\-t u2" .
+.TP
+.I "\-f"
+Afficher des valeurs réelles, équivalent à
+.IR "\-t fF" .
+.TP
+.I "\-h"
+Afficher des entiers courts en hexadécimal, équivalent à
+.IR "\-t x2" .
+.TP
+.I "\-i"
+Afficher des entiers courts en décimal, équivalent à
+.IR "\-t d2" .
+.TP
+.I "\-l"
+Afficher des entiers longs en décimal, équivalent à
+.IR "\-t d4" .
+.TP
+.I "\-o"
+Afficher des entiers courts en octal, équivalent à
+.IR "\-t o2" .
+.TP
+.I "\-x"
+Afficher des entiers courts en hexadécimal, équivalent à
+.IR "\-t x2" .
+.TP
+.I "\-\-traditional"
+Reconnaître les arguments antérieurs à POSIX que supportaient d'anciennes
+version de \fBod\fP. La syntaxe suivante :
+.br
+.B od
+\-\-traditional [file] [[+]décalage[.][b] [[+]étiquette[.][b]]]
+.br
+peut être utilisée pour indiquer au plus un fichier, et des arguments
+supplémentaires indiquant un \fIdécalage\fP et une adresse de départ, 
+.IR "étiquette."
+par défaut
+.IR "décalage"
+est interprété comme un nombre octal précisant combien d'octets d'entrée
+doivent être ignorés avant de démarrer la mise en forme. Le point décimal
+optionnel permet de forcer l'interprétation de
+.IR "décalage"
+en tant que nombre décimal.
+Si le point est absent, et si le décalage débute par `0x' ou `0x', il est
+interprété comme nombre hexadécimal. S'il y a un suffixe `b', le nombre
+d'octets est multiplié par 512.
+L'étiquette est interprétée comme le décalage, mais elle indique une
+pseudo-adresse de départ. Les pseudo-adresses obtenues sont affichées
+entre parenthèses après les adresses normales.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

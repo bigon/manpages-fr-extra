@@ -1,0 +1,177 @@
+.\" Traduction 21/12/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" màj 08/04/1999 LDP man-pages 1.22
+.\" Mise à jour 05/06/99 - LDP-man-pages-1.23
+.\" Mise à jour 30/05/01 - LDP-man-pages-1.36
+.\" MàJ 25/07/2003 LDP-1.56
+.TH TOUCH 1 "25 juillet 2003" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+touch \- Modifier l'horodatage d'un fichier.
+.SH SYNOPSIS
+.B touch 
+.BI ""[\-acm][\-r " référence "|\-t date "] [\-\-] " fichier...
+.sp
+Version obsolète :
+.br
+.B touch
+.BI "[\-acm][" date_horrible "] " fichier...
+.sp
+Version GNU :
+.br
+.B touch
+.BI "[\-acfm] [\-r " fichier "] [\-t " date_décimale ]
+.BI "[\-d " date "] [\-\-time={atime,access,use,mtime,modify}]"
+.BI "[\-\-date=" date "] [\-\-reference=" fichier ]
+.BI "[\-\-no\-create] [\-\-help] [\-\-version] [\-\-] " fichier...
+
+.SH DESCRIPTION
+.B touch
+modifie la date d'accès et la date de modification de chaque
+.I fichier
+indiqué.
+Ces horodatages sont remplacés par la date et l'heure actuelles, sauf si
+l'option \fI-r\fP est utilisée, auquel cas ils sont remplacés par
+les horodatages correspondants du fichier 
+.I référence
+ou, si
+l'option \fI-t\fP est utilisée, on utilise la
+.I date
+mentionnée.
+Si aucune des deux options \-a et \-m ne sont indiquées, ou si elles
+le sont toutes deux, on modifie les deux dates (accès et changement)
+Si on utilise une seule des options \-a et \-m, seule la date concernée
+est modifiée.
+Les fichiers n'existant pas sont créés (sauf si l'option \-c est utilisée),
+leur contenu est vide et leur
+mode est 0666 modifié par l'umask de l'utilisateur.
+.SH OPTIONS POSIX
+.TP
+.B \-a
+Modifier l'heure du dernier accès au fichier
+.TP
+.B \-c
+Ne pas créer les fichiers n'existant pas.
+.TP
+.B \-m
+Changer l'heure de dernière modification du fichier
+.TP
+.BI "\-r " fichier_référence
+Utiliser les horodatages du
+.I fichier_référence
+à la place de l'heure actuelle.
+.TP
+.BI "\-t " date
+Utiliser la 
+.I date
+indiquée à la place de la date actuelle.
+L'argument est un nombre décimal de la forme
+.br
+.nf
+    [[SS]AA]MMJJhhmm[.ss]
+.br
+.fi
+(Mois, Jour, Heure, Minute, éventuellement Siècle et
+Année, éventuellement seconde). Si le Siècle n'est pas mentionné,
+la date est automatiquement prise dans l'intervalle 1969-2068.
+Si les secondes ne sont pas fournies, on les fixe à 0. Les secondes
+peuvent appartenir à l'intervalle 0-61 à cause des rattrapages périodiques.
+La date résultante correspond au fuseau horaire indiquée par la variable TZ.
+Une date ne peut pas être antérieure au 1er Janvier 1970.
+.TP
+.B "\-\-"
+Fin explicite de la liste des options.
+.SH "DÉTAILS POSIX"
+La seconde forme d'invocation présente l'inconvénient de risquer
+l'ambiguïté quant à savoir si
+.I date_horrible
+est une date ou un nom de fichier.
+On la considère comme une date si aucune option \-r ou \-t n'est utilisée,
+s'il y a au moins deux arguments, et si le premier argument est un
+entier de 8 ou 10 chiffre.
+Le format de la
+.I date_horrible
+est MMJJhhmm[aa], où aa (dans l'intervalle 69-99) indique une année
+dans l'intervalle 1969-1999. L'année en cours est indiquée par l'absence
+de aa.
+Cette forme est obsolète.
+.SH "DÉTAILS GNU"
+Si le premier
+.I fichier
+serait un argument valide de l'option
+.BR "\-t",
+si aucun horodatage n'est précisé par les options
+.BR "\-d" ,
+.BR "\-r"
+ou
+.BR "\-t",
+et si l'argument `\-\-' n'est pas mentionné, 
+ce premier argument est interprété comme l'horodatage à utiliser
+plutôt que comme un nom de fichier.
+.PP
+Si l'on change à la fois les dates d'accès et de modification pour
+les amener à l'heure actuelle, alors
+.B touch
+peut modifier les horodatages de fichiers n'appartenant pas à
+l'utilisateur l'invoquant, à la condition toutefois que celui-ci
+ait une autorisation d'écriture dessus.
+Sinon, l'utilisateur doit posséder le fichier.
+.SH OPTIONS GNU
+.B "\-a, \-\-time=atime, \-\-time=access, \-\-time=use"
+Modifier uniquement l'heure d'accès.
+.TP
+.B "\-c, \-\-no-create"
+Ne pas créer les fichiers n'existant pas.
+.TP
+.BI "\-d " date ", \-\-date=" date
+Utiliser la
+.I date
+indiquée (qui peut se présenter sous plusieurs formes) à la place
+de la date actuelle. La
+.I date
+peut contenir des mois littéraux, des indications de fuseau horaire, les
+abréviations `am' et `pm', etc...
+.TP
+.B \-f
+Sans effet - uniquement pour assurer la compatibilité
+avec la version BSD de
+.BR touch .
+.TP
+.B "\-m, \-\-time=mtime, \-\-time=modify"
+Changer uniquement l'heure de modification.
+.TP
+.BI "\-r " fichier-référence ", \-\-file=" fichier-référence
+Utiliser les horodatages du
+.I fichier_référence
+à la place de l'heure actuelle.
+.TP
+.BI "\-t " "MMJJhhmm[[SS]AA][.ss]"
+Utiliser la date (Mois, Jour, Heure, Minute, éventuellement Siècle et
+Année, éventuellement Seconde) à la place de la date actuelle.
+Notez que cette option viole la syntaxe Posix.
+.SH "OPTIONS STANDARDS GNU"
+.TP
+.B "\-\-help"
+Afficher un message d'aide sur la sortie standard, et se terminer normalement.
+.TP
+.B "\-\-version"
+Afficher un numéro de version sur la sortie standard, et se terminer normalement.
+.TP
+.B "\-\-"
+Terminer la liste des options.
+.SH ENVIRONNEMENT
+La variable TZ est utilisée pour interpréter les dates fournies de
+manière explicite.
+LANG, LC_ALL, LC_CTYPE et LC_MESSAGES ont leurs significations habituelles.
+.SH "CONFORMITÉ"
+POSIX 1003.2 décrit une syntaxe pour l'option \-t qui diffère de celle
+de GNU.
+.SH EXEMPLE D'UTILISATION
+La commande `\fItouch foo\fP' créera le fichier \fIfoo\fP
+s'il n'existe pas, et positionnera son horodatage de dernière
+modification à l'heure actuelle. Ceci est souvent utilisé pour
+contrôler le comportement de
+.BR make .
+.SH NOTES
+Cette page décrit la version de \fBtouch\fP fournie dans le
+paquetage fileutils-4.0.
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

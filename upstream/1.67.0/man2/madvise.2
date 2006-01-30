@@ -1,0 +1,158 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (C) 2001 David Gomez <davidge@jazzfree.com>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Based on comments from mm/filemap.c. Last modified on 10-06-2001
+.\"
+.\" Traduction 12/08/2002 par Stephan Rafin (stephan.rafin@laposte.net)
+.\" MaJ 18/07/2003 - LDP-1.56 (C.Blaess)
+.TH MADVISE 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+madvise \- Configure l'utilisation de la mémoire.
+.SH SYNOPSIS
+.br
+.B #include <sys/mman.h>
+.sp
+.BI "int madvise(void *" start ", size_t " length ", int " advice );
+.SH DESCRIPTION
+L'appel système
+.B madvise
+conseille le noyau sur la façon de gérer la pagination sur l'intervalle 
+d'adresses débutant à l'adresse
+.I start
+et de taille
+.I length
+(en octets). Il permet à une application d'indiquer au noyau l'utilisation
+qu'elle compte faire de certaines zones de mémoire partagée ou projetée de
+façon à ce que le noyau puisse choisir les techniques de lecture 
+anticipée et de mise en cache appropriées.
+Cet appel ne modifie pas la sémantique de l'application (sauf dans le cas de
+.BR MADV_DONTNEED ),
+mais peut avoir un impact sur ses performances. Le noyau est libre d'ignorer
+le conseil.
+.LP
+Le conseil est spécifié par le paramètre 
+.I advice
+qui peut prendre les valeurs 
+.TP
+.B MADV_NORMAL
+Pas de traitement particulier. Il s'agit du comportement par défaut.
+.TP
+.B MADV_RANDOM
+prévoit des accès aux pages dans un ordre aléatoire.
+(Ainsi, la lecture anticipée sera moins utile qu'elle ne l'est en général.)
+.TP
+.B MADV_SEQUENTIAL
+prévoit des accès aux pages dans un ordre séquentiel.
+(Aussi, les pages d'un intervalle donné peuvent être systématiquement lues par
+anticipation, et peuvent être libérées rapidement après avoir été accédées.)
+.TP
+.B MADV_WILLNEED
+prévoit un accès dans un futur proche.
+(Ainsi, lire quelques pages de façon anticipée peut être une bonne idée.)
+.TP 
+.B MADV_DONTNEED
+Ne prévoit pas d'accès dans un futur proche.
+(pour l'instant, l'application en a fini avec l'intervalle considéré,
+ainsi le noyau peut-il libérer les ressources associées à ce dernier.)
+Les accès ultérieurs aux pages de l'intervalle réussiront, mais résulteront
+soit par un rechargement du fichier projeté sous-jacent (void
+.BR mmap ),
+soit par un remplissage avec des zéros pour les pages sans fichier.
+.SH "VALEUR RENVOYÉE"
+En cas de succès
+.B madvise
+renvoie zéro. En cas d'erreur, il renvoie \-1 et 
+.I errno
+est positionné de façon adéquate.
+.SH ERREURS
+.TP
+.B EINVAL
+la valeur
+.IR len
+est négative,
+.\" .I len
+.\" is zero,
+.I start
+n'est pas aligné sur une page,
+.I advice 
+n'a pas une valeur valide, ou bien l'application tente
+de libérer des pages verrouillées ou partagées (avec MADV_DONTNEED).
+.TP 
+.B ENOMEM
+les adresses de l'intervalle spécifié ne sont pas mappées actuellement,
+ou n'appartiennent pas à l'espace d'adressage du processus.
+.TP
+.B ENOMEM
+(pour MADV_WILLNEED) Mémoire insuffisante - Echec de pagination.
+.TP
+.B EIO
+(pour MADV_WILLNEED) suivre la consigne de pagination sur cette zone dépaserait
+la limite maximale de mémoire physique utilisable par le processus.
+.TP
+.B EBADF
+La projection existe, mais la zone n'est pas associé à un fichier.
+.TP
+.B EAGAIN
+une ressource du noyau est temporairement indisponible.
+.SH "NOTES SUR LINUX"
+.LP
+L'implémentation Linux actuelle (2.4.0) perçoit davantage cet appel-système comme
+une commande que comme un conseil et est ainsi susceptible de renvoyer une erreur
+quand elle ne parvient pas à réaliser ce qu'elle devrait accomplir en réponse à
+ce conseil. (Voir la description des ERREURS ci dessus.)
+Il s'agit d'un comportement non standard.
+.LP
+L'implémentation Linux nécessite que l'adresse
+.I start
+soit alignée sur une page, et permet que 
+.I length
+vaille zéro. S'il y a des parties de l'intervalle d'adresses spécifié
+qui ne sont pas mappées, la version Linux de  
+.B madvise
+les ignore et applique l'appel au reste de l'intervalle (mais renvoie
+.B ENOMEM
+comme il se doit).
+.SH HISTORIQUE
+La fonction 
+.B madvise
+est apparue pour la première fois dans BSD 4.4.
+.SH "CONFORMITÉS"
+POSIX.1b (POSIX.4).
+POSIX 1003.1-2001 spécifie l'appel
+.B posix_madvise
+avec des constantes POSIX_MADV_NORMAL, etc.
+et un comportement proche de celui décrit ici. Il existe un appel similaire
+.I posix_fadvise
+pour les accès aux fichiers.
+.SH "VOIR AUSSI"
+.BR getrlimit (2),
+.BR mmap (2),
+.BR mincore (2),
+.BR mprotect (2),
+.BR msync (2),
+.BR munmap (2)
+.SH TRADUCTION
+Stéphan Rafin, 2002
+.br
+Christophe Blaess, 2003.

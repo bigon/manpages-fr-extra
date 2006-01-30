@@ -1,0 +1,299 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (C) Markus Kuhn, 1996
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" 1995-11-26  Markus Kuhn <mskuhn@cip.informatik.uni-erlangen.de>
+.\"      First version written
+.\"
+.\"
+.\" Traduction 20/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.37
+.\" MàJ 25/07/2003 LDP-1.56
+.TH UTF-8 7 "25 juillet 2003" LDP "Manuel de l'administrateur Linux" 
+.SH NOM
+UTF-8 \- Un encodage Unicode multi\-octets compatible ASCII.
+.SH DESCRIPTION
+Le jeu de caractères
+.B Unicode 3.0
+(voir \fBunicode\fP(7)) est constitué d'un codage sur 16 bits. 
+L'encodage Unicode le plus évident (connu sous le nom de
+.BR UCS-2 )
+consiste en une séquence de mots de 16 bits. De telles chaînes
+peuvent contenir, comme fragments de caractère 16 bits, des octets
+comme '\\0' or '/' qui ont une signification particulière dans les noms
+de fichiers, et les paramètres de fonctions de bibliothèque C.
+De plus la majorité des outils UNIX attendent des fichiers ASCII et
+ne peuvent pas lire des caractères représentés par des mots de 16 bits
+sans subir des modifications majeures.
+
+Pour ces raisons, 
+.RB l' UCS-2
+n'est pas un encodage externe de
+.RB l' Unicode
+utilisable dans les noms de fichiers, les variables d'environnement,
+les fichiers textes, etc...
+Le sur\-ensemble d'Unicode
+.BR "ISO 10646 Universal Character Set (UCS)" ,
+occupe même un espace de codage sur 31 bits, et l'encodage évident
+.B UCS-4
+(une séquence de mots sur 32 bits) a les mêmes inconvénients.
+
+L'encodage
+.B UTF-8
+de
+.RB l' Unicode
+et de
+.RB l' UCS
+n'a pas ces inconvénients et est un moyen d'utiliser le jeu de
+caractères
+.B Unicode
+sous les systèmes d'exploitation compatibles UNIX.
+.SH PROPRIÉTÉS.
+L'encodage
+.B UTF-8 
+a les propriétés suivantes :
+.TP 0.2i
+*
+Les caractères
+.B UCS
+0x00000000 à 0x0000007f (le jeu
+.B US-ASCII
+classique) sont encodés simplement par les octets 0x00 à 0x7f (compatibilité ASCII)
+Ceci signifie que les fichiers et les chaînes qui contiennent uniquement des
+caractères du jeu ASCII 7 bits ont exactement le même codage en
+.B ASCII
+et en
+.BR UTF-8 .
+.TP
+*
+Tous les caractères
+.B UCS
+supérieurs à 0x7F sont encodés en séquences consistant uniquement
+en octets dans l'intervalle 0x80 a 0xFD, ainsi aucun octet
+ASCII n'apparaît en tant que partie d'un autre caractère (plus
+de problèmes avec '\\0' ou '/').
+.TP
+*
+L'ordre de tri lexicographique des chaînes
+.B UCS-4
+est préservé.
+.TP
+*
+Tous les 2^31 caractères de l'UCS peuvent être encodés en utilisant
+.BR UTF-8 .
+.TP
+*
+Les octets 0xFE et 0xFF ne sont jamais utilisés dans le codage
+.BR UTF-8 .
+.TP
+* 
+Le premier octet d'une séquence multi\-octets représentant un 
+caractère
+.B UCS
+non\-ASCII est toujours dans l'intervalle 0xC0 à 0xFD et indique la
+longueur de la séquence multi\-octets.
+Tous les octets suivants de cette séquence sont dans l'intervalle 0x80 à 0xBF.
+Ceci permet une re-synchronisation aisée et rend l'encodage robuste
+face aux octets manquants.
+.TP
+*
+Les caractères
+.B UTF-8
+codés en
+.B UCS
+peuvent avoir jusqu'à 6 octets de long, néanmoins le standard
+.B Unicode
+ne précise aucun caractère au-delà de 0x10ffff, ainsi les caractères
+Unicode ne peuvent avoir que 4 octets de long avec
+.BR UTF-8 .
+.SH ENCODAGE
+Les séquences d'octets suivantes sont utilisées pour représenter un
+caractère. Les séquences utilisées dépendent du numéro de code UCS
+du caractère :
+.TP 0.4i
+0x00000000 - 0x0000007F:
+.RI 0 xxxxxxx
+.TP
+0x00000080 - 0x000007FF:
+.RI 110 xxxxx 
+.RI 10 xxxxxx
+.TP
+0x00000800 - 0x0000FFFF:
+.RI 1110 xxxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.TP
+0x00010000 - 0x001FFFFF:
+.RI 11110 xxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.TP
+0x00200000 - 0x03FFFFFF:
+.RI 111110 xx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.TP
+0x04000000 - 0x7FFFFFFF:
+.RI 1111110 x
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.RI 10 xxxxxx
+.PP
+Les positions de bits
+.I xxx
+sont remplies avec les bits du numéro de code du caractère en
+représentation binaire. Seule la plus petite séquence multi\-octets
+permettant de représenter un numéro de code doit être utilisée.
+.PP
+Les codes
+.B UCS
+de valeur 0xd800\(en0xdfff (UTF-16) comme 0xfffe et 0xffff ne doivent
+pas apparaître dans un flux de données
+.BR UTF-8 .
+.SH EXEMPLES
+Le caractère
+.B Unicode
+0xA9 = 1010 1001 (le symbole copyright) est encodé
+en UTF-8 comme :
+.PP
+.RS
+11000010 10101001 = 0xC2 0xA9
+.RE
+.PP
+et le caractère 0x2260 = 0010 0010 0110 0000 (Le symbole "non égal") est encodé ainsi :
+.PP
+.RS
+11100010 10001001 10100000 = 0xE2 0x89 0xA0
+.RE
+.SH NOTES APPLICATIVES
+Les utilisateurs doivent sélectionner une localisation
+.BR UTF-8 ,
+par exemple
+.PP
+.RS
+export LANG=fr_FR.UTF-8
+.RE
+.PP
+afin d'active le support
+.B UTF-8
+dans les applications.
+.PP
+Les logiciels applicatifs qui doivent connaître l'encodage utilisé devrait
+toujours fixer la localisation, par exemple
+.PP
+.RS
+setlocale(LC_CTYPE, "")
+.RE
+.PP
+et les programmeurs peuvent tester l'expression
+.PP
+.RS
+strcmp(nl_langinfo(CODESET), "UTF-8") == 0
+.RE
+.PP
+pour savoir si une localisation
+.B UTF-8
+a été sélectionnée, et si les entrées-sorties de texte, les
+communications avec les terminaux, le contenu des fichiers de texte, les noms
+de fichiers et les variables d'environnement sont encodés en
+.BR UTF-8 .
+.PP
+Les programmeurs habitués aux jeux de caractères mono-octet comme
+.B US-ASCII
+ou
+.B ISO 8859
+doivent savoir que deux suppositions valides jusque là ne le sont plus
+dans les localisation
+.BR UTF-8 .
+D'abord un octet seul ne correspond par nécessairement à un unique caractère.
+Ensuite, comme les émulateurs de terminaux modernes, en mode
+.B UTF-8
+supportent également les caractères en
+.B double-largeur
+du Chinois, du Japonais ou du Coréen, comme les 
+.B caractères combinés
+sans largeur, la sortie d'un unique caractère ne fait pas avancer
+obligatoirement le curseur d'une position comme c'était le cas en
+.BR ASCII .
+Les fonctions de bibliothèque comme
+.BR mbsrtowcs (3)
+et
+.BR wcswidth (3)
+doivent servir à présent pour compter les caractères et les positions de 
+curseur.
+.PP
+La séquence ESC officielle pour basculer d'un encodage
+.B ISO 2022
+(comme utilisé par exemple par les terminaux VT100) en
+.B UTF-8
+est ESC % G
+("\\x1b%G"). La séquence de retour depuis
+.B UTF-8
+est ISO 2022 est ESC % @ ("\\x1b%@"). D'autres séquences ISO 2022 (comme
+celle pour basculer entre les jeux G0 et G1) ne sont pas applicables en
+mode UTF-8.
+.PP
+On peut espérer que dans un futur proche,
+.B UTF-8
+remplacera
+.B ASCII
+et
+.B ISO 8859
+à tous les niveaux comme encodage des caractères sur les systèmes POSIX,
+ce qui conduira à un environnement sensiblement plus riche pour traiter
+des textes.
+.SH SECURITÉ
+Les standards
+.BR Unicode " et " UCS
+demande que le producteur
+.B UTF-8
+utilise la forme la plus courte possible, par exemple, produire une
+séquence de deux octets avec un premier octet 0xc0 n'est pas conforme.
+.B Unicode 3.1
+a ajouté la nécessité pour les programmes conformes de ne pas accepter
+les formes non minimales en entrée. Il s'agit de raisons de sécurité : si
+une saisie est examinée pour des problèmes de sécurité, un programme
+doit rechercher seulement la version
+.B ASCII
+de "/../" ou ";" ou NUL. Il y a de nombreuses manières
+.RB non- ASCII
+de représenter ces choses dans un encodage
+.B UTF-8
+non minimal.
+.SH CONFORMITÉ
+ISO/IEC 10646-1:2000, Unicode 3.1, RFC 2279, Plan 9.
+.SH AUTEUR
+Markus Kuhn <mgk25@cl.cam.ac.uk>
+.SH "VOIR AUSSI"
+.BR nl_langinfo (3),
+.BR setlocale (3),
+.BR charsets (7),
+.BR unicode (7)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

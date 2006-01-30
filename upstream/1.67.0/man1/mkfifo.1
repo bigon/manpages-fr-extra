@@ -1,0 +1,56 @@
+.\" Traduction 21/12/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" màj 30/05/2001 LDP-man-pages-1.36
+.\" MàJ 25/07/2003 LDP-1.56
+.TH MKFIFO 1L "18 juillet 2003" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+mkfifo \- Créer des FIFOs (tubes nommés).
+.SH SYNOPSIS
+.BI "mkfifo [" options "] " fichier...
+.sp
+Options POSIX :
+.BI "[\-m " mode "] [\-\-]"
+.sp
+Options GNU (versions courtes) :
+.BI "[\-m " mode "] [\-\-help] [\-\-version] [\-\-]"
+.SH DESCRIPTION
+.B mkfifo
+crée une file FIFO (un tube nommé) pour chacun des noms indiqués.
+.PP
+Une "FIFO" est un type de fichier spécial permettant la communication entre
+des processus indépendants. Un processus ouvre la FIFO en écriture, et un
+autre l'ouvre en lecture. Ensuite les données peuvent transiter entre les
+processus comme avec les tubes anonymes proposés par les shells.
+.PP
+Par défaut, les permissions
+d'accès aux FIFOs créées sont 0666 moins les bits à 1 du umask.
+.SH OPTIONS
+.TP
+.BI "\-m " mode ", \-\-mode=" mode
+Indique les permissions d'accès pour les FIFOs créées. Le
+.I mode
+est fourni de manière symbolique, comme pour 
+.BR chmod (1),
+en utilisant
+l'autorisation par défaut comme valeur de départ.
+.TP
+.B "\-\-"
+Fin explicite de la liste des options.
+.SH "OPTIONS STANDARDS GNU"
+.TP
+.B "\-\-help"
+Afficher un message d'aide sur la sortie standard, et se terminer normalement.
+.TP
+.B "\-\-version"
+Afficher un numéro de version sur la sortie standard, et se terminer normalement.
+.SH ENVIRONNEMENT
+Les variables d'environnement LANG, LC_ALL, LC_TYPE et LC_MESSAGES ont leur
+significations habituelles.
+.SH CONFORMITÉ
+POSIX 1003.2
+.SH NOTES
+Cette page décrit la version de
+.B mkfifo
+rencontrée dans le paquetage fileutils-4.0. D'autres
+versions peuvent varier légèrement.
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

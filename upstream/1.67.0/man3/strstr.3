@@ -1,0 +1,65 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 17:56:43 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 10/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a jour 17/05/1998 (LDP-man-pages-1.19)
+.\" MàJ 21/07/2003 LDP-1.56
+.TH STRSTR 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+strstr \- Rechercher une sous-chaîne.
+.SH SYNOPSIS
+.nf
+.B #include <string.h>
+.sp
+.BI "char *strstr (const char *" meule_de_foin ", const char *" aiguille );
+.fi
+.SH DESCRIPTION
+La fonction \fBstrstr()\fP cherche la premiere occurence de la sous-chaîne
+\fIaiguille\fP au sein de la chaîne \fImeule_de_foin\fP.  Les caractères `\\0'
+de fin ne sont pas comparés.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBstrstr()\fP renvoie un pointeur sur le début de la sous-chaîne,
+ou NULL si celle-ci n'est pas trouvée.
+.SH BOGUES
+Des versions antérieures de la bibliothèque C de Linux, (4.5.26 par exemple)
+n'autorisent pas un argument vide. Des versions plus récentes (comme la 4.6.27)
+fonctionnent correctement, et renvoient \fImeule_de_foin\fP si la chaîne
+\fIaiguille\fP est vide.
+
+.SH "VOIR AUSSI"
+.BR index (3),
+.BR memchr (3),
+.BR rindex (3),
+.BR strchr (3),
+.BR strpbrk (3),
+.BR strsep (3),
+.BR strspn (3),
+.BR strtok (3)
+
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

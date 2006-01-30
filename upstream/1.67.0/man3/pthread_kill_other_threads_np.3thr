@@ -1,0 +1,48 @@
+.TH PTHREAD_KILL_OTHER_THREADS_NP 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+.SH NOM
+pthread_kill_other_threads_np \- interrompt tous les autres threads du processus.
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+
+.BI "void pthread_kill_other_threads_np(void);"
+
+.SH DESCRIPTION
+.B "pthread_kill_other_threads_np"
+est une extension non portable de LinuxThreads. Tous les threads du processus
+sont immédiatement interrompus, excepté le thread appelant qui continue à
+s'exécuter. Cette fonction est fournie pour être exécutée juste avant qu'un
+thread appelle l'une des fonctions de la famille \fBexec\fP, par exemple,
+.BR "execve" (2).
+
+L'interruption des autres threads n'est pas réalisée via
+.BR "pthread_cancel" (3)
+et n'exécute pas les gestionnaires de nettoyage dans les threads dont
+l'exécution s'achève.
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+.BR "execve" (2),
+.BR "pthread_setcancelstate" (3),
+.BR "pthread_setcanceltype" (3),
+.BR "pthread_cancel" (3).
+
+.SH BOGUES
+
+D'après POSIX 1003.1c, un appel couronné de succès à
+.B "exec*"
+dans l'un des threads devrait terminer automatiquement tous les autres threads
+du processus. Ce comportement n'est pas encore implémenté dans LinuxThreads.
+Appeler 
+.B "pthread_kill_other_threads_np"
+avant 
+.B "exec*"
+revient au même, excepté que si
+.B "exec*"
+échoue, alors tous les autres threads ont déjà été interrompus.
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+

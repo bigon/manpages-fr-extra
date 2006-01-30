@@ -1,0 +1,170 @@
+.\" Traduction 08/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH TEST 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+test \- Vérifier le type d'un fichier, et comparer des valeurs.
+.SH SYNOPSIS
+.B test
+[expr]
+.br
+.B test
+{\-\-help,\-\-version}
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR test .
+
+Remarquez que la plupart des shells ont une commande interne avec le
+même nom et des fonctionnalités similaires.
+.PP
+.B test
+renvoie une valeur 0 (vrai) ou 1 (faux) suivant l'évaluation
+de l'expression conditionnelle
+.IR expr .
+
+Les expressions peuvent être unaires ou binaires. Les expressions unaires
+sont généralement utilisées pour examiner le statut d'un fichier.
+Il existe également des opérateurs de chaînes de caractères, et
+des opérateurs de comparaison numérique.
+
+.PD 0
+.TP
+.B \-b \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est spécial en mode bloc.
+.TP
+.B \-c \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est spécial en mode caractère.
+.TP
+.B \-d \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est un répertoire.
+.TP
+.B \-e \fIfichier\fP
+Vrai si le \fIfichier\fP existe.
+.TP
+.B \-f \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est un fichier ordinaire.
+.TP
+.B \-g \fIfichier\fP
+Vrai si le \fIfichier\fP existe et a son bit Set-GID positionné.
+.TP
+.B \-k \fIfichier\fP
+Vrai si le \fIfichier\fP existe et a son bit collant (Sticky) positionné.
+.TP
+.B \-L \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est un lien symbolique.
+.TP
+.B \-p \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est un tube nommé.
+.TP
+.B \-r \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est lisible.
+.TP
+.B \-s \fIfichier\fP
+Vrai si le \fIfichier\fP existe et a une taille supérieure à zéro.
+.TP
+.B \-S \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est une socket.
+.TP
+.B \-t [\fIfd\fP]
+Vrai si 
+.I fd
+est ouvert sur un terminal. Si
+.I fd
+est omis, la valeur par défaut est 1 (sortie standard).
+.TP
+.B \-u \fIfichier\fP
+Vrai si le \fIfichier\fP existe et a son bit Set-UID positionné.
+.TP
+.B \-w \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est accessible en écriture.
+.TP
+.B \-x \fIfichier\fP
+Vrai si le \fIfichier\fP existe et est exécutable.
+.TP
+.B \-O \fIfichier\fP
+Vrai si le \fIfichier\fP existe et appartient à l'UID effectif de l'appelant.
+.TP
+.B \-G \fIfichier\fP
+Vrai si le \fIfichier\fP existe et appartient au GID effectif de l'appelant.
+.TP
+\fIfichier1\fP \-\fBnt\fP \fIfichier2\fP
+Vrai si \fIfichier1\fP est plus récent (d'après les dates de modification)
+que \fIfichier2\fP.
+.TP
+\fIfichier1\fP \-\fBot\fP \fIfichier2\fP
+Vrai si \fIfichier1\fP est plus ancien que \fIfichier2\fP
+.TP
+\fIfichier1\fP \fB\-ef\fP \fIfichier2\fP
+Vrai si \fIfichier1\fP et \fIfichier2\fP ont les mêmes numéros de périphérique
+et d'i-noeud.
+.TP
+.B \-z \fIchaîne\fP
+Vrai si la longueur de la \fIchaîne\fP est nulle.
+.TP
+.B \-n \fIchaîne\fP
+.TP
+\fIchaîne\fP
+Vrai si la longueur de la 
+.I string
+n'est pas nulle.
+.TP
+\fIchaîne1\fP \fB=\fP \fIchaîne2\fP
+Vrai si les deux chaînes sont égales.
+.TP
+\fIchaîne1\fP \fB!=\fP \fIchaîne2\fP
+Vrai si les deux chaînes sont différentes.
+.TP
+.B ! \fIexpr\fP
+Vrai si
+.I expr
+est fausse.
+.TP
+\fIexpr1\fP \-\fBa\fP \fIexpr2\fP
+Vrai si 
+.I expr1
+et
+.I expr2
+sont toutes les deux vraies.
+.TP
+\fIexpr1\fP \-\fBo\fP \fIexpr2\fP
+Vrai si
+.I expr1
+ou
+.I expr2
+est vraie.
+.TP
+.I arg1 \fBOP\fP arg2
+.SM
+.B OP
+est dans la liste
+.BR \-eq ,
+.BR \-ne ,
+.BR \-lt ,
+.BR \-le ,
+.BR \-gt ,
+ou
+.BR \-ge .
+Ces opérateurs arithmétiques renvoient vrai si \fIarg1\fP
+est égal, différent, inférieur, inférieur ou égal,
+supérieur, ou supérieur ou égal à \fIarg2\fP,
+respectivement.
+.I arg1
+et
+.I arg2
+doivent être des entiers (positifs, ou négatifs) ou l'expression
+spéciale \fB\-l\fP \fIchaîne\fP, qui évalue la
+longueur de la
+.IR chaîne .
+.SS OPTIONS
+Quand la version GNU de
+.B test
+est invoquée avec un seul argument, les options suivantes sont reconnues :
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

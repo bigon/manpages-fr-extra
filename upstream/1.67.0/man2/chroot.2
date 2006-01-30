@@ -1,0 +1,108 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1992 Drew Eckhardt (drew@cs.colorado.edu), March 28, 1992
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified by Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de)
+.\" Modified Wed Jul 21 22:18:17 1993 by  Rik Faith (faith@cs.unc.edu)
+.\" Modified 21 Aug 1994 by Michael Chastain (mec@shell.portal.com):
+.\"   Fixed typoes.
+.\"
+.\" Traduction 9/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 10/12/1997 LDP-1.18
+.\" Màj 30/05/2001 LDP-1.36
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH CHROOT 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+chroot \- Modifier le répertoire racine.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.BI "int chroot (const char *" path );
+.SH DESCRIPTION
+.B chroot
+remplace le répertoire racine du processus en cours par celui
+spécifié par le chemin
+.IR path .
+Ce répertoire sera utilisé comme origine des chemins commençant par /.
+Le répertoire racine est hérité par tous les enfants du processus
+ayant fait le changement.
+
+Seul le Super\-User peut effectuer un changement de répertoire racine.
+
+Notez que cet appel système ne modifie pas le répertoire de travail,
+aussi «\ .\ » peut se retrouver en\-dehors de l'arbre dont la racine
+est «\ /\ ». En particulier, le Super\-User peut s'évader d'un
+«\ piège chroot\ » en faisant «\ mkdir foo; chroot foo; cd ..\ ».
+.SH "VALEUR RENVOYÉE"
+.BR chroot
+renvoie 0 s'il réussit, ou \-1 s'il échoue, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+Suivant le type de système de fichiers, plusieurs erreurs peuvent être
+renvoyées. Les plus courantes sont les suivantes\ :
+
+.TP
+.B EPERM
+L'UID effectif du processus n'est pas nul.
+.TP
+.B EFAULT
+.I path
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B ENAMETOOLONG
+.I path
+est trop long.
+.TP
+.B ENOENT
+Le fichier n'existe pas.
+.TP
+.B ENOMEM
+Pas assez de mémoire pour le noyau.
+.TP
+.B ENOTDIR
+Un élément du chemin d'accès n'est pas un répertoire.
+.TP
+.B EACCES
+L'accès à un élément du chemin est interdit.
+.TP
+.B ELOOP
+.I path
+contient une référence circulaire (à travers un lien symbolique)
+.B EIO
+Une erreur d'entrée/sortie de bas-niveau s'est produite.
+.SH CONFORMITÉ
+SVr4, SVID, 4.4BSD, X/OPEN. Cette fonction n'est pas décrite dans POSIX.1
+SVr4 indique des conditions d'erreurs supplémentaires EINTR, ENOLINK
+et EMULTIHOP.
+X/OPEN ne décrit pas les erreurs EIO, ENOMEM, et EFAULT.
+.SH NOTES
+FreeBSD a un appel système
+.I jail()
+plus solide.
+.SH "VOIR AUSSI"
+.BR chdir (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

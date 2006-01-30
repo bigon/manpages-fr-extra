@@ -1,0 +1,135 @@
+.\" Traduction 09/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH CSPLIT 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+csplit \- Découper un fichier en sections déterminées par des lignes de contexte.
+.SH SYNOPSIS
+.B csplit
+[\-sqkz] [\-f préfixe] [\-b suffixe] [\-n longueur] [\-\-prefix=préfixe]
+[\-\-suffix\-format=suffixe] [\-\-digits=longueur] [\-\-quiet] [\-\-silent]
+[\-\-keep-files] [\-\-elide\-empty\-files] [\-\-help] [\-\-version]
+fichier motif...
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR csplit .
+
+.B csplit
+crée plusieurs fichiers de sortie contenant différentes sections du \fIfichier\fP
+d'entrée indiqué, ou de l'entrée standard si le nom `\-' est fourni.
+
+Par défaut,
+.B csplit
+affiche le nombre d'octets écrits dans chaque fichier de sortie après
+l'avoir créé.
+.PP
+
+Le contenu des fichiers de sortie est déterminé par les arguments
+.IR motif .
+Une erreur est déclenchée si un motif ne correspond à aucune ligne
+du fichier d'entrée, par exemple si aucune ligne restante ne
+se rapporte à une expression rationnelle donnée.
+
+Après avoir trouvé des lignes correspondantes pour chaque motif donné,
+le reste du fichier est copié dans un dernier fichier de sortie.
+
+Les types d'argument \fImotif\fP sont :
+.RS
+.TP
+.I nombre
+.br
+Crée un fichier de sortie contenant la ligne en cours, et les suivantes
+jusqu'à la ligne \fInombre\fP (un entier positif) non-incluse.
+Si cet argument est suivi d'un nombre de répétitions, un autre fichier
+de sortie contenant \fInombre\fP lignes est créé pour chaque itération.
+.TP
+/\fIregexp\fP/[\fIdécalage\fP]
+.br
+Créer un fichier de sortie commençant à la ligne en cours, jusqu'à 
+la prochaine ligne du fichier d'entrée correspondant à l'expression
+rationnelle \fIregexp\fP. Cette ligne n'est pas incluse. Le \fIdécalage\fP
+éventuel est un nombre entier positif ou négatif. S'il est mentionné,
+le fichier de sortie ira jusqu'à la ligne précédant ou suivant de la
+valeur \fIdécalage\fP celle correspondant à l'expression rationnelle.
+La ligne suivante débutera alors la prochaine section.
+.TP
+%\fIregexp\fP%[\fIoffset\fP]
+.br
+Comme le type précédent, à la différence que le résultat n'est pas
+écrit dans un fichier de sortie, la section est ainsi ignorée.
+.TP
+{\fInombre\fP}
+.br
+Répéter \fInombre\fP fois supplémentaires le motif précédent. \fInombre\fP
+doit être un entier positif. Un astérisque à la place de \fInombre\fP
+indique une répétition indéfinie, jusqu'à la fin du fichier d'entrée.
+.RE
+.PP
+Les noms des fichiers de sortie consistent en un \fIpréfixe\fP suivi
+d'un \fIsuffixe\fP. Par défaut, le suffixe est un nombre de deux chiffres,
+dans l'intervalle croissant 00 à 99. Néanmoins ceci peut être modifié
+par les options
+.I \-\-digits
+ou
+.IR \-\-suffix\-format .
+(Voir plus bas.) 
+
+Dans tous les cas, la concaténation des fichiers
+résultats dans l'ordre croissant des noms de fichiers redonne le
+fichier original.
+Le préfixe par défaut des fichiers de sortie est `xx'.
+.PP
+Par défaut, lorsque
+.B csplit
+rencontre une erreur, ou reçoit un signal Hangup, Interrupt, Quit ou Terminate,
+il efface tous les fichiers résultats qu'il avait créés.
+.SS OPTIONS
+.TP
+.I "\-b, \-\-suffix\-format=suffixe"
+Utiliser le
+.I suffixe
+pour créer les noms de fichiers de sortie. Quand cette option est
+mentionnée, la chaîne \fIsuffixe\fP doit contenir exactement une
+spécification de format compatible avec \fBprintf\fP(3) 
+(comme %d, avec éventuellement des attributs de largeur, de précision, ou
+tout autre modificateur). La spécification doit permettre la conversion
+d'un argument entier binaire en forme lisible. Ainsi seuls les
+indicateurs de format `d', 'i', `u', `o', `x', et `X' sont autorisés.
+La chaîne \fIsuffixe\fP complète (avec le numéro de fichier de sortie)
+est transmise à \fBsprintf\fP(3) pour créer le suffixe du nom de
+chaque fichier individuellement.
+Quand cette option est utilisée, l'argument
+.I \-\-digits
+est ignoré.
+.TP
+.I "\-f, \-\-prefix=préfixe"
+Utiliser le
+.I préfixe
+indiqué pour créer les noms de fichiers de sortie.
+.TP
+.I "\-k, \-\-keep-files"
+Ne pas effacer les fichiers résultats lorsque des erreurs se produisent.
+.TP
+.I "\-n, \-\-digits=longueur"
+Utiliser des noms de fichiers contenant des nombres de la \fIlongueur\fP
+indiquée. (Par défaut 2).
+.TP
+.I "\-s, \-q, \-\-silent, \-\-quiet"
+Ne pas afficher les tailles des fichiers de sortie.
+.TP
+.I "\-z, \-\-elide\-empty\-files"
+Éviter la création de fichiers de sortie vides (Dans le cas où un
+identificateur indique la première ligne de chaque section, le premier
+fichier résultat sera généralement vide si l'on n'utilise pas cette
+option). Remarquez que la séquence des numéros de fichiers de sortie
+sera toujours continue, commençant à 0, même si des sections vides
+sont éliminées.
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

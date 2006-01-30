@@ -1,0 +1,118 @@
+.\" This man page is Copyright (C) 1999 Andi Kleen <ak@muc.de>.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\" $Id: icmp.7,v 1.4 1999/05/13 11:33:24 freitag Exp $
+.\" Traduction 04/01/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man_pages 1.28
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.36
+.\" MàJ 25/07/2003 LDP-1.56
+.TH ICMP 7 "25 juillet 2003" LDP "Manuel de l'administrateur Linux" 
+.SH NOM
+icmp, IPPROTO_ICMP \- Module ICMP IPv4 du noyau Linux.
+.SH DESCRIPTION
+Ce module du noyau implémente le protocole ICMP (Internet Control Message Protocol)
+défini dans la RFC 792. Il sert pour diagnostiquer et indiquer des conditions d'erreurs.
+L'utilisateur n'interagit pas directement avec ce module, à la place il communique
+avec les autres protocoles dans le noyau, et ceux-ci transmettent les erreurs ICMP
+aux couches applicatives. Ce module répond également aux requêtes ICMP.
+.PP
+Un protocole utilisateur peut recevoir des paquets ICMP pour toutes les sockets locales
+en utilisant une socket \fBraw\fP avec le protocole
+.BR IPPROTO_ICMP .
+Voir la page
+.BR raw (7)
+pour plus de détails.
+Les types de paquets ICMP transmis à la socket peuvent être filtrés en utilisant l'option
+.B ICMP_FILTER
+de la socket. Les paquets ICMP sont toujours traités par le noyau aussi, même lorsqu'ils
+sont transmis à une socket utilisateur.
+
+Linux limite le débit des paquets d'erreurs ICMP pour chaque destination.
+.B ICMP_REDIRECT
+et
+.B ICMP_DEST_UNREACH
+sont aussi limité par la route de destination des paquets entrants.
+
+.SH SYSCTLS
+ICMP dispose d'une interface sysctl pour configurer certains paramètres IP globaux.
+Cette interface est accessible en lisant ou écrivant les fichiers
+.B /proc/sys/net/ipv4/* 
+ou à l'aide de l'appel-système
+.BR sysctl (2).
+La plupart de ces sysctls sont des limitations de débit pour des types ICMP spécifiques.
+Linux 2.2 utilise un filtre à jeton pour limiter les ICMPs.
+.\" XXX  better description needed
+La valeur est un délai en jiffies jusqu'à ce que le filtre soit vidé. Un
+jiffy est une unité de temps dépendant du système, en général 10ms sur un
+x86 et environ 1ms sur un alpha et un IA64.
+.TP
+.B icmp_destunreach_rate
+Fréquence maximale pour envoyer des paquets ICMP "Destination inaccessible". Ceci limite
+le débit avec lequel ces paquets sont émis vers des routes individuelles ou collectives.
+Cette limite n'affecte par l'envoi des paquets
+.B ICMP_FRAG_NEEDED
+nécessaire pour rechercher le MTU d'un chemin.
+.TP
+.B icmp_echo_ignore_all
+Si cette valeur est non-nulle, Linux ignorera toutes les requêtes 
+.BR ICMP_ECHO .
+.TP
+.B icmp_echo_ignore_broadcasts
+Si cette valeur est non-nulle, Linux ignorera toutes les requêtes
+.B ICMP_ECHO
+envoyées à une adresse broadcast.
+.TP
+.B icmp_echoreply_rate
+Vitesse maximale pour envoyer les paquets
+.B ICMP_ECHOREPLY
+en réponse aux requêtes
+.BR ICMP_ECHOREQUEST .
+.TP
+.B icmp_paramprob_rate
+Débit maximal pour émettre les paquets
+.BR ICMP_PARAMETERPROB .
+Ceux-ci sont envoyés lorsqu'un paquet arrive avec un en-tête IP invalide.
+.TP
+.B icmp_timeexceed_rate
+Débit maximal pour émettre les paquets
+.BR ICMP_TIME_EXCEEDED .
+Ceux-ci sont envoyés pour empêcher les boucles quand un paquet a réalisé trop de sauts.
+.SH NOTES
+Comme beaucoup d'autres implémentation ne supportent pas les socket raw
+.BR IPPROTO_ICMP ,
+on ne doit pas se reposer sur cette fonctionnalité dans les programmes portables.
+.\" not really true ATM
+.\" .PP
+.\" Linux ICMP should be compliant to RFC1122.
+.PP
+Les paquets
+.B ICMP_REDIRECT
+ne sont pas envoyés quand Linux ne fonctionne pas en routeur. Ils ne sont également
+acceptés que d'une passerelle précédemment définie dans la table de routage, et les
+routes de redirection expirent après un certain délai.
+.PP
+L'horodatage 64 bits renvoyé par
+.B ICMP_TIMESTAMP
+est en millisecondes depuis le 1er janvier 1970.
+.PP
+En interne, l'ICMP Linux utilise une socket raw pour envoyer les ICMPs. Cette socket
+peut apparaître dans la sortie de
+.BR netstat (8)
+avec un i-noeud nul.	
+.PP
+.SH VERSIONS
+Le support pour les requêtes
+.B ICMP_ADDRESS
+a été supprimé dans le noyau 2.2.
+.PP
+Le support pour 
+.B ICMP_SOURCE_QUENCH
+a été supprimé dans Linux 2.2.
+.SH "VOIR AUSSI"
+.BR ip (7)
+.PP
+RFC 792 pour une description du protocole ICMP.
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

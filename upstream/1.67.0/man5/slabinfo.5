@@ -1,0 +1,114 @@
+.\" Copyright (c) 2001 Andreas Dilger (adilger@turbolinux.com)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" MàJ 25/07/2003 LDP-1.56
+.TH SLABINFO 5 "25 juillet 2003" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+/proc/slabinfo \- Statistiques sur les données noyaux allouées.
+.SH SYNOPSIS
+.B cat /proc/slabinfo
+.SH DESCRIPTION
+Les objets fréquemment utilisés dans le noyaux Linux (têtes de buffer,
+i-noeuds, entrées de répertoire...) ont leur propres caches.
+Le fichier
+.I /proc/slabinfo
+fourni des statistiques. Par exemple\ :
+.LP
+.RS
+.nf
+$ cat /proc/slabinfo
+slabinfo - version: 1.1
+kmem_cache            60     78    100    2    2    1
+blkdev_requests     5120   5120     96  128  128    1
+mnt_cache             20     40     96    1    1    1
+inode_cache         7005  14792    480 1598 1849    1
+dentry_cache        5469   5880    128  183  196    1
+filp                 726    760     96   19   19    1
+buffer_head        67131  71240     96 1776 1781    1
+vm_area_struct      1204   1652     64   23   28    1
+\&...
+size-8192              1     17   8192    1   17    2
+size-4096             41     73   4096   41   73    1
+\&...
+.fi
+.RE
+.LP
+Il fournit pour chaque élément, le nom du cache, le nombre d'objet
+actuellement actifs, le nombre total d'objets disponibles, la taille
+de l'objet en octets, le nombre de pages avec au moins un objet
+actif, le nombre total de pages allouées, et le nombre
+de page par élément.
+
+Notez qu'à cause de l'alignement des objets et du surcoût dû au cache,
+les objets ne sont pas accolés dans les pages. Les pages avec
+un seul objet en utilisation sont considérées comme utilisées et ne
+peuvent pas être libérées.
+
+Les noyaux compilés avec les statistiques d'utilisation du cache affichent
+"(statistics") dans la première ligne, et proposent cinq colonnes
+supplémentaires\ : la limite supérieure d'objets actifs, le nombre
+de fois que les objets ont été alloués, le nombre de fois où le
+cache a grandit (nouvelles pages ajoutées au cache), le nombre de fois
+où le cache a été réduit (pages inutilisées retirées), 
+et le nombre d'erreur d'allocation de nouvelles pages dans le
+cache. Si les statistiques ne sont pas validée dans le
+noyau, ces colonnes ne sont pas affichées.
+
+Les systèmes SMP ont également "(SMP)" dans la première ligne de sortie,
+et deux colonnes supplémentaires, indiquant la politique d'allication
+pour le cache local ay CPU (pour réduire le besoin de synchronisation
+entre CPU lors d'allocation d'objet depuis le cache). La première colonne
+est la limite par CPU\ : le nombre maximal
+d'objets mis dans le cache pour chaque CPU.
+La seconde colonne est un compte global\ :
+le nombre maximum d'objets libres dans le cache global qui seront
+transférés au cache par CPU s'il est vide, ou le nombre d'objets qui
+set renvoyé dans le cache global si le cache par CPU est
+plein.
+
+Si les statistiques et le SMP sont définis simultanément, il y aura
+quatre colonnes suppplémentaires, indiquant les statistiques du 
+cache par CPU. Les deux premières comptent les réussites et échecs des
+allocations dans le cache par CPU\ : le nombre de fois où un objet était
+ou n'était pas disponible pour allocation depuis le cache par CPU.
+Les deux suivantes sont les réussites et échecs des libérations vers
+le cache par CPU\ : le nomnbre de fois où un objet libéré a pu ou non
+tenir dans les limites du cache par CPU, avant
+de renvoyer les objets vers le cache global.
+
+Il est possible d'ajuster les limites du cache par CPU et du transfert
+vers le cache global avec\ :
+
+.nf
+echo "\fInom_cache limite batchcount\fP" > /proc/slabinfo
+.fi
+
+.SH DISPONIBILITÉ
+.I /proc/slabinfo
+existe depuis Linux 2.1.23.
+Les caches SMP par CPU existent depuis Linux 2.4.0-test3.
+
+.SH FICHIERS
+.I <linux/slab.h>
+
+.SH TRADUCTION
+Christophe Blaess, 2003.

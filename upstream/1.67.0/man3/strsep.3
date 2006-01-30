@@ -1,0 +1,75 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\" Modified Sat Jul 24 18:00:10 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 10/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" 		mise a jour 25/01/97
+.\"
+.\" Mise à jour 06/06/2001 - LDP-man-pages-1.36
+.\" MàJ 21/07/2003 LDP-1.56
+.TH STRSEP 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+strsep \- Extraction de mots d'une chaîne.
+.SH SYNOPSIS
+.nf
+.B #include <string.h>
+.sp
+.BI "char *strsep (char **" stringp ", const char *" delim );
+.fi
+.SH DESCRIPTION
+Si *\fIstringp\fP est NULL, la fonction \fBstrsep()\fP renvoie NULL et ne
+fait rien d'autre. Sinon, cette fonction prend le premier élément lexical
+(token) dans la chaîne \fIstringp\fP où les éléments sont séparés par les
+symboles contenus dans \fIdelim\fP.
+Le mot renvoyé est terminé par un caractère nul `\\0' (en  écrasant le
+séparateur)
+et  *\fIstringp\fP est mis à jour pour pointer après le mot.
+Dans le cas où aucun séparateur n'est trouvé, l'élément extrait est
+constitué de toute la chaîne *\fIstringp\fP, et *\fIstringp\fP vaut NULL.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBstrsep()\fP renvoie un pointeur sur l'élément lexical
+extrait, c'est-à-dire la valeur originelle de *\fIstringp\fP.
+\fIstringp\fP.
+.SN NOTES
+La fonction \fBstrsep()\fP a été introduite en remplacement de
+\fBstrtok()\fP, qui ne peut pas traiter les champs vides.
+Néanmoins \fBstrtok()\fP est conforme au C ANSI et est donc plus portable.
+.SH BOGUES
+Cette fonction souffre des mêmes problèmes que \fBstrtok()\fP. En particulier
+elle modifie la chaîne initiale. Évitez-la.
+.SH "CONFORMITÉ"
+BSD 4.4
+.SH "VOIR AUSSI"
+.BR index (3),
+.BR memchr (3),
+.BR rindex (3),
+.BR strchr (3),
+.BR strpbrk (3),
+.BR strspn (3),
+.BR strstr (3),
+.BR strtok (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

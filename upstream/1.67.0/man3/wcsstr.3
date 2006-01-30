@@ -1,0 +1,41 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Traduction 29/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" MàJ 21/07/2003 LDP-1.56
+.TH WCSSTR 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+wcsstr \- Rechercher une sous-chaîne dans une chaîne de caractères larges.
+.SH SYNOPSIS
+.nf
+.B #include <wchar.h>
+.sp
+.BI "wchar_t *wcsstr (const wchar_t *" meule_de_foin ", const wchar_t *" aiguille );
+.fi
+.SH DESCRIPTION
+La fonction \fBwcsstr\fP est l'équivalent pour les caractères larges de la fonction \fBstrstr\fP.
+Elle recherche la première occurence de la sous-chaîne \fIaiguille\fP (sans son caractère L'\\0' final)
+au sein de la chaîne de caractères larges \fImeule_de_foin\fP.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBwcsstr\fP renvoie un pointeur sur la première occurence de \fIaiguille\fP dans la
+chaîne \fImeule_de_foin\fP. Si elle n'en trouve pas, elle renvoie NULL.
+.PP
+Cas particulier : Si \fIaiguille\fP est une chaîne vide, la valeur renvoyée est \fImeule_de_foin\fP elle-même.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR strstr (3),
+.BR wcschr (3)
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

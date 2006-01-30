@@ -1,0 +1,133 @@
+.\" Traduction 13/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH NL 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+nl \- Numéroter les lignes d'un fichier.
+.SH SYNOPSIS
+.B nl
+[\-h type_en_tête] [\-b type_corps] [\-f type_pied_page] [\-p] [\-d cc]
+[\-v numéro_départ] [\-i incrément] [\-l lignes] [\-s séparateur_lignes]
+[\-w largeur_numéros] [\-n {ln,rn,rz}] [\-\-header-numbering=style]
+[\-\-body-numbering=style] [\-\-footer-numbering=style]
+[\-\-first-page=nombre] [\-\-page-increment=nombre] [\-\-no-renumber]
+[\-\-join-blank-lines=nombre] [\-\-number-separator=chaîne]
+[\-\-number-width=nombre] [\-\-number-format={ln,rn,rz}]
+[\-\-section-delimiter=cc] [\-\-help] [\-\-version] [fichier...]
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR nl .
+
+.B nl
+copie les fichiers indiqués sur la sortie standard en ajoutant
+des numéros à toutes les lignes, ou à certaines d'entre-elles.
+
+Si aucun nom de fichier n'est fourni, ou si le nom `\-' est
+mentionné, l'entrée standard sera copiée.
+.PP
+.B nl
+considère que ses entrées sont composées de pages. Par défaut, le
+numéro de ligne est réinitialisé à 1 au début de chaque page.
+.B nl
+traite tous ses fichiers d'entrée comme un unique document. Il ne
+réinitialise pas les numéros de ligne ou de page entre les fichiers.
+.PP
+Une page est composée de 3 sections : un en-tête, un corps, et un
+pied de page. Chacune de ces sections peut éventuellement être vide.
+Chacune peut également être numérotée de manière différente des
+autres.
+.PP
+Le début des sections de chaque page est indiqué dans le fichier
+d'entrée par une ligne ne contenant qu'une chaîne de délimitation
+comme suit :
+.PP
+.nf
+
+\e:\e:\e: début de l'en-tête
+\e:\e: début du corps de la page
+\e: début du pied de page
+.fi
+.PP
+Les deux caractères utilisés pour ces chaînes peuvent être modifiés
+par une option indiquée plus bas, mais l'organisation et la longueur des
+chaînes sont figées.
+.PP
+Les chaînes de délimitation des sections sont remplacées par des lignes
+vides en sortie. Tout texte rencontré avant le délimiteur de début
+d'en-tête est considéré comme appartenant au corps de la page. Ainsi, 
+un texte ne contenant aucun délimiteur sera considéré comme une unique
+section "corps de page".
+.SS OPTIONS
+.TP
+.I "\-h, \-\-header-numbering=style"
+Voir \-\-footer-numbering.
+.TP
+.I "\-b, \-\-body-numbering=style"
+Voir \-\-footer-numbering.
+.TP
+.I "\-f, \-\-footer-numbering=style"
+Choisit le type de numérotation pour les lignes de la section "pied-de-page"
+de chaque page logique. Quand une ligne n'est pas numérotée, le numéro de
+ligne n'est pas incrémenté, mais le caractère séparateur de numéro de ligne
+est quand même ajouté à celle-ci.
+Les styles possibles sont :
+.RS
+.IP a
+numéroter toutes les lignes
+.IP t
+ne numéroter que les lignes non-vide (comportement par défaut pour le corps de page)
+.IP n
+ne pas numéroter les lignes (comportement par défaut pour les en-têtes et les pieds de page)
+.IP p\fIregexp\fP
+ne numéroter que les lignes contenant une correspondance avec l'expression rationnelle \fIregexp\fP
+.RE
+.TP
+.I "\-p, \-\-no-renumber"
+Ne pas réinitialiser la numérotation en début de page
+.TP
+.I "\-v, \-\-first-page=valeur"
+Démarrer en début de page la numérotation à la \fIvaleur\fP indiquée
+(par défaut : 1).
+.TP
+.I "\-i, \-\-page-increment=valeur"
+Incrémenter les numéros de ligne de la \fIvaleur\fP indiquée (par défaut 1).
+.TP
+.I "\-l, \-\-join-blank-lines=nombre"
+Considérer que \fInombre\fP (par défaut 1) lignes vides consécutives
+représentent une seule ligne logique pour la numérotation. Seule la dernière
+ligne sera numérotée. Quand il y a moins de \fInombre\fP lignes
+vides consécutives, ne pas les numéroter. Une ligne vide ne doit contenir
+aucun caractère, pas même d'espaces ou de tabulations.
+.TP
+.I "\-s, \-\-number-separator=chaîne"
+Séparer, en sortie, le numéro de ligne et le texte de celle-ci avec la
+\fIchaîne\fP mentionnée (Par défaut, il s'agit du caractère Tabulation).
+.TP
+.I "\-w, \-\-number-width=largeur"
+Formater le numéro de ligne avec la \fIlargeur\fP indiquée (par défaut 6 caractères).
+.TP
+.I "\-n, \-\-number-format={ln,rn,rz}"
+Sélection du format de numérotation des lignes :
+.RS
+.IP ln
+aligné à gauche, pas de 0 en début de nombre.
+.IP rn
+aligné à droite, pas de 0 en début de nombre (attitude par défaut).
+.IP rz
+aligné à droite, complété à gauche par des 0.
+.RE
+.TP
+.I "\-d, \-\-section-delimiter=cc"
+Utiliser les deux caractères \fIcc\fP mentionnés ici pour les indicateurs
+de début de sections. Si un seul caractère est fourni, le second
+conserve la valeur ':'.
+Pour saisir '\e', utiliser '\e\e'.
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

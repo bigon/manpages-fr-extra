@@ -1,0 +1,99 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1992 Drew Eckhardt;
+.\"                               1993 Michael Haardt, Ian Jackson.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified Wed Jul 21 23:02:38 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 9/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" màj 15/01/02 LDP-man-pages 1.47
+.\" màj 18/07/03 LDP-man-pages 1.56
+.TH _EXIT 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM 
+_exit, _Exit \- Mettre fin au processus en cours d'exécution.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.BI "void _exit (int " code );
+.sp
+.B #include <stdlib.h>
+.sp
+.BI "void _Exit (int " code );
+.SH DESCRIPTION
+La fonction
+.B _exit
+met fin "immédiatement" au processus en cours, les descripteurs de
+fichiers lui appartenant sont fermés, tous ses fils
+éventuels sont hérités par le processus 1 (init),
+et son père reçoit un signal
+.B SIGCHLD.
+.LP
+La valeur
+.I code
+est renvoyée au processus père comme valeur de sortie et peut
+être récupérée en utilisant un appel-système de
+la famille
+.B wait.
+.LP
+La fonction
+.B _Exit
+est équivalente à
+.BR _exit .
+.SH "VALEUR RENVOYÉE"
+Ces fonctions ne reviennent jamais.
+.SH "CONFORMITÉ"
+SVr4, SVID, POSIX, X/OPEN, BSD 4.3
+La fonction \fI_Exit()\fP a été introduite par C99.
+.SH NOTES
+Pour une discussion sur les effets de exit, la transmission de la valeur de
+retour, les processus zombie, les signaux envoyés, etc. reportez-vous à
+.BR exit (3).
+.LP
+L'appel-système
+.B _exit
+n'appelle aucune fonction programmée par la routine
+ANSI C
+.BR atexit (3),
+ni aucun gestionnaire de signal. Le fait qu'elle vide ou non les
+buffers d'entrée-sortie, ou qu'elle efface les fichiers temporaires créés avec
+.BR tmpfile (3)
+dépend de l'implémentation.
+En revanche,
+.B _exit
+ferme les descripteurs de fichiers, ce qui peut retarder son exécution durant
+le temps où des écritures se terminent. Si ce retard est génant, on peut
+invoquer \fItcflush()\fP avant
+d'appeler \fB_exit()\fP.
+Savoir si certaines entrées/sorties en attente sont annulées lors d'un
+\fB_exit()\fP, et lesquelles, dépend de l'implémentation.
+.SH "VOIR AUSSI"
+.BR fork (2),
+.BR execve (2),
+.BR waitpid (2), 
+.BR wait4 (2),
+.BR kill (2),
+.BR wait (2),
+.BR exit (3),
+.BR termios (3).
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

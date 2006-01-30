@@ -1,0 +1,116 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\"
+.\" Modified 1993-07-24 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 2002-08-10 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Modified 2003-11-18 aeb
+.\"
+.\" Traduction : Alain Portal
+.\" 20/07/2005 LDP-1.64
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH REMAINDER 3 "18 novembre 2003" "" "Manuel du programmeur Linux"
+.SH NOM
+drem, dremf, dreml, remainder, remainderf, remainderl \- Fonction reste en virgule flottante.
+.SH SYNOPSIS
+.nf
+.B #include <math.h>
+.sp
+/* Les versions C99 */
+.BI "double remainder(double " x ", double " y );
+.BI "float remainderf(float " x ", float " y );
+.BI "long double remainderl(long double " x ", long double " y );
+.sp
+/* Synonymes obsolètes */
+.BI "double drem(double " x ", double " y );
+.BI "float dremf(float " x ", float " y );
+.BI "long double dreml(long double " x ", long double " y );
+.sp
+.fi
+Liez avec \-lm.
+.SH DESCRIPTION
+La fonction
+.B remainder()
+calcule le reste de la division de
+.I x
+par
+.IR y .
+La valeur retournée est
+.IR x " - " n " * " y ,
+où
+.I n
+est la valeur
+.IR x " / " y ,
+arrondie à l'entier le plus proche.
+Si ce quotient vaut 1/2, il est arrondi au nombre pair le plus proche
+(indépendemment du mode d'arrondi actuel).
+Si la valeur de retour est nulle, elle aura le signe de
+.IR x .
+.LP
+La fonction
+.B drem()
+fait précisément la même chose.
+.SH "VALEUR RENVOYÉE"
+La fonction
+.B remainder()
+renvoie le reste, à moins que
+.I y
+soit nul, auquel cas la fonction échoue et
+.I errno
+est positionnée.
+.SH ERREURS
+.TP
+.B EDOM
+Le dénominateur
+.I y
+est nul.
+.SH "CONFORMITÉ"
+IEC 60559. Les trois fonctions
+.B remainder*()
+proviennent de C99.
+La fonction
+.B drem()
+vient de BSD 4.3. Les variantes float et long double
+.B dremf()
+et
+.B dreml()
+existent sur certains systèmes, comme Tru64 et glibc2.
+.SH EXEMPLE
+L'appel «\ remainder(29.0, 3.0)\ » renvoie \-1.
+.SH "VOIR AUSSI"
+.BR fmod (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Alain Portal
+<aportal AT univ-montp2 DOT fr> le 20 juillet 2005
+et révisée le 14 décembre 2005.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ remainder\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

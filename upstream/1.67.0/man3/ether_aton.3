@@ -1,0 +1,120 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright 2002 Ian Redfern (redferni@logica.com)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     FreeBSD 4.4 man pages
+.\"
+.\" Minor additions, aeb, 2002-07-20
+.\" Traduction Christophe Blaess, <ccb@club-internet.fr>
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 08/07/2005 LDP-1.53
+.\"
+.TH ETHER_ATON 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ether_aton, ether_ntoa, ether_ntohost, ether_hosttonn, ether_line, ether_ntoa_r, ether_aton_r \- Routines de manipulation d'adresses Ethernet.
+.SH SYNOPSIS
+.nf
+.B #include <netinet/ether.h>
+.sp
+.BI "char *"
+.BI "ether_ntoa(const struct ether_addr *" addr );
+.sp
+.BI "struct ether_addr *"
+.BI "ether_aton(const char *" asc );
+.sp
+.BI "int"
+.BI "ether_ntohost(char *" hostname ", const struct ether_addr *" addr );
+.sp
+.BI "int"
+.BI "ether_hostton(const char *" hostname ", struct ether_addr *" addr );
+.sp
+.BI "int"
+.BI "ether_line(const char *" line ", struct ether_addr *" addr ,
+.BI "    char *" hostname );
+.sp
+/* extensions GNU */
+.br
+.BI "char *"
+.BI "ether_ntoa_r(const struct ether_addr *" addr ", char *" buf );
+.sp
+.BI "struct ether_addr *"
+.BI "ether_aton_r(const char *" asc ", struct ether_addr *" addr );
+.fi
+.SH DESCRIPTION
+\fBether_aton()\fP convertit une adresse d'hôte Ethernet sur 48-bits \fIasc\fP
+de la notation standard hexadécimal et séparateurs deux-points en données
+binaire dans l'ordre des octets du réseau et renvoie un pointeur dans un buffer
+alloué de manière statique, que les appels ultérieurs écraseront. \fBether_aton\fP
+renvoie NULL si l'adresse est invalide.
+.PP
+La fonction \fBether_ntoa()\fP convertit l'adresse d'hôte Ethernet binaire
+\fIaddr\fP dans l'ordre des octets du réseau en une chaîne dans la notation
+standard hexadécimal et deux-points, en omettant les zéros en tête.
+La chaîne est renvoyée dans un buffer alloué de manière statique,
+que les appels ultérieurs écraseront.
+.PP
+La fonction \fBether_ntohost()\fP met en correspondance une adresse Ethernet
+en un nom d'hôte trouvé dans
+.B /etc/ethers
+et renvoie une valeur non-nulle si elle ne trouve pas.
+.PP
+La fonction \fBether_ntohost()\fP met en correspondance un nom d'hôte et
+une adresse Ethernet dans
+.B /etc/ethers
+et renvoie une valeur non-nulle si elle ne trouve pas.
+.PP
+La fonction \fBether_line()\fP examine une ligne dans le format de
+.B /etc/ethers
+(adresse Ethernet suivi de blancs et d'un nom d'hôte\ ; «\ #\ » introduit un
+commentaire) et renvoie une paire adresse / nom d'hôte, ou une valeur
+non-nulle si elle ne trouve pas.
+Le buffer pointé par
+.I hostname
+doit être assez grand, par exemple avoir la même longueur que la ligne
+.IR line .
+.PP
+Les fonctions \fBether_ntoa_r\fP et \fBether_aton_r\fP sont les versions
+réentrantes et sûres en multi-threads de \fBether_ntoa\fP et \fBether_aton\fP
+respectivement, et n'utilisent pas de buffers statiques.
+.PP
+La structure \fIether_addr\fP est définie dans \fInet/ethernet.h\fP ainsi\ :
+.sp
+.RS
+.nf
+.ta 8n 16n
+struct ether_addr {
+  u_int8_t ether_addr_octet[6];
+}
+.ta
+.fi
+.RE
+.SH BOGUES
+L'implémentation de ether_line() dans la GlibC 2.2.5 est erronée.
+.SH "CONFORMITÉ"
+BSD 4.3, SunOS
+.SH "VOIR AUSSI"
+.BR ethers (5)
+.SH TRADUCTION
+Christophe Blaess, 2003.

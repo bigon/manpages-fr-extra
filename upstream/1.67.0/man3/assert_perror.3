@@ -1,0 +1,76 @@
+.\" Copyright (C) 2002 Andries Brouwer <aeb@cwi.nl>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" This replaces an earlier man page written by Walter Harms
+.\" <walter.harms@informatik.uni-oldenburg.de>.
+.\"
+.\" MàJ 21/07/2003 LDP-1.56
+
+.TH ASSERT_PERROR 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+assert_perror \- Vérifie un code d'erreur et arrête le programme.
+.SH SYNOPSIS
+.nf
+.B #include <assert.h>
+.sp
+.BI "void assert_perror(int " code_erreur );
+.fi
+.SH DESCRIPTION
+Si la macro
+.B NDEBUG
+est définie lors de la dernière inclusion de
+.BR <assert.h> ,
+la macro
+.B assert_perror()
+ne génère aucun code, et donc n'a aucun effet.
+Sinon, la macro
+.B assert_perror()
+affiche un message d'erreur sur la sortie standard et termine le
+programme en apellant
+.B abort()
+si
+.I code_erreur
+est non nul. Le message contient le nom du fichier, le nom de la
+fonction et le numéro de ligne de l'appel de la macro, ainsi que le
+résultat de
+.IR strerror(code_erreur) .
+.SH "VALEUR RENVOYÉE"
+Aucune valeur n'est renvoyée.
+.SH "CONFORME À"
+Ceci est une extension GNU.
+.SH BOGUES
+Le but des macros d'assertion est d'aider le programmeur à trouver les
+bogues dans son application, bogues résultant d'erreur de programmation.
+Cependant, avec les fonctions ou les appels système, la situation est
+différente et un retour en erreur peut (et va), et doit donc être testé.
+Non pas par une assertion dont le test disparaitrait quand NDEBUG est
+définie, mais en écrivant correctement un gestionnaire d'erreur.
+N'utilisez jamais cette macro.
+.SH "VOIR AUSSI"
+.BR exit (3),
+.BR abort (3),
+.BR assert (3),
+.BR strerror (3)
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2002"
+.br
+Christophe Blaess, 2003

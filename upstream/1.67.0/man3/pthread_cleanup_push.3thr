@@ -1,0 +1,241 @@
+.TH PTHREAD_CLEANUP 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+
+.SH NOM
+pthread_cleanup_push, pthread_cleanup_pop, pthread_cleanup_push_defer_np, pthread_cleanup_pop_restore_np \- Installer et enlever des gestionnaires de nettoyage.
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+
+.BI "void pthread_cleanup_push(void (*" routine ") (void *), void *" arg ");"
+
+.BI "void pthread_cleanup_pop(int " execute ");"
+
+.BI "void pthread_cleanup_push_defer_np(void (*" routine ") (void *), void *" arg ");"
+
+.BI "void pthread_cleanup_pop_restore_np(int " execute ");"
+
+.SH DESCRIPTION
+Les gestionnaires de nettoyage sont des fonctions qui sont appelées lorsqu'un
+thread se termine, soit en appelant
+.BR "pthread_exit" (3)
+soit parce qu'il a été annulé. Les gestionnaires de nettoyage sont installés et
+enlevés à la manière d'une pile.
+
+Le rôle d'un gestionnaire de nettoyage est de libérer les ressources acquises par un
+thread lorsque son exécution s'achève. En particulier, si un thread
+se termine ou est annulé alors qu'il verrouille un mutex, ce dernier restera
+verrouillé pour toujours, empêchant d'autre threads de s'exécuter normalement.
+La meilleure manière d'empêcher cela est d'installer un gestionnaire de
+nettoyage dont la fonction sera de déverrouiller le mutex. Les gestionnaires de
+nettoyage peuvent également être utilisés pour libérer des blocs de mémoire
+alloués par
+.BR "malloc" (3)
+ou fermer des descripteurs de fichiers lorsque le thread se termine.
+
+.B "pthread_cleanup_push"
+installe la fonction
+.I "routine"
+avec l'argument
+.I "arg"
+en tant que gestionnaire de nettoyage. A partir de ce point jusqu'à ce qu'un
+appel à la fonction
+.BR "pthread_cleanup_pop" ,
+la fonction 
+.I "routine"
+sera appelée avec l'argument
+.I "arg"
+quand le thread se terminera, soit par
+.BR "pthread_exit" (3)
+soit à la suite d'une annulation. Si plusieurs gestionnaire de nettoyage ont
+été enregistrés, ils seront exécutés dans l'ordre LIFO (Last In, First Out\ :
+ordre inverse de l'enregistrement).
+
+.B "pthread_cleanup_pop"
+désactive le dernier gestionnaire de nettoyage installé. Si l'argument
+.I "execute"
+ne vaut pas 0, ce gestionnaire est exécuté en appelant la fonction
+.I "routine"
+avec les arguments
+.IR "arg" .
+Si l'argument
+.I "execute"
+vaut 0, le gestionnaire est seulement désactivé mais pas exécuté.
+
+Les paires de
+.B "pthread_cleanup_push"
+et 
+.B "pthread_cleanup_pop"
+doivent être exécutées dans le même bloc lexical, au même niveau et ne peuvent
+pas être entrelacées avec une autre paire.
+En fait, 
+.B "pthread_cleanup_push"
+et 
+.B "pthread_cleanup_pop"
+sont des macros, et l'expansion de
+.B "pthread_cleanup_push"
+introduit une accolade ouvrante
+.B "{"
+que ferme l'accolade
+.B "}"
+introduite par l'expansion de la macro correspondante
+.BR "pthread_cleanup_pop" .
+
+.B "pthread_cleanup_push_defer_np"
+est une extension non portable qui combine
+.B "pthread_cleanup_push"
+et 
+.BR "pthread_setcanceltype" (3).
+Elle enregistre le gestionnaires de nettoyage comme le fait \fBpthread_cleanup_push\fP,
+mais sauvegarde également le mode d'annulation courant et le passe en mode
+d'annulation retardée. Cela permet d'assurer que le mécanisme de nettoyage est
+efficace même si le thread fonctionne en mode d'annulation asynchrone.
+
+.B "pthread_cleanup_pop_restore_np"
+dépile le dernier gestionnaire de nettoyage enregistré par
+.BR "pthread_cleanup_push_defer_np" ,
+et restaure le mode d'annulation à sa valeur lorsque
+.B "pthread_cleanup_push_defer_np"
+a été appelée.
+
+.B "pthread_cleanup_push_defer_np"
+et 
+.B "pthread_cleanup_pop_restore_np"
+doivent être exécutée en paire, dans le même bloc, au même niveau et ne peuvent
+pas être entrelacés avec une autre paire.
+
+La séquence suivante
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_cleanup_push_defer_np(routine, arg);
+...
+pthread_cleanup_pop_defer_np(execute);
+.ft
+.LP
+.RE
+.fi
+
+est fonctionnellement équivalente (mais plus compacte et plus efficace) à
+
+.RS
+.ft 3
+.nf
+.sp
+{ int oldtype;
+  pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, &oldtype);
+  pthread_cleanup_push(routine, arg);
+  ...
+  pthread_cleanup_pop(execute);
+  pthread_setcanceltype(oldtype, NULL);
+}
+.ft
+.LP
+.RE
+.fi
+
+.SH "VALEUR RENVOYÉE"
+Aucune.
+
+.SH ERREURS
+Aucune.
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+.BR "pthread_exit" (3),
+.BR "pthread_cancel" (3),
+.BR "pthread_setcanceltype" (3).
+
+.SH EXEMPLE
+
+Voici comment verrouiller un mutex
+.I "mut"
+de telle manière qu'il sera déverrouillé si le thread est annulé alors que
+.I "mut"
+est verrouillé\ :
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_cleanup_push(pthread_mutex_unlock, (void *) &mut);
+pthread_mutex_lock(&mut);
+/* Faire quelque chose d'utile */
+pthread_mutex_unlock(&mut);
+pthread_cleanup_pop(0);
+.ft
+.LP
+.RE
+.fi
+
+Les deux dernières lignes peuvent être remplacées par\ :
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_cleanup_pop(1);
+.ft
+.LP
+.RE
+.fi
+
+Remarquez que le code ci-dessus n'est fiable qu'en mode d'annulation retardée
+(voir
+.BR "pthread_setcanceltype" (3)).
+En mode d'annulation asynchrone, une annulation peut intervenir entre
+.B "pthread_cleanup_push"
+et
+.BR "pthread_mutex_lock" ,
+ou entre 
+.B "pthread_mutex_unlock"
+et
+.BR "pthread_cleanup_pop" ,
+résultant dans les deux cas en un thread tentant de déverrouiller un mutex non
+verrouillé par le thread courant. C'est la principale raison pour laquelle le
+mode d'annulation asynchrone est si problématique à utiliser.
+
+Afin que ce code fonctionne aussi en mode d'annulation asynchrone, il doit
+passer en mode d'annulation retardée pour verrouiller et déverrouiller le mutex:
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, &oldtype);
+pthread_cleanup_push(pthread_mutex_unlock, (void *) &mut);
+pthread_mutex_lock(&mut);
+/* faire quelque chose */
+pthread_cleanup_pop(1);
+pthread_setcanceltype(oldtype, NULL);
+.ft
+.LP
+.RE
+.fi
+
+Le code ci-dessus peut être ré-écrit de manière plus compacte et plus efficace
+en utilisant les extensions non portables
+.B "pthread_cleanup_push_defer_np"
+et 
+.BR "pthread_cleanup_pop_restore_np"\ :
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_cleanup_push_restore_np(pthread_mutex_unlock, (void *) &mut);
+pthread_mutex_lock(&mut);
+/* faire quelque chose */
+pthread_cleanup_pop_restore_np(1);
+.ft
+.LP
+.RE
+.fi
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+.br
+Christophe Blaess, 2003.

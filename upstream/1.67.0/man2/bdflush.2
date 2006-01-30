@@ -1,0 +1,108 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1995 Michael Chastain (mec@shell.portal.com), 15 April 1995.
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Traduction 16/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise a jour 8/04/97
+.\" Mise a jour 18/07/2003 - LDP-1.56
+.TH BDFLUSH 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+bdflush \- Démarrer, vider, ajuster le démon buffer-dirty-flush.
+.SH SYNOPSIS
+.nf
+.BI "int bdflush(int"  " func, " "long *" address);
+.BI "int bdflush(int"  " func, " "long " data);
+.fi
+.SH DESCRIPTION
+.B bdflush
+démarre, vide ou ajuste le démon bdflush (buffer-dirty-flush).
+Seul le Super\-User peut appeler
+.BR bdflush .
+.PP
+Si
+.I func
+est négatif ou nulle, et si aucun démon n'a démarré, alors
+.B bdflush
+bascule en fonctionnement démon, et ne revient pas.
+.PP
+Si
+.I func
+vaut 1,
+les buffers remplis sont écrits sur le disque.
+.PP
+Si
+.I func
+vaut 2 ou plus et est paire (bit poids faible à 0), alors
+.I address
+correspond à l'adresse d'un mot long et
+le paramètre numéro
+.RI "(" "func" "\-2)/2"
+est renvoyé à cette adresse.
+.PP
+Si
+.I func
+vaut 3 ou plus et est impair (bit poids faible à 1), alors
+.I data
+est un mot long et le noyau
+écrit cette valeur dans
+le paramètre numéro
+.RI "(" "func" "\-3)/2" .
+.PP
+Le jeu de paramètres, leurs valeurs, et leurs intervalles
+légaux sont définis dans les sources du noyau, dans le fichier
+.IR fs/buffer.c .
+.SH "VALEUR RENVOYÉE"
+Si
+.I func
+est négative ou nulle, et si le démon démarre correctement,
+.B bdflush
+ne revient pas.
+Autrement la valeur renvoyée vaut 0 en réussite et \-1 en échec auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP 
+.B EPERM
+L'appelant n'est pas le Super\-User.
+.TP
+.B EFAULT
+.I address
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B EBUSY
+On tente d'exécuter le code du démon après qu'un autre
+processus l'ait déjà démarré.
+.TP
+.B EINVAL
+Numéro de paramètre invalide, ou écriture d'une valeur
+invalide dans le paramètre.
+.SH CONFORMITÉ
+\fBbdflush\fP est spécifique à Linux et ne doit pas être
+employé dans des programmes destinés à être portables.
+.SH "VOIR AUSSI"
+.BR fsync (2),
+.BR sync (2),
+.BR update (8),
+.BR sync (8).
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

@@ -1,0 +1,36 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH STRNLEN 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+strnlen \- Déterminer la longueur d'une chaîne.
+.SH SYNOPSIS
+.nf
+.B #include <string.h>
+.sp
+.BI "size_t strnlen (const char *" s ", size_t " maxlen );
+.fi
+.SH DESCRIPTION
+La fonction \fBstrnlen\fP renvoie le nombre de caractères de la chaîne pointée
+par \fIs\fP (non compris le caractère '\\0' final), mais en examinant
+au maximum \fImaxlen\fP caractères.
+Les caractères suivants (\fIs+maxlen\fP) ne seront jamais lus.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBstrnlen\fP renvoie \fIstrlen(s)\fP si la longeur est inférieure
+à \fImaxlen\fP, sinon elle renvoie \fImaxlen\fP.
+.SH "CONFORMITÉ"
+Cette fonction est une extension GNU.
+.SH "VOIR AUSSI"
+.BR strlen (3)
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 1999"
+.br
+Christophe Blaess, 2003.

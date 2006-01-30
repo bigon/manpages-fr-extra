@@ -1,0 +1,67 @@
+.\" Copyright 2001 Andries Brouwer <aeb@cwi.nl>.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 25/04/2002 par Stéphan Rafin (stephan.rafin@laposte.net)
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+
+.TH FSEEKO 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+fseeko, ftello \- Fixer ou consulter la position courante d'un flux.
+.SH SYNOPSIS
+.nf
+.B #include <stdio.h>
+.sp
+.BI "int fseeko(FILE *" stream ", off_t " offset ", int " whence );
+.sp
+.BI "off_t ftello(FILE *" stream );
+.BI 
+.fi
+.SH DESCRIPTION
+Les fonctions \fBfseeko()\fP et \fBftello()\fP sont respectivement identiques à
+\fBfseek()\fP et \fBftell()\fP (voir
+.BR fseek (3)),
+ si ce n'est que l'argument \fIoffset\fP de \fBfseeko()\fP
+et le code de retour de \fBftello()\fP sont de type \fBoff_t\fP 
+au lieu de \fBlong\fP.
+.LP
+Sur de nombreuses architectures, \fBoff_t\fP tout comme \fBlong\fP sont des types 32 bits,
+mais une compilation avec la directive
+.RS
+.nf
+#define _FILE_OFFSET_BITS 64
+.fi
+.RE
+changera \fBoff_t\fP en type 64 bits.
+.SH NOTES
+Ces fonctions apparaissent dans les systèmes SysV et apparentés.
+Elles ne sont pas présentes dans la libc4, libc5 ou glibc 2.0 mais sont disponibles depuis la glibc 2.1.
+.SH "CONFORMITÉ"
+Les fonctions
+.B fseeko
+et
+.B ftello
+sont conformes à SUSv2.
+.SH "VOIR AUSSI"
+.BR fseek (3)
+.SH TRADUCTION
+Stéphan Rafin, 2002.

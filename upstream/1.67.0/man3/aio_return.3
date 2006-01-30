@@ -1,0 +1,81 @@
+.\" Copyright (c) 2003 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111,
+.\" USA.
+.\"
+.\" Traduction : Alain Portal
+.\" 06/07/2005 LDP-1.62
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH AIO_RETURN 3 "14 novembre 2003"  "" "Manuel du programmeur Linux"
+.SH "NOM"
+aio_return \- Récupérer l'état de retour d'une opération d'E/S asynchrone.
+.SH SYNOPSIS
+.sp
+.B "#include <aio.h>"
+.sp
+.BI "ssize_t aio_return(struct aiocb *" aiocbp );
+.sp
+.SH DESCRIPTION
+La fonction
+.B aio_return
+renvoie l'état de retour final d'une requête d'E/S asynchrone dont le bloc
+de contrôle est pointé par
+.IR aiocbp .
+.LP
+Cette fonction ne devrait être appelée qu'une seule fois pour une requête
+donnée, après que la fonction
+.BR aio_error (2)
+ait renvoyé autre chose que EINPROGRESS.
+.SH "VALEUR RENVOYÉE"
+Si l'opération d'E/S asynchrone s'est achevée, cette fonction renvoie
+la valeur qui aurait été retournée dans le cas de requête
+.IR read ,
+.IR write ,
+ou
+.IR fsync
+synchrone. Autrement, la valeur de retour est indéfinie.
+En cas d'erreur, la valeur d'erreur est renvoyée.
+.SH "ERREURS"
+.TP
+.B EINVAL
+.I aiocbp
+ne pointe pas vers un bloc de contrôle pour une requête d'E/S asynchrone
+pour laquelle l'état de retour n'a pas encore été récupéré.
+.SH "CONFORMITÉ"
+POSIX 1003.1-2003
+.SH "VOIR AUSSI"
+.BR aio_cancel (3),
+.BR aio_error (3),
+.BR aio_fsync (3),
+.BR aio_read (3),
+.BR aio_suspend (3),
+.BR aio_write (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Alain Portal
+<aportal AT univ-montp2 DOT fr> le 6 juillet 2005
+et révisée le 14 décembre 2005.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ aio_return\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,306 @@
+.\" Traduction 07/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH STTY 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+stty \- Modifier et afficher la configuration de la ligne de terminal.
+.SH SYNOPSIS
+.B stty
+[configuration...]
+.br
+.B stty
+{\-a,\-\-all,\-f,\-\-file,\-g,\-\-help,\-\-save,\-\-version}
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR stty .
+
+Si aucun argument n'est fourni,
+.B stty
+affiche la vitesse de communication, le numéro de discipline de ligne
+(sur les systèmes le supportant) et les éléments de configuration modifiés
+par rapport aux valeurs fixées par  `stty sane'.
+
+La configuration en question est celle de la ligne tty connectée sur l'entrée
+standard.
+.PP
+.B stty
+accepte les arguments suivants, qui modifient le comportement de la ligne.
+
+Un `[\-]' devant un argument signifie que l'on peut l'inhiber en le faisant
+précéder d'un `\-'.  Certains arguments ne sont pas disponibles sur tous les
+systèmes, car il s'agit d'extensions non-POSIX. Ils sont indiqués par `(np)'.
+.PP
+Paramètres de contrôle :
+
+.IP [\-]parenb
+Transmet un bit de parité en sortie, et en attend un en entrée.
+.IP [\-]parodd
+Indique une parité impaire (paire si précédé de `\-').
+.IP "cs5 cs6 cs7 cs8"
+Indique une taille de caractère de 5, 6, 7, ou 8 bits.
+.IP "[\-]hupcl [\-]hup"
+Envoie un signal de déconnexion (Hangup) lorsque le dernier processus referme
+la ligne tty.
+.IP [\-]cstopb
+Utilise deux bits d'arrêt par caractère (un seul avec `\-').
+.IP [\-]cread
+Permet la réception de données.
+.IP [\-]clocal
+Désactive les signaux de contrôle propres aux modems.
+.IP "[\-]crtscts (np)"
+Active le contrôle de flux RTS/CTS.
+.PP
+Paramètres d'entrée:
+
+.IP [\-]ignbrk
+Ignorer les signaux breaks.
+.IP [\-]brkint
+Un break déclenche un signal d'interruption.
+.IP [\-]ignpar
+Ignorer les erreurs de parité.
+.IP [\-]parmrk
+Signaler les erreurs de parité par une séquence 255-0-caractère.
+.IP [\-]inpck
+Active la vérification de parité.
+.IP [\-]istrip
+Effacer le bit de poids fort (8ème) des caractères en entrée.
+.IP [\-]inlcr
+Traduire les Sauts-de-ligne (NewLine) en Retours-Chariots (Carriage Return).
+.IP [\-]igncr
+Ignorer les Retours-Chariot (Carriage Return).
+.IP [\-]icrnl
+Traduire les Retours-Chariots (Carriage Return) en Sauts-de-ligne (NewLine).
+.IP [\-]ixon
+Activer le contrôle de flux XON/XOFF.
+.IP "[\-]ixoff [\-]tandem"
+Activer l'émission d'un caractère d'arrêt lorsque le buffer d'entrée est
+presque plein, et d'un caractère de redémarrage lorsqu'il est à nouveau vide
+.IP "[\-]iuclc (np)"
+Convertir les majuscules en minuscules.
+.IP "[\-]ixany (np)"
+Permet l'utilisation de n'importe quel caractère pour redémarrer la sortie
+(si l'on utilise `\-', seul le caractère Start sera actif).
+.IP "[\-]imaxbel (np)"
+Valider l'émission d'un signal sonore lorsqu'un caractère arrive alors
+que le buffer d'entrée est plein, dans ce cas le buffer n'est pas purgé.
+.PP
+Paramètres de sortie :
+
+.IP [\-]opost
+Postprocess output ([NDT] ???).
+.IP "[\-]olcuc (np)"
+Traduire les minuscules en majuscules ([NDT] Ceci ne fonctionne pas avec les
+caractères accentués...)
+.IP "[\-]ocrnl (np)"
+Convertir les Retours-Chariot (Carriage Return) en Sauts-de-ligne (Newline).
+.IP "[\-]onlcr (np)"
+Convertir les Sauts-de-ligne (Newline) en Retours-Chariot (Carriage Return).
+.IP "[\-]onocr (np)"
+Ne pas afficher les Retours-Chariots en première colonne.
+.IP "[\-]onlret (np)"
+Ajouter un Retour-Chariot au Saut-de-ligne.
+.IP "[\-]ofill (np)"
+Utiliser des caractères de remplissage plutôt que des délais d'attente.
+.IP "[\-]ofdel (np)"
+Utiliser l'effacement (Delete) comme caractère de remplissage, à la place
+du caractère Null.
+.IP "nl1 nl0 (np)"
+Type de délai pour le Saut-de-ligne.
+.IP "cr3 cr2 cr1 cr0 (np)"
+Type de délai pour le Retour-chariot.
+.IP "tab3 tab2 tab1 tab0 (np)"
+Type de délai pour la Tabulation horizontale.
+.IP "bs1 bs0 (np)"
+Type de délai pour le Retour en arrière (BackSpace).
+.IP "vt1 vt0 (np)"
+Type de délai pour la Tabulation verticale.
+.IP "ff1 ff0 (np)"
+Type de délai pour le Saut-de-page (Form Feed).
+.PP
+Paramètres locaux :
+
+.IP [\-]isig
+Valider les caractères spéciaux Interrupt, Quit, et Suspend.
+.IP [\-]icanon
+Valider les caractères spéciaux Erase, Kill, Werase, et Rprnt.
+.IP [\-]iexten
+Valider les caractères spéciaux non-Posix.
+.IP [\-]echo
+Activer l'écho des caractères saisis.
+.IP "[\-]echoe, [\-]crterase"
+Effectuer l'écho du caractère d'effacement sous forme BackSpace-Espace-BackSpace.
+.IP [\-]echok
+Ajouter l'écho d'un Saut-de-Ligne (NewLine) après le caractère Kill.
+.IP [\-]echonl
+Effectuer l'écho des Sauts-de-Ligne (NewLine) même si l'écho des autres
+caractères est désactive.
+.IP [\-]noflsh
+Désactiver la purge du buffer après les caractères spéciaux Interrupt et Quit.
+.IP "[\-]xcase (np)"
+Activer l'entrée et la sortie de caractères majuscules en faisant précéder
+leur équivalent minuscule par `\e', si l'option ICANNON est active.
+.IP "[\-]tostop (np)"
+Arrêter les travaux en arrière-plan qui tentent d'écrire sur leur terminal.
+.IP "[\-]echoprt [\-]prterase (np)"
+Effectuer l'écho des caractères effacés entre `\e' et '/'.
+.IP "[\-]echoctl [\-]ctlecho (np)"
+Afficher l'écho des caractères de contrôle avec la notation (`^c')
+plutôt que sous leur forme littérale.
+.IP "[\-]echoke [\-]crtkill (np)"
+Effectuer l'écho du caractère spécial Kill en effaçant chaque caractère
+sur la ligne comme indiqué par les paramètres Echoprt et Echoe, à la place
+des paramètres Echoctl et Echok.
+.PP
+Paramètres combinés :
+
+.IP "[\-]evenp [\-]parity"
+Identique à parenb \-parodd cs7.  Avec `\-', identique à \-parenb cs8.
+.IP [\-]oddp
+Identique à parenb parodd cs7.  Avec `\-', identique à \-parenb cs8.
+.IP [\-]nl
+Identique à \-icrnl \-onlcr.  Avec `\-', identique à icrnl \-inlcr \-igncr
+onlcr \-ocrnl \-onlret.
+.IP ek
+Réinitialise les caractères spéciaux Erase et Kill à leurs valeurs par défaut.
+.IP sane
+Identique à cread \-ignbrk brkint \-inlcr \-igncr icrnl \-ixoff
+\-iuclc \-ixany imaxbel opost \-olcuc \-ocrnl onlcr \-onocr \-onlret
+\-ofill \-ofdel nl0 cr0 tab0 bs0 vt0 ff0 isig icanon iexten echo echoe echok
+\-echonl \-noflsh \-xcase \-tostop \-echoprt echoctl echoke.
+Réinitialise également tous les caractères de contrôle à leurs valeurs
+par défaut.
+.IP [\-]cooked
+Identique à brkint ignpar istrip icrnl ixon opost isig icanon.
+Réinitialise également les caractères Eof et Eol
+à leurs valeurs par défaut si ce sont les mêmes que
+les caractères Min et Time (voir plus bas).
+Avec `\-', identique à raw.
+.IP [\-]raw
+Identique à  \-ignbrk \-brkint \-ignpar \-parmrk \-inpck \-istrip \-inlcr
+\-igncr \-icrnl \-ixon \-ixoff \-iuclc \-ixany \-imaxbel
+\-opost \-isig \-icanon \-xcase min 1 time 0.
+Avec `\-', identique à  cooked.
+.IP [\-]cbreak
+Identique à  \-icanon.
+.IP [\-]pass8
+Identique à  \-parenb \-istrip cs8.  avec `\-', identique à parenb istrip cs7.
+.IP [\-]litout
+Identique à \-parenb \-istrip \-opost cs8.  Avec `\-', Identique à parenb
+istrip opost cs7.
+.IP "[\-]decctlq (np)"
+Identique à \-ixany.
+.IP "[\-]tabs (np)"
+Identique à tab0.  Avec `\-', identique à tab3.
+.IP "[\-]lcase [\-]LCASE (np)"
+Identique à xcase iuclc olcuc.
+.IP crt
+Identique à echoe echoctl echoke.
+.IP dec
+Identique à echoe echoctl echoke \-ixany.
+Configure également les caractères spéciaux Interrupt avec la valeur Ctrl-C,
+Erase avec Del, et Kill avec Ctrl-U.
+.PP
+Caractères spéciaux :
+
+.PP
+Les valeurs par défaut des caractères spéciaux varient suivant les
+systèmes. Ils sont configurés en utilisant la syntaxe `nom valeur'.
+Les noms sont indiqués ci-dessous, et les valeurs peuvent être fournies
+soit littéralement en utilisant la notation (`^c'), soit avec un
+entier commençant par `0x' pour une valeur hexadécimale, `0' pour 
+une valeur octale, ou tout autre chiffre pour une valeur décimale.
+Indiquer la valeur `^\-' ou `undef' permet de désactiver le caractère
+spécial.
+
+.IP intr
+Envoie le signal Intr.
+.IP quit
+Envoie le signal Quit.
+.IP erase
+Efface le dernier caractère saisi.
+.IP kill
+Efface la ligne en cours.
+.IP eof
+Signale une fin de fichier (terminer la saisie).
+.IP eol
+Fin de ligne.
+.IP "eol2 (np)"
+Autre caractère pour terminer la ligne.
+.IP "swtch (np)"
+Basculer à un autre niveau de shell.
+.IP start
+Redémarrage de la sortie après un arrêt.
+.IP stop
+Arrêt de la sortie.
+.IP susp
+Émission d'un signal Terminal Stop
+.IP "dsusp (np)"
+Émission d'un signal Terminal Stop après avoir vidé le buffer d'entrée.
+.IP "rprnt (np)"
+Réafficher la ligne en cours.
+.IP "werase (np)"
+Effacement du dernier mot saisi.
+.IP "lnext (np)"
+Lire le caractère suivant littéralement, même s'il s'agit d'un
+caractère spécial.
+.PP
+Paramètres spéciaux :
+
+.IP "min N"
+Lorsque \-icanon est configuré, indique le nombre minimal de caractères
+à lire pendant la durée `time' avant que la lecture n'échoue.
+.IP "time N"
+Lorsque \-icanon est configuré, indique la durée (en dixièmes de secondes)
+pour lire `min' caractères avant que la lecture n'échoue.
+.IP "ispeed N"
+Configure la vitesse d'entrée à la valeur N
+.IP "ospeed N"
+Configure la vitesse de sortie à la valeur N
+.IP "rows N (np)"
+Indique au noyau que le terminal dispose de N lignes.
+.IP "cols N columns N (np)"
+Indique au noyau que le terminal dispose de N colonnes.
+.IP "size (np)"
+Affiche le nombre de lignes et de colonnes dont dispose le terminal
+selon les informations fournies par le noyau. Les systèmes ne permettant pas la configuration
+de rows et cols dans le noyau utilisent généralement les variables
+d'environnement
+.B LINES
+et
+.B COLUMNS
+à la place. Toutefois, la version GNU de
+.B stty
+ne les utilise pas.
+.IP "line N (np)"
+Utiliser la discipline de ligne N.
+.IP "speed"
+Affiche la vitesse du terminal.
+.IP N
+Fixe les vitesses d'entrée et de sortie à la valeur N.
+N peut prendre les valeurs suivantes : 0 50 75 110
+134 134.5 150 200 300 600 1200 1800 2400 4800 9600 19200 38400 exta
+extb.  exta est équivalent à 19200, extb a 38400.  0 raccroche la
+ligne si \-clocal est configuré.
+.SS OPTIONS
+.TP
+.I "\-a, \-\-all"
+Afficher la configuration en cours de manière lisible par un humain.
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-g, \-\-save"
+Afficher la configuration en cours de manière utilisable comme argument
+pour une autre commande
+.B stty
+qui restituera le même paramétrage.
+.TP
+.I "\-F, \-\-file=FICHIER"
+Utiliser le périphérique représenté par le FICHIER spécial plutôt
+que l'entrée standard.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

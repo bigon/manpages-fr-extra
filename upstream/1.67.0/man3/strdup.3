@@ -1,0 +1,83 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sun Jul 25 10:41:34 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 09/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise à jour 26/01/2002 - LDP-man-pages-1.47
+.\" MàJ 21/07/2003 LDP-1.56
+.TH STRDUP 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+strdup, strndup, strdupa, strndupa \- Dupliquer une chaîne.
+.SH SYNOPSIS
+.nf
+.B #include <string.h>
+.sp
+.BI "char * strdup (const char *" s );
+.sp
+.B #define _GNU_SOURCE
+.br
+.B #include <string.h>
+.sp
+.BI "char * strndup (const char *" s ", size_t " n );
+.br
+.BI "char * strdupa (const char *" s );
+.br
+.BI "char * strndupa (const char *" s ", size_t " n );
+.sp
+.fi
+.SH DESCRIPTION
+La fonction \fBstrdup()\fP renvoie un pointeur sur une nouvelle chaîne
+de caractères qui est dupliquée depuis \fIs\fP. La mémoire occupée par
+cette nouvelle chaîne est obtenue en appelant \fBmalloc\fP(3),
+et peut (doit) donc être libérée avec \fBfree\fP(3).
+.PP
+La fonction \fBstrndup()\fP est identique, mais ne copie au plus que
+\fIn\fP caractères. Si \fIs\fP est plus grande que \fIn\fP, seuls \fIn\fP
+caractères sont copiés, et un caractère NUL est ajouté.
+ 
+\fBstrdupa\fP et \fBstrndupa\fP sont similaires, mais utilisent \fBalloca(3)\fP
+pour allouer le buffer. Elles sont directement utilisables avec
+GNUGCC, mais souffrent des mêmes restrictions que \fBalloca(3)\fP.
+
+.SH "VALEUR RENVOYÉE"
+La fonction \fBstrdup()\fP renvoie un pointeur sur la chaîne dupliquée,
+ou NULL s'il n'y avait pas assez de mémoire.
+.SH "ERREURS"
+.TP
+.B ENOMEM
+Pas assez de mémoire disponible pour dupliquer la chaîne.
+.SH "CONFORMITÉ"
+SVID 3, BSD 4.3.
+\fBstrndup()\fP, \fBstrdupa()\fP, et \fBstrndupa()\fP sont des extensions GNU.
+.SH "VOIR AUSSI"
+.BR alloca (3),
+.BR calloc (3),
+.BR free (3),
+.BR malloc (3),
+.BR realloc (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

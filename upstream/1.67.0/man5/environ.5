@@ -1,0 +1,235 @@
+.\" Copyright (c) 1993 Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de), Fri Apr  2 11:32:09 MET DST 1993
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Modified Sun Jul 25 10:45:30 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Sun Jul 21 21:25:26 1996 by Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Traduction 17/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 16/07/1997
+.\" Màj 02/05/1999 LDP-1.22
+.\" Màj 05/05/1999 LDP-1.23
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 25/10/2002 LDP-1.47
+.\" Màj 20/11/2002 LDP-1.53
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\"
+.TH ENVIRON 5 "25 juillet 2003" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+environ \- Environnement de l'utilisateur.
+.SH SYNOPSIS
+.ad l
+.nf
+.B extern char **environ;
+.br
+.fi
+.ad b
+.SH DESCRIPTION
+La variable
+.I environ
+pointe sur un tableau de chaînes que l'on nomme «\ environnement\ ».
+(Cette variable doit être déclarée dans les programmes utilisateurs,
+mais elle est présente dans
+.I unistd.h
+si le fichier d'en-tête provient de libc4 ou libc5, ou encore
+de glibc si la variable
+.B _GNU_SOURCE
+est définie.)
+Ce tableau de chaînes de caractères qui est fourni à
+.BR exec (3)
+quand un processus démarre. Par convention ces chaînes ont la forme
+«\ \fInom\fP\fB=\fP\fIvaleur\fP\ ».
+Des exemples classiques sont\ :
+.TP
+.B USER
+Le nom de l'utilisateur connecté (utilisé par des programmes de style BSD).
+.TP
+.B LOGNAME
+Le nom de l'utilisateur connecté (dans les programmes de style Système V).
+.TP
+.B HOME
+Le répertoire de login d'un utilisateur, mis en place par
+.BR login (1)
+depuis le fichier des mots de passe
+.BR passwd (5).
+.TP
+.B LANG
+Le nom du lieu à utiliser pour les configurations locales,
+s'il n'est pas écrasé par \fBLC_ALL\fP ou d'autres variables comme
+\fBLC_COLLATE\fP, \fBLC_CTYPE\fP, \fBLC_MESSAGES\fP, \fBLC_MONETARY\fP,
+\fBLC_NUMERIC\fP, \fBLC_TIME\fP, cf.
+.BR locale (5).
+.TP
+.B PATH
+Une liste de préfixes de répertoires, que
+.BR sh (1)
+et de nombreux autres programmes utilisent pour trouver un
+fichier dont le chemin est incomplet.
+Les préfixes sont séparés par des «\ \fB:\fP\ ».
+(De même il existe \fBCDPATH\fP utilisé par certains shells pour
+connaître le répertoire destination d'une commande cd,
+\fBMANPATH\fP utilisé par \fBman\fP(1) pour trouver les pages de
+manuel, etc...)
+.TP
+.B PWD
+Le répertoire de travail actuel, renseigné par certains shells.
+.TP
+.B SHELL
+Le nom de fichier du shell à la connexion de l'utilisateur.
+.TP
+.B TERM
+Le type de terminal utilisé pour les affichages.
+.TP
+.B PAGER
+L'application préférée de l'utilisateur pour afficher des textes (comme
+.BR less (1)).
+.TP
+.BR EDITOR / VISUAL
+L'application préférée de l'utilisateur pour éditer des textes.
+.TP
+.B BROWSER
+L'utilitaire préféré pour examiner des URLs. Une suite de noms de navigateurs
+séparés par des deux-points. Voir http://www.catb.org/~esr/BROWSER/ .
+.PP
+D'autres noms peuvent être inscrits dans l'environnement par
+la commande \fBexport\fP avec la syntaxe «\ nom=valeur\ »
+sous
+.BR sh (1),
+ou par la commande \fBsetenv\fP avec
+.BR csh (1).
+Des arguments peuvent aussi être insérés dans l'environnement lors
+d'un \fBexec\fP(2).
+
+Un programme C peut manipuler l'environnement en utilisant les fonctions
+.BR getenv (),
+.BR putenv (),
+.BR setenv (),
+et
+.BR unsetenv ().
+
+Remarquez que le comportement de nombreux programmes ou routines
+de bibliothèque est influencé par la présence, ou par la valeur
+de certaines variables d'environnement. En voici quelques exemples\ :
+.LP
+Les variables
+.BR LANG ", " LANGUAGE ", " NLSPATH ", " LOCPATH ", " LC_ALL ", " LC_MESSAGES ", "
+etc. influencent la localisation.
+.LP
+.B TMPDIR
+modifie le préfixe de chemin d'accès des fichiers crées par
+\fBtmpnam()\fP et consort, les répertoires temporaires de
+\fBsort\fP(1) ou d'autres programmes.
+.LP
+.BR LD_LIBRARY_PATH ", " LD_PRELOAD
+et les autres variables LD_* modifient
+le comportement du chargeur/éditeur de liens dynamique.
+.LP
+.B POSIXLY_CORRECT
+oblige certains programmes ou routines à respecter
+scrupuleusement le standard POSIX.
+.LP
+Le comportement de \fBmalloc\fP(3) est influencé par les variables
+MALLOC_*.
+.LP
+La variable
+.B HOSTALIASES
+fournit le nom du fichier d'alias consulté
+par \fBgethostbyname\fP().
+.LP
+.BR TZ " et " TZDIR
+gèrent les informations sur les fuseaux horaires utilisées par
+.BR tzset (3)
+et donc par les fonctions comme
+.IR ctime (),
+.IR localtime (),
+.IR mktime (),
+.IR strftime ().
+Voir
+.BR tzselect (1).
+.LP
+.B TERMCAP
+donne des indications sur la manière de traiter le terminal
+(ou donne le nom d'un fichier contenant ces spécifications).
+.LP
+.BR COLUMNS " et " LINES
+indiquent aux applications la taille de la fenêtre, éventuellement avec
+préséance sur la taille réelle.
+.LP
+.BR PRINTER " ou " LPDEST
+indiquent l'imprimante à utiliser. Voir
+.BR lpr (1).
+.LP
+Etc.
+.SH NOTES
+Il est clair qu'il y a ici un risque concernant la sécurité. De nombreuses
+commandes système peuvent être induites en erreur par un utilisateur
+qui fournirait des valeurs particulières pour
+.BR IFS " ou " LD_LIBRARY_PATH .
+
+Il y a aussi un risque de pollution de l'espace des noms.
+Des programmes comme
+.I make
+et
+.I autoconf
+permettent la surcharge des noms d'utilitaires par défaut par des variables
+d'environnement avec le même nom en majuscule.
+Ainsi on peut employer
+.B CC
+pour sélectionner un compilateur C (et de même
+.BR MAKE ,
+.BR AR ,
+.BR AS ,
+.BR FC ,
+.BR LD ,
+.BR LEX ,
+.BR RM ,
+.BR YACC ,
+etc.).
+Toutefois dans certains cas, ces variables fournissent des paramètres à
+certains programmes plutôt qu'un nom d'utilitaire. Ainsi il existe
+.BR MORE ,
+.BR LESS ,
+ou
+.BR GZIP .
+De telles utilisations sont considérées comme des erreurs et doivent être
+évitées dans les nouveaux programmes. Les auteurs de
+.I gzip
+par exemple, devraient penser à renommer leur option
+.BR GZIP_OPT .
+.SH "VOIR AUSSI"
+.BR login (1),
+.BR sh (1),
+.BR bash (1),
+.BR csh (1),
+.BR tcsh (1),
+.BR execve (2),
+.BR clearenv (3),
+.BR exec (3),
+.BR getenv (3),
+.BR putenv (3),
+.BR setenv (3),
+.BR unsetenv (3),
+.BR locale (5).
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.
+

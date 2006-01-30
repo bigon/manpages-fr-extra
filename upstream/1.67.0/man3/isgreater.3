@@ -1,0 +1,61 @@
+.\" Copyright 2002 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\" 2002-07-27 Walter Harms
+.\" this was done with the help of the glibc manual
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" 30/07/2003 LDP-1.58
+.TH ISGREATER 3 "30 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+isgreater, isgreaterequal, isless, islessgreater, isunordered \- macros vérifiant les relations d'ordre.
+.SH SYNOPSIS
+.nf
+.B #include <math.h>
+.sp
+.BI "int isgreater(x,y);
+.sp
+.BI "int isgreaterequal(x,y);
+.sp
+.BI "int isless(x,y);
+.sp
+.BI "int islessequal(x,y);
+.sp
+.BI "int islessgreater(x,y);
+.sp
+.BI "int isunordered(x,y);
+.fi
+.SH DESCRIPTION
+L'opérateur normal de relation (comme <) échouera si l'un des opérandes
+est le non-nombre NaN. Ceci déclenche une exception. Pour l'éciter, C99
+définit ces macros. Elles garantissent de n'évaluer leurs opérandes qu'une
+seule fois. Ces opérandes peuvent être n'importe quel type réel.
+.TP
+isgreater()
+détermine si (x) > (y) sans erreur si x ou y vaut NaN.
+.TP
+isgreaterequal()
+détermine si (x) >= (y) sans erreur si x ou y vaut NaN.
+.TP 
+isless()
+détermine si (x) < (y) sans erreur si x ou y vaut NaN.
+.TP
+islessequal()
+détermine si (x) <= (y) sans erreur si x ou y vaut NaN.
+.TP
+islessgreater()
+détermine si (x) < (y) || (x) > (y) sans erreur si x ou y vaut NaN.
+Cette macro n'est pas équivalente à x != y cette expression est vraie
+si x ou y vaut NaN.
+.TP
+isunordered()
+est vraie si x ou y vaut NaN et fausse sinon.
+.SH NOTE
+Tous les matériels ne supportent pas ces fonctions et lorsqu'ils ne le
+font pas, elle sont émulées par des macros. Cela diminue les performances.
+Ne les utilisez pas si NaN ne vous concerne pas.
+.SH "CONFORMITÉ"
+C99
+.SH "VOIR AUSSI"
+.BR fpclassify (3),
+.BR isnan(3)
+.SH TRADUCTION
+Christophe Blaess, 2003.

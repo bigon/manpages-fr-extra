@@ -1,0 +1,51 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Traduction 28/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" MàJ 21/07/2003 LDP-1.56
+.TH ISWXDIGIT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+iswxdigit \- Vérifier si un caractère large est un chiffre hexadécimal.
+.SH SYNOPSYS
+.nf
+.B #include <wctype.h>
+.sp
+.BI "int iswxdigit (wint_t " wc );
+.fi
+.SH DESCRIPTION
+La fonction \fBiswxdigit\fP est l'équivalent de \fBisxdigit\fP pour les caractères larges.
+Elle vérifie si le caractère large \fIwc\fP appartient à la classe de caractères larges "xdigit".
+.PP
+La classe de caractères larges "xdigit" est un sous ensemble de la classe "alnum", sous-ensemble de "graph"
+et sous-ensemble de la classe "print".
+.PP
+En tant que sous-classe de "print", la classe "xdigit" est disjointe de la classe "cntrl".
+.PP
+En tant que sous-classe de "graph", la classe x"digit" est disjointe des classes "space" et "blank".
+.PP
+En tant que sous-classe de "alnum", la classe "xdigit" est disjointe de la classe "punct".
+.PP
+La classe de caractères larges "digit" contient au moins les chiffres '0' à '9' et les lettres 'A' à 'F' et 'a' à 'f'.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBiswxdigit\fP renvoie une valeur non nulle si \fIwc\fP est un caractère large appartenant à la classe "xdigit".
+Sinon elle renvoie zéro.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR isxdigit (3),
+.BR iswctype (3)
+.SH NOTES
+Le comportement de la fonction \fBiswxdigit\fP dépend de la catégorie LC_CTYPE de la localisation.
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

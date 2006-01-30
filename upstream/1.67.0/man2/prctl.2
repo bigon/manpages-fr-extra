@@ -1,0 +1,123 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (C) 1998 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 28/04/98 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man-pages-1.19
+.\" màj 26/06/2000 LDP 1.30
+.\" màj 18/07/2003 LDP 1.56
+.TH PRCTL 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM 
+prctl \- Opérations sur un processus
+.SH SYNOPSIS
+.B #include <sys/prctl.h>
+.sp
+.BI "int prctl(int " option ", unsigned long " arg2 ", unsigned long " arg3
+.BI ", unsigned long " arg4 ", unsigned long " arg5 );
+.SH DESCRIPTION
+.B prctl
+est invoqué avec un premier argument indiquant ce qu'il faut faire,
+(ses valeurs sont définies dans <\fIlinux/prctl.h\fP>), et des
+paramètres supplémentaires dont la signification dépend du premier
+argument. Celui-ci peut être\ :
+.TP
+.BR PR_SET_PDEATHSIG
+(Depuis Linux 2.1.57)
+Configure le signal de mort du père du processus en cours avec la valeur
+\fIarg2\fP (qui peut être un numéro de signal dans
+l'intervalle 1..maxsig, ou être nul pour effacer le signal).
+Il s'agit du numéro du signal que le processus en cours recevra si son
+père se termine. Cette valeur est effacée lors d'un \fBfork()\fP.
+.TP
+.B PR_GET_PDEATHSIG
+(Depuis Linux 2.3.15)
+Lit la valeur actuelle du signal de mort du processus père, et
+l'inscrit dans l'argument (int *) \fIarg2\fP.
+.TP
+.B PR_SET_DUMPABLE
+(Depuis Linux 2.4)
+Fixe l'attribut déterminant si un fichier core est produit lorsque le
+processus reçoit un signal dont le comportement par défaut est de produire
+un fichier core. (Nomalement cet attribut est validé pour un processus par
+défaut, mais est effacé à l'exécution d'un programme Set-UID ou Set-GID
+ainsi que par divers appels-système manipulant des UID et GID).
+.I arg2
+doit valoir 0 (pas de fichier core) ou 1 (fichier core possible).
+.TP
+.B PR_GET_DUMPABLE
+(Depuis Linux 2.4)
+Renvoie (en résultat de fonction) l'état actuel de l'attribut de création de
+fichier core du processus appelant.
+.TP
+.B PR_SET_KEEPCAPS
+Fixe l'état de l'attribut de conservation des capacités, qui détermine si
+les ensembles de capacités effectives et disponibles sont effacés lorsqu'on
+modifie les UIDs réel, effectif et sauvé du processus de manière à ce que tous
+soient non-nuls alors qu'auparavant l'un au moins était nul.
+(Par défaut les ensembles sont effacés).
+.I arg2
+doit valoir 0 (les capacités sont effacées) ou 1 (capacités conservées).
+.TP
+.B PR_GET_KEEPCAPS
+Renvoie (en résultat de fonction) l'état actuel de conservation des capacités
+du processus appelant.
+.SH "VALEUR RENVOYÉE"
+Les options
+.B PR_GET_DUMPABLE
+et 
+.B PR_GET_KEEPCAPS
+renvoient 0 ou 1.
+Toutes les autres options renvoient zéro en réussite, et \-1 en cas d'échec,
+auquel cas
+.I errno
+contient le code d'erreur approprié.
+.SH ERREURS
+.TP
+.B EINVAL
+La valeur de l'argument
+.I option
+n'est pas reconnue, ou bien il s'agit de
+.B PR_SET_PDEATHSIG
+et
+.I arg2
+n'est pas un numéro de signal ou un zéro.
+.SH "CONFORMITÉ"
+Cet appel-système est spécifique à Linux.
+IRIX dispose d'un appel système prctl (également introduit dans
+Linux 2.1.44 sur l'architecture MIPS sous le nom irix_prctl),
+dont le prototype est
+.sp
+.BI "ptrdiff_t prctl(int " option ", int " arg2 ", int " arg3 );
+.sp
+et les options permettent de d'obtenir le nombre maximum de processus
+par utilisateur, le nombre maximal de processeur utilisables par un
+processus, vérifier si un processus est bloqué, lire ou fixer la
+taille des piles, etc...
+
+.SH DISPONIBILITÉ
+L'appel système prctl() a été introduit dans Linux 2.1.57. Il n'y a pas
+encore d'interface prctl() dans la bibliothèque.
+.SH "VOIR AUSSI"
+.BR signal (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

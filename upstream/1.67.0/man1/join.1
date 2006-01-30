@@ -1,0 +1,118 @@
+.\" Traduction 12/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH JOIN 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+join \- Fusionner les lignes de deux fichiers ayant un champ commun.
+.SH SYNOPSIS
+.B join
+[\-a 1|2] [\-v 1|2] [\-e chaîne] [-i] [\-o liste_champs...] [\-t caractère]
+[\-j[1|2] champ] [\-1 champ] [\-2 champ] fichier_1 fichier_2
+.br
+.B join
+{\-\-help,\-\-version}
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR join .
+
+.B join
+affiche sur la sortie standard une ligne pour chaque paire de lignes
+d'entrée, l'une provenant de
+.I fichier_1
+et l'autre de
+.IR fichier_2 ,
+qui disposent de champs de fusion identiques.
+
+N'importe lequel des deux fichiers (mais pas les deux en même temps)
+peut être `\-' ce qui représente l'entrée standard.
+
+.I fichier_1
+et
+.I fichier_2
+doivent être préalablement triés en ordre croissant (pas nécessairement
+numérique) sur leur champ utilisé pour la fusion. Si l'option
+.I \-t
+n'est pas précisée, les fichiers doivent être triés en ignorant les blancs
+en début de ligne, comme
+.BR sort (1)
+le fait avec l'option
+.IR \-b .
+.PP
+Les éléments par défaut sont les suivants :
+Le champ de fusion est le premier champ sur chaque ligne. Les champs en
+entrée sont séparés par un ou plusieurs blancs, les blancs en début de
+ligne étant ignorés. Les champs en sortie sont séparés par une espace.
+Chaque ligne de sortie commence par le champ de fusion, puis les champs
+restants de 
+.IR fichier_1 ,
+enfin, ceux restants de
+.IR fichier_2 .
+.SS OPTIONS
+.TP
+.I "\-a numéro"
+Afficher en plus sur la sortie standard une ligne pour chaque ligne du fichier
+.I numéro
+(1 ou 2), qui ne peut pas être appariée.
+.TP
+.I "\-e chaîne"
+Remplacer les champs de sortie vides (ceux qui manquent dans les entrées) par 
+la
+.IR chaîne .
+.TP
+.I "\-i"
+Ignorer les différences majuscules/minuscules dans les comparaisons.
+.TP
+.I "\-1, \-j1 champ"
+Effectuer la fusion sur le
+.I champ
+(un entier positif) du fichier 1.
+.TP
+.I "\-2, \-j2 champ"
+Effectuer la fusion sur le
+.I champ
+(un entier positif) du fichier 2.
+.TP
+.I "\-j champ"
+Équivalent à
+.IR "\-1 champ \-2 champ" .
+.TP
+.I "\-o liste_des_champs..."
+Construire les lignes de sortie en utilisant le format indiqué dans
+la
+.IR liste_des_champs.
+Chaque élément de la
+.IR liste_des_champs.
+consiste en un numéro de fichier (1 ou 2), un point-virgule, et un
+numéro de champ (un entier positif). Les éléments de la liste sont
+séparés par des virgules ou des espaces.
+Plusieurs arguments de la
+.I liste_de_champs
+peuvent être fournis en une seule option
+.IR \-o .
+Les arguments de toutes les listes indiquées par les options
+.I \-o
+sont mis bout à bout.
+.TP
+.I "\-t caractère"
+Utiliser le
+.I caractère
+indiqué comme séparateur de champs, tant en entrée qu'en sortie.
+.TP
+.I "\-v numéro"
+Afficher sur la sortie standard, à la place du résultat habituel,
+une ligne pour chaque ligne du fichier
+.I numéro
+(1 ou 2), qui ne peut pas être appariée.
+.PP
+De plus, quand la version GNU de
+.B join
+est invoquée avec un seul argument, les options suivantes sont reconnues :
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

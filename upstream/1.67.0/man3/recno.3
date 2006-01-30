@@ -1,0 +1,229 @@
+.\" Copyright (c) 1990, 1993
+.\"	The Regents of the University of California.  All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"	@(#)recno.3	8.5 (Berkeley) 8/18/94
+.\"
+.\" Traduction 11/05/1999 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man-pages-1.23
+.\" MàJ 21/07/2003 LDP-1.56
+.TH RECNO 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.UC 7
+.SH NOM
+recno \- Méthodes d'accès aux bases de données avec enregistrements numérotés.
+.SH SYNOPSIS
+.nf
+.ft B
+#include <sys/types.h>
+#include <db.h>
+.ft R
+.fi
+.SH DESCRIPTION
+La routine
+.IR dbopen
+est l'interface de bibliothèque pour les fichiers de base de données.
+L'un des formats de fichier supportés est celui avec enregistrements
+numérotés.
+La description générale des méthodes d'accès à une base de données
+est fournie dans la page de manuel
+.IR dbopen (3).
+La page présente ne décrit que les informations spécifiques aux enregistrements
+numérotés.
+.PP
+La structure de cette base ds données est une série d'enregistrements
+de longueurs variables ou fixes, stockés dans un fichier linéaire, et
+auxquels on accède par les numéros logiques d'enregistrement.
+L'existence de l'enregistrement numéro 5 implique l'existence des
+enregistrements 1 à 4, et l'effacement du numéro entraîne la renumérotation
+de l'enregistrement 5 en 4, ainsi que le déplacement d'un cran du curseur
+s'il était positionné après l'enregistrement 1.
+.PP
+La structure de données spécifique pour l'accès aux enregistrements numérotés,
+et que l'on transmet à
+.I dbopen
+est définie dans <db.h> ainsi :
+.PP
+typedef struct {
+.RS
+u_long flags;
+.br
+u_int cachesize;
+.br
+u_int psize;
+.br
+int lorder;
+.br
+size_t reclen;
+.br
+u_char bval;
+.br
+char *bfname;
+.RE
+} RECNOINFO;
+.PP
+Les éléments de cette structure sont les suivants :
+.TP
+flags
+La valeur de ce champ est calculé avec un
+.IR OU
+binaire sur certaines des constantes suivantes :
+.RS
+.TP
+R_FIXEDLEN
+Les enregistrements ont une taille fixe, et non pas délimités.
+Le champ
+.I reclen
+de la structure indique la longueur de l'enregistrement, et
+le champ
+.I bval
+contient le caractère à utiliser pour les remplissages éventuels.
+Tout enregistrement, inséré dans la base de données, ayant moins de
+.I reclen
+octets de long sera automatiquement alongé.
+.TP
+R_NOKEY
+Avec l'interface spécifiée par
+.IR dbopen ,
+le parcours séquentiel renseigne à la fois la structure
+.I clé
+de l'appelant, et la structure des
+.IR données .
+Si l'argument R_NOKEY est utilisé les routines de gestion du
+.I curseur
+ne sont pas obligées de remplir la structure clé.
+Ceci permet aux applications d'accéder à des enregistrements en fin
+de fichier sans avoir à relire tous les enregistrements précédents.
+.TP
+R_SNAPSHOT
+Ce drapeau demande qu'une image du fichier soit saisie lorsque
+.I dbopen
+est ouvert, plutôt que de lire tout enregistrement non modifié
+dans le fichier original.
+.RE
+.TP
+cachesize
+Une taille maximale suggérée de mémoire cache, en octets. Ceci n'a
+qu'une valeur
+.BR indicative ,
+et les méthodes d'accès alloueront plus de mémoire plutôt que d'échouer.
+Si
+.I cachesize
+vaut  0 (pas de taille indiquée) on utilise une valeur par défaut.
+.TP
+psize
+La méthode d'accès recno stocke les copies en mémoire de ses enregistrements
+dans un arbre B-tree.
+Cette valeur est la taille (en octets) des pages à utiliser pour les
+noeuds de cet arbre.
+Si
+.I psize
+vaut  0 (pas de taille indiquée) une taille de page est choisie en fonction
+des tailles de blocs d'entrée-sortie du système de fichiers sous-jacent.
+Voir
+.IR btree (3)
+pour plus d'information.
+.TP
+lorder
+L'ordre des octets pour les entiers stockés dans la base de données.
+Ce nombre doit représenter l'ordre sous forme d'entier. Par exemple l'ordre
+poids faible-poids fort (big endian) est représenté par le nombre 4321.
+Si
+.I lorder
+vaut 0 (pas d'ordre indiqué), on utilise l'ordre des octets du système hôte.
+.TP
+reclen
+La longueur des enregistrements de taille fixe.
+.TP
+bval
+L'octet de marquage servant à délimiter les enregistrements de longueurs
+variables, et l'octet de remplissage pour les enregistrements de taille fixe.
+Si aucune valeur n'est indiquée, le caractère fin-de-lignes (``\en'')
+est utilisé comma délimiteur et les enregistrements de tailles fixes sont
+complétés avec des espaces.
+.TP
+bfname
+La méthode d'accès recno stocke les copies en mémoire de ses enregistrements
+dans un arbre B-tree.
+Si bfname n'est pas NULL, il indique le nom du fichier B-tree.
+.PP
+La partie ``donnée'' des paires clés/donnéees utilisées par les méthodes
+d'accès recno est la même que pour les autres méthodes d'accès.
+La clé est différente.
+Le champ
+.I data
+de la clé doit être un pointeur sur un emplacement mémoire du type
+.IR recno_t ,
+ainsi qu'il est défini dans le fichier d'en-tête <db.h>.
+Ce type est normalement le plus grand des types d'entiers non signés
+disponibles pour l'implémentation.
+Le champ
+.I size
+doit contenir la longueur de ce type de donnée.
+.PP
+Comme il ne peut pas y avoir de méta-données associées aux fichiers
+sous-jacent aux méthodes recno, tout changement par rapport aux valeurs
+par défaut (par exemple longueur des enregistrements fixes, ou caractère
+séparateur) doit être indiqué explicitement à chaque fois que le fichier est
+ouvert.
+.PP
+Avec l'interface indiquée par
+.IR dbopen ,
+l'utilisation de la routine
+.I put
+pour créer un nouvel enregistrement causera la création de plusieurs
+enregistrements vides si le numéro d'enregistrement est supérieur de
+plus d'une unité au plus grand numéro déjà présent dans la base de données.
+.SH ERREURS
+Les routines des méthodes d'accès au
+.I "enregistrements numérotés"
+peuvent échouer et remplir
+.I errno
+avec n'importe quelle erreur indiquée par la routine
+.IR dbopen (3)
+ou la suivante :
+.TP
+[EINVAL]
+On a essayé d'ajouter un enregistrement trop grand dans une base de
+données avec longueurs fixes.
+.SH "VOIR AUSSI"
+.IR btree (3)
+.IR dbopen (3),
+.IR hash (3),
+.IR mpool (3),
+.sp
+.IR "Document Processing in a Relational Database System" ,
+Michael Stonebraker, Heidi Stettner, Joseph Kalash, Antonin Guttman,
+Nadene Lynn, Memorandum No. UCB/ERL M82/32, May 1982.
+
+.SH BOGUES
+Seuls les ordres d'octets big-endian et little-endian fonctionnent.
+
+.SH TRADUCTION
+Christophe Blaess, 1999-2003.

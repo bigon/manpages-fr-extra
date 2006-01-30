@@ -1,0 +1,201 @@
+.TH PTHREAD_SPECIFIC 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+.SH NOM
+pthread_key_create, pthread_key_delete, pthread_setspecific, pthread_getspecific \- gestion de données spécifiques à un thread
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+
+.BI "int pthread_key_create(pthread_key_t *" clé ", void (*" destr_function ") (void *));"
+
+.BI "int pthread_key_delete(pthread_key_t " clé ");"
+
+.BI "int pthread_setspecific(pthread_key_t " clé ", const void *" pointeur ");"
+
+.BI "void * pthread_getspecific(pthread_key_t " clé ");"
+
+.SH DESCRIPTION
+Les programmes ont souvent besoin de variables globales ou statiques ayant
+différentes valeurs dans des threads différents. Comme les threads partagent le
+même espace mémoire, cet objectif ne peut être réalisé avec les variables
+usuelles. Les données spécifiques à un thread de POSIX sont la réponse à ce
+problème.
+
+Chaque thread possède un segment mémoire privé, le TSD (Thred-Specific Data\ :
+Données Spécifiques au Thread). Cette zone mémoire est indexée par des clés
+TSD. La zone TST associe des valeurs du type
+.B "void *"
+aux clés TST. Ces clés sont communes à tous les threads, mais la valeur
+associée à une clé donnée est différente dans chaque thread.
+
+Pour concrétiser ce formalisme, les zones TSD peuvent être vues commes des
+tableaux de pointeurs \fBvoid *\fP, les clés TSD comme des indices entiers pour
+ces tableaux, et les valeurs des clés TSD comme les valeurs des entrées
+correspondantes dans le tableau du thread appelant.
+
+Quand un thread est créé, sa zone TST est unitialement associée aux clés
+\fBNULL\fP.
+
+.B "pthread_key_create"
+alloue une nouvelle clé TSD. Cette clé est enregistrée à l'emplacement pointée
+par
+.IR "clé" .
+Il ne peut y avoir plus de
+.B "PTHREAD_KEYS_MAX"
+clés allouées à un instant donné. La valeur initialement associée avec la clé
+renvoyée est
+.B "NULL"
+dans tous les threads en cours d'exécution.
+
+L'argument \fIdestr_function\fP, si différent de
+.BR "NULL" ,
+spécifie une fonction destructrice associée à une clé. Quand le thread se
+termine par
+.B "pthread_exit"
+ou par une annulation,
+.I "destr_function"
+est appelée avec en argument les valeurs associées aux clés de ce thread. La
+fonction
+.I "destr_function"
+n'est pas appelée si cette valeur est
+.BR "NULL" .
+L'ordre dans lequel les fonctions de desctruction sont appelées lors de la fin
+du thread n'est pas spécifiée.
+
+Avant que la fonction de destruction soit appelée, la valeur
+.B "NULL"
+est associée à la clé dans le thread courant. Une fonction de destruction peut
+cependant réassocier une valeur différente de
+.B "NULL"
+à cette clé ou une autre clé. Pour gérer ce cas de figure, si après l'appel de
+tous les destructeurs pour les valeurs différentes de \fBNULL\fP, il existe
+toujours des valeurs différentes de
+.B "NULL"
+avec des destructeurs associés, alors la procédure est répétée.
+L'implémentation de LinuxThreads interrompt cette procédure après
+.B "PTHREAD_DESTRUCTOR_ITERATIONS"
+itérations, même s'il reste des valeurs différentes de
+.B "NULL"
+associées à des descripteurs. Les autres implémentations peuvent boucler sans
+fin.
+
+.B "pthread_key_delete"
+désalloue une clé TSD. Elle ne vérifie pas si des valeurs différentes de
+.B "NULL"
+sont associées avec cette clé dans les threads en cours d'exécution, ni
+n'appelle la fonction de destruction associée avec cette clé.
+
+.B "pthread_setspecific"
+change la valeur associée avec  
+.I "clé"
+dans le thread appelant, sauve le paramètre
+.I "pointeur"
+à sa place.
+
+.B "pthread_getspecific"
+renvoie la valeur actuellement associée avec
+.I "clé"
+dans le thread appelant.
+
+.SH "VALEUR RENVOYÉE"
+
+.BR "pthread_key_create" ,
+.BR "pthread_key_delete" ,
+et 
+.B "pthread_setspecific"
+renvoient 0 en cas de succès et un code d'erreur non nul en cas d'échec. En cas
+de succès,
+.B "pthread_key_create"
+enregistre la clé récemment créée à l'emplacement pointé par son arguement
+\fIclé\fP.
+
+.B "pthread_getspecific"
+renvoie la valeur associée à
+.I "clé"
+en cas de succès et 
+.B "NULL"
+en cas d'erreur.
+
+.SH ERREURS
+.B "pthread_key_create"
+renvoient l'un des codes d'erreur suivants\ :
+.RS
+.TP
+.B "EAGAIN"
+.B "PTHREAD_KEYS_MAX"
+les clés sont déjà allouées
+.RE
+
+.B "pthread_key_delete"
+et 
+.B "pthread_setspecific"
+renvoient l'un des codes d'erreur suivants\ :
+.RS
+.TP
+.B "EINVAL"
+.I "clé"
+n'est pas une clé valide ou allouée
+.RE
+
+.B "pthread_getspecific"
+renvoie 
+.B "NULL"
+si la
+.I "clé"
+n'est pas associée
+à des données spécifiques.
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+pthread_create(3), pthread_exit(3), pthread_testcancel(3).
+
+.SH EXEMPLE
+
+L'extrait de code suivant alloue dans un thread un tableau de 100 caractères,
+avec libération de la mémoire automatiquement à la fin de l'exécution du
+thread.
+
+.RS
+.ft 3
+.nf
+.sp
+/* Clé pour le tampon spécifique au thread */
+static pthread_key_t buffer_key;
+
+/* Initialisation unique de la clé */
+static pthread_once_t buffer_key_once = PTHREAD_ONCE_INIT;
+
+/* Alloue le tampon spécifique au thread */
+void buffer_alloc(void)
+{
+  pthread_once(&buffer_key_once, buffer_key_alloc);
+  pthread_setspecific(buffer_key, malloc(100));
+}
+
+/* Renvoie le tampon spécifique au thread */
+char * get_buffer(void)
+{
+  return (char *) pthread_getspecific(buffer_key);
+}
+
+/* Alloue la clée */
+static void buffer_key_alloc()
+{
+  pthread_key_create(&buffer_key, buffer_destroy);
+}
+
+/* Libère le tampon spécifique au thread */
+static void buffer_destroy(void * buf)
+{
+  free(buf);
+}
+.ft
+.LP
+.RE
+.fi
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+.br
+Christophe Blaess, 2003.

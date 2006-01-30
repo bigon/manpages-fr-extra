@@ -1,0 +1,274 @@
+.\" This man page is Copyright (C) 2000 Andi Kleen <ak@muc.de>.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\" $Id: ipv6.7,v 1.3 2000/12/20 18:10:31 ak Exp $
+.\" Traduction Christophe Blaess <ccb@club-internet.fr> 
+.\" 11/06/2001 - LDP-man-pages-1.37
+.\" MàJ - LDP-man-pages-1.53
+.\" MàJ 25/07/2003 LDP-1.56
+.TH IPV6 7 "25 juillet 2003" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+ipv6, PF_INET6 \- Implémentation Linux du protocole IPv6
+.SH SYNOPSIS
+.B #include <sys/socket.h>
+.br
+.B #include <netinet/in.h> 
+.sp
+.sp
+.IB tcp6_socket " = socket(PF_INET6, SOCK_STREAM, 0);"
+.br 
+.IB raw6_socket " = socket(PF_INET6, SOCK_RAW, " protocol ");"
+.br
+.IB udp6_socket " = socket(PF_INET6, SOCK_DGRAM, " protocol ");"
+.SH DESCRIPTION
+Linux 2.2 implémente en option le protocole internet version 6 (IPv6).
+Cette page de manuel contient la description de l'API IPv6 de base, telle
+qu'implémentée dans le noyau Linux et la GlibC 2.1 L'interface est 
+basée sur l'interface des sockets BSD. Voir
+.BR socket (7). 
+.PP
+L'API IPv6 est conçue pour être essentiellement compatible avec l'API
+.BR ip (7) 
+v4. Seules les différences sont décrites dans cette page de manuel.
+.PP
+pour attacher une socket
+.IR AF_INET6 ,
+l'adresse locale doit être copiée dans une variable
+.B in6addr_any
+qui a le
+type
+.IR in6_addr .
+Dans les initialisations statiques,
+.B IN6ADDR_ANY_INIT
+peut servir aussi et se développe en une expression constante.
+Toutes les valeurs sont dans l'ordre des octets du réseau.
+.PP
+L'adresse de boucle IPv6 (::1) est disponible dans la variable globale
+.BR in6addr_loopback .
+Pour les initialisation, on doit
+utiliser
+.BR IN6ADDR_LOOPBACK_INIT .
+.PP
+Les connexions IPv4 peuvent être traitée avec l'API v6 en utilisant le type d'adresse
+v4-projeté-dans-v6. Ainsi un programme n'a qu'un seul type d'API à utiliser pour
+supporter les deux protocoles. Ceci est géré de manière transparente par les fonctions
+d'adressage de la LibC.
+.PP
+IPv4 et IPv6 partagent l'espace des ports locaux. Lorsqu'une connexion IPv4 ou un paquet 
+est obtenu sur une socket IPv6, son adresse source sera projetée
+en v6.
+.SH "FORMAT D'ADRESSE"
+.sp
+.RS
+.nf
+.ta 4n 5n 20n
+struct sockaddr_in6 {
+	u_int16_t	sin6_family;	/* AF_INET6 */
+	u_int16_t	sin6_port;	/* numéro port */
+	u_int32_t	sin6_flowinfo;	/* information flux IPv6 */
+	struct in6_addr	sin6_addr;	/* adresse IPv6 */
+	u_int32_t   sin6_scope_id;  /* Scope id (nouveauté 2.4) */ 
+};
+
+struct in6_addr {
+	unsigned char	s6_addr[16];	/* adresse IPv6 */
+};
+.ta
+.fi
+.RE
+.sp
+.B sin6_family 
+est toujours rempli avec 
+.BR AF_INET6 " ;"
+.B sin6_port 
+est le port du protocole (voir
+.B sin_port
+dans
+.BR ip (7));
+.B sin6_flowinfo
+est l'identificateur de flux IPv6,
+.B sin6_addr
+est l'adresse IPv6 sur 128 bits.
+.B sin6_scope_id 
+est un identificateur qui dépend de la portée de l'adresse. C'est une nouveauté Linux 2.4.
+Linux ne le supporte que pour les adresse ayant une portée liaison, dans ce cas
+.I sin6_scope_id
+contient le numéro d'interface (voir
+.BR netdevice (7))
+.PP
+IPv6 supporte plusieurs types d'adresses : unicast pour représenter un hôte unique,
+multicast pour un groupe d'hôtes, anycast pour indiquer le membre le plus proche d'un
+groupe d'hôtes (non implémenté sous Linux), IPv4-on-IPv6 pour un hôte
+IPv4, et d'autres types d'adresse réservés.
+.PP
+La notation d'adresse pour l'IPv6 est un groupe de 16 nombres hexadécimaux sur 2 chiffres,
+séparés par un deux-points `:'. Un `::' représente une chaîne de zéros. Les adresses spéciales
+sont ::1 pour le bouclage loopback et ::FFFF:<adresse IPv4> pour les projections d'adresses IPv4
+sur l'IPv6.
+.PP
+L'espace des ports de l'IPv6 est partagé avec l'IPv4.
+.SH "OPTIONS DES SOCKETS"
+IPv6 supporte quelques options des sockets spécifiques du protocole, qui peuvent être fixées avec
+.BR setsockopt (2)
+et consultées avec
+.BR getsockopt (2).
+Le niveau d'option de socket pour l'IPv6 est
+.BR IPPROTO_IPV6 .
+Un entier booléen est faux quand il est nul et vrai sinon.
+.TP
+.B IPV6_UNICAST_HOPS
+Fixe la limite du nombre de sauts (hops) unicast. L'argument est un pointeur sur un entier.
+La valeur \-1 correspond à la valeur par défaut de routage, sinon il doit s'agir
+d'un entier entre 0 et 255.
+.TP
+.B IPV6_MULTICAST_HOPS
+Fixe la limite du nombre de sauts (hops) multicast. L'argument est un pointeur sur un entier.
+La valeur \-1 correspond à la valeur par défaut de routage, sinon il doit s'agir
+d'un entier entre 0 et 255.
+.TP 
+.B IPV6_MULTICAST_IF
+Fixe le périphérique pour les paquets multicasts sortants de la socket.
+Ceci n'est permis
+que pour les
+sockets
+.I SOCK_DGRAM
+et
+.IR SOCK_RAW .
+L'argument est un pointeur sur un numéro d'interface (voir
+.BR netdevice (7))
+dans un entier.
+.TP
+.B IPV6_ADDRFORM
+Transformer une socket
+.I AF_INET6
+en une socket d'une famille d'adresse différente. Seul
+.I AF_INET
+est actuellement supporté pour cela. Cela n'est autorisé que pour les sockets
+IPv6 connectées et attachées à une adresse v4-sur-v6. L'argument est un pointeur
+sur un entier contenant
+.B AF_INET. 
+Cela est utile pour passer des sockets projetées en v4 comme descripteurs à des
+programmes ne sachant pas manipuler l'API IPv6.
+.TP 
+.B IPV6_PKTINFO
+Fixe la distribution des messages de contrôle
+.B IPV6_PKTINFO 
+des datagrammes entrants. Uniquement autorisé pour les sockets
+.B SOCK_DGRAM
+ou
+.BR SOCK_RAW .
+L'argument est un pointeur sur une valeur booléenne dans un entier.
+.TP
+.nh
+.B IPV6_RTHDR, IPV6_AUTHHDR, IPV6_DSTOPS, IPV6_HOPOPTS, IPV6_FLOWINFO, IPV6_HOPLIMIT
+.hy
+Fixe la distribution des messages de contrôle des datagrammes entrants contenant les
+en-têtes d'extensions.
+.I IPV6_RTHDR
+délivre l'en-tête de routage,
+.I IPV6_AUTHHDR
+délivre l'en-tête d'authentification,
+.I IPV6_DSTOPTS
+délivre les options de destination,
+.I IPV6_HOPOPTS
+délivre les options de saut,
+.I IPV6_FLOWINFO
+délivre un entier contenant l'identificateur de flux,
+.I IPV6_HOPLIMIT
+délivre un entier contenant le nombre de sauts du paquet.
+Les messages de contrôle ont le même type que l'option de socket. Toutes ces options
+d'en-tête peuvent aussi être fixées pour les paquets sortants en mettant le message
+de contrôle approprié dans le buffer de
+.BR sendmsg (2).
+Uniquement autorisé pour les sockets
+.B SOCK_DGRAM
+ou
+.B SOCK_RAW
+L'argument est un pointeur sur une valeur booléenne.
+.TP
+.B IPV6_MULTICAST_LOOP
+Détermine si la socket voit les paquets multicast qu'elle a elle-même émis.
+L'argument est un pointeur sur une valeur booléenne.
+.TP
+.B IPV6_ADD_MEMBERSHIP, IPV6_DROP_MEMBERSHIP
+Détermine l'appartenance aux groupes multicast. L'argument est un pointeur sur
+une structure
+.BR struct ipv6_mreq .
+.TP
+.B IPV6_MTU
+Fixe le MTU à utiliser pour la socket. Le MTU est limité par celui du périphérique
+ou celui du chemin lorsque la recherche du MTU par chemin est activée.
+L'argument est un pointeur sur un entier.
+.TP
+.B IPV6_MTU_DISCOVER
+Commander la recherche du MTU par chemin sur la socket. Voir l'option
+.I IP_MTU_DISCOVER
+dans
+.BR ip (7)
+pour plus de précisions.
+.TP
+.B IPV6_RECVERR
+Commande la réception des erreurs asynchrones. Voir
+.I IP_RECVERR
+dans
+.BR ip (7)
+pour plus de précisions.
+L'argument est un pointeur sur un booléen.
+.TP
+.B IPV6_ROUTER_ALERT
+Passer sur cette socket tous les paquets redirigés (forwarded) contenant une option d'alerte du routeur.
+Uniquement autorisé pour les sockets datagrammes, et pour root. L'argument est un pointeur
+vers un booléen.
+.\" FLOWLABEL_MGR, FLOWINFO_SEND
+.SH VERSIONS
+L'ancienne implémentation IPv6 pour Linux basée sur
+.I libinet6
+de la LibC5 n'est pas décrite ici, et peut être légèrement
+différente.
+.PP
+Linux 2.4 rompt la compatibilité binaire pour la structure sockaddr_in6
+des hôtes sur 64 bits, en modifiant l'alignement de
+.I in6_addr 
+et en ajoutant un champ
+.I sin6_scope_id
+supplémentaire. Les interfaces du noyau restent compatible, mais un programme contenant
+des sockaddr_in6 ou des in6_addr dans d'autres structures ne l'est peut être pas. Ce n'est
+pas un problème pour les hôtes sur 32 bits comme les i386.
+.PP
+Le champ
+.B sin6_flowinfo
+est une nouveauté Linux 2.4. Il est écrit/lu de manière transparente par le noyau
+quand la longueur de l'adresse passée le contient. Certains programmes qui passent
+un buffer d'adresse plus long et vérifient ensuite la longueur de l'adresse renvoyée peuvent échouer.
+.SH "NOTES DE PORTABILITÉ"
+La structure
+.B sockaddr_in6
+est plus grande que la structure
+.B sockaddr
+générique. Les programmes qui supposent que tous les types d'adresses peuvent être stockés dans une
+.B struct sockaddr
+doivent être modifiés pour utiliser
+.B struct sockaddr_storage
+à la place.
+.SH BOGUES
+L'API IPv6 étendue, telle que dans la RFC 2292, n'est encore que partiellement implémentée.
+Bien que les noyaux 2.2 ont un support pratiquement complet pour les options de réception,
+les macros déclarant les options IPv6 manquent dans la GlibC 2.1.
+.PP
+Le support IPSec pour les en-têtes EH et AH est manquant.
+.PP
+La gestion des étiquettes de flux n'est pas complète, ni documentée ici.
+.PP
+Cette page de manuel n'est pas complète.
+.SH "VOIR AUSSI"
+.BR ip (7),
+.BR cmsg (3)
+.PP
+RFC2553: API IPv6 de base, avec laquelle Linux essaye d'être compatible.
+.PP
+RFC2460: Spécifications IPv6
+.SH TRADUCTION
+Christophe Blaess, 2001-2003.
+

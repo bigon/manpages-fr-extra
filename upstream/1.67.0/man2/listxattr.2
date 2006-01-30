@@ -1,0 +1,162 @@
+.\"
+.\" Extended attributes system calls manual pages
+.\"
+.\" (C) Andreas Gruenbacher, February 2001
+.\" (C) Silicon Graphics Inc, September 2001
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111,
+.\" USA.
+.\"
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" MàJ 18/07/2003 LDP-1.56
+.TH LISTXATTR 2 "18 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+listxattr, llistxattr, flistxattr \- Lister les noms des attributs étendus.
+.SH SYNOPSIS
+.fam C
+.nf
+.B #include <sys/types.h>
+.B #include <attr/xattr.h>
+.sp
+.BI "ssize_t listxattr (const char\ *" chemin ",
+.BI "\t\t\t\t char\ *" liste ", size_t " taill );
+.BI "ssize_t llistxattr (const char\ *" chemin ",
+.BI "\t\t\t\t char\ *" liste ", size_t " taille );
+.BI "ssize_t flistxattr (int " descripteur ",
+.BI "\t\t\t\t char\ *" liste ", size_t " taille );
+.fi
+.fam T
+.SH DESCRIPTION
+Les attributs étendus sont des paires
+.IR nom :\c
+.I valeur 
+associées aux i-noeuds (fichiers, répertoires, liens symboliques, etc).
+Ce sont des extensions des attributs normaux qui sont associés avec tous les
+i-noeuds du système (les informations renvoyées
+par 
+.BR stat (2).
+Une description complète des concepts d'attributs étendus est disponible dans
+.BR attr (5).
+.PP
+.B listxattr
+récupère la
+.I liste
+des attributs étendus associé avec le 
+.I chemin
+indiqué du système de fichier.
+La liste est l'ensemble des noms (terminés par NULL), l'un après l'autre.
+Les noms des attributs étendus auxquels le processus appelant n'a pas
+accès peuvent être omis dans la liste.
+La longueur de la
+.I liste
+de noms d'attributs est renvoyée.
+.PP
+.B llistxattr
+est identique à
+.BR listxattr ,
+sauf dans le cas d'un lien symbolique, où il renvoie la liste des noms des
+attributs associés au lien lui-même et non au fichier
+auquel il se réfère.
+.PP
+.B flistxattr
+est identique à
+.BR listxattr ,
+sauf que le fichier ouvert associé au
+.I descripteur
+(fourni par
+.BR open (2))
+est interrogé à la place du
+.IR chemin .
+.PP
+Le 
+.I nom
+d'un attribut étendu est une simple chaîne terminée par un caractère nul.
+Le nom inclut un préfixe d'espace de noms \- il peut y avoir plusieurs espaces
+de noms disjoints associés avec un i-noeud donné.
+.PP
+Un buffer vide, de
+.I taille
+nulle peut être transmis à ses appels, pour qu'ils renvoient la taille actuelle
+de la liste des noms d''attributs étendus, pour estimer la taille de buffer
+nécessaire pour contenir la liste des noms.
+.SH EXEMPLES
+La
+.I liste
+est noms est renvoyée sous forme de table de chaînes de caractères terminées
+par un caractère nul, sans ordre particuler, les noms des attributs étant
+séparés par un caractère NUL, ainsi\ :
+.fam C
+.RS
+.nf
+user.name1\\0system.name1\\0user.name2\\0
+.fi
+.RE
+.fam T
+.P
+Les systèmes comme ext2, ext3, et XFS qui implémentent les ACLs POSIX
+en utilisant les attributs étendus peuvent renvoyer une
+.I liste
+comme celle-ci\ :
+.fam C
+.RS
+.nf
+system.posix_acl_access\\0system.posix_acl_default\\0
+.fi
+.RE
+.fam T
+.SH "VALEUR RENVOYÉE"
+S'ils réussissent, ces appels renvoient un nombre positif correspondant à la
+taille de la liste de noms d'attributs.
+En cas d'échec, ils renvoient \-1 et remplissent
+.I errno
+avec un code d'erreur.
+.PP
+Si la
+.I taille
+du buffer pour la
+.I liste
+est trop petite pour contenir le résultat,
+.I errno
+sera rempli avec ERANGE.
+.PP
+.PP
+Si les attributs étendus ne sont pas suportés par le système de fichiers ou le noyau
+.I errno
+contient ENOTSUP.
+.PP
+Les erreurs documentés pour l'appel-système
+.BR stat (2)
+sont également applicables ici.
+.SH AUTEURS
+Andreas Gruenbacher,
+.RI < a.gruenbacher@computer.org >
+et l'équipe de développement SGI XFS,
+.RI < linux-xfs@oss.sgi.com >.
+Envoyez les rapports de bogues et les commentaires (en anglais) à ces adresses.
+.BR getfattr (1),
+.BR setfattr (1),
+.BR open (2),
+.BR stat (2),
+.BR getxattr (2),
+.BR setxattr (2),
+.BR removexattr (2),
+.BR attr (5).
+.SH TRADUCTION
+Christophe Blaess, 2003

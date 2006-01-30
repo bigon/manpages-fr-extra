@@ -1,0 +1,258 @@
+.TH PTHREAD_MUTEX 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+.SH NOM
+pthread_mutex_init, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock, pthread_mutex_destroy \- opérations sur les mutex
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+
+.BI "pthread_mutex_t " fastmutex " = PTHREAD_MUTEX_INITIALIZER;"
+
+.BI "pthread_mutex_t " recmutex " = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;"
+
+.BI "pthread_mutex_t " errchkmutex " = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP;"
+
+.BI "int pthread_mutex_init(pthread_mutex_t *" mutex ", const pthread_mutexattr_t *" mutexattr ");"
+
+.BI "int pthread_mutex_lock(pthread_mutex_t *" mutex "));"
+
+.BI "int pthread_mutex_trylock(pthread_mutex_t *" mutex ");"
+
+.BI "int pthread_mutex_unlock(pthread_mutex_t *" mutex ");"
+
+.BI "int pthread_mutex_destroy(pthread_mutex_t *" mutex ");"
+
+.SH DESCRIPTION
+Un mutex est un objet d'exclusion mutuelle (MUTual EXclusion), et est
+très pratique pour protéger des données partagées de modifications concurrentes
+et pour implémenter des sections critiques.
+
+Un mutex peut ête dans deux états : déverrouillé (pris par aucun thread) ou
+verrouillé (appartenant à un
+thread). Un mutex ne peut être pris que par un seul thread à la fois. Un
+thread qui tente de verrouiller un mutex déjà verrouillé est suspendu jusqu'à
+ce que le mutex soit déverrouillé.
+
+.B "pthread_mutex_init"
+initialise le mutex pointé par
+.I "mutex"
+selon les attributs de mutex spécifié par
+.IR "mutexattr" .
+Si 
+.I "mutexattr"
+vaut
+.BR "NULL" ,
+les paramètres par défaut sont utilisés.
+
+L'implémentation LinuxThreads ne supporte qu'un seul attribut, le 
+.IR "type de mutex" ,
+qui peut être soit ``rapide'', ``récursif'' ou à ``vérification d'erreur''. Le
+type de mutex détermine s'il peut être verrouillé plusieurs fois par le même
+thread. Le type par défaut est ``rapide''. Voir
+.BR "pthread_mutexattr_init" (3)
+pour plus d'informations sur les attributs de mutex.
+
+Les variables de type 
+.B "pthread_mutex_t"
+peuvent aussi être initialisées de manière statique, en utilisant les
+constantes
+.B "PTHREAD_MUTEX_INITIALIZER"
+(pour les mutex rapides),
+.B "PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP"
+(pour les mutex récursifs), et
+.B "PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP"
+(pour les mutex à vérification d'erreur).
+
+.B "pthread_mutex_lock"
+verrouille le mutex. Si le mutex est déverrouillé, il devient verrouillé et est
+possédé par le thread appelant\ ; et
+.B "pthread_mutex_lock"
+rend la main immédiatement. Si le mutex est déjà verrouillé par un autre thread,
+.B "pthread_mutex_lock"
+suspend le thread appelant jusqu'à ce que le mutex soit déverrouillé.
+
+Si le mutex est déjà verrouillé par le thread appelant, le comportement de
+.B "pthread_mutex_lock"
+dépend du type de mutex. Si ce dernier est de type ``rapide'', le thread
+appelant est suspendu jusqu'à ce que le mutex soit déverrouillé, donc plaçant
+le thread appelant en situation de blocage définitif. Si le mutex est de type ``à
+vérification d'erreur'',
+.B "pthread_mutex_lock"
+rend la main immédiatement avec le code d'erreur
+.BR "EDEADLK" .
+Si le mutex est de type ``récursif'',
+.B "pthread_mutex_lock"
+rend la main immédiatement avec un code de retour indiquant le succès,
+enregistrant le nombre de fois où le thread appelant a verrouillé le mutex. Un
+nombre égal d'appel à
+.B "pthread_mutex_unlock"
+doit être réalisé avant que le mutex retourne à l'état déverrouillé.
+
+.B "pthread_mutex_trylock"
+se comporte de la même manière que
+.BR "pthread_mutex_lock" ,
+excepté qu'elle ne bloque pas le thread appelant si le mutex est déjà
+verrouillé par un autre thread (ou par le thread appelant dans le cas d'un
+mutex ``rapide''). Au contraire,
+.B "pthread_mutex_trylock"
+rend la main immédiatement avec le code d'erreur
+.BR "EBUSY" .
+
+.B "pthread_mutex_unlock"
+déverrouille le mutex. Celui-ci est supposé verrouillé, et ce par le thread
+courant en entrant dans
+.BR "pthread_mutex_unlock" .
+Si le mutex est de type ``rapide'',
+.B "pthread_mutex_unlock"
+le réinitialise toujours à l'état déverrouillé. S'il est de type ``récursif'',
+son compteur de verrouillage est décrémenté (nombre d'opérations
+.B "pthread_mutex_lock"
+réalisées sur le mutex par le thread appelant), et déverrouillé seulement quand
+ce compteur atteint 0.
+
+Sur les mutex ``vérification d'erreur'', 
+.B "pthread_mutex_unlock"
+vérifie lors de l'exécution que le mutex est verrouillé en entrant, et qu'il
+est verrouillé par le même thread que celui appelant
+.BR "pthread_mutex_unlock" .
+Si ces conditions ne sont pas réunies, un code d'erreur est renvoyé et le mutex
+n'est pas modifié. Les mutex ``rapide'' et ``récursif'' ne réalisent pas de
+tels tests, permettant à un mutex verrouillé d'être déverrouillé par un thread
+autre que celui l'ayant verrouillé. Ce comportement n'est pas portable et l'on
+ne doit pas compter dessus.
+
+.B "pthread_mutex_destroy"
+détruit un mutex, libérant les ressources qu'il détient. Le mutex doit être
+déverrouillé. Dans l'implémentation LinuxThreads des threads POSIX, aucune
+ressource ne peut être associé à un mutex, aussi
+.B "pthread_mutex_destroy"
+ne fait en fait rien si ce n'est vérifier que le mutex n'est pas verrouillé.
+
+.SH ANNULATION
+Aucune des primitives relatives aux mutex n'est un point d'annulation, ni même
+.BR "pthread_mutex_lock" ,
+malgré le fait qu'il peut suspendre l'exécution du thread pour une longue
+durée. De cette manière, le statut des mutex aux points d'annulation est
+prévisible, permettant aux gestionnaires d'annulation de déverrouiller
+précisément ces mutex qui nécessitent d'être déverrouillés avant que
+l'exécution du thread ne s'arrête définitivement. Aussi, les threads
+travaillant en mode d'annulation retardée ne doivent-t'ils jamais verrouiller
+un mutex pour de longues périodes de temps.
+
+.SH "FIABILITE PAR RAPPORT AUX SIGNAUX ASYNCHRONES"
+Les fonctions relatives aux mutex ne sont pas fiables par rapport aux signaux
+asynchrones et ne doivent donc pas être utilisées dans des gestionnaires de
+signaux. En particulier,
+appeler
+.B "pthread_mutex_lock"
+ou 
+.B "pthread_mutex_unlock"
+dans un gestionnaire de signal peut placer le thread appelant dans une
+situation de blocage définitif.
+
+.SH "VALEUR RENVOYÉE"
+
+.B "pthread_mutex_init"
+retourne toujours 0. Les autres fonctions renvoient 0 en cas succès et un code
+d'erreur non nul en cas de problème.
+
+.SH ERREURS
+
+La fonction
+.B "pthread_mutex_lock"
+renvoie l'un des codes d'erreur suivants en cas de problème:
+.RS
+.TP
+.B "EINVAL"
+le mutex n'a pas été initialisé.
+
+.TP
+.B "EDEADLK"
+le mutex est déjà verrouillé par un thread autre que l'appellant (mutex à
+vérification d'erreur seulement).
+.RE
+
+La fonction
+.B "pthread_mutex_trylock"
+renvoie l'un des codes d'erreur suivants en cas de problème\ :
+.RS
+.TP
+.B "EBUSY"
+le mutex ne peut être verrouillé car il l'est déjà.
+
+.TP
+.B "EINVAL"
+le mutex n'a pas été initialisé.
+.RE
+
+La fonction
+.B "pthread_mutex_unlock"
+renvoie le code d'erreur suivant en cas de problème\ :
+.RS
+.TP
+.B "EINVAL"
+le mutex n'a pas été initialisé.
+
+.TP
+.B "EPERM"
+le thread appelant ne possède pas le mutex (mutex à vérification d'erreur
+seulement).
+.RE
+
+La fonction
+.B "pthread_mutex_destroy"
+renvoie le code d'erreur suivant en cas de problème\ :
+.RS
+.TP
+.B "EBUSY"
+le mutex est déjà verrouillé.
+.RE
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+.BR "pthread_mutexattr_init" (3),
+.BR "pthread_mutexattr_setkind_np" (3),
+.BR "pthread_cancel" (3).
+
+.SH EXEMPLE
+
+Une variable globale partagée
+.I "x"
+peut être protégée par un mutex comme suit\ :
+
+.RS
+.ft 3
+.nf
+.sp
+int x;
+pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
+.ft
+.LP
+.RE
+.fi
+
+Tous les accès et modifications de
+.I "x"
+doivent être entourés de paires d'appels à
+.B "pthread_mutex_lock"
+et 
+.B "pthread_mutex_unlock"
+comme suit\ :
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_mutex_lock(&mut);
+/* agir sur x */
+pthread_mutex_unlock(&mut);
+.ft
+.LP
+.RE
+.fi
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+.br
+Christophe Blaess, 2003.

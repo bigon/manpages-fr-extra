@@ -1,0 +1,41 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Traduction 29/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" MàJ 21/07/2003 LDP-1.56
+.TH WCSNCMP 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+wcsncmp \- Comparer deux chaînes de caractères larges de longueurs fixées.
+.SH SYNOPSIS
+.nf
+.B #include <wchar.h>
+.sp
+.BI "int wcsncmp (const wchar_t *" s1 ", const wchar_t *" s2 ", size_t " n );
+.fi
+.SH DESCRIPTION
+La fonction \fBwcsncmp\fP est l'équivalent pour les caractères larges de la fonction \fBstrncmp\fP.
+Elle compare la chaîne de caractères larges pointée par \fIs1\fP et celle pointée par \fIs2\fP, en
+ne considérant que \fIn\fP caractères larges au maximum.
+Au sein de chaque chaîne, la comparaison n'a lieu que jusqu'à la première occurence d'un caractère L'\\0', s'il y en a un.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBwcsncmp\fP renvoie zéro si les chaînes de caractères larges \fIs1\fP et \fIs2\fP, tronquées au besoin à \fIn\fP caractères, sont égales.
+Elle renvoie un entier positif lorsqu'à l'emplacement \fIi\fP de la première différence (\fIi\fP < \fIn\fP),
+le caractère large correspondant \fIs1[i]\fP est supérieur à \fIs2[i]\fP. Elle renvoie un entier négatif si \fIs1[i]\fP est inférieur à \fIs2[i]\fP.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR strncmp (3),
+.BR wcsncasecmp (3)
+.SH TRADUCTION
+Christophe Blaess, 2000-2003.

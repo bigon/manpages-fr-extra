@@ -1,0 +1,105 @@
+.TH PTHREAD_ATFORK 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+.SH NOM
+pthread_atfork \- enregistre des gestionnaires à invoquer lors de l'appel à fork(2)
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+
+.BI "int pthread_atfork(void (*" prepare ")(void), void (*" parent ")(void), void (*" child ")(void));"
+
+.SH DESCRIPTION
+
+.B "pthread_atfork"
+enregistre les fonctions à appeler juste avant et juste après la création d'un
+nouveau processus par
+.BR "fork" (2).
+Le gestionnaire
+.I "prepare"
+est appelé par le processus parent juste avant la création du nouveau
+processus. Le gestionnaire
+.I "parent"
+est appelé par le processus parent juste avant que
+.BR "fork" (2)
+finisse. Le gestionnaire
+.I "child"
+est appelé par le processus fils juste avant la fin de l'appel
+.BR "fork" (2).
+
+L'un ou plusieurs des trois gestionnaires
+.IR "prepare" ,
+.I "parent"
+et 
+.I "child"
+peut être affecté à
+.BR "NULL" ,
+ce qui signifie qu'aucun gestionnaire ne sera appelé au moment correspondant.
+
+.B "pthread_atfork"
+peut être appelée plusieurs fois pour enregistrer plusieurs ensembles de
+gestionnaires. Lors de l'appel à
+.BR "fork" (2),
+les gestionnaires
+.I "prepare"
+sont appelés dans l'orde LIFO (Last In First Out\ : dans l'ordre
+inverse de l'enregistrement)
+juste avant
+.BR "fork" ,
+alors que les gestionnaires
+.I "parent"
+et
+.I "child"
+sont appelés dans l'ordre FIFO (First In First Out\ : dans l'ordre
+d'enregistrement).
+
+Pour comprendre l'objectif de
+.BR "pthread_atfork" ,
+rappellons que
+.BR "fork" (2)
+copie toute l'image mémoire du processus, y compris ses mutex dans leur état
+de bloquage courant, mais seulement le thread couran\ t: les autres threads ne
+s'exécutent pas dans le processus fils. Donc, si un mutex est pris par un autre
+thread que celui ayant appelé 
+.BR "fork" ,
+ce mutex restera bloqué pour toujours dans le processus fils. Il est même
+possible que l'exécution du processus fils se bloque sur ce mutex. Afin
+d'éviter ceci, il faut installer des gestionnaires avec
+.B "pthread_atfork"
+comme ceci\ : le gestionnaire
+.I "prepare"
+prend le mutex global et les gestionnaires
+.I "parent"
+et 
+.I "child"
+le débloquent (dans l'ordre inverse). Autre possibilité, 
+.I "prepare"
+et 
+.I "parent"
+peuvent être initialisés à
+.B "NULL"
+et 
+.I "child"
+est une fonction qui appelle
+.B "pthread_mutex_init"
+sur le mutex global.
+
+.SH "VALEUR RENVOYÉE"
+
+.B "pthread_atfork"
+retourne 0 en cas de succès et un code d'erreur non nul en cas d'erreur.
+
+.SH ERREURS
+.TP
+.B "ENOMEM"
+pas assez de mémoire disponible pour enregistrer les gestionnaires.
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+.SH "VOIR AUSSI"
+.BR "fork" (2),
+.BR "pthread_mutex_lock" (3),
+.BR "pthread_mutex_unlock" (3).
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+.br
+Christophe Blaess, 2003.

@@ -1,0 +1,79 @@
+.\" (c) 1993 by Thomas Koenig (ig25@rz.uni-karlsruhe.de)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" License.
+.\" Modified Sat Jul 24 21:42:42 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 22/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise à jour 21/01/2002 - LDP-man-pages-1.47
+.\" MàJ 21/07/2003 LDP-1.56
+.\"
+.TH ASSERT 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+assert \- Terminer le programme en cas d'échec d'un test.
+.SH SYNOPSIS
+.nf
+.B #include <assert.h>
+.sp
+.BI "void assert (int " "expression" );
+.fi
+.SH DESCRIPTION
+Si la macro
+.B NDEBUG
+était définie lors de la dernière inclusion de
+.BR  <assert.h> ,
+la macro
+.B assert()
+ne génère aucun code, et ne fait rien.
+Sinon, la macro
+.B assert()
+affiche un message d'erreur sur la sortie standard, et termine l'exécution
+du programme en cours en appelant
+.B abort()
+si 
+.RI "l'" expression
+est fausse (égale à zéro).
+.LP
+Le but de cette macro est d'aider le programmeur à trouver des bogues dans son
+application. Le message "assertion failed un file foo.c, function do_bar(),
+line 1287" n'est d'aucune aide pour l'utilisateur final.
+.SH "VALEUR RENVOYÉE"
+Aucune valeur n'est renvoyée.
+.SH "CONFORMITÉ"
+ISO9899 (ANSI C).  Dans le standard 1990
+.I expression
+devait être de type
+.B int
+et le comportement était indéfini si ce n'était pas le cas, mais depuis le
+standard 1999, elle peut être de n'importe quel type scalaire.
+.SH "BOGUES"
+.B assert()
+étant implementée comme une macro, si l'expression testée à des effets de
+bord, le comportement du programme diffèrera suivant l'existence de
+.BR NDEBUG .
+Ceci peut induire des Heisenbugs (conformes à la théorie de Heisenberg ;-), qui disparaissent quand
+le débugging est utilisé.
+.SH "VOIR AUSSI"
+.BR exit (3),
+.BR abort (3)
+.BR assert_perror (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

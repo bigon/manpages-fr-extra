@@ -1,0 +1,812 @@
+.\" Traduction 15/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\" Mise à jour 09/03/2003 par Denis Barbier    (barbier@linuxfr.org)
+.\" grep-2.5.1
+.TH GREP 1 "9 mars 2003" "Grep" "Manuel de l'utilisateur Linux"
+.SH NOM
+grep, egrep, fgrep \- Afficher les lignes correspondant à un motif donné.
+.SH SYNOPSIS
+.B grep
+.RI [ options ]
+.I MOTIF
+.RI [ FICHIER .\|.\|.]
+.br
+.B grep
+.RI [ options ]
+.RB [ \-e
+.I MOTIF
+|
+.B \-f
+.IR FICHIER ]
+.RI [ FICHIER .\|.\|.]
+.SH DESCRIPTION
+.PP
+.B Grep
+recherche dans les
+.IR FICHIER s
+indiqués (ou depuis l'entrée standard si aucun fichier n'est fourni, ou
+si le nom
+.B "\-"
+est mentionné) les lignes correspondant à un certain
+.IR MOTIF .
+Par défaut,
+.B grep
+affiche les lignes qui correspondent au motif.
+.PP
+De plus, il existe deux variantes du programme\ :
+.B egrep
+et
+.BR fgrep .
+.B Egrep
+est identique à
+.BR "grep\ \-E" .
+.B Fgrep
+est identique à
+.BR "grep\ \-F" .
+.SH OPTIONS
+.TP
+.BI \-A " NOMBRE" "\fR,\fP \-\^\-after-context=" NOMBRE
+Afficher
+.I NOMBRE
+lignes de contexte supplémentaires après les lignes qui concordent.
+Une ligne contenant
+.B \-\^\-
+est mise entre les groupes contigus de correspondances.
+.TP
+.BR \-a ", " \-\^\-text
+Traiter un fichier binaire comme s'il s'agissait de texte\ ; cette option
+est équivalente à l'option
+.BR \-\^\-binary-files=text .
+.TP
+.BI \-B " NOMBRE" "\fR,\fP \-\^\-before-context=" NOMBRE
+Afficher
+.I NOMBRE
+lignes de contexte supplémentaires avant les lignes qui concordent.
+Une ligne contenant
+.B \-\^\-
+est mise entre les groupes contigus de correspondances.
+.TP
+.BI \-C " NOMBRE" "\fR,\fP \-\^\-context=" NOMBRE
+Afficher
+.I NOMBRE
+lignes de contexte.
+Une ligne contenant
+.B \-\^\-
+est mise entre les groupes contigus de correspondances.
+.TP
+.BR \-b ", " \-\^\-byte-offset
+Avant chaque ligne, afficher sa position relative (en octets) au sein du
+fichier.
+.TP
+.BI \-\^\-binary-files= TYPE
+Si les premiers octets d'un fichier indiquent qu'il contient des données
+binaires, supposer que le fichier est de type
+.IR TYPE .
+Par défaut,
+.I TYPE
+est
+.B binary
+(binaire), et soit
+.B grep
+affiche un message d'une ligne disant que le fichier binaire concorde,
+soit il n'affiche rien s'il n'y a pas concordance.
+Si
+.I TYPE
+est
+.B without-match
+(sans concordance),
+.B grep
+suppose qu'un fichier binaire ne concorde jamais. C'est équivalent à
+l'option
+.BR \-I .
+Si
+.I TYPE
+est
+.B text
+(texte),
+.B grep
+traite un fichier binaire comme du texte. C'est équivalent à l'option
+.BR \-a .
+.IR Attention\ :
+.B "grep \-\^\-binary-files=text"
+peut afficher des données binaires indésirables, qui peuvent avoir des
+conséquences fâcheuses si la sortie est envoyée vers un terminal, et si
+le pilote de celui-ci interprète cet affichage comme étant des commandes.
+.TP
+.BI \-\^\-colour[=\fIQUAND\fR] ", " \-\^\-color[=\fIQUAND\fR]
+Entourer la chaîne correspondante avec les marqueurs trouvés dans la
+variable d'environnement
+.BR GREP_COLOR .
+Les valeurs possibles de
+.I QUAND
+sont
+.BR never " (jamais), " always " (toujours) ou " auto " (automatique)."
+.TP
+.BR \-c ", " \-\^\-count
+Ne pas afficher les résultats normaux. À la place, afficher un décompte
+des lignes correspondantes pour chaque fichier.
+Avec l'option
+.BR \-v ", " \-\^\-invert-match
+(voir plus bas), afficher le nombre de lignes ne correspondant pas au
+motif.
+.TP
+.BI \-D " ACTION" "\fR,\fP \-\^\-devices=" ACTION
+Si le fichier est un périphérique, une FIFO ou une socket, utiliser
+.I ACTION
+dessus. Par défaut,
+.I ACTION
+est
+.B read
+(lecture), ce qui signifie que les périphériques sont lus comme des
+fichiers normaux. Si
+.I ACTION
+est
+.B skip
+(escamotage), les périphériques ne sont pas pris en compte et aucun
+message n'est affiché.
+.TP
+.BI \-d " ACTION" "\fR,\fP \-\^\-directories=" ACTION
+Si le fichier est un répertoire, utiliser
+.IR ACTION .
+Par défaut,
+.I ACTION
+est
+.B read
+(lecture), ce qui signifie que les répertoires sont lus comme des
+fichiers normaux. Si
+.I ACTION
+est
+.B skip
+(escamotage), les répertoires ne sont pas pris en compte et aucun message
+n'est affiché.
+Si
+.I ACTION
+est
+.B recurse
+(récursivité),
+.B grep
+lit tous les fichiers présents dans chaque répertoire, récursivement.
+C'est équivalent à l'option
+.BR \-r .
+.TP
+.BR \-E ", " \-\^\-extended-regexp
+Interpréter le
+.I MOTIF
+comme une expression rationnelle étendue (voir plus bas).
+.TP
+.BI \-e " MOTIF" "\fR,\fP \-\^\-regexp=" MOTIF
+Utiliser le
+.I MOTIF
+indiqué. Ceci permet de protéger les motifs commençant par
+.BR "\-" .
+.TP
+.BR \-F ", " \-\^\-fixed-strings
+Interpréter le
+.I MOTIF
+comme une liste de chaînes de caractères, séparées par des sauts de
+ligne. Chacune d'entre elles doit être recherchée. 
+.TP
+.BR \-P ", " \-\^\-perl-regexp
+Interpréter le
+.I MOTIF
+comme étant une expression rationnelle de Perl.
+.TP
+.BI \-f " FICHIER" "\fR,\fP \-\^\-file=" FICHIER
+Lire les motifs dans le
+.I FICHIER
+indiqué, un motif par ligne.
+Un fichier vide ne contient aucun motif, si bien qu'aucune
+concordance n'est trouvée.
+.TP
+.BR \-G ", " \-\^\-basic-regexp
+Interpréter le
+.I MOTIF
+comme une expression rationnelle simple (voir plus bas). C'est le
+comportement par défaut.
+.TP
+.BR \-H ", " \-\^\-with-filename
+Afficher le nom du fichier pour chaque concordance.
+.TP
+.BR \-h ", " \-\^\-no-filename
+Ne pas afficher le nom des fichiers dans les résultats lorsque plusieurs
+fichiers sont parcourus.
+.TP
+.B \-\^\-help
+Afficher un court message d'aide.
+.TP
+.B \-I
+Traiter un fichier binaire comme s'il ne contenait aucune concordance\ ;
+c'est équivalent à l'option
+.BR \-\^\-binary-files=without-match .
+.TP
+.BR \-i ", " \-\^\-ignore-case
+Ignorer les différences majuscules/minuscules aussi bien dans le
+.I MOTIF
+que dans les fichiers.
+.TP
+.BR \-L ", " \-\^\-files-without-match
+Ne pas afficher les résultats normaux. À la place, indiquer le nom
+des fichiers pour lesquels aucun résultat n'aurait été affiché.
+La recherche à l'intérieur de chaque fichier s'arrête dès la première
+concordance.
+.TP
+.BR \-l ", " \-\^\-files-with-matches
+Ne pas afficher les résultats normaux. À la place, indiquer le nom
+des fichiers pour lesquels des résultats auraient été affichés.
+La recherche à l'intérieur de chaque fichier s'arrête dès la première
+concordance.
+.TP
+.BI \-m " NOMBRE" "\fR,\fP \-\^\-max-count=" NOMBRE
+Arrêter de lire un fichier après avoir lu
+.I NOMBRE
+lignes qui correspondent. Si l'entrée est l'entrée standard prise depuis
+un fichier normal, et si
+.I NOMBRE
+lignes qui correspondent sont affichées,
+.B grep
+s'assure avant de s'arrêter que l'entrée standard est positionnée juste
+après la dernière ligne qui concorde, même s'il y a des lignes de contexte
+supplémentaires qui viennent ensuite.
+Ceci permet au processus d'appel de redémarrer une recherche. Quand
+.B grep
+s'arrête après
+.I NOMBRE
+lignes de concordance, il affiche éventuellement des lignes de
+contexte. Quand l'option
+.B \-c
+ou
+.B \-\^\-count
+est utilisée,
+.B grep
+n'affiche pas plus que
+.I NOMBRE
+lignes. Quand l'option
+.B \-v
+ou
+.B \-\^\-invert-match
+est aussi utilisée,
+.B grep
+s'arrête après avoir affiché
+.I NOMBRE
+lignes qui ne concordent pas.
+.TP
+.B \-\^\-mmap
+Si possible, utiliser la fonction système
+.BR mmap (2)
+pour lire les données, à la place de la fonction système
+.BR read (2)
+utilisée par défaut. Dans certaines circonstances,
+.B \-\^\-mmap
+permet de meilleures performances. Cependant,
+.B \-\^\-mmap
+peut avoir un comportement indéfini (y compris la génération d'un
+.IR "core dump" )
+si un fichier voit sa taille réduite pendant que
+.B grep
+le lit, ou si une erreur d'entrée-sortie survient.
+.TP
+.BR \-n ", " \-\^\-line-number
+Ajouter à chaque ligne de sortie un préfixe contenant son numéro
+dans le fichier.
+.TP
+.BR \-o ", " \-\^\-only-matching
+N'afficher que la partie d'une ligne qui correspond au
+.IR MOTIF .
+.TP
+.BI \-\^\-label= ÉTIQUETTE
+Afficher les données provenant de l'entrée standard comme si elles
+provenaient du fichier
+.IR ÉTIQUETTE .
+C'est particulièrement utile pour des outils comme zgrep, par
+exemple, qui font\ :
+.br
+.B "gzip -cd foo.gz |grep --label=truc quelquechose"
+.TP
+.BR \-\^\-line-buffered
+Vider la sortie après chaque ligne. Ceci peut détériorer les performances.
+.TP
+.BR \-q ", " \-\^\-quiet ", " \-\^\-silent
+Ne pas afficher les résultats normaux.
+Sortir immédiatement avec un code de retour égal à zéro si aucune
+concordance n'est trouvée, et même si une erreur est détectée.
+Voyez aussi l'option
+.B \-s
+ou
+.BR \-\^\-no-messages .
+.TP
+.BR \-R ", " \-r ", " \-\^\-recursive
+Lire tous les fichiers à l'intérieur de chaque répertoire,
+récursivement. C'est équivalent à l'option
+.BR "\-d recurse" .
+.TP
+.BI "\fR \fP \-\^\-include=" MOTIF
+Procéder récursivement dans les répertoires, pour les fichiers qui
+correspondent au
+.IR MOTIF .
+.TP
+.BI "\fR \fP \-\^\-exclude=" MOTIF
+Procéder récursivement dans les répertoires, pour les fichiers qui
+ne correspondent pas au
+.IR MOTIF .
+.TP
+.BR \-s ", " \-\^\-no-messages
+Ne pas afficher les messages d'erreur concernant les fichiers
+inexistants ou illisibles. Note de portabilité\ : à la différence
+de \s-1GNU\s0
+.BR grep ,
+le
+.B grep
+traditionnel n'est pas conforme au standard \s-1POSIX.2\s0, car le
+.B grep
+traditionnel n'a pas d'option
+.B \-q
+et son option
+.B \-s
+agit comme l'option
+.B \-q
+du
+.B grep
+de \s-1GNU\s0.
+Les scripts shell destinés à être utilisés avec ces différentes versions
+devraient éviter d'utiliser les options
+.B \-q
+et
+.BR \-s ,
+et devraient plutôt rediriger la sortie vers /dev/null.
+.TP
+.BR \-U ", " \-\^\-binary
+Traiter les fichiers comme s'ils étaient des fichiers binaires. Par défaut,
+sous MS-DOS et MS-Windows,
+.B grep
+détermine le type de fichier en regardant le contenu des 32 premiers
+kilo-octets. Si
+.B grep
+décide que le fichier est un fichier de texte, il enlève les retours
+chariot (CR) du contenu du fichier original (afin que les expressions
+avec
+.B ^
+et
+.B $
+fonctionnent correctement). L'option
+.B \-U
+modifie ce comportement, tous les fichiers sont alors lus et traités tels
+quels. Si le fichier est un fichier de texte avec des paires CR-LF en
+fin de ligne, certaines expressions rationnelles peuvent échouer.
+Cette option n'a aucun effet sur des plates-formes autres que MS-DOS et
+MS-Windows.
+.TP
+.BR \-u ", " \-\^\-unix-byte-offsets
+Afficher la position relative en octets dans le style Unix. Avec cette option,
+.B grep
+affiche la position relative en octets comme si le fichier était un fichier de
+texte de type Unix, c'est-à-dire avec les caractères CR supprimés.
+Ceci permet d'avoir un résultat identique à celui retourné par
+.B grep
+sur une machine Unix. Cette option n'a d'effet que si elle est utilisée
+conjointement avec l'option
+.BR \-b ,
+et sur une machine MS-DOS ou MS-Windows.
+.TP
+.BR \-V ", " \-\^\-version
+Afficher le numéro de version de
+.B grep
+sur la sortie d'erreur standard. Ce numéro de version
+devra être inclus dans tous les rapports de bogues (voir plus bas).
+.TP
+.BR \-v ", " \-\^\-invert-match
+Inverser la mise en concordance, pour sélectionner les lignes ne
+correspondant pas au motif.
+.TP
+.BR \-w ", " \-\^\-word-regexp
+Ne sélectionner que les lignes contenant une concordance formant un mot
+complet.
+La sous-chaîne correspondante doit donc être soit au début de la ligne,
+soit être précédée d'un caractère ne pouvant entrer dans la constitution d'un 
+mot. De même elle doit se trouver soit à la fin de la ligne, soit être
+suivie par un caractère ne pouvant entrer dans la constitution d'un mot.
+Les caractères composant les mots sont les lettres, les chiffres
+et le souligné («\ _\ »).
+.TP
+.BR \-x ", " \-\^\-line-regexp
+Ne sélectionner que les concordances qui occupent une ligne entière.
+.TP
+.B \-y
+Synonyme obsolète pour
+.BR \-i .
+.TP
+.BR \-Z ", " \-\^\-null
+Afficher un octet nul (le caractère \s-1ASCII\s0
+.BR NUL )
+à la place du caractère qui suit d'ordinaire le nom du fichier.
+Par exemple,
+.B "grep \-lZ"
+affiche un octet nul après chaque nom de fichier, à la place du saut de
+ligne. Cette option permet de rendre la sortie non ambiguë, même quand
+les noms de fichiers contiennent des caractères inhabituels, comme des
+sauts de ligne. Cette option peut être utilisée avec des commandes
+telles que
+.BR "find \-print0" ,
+.BR "perl \-0" ,
+.BR "sort \-z" ,
+et
+.B "xargs \-0"
+pour traiter des fichiers avec des noms quelconques, même ceux contenant
+des sauts de ligne.
+.SH "EXPRESSIONS RATIONNELLES"
+.PP
+Une expression rationnelle
+.RI ( "regular expression" )
+est un motif qui permet de décrire un ensemble
+de chaînes. Les expressions rationnelles sont construites comme des
+opérations arithmétiques\ ; elles utilisent différents opérateurs pour
+combiner des expressions plus petites.
+.PP
+.B Grep
+comprend deux versions différentes pour la syntaxe des expressions
+rationnelles\ :
+«\ simple\ »
+.RI ( basic )
+et «\ étendue\ »
+.RI ( extended ).
+Dans la version \s-1GNU\s0 de
+.BR grep ,
+il n'y a pas de différence dans les fonctionnalités disponibles, quelle que
+soit la syntaxe utilisée.
+Dans d'autres implantations, les expressions rationnelles simples sont
+moins puissantes. La description ci-dessous correspond aux expressions
+étendues, les différences avec les expressions simples étant résumées
+ensuite.
+.PP
+Les briques élémentaires sont les expressions rationnelles correspondant
+à un seul caractère. La plupart des caractères, y compris les lettres et les 
+chiffres, sont des expressions rationnelles qui
+concordent avec eux-mêmes. Tout méta-caractère ayant une signification
+spéciale doit être protégé en le faisant précéder d'une contre-oblique
+.RI ( backslash ).
+.PP
+Une liste de caractères, encadrée par
+.B [
+et
+.B ]
+peut être mise en correspondance avec n'importe quel caractère
+appartenant à la liste.
+Si le premier caractère de la liste est l'accent circonflexe
+.B ^
+alors la mise en correspondance se fait avec n'importe quel caractère
+.I absent
+de la liste.
+Par exemple, l'expression rationnelle
+.B [0123456789]
+concorde avec n'importe quel chiffre.
+.PP
+Entre ces crochets, un intervalle de caractères peut être indiqué en
+donnant le premier et le dernier caractère, séparés par un tiret.
+Il correspond à n'importe quel caractère compris entre le premier et le
+dernier caractère (ceux-ci inclus), l'ordre des caractères dépendant des
+paramètres régionaux 
+.RI ( locale ,
+en anglais) en cours. Ainsi avec la valeur par défaut (appelée
+«\ C\ »),
+.B [a\-d]
+est équivalent à
+.BR [abcd] .
+Avec beaucoup de paramètres régionaux, les caractères sont triés en suivant
+l'ordre des dictionnaires, et
+.B [a\-d]
+n'est alors pas équivalent à
+.BR [abcd] ,
+mais à
+.BR [aBbCcDd] ,
+par exemple.
+Pour que ces listes aient le comportement usuel de C, vous pouvez positionner
+la variable d'environnement
+.B LC_ALL
+à la valeur
+.BR C .
+.PP
+Enfin, il existe certaines classes de caractères prédéfinies.
+Leurs noms sont assez explicites\ :
+.BR [:alnum:] ,
+.BR [:alpha:] ,
+.BR [:cntrl:] ,
+.B [:digit:]
+(chiffres),
+.BR [:graph:] ,
+.BR [:lower:]
+(minuscules),
+.BR [:print:]
+(affichables),
+.B [:punct:]
+(ponctuation),
+.B [:space:]
+(espace),
+.BR [:upper:]
+(majuscules),
+et
+.B [:xdigit:]
+(chiffres hexadécimaux).
+Par exemple,
+.B [[:alnum:]]
+correspond à
+.BR [0\-9A\-Za\-z] ,
+à la différence près que le dernier dépend des paramètres régionaux C et du
+codage de caractères \s-1ASCII\s0, alors que le premier est plus
+portable.
+Remarquez que les crochets dans les noms de classes font partie intégrante
+du nom symbolique, et qu'ils doivent donc être inclus en plus des
+crochets encadrant la liste.
+La plupart des méta-caractères perdent leur signification spéciale
+au sein des listes.
+Pour inclure un caractère
+.BR ] ,
+mettez-le en premier dans la liste.
+De même, pour inclure un caractère
+.BR ^ ,
+placez-le n'importe où sauf au début de la liste.
+Enfin, pour inclure un
+.BR "\-" ,
+placez-le en dernier.
+.PP
+Le point
+.B .
+correspond à n'importe quel caractère.
+Le symbole
+.B \ew
+est un synonyme de
+.B [[:alnum:]]
+et
+.B \eW
+un synonyme de
+.BR [^[:alnum]] .
+.PP
+L'accent circonflexe
+.B ^
+et le symbole dollar
+.B $
+sont des méta-caractères correspondant respectivement à une chaîne vide
+au début et en fin de ligne.
+Les symboles
+.B \e<
+et
+.B \e>
+correspondent respectivement à une chaîne vide en début et en fin de mot.
+Le symbole
+.B \eb
+correspond à une chaîne vide à l'extrémité d'un mot, et
+.B \eB
+correspond à une chaîne vide ne se trouvant
+.I pas
+à une extrémité de mot.
+.PP
+Une expression rationnelle correspondant à un caractère unique peut
+être suivie par l'un des opérateurs de répétition suivants\ :
+.PD 0
+.TP
+.B ?
+L'élément précédent est facultatif et peut être rencontré au plus une fois.
+.TP
+.B *
+L'élément précédent peut être rencontré zéro ou plusieurs fois.
+.TP
+.B +
+L'élément précédent peut être rencontré une ou plusieurs fois.
+.TP
+.BI { n }
+L'élément précédent doit être cherché exactement
+.I n
+fois.
+.TP
+.BI { n ,}
+L'élément précédent doit être cherché
+.I n
+fois ou plus.
+.TP
+.BI { n , m }
+L'élément précédent doit être cherché au moins
+.I n
+fois, mais au plus
+.I m
+fois.
+.PD
+.PP
+Deux expressions rationnelles peuvent être juxtaposées\ ; l'expression
+résultante correspondra à toute chaîne formée par la juxtaposition de
+deux sous-chaînes correspondant respectivement aux deux expressions.
+.PP
+Deux expressions rationnelles peuvent être reliées par l'opérateur infixe
+.BR | "\ ;"
+l'expression résultante correspondra à toute chaîne concordant avec l'une
+ou l'autre des deux expressions.
+.PP
+Les répétitions ont priorité sur les juxtapositions, qui à leur tour ont
+priorité sur les alternatives. Une sous-expression peut être entourée par
+des parenthèses pour modifier ces règles de priorité.
+.PP
+La référence inverse
+.BI \e n\c
+\&, où
+.I n
+est un chiffre unique, correspond à la sous-chaîne déjà mise en correspondance
+avec la
+.IR n -ième
+sous-expression rationnelle entre parenthèses.
+.PP
+Dans les expressions rationnelles simples, les méta-caractères
+.BR ? ,
+.BR + ,
+.BR { ,
+.BR | ,
+.BR ( ,
+et
+.BR )
+perdent leur signification spéciale, il faut utiliser à la place
+leurs versions avec la contre-oblique
+.BR \e? ,
+.BR \e+ ,
+.BR \e{ ,
+.BR \e| ,
+.BR \e( ,
+et
+.BR \e) .
+.PP
+La version traditionnelle
+.RB d' egrep
+ne connaît pas le méta-caractère
+.BR { ,
+et certaines implantations
+.RB d' egrep
+utilisent
+.B \e{
+à la place, si bien que des scripts shell portables devraient éviter
+.B {
+dans les motifs
+.RB d' egrep
+et utiliser
+.B [{]
+pour désigner un caractère
+.BR { .
+.PP
+\s-1GNU\s0
+.B egrep
+essaie d'émuler l'usage traditionnel en supposant que
+.B {
+n'est pas spécial au cas où il rendrait invalide l'expression qu'il commence. 
+Par exemple, la commande shell
+.B "egrep '{1'"
+recherche la chaîne composée des deux caractères
+.B {1
+au lieu de signaler une erreur de syntaxe dans l'expression rationnelle.
+\s-1POSIX.2\s0 permet ce comportement comme une extension à la norme,
+mais les scripts portables devraient l'éviter.
+.SH "VARIABLES D'ENVIRONNEMENT"
+Le comportement de grep est modifié par les variables d'environnement
+suivantes\ :
+.BR LC_ALL ,
+.B LC_\fItruc\fP
+et
+.BR LANG ,
+dans cet ordre. La variable positionnée en premier détermine le choix
+des paramètres régionaux. Par exemple, si
+.B LC_ALL
+n'est pas positionnée, mais
+.B LC_MESSAGES
+vaut
+.BR fr_FR ,
+alors le français est utilisé pour l'affichage des messages.
+Le défaut C est utilisé si aucune variable d'environnement n'est
+trouvée, ou si le catalogue des paramètres régionaux n'est pas installé,
+ou bien si
+.B grep
+a été compilé sans le support pour les langues nationales (\s-1NLS\s0).
+.TP
+.B GREP_OPTIONS
+Cette variable définit des options qui seront ajoutées avant les options
+de la ligne de commande. Par exemple, si
+.B GREP_OPTIONS
+vaut
+.BR "«\ \-\^\-binary-files=without-match \-\^\-directories=skip\ »" ,
+.B grep
+se comporte comme si les deux options
+.B \-\^\-binary-files=without-match
+et
+.B \-\^\-directories=skip
+avaient été spécifiées avant les options explicites.
+Différentes options peuvent être séparées par des espaces, et une
+contre-oblique supprime la signification spéciale du caractère suivant,
+ce qui permet de spécifier une option contenant un espace ou une
+contre-oblique.
+.TP
+.B GREP_COLOR
+Spécifie les marqueurs pour la mise en relief.
+.TP
+\fBLC_ALL\fP, \fBLC_COLLATE\fP, \fBLANG\fP
+Ces variables spécifient le choix des paramètres régionaux pour
+.BR LC_COLLATE ,
+qui détermine l'ordre des caractères utilisé dans des intervalles tels
+que
+.BR [a\-z] .
+.TP
+\fBLC_ALL\fP, \fBLC_CTYPE\fP, \fBLANG\fP
+Ces variables spécifient le choix des paramètres régionaux pour
+.BR LC_CTYPE ,
+qui détermine le codage de caractères utilisé, par exemple pour indiquer
+quels caractères sont considérés comme étant des espaces.
+.TP
+\fBLC_ALL\fP, \fBLC_MESSAGES\fP, \fBLANG\fP
+Ces variables spécifient le choix des paramètres régionaux pour
+.BR LC_MESSAGES ,
+qui détermine la langue utilisée par
+.B grep
+pour ses messages. Avec le défaut C, les messages sont en américain.
+.TP
+.B POSIXLY_CORRECT
+Si cette variable est positionnée,
+.B grep
+se comporte comme indiqué dans la norme \s-1POSIX.2\s0. Sinon,
+.B grep
+se comporte plus comme les autres programmes \s-1GNU\s0.
+\s-1POSIX.2\s0 requiert que les options qui suivent des noms de fichiers
+soient considérées aussi comme des noms de fichiers. Par
+défaut, ces options sont déplacées avant la liste des opérandes et sont
+traitées comme des options.
+\s-1POSIX.2\s0 requiert aussi que les options non reconnues soient considérées
+comme «\ illégales\ »\ ; mais comme elles n'enfreignent pas vraiment la loi,
+elles sont rapportées comme étant «\ invalides\ » par défaut.
+.B POSIXLY_CORRECT
+désactive aussi l'option \fB_\fP\fIN\fP\fB_GNU_nonoption_argv_flags_\fP, qui 
+est décrite plus bas.
+.TP
+\fB_\fP\fIN\fP\fB_GNU_nonoption_argv_flags_\fP
+(ici,
+.I N
+est l'identifiant numérique du processus de
+.BR grep ).
+Si le
+.IR i -ième
+caractère de la valeur de cette variable d'environnement vaut
+.BR 1 ,
+le
+.IR i -ième
+opérande de
+.B grep
+n'est pas considéré comme étant une option, même s'il semble l'être.
+Un shell peut placer cette variable dans l'environnement de chaque
+commande lancée, pour spécifier quels opérandes sont le résultat
+du remplacement de méta-caractères et ne doivent donc pas être considérés
+comme des options.
+Ce comportement n'est présent qu'avec la bibliothèque C de \s-1GNU\s0,
+et seulement si
+.B POSIXLY_CORRECT
+n'est pas positionnée.
+.SH DIAGNOSTICS
+.PP
+Normalement, le code de retour est 0 si des concordances ont été
+trouvées, et 1 si aucune concordances n'a été faite.
+Mais le code est 2 si une erreur est survenue, à moins que les options
+.BR \-q ,
+.B \-\^\-quiet
+ou
+.B \-\^\-silent
+ne soient utilisées et qu'une ligne ne soit trouvée.
+.SH BOGUES
+.PP
+Envoyez les rapports de bogue ([ndt] en anglais\ !) à
+.BR bug-gnu-utils@gnu.org .
+Assurez-vous d'inclure le mot «\ grep\ » quelque part dans le
+sujet du message.
+.PP
+Dans les constructions
+.BI { m , n }
+de grandes valeurs de répétition peuvent pousser grep à
+utiliser beaucoup de mémoire.
+De plus, certaines autres expressions rationnelles tordues
+peuvent prendre un temps très long, et mener à un
+manque de mémoire.
+.PP
+Les références inverses sont très lentes et peuvent demander un
+temps très long.
+
+.SH TRADUCTION
+Christophe Blaess, 1997.
+.br
+Denis Barbier, 2003.
+

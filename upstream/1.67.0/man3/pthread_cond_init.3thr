@@ -1,0 +1,327 @@
+.TH PTHREAD_COND 3 "21 juillet 2003" LinuxThreads "Manuel du programmeur Linux"
+
+
+.SH NOM
+pthread_cond_init, pthread_cond_destroy, pthread_cond_signal, pthread_cond_broadcast, pthread_cond_wait, pthread_cond_timedwait \- opérations sur les conditions.
+
+.SH SYNOPSIS
+.B #include <pthread.h>
+
+.BI "pthread_cond_t " cond " = PTHREAD_COND_INITIALIZER;"
+
+.BI "int pthread_cond_init(pthread_cond_t *" cond ", pthread_condattr_t *" cond_attr ");"
+
+.BI "int pthread_cond_signal(pthread_cond_t *" cond ");"
+
+.BI "int pthread_cond_broadcast(pthread_cond_t *" cond ");"
+
+.BI "int pthread_cond_wait(pthread_cond_t *" cond ", pthread_mutex_t *" mutex ");"
+
+.BI "int pthread_cond_timedwait(pthread_cond_t *" cond ", pthread_mutex_t *" mutex ", const struct timespec *" abstime ");"
+
+.BI "int pthread_cond_destroy(pthread_cond_t *" cond ");"
+
+.SH DESCRIPTION
+Une condition (abréviation pour variable-condition) est un mécanisme de
+syncrhonisation permettant à un thread de suspendre son exécution juqu'à ce
+qu'une certaine condition (un prédicat) soit vérifiée. Les opérations
+fondamentales sur les conditions sont\ :
+signaler la condition (quand le prédicat devient vrai),
+et attendre la condition en suspendant l'exécution du thread
+jusqu'à ce qu'un autre thread signale la condition.
+
+Une variable condition doit toujours être associée à un mutex, pour éviter les
+accès concurrents où un thread se prépare à attendre une
+condition et un autre signale la condition juste avant que le premier n'attende
+réellement.
+
+.B "pthread_cond_init"
+initialise la variable condition
+.IR "cond" ,
+en utilisant les attributs de condition spécifiés par
+.IR "cond_attr" ,
+ou les attributs par défaut si
+.I "cond_attr"
+vaut
+.BR "NULL" .
+L'implémentation LinuxThreads ne supporte aucun attribut de conditions, aussi
+le paramètre
+.I "cond_attr"
+est-il pour l'instant ignoré.
+
+Les variables de type 
+.B "pthread_cond_t"
+peuvent également être statiquement initialisées, en utilisant la constante
+.BR "PTHREAD_COND_INITIALIZER" .
+
+.B "pthread_cond_signal"
+relance l'un des threads attendant la variable condition
+.IR "cond" .
+S'il n'existe aucun thread répondant à ce critière, rien ne se produit. Si
+plusieurs threads attendent sur
+.IR "cond" ,
+seul l'un d'entre eux sera relancé, mais il est impossible de savoir lequel.
+
+.B "pthread_cond_broadcast"
+relance tous les threads attendant sur la variable condition 
+.IR "cond" .
+Rien ne se passe s'il n'y a aucun thread attendant sur
+.IR "cond" .
+
+.B "pthread_cond_wait"
+déverrouille atomiquement le 
+.I "mutex"
+(comme
+.BR "pthread_unlock_mutex" )
+et attend que la variable condition
+.I "cond"
+soit signalée. L'exécution du thread est suspendue et ne consomme pas de temps
+CPU jusqu'à ce que la variable condition soit signalée. Le
+.I "mutex"
+doit être verrouillé par le thread appelant à l'entrée de
+.BR "pthread_cond_wait" .
+Avant de rendre la main au thread appelant,
+.B "pthread_cond_wait"
+reverrouille
+.I "mutex"
+(comme 
+.BR "pthread_lock_mutex" ).
+
+Le déverouillage du mutex et la suspension de l'exécution sur la variable 
+condition sont liés atomiquement. Donc, si tous 
+les threads verrouillent le mutex avant de
+signaler la condition, il est garanti que la condition ne peut être signalée
+(et donc ignorée) entre le moment où un thread verrouille le mutex et le moment
+où il attend sur la variable condition.
+
+.B "pthread_cond_timedwait"
+déverrouille le
+.I "mutex"
+et attend sur
+.IR "cond" ,
+en liant atomiquement ces deux étapes, comme le fait
+.BR "pthread_cond_wait" ,
+cependant l'attente est bornée temporellement. Si
+.I "cond"
+n'a pas été signalée après la période spécifiée par
+.IR "abstime" ,
+le mutex 
+.I "mutex"
+est reverrouillé et
+.B "pthread_cond_timedwait"
+rend la main avec l'erreur
+.BR "ETIMEDOUT" .
+Le paramètres
+.I "abstime"
+spécifie un temps absolu, avec la même origine que
+.BR "time" (2)
+et 
+.BR "gettimeofday" (2):
+un 
+.I "abstime"
+de 0 correspond à 00:00:00 GMT, le 1er Janvier 1970.
+
+.B "pthread_cond_destroy"
+détruit une variable condition, libérant les ressources qu'elle possède. Aucun
+thread ne doit attendre sur la condition à l'entrée de
+.BR "pthread_cond_destroy" .
+Dans l'implémentation LinuxThreads, aucune ressource ne peut être associée à
+une variable condition, aussi
+.B "pthread_cond_destroy"
+ne fait en fait rien d'autre que vérifier qu'aucun thread n'attend la
+condition.
+
+.SH ANNULATION
+
+.B "pthread_cond_wait"
+et 
+.B "pthread_cond_timedwait"
+sont des points d'annulation. Si un thread est annulé alors qu'il est suspendu
+dans l'une de ces fonctions, son exécution reprend immédiatement,
+reverrouillant l'argument
+.I "mutex"
+à
+.B "pthread_cond_wait"
+et
+.BR "pthread_cond_timedwait" ,
+et exécute finalement l'annulation. Aussi, les gestionnaires d'annulation sont
+assurés d'être exécutés alors que
+.I "mutex"
+est verrouillé.
+
+.SH "FIABILITE PAR RAPPORT AUX SIGNAUX ASYNCHRONES"
+Ces fonctions ne sont pas fiables par rapport aux signaux asynchrones et ne
+doivent donc pas être utilisées dans des gestionnaires de signaux [Ndt:
+sous peine de perder leur propriété d'atomicité]. En particulier,
+appeler
+.B "pthread_cond_signal"
+ou 
+.B "pthread_cond_broadcast"
+dans un gestionnaire de signal peut placer le thread appelant dans une
+situation de blocage définitif.
+
+.SH "VALEUR RENVOYÉE"
+Toutes ces fonctions renvoient 0 en cas de succès et un code d'erreur non nul
+en cas de problème.
+
+.SH ERREURS
+
+.BR "pthread_cond_init" ,
+.BR "pthread_cond_signal" ,
+.BR "pthread_cond_broadcast" ,
+et 
+.B "pthread_cond_wait"
+ne renvoient jamais de code d'erreur.
+
+La fonction
+.B "pthread_cond_timedwait"
+renvoie l'un des codes d'erreur suivants en cas de problème\ :
+.RS
+.TP
+.B "ETIMEDOUT"
+La variable-condition n'a pas reçu de signal avant le délai spécifié par
+.I "abstime"
+
+.TP
+.B "EINTR"
+.B "pthread_cond_timedwait"
+a été interrompu par un signal
+.RE
+
+La fonction
+.B "pthread_cond_destroy"
+renvoie l'un des codes d'erreur suivants en cas de problème\ :
+.RS
+.TP
+.B "EBUSY"
+il existe des threads attendant 
+.IR "cond" .
+.RE
+
+.SH AUTEUR
+Xavier Leroy <Xavier.Leroy@inria.fr>
+
+.SH "VOIR AUSSI"
+.BR "pthread_condattr_init" (3),
+.BR "pthread_mutex_lock" (3),
+.BR "pthread_mutex_unlock" (3),
+.BR "gettimeofday" (2),
+.BR "nanosleep" (2).
+
+.SH EXEMPLE
+
+Considérons deux variables globales partagées
+.I "x"
+et 
+.IR "y" ,
+protégées par le mutex 
+.IR "mut" ,
+et une variable condition 
+.I "cond"
+pour signaler que
+.I "x"
+devient plus grand que
+.IR "y" .
+
+.RS
+.ft 3
+.nf
+.sp
+int x,y;
+pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+.ft
+.LP
+.RE
+.fi
+
+Attendre que 
+.I "x"
+devienne plus grand que
+.I "y"
+se réalise de la manière suivante:
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_mutex_lock(&mut);
+while (x <= y) {
+        pthread_cond_wait(&cond, &mut);
+}
+/* agir sur x et y */
+pthread_mutex_unlock(&mut);
+.ft
+.LP
+.RE
+.fi
+
+Les modifications de
+.I "x"
+et 
+.I "y"
+qui peuvent rendre 
+.I "x"
+plus grand que
+.I "y"
+doivent signaler la condition si nécessaire:
+
+.RS
+.ft 3
+.nf
+.sp
+pthread_mutex_lock(&mut);
+/* modifer x et y */
+if (x > y) pthread_cond_broadcast(&cond);
+pthread_mutex_unlock(&mut);
+.ft
+.LP
+.RE
+.fi
+
+S'il peut être prouvé qu'au plus un thread en attente nécessite d'être réveillé
+(par exemple, s'il n'y a que deux threads communicant via
+.I "x"
+et 
+.IR "y" ),
+.B "pthread_cond_signal"
+peut être utilisé en tant qu'alternative efficace à
+.BR "pthread_cond_broadcast" .
+En cas de doute, utilisez
+.BR "pthread_cond_broadcast" .
+
+Pour attendre que
+.I "x"
+devienne plus grand que
+.I "y"
+avec un timeout de 5 secondes, faîtes:
+
+.RS
+.ft 3
+.nf
+.sp
+struct timeval now;
+struct timespec timeout;
+int retcode;
+
+pthread_mutex_lock(&mut);
+gettimeofday(&now);
+timeout.tv_sec = now.tv_sec + 5;
+timeout.tv_nsec = now.tv_usec * 1000;
+retcode = 0;
+while (x <= y && retcode != ETIMEDOUT) {
+        retcode = pthread_cond_timedwait(&cond, &mut, &timeout);
+}
+if (retcode == ETIMEDOUT) {
+        /* timeout */
+} else {
+        /* agir sur x et y */
+}
+pthread_mutex_unlock(&mut);
+.ft
+.LP
+.RE
+.fi
+.SH TRADUCTION
+.RI "Thierry Vignaud <" tvignaud@mandrakesoft.com ">, 2000"
+

@@ -1,0 +1,495 @@
+.\" Traduction 15/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\" MàJ 30/07/2003 findutils-4.1.7
+.TH FIND 1L "15 janvier 1997" "findutils" "Manuel de l'utilisateur Linux"
+.SH NOM
+find \- Rechercher des fichiers dans une hiérarchie de répertoires.
+.SH SYNOPSIS
+.B find
+[chemin...] [expression]
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR find .
+.B find
+parcourt les arborescences de répertoires commençant
+en chacun des \fIchemins\fP mentionnés, en évaluant les
+expressions fournies pour chaque fichier rencontré.
+L'évaluation de l'expression se fait de gauche à droite,
+en suivant des règles de priorité décrites dans la section
+OPÉRATEURS, jusqu'à ce que le résultat soit connu (par exemple
+la partie gauche vraie pour un opérateur \fIOU\fP ou fausse
+pour un opérateur \fIET\fP).
+.PP
+Le premier argument commençant par `\-', `(', `)', `,', ou `!' 
+est considéré comme le début de l'expression, tous les arguments
+précédents sont des chemins à parcourir. Tous les arguments ultérieurs
+sont considérés comme le reste de l'expression rationnelle.
+de point de départ. Si aucune \fIexpression\fP n'est fournie, \fBfind\fP
+utilise l'expression `\-print' par défaut.
+.PP
+.B find
+se termine avec le code de retour 0 si tous les fichiers ont pu être
+examinés correctement, et supérieur à 0 si une erreur s'est produite.
+.SH EXPRESSIONS
+.P
+L'expression est constituée d'\fBoptions\fP (affectant l'ensemble des opérations
+plutôt que le traitement d'un fichier particulier, et renvoyant toujours
+vrai), de \fBtests\fP (renvoyant une valeur vraie ou fausse), et d'\fBactions\fP
+(ayant des effets de bords et renvoyant une valeur vraie ou fausse),
+tous ces éléments étant séparés par des opérateurs.
+Quand un opérateur est manquant, l'opération par défaut \-and est
+appliquée. Si l'expression ne contient pas d'action autre que \-prune,
+\fBfind\fP applique l'action \-print par défaut sur tous les fichiers
+pour lesquels l'expression est vraie.
+.SS OPTIONS
+.P
+Toutes les options renvoient toujours la valeur vraie. Elles ont
+toujours un effet global, plutôt que de s'appliquer uniquement à
+leur emplacement dans l'expression.
+Néanmoins, pour améliorer la lisibilité, il est préférable de les
+placer au début de l'expression.
+.IP \-daystart
+Mesurer les temps (avec \-amin, \-atime, \-cmin, \-ctime, \-mmin, et \-mtime)
+depuis le début de la journée plutôt que depuis 24 heures.
+.IP \-depth
+Traiter d'abord les sous-répertoires avant le répertoire lui-même.
+.IP \-follow
+Déréférencer les liens symboliques pour accéder aux fichiers vers lesquels
+ils pointent. Ceci implique l'option \-noleaf.
+.IP "\-help, \-\-help"
+Afficher un message d'aide sur la  sortie  standard et se terminer normalement.
+.IP "\-maxdepth \fIn\fR"
+Descendre au plus \fIn\fP niveaux (\fIn\fP étant un entier positif ou nul),
+dans les répertoires parcourus. `\-maxdepth 0' signifie que les tests
+et les actions ne s'appliquent qu'aux arguments de la ligne de commande.
+.IP "\-mindepth \fIn\fR"
+Ne pas appliquer les tests ou les actions à des niveaux de profondeur
+inférieurs à \fIn\fP. \fIn\fP est un entier positif ou nul.
+`\-mindepth 1' signifie que les tests et les actions s'appliquent à tous
+les fichiers sauf aux arguments de la ligne de commande.
+.IP \-mount
+Ne pas parcourir les répertoires situés sur d'autres systèmes de fichiers.
+Il s'agit d'une alternative à l'option \-xdev, assurant la compatibilité
+avec d'anciennes versions de
+.BR find .
+.IP "\-noleaf"
+Ne pas faire d'optimisation en supposant que les répertoires contiennent
+deux sous-répertoires de moins que leurs nombres de liens physiques.
+Cette option est nécessaire lorsque l'on parcourt des systèmes de
+fichiers ne suivant pas les conventions Unix sur les liens de répertoires,
+comme les systèmes MS-DOS, les CD-ROM ou les points de montage de
+volumes AFS.
+Chaque répertoire sur un système de fichiers Unix dispose au moins
+de deux liens physiques, son nom et `.'. De plus chaque sous-répertoire
+a également un lien `..' vers le répertoire parent.
+Quand
+.B find
+examine un répertoire, il sait qu'il y a deux sous-répertoires de moins
+que de liens vers le répertoire. Une fois qu'il a rencontré le
+nombre prévu de sous-répertoires, il est donc sûr que le reste des
+entrées est constitué de fichiers autres que des sous-répertoires.
+Ces fichiers sont des feuilles ([NDT] `leaf') dans l'arborescence des 
+répertoires.
+S'il n'y a que les noms de fichiers à examiner, il n'a plus besoin de
+vérifier leur nature, et ceci fournit une augmentation notable de
+la vitesse de traitement.
+.IP "\-version, \-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer
+normalement.
+.IP \-xdev
+Ne pas parcourir les répertoires situés sur d'autres systèmes de fichiers.
+.SS TESTS
+.P
+Les arguments numériques peuvent être indiqués comme suit\ :
+.IP \fI+n\fP
+supérieur à
+.IR n ,
+.IP \fI\-n\fP
+inférieur à
+.IR n ,
+.IP \fIn\fP
+égal à
+.IR n .
+.IP "\-amin \fIn\fR"
+dernier accès au fichier il y a \fIn\fP minutes.
+.IP "\-anewer \fIfichier\fR"
+dernier accès au fichier plus récent que la dernière modification de
+\fIfichier\fR.
+Le comportement de l'option \-anewer est modifié par l'option \-follow 
+uniquement si celle-ci la précède sur la ligne de commande.
+.IP "\-atime \fIn\fR"
+dernier accès au fichier il y a \fIn\fR*24 heures.
+.IP "\-cmin \fIn\fR"
+dernière modification du statut du fichier il y a \fIn\fR minutes.
+.IP "\-cnewer \fIfichier\fR"
+dernière modification du statut du fichier plus récente que la dernière
+modification du fichier \fIfichier\fR.
+Le comportement de l'option \-cnewer est modifié par l'option \-follow
+uniquement si celle-ci la précède sur la ligne de commande.
+.IP "\-ctime \fIn\fR"
+dernière modification du statut du fichier il y a \fIn\fR*24 heures.
+.IP \-empty
+fichier vide. De plus ce fichier doit être régulier ou être un répertoire.
+.IP \-false
+toujours faux.
+.IP "\-fstype \fItype\fR"
+fichier se trouvant sur un système de fichiers du \fItype\fR indiqué.
+Les types de systèmes de fichiers dépendent de la version d'Unix. Une
+liste non exhaustive des systèmes acceptés sur certaines versions d'Unix
+sont : ufs, 4.2, 4.3, nfs, tmp, mfs, S51K, S52K.  Vous pouvez utiliser
+\-printf avec la directive %F pour examiner les types de vos systèmes de
+fichiers.
+.IP "\-gid \fIn\fR"
+Fichier de GID numérique valant \fIn\fR.
+.IP "\-group \fInom_groupe\fR"
+fichier appartenant au groupe \fInom_groupe\fR (éventuellement ID numérique).
+.IP "\-ilname \fImotif\fR"
+identique à \-lname, mais sans différencier les majuscules et les minuscules.
+.IP "\-iname \fImotif\fR"
+identique à \-name, mais sans différencier les majuscules et les minuscules. Par
+exemple les motifs `fo*' et `F??' correspondent aux noms de fichiers `Foo',
+`FOO', `foo', `fOo', etc...
+.IP "\-inum \fIn\fR"
+fichier dont le numéro d'i-noeud est \fIn\fR.
+.IP "\-ipath \fImotif\fR"
+identique à \-path, mais sans différencier les majuscules et les minuscules.
+.IP "\-iregex \fImotif\fR"
+identique à \-regex, mais sans différencier les majuscules et les minuscules.
+.IP "\-links \fIn\fR"
+fichier ayant \fIn\fR liens.
+.IP "\-lname \fImotif\fR"
+fichier représentant un lien symbolique, dont le contenu correspond au
+\fImotif\fP indiqué. Lors du développement des méta-caractères, `/' et `.'
+ne sont pas traités différemment des autres caractères (voir l'exemple dans
+la description de l'option \-path).
+.IP "\-mmin \fIn\fR"
+Fichier dont les données ont été modifiées il y a \fIn\fR minutes.
+.IP "\-mtime \fIn\fR"
+Fichier dont les données ont été modifiées il y a \fIn\fR*24 heures.
+.IP "\-name \fImotif\fR"
+Fichier dont le nom de base (sans les répertoires du chemin d'accès),
+correspond au \fImotif\fR du shell.  Les méta-caractères (`*', `?',
+et `[]') ne sont jamais mis en correspondance avec un point `.' 
+au début du nom.  Pour ignorer un répertoire, ainsi que tous ses
+sous-répertoires, utiliser l'option \-prune\ ; vous trouverez un exemple dans
+la description de l'option \-path.
+.IP "\-newer \fIfichier\fR"
+Fichier modifié plus récemment que le \fIfichier\fR indiqué.
+L'option \-newer n'est affectée par l'option \-follow que si celle-ci la
+précède sur la ligne de commande.
+.IP \-nouser
+Fichier dont l'U-ID numérique ne correspond à aucun utilisateur.
+.IP \-nogroup
+Fichier dont le G-ID numérique ne correspond à aucun groupe d'utilisateurs.
+.IP "\-path \fImotif\fR"
+Fichier dont le nom complet correspond au \fImotif\fR fourni. Lors du développement des méta-caractères, `/' et `.'
+ne sont pas traités différemment des autres caractères, ainsi par exemple :
+.br
+.in +1i
+find . \-path './sr*sc'
+.br
+.in -1i
+affichera l'élément de répertoire intitulé './src/misc' (s'il en existe un).
+Pour ignorer une arborescence complète de répertoires, utilisez l'option
+\-prune plutôt que de vérifier chaque fichier de l'arbre. Par exemple, pour
+ignorer le répertoire `src/emacs' et tous ses sous-répertoires, tout en
+affichant le nom de tous les autres fichiers, faites quelque chose comme :
+.br
+.in +1i
+find . \-path './src/emacs' -prune -o -print
+.br
+.in -1i
+.IP "\-perm \fImode\fR"
+Fichier dont les autorisations d'accès sont fixées exactement au \fImode\fR 
+indiqué (en notation symbolique ou octale). La notation symbolique utilise
+le mode 0 comme point de départ.
+.IP "\-perm \-\fImode\fR"
+Fichier ayant au moins toutes les autorisations indiquées dans le \fImode\fP.
+.IP "\-perm +\fImode\fR"
+Fichier ayant certaines des autorisations indiquées dans le \fImode\fP.
+.IP "\-regex \fImotif\fR"
+Nom de fichier correspondant à l'expression rationnelle \fImotif\fR.
+Il s'agit d'une correspondance sur le nom de fichier complet, pas d'une
+recherche. Par exemple, pour mettre en correspondance un fichier nommé
+`./fubar3', vous pouvez utiliser les expressions rationnelles `.*bar.' ou `.*b.*3',
+mais pas `b.*r3'.
+.IP "\-size \fIn\fR[bckw]"
+Fichier utilisant \fIn\fP unités d'espace.  Les unités sont des blocs de 512
+octets par défaut (ou si un suffixe `b' suit le nombre \fIn\fP), 
+des octets si un suffixe `c' suit \fIn\fP, des kilo-octets si un suffixe `k'
+est utilisé, ou des mots de 2 octets si un `w' suit le nombre \fIn\fP.
+La taille ne prend pas en compte les blocs indirects, mais elle comptabilise
+les blocs des fichiers éparpillés pas encore alloués.
+.IP \-true
+Toujours vrai.
+.IP "\-type \fIc\fR"
+Fichier du type \fIc\fR\ :
+.RS
+.IP b
+fichier spécial en mode bloc (avec tampon)
+.IP c
+fichier spécial en mode caractère (sans tampon)
+.IP d
+répertoire
+.IP p
+tube nommé (FIFO)
+.IP f
+fichier régulier
+.IP l
+liens symbolique
+.IP s
+socket
+.IP D
+door (Solaris)
+.RE
+.IP "\-uid \fIn\fR"
+Fichier dont l'U-ID numérique vaut \fIn\fR.
+.IP "\-used \fIn\fR"
+fichier dont le dernier accès date de \fIn\fP jours après la dernière modification
+de son statut.
+.IP "\-user \fIutilisateur\fR"
+fichier appartenant à l'\fIutilisateur\fP indiqué (U-ID numérique éventuellement)
+.IP "\-xtype \fIc\fR"
+comme \-type sauf si le fichier est un lien symbolique. Dans ce cas,
+si l'option \-follow n'a pas été fournie, le test est vrai si le fichier
+destination du lien est de type \fIc\fR\ ; si l'option \-follow a été réclamée,
+le test est vrai si \fIc\fR vaut `l'.
+Autrement dit, pour les liens symboliques, \-xtype vérifie le type des fichiers
+que l'option \-type ne vérifie pas.
+.SS ACTIONS
+.IP "\-exec \fIcommande\fR ;"
+Exécute la \fIcommande\fR\ ; vrai si le code de retour 0 est renvoyé. Tous les arguments
+suivants de 
+.B find
+sont considérés comme des arguments pour la ligne de commande, jusqu'à ce qu'on
+rencontre un `;'. La chaîne `{}' est remplacée par le nom du fichier en cours de
+traitement, et ceci dans toutes ses occurrences, pas seulement aux endroits où elle
+est isolée, comme c'est le cas avec d'autres versions de
+.BR find .
+Ces deux chaînes peuvent avoir besoin d'être protégées du développement de la ligne
+de commande par le shell, en utilisant le caractère d'échappement (`\e') ou une
+protection par des apostrophes. La commande est exécutée depuis le répertoire
+de départ.
+.IP "\-fls \fIfichier\fR"
+vrai\ ; comme \-ls mais écrit dans le \fIfichier\fR comme le fait \-fprint.
+.IP "\-fprint \fIfichier\fR"
+vrai\ ; écrit le nom complet dans le \fIfichier\fR.  Si \fIfichier\fR
+n'existe pas au démarrage de \fBfind\fR, il est créé. S'il existe, il
+est écrasé. Les noms de fichiers ``/dev/stdout'' et ``/dev/stderr''
+sont traités de manière spécifique, ils correspondent respectivement 
+à la sortie standard, et à la sortie des erreurs.
+.IP "\-fprint0 \fIfichier\fR"
+vrai\ ; comme \-print0 mais écrit dans le \fIfichier\fR comme le fait \-fprint.
+.IP "\-fprintf \fIfichier\fR \fIformat\fR"
+vrai\ ; comme \-printf mais écrit dans le \fIfichier\fR comme le fait \-fprint.
+.IP "\-ok \fIcommande\fR ;"
+comme \-exec mais interroge d'abord l'utilisateur (en utilisant l'entrée standard).
+Si la réponse ne commence pas par `y' ou `Y', la commande n'est pas exécutée, et
+le test devient faux.
+.IP \-print
+vrai\ ; affiche le nom complet du fichier sur la sortie standard, suivi d'un saut de
+ligne.
+.IP \-print0
+vrai\ ; affiche le nom complet du fichier sur la sortie standard, suivi d'un caractère
+nul. Ceci permet aux fichiers dont le nom contient un saut de ligne, d'être correctement
+interprétés par les programmes utilisant les données en sortie de \fBfind\fP.
+.IP "\-printf \fIformat\fR"
+vrai\ ; affiche le \fIformat\fR indiqué sur la sortie standard, en interprétant les
+séquences d'échappement `\e' et les directives`%'.
+La largeur et la précision des champs peuvent être spécifiés comme dans
+la fonction \fBprintf\fP(3) du langage C.
+Contrairement à \-print, \-printf n'ajoute pas de saut de ligne à la fin
+de la chaîne. Les séquences d'échappement et les directives % sont les
+suivantes\ :
+.RS
+.IP \ea
+Sonnerie.
+.IP \eb
+Effacement Arrière (Backspace)
+.IP \ec
+Arrêter immédiatement l'impression du format et vider le flux de sortie.
+.IP \ef
+Saut de page
+.IP \en
+Saut de ligne
+.IP \er
+Retour Chariot
+.IP \et
+Tabulation horizontale
+.IP \ev
+Tabulation Verticale
+.IP \e\e
+Un caractère `Backslash' littéral (`\e').
+.PP
+Un `\e' suivi de n'importe quel autre caractère est
+traité comme un caractère ordinaire\ ; ils sont donc
+affichés tous les deux.
+.IP %%
+Un caractère pourcentage littéral (%)
+.IP %a
+Date du dernier accès au fichier, dans le format renvoyé par la
+fonction C \fBctime\fP(3).
+.IP %A\fIk\fP
+Date du dernier accès au fichier, dans le format spécifié par \fIk\fR,
+qui doit être soit un `@', soit une directive pour la fonction C
+\fBstrftime\fP(3).  Les valeurs possibles pour \fIk\fP sont indiquées
+ci-dessous, certaines d'entre-elles ne sont pas disponibles sur tous
+les systèmes, à cause des différences entre les fonctions \fBstrftime\fP(3) existantes.
+.RS
+.IP @
+secondes écoulées depuis le 1er Janvier 1970 à 00h 00 GMT.
+.PP
+Champs horaires :
+.IP H
+heure (00..23)
+.IP I
+heure (01..12)
+.IP k
+heure ( 0..23)
+.IP l
+heure ( 1..12)
+.IP M
+minute (00..59)
+.IP p
+AM ou PM, avec la désignation locale
+.IP r
+heure, sur un cadran de 12 heures (hh:mm:ss [AP]M)
+.IP S
+secondes (00..61)
+.IP T
+heure, sur un cadran de 24 heures (hh:mm:ss)
+.IP X
+représentation locale de l'heure (H:M:S)
+.IP Z
+fuseau horaire (par exemple MET), ou rien si le fuseau horaire
+est indéterminé.
+.PP
+Champs de date :
+.IP a
+abréviation locale du jour de la semaine (Dim .. Sam)
+.IP A
+nom local entier du jour de la semaine, de longueur variable (Dimanche .. Samedi)
+.IP b
+abréviation locale du mois (Jan..Dec)
+.IP B
+nom local entier du mois, de longueur variable (Janvier .. Décembre)
+.IP c
+date et heure locales (Sam Nov 04 12:02:33 EST 1989)
+.IP d
+quantième du mois (01..31)
+.IP D
+date (mm/jj/aa)
+.IP h
+comme b
+.IP j
+jour de l'année (001..366)
+.IP m
+mois (01..12)
+.IP U
+numéro de la semaine dans l'année, les semaines commençant le Dimanche (00..53)
+.IP w
+jour de la semaine (0..6), 0 correspond à Dimanche
+.IP W
+numéro de la semaine dans l'année, les semaines commençant le Lundi (00..53)
+.IP x
+représentation locale de la date (mm/jj/aa)
+.IP y
+les deux dernier chiffres de l'année
+ (00..99)
+.IP Y
+année (1970...)
+.RE
+.IP %b
+Taille du fichier en nombre de blocs de 512 octets (arrondi par excès).
+.IP %c
+Date de dernière modification du statut du fichier, dans le format
+renvoyé par la fonction C \fBctime\fP(3).
+.IP %C\fIk\fP
+Date de dernière modification du statut du fichier, dans le format
+spécifié par \fIk\fR, comme pour la directive %A.
+.IP %d
+Profondeur du fichier dans l'arborescence des répertoires, 0 signifiant
+que le fichier est un argument de la ligne de commande.
+.IP %f
+Nom du fichier, sans nom de répertoire.
+.IP %F
+Type de système de fichiers sur lequel se trouve le fichier. Cette
+valeur peut être utilisée pour l'option \-fstype.
+.IP %g
+Nom du groupe propriétaire du fichier, ou G-ID numérique si le groupe n'a pas de
+nom.
+.IP %G
+G-ID numérique du fichier.
+.IP %h
+Répertoires en tête du nom de fichier (tout sauf le dernier nom).
+.IP %H
+Argument de la ligne de commande à partir duquel le fichier a été
+trouvé.
+.IP %i
+Numéro d'i-noeud du fichier (en décimal).
+.IP %k
+Taille du fichier, en nombre de blocs de 1 Kilo-Octet, arrondi par excès.
+.IP %l
+Destination du lien symbolique (vide si le fichier n'est pas un lien symbolique).
+.IP %m
+Bits d'autorisation d'accès au fichier (en octal).
+.IP %n
+Nombre de liens physiques sur le fichier.
+.IP %p
+Nom du fichier.
+.IP %P
+Nom du fichier, ainsi que le nom de l'argument de ligne de commande
+à partir duquel le fichier a été trouvé.
+.IP %s
+Taille du fichier en octets.
+.IP %t
+Date de dernière modification du fichier, dans le format
+renvoyé par la fonction C \fBctime\fP(3).
+.IP %T\fIk\fP
+Date de dernière modification du fichier, dans le format
+spécifié par \fIk\fR, comme pour la directive %A.
+.IP %u
+Nom du propriétaire du fichier, ou U-ID numérique si 
+l'utilisateur n'a pas de nom.
+.IP %U
+U-ID numérique du propriétaire du fichier.
+.PP
+Un caractère `%' suivi de tout autre caractère est éliminé (mais le
+second caractère est affiché).
+.RE
+.IP \-prune
+vrai si l'option \-depth n'est pas fournie\ ; ne pas descendre dans l'arborescence
+du répertoire en cours.
+.br
+faux si l'option \-depth est fournie, et sans effet.
+.IP \-ls
+vrai, affiche le nom du fichier en cours dans le format `ls \-dils' sur la sortie standard.
+La taille est comptée en blocs de 1 Ko, à moins que la variable d'environnement
+POSIXLY_CORRECT soit positionnée, auquel cas la taille est calculée en blocs de 512 octets.
+.SS OPÉRATEURS
+.P
+Dans l'ordre de priorité décroissante :
+.IP "( \fIexpr\fR )"
+Force la priorité.
+.IP "! \fIexpr\fR"
+Vrai si \fIexpr\fR est fausse.
+.IP "\-not \fIexpr\fR"
+Comme ! \fIexpr\fR.
+.IP "\fIexpr1 expr2\fR"
+ET (implicite)\ ; \fIexpr2\fR n'est pas évaluée si \fIexpr1\fR est fausse.
+.IP "\fIexpr1\fR \-a \fIexpr2\fR"
+Comme \fIexpr1 expr2\fR.
+.IP "\fIexpr1\fR \-and \fIexpr2\fR"
+Comme \fIexpr1 expr2\fR.
+.IP "\fIexpr1\fR \-o \fIexpr2\fR"
+OU\ ; \fIexpr2\fR n'est pas évaluée si \fIexpr1\fR est vraie.
+.IP "\fIexpr1\fR \-or \fIexpr2\fR"
+Comme \fIexpr1\fR \-o \fIexpr2\fR.
+.IP "\fIexpr1\fR , \fIexpr2\fR"
+Liste\ ; \fIexpr1\fR et \fIexpr2\fR sont toujours évaluées toutes les deux.
+La valeur de \fIexpr1\fR est ignorée\ ; la valeur de la liste est celle de
+\fIexpr2\fR.
+.SH "VOIR AUSSI"
+\fBlocate\fP(1L), \fBlocatedb\fP(5L), \fBupdatedb\fP(1L), \fBxargs\fP(1L)
+\fBFinding Files\fP (en ligne dans Info, ou en version imprimée)
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

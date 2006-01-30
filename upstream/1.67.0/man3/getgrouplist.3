@@ -1,0 +1,89 @@
+.\" Copyright 2002 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\" Thanks to glibc info pages
+.\"
+.\" Modified 2003-11-18, aeb: glibc is broken
+.\"
+.\" Traduction : Alain Portal
+.\" 20/07/2005 LDP-1.64
+.\" Màj 14/12/2005 LDP-1.65
+.\"
+.TH GETGROUPLIST 2 "18 novembre 2003" "GNU" "Manuel du programmeur Linux"
+.SH NOM
+getgrouplist \- Lister les groupes auquels appartient un utilisateur.
+.SH SYNOPSIS
+.sp
+.B #include <grp.h>
+.sp
+.BI "int getgrouplist (const char *" user ", gid_t " group ,
+.in 25
+.BI "gid_t *" groups ", int *" ngroups );
+.SH DESCRIPTION
+La fonction
+.B getgrouplist()
+balaie la base de données group à la recherche de tous les groupes auquels
+.I user
+appartient.
+.RI * ngroups
+identifiants de groupe correspondant à ces groupes sont enregistrés dans le
+tableau
+.IR groups ;
+la valeur de retour de la fonction est le nombre de GID actuellement
+enregistrés. Le groupe
+.I group
+est automatiquement inclus dans la liste des groupes renvoyée par
+.BR getgroup\%list() .
+.SH "VALEUR RENVOYÉE"
+Si
+.RI * ngroups
+est plus petit que le nombre total de groupes trouvés,
+.B getgrouplist()
+renvoie \-1. Dans tous les cas, le nombre actuel de groupes est enregistré dans
+.RI * ngroups .
+.SH BOGUES
+L'implémentation de cette fonction dans la GlibC 2.3.2 est défectueuse\ :
+elle écrase la mémoire lorsque le nombre actuel de groupes est plus grand que
+.RI * ngroups .
+.SH "CONFORMITÉ"
+Cette fonction est présente depuis GlibC 2.2.4.
+.SH EXEMPLE
+.nf
+/* Ceci plante avec la GlibC 2.3.2 */
+#include <stdio.h>
+#include <stdlib.h>
+#include <grp.h>
+#include <pwd.h>
+
+int main() {
+        int i, ng = 0;
+        char *user = "who";	/* nom d'utilisateur ici */
+        gid_t *groups = NULL;
+        struct passwd *pw = getpwnam(user);
+        if (pw == NULL)
+                return 0;
+
+        if (getgrouplist(user, pw->pw_gid, NULL, &ng) < 0) {
+                groups = (gid_t *) malloc(ng * sizeof (gid_t));
+                getgrouplist(user, pw->pw_gid, groups, &ng);
+        }
+
+        for(i = 0; i < ng; i++)
+                printf("%d\en", groups[i]);
+
+        return 0;
+}
+.fi
+.SH "VOIR AUSSI"
+.BR getgroups (3),
+.BR setgroups (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Alain Portal
+<aportal AT univ-montp2 DOT fr> le 20 juillet 2005
+et révisée le 14 décembre 2005.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ getgrouplist\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

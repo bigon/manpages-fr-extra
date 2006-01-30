@@ -1,0 +1,152 @@
+.\" From michael.kerrisk@gmx.net  Wed Dec 10 17:40:03 2003
+.\"
+.\" Copyright (C) 2003, Michael Kerrisk (mtk16@ext.canterbury.ac.nz)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" 2003-12-10 Initial creation, Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\"
+.\" Traduction : Alain Portal
+.\" 14/12/2005 LDP-1.65
+.\"
+.TH REMAP_FILE_PAGES 2 "10 décembre 2003" "Linux 2.6" "Manuel du programmeur Linux"
+.SH NOM
+remap_file_pages \- Créer une projection non linéaire d'un fichier.
+.SH SYNOPSIS
+.B #include <sys/mman.h>
+.sp
+.BI "void *remap_file_pages(void *" start ", "
+.BI "size_t " size ", int " prot ", "
+.BI "ssize_t " pgoff ", int " flags );
+.SH DESCRIPTION
+L'appel système
+.B remap_file_pages()
+est utilisé pour créer une projection non linéaire, c'est-à-dire une
+projection dans laquelle les pages du fichier sont projetées en
+mémoire dans un ordre non séquentiel.
+L'avantage d'utiliser
+.B remap_file_pages()
+au lieu de faire des appels répétés à
+.BR mmap (2)
+est que la première approche ne nécessite pas que le noyau crée des structures
+de données VMA (Virtual Memory Area\ : zone mémoire virtuelle) supplémentaires.
+
+Pour créer une projection non linéaire, nous allons effectuer les
+étapes suivantes\ :
+.TP
+\fB1.\fp
+Utiliser
+.B mmap()
+pour créer une projection (qui est initialement linéaire).
+Cette projection doit être créée avec l'attribut MAP_SHARED.
+.TP
+\fB2.\fp
+Utiliser un ou plusieurs appels à
+.B remap_file_pages()
+pour réorganiser la correspondance entre les pages de la projection et
+les pages du fichier. Il est possible d'accéder à la même page d'un fichier
+dans plusieurs endroits de la région projetée.
+.LP
+Les arguments
+.I pgoff
+et
+.I size
+spécifient la région du fichier à reloger dans la projection\ :
+.I pgoff
+est un décalage de fichier (Ndt\ : file offset) dans l'unité de taille
+de page du système\ ;
+.I size
+est la longueur de la région en octets.
+
+L'argument
+.I start
+sert à deux choses.
+Tout d'abord, il identifie la projection des pages que l'on souhaite
+réorganiser. Ainsi,
+.I start
+doit être une adresse tombant dans une région précédemment projetée
+par un appel à
+.BR mmap() .
+Ensuite,
+.I start
+spécifie l'adresse à laquelle les pages du fichier identifiées par
+.I pgoff
+et
+.I size
+seront placées.
+
+Le paramètre
+.I prot
+est ignoré et doit être positionné à 0.
+Dans le futur, il pourra peut être être possible d'utiliser ce paramètre
+pour modifier la protection des pages de la région spécifiée sans créer
+une nouvelle VMA (comme celà est fait par
+.BR mprotect() ).
+
+Le paramètre
+.I flags
+a la même signification que pour
+.BR mmap() ,
+mais tous les attributs autre que MAP_NONBLOCK sont ignorés.
+.\" Andries, MAP_NONBLOCK is not yet described in the mmap.2 page...
+.SH "VALEUR RENVOYÉE"
+S'il réussit,
+.B remap_file_pages()
+renvoie 0.
+S'il échoue, \-1 est renvoyé et
+.I errno
+est positionnée en conséquence.
+.SH NOTES
+L'appel système
+.B remap_file_pages()
+est apparu dans Linux 2.5.46.
+.SH ERREURS
+.TP
+.B EINVAL
+.I start
+ne fait pas référence à une projection valide créée avec l'attribut MAP_SHARED.
+.TP
+.B EINVAL
+.IR start ,
+.IR size ,
+ou
+.I pgoff
+est invalide.
+.\" And possibly others from vma->vm_ops->populate()
+.SH "CONFORMITÉ"
+L'appel système
+.B remap_file_pages()
+est spécifique à Linux.
+.SH "VOIR AUSSI"
+.BR getpagesize (2),
+.BR mmap (2),
+.BR mmap2 (2),
+.BR mprotect (2),
+.BR mremap (2),
+.BR msync (2).
+
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Alain Portal
+<aportal AT univ-montp2 DOT fr> le 14 décembre 2005.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ remap_file_pages\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

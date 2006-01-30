@@ -1,0 +1,74 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\" Copyright 1995 Jim Van Zandt <jrv@vanzandt.mv.com>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one.
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 22/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 04/07/2005 LDP-1.61
+.\" Màj 08/07/2005 LDP-1.63
+.\"
+.TH LSEARCH 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+lsearch, lfind \- Recherche linéaire dans une table.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "void *lfind (const void *" key ", const void *" base ", size_t *" nmemb ,
+.RS
+.BI "size_t " size ", int (*" compar ")(const void *, const void *));"
+.RE
+.sp
+.BI "void *lsearch (const void *" key ", const void *" base ", size_t *" nmemb ,
+.RS
+.BI "size_t " size ", int (*" compar ")(const void *, const void *));"
+.RE
+.fi
+.SH DESCRIPTION
+Les fonctions \fBlfind()\fP et \fBlsearch()\fP effectuent une recherche
+linéaire de la clé \fIkey\fP dans la table \fIbase\fP
+contenant *\fInmemb\fP éléments, chacun de taille \fIsize\fP octets.
+La fonction de comparaison, pointée par
+\fIcompar\fP, est supposée prendre deux arguments pointant sur l'objet
+\fIkey\fP et sur un membre de la table, dans cet ordre. La fonction renvoie
+zéro si \fIkey\fP correspond à cet élément de la table, et une valeur non-nulle
+sinon.
+.PP
+Si \fBlsearch()\fP ne trouve pas d'élément correspondant, l'objet \fIkey\fP
+est ajouté à la fin de la table et *\fInmemb\fP est incrémenté.
+.SH "VALEUR RENVOYÉE"
+\fBlfind()\fP renvoie un pointeur sur l'élément de la table correspondant, ou
+\fBNULL\fP si aucune correspondance n'est trouvée.
+\fBlsearch()\fP renvoie un pointeur sur un élément correspondant de la table,
+ou sur le nouvel élément ajouté.
+.SH "CONFORMITÉ"
+SVID 1, SVID 3, BSD 4.3, POSIX 1003.1-2003.
+Fonctions présentes dans la libc depuis la version 4.6.27.
+.SH BOGUES
+L'appellation est malheureuse.
+.SH "VOIR AUSSI"
+.BR bsearch (3),
+.BR hsearch (3),
+.BR tsearch (3)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

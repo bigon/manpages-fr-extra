@@ -1,0 +1,128 @@
+.\" Traduction 10/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH FMT 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+fmt \- Mettre en forme des textes.
+.SH SYNOPSIS
+.B fmt
+[\-cstu] 
+[\-width] 
+[\-w width] 
+[\-p prefix]
+[\-\-crown-margin]
+[\-\-split-only]
+[\-\-tagged-paragraph]
+[\-\-uniform-spacing]
+[\-\-width=largeur]
+[\-\-prefix=prefixe]
+[\-\-help]
+[\-\-version]
+[fichier ...]
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR fmt .
+
+.B fmt
+est un formateur simple de texte qui regroupe les lignes pour
+obtenir des lignes de sortie ayant (jusqu'à) la
+.I largeur
+indiquée (par défaut 75 caractères).
+
+Néanmoins
+.B fmt
+utilise un algorithme de césure optimale
+.BR best-fit ,
+version simple adaptée de
+\*(lqBreaking Paragraphs into Lines\*(rq,
+Donald E. Knuth and Michael F. Plass,
+.I "Software\(emPractice and Experience"
+.B 11
+(1981) 1119\-1184.
+.LP
+.B fmt
+met bout à bout les
+.IR fichiers
+indiqués en arguments. Si aucun n'est mentionné,
+.B fmt
+met en forme l'entrée standard.
+.LP
+Les lignes blanches sont conservées en sortie, tout comme les espacements
+entre les mots
+(a moins que l'option
+.I \-u
+soit utilisée).
+Contrairement à la version BSD de
+.BR fmt ,
+celle-ci développe les tabulations en entrée, et les réintroduit en sortie.
+.LP
+L'indentation est conservée en sortie, et les lignes ayant des niveaux
+d'indentation différents ne sont pas regroupées (sauf si les options
+.I \-c
+ou
+.I \-t
+sont utilisées).
+Bien que la page de manuel BSD de
+.B fmt
+prétende la même chose, en réalité leur version regroupe une ligne et
+sa suivante si cette dernière a une indentation plus courte.
+.LP
+.B fmt 
+préfère couper les lignes en fin de phrase, et essaye d'éviter de retourner
+à la ligne après le premier mot, ou avant le dernier mot d'une phrase.
+La fin d'une phrase est définie soit par la fin d'un paragraphe, soit
+par un mot terminé par les caractères `.', `?' ou `!', suivi de deux
+espaces ou d'une fin de ligne, en ignorant les parenthèses ou les
+guillemets intermédiaires. 
+
+[NDT] : il s'agit là de la mise en forme de
+textes anglo-saxons. En français nous préférons insérer une espace entre le dernier mot et
+`!' ou `?'. De même nous ne plaçons qu'une
+seule espace après un point. Ne soyez pas étonnés si certaines possibilités
+de \fBfmt\fP ne fonctionnent pas sur un texte français.
+
+.SS OPTIONS
+.TP
+.I "-c, --crown-margin"
+Conserver l'indentation des deux premières lignes de chaque paragraphe,
+et aligner la marge gauche des lignes suivantes avec la seconde ligne.
+.TP
+.I "-t, --tagged-paragraph"
+Comme `\-c' sauf que les deux premières lignes d'un paragraphe doivent
+avoir des indentations différentes, sinon la première ligne est considérée
+comme un paragraphe à elle toute seule.
+.TP
+.I "-s, --split-only"
+Seulement couper les lignes. Ne pas joindre les lignes successives
+pour en former une plus longue. Ceci évite de combiner indûment
+des lignes de code, ou des paragraphes déjà \*(lqmis en forme\*(rq.
+.TP
+.I "-u, --uniform-spacing"
+Espacement uniforme.
+Réduire les espacements entre les mots à une espace, sauf à la fin d'une
+phrase. 
+.TP
+.I "-width, -w largeur, --width=largeur"
+Remplir les lignes jusqu'à la
+.I largeur
+mentionnée (par défaut 75 caractères).
+.B fmt 
+préfère rendre les lignes plus courtes de 7%, afin d'avoir la place
+d'équilibrer les longueurs de ligne.
+.TP
+.I "-p, --prefix=préfixe"
+N'arranger que les lignes commençant par le \fIpréfixe\fP indiqué
+(éventuellement précédé d'espaces). Ce préfixe (et ses espaces précédents
+éventuels) est supprimé pour la mise en forme, puis réinséré ensuite.
+Ceci permet de mettre en forme les commentaires de certains types de
+programmes, sans toucher au code.
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer
+normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.

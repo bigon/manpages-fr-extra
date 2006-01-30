@@ -1,0 +1,178 @@
+.\" Copyright (c) 1993 Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de), Sun Jul 18 17:47:18 MET DST 1993
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Modified Sun Jul 25 11:02:22 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 26/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 11/12/1997 LDP-1.18)
+.\"
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 08/07/2005 LDP-1.63
+.\"
+.TH FTW 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+ftw, nftw \- Parcours d'arborescence de fichiers.
+.SH SYNOPSIS
+.B #include <ftw.h>
+.sp
+.BI "int ftw (const char *" directory ", int (*" funcptr ")"
+.BI "(const char *" file ", const struct stat *" sb ", int " flag "), int " depth );
+.sp
+.BI "int nftw (const char *" directory ", int (*" funcptr ")"
+.BI "(const char *" file ", const struct stat *" sb ", int " flag ,
+.BI "struct FTW *" s ),
+.BI "int " depth ", int " flags );
+.SH DESCRIPTION
+La fonction \fBftw\fP() parcourt la hiérarchie de fichiers commençant au
+répertoire \fIdirectory\fP.
+Pour chaque fichier rencontré, elle appelle \fIfuncptr\fP avec le chemin
+d'accès du fichier relativement à \fIdirectory\fP, un pointeur sur une
+structure
+.BR stat (2),
+et un entier \fIflag\fP, dont la valeur signifie\ :
+.TP
+.B FTW_F
+Fichier normal
+.TP
+.B FTW_D
+Répertoire
+.TP
+.B FTW_DNR
+Répertoire non lisible
+.TP
+.B FTW_SL
+Lien symbolique
+.TP
+.B FTW_NS
+Échec de stat sur cet élément
+.LP
+S'il s'agit d'un lien symbolique et que stat échoue, XPG4v2 précise que
+FTW_NS ou FTW_SL peuvent être utilisés.
+.PP
+\fBftw\fP() s'appelle lui-même récursivement pour parcourir tous les
+répertoires trouvés. Afin d'éviter d'utiliser tous les descripteurs de
+fichiers disponibles pour le programme, la profondeur \fIdepth\fP
+limite le nombre de répertoires ouverts simultanément. Quand cette
+profondeur est atteinte, \fBftw\fP() va ralentir, car des répertoires
+devront être fermés puis réouverts.
+.PP
+Pour arrêter le parcours des fichiers, la fonction \fIfuncptr\fP peut
+renvoyer une valeur non-nulle, qui deviendra la valeur de retour de \fBftw\fP().
+Sinon, \fBftw\fP() continuera jusqu'à atteindre la fin du parcours de
+l'arbre, et renverra zéro, ou jusqu'à ce que se produise une erreur comme
+celles de
+.BR malloc (3)
+et renverra \-1.
+.PP
+Comme \fBftw()\fP utilise des structures de données allouées dynamiquement,
+la seule manière propre de sortir d'un parcours est de renvoyer une valeur
+non nulle.
+Pour traiter les interruptions, par exemple, notez le numéro d'interruption
+survenue et renvoyez une valeur non nulle. N'utilisez jamais
+.BR longjmp (3)
+à moins que le programme ne soit prêt à se terminer.
+
+La fonction \fBnftw\fP() fait exactement la même chose que \fBftw\fP(),
+sauf qu'elle utilise un argument \fIflags\fP supplémentaire (et invoque
+la fonction transmise avec un argument de plus).
+L'argument \fIflags\fP est un OU regroupant zéro ou certaines des constantes\ :
+.TP
+.B FTW_CHDIR
+Faire un
+.IR chdir ()
+dans chaque répertoire avant d'en traiter le contenu.
+.TP
+.B FTW_DEPTH
+Faire une recherche en profondeur d'abord, c'est-à-dire n'appeler la fonction
+pour le répertoire lui-même qu'après en avoir traité tout le contenu, y
+compris les sous-répertoires.
+.TP
+.B FTW_MOUNT
+Rester uniquement dans le même système de fichiers.
+.TP
+.B FTW_PHYS
+Ne pas suivre les liens symboliques (C'est classiquement ce que l'on veut).
+Sinon, les liens symboliques sont suivis, mais aucun fichier n'est traité
+plus d'une fois.
+.LP
+Si FTW_PHYS n'est pas demandé, mais si FTW_DEPTH l'est, la fonction
+. IR funcptr ()
+n'est jamais appelée sur un répertoire que l'on retrouve dans ses descendants.
+.LP
+La fonction
+.IR funcptr ()
+est appelée avec quatre arguments\ : le chemin de l'entrée traitée, un pointeur
+sur une structure stat la concernant, un entier décrivant son type, et un
+pointeur sur une structure FTW. Le type sera FTW_F, FTW_D, FTW_DNR, FTW_SL,
+ou FTW_NS (significations ci-dessus, FTW_SL uniquement si FTW_PHYS est
+demandé) ou
+.TP
+.B FTW_DP
+Répertoire dont tous les descendants ont déjà été traités.
+Ceci ne se produit qu'avec FTW_DEPTH.
+.TP
+.B FTW_SLN
+Lien symbolique pointant nulle part.
+Ceci ne se produit qu'avec FTW_PHYS absent.
+.LP
+La structure FTW pointée par le quatrième argument de
+.IR funcptr ()
+contient au moins les champs
+.IR base ,
+la position du nom de fichier dans le chemin fourni par le premier
+argument de
+.IR funcptr (),
+et
+.IR level ,
+la profondeur de l'objet par rapport au point de départ
+(de profondeur 0).
+.SH NOTES
+La fonction
+.IR nftw ()
+et l'usage de FTW_SL dans
+.IR ftw ()
+ont été introduits dans XPG4v2.
+.LP
+Sur certains systèmes,
+.IR ftw ()
+n'utilise jamais FTW_SL, sur d'autres, FTW_SL ne se présente que
+pour les liens symboliques pointant dans le vide,
+sur d'autres encore,
+.IR ftw ()
+utilisera FTW_SL pour chaque lien symbolique. Pour un fonctionnement prévisible,
+employez
+.IR nftw ().
+.LP
+Sous Linux, les LibC 4, LibC 5, et GlibC 2.0.6 utilisent FTW_F pour tous
+les objets (fichiers, liens symboliques, fifos, etc.) ne permettant pas un
+stat, mais autres que les répertoires.
+La fonction
+.IR nftw ()
+est disponible depuis la GlibC 2.1.
+.SH CONFORMITÉ
+AES, SVID2, SVID3, XPG2, XPG3, XPG4, XPG4v2.
+.SH "VOIR AUSSI"
+.BR stat (2)
+.SH TRADUCTION
+Christophe Blaess, 1996-2003.

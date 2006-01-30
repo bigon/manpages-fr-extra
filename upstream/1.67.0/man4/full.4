@@ -1,0 +1,60 @@
+.\" -*- nroff -*- 
+.\"
+.\" This man-page is Copyright (C) 1997 John S. Kallal 
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" correction, aeb, 970825
+.\" Traduction 31/05/1998 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-man-pages-1.19
+.\" MàJ 25/07/2003 LDP-1.56
+.TH FULL 4 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+full \- Périphérique toujours plein.
+.SH DESCRIPTION   
+Le fichier \fB/dev/full\fP a un numéro de périphérique majeur valant 1
+et un numéro mineur valant 7.
+.LP 
+Les écritures vers le périphérique \fB/dev/full\fP échouent toujours
+avec l'erreur ENOSPC.
+
+Les lectures depuis le périphérique \fB/dev/full\fP renvoient toujours
+des caractères \\0.
+
+Les positionnements (avec seek) sur \fB/dev/full\fP réussissent toujours.
+.SH CONFIGURATION
+Si votre système ne dispose pas encore du fichier \fB/dev/full\fP, vous
+pouvez le créer avec les commandes suivantes:
+.nf
+
+        mknod -m 666 /dev/full c 1 7
+        chown root:root /dev/full
+
+.fi
+.SH FICHIERS
+/dev/full
+.SH "VOIR AUSSI"
+.BR mknod (1),
+.BR null (4),
+.BR zero (4)
+
+.SH TRADUCTION
+Christophe Blaess, 1998-2003.

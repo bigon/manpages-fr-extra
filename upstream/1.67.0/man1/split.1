@@ -1,0 +1,81 @@
+.\" Traduction 14/01/1997 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" MàJ 30/07/2003 coreutils-4.5.3
+.TH SPLIT 1 "30 juillet 2003" coreutils "Manuel de l utilisateur Linux"
+.SH NOM
+split \- Découper un fichier en différentes partie.
+.SH SYNOPSIS
+.B split
+[\-lignes] [\-l lignes] [\-b nb_octets[bkm]] [\-C nb_octets[bkm]] [\-\-lines=lignes]
+[\-\-bytes=nb_octets[bkm]] [\-\-line-bytes=nb_octets[bkm]] [\-\-help] [\-\-version]
+[fichier_entrée [préfixe_sortie]]
+.SH DESCRIPTION
+Cette page de manuel documente la version GNU de
+.BR split .
+
+.B split
+crée un ou plusieurs fichiers (autant que nécessaire) contenant les
+sections consécutives du
+.IR fichier_d_entrée .
+
+Si aucun fichier n'est fourni, ou si le nom `\-' est mentionné, la lecture
+se fait depuis l'entrée standard.
+
+Par défaut,
+.B split
+copie 1000 lignes du fichier d'entrée (ou ce qu'il en reste) dans chaque
+fichier de sortie.
+.PP
+Le nom des fichiers de sortie est composé d'un préfixe suivi d'un groupe
+de lettres, choisi de telle manière que la concaténation des fichiers de sortie,
+triés suivant l'ordre alphabétique, restitue le fichier original.
+
+Le préfixe par défaut est `x'.  Si l'argument
+.I préfixe_sortie
+est fourni, celui ci est utilisé pour créer les noms des fichiers de sortie.
+.SS OPTIONS
+.TP
+.I "\-n, \-l n, \-\-lines=n"
+Copier
+.I n
+lignes du fichier d'entrée dans chacun des fichiers de sortie.
+.TP
+.I "\-b n[bkm], \-\-bytes=n[bkm]"
+Copier
+.I n
+octets du fichier d'entrée dans chacun des fichiers de sortie.
+.I n
+doit être un entier non nul, éventuellement suivi d'un caractère précisant
+une unité différente :
+.RS
+.IP b
+blocs de 512 octets.
+.IP k
+blocs de 1 Ko
+.IP m
+blocs de 1 Mo
+.RE
+.TP
+.I "\-C n[bkm], \-\-line-bytes=n[bkm]"
+Copier dans chaque fichier de sortie autant de lignes complètes
+que possible, sans dépasser
+.I n
+octets au maximum.
+Si une ligne est plus longue que
+.I n
+octets,
+\fBsplit\fP copiera \fIn\fP octets de la ligne dans chaque fichier
+jusqu'à ce qu'il reste moins de \fIn\fP octets sur la ligne, puis
+continuera normalement.
+.I n
+est indiqué avec le même format que dans l'option
+.IR \-\-bytes .
+.TP
+.I "\-\-help"
+Afficher un message d'aide sur la sortie standard et se terminer normalement.
+.TP
+.I "\-\-version"
+Afficher un numéro de version sur la sortie standard et se terminer normalement.
+
+.SH TRADUCTION
+Christophe Blaess, 1997-2003.
