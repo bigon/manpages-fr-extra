@@ -12,7 +12,7 @@
 # Guilhelm Panaget <guilhelm.panaget@free.fr>: cat, cksum, date, dir, mkdir,
 #      mkfifo, nohup, vdir
 # Jean-Luc Coulon <jean-luc.coulon@wanadoo.fr>: ln, ls, od, printf, seq,
-#      sort, stty
+#      sort, stty, uniq
 # Simon Paillard <simon.paillard@resel.enst-bretagne.fr>: mknod, mv
 # Luc Froidefond <luc.froidefond@free.fr>: md5sum, nl, paste, pathchk,
 #      pinky, printenv, ptx, rm, rmdir, runcon, shred, stat
@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: coreutils\n"
-"POT-Creation-Date: 2006-02-20 11:54+0100\n"
+"POT-Creation-Date: 2006-02-21 12:21+0100\n"
 "PO-Revision-Date: 2005-12-08 18:33+0000\n"
 "Last-Translator: Thomas Huriaux <thomas.huriaux@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -53,8 +53,8 @@ msgstr "RM"
 #: english/seq.1:2 english/pathchk.1:2 english/comm.1:2 english/stat.1:2
 #: english/mknod.1:2 english/mkfifo.1:2 english/csplit.1:2 english/nohup.1:2
 #: english/dd.1:2 english/cut.1:2 english/cksum.1:2 english/ls.1:2
-#: english/link.1:2 english/shred.1:2 english/expr.1:2 english/head.1:2
-#: english/join.1:2 english/paste.1:2 english/dirname.1:2
+#: english/link.1:2 english/shred.1:2 english/uniq.1:2 english/expr.1:2
+#: english/head.1:2 english/join.1:2 english/paste.1:2 english/dirname.1:2
 #, no-wrap
 msgid "November 2005"
 msgstr "Novembre 2005"
@@ -82,8 +82,8 @@ msgstr "rm 5.93"
 #: english/seq.1:2 english/pathchk.1:2 english/comm.1:2 english/stat.1:2
 #: english/mknod.1:2 english/mkfifo.1:2 english/csplit.1:2 english/nohup.1:2
 #: english/dd.1:2 english/cut.1:2 english/cksum.1:2 english/ls.1:2
-#: english/link.1:2 english/shred.1:2 english/expr.1:2 english/head.1:2
-#: english/join.1:2 english/paste.1:2 english/dirname.1:2
+#: english/link.1:2 english/shred.1:2 english/uniq.1:2 english/expr.1:2
+#: english/head.1:2 english/join.1:2 english/paste.1:2 english/dirname.1:2
 #, no-wrap
 msgid "User Commands"
 msgstr "Commandes"
@@ -103,8 +103,8 @@ msgstr "Commandes"
 #: english/seq.1:3 english/pathchk.1:3 english/comm.1:3 english/stat.1:3
 #: english/mknod.1:3 english/mkfifo.1:3 english/csplit.1:3 english/nohup.1:3
 #: english/dd.1:3 english/cut.1:3 english/cksum.1:3 english/ls.1:3
-#: english/link.1:3 english/shred.1:3 english/expr.1:3 english/head.1:3
-#: english/join.1:3 english/paste.1:3 english/dirname.1:3
+#: english/link.1:3 english/shred.1:3 english/uniq.1:3 english/expr.1:3
+#: english/head.1:3 english/join.1:3 english/paste.1:3 english/dirname.1:3
 #, no-wrap
 msgid "NAME"
 msgstr "NOM"
@@ -129,8 +129,8 @@ msgstr "rm - Effacer des fichiers et des répertoires"
 #: english/seq.1:5 english/pathchk.1:5 english/comm.1:5 english/stat.1:5
 #: english/mknod.1:5 english/mkfifo.1:5 english/csplit.1:5 english/nohup.1:5
 #: english/dd.1:5 english/cut.1:5 english/cksum.1:5 english/ls.1:5
-#: english/link.1:5 english/shred.1:5 english/expr.1:5 english/head.1:5
-#: english/join.1:5 english/paste.1:5 english/dirname.1:5
+#: english/link.1:5 english/shred.1:5 english/uniq.1:5 english/expr.1:5
+#: english/head.1:5 english/join.1:5 english/paste.1:5 english/dirname.1:5
 #, no-wrap
 msgid "SYNOPSIS"
 msgstr "SYNOPSIS"
@@ -156,8 +156,8 @@ msgstr "B<rm> [I<OPTION>]... I<FICHIER>..."
 #: english/pathchk.1:8 english/comm.1:8 english/stat.1:8 english/mknod.1:8
 #: english/mkfifo.1:8 english/csplit.1:8 english/nohup.1:11 english/dd.1:11
 #: english/cut.1:8 english/cksum.1:11 english/ls.1:8 english/link.1:11
-#: english/shred.1:8 english/expr.1:11 english/head.1:8 english/join.1:8
-#: english/paste.1:8 english/dirname.1:11
+#: english/shred.1:8 english/uniq.1:8 english/expr.1:11 english/head.1:8
+#: english/join.1:8 english/paste.1:8 english/dirname.1:11
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
@@ -298,8 +298,9 @@ msgstr "expliquer ce qui est fait"
 #: english/seq.1:27 english/pathchk.1:21 english/comm.1:25 english/stat.1:27
 #: english/mknod.1:20 english/mkfifo.1:20 english/csplit.1:32
 #: english/nohup.1:15 english/dd.1:140 english/cut.1:42 english/cksum.1:15
-#: english/ls.1:218 english/link.1:15 english/shred.1:38 english/expr.1:13
-#: english/head.1:32 english/join.1:41 english/paste.1:22 english/dirname.1:16
+#: english/ls.1:218 english/link.1:15 english/shred.1:38 english/uniq.1:40
+#: english/expr.1:13 english/head.1:32 english/join.1:41 english/paste.1:22
+#: english/dirname.1:16
 #, no-wrap
 msgid "B<--help>"
 msgstr "B<--help>"
@@ -320,8 +321,9 @@ msgstr "B<--help>"
 #: english/seq.1:30 english/pathchk.1:24 english/comm.1:28 english/stat.1:30
 #: english/mknod.1:23 english/mkfifo.1:23 english/csplit.1:35
 #: english/nohup.1:18 english/dd.1:143 english/cut.1:45 english/cksum.1:18
-#: english/ls.1:221 english/link.1:18 english/shred.1:41 english/expr.1:16
-#: english/head.1:35 english/join.1:44 english/paste.1:25 english/dirname.1:19
+#: english/ls.1:221 english/link.1:18 english/shred.1:41 english/uniq.1:43
+#: english/expr.1:16 english/head.1:35 english/join.1:44 english/paste.1:25
+#: english/dirname.1:19
 msgid "display this help and exit"
 msgstr "afficher l'aide-mémoire et quitter"
 
@@ -341,8 +343,9 @@ msgstr "afficher l'aide-mémoire et quitter"
 #: english/seq.1:30 english/pathchk.1:24 english/comm.1:28 english/stat.1:30
 #: english/mknod.1:23 english/mkfifo.1:23 english/csplit.1:35
 #: english/nohup.1:18 english/dd.1:143 english/cut.1:45 english/cksum.1:18
-#: english/ls.1:221 english/link.1:18 english/shred.1:41 english/expr.1:16
-#: english/head.1:35 english/join.1:44 english/paste.1:25 english/dirname.1:19
+#: english/ls.1:221 english/link.1:18 english/shred.1:41 english/uniq.1:43
+#: english/expr.1:16 english/head.1:35 english/join.1:44 english/paste.1:25
+#: english/dirname.1:19
 #, no-wrap
 msgid "B<--version>"
 msgstr "B<--version>"
@@ -363,8 +366,9 @@ msgstr "B<--version>"
 #: english/seq.1:33 english/pathchk.1:27 english/comm.1:31 english/stat.1:33
 #: english/mknod.1:26 english/mkfifo.1:26 english/csplit.1:38
 #: english/nohup.1:21 english/dd.1:146 english/cut.1:48 english/cksum.1:21
-#: english/ls.1:224 english/link.1:21 english/shred.1:44 english/expr.1:19
-#: english/head.1:38 english/join.1:47 english/paste.1:28 english/dirname.1:22
+#: english/ls.1:224 english/link.1:21 english/shred.1:44 english/uniq.1:46
+#: english/expr.1:19 english/head.1:38 english/join.1:47 english/paste.1:28
+#: english/dirname.1:22
 msgid "output version information and exit"
 msgstr "afficher le nom et la version du logiciel et quitter"
 
@@ -425,8 +429,9 @@ msgstr ""
 #: english/pathchk.1:27 english/comm.1:31 english/stat.1:143
 #: english/mknod.1:40 english/mkfifo.1:26 english/csplit.1:57
 #: english/nohup.1:25 english/dd.1:146 english/cut.1:67 english/cksum.1:21
-#: english/ls.1:236 english/link.1:21 english/shred.1:85 english/expr.1:92
-#: english/head.1:40 english/join.1:56 english/paste.1:28 english/dirname.1:29
+#: english/ls.1:236 english/link.1:21 english/shred.1:85 english/uniq.1:49
+#: english/expr.1:92 english/head.1:40 english/join.1:56 english/paste.1:28
+#: english/dirname.1:29
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTEUR"
@@ -454,8 +459,9 @@ msgstr ""
 #: english/pathchk.1:29 english/comm.1:33 english/stat.1:145
 #: english/mknod.1:42 english/mkfifo.1:28 english/csplit.1:59
 #: english/nohup.1:27 english/dd.1:148 english/cut.1:69 english/cksum.1:23
-#: english/ls.1:238 english/link.1:23 english/shred.1:87 english/expr.1:94
-#: english/head.1:42 english/join.1:58 english/paste.1:30 english/dirname.1:31
+#: english/ls.1:238 english/link.1:23 english/shred.1:87 english/uniq.1:51
+#: english/expr.1:94 english/head.1:42 english/join.1:58 english/paste.1:30
+#: english/dirname.1:31
 #, no-wrap
 msgid "REPORTING BUGS"
 msgstr "SIGNALER DES BOGUES"
@@ -476,8 +482,9 @@ msgstr "SIGNALER DES BOGUES"
 #: english/pathchk.1:31 english/comm.1:35 english/stat.1:147
 #: english/mknod.1:44 english/mkfifo.1:30 english/csplit.1:61
 #: english/nohup.1:29 english/dd.1:150 english/cut.1:71 english/cksum.1:25
-#: english/ls.1:240 english/link.1:25 english/shred.1:89 english/expr.1:96
-#: english/head.1:44 english/join.1:60 english/paste.1:32 english/dirname.1:33
+#: english/ls.1:240 english/link.1:25 english/shred.1:89 english/uniq.1:53
+#: english/expr.1:96 english/head.1:44 english/join.1:60 english/paste.1:32
+#: english/dirname.1:33
 msgid "Report bugs to E<lt>bug-coreutils@gnu.orgE<gt>."
 msgstr "Signaler toute anomalie à E<lt>bug-coreutils@gnu.orgE<gt>."
 
@@ -497,8 +504,9 @@ msgstr "Signaler toute anomalie à E<lt>bug-coreutils@gnu.orgE<gt>."
 #: english/pathchk.1:31 english/comm.1:35 english/stat.1:147
 #: english/mknod.1:44 english/mkfifo.1:30 english/csplit.1:61
 #: english/nohup.1:29 english/dd.1:150 english/cut.1:71 english/cksum.1:25
-#: english/ls.1:240 english/link.1:25 english/shred.1:89 english/expr.1:96
-#: english/head.1:44 english/join.1:60 english/paste.1:32 english/dirname.1:33
+#: english/ls.1:240 english/link.1:25 english/shred.1:89 english/uniq.1:53
+#: english/expr.1:96 english/head.1:44 english/join.1:60 english/paste.1:32
+#: english/dirname.1:33
 #, no-wrap
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
@@ -518,8 +526,9 @@ msgstr "COPYRIGHT"
 #: english/seq.1:47 english/pathchk.1:33 english/comm.1:37 english/stat.1:149
 #: english/mknod.1:46 english/mkfifo.1:32 english/csplit.1:63
 #: english/nohup.1:31 english/dd.1:152 english/cut.1:73 english/cksum.1:27
-#: english/ls.1:242 english/link.1:27 english/shred.1:91 english/expr.1:98
-#: english/head.1:46 english/join.1:62 english/paste.1:34 english/dirname.1:35
+#: english/ls.1:242 english/link.1:27 english/shred.1:91 english/uniq.1:55
+#: english/expr.1:98 english/head.1:46 english/join.1:62 english/paste.1:34
+#: english/dirname.1:35
 msgid "Copyright \\(co 2005 Free Software Foundation, Inc."
 msgstr "Copyright \\(co 2005 Free Software Foundation, Inc."
 
@@ -538,8 +547,9 @@ msgstr "Copyright \\(co 2005 Free Software Foundation, Inc."
 #: english/seq.1:51 english/pathchk.1:37 english/comm.1:41 english/stat.1:153
 #: english/mknod.1:50 english/mkfifo.1:36 english/csplit.1:67
 #: english/nohup.1:35 english/dd.1:156 english/cut.1:77 english/cksum.1:31
-#: english/ls.1:246 english/link.1:31 english/shred.1:95 english/expr.1:102
-#: english/head.1:50 english/join.1:66 english/paste.1:38 english/dirname.1:39
+#: english/ls.1:246 english/link.1:31 english/shred.1:95 english/uniq.1:59
+#: english/expr.1:102 english/head.1:50 english/join.1:66 english/paste.1:38
+#: english/dirname.1:39
 msgid ""
 "This is free software.  You may redistribute copies of it under the terms of "
 "the GNU General Public License E<lt>http://www.gnu.org/licenses/gpl."
@@ -566,8 +576,9 @@ msgstr ""
 #: english/seq.1:51 english/pathchk.1:37 english/comm.1:41 english/stat.1:153
 #: english/mknod.1:50 english/mkfifo.1:36 english/csplit.1:67
 #: english/nohup.1:35 english/dd.1:156 english/cut.1:77 english/cksum.1:31
-#: english/ls.1:246 english/link.1:31 english/shred.1:95 english/expr.1:102
-#: english/head.1:50 english/join.1:66 english/paste.1:38 english/dirname.1:39
+#: english/ls.1:246 english/link.1:31 english/shred.1:95 english/uniq.1:59
+#: english/expr.1:102 english/head.1:50 english/join.1:66 english/paste.1:38
+#: english/dirname.1:39
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
@@ -609,8 +620,9 @@ msgstr "B<info coreutils rm>"
 #: english/pathchk.1:48 english/comm.1:52 english/stat.1:164
 #: english/mknod.1:61 english/mkfifo.1:47 english/csplit.1:78
 #: english/nohup.1:46 english/dd.1:167 english/cut.1:88 english/cksum.1:42
-#: english/ls.1:257 english/link.1:42 english/shred.1:106 english/expr.1:113
-#: english/head.1:61 english/join.1:77 english/paste.1:49 english/dirname.1:50
+#: english/ls.1:257 english/link.1:42 english/shred.1:106 english/uniq.1:70
+#: english/expr.1:113 english/head.1:61 english/join.1:77 english/paste.1:49
+#: english/dirname.1:50
 msgid "should give you access to the complete manual."
 msgstr "devrait vous donner accès au manuel complet (en anglais)."
 
@@ -1005,7 +1017,7 @@ msgstr ""
 #: english/du.1:17 english/mv.1:20 english/install.1:25 english/mkdir.1:16
 #: english/fold.1:15 english/nl.1:15 english/mknod.1:17 english/mkfifo.1:17
 #: english/csplit.1:15 english/cut.1:14 english/ls.1:15 english/shred.1:15
-#: english/head.1:16 english/paste.1:16
+#: english/uniq.1:15 english/head.1:16 english/paste.1:16
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
@@ -1853,7 +1865,7 @@ msgstr ""
 "ou /tmp\\ ; des options multiples indiquent des répertoires multiples"
 
 # type: TP
-#: english/sort.1:66
+#: english/sort.1:66 english/uniq.1:34
 #, no-wrap
 msgid "B<-u>, B<--unique>"
 msgstr "B<-u>, B<--unique>"
@@ -3449,6 +3461,7 @@ msgstr ""
 
 # type: Plain text
 #: english/dir.1:238 english/vdir.1:238 english/comm.1:33 english/ls.1:238
+#: english/uniq.1:51
 msgid "Written by Richard Stallman and David MacKenzie."
 msgstr "Écrit par Richard Stallman et David MacKenzie."
 
@@ -11367,6 +11380,152 @@ msgstr ""
 #: english/shred.1:105
 msgid "B<info shred>"
 msgstr "B<info coreutils shred>"
+
+# type: TH
+#.  DO NOT MODIFY THIS FILE!  It was generated by help2man 1.35.
+#: english/uniq.1:2
+#, no-wrap
+msgid "UNIQ"
+msgstr "UNIQ"
+
+# type: TH
+#.  DO NOT MODIFY THIS FILE!  It was generated by help2man 1.35.
+#: english/uniq.1:2
+#, no-wrap
+msgid "uniq 5.93"
+msgstr "uniq 5.93"
+
+# type: Plain text
+#: english/uniq.1:5
+msgid "uniq - report or omit repeated lines"
+msgstr "uniq - Signaler ou éliminer les lignes répétées"
+
+# type: Plain text
+#: english/uniq.1:8
+msgid "B<uniq> [I<OPTION>]... [I<INPUT >[I<OUTPUT>]]"
+msgstr "B<uniq> [I<OPTION>]... [I<ENTRÉE >[I<SORTIE>]]"
+
+# type: Plain text
+#: english/uniq.1:13
+msgid ""
+"Discard all but one of successive identical lines from INPUT (or standard "
+"input), writing to OUTPUT (or standard output)."
+msgstr ""
+"Éliminer toutes les lignes successives identiques sauf une du fichier "
+"d'ENTRÉE (ou de l'entrée standard), écrire dans le fichier de SORTIE (ou "
+"vers la sortie standard)."
+
+# type: TP
+#: english/uniq.1:15
+#, no-wrap
+msgid "B<-c>, B<--count>"
+msgstr "B<-c>, B<--count>"
+
+# type: Plain text
+#: english/uniq.1:18
+msgid "prefix lines by the number of occurrences"
+msgstr "préfixer les lignes par le nombre d'occurrences"
+
+# type: TP
+#: english/uniq.1:18
+#, no-wrap
+msgid "B<-d>, B<--repeated>"
+msgstr "B<-d>, B<--repeated>"
+
+# type: Plain text
+#: english/uniq.1:21
+msgid "only print duplicate lines"
+msgstr "n'afficher que les lignes dupliquées"
+
+# type: TP
+#: english/uniq.1:21
+#, no-wrap
+msgid "B<-D>, B<--all-repeated>[=I<delimit-method>] print all duplicate lines"
+msgstr "B<-D>, B<--all-repeated>[=I<MÉTHODE_DE_DÉLIMITATION>] afficher toutes les lignes dupliquées"
+
+# type: Plain text
+#: english/uniq.1:25
+msgid ""
+"delimit-method={none(default),prepend,separate} Delimiting is done with "
+"blank lines."
+msgstr ""
+"MÉTHODE_DE_DÉLIMITATION peut prendre l'une des valeurs suivantes : "
+"« none » (valeur par défaut), « prepend » ou « separate ». La délimitation "
+"est faite avec des lignes blanches."
+
+# type: TP
+#: english/uniq.1:25
+#, no-wrap
+msgid "B<-f>, B<--skip-fields>=I<N>"
+msgstr "B<-f>, B<--skip-fields>=I<N>"
+
+# type: Plain text
+#: english/uniq.1:28
+msgid "avoid comparing the first N fields"
+msgstr "ne pas comparer les N premiers champs"
+
+# type: TP
+#: english/uniq.1:28
+#, no-wrap
+msgid "B<-i>, B<--ignore-case>"
+msgstr "B<-i>, B<--ignore-case>"
+
+# type: Plain text
+#: english/uniq.1:31
+msgid "ignore differences in case when comparing"
+msgstr "ignorer les différences de casse"
+
+# type: TP
+#: english/uniq.1:31
+#, no-wrap
+msgid "B<-s>, B<--skip-chars>=I<N>"
+msgstr "B<-s>, B<--skip-chars>=I<N>"
+
+# type: Plain text
+#: english/uniq.1:34
+msgid "avoid comparing the first N characters"
+msgstr "ne pas comparer les N premiers caractères"
+
+# type: Plain text
+#: english/uniq.1:37
+msgid "only print unique lines"
+msgstr "n'afficher que les lignes uniques"
+
+# type: TP
+#: english/uniq.1:37
+#, no-wrap
+msgid "B<-w>, B<--check-chars>=I<N>"
+msgstr "B<-w>, B<--check-chars>=I<N>"
+
+# type: Plain text
+#: english/uniq.1:40
+msgid "compare no more than N characters in lines"
+msgstr "ne pas comparer plus de N caractères par ligne"
+
+# type: Plain text
+#: english/uniq.1:49
+msgid ""
+"A field is a run of whitespace, then non-whitespace characters.  Fields are "
+"skipped before chars."
+msgstr ""
+"Un champ est une suite de blancs, suivi de caractères non-blancs. Les champs "
+"sont escamotés avant les caractères."
+
+# type: Plain text
+#: english/uniq.1:67
+msgid ""
+"The full documentation for B<uniq> is maintained as a Texinfo manual.  If "
+"the B<info> and B<uniq> programs are properly installed at your site, the "
+"command"
+msgstr ""
+"La documentation complète pour B<uniq> est disponible dans un manuel "
+"Texinfo. Si les programmes B<info> et B<uniq> sont correctement installés "
+"sur votre système, la commande"
+
+# type: Plain text
+#: english/uniq.1:69
+msgid "B<info uniq>"
+msgstr "B<info coreutils uniq>"
 
 # type: TH
 #.  DO NOT MODIFY THIS FILE!  It was generated by help2man 1.35.
