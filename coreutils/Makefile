@@ -16,5 +16,5 @@ build:
 
 clean:
 	po4a --rm-translations $(PO4ACONFIGFILE)
+	-rm -rf french
 	-rm -f $(PODIR)/*~
-	-rm -f french/man1/[.1 french/man1/md5sum.textutils.1
