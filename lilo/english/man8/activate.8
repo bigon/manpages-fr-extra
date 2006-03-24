@@ -1,0 +1,91 @@
+'\" t
+.\" @(#)activate.8
+.\" This page is based on the lilo docs, which carry the following
+.\" COPYING condition:
+.\"
+.\" LILO program code, documentation and auxiliary programs are
+.\" Copyright 1992-1994 Werner Almesberger.
+.\" All rights reserved.
+.\" 
+.\" Redistribution and use in source and binary forms of parts of or the
+.\" whole original or derived work are permitted provided that the
+.\" original work is properly attributed to the author. The name of the
+.\" author may not be used to endorse or promote products derived from
+.\" this software without specific prior written permission. This work
+.\" is provided "as is" and without any express or implied warranties.
+.\"
+.\" Original version of this manpage: 
+.\" Peter Maydell (pmaydell@chiark.greenend.org.uk), 03/1998
+.\"
+.TH ACTIVATE 8 "March 1998"
+.SH NAME
+activate \- read/write flags marking active boot partition
+.SH SYNOPSIS
+.B /sbin/activate
+.I device
+.br
+show which partition is currently marked active on device
+.br
+.B /sbin/activate
+.I device partition
+.br
+mark specified partition as active on given device
+.SH DESCRIPTION
+.LP
+.B activate
+is a simple program which sets the partition which will be used to boot
+the system. To be precise, it sets a flag in the partition table of the
+hard disk. This may or may not have an effect on the bootup procedure.
+PC booting is complicated, and this manual page does not attempt to
+explain it; for more information on what partition you should set active,
+you should consult the documentation for your bootloader (an example
+bootloader is 
+.B lilo,
+which has a good manual in /usr/share/doc/lilo/ on Debian systems).
+
+Note that programs such as
+.B fdisk
+will also allow you to set the active
+partition; it is probably better to use one of these, since they
+generally provide services such as allowing you to view the partition
+table before picking which partition to activate, and provide opportunity
+to confirm actions before writing to the partition table. However,
+these programs have more checking for 'wrong' values; for instance,
+they might not allow you to set the active flag on an extended partition
+(because this is generally a bad idea).
+.BR activate ,
+on the other hand, assumes you really do know what you're doing 
+and doesn't have any bothersome prompts or sanity checks.
+In particular, 
+.B activate
+makes
+.I no
+checks that the device you give has a partition table on it at all!
+If you specify the wrong device it will happily write garbage to it.
+
+.SH OPTIONS
+.I device
+should be a block device such as /dev/hda. Note that it does
+not make sense to give one of the partition devices such as /dev/hda3.
+
+.I partition
+should be a number between 1 and 4 specifying which partition should
+have the active flag set.
+
+If no partition number is given, activate will print out the partition
+which is currently marked active.
+.SH BUGS
+.B activate
+should check that the device actually has a partition table on it.
+
+.SH AUTHOR
+Werner Almesberger (almesber@bernina.ethz.ch).
+.br
+Peter Maydell (pmaydell@chiark.greenend.org.uk) wrote this manual page.
+.SH SEE ALSO
+.BR lilo (8),
+.BR fdisk (8)
+
+.B lilo
+comes with extensive documentation; this can be found in
+/usr/share/doc/lilo/ on Debian systems.
