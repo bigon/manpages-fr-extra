@@ -1,0 +1,24 @@
+# build: update po files if needed and generate manpages
+#
+# clean: update po files if needed and remove existing
+#        generated manpages
+
+PO4ADIR=po4a
+PODIR=$(PO4ADIR)/po
+PO4ACONFIGFILE=$(PO4ADIR)/$(PACKAGE).cfg
+
+all: build
+
+pre-build:
+
+po4a-build:
+	po4a $(PO4ACONFIGFILE)
+
+post-build:
+
+build: pre-build po4a-build post-build
+
+clean:
+	po4a --rm-translations $(PO4ACONFIGFILE)
+	-rm -rf french
+	-rm -f $(PODIR)/*~
