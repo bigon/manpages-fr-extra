@@ -1,19 +1,20 @@
-# SOME DESCRIPTIVE TITLE
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
-#, fuzzy
+# translation of fr.po to French
+# Copyright (C) 2006 Free Software Foundation, Inc.
+#
+# Florentin Duneau <fduneau@gmail.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: manpage-fr\n"
 "POT-Creation-Date: 2006-04-05 18:15+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-03-25 14:46+0100\n"
+"Last-Translator: Florentin Duneau <fduneau@gmail.com>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
 
+# type: TH
 #.  t
 #.  @(#)activate.8
 #.  This page is based on the lilo docs, which carry the following
@@ -29,12 +30,12 @@ msgstr ""
 #.  is provided "as is" and without any express or implied warranties.
 #.  Original version of this manpage: 
 #.  Peter Maydell (pmaydell@chiark.greenend.org.uk), 03/1998
-# type: TH
 #: english/man8/activate.8:20
 #, no-wrap
 msgid "ACTIVATE"
-msgstr ""
+msgstr "ACTIVATE"
 
+# type: TH
 #.  t
 #.  @(#)activate.8
 #.  This page is based on the lilo docs, which carry the following
@@ -50,54 +51,53 @@ msgstr ""
 #.  is provided "as is" and without any express or implied warranties.
 #.  Original version of this manpage: 
 #.  Peter Maydell (pmaydell@chiark.greenend.org.uk), 03/1998
-# type: TH
 #: english/man8/activate.8:20
 #, no-wrap
 msgid "March 1998"
-msgstr ""
+msgstr "Mars 1998"
 
 # type: SH
 #: english/man8/activate.8:21
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NOM"
 
 # type: Plain text
 #: english/man8/activate.8:23
 msgid "activate - read/write flags marking active boot partition"
-msgstr ""
+msgstr "activate - Lire/écrire des drapeaux activant une partition d'amorce"
 
 # type: SH
 #: english/man8/activate.8:23
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNOPSIS"
 
 # type: Plain text
 #: english/man8/activate.8:26
 msgid "B</sbin/activate> I<device>"
-msgstr ""
+msgstr "B</sbin/activate> I<périphérique>"
 
 # type: Plain text
 #: english/man8/activate.8:28
 msgid "show which partition is currently marked active on device"
-msgstr ""
+msgstr "afficher la partition active du périphérique"
 
 # type: Plain text
 #: english/man8/activate.8:31
 msgid "B</sbin/activate> I<device partition>"
-msgstr ""
+msgstr "B</sbin/activate> I<périphérique partition>"
 
 # type: Plain text
 #: english/man8/activate.8:33
 msgid "mark specified partition as active on given device"
-msgstr ""
+msgstr "activer la partition du périphérique"
 
 # type: SH
 #: english/man8/activate.8:33
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPTION"
 
 # type: Plain text
 #: english/man8/activate.8:45
@@ -110,6 +110,14 @@ msgid ""
 "consult the documentation for your bootloader (an example bootloader is "
 "B<lilo,> which has a good manual in /usr/share/doc/lilo/ on Debian systems)."
 msgstr ""
+"B<activate> est un programme qui définit la partition qui sera utilisée pour "
+"initialiser le système. Pour être précis, il place un drapeau dans la table "
+"de partitionnement du disque dur. Ceci pourrait avoir ou non des effets sur "
+"la procédure de démarrage. L'initialisation d'un PC est compliquée et ce "
+"manuel n'est pas une explication de celle-ci ; pour plus d'informations sur "
+"le choix de la partition à activer, vous devriez consulter la documentation "
+"de votre chargeur de démarrage (B<lilo> en est un, il possède un bon manuel "
+"dans /usr/share/doc/lilo sur les systèmes Debian)."
 
 # type: Plain text
 #: english/man8/activate.8:65
@@ -127,12 +135,26 @@ msgid ""
 "partition table on it at all! If you specify the wrong device it will "
 "happily write garbage to it."
 msgstr ""
+"Les programmes comme B<fdisk> permettent aussi de définir la partition "
+"active ; il est probablement mieux d'utiliser un de ces programmes "
+"puisqu'ils fournissent généralement des services vous permettant de voir la "
+"table de partitionnement avant de sélectionner la partition à activer et "
+"fournissent la possibilité de confirmer les actions avant d'écrire dans la "
+"table de partitionnement. Toutefois, ces programmes sont plus stricts vis à "
+"vis des « fausses » valeures ; par exemple, ils ne vous permettent pas de "
+"placer de drapeau actif sur une partition étendue (car c'est généralement "
+"une mauvaise idée). B<activate>, au contraire, suppose que vous savez ce que "
+"vous faites et n'est pas truffé de suggestions importunes ou de contrôles "
+"d'erreurs. En particulier, B<activate> I<ne> vérifie I<pas du tout> que le "
+"périphérique que vous lui donnez possède une table de partitionnement. Si "
+"vous indiquez le mauvais périphérique, il écrira n'importe quoi dedans, sans "
+"que cela ne lui pose problème."
 
 # type: SH
 #: english/man8/activate.8:66
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPTIONS"
 
 # type: Plain text
 #: english/man8/activate.8:70
@@ -140,6 +162,9 @@ msgid ""
 "I<device> should be a block device such as /dev/hda. Note that it does not "
 "make sense to give one of the partition devices such as /dev/hda3."
 msgstr ""
+"I<périphérique> devrait être un périphérique de disque dur comme /dev/hda. "
+"Il est complètement inutile de préciser l'une des partitions, comme /dev/"
+"hda3."
 
 # type: Plain text
 #: english/man8/activate.8:74
@@ -147,6 +172,8 @@ msgid ""
 "I<partition> should be a number between 1 and 4 specifying which partition "
 "should have the active flag set."
 msgstr ""
+"I<partition> devrait être un nombre entre 1 et 4 indiquant quelle partition "
+"devra avoir le drapeau actif."
 
 # type: Plain text
 #: english/man8/activate.8:77
@@ -154,12 +181,14 @@ msgid ""
 "If no partition number is given, activate will print out the partition which "
 "is currently marked active."
 msgstr ""
+"Si aucun numéro de partition n'est donné, activate affichera la partition "
+"qui est actuellement marquée active."
 
 # type: SH
 #: english/man8/activate.8:77
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "BOGUES"
 
 # type: Plain text
 #: english/man8/activate.8:80
@@ -167,37 +196,41 @@ msgid ""
 "B<activate> should check that the device actually has a partition table on "
 "it."
 msgstr ""
+"B<activate> devrait vérifier que le périphérique possède une table de "
+"partitionnement."
 
 # type: SH
 #: english/man8/activate.8:81
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "AUTEUR"
 
 # type: Plain text
 #: english/man8/activate.8:83
 msgid "Werner Almesberger (almesber@bernina.ethz.ch)."
-msgstr ""
+msgstr "Werner Almesberger (almesber@bernina.ethz.ch)."
 
 # type: Plain text
 #: english/man8/activate.8:85
 msgid "Peter Maydell (pmaydell@chiark.greenend.org.uk) wrote this manual page."
-msgstr ""
+msgstr "Peter Maydell (pmaydell@chiark.greenend.org.uk) a écrit ce manuel."
 
 # type: SH
 #: english/man8/activate.8:85
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VOIR AUSSI"
 
 # type: Plain text
 #: english/man8/activate.8:88
 msgid "B<lilo>(8), B<fdisk>(8)"
-msgstr ""
+msgstr "B<lilo>(8), B<fdisk>(8)"
 
 # type: Plain text
 #: english/man8/activate.8:91
 msgid ""
-"B<lilo> comes with extensive documentation; this can be found in "
-"/usr/share/doc/lilo/ on Debian systems."
+"B<lilo> comes with extensive documentation; this can be found in /usr/share/"
+"doc/lilo/ on Debian systems."
 msgstr ""
+"B<lilo> est fourni avec une large documentation ; elle peut être trouvée "
+"dans /usr/share/doc/lilo sur les systèmes Debian."
