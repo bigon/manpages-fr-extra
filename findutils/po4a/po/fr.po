@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2006-04-06 15:36+0200\n"
+"POT-Creation-Date: 2006-04-06 15:40+0200\n"
 "PO-Revision-Date: 2006-03-16 14:27+0100\n"
 "Last-Translator: Florentin Duneau <fduneau@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -16,28 +16,338 @@ msgstr ""
 
 # type: TH
 #.  -*- nroff -*-
+#: english/man1/updatedb.1:1
+#, no-wrap
+msgid "UPDATEDB"
+msgstr "UPDATEDB"
+
+# type: SH
+#: english/man1/updatedb.1:2 english/man1/locate.1:2
+#, no-wrap
+msgid "NAME"
+msgstr "NOM"
+
+# type: Plain text
+#: english/man1/updatedb.1:4
+msgid "updatedb - update a file name database"
+msgstr "B<updatedb> - Mettre à jour la base de noms de fichiers"
+
+# type: SH
+#: english/man1/updatedb.1:4 english/man1/locate.1:4
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr "SYNOPSIS"
+
+# type: Plain text
+#: english/man1/updatedb.1:6
+msgid "B<updatedb [>I<options>B<]>"
+msgstr "B<updatedb [>I<options>B<]>"
+
+# type: SH
+#: english/man1/updatedb.1:6 english/man1/locate.1:11
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "DESCRIPTION"
+
+# type: Plain text
+#: english/man1/updatedb.1:19
+msgid ""
+"This manual page documents the GNU version of B<updatedb>, which updates "
+"file name databases used by GNU B<locate>.  The file name databases contain "
+"lists of files that were in particular directory trees when the databases "
+"were last updated.  The file name of the default database is determined when "
+"B<locate> and B<updatedb> are configured and installed.  The frequency with "
+"which the databases are updated and the directories for which they contain "
+"entries depend on how often B<updatedb> is run, and with which arguments."
+msgstr ""
+"Cette page de manuel documente la version GNU de « updatedb » qui met à jour "
+"les bases de noms de fichiers utilisées par GNU B<locate>. Les bases de noms "
+"de fichiers contiennent des listes de fichiers qui étaient dans des "
+"arborescences de répertoires particulières lors de la dernière mise à jour. "
+"Le nom de fichier par défaut de la base de données est déterminé lorsque "
+"B<locate> et B<updatedb> sont installés et configurés. La fréquence des "
+"mises à jour et les répertoires référencés dépendent de combien de fois "
+"B<updatedb> est lancé et avec quels paramètres. "
+
+# type: Plain text
+#: english/man1/updatedb.1:28
+msgid ""
+"In networked environments, it often makes sense to build a database at the "
+"root of each filesystem, containing the entries for that filesystem.  "
+"B<updatedb> is then run for each filesystem on the fileserver where that "
+"filesystem is on a local disk, to prevent thrashing the network.  Users can "
+"select which databases B<locate> searches using an environment variable or "
+"command line option; see B<locate>(1).  Databases can not be concatenated "
+"together."
+msgstr ""
+"Dans un environnement réseau, il est souvent plus sensé de construire les "
+"bases de données qui contiennent les entrées du système de fichiers à la "
+"racine de celui-ci. B<updatedb> est donc exécuté pour chaque système de "
+"fichiers sur le serveur de fichiers où son système de fichiers est sur un "
+"disque local afin de prévenir un encombrement du réseau. Les utilisateurs "
+"peuvent choisir avec quelles bases de données B<locate> fera les recherches, "
+"en utilisant une variable d'environnement ou un paramètre en ligne de "
+"commande ; voyez B<locate>(1). Les bases de données ne peuvent pas être "
+"concaténées."
+
+# type: Plain text
+#: english/man1/updatedb.1:42
+msgid ""
+"The file name database format changed starting with GNU B<find> and "
+"B<locate> version 4.0 to allow machines with different byte orderings to "
+"share the databases.  The new GNU B<locate> can read both the old and new "
+"database formats.  However, old versions of B<locate> and B<find> produce "
+"incorrect results if given a new-format database."
+msgstr ""
+"Le format de la base de noms a changé à partir de la version 4.0 de B<find> "
+"et B<locate> pour permettre aux machines ordonnant leurs octets différemment "
+"de partager les bases de noms. Le nouveau GNU B<locate> peut lire à la fois "
+"les anciens et les nouveaux formats des bases de noms."
+
+# type: SH
+#: english/man1/updatedb.1:42 english/man1/locate.1:51
+#, no-wrap
+msgid "OPTIONS"
+msgstr "OPTIONS"
+
+# type: TP
+#: english/man1/updatedb.1:43
+#, no-wrap
+msgid "B<--findoptions='>I<-option1 -option2...>B<'>"
+msgstr "B<--findoptions='>I<-option1 -option2...>B<'>"
+
+# type: Plain text
+#: english/man1/updatedb.1:48
+msgid ""
+"Global options to pass on to B<find>.  The environment variable "
+"B<FINDOPTIONS> also sets this value.  Default is none."
+msgstr ""
+"Paramètres globaux à passer à B<find>. La variable d'environnement "
+"B<FINDOPTIONS> définit aussi ces paramètres. Par défaut, il n'y en a aucun."
+
+# type: TP
+#: english/man1/updatedb.1:48
+#, no-wrap
+msgid "B<--localpaths='>I<path1 path2...>B<'>"
+msgstr "B<--localpaths='>I<chemin1 chemin2...>B<'>"
+
+# type: Plain text
+#: english/man1/updatedb.1:52
+msgid "Non-network directories to put in the database.  Default is /."
+msgstr ""
+"Répertoires locaux à référencer dans la base de données. La valeur par "
+"défaut est « / »."
+
+# type: TP
+#: english/man1/updatedb.1:52
+#, no-wrap
+msgid "B<--netpaths='>I<path1 path2...>B<'>"
+msgstr "B<--netpaths='>I<chemin1 chemin2...>B<'>"
+
+# type: Plain text
+#: english/man1/updatedb.1:57
+msgid ""
+"Network (NFS, AFS, RFS, etc.) directories to put in the database.  The "
+"environment variable B<NETPATHS> also sets this value.  Default is none."
+msgstr ""
+"Répertoires distants (NFS, AFS, RFS, etc.) à référencer dans la base de "
+"données. La variable d'environnement B<NETPATHS> définit ce paramètre. Par "
+"défaut, il n'y en a aucun."
+
+# type: TP
+#: english/man1/updatedb.1:57
+#, no-wrap
+msgid "B<--prunepaths='>I<path1 path2...>B<'>"
+msgstr "B<--prunepaths='>I<chemin1 chemin2...>B<'>"
+
+# type: Plain text
+#: english/man1/updatedb.1:66
+msgid ""
+"Directories to not put in the database, which would otherwise be.  Remove "
+"any trailing slashes from the path names, otherwise B<updatedb> won\\'t "
+"recognise the paths you want to omit (because it uses them as regular "
+"expression patterns).  The environment variable B<PRUNEPATHS> also sets this "
+"value.  Default is /tmp /usr/tmp /var/tmp /afs."
+msgstr ""
+"Répertoires à ne pas référencer dans la base de données qui autrement y "
+"seraient. Supprimer les « / » à la fin des chemins, sinon B<updatedb> ne "
+"reconnaîtra  pas les chemins des répertoires que vous voulez ignorer (car il "
+"les comprend alors comme des motifs d'expressions régulières). La variable "
+"d'environnement B<PRUNEPATHS> définit aussi cette valeur. La valeur par "
+"défaut est « /tmp /usr/tmp /var/tmp /afs »."
+
+# type: TP
+#: english/man1/updatedb.1:66
+#, no-wrap
+msgid "B<--prunefs='>I<path...>B<'>"
+msgstr "B<--prunefs='>I<chemin...>B<'>"
+
+# type: Plain text
+#: english/man1/updatedb.1:75
+msgid ""
+"File systems to not put in the database, which would otherwise be.  Note "
+"that files are pruned when a file system is reached; Any file system mounted "
+"under an undesired file system will be ignored.  The environment variable "
+"B<PRUNEFS> also sets this value.  Default is I<nfs NFS proc>."
+msgstr ""
+"Systèmes de fichiers à ne pas référencer dans la base de données, qui "
+"autrement y seraient. Notez que les fichiers sont ignorés quand le système "
+"de fichiers est atteint ; tout système de fichiers monté avec un mauvais "
+"type de  système de fichiers sera ignoré. La variable d'environnement "
+"B<PRUNEFS> définit aussi cette valeur. La valeur par défaut est I<nfs NFS "
+"proc>."
+
+# type: TP
+#: english/man1/updatedb.1:75
+#, no-wrap
+msgid "B<--output=>I<dbfile>"
+msgstr "B<--output=>I<dbfile>"
+
+# type: Plain text
+#: english/man1/updatedb.1:80
+msgid ""
+"The database file to build.  Default is system-dependent.  In Debian GNU/"
+"Linux, the default is /var/cache/locate/locatedb."
+msgstr ""
+"Le fichier de la base de données à construire. La valeur par défaut dépend "
+"du système. Sous Debian GNU/Linux, la valeur par défaut est « /var/cache/"
+"locate/updatedb »."
+
+# type: TP
+#: english/man1/updatedb.1:80
+#, no-wrap
+msgid "B<--localuser=>I<user>"
+msgstr "B<--localuser=>I<utilisateur>"
+
+# type: Plain text
+#: english/man1/updatedb.1:85
+msgid ""
+"The user to search non-network directories as, using B<su>(1).  Default is "
+"to search the non-network directories as the current user.  You can also use "
+"the environment variable B<LOCALUSER> to set this user."
+msgstr ""
+"Faire une recherche dans les répertoires locaux avec l'identifiant "
+"utilisateur en utilisant B<su>(1). Par défaut, la recherche dans les "
+"répertoires non réseaux se fait avec l'utilisateur courant. Vous pouvez "
+"aussi utiliser la variable d'environnement B<LOCALUSER> pour définir cet "
+"utilisateur."
+
+# type: TP
+#: english/man1/updatedb.1:85
+#, no-wrap
+msgid "B<--netuser=>I<user>"
+msgstr "B<--netuser=>I<user>"
+
+# type: Plain text
+#: english/man1/updatedb.1:90
+msgid ""
+"The user to search network directories as, using B<su>(1).  Default is "
+"B<daemon>.  You can also use the environment variable B<NETUSER> to set this "
+"user."
+msgstr ""
+"Faire une recherche dans les répertoires réseaux avec l'identifiant "
+"utilisateur en utilisant B<su>(1). L'utilisateur par défaut est B<daemon>. "
+"Vous pouvez aussi utiliser la variable d'environnement B<NETUSER> pour "
+"définir cet utilisateur."
+
+# type: TP
+#: english/man1/updatedb.1:90
+#, no-wrap
+msgid "B<--old-format>"
+msgstr "B<--old-format>"
+
+# type: Plain text
+#: english/man1/updatedb.1:93
+msgid "Create the database in the old format instead of the new one."
+msgstr "Créer une base de données avec l'ancien format au lieu du nouveau."
+
+# type: TP
+#: english/man1/updatedb.1:93
+#, no-wrap
+msgid "B<--version>"
+msgstr "B<--version>"
+
+# type: Plain text
+#: english/man1/updatedb.1:98
+msgid "Print the version number of B<updatedb> and exit."
+msgstr "Afficher le numéro de version de B<updatedb> et quitter."
+
+# type: TP
+#: english/man1/updatedb.1:98 english/man1/locate.1:171
+#, no-wrap
+msgid "I<--help>"
+msgstr "I<--help>"
+
+# type: Plain text
+#: english/man1/updatedb.1:103
+msgid "Print a summary of the options to B<updatedb> and exit."
+msgstr "Afficher un résumé des options de B<updatedb> et quitter."
+
+# type: SH
+#: english/man1/updatedb.1:103 english/man1/locate.1:189
+#, no-wrap
+msgid "SEE ALSO"
+msgstr "VOIR AUSSI"
+
+# type: Plain text
+#: english/man1/updatedb.1:106
+msgid ""
+"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> (on-"
+"line in Info, or printed)"
+msgstr ""
+"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> (en "
+"ligne avec info ou en version imprimée)"
+
+# type: SH
+#: english/man1/updatedb.1:106 english/man1/locate.1:193
+#, no-wrap
+msgid "BUGS"
+msgstr "BOGUES"
+
+# type: Plain text
+#: english/man1/updatedb.1:118
+msgid ""
+"The B<updatedb> program correctly handles filenames containing newlines, but "
+"only if the system's sort command has a working I<-z> option.  If you "
+"suspect that B<locate> may need to return filenames containing newlines, "
+"consider using its I<--null> option."
+msgstr ""
+"Le programme B<updatedb> manipule correctement des noms de fichiers "
+"contenant des caratères saut de ligne, mais seulement si la commande système "
+"sort possède une option I<-z> opérationnelle. Si vous supectez que B<locate> "
+"ait besoin de retourner des noms de fichiers incluant des caractères saut de "
+"ligne, alors utilisez l'option I<--null>."
+
+# type: Plain text
+#: english/man1/updatedb.1:126
+msgid ""
+"The best way to report a bug is to use the form at http://savannah.gnu.org/"
+"bugs/?group=findutils.  The reason for this is that you will then be able to "
+"track progress in fixing the problem.  Other comments about B<updatedb>(1) "
+"and about the findutils package in general can be sent to the I<bug-"
+"findutils> mailing list.  To join the list, send email to I<bug-findutils-"
+"request@gnu.org>."
+msgstr ""
+"La meilleure façon de signaler un bogue est d'utiliser le formulaire à "
+"l'adresse http://savannah.gnu.org/bugs/?group=findutils. L'utilité de cette "
+"page est que vous serez en mesure de suivre l'évolution de la correction du "
+"problème. D'autres commentaires à propos de B<updatedb>(1) et du paquet "
+"findutils peuvent être envoyés à la liste de diffusion I<bug-findutils>. "
+"Pour s'abonner à cette liste, envoyez un courriel à I<bug-findutils-"
+"request@gnu.org>."
+
+# type: TH
+#.  -*- nroff -*-
 #: english/man1/locate.1:1
 #, no-wrap
 msgid "LOCATE"
 msgstr "LOCATE"
-
-# type: SH
-#: english/man1/locate.1:2
-#, no-wrap
-msgid "NAME"
-msgstr "NOM"
 
 # type: Plain text
 #: english/man1/locate.1:4
 msgid "locate - list files in databases that match a pattern"
 msgstr ""
 "locate - Lister des fichiers d'une base de données correspondant à un motif"
-
-# type: SH
-#: english/man1/locate.1:4
-#, no-wrap
-msgid "SYNOPSIS"
-msgstr "SYNOPSIS"
 
 # type: Plain text
 #: english/man1/locate.1:11
@@ -53,12 +363,6 @@ msgstr ""
 "basename] [-l N | --limit=N] [-S | --statistics] [-r | --regex ] [-P | -H | "
 "--nofollow] [-L | --follow] [--version] [-A | --all] [-p | --print] [--help] "
 "motif..."
-
-# type: SH
-#: english/man1/locate.1:11
-#, no-wrap
-msgid "DESCRIPTION"
-msgstr "DESCRIPTION"
 
 # type: Plain text
 #: english/man1/locate.1:25
@@ -131,12 +435,6 @@ msgstr ""
 "inhabituels en sortie sont échappés de la même façon que par l'action B<-"
 "print> de la commande B<find>. Si la sortie n'est pas dirigée vers un "
 "terminal, les noms de fichier sont imprimés exactement comme ils sont."
-
-# type: SH
-#: english/man1/locate.1:51
-#, no-wrap
-msgid "OPTIONS"
-msgstr "OPTIONS"
 
 # type: TP
 #: english/man1/locate.1:52
@@ -453,12 +751,6 @@ msgstr ""
 "statistics. Cependant la sortie de B<locate -S> est différente pour les "
 "implémentations GNU et BSD de B<locate>."
 
-# type: TP
-#: english/man1/locate.1:171
-#, no-wrap
-msgid "I<--help>"
-msgstr "I<--help>"
-
 # type: Plain text
 #: english/man1/locate.1:176
 msgid "Print a summary of the options to B<locate> and exit."
@@ -499,12 +791,6 @@ msgstr ""
 "« : » sur une ligne, le résultat dépendra des différentes versions de "
 "B<locate>."
 
-# type: SH
-#: english/man1/locate.1:189
-#, no-wrap
-msgid "SEE ALSO"
-msgstr "VOIR AUSSI"
-
 # type: Plain text
 #: english/man1/locate.1:193
 msgid ""
@@ -513,12 +799,6 @@ msgid ""
 msgstr ""
 "B<find>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<glob>(3), "
 "B<Finding Files> (en ligne dans Info ou en version imprimée)"
-
-# type: SH
-#: english/man1/locate.1:193
-#, no-wrap
-msgid "BUGS"
-msgstr "BOGUES"
 
 # type: Plain text
 #: english/man1/locate.1:203
