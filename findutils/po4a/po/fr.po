@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2006-04-06 15:40+0200\n"
+"POT-Creation-Date: 2006-04-11 22:38+0200\n"
 "PO-Revision-Date: 2006-03-16 14:27+0100\n"
 "Last-Translator: Florentin Duneau <fduneau@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -16,16 +16,310 @@ msgstr ""
 
 # type: TH
 #.  -*- nroff -*-
+#: english/man5/locatedb.5:1
+#, no-wrap
+msgid "LOCATEDB"
+msgstr "LOCATEDB"
+
+# type: SH
+#: english/man5/locatedb.5:2 english/man1/updatedb.1:2 english/man1/locate.1:2
+#, no-wrap
+msgid "NAME"
+msgstr "NOM"
+
+# type: Plain text
+#: english/man5/locatedb.5:4
+msgid "locatedb - front-compressed file name database"
+msgstr "locatedb - Compression des bases de données de noms de fichiers"
+
+# type: SH
+#: english/man5/locatedb.5:4 english/man1/updatedb.1:6
+#: english/man1/locate.1:11
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "DESCRIPTION"
+
+# type: Plain text
+#: english/man5/locatedb.5:10
+msgid ""
+"This manual page documents the format of file name databases for the GNU "
+"version of B<locate>.  The file name databases contain lists of files that "
+"were in particular directory trees when the databases were last updated."
+msgstr ""
+"Cette page de manuel documente le format des bases de noms de fichiers de la "
+"version GNU de B<locate>. Les bases de données de noms de fichiers "
+"contiennent des listes de fichiers qui étaient dans des arborescences de "
+"répertoires particulières lors de la dernière mise à jour des bases de "
+"données."
+
+# type: Plain text
+#: english/man5/locatedb.5:19
+msgid ""
+"There can be multiple databases.  Users can select which databases B<locate> "
+"searches using an environment variable or command line option; see B<locate>"
+"(1).  The system administrator can choose the file name of the default "
+"database, the frequency with which the databases are updated, and the "
+"directories for which they contain entries.  Normally, file name databases "
+"are updated by running the B<updatedb> program periodically, typically "
+"nightly; see B<updatedb>(1)."
+msgstr ""
+"Il est possible d'avoir plusieurs bases de données. Les utilisateurs peuvent "
+"sélectionner la base de données de recherche en utilisant une variable "
+"d'environnement ou une option en ligne de commande ; consultez B<locate>(1). "
+"L'administrateur système peut choisir le nom du fichier de la base de "
+"données par défaut, la fréquence des mises à jour et les répertoires à "
+"référencer. Normalement, les bases de noms de fichiers sont mises à jours en "
+"exécutant B<updatedb> périodiquement, typiquement chaque nuit ; consultez "
+"B<updatedb>(1)."
+
+# type: Plain text
+#: english/man5/locatedb.5:24
+msgid ""
+"B<updatedb> runs a program called B<frcode> to compress the list of file "
+"names using front-compression, which reduces the database size by a factor "
+"of 4 to 5.  Front-compression (also known as incremental encoding) works as "
+"follows."
+msgstr ""
+"B<updatedb> exécute un programme appelé B<frcode> pour compresser la liste "
+"des noms de fichier en utilisant « front-compression » qui réduit la taille "
+"de la base de données d'un facteur 4 à 5. « Front-compression » (aussi connu "
+"comme un encodeur incrémental) travaille comme suit."
+
+# type: Plain text
+#: english/man5/locatedb.5:34
+msgid ""
+"The database entries are a sorted list (case-insensitively, for users' "
+"convenience).  Since the list is sorted, each entry is likely to share a "
+"prefix (initial string) with the previous entry.  Each database entry begins "
+"with an offset-differential count byte, which is the additional number of "
+"characters of prefix of the preceding entry to use beyond the number that "
+"the preceding entry is using of its predecessor.  (The counts can be "
+"negative.)  Following the count is a null-terminated ASCII remainder \\(em "
+"the part of the name that follows the shared prefix."
+msgstr ""
+"Les entrées de la base de données sont triées (sans distinction des "
+"minuscules et des majuscules pour la convenance des utilisateurs). Puisque "
+"la liste est triée, chaque entrée partage probablement un préfixe (début du "
+"nom de fichier) avec l'entrée précédente. Chaque entrée de la base de "
+"données débute avec un octet de compteur de décalage différentiel, composé "
+"du nombre de caractères supplémentaires à ajouter par rapport au préfixe de "
+"l'entrée précédente qui n'étaient pas déjà partagés avec le prédecesseur. "
+"(Les compteurs peuvent être négatifs.) Vient ensuite le reste du compteur "
+"terminé par un reste de caractère ASCII, à savoir la partie du nom qui suit "
+"le préfixe partagé."
+
+# type: Plain text
+#: english/man5/locatedb.5:38
+msgid ""
+"If the offset-differential count is larger than can be stored in a byte (+/-"
+"127), the byte has the value 0x80 and the count follows in a 2-byte word, "
+"with the high byte first (network byte order)."
+msgstr ""
+"Si le compteur de décalage différentiel est plus grand que la valeur d'un "
+"octet (+/- 127), l'octet prend la valeur 0x80 et le compteur qui suit est un "
+"mot de 2 octets avec le poids fort en premier (ordre des octets réseau)."
+
+# type: Plain text
+#: english/man5/locatedb.5:42
+msgid ""
+"Every database begins with a dummy entry for a file called `LOCATE02', which "
+"B<locate> checks for to ensure that the database file has the correct "
+"format; it ignores the entry in doing the search."
+msgstr ""
+"Toute base de donnée débute avec une entrée factice d'un fichier appelé "
+"« LOCATE02 » que B<locate> vérifie pour s'assurer que la base de données de "
+"fichiers se trouve dans un format correct ; il ignore cette entrée pendant "
+"les recherches."
+
+# type: Plain text
+#: english/man5/locatedb.5:47
+msgid ""
+"Databases can not be concatenated together, even if the first (dummy) entry "
+"is trimmed from all but the first database.  This is because the offset-"
+"differential count in the first entry of the second and following databases "
+"will be wrong."
+msgstr ""
+"Les bases de données ne peuvent pas être concaténées ensemble même si la "
+"première entrée (factice) est enlevée de toutes les bases de données sauf "
+"pour la première. La raison en est que le compteur de décalage différentiel "
+"de la première entrée de la seconde et des suivantes bases de données serait "
+"erroné."
+
+# type: Plain text
+#: english/man5/locatedb.5:65
+msgid ""
+"There is also an old database format, used by Unix B<locate> and B<find> "
+"programs and earlier releases of the GNU ones.  B<updatedb> runs programs "
+"called B<bigram> and B<code> to produce old-format databases.  The old "
+"format differs from the above description in the following ways.  Instead of "
+"each entry starting with an offset-differential count byte and ending with a "
+"null, byte values from 0 through 28 indicate offset-differential counts from "
+"-14 through 14.  The byte value indicating that a long offset-differential "
+"count follows is 0x1e (30), not 0x80.  The long counts are stored in host "
+"byte order, which is not necessarily network byte order, and host integer "
+"word size, which is usually 4 bytes.  They also represent a count 14 less "
+"than their value.  The database lines have no termination byte; the start of "
+"the next line is indicated by its first byte having a value E<lt>= 30."
+msgstr ""
+"Un ancien format de base de données est également utilisé par les programmes "
+"Unix B<locate> et B<find> et leurs premières versions GNU. B<updatedb> "
+"exécute des programmes appellés B<bigram> et B<code> pour créer les bases de "
+"données dans l'ancien format. L'ancien format diffère de la description ci-"
+"dessus de la façon suivante. Au lieu que chaque entrée commence avec un "
+"octet de compteur de décalage différentiel et finisse avec un octet nul, les "
+"valeurs d'octets comprises entre 0 et 28 indiquent un compteur de décalage "
+"différentiel compris entre -14 et 14. L'octet, indiquant qu'un compteur de "
+"décalage différentiel long suit, est 0x1e (30) et non 0x80. Les compteurs "
+"longs sont ordonnés selon l'hôte, qui n'est pas forcément l'ordre des octets "
+"réseau et selon la taille des mots entier de l'hôte qui est habituellement "
+"de 4 octets. Ils représentent un compteur dont leurs valeurs sont "
+"soustraites de 14. Les lignes de la bases de données ne possède pas d'octet "
+"de terminaison ; le début de la ligne suivante est indiqué par le premier "
+"octet de valeur E<lt>= 30."
+
+# type: Plain text
+#: english/man5/locatedb.5:76
+msgid ""
+"In addition, instead of starting with a dummy entry, the old database format "
+"starts with a 256 byte table containing the 128 most common bigrams in the "
+"file list.  A bigram is a pair of adjacent bytes.  Bytes in the database "
+"that have the high bit set are indexes (with the high bit cleared) into the "
+"bigram table.  The bigram and offset-differential count coding makes these "
+"databases 20-25% smaller than the new format, but makes them not 8-bit "
+"clean.  Any byte in a file name that is in the ranges used for the special "
+"codes is replaced in the database by a question mark, which not "
+"coincidentally is the shell wildcard to match a single character."
+msgstr ""
+"En plus, au lieu de débuter avec une entrée factice, l'ancien format des "
+"bases de données débute avec une liste de 256 octets contenant les 128 "
+"« bigrams » les plus fréquents de la liste de fichiers. Un « bigram » est "
+"une paire d'octets contiguë. Les octets dans la base de données qui ont le "
+"bit de poids fort à 1 sont indexés (avec le bit de poids fort à 0) dans la "
+"table de « bigrams ». Le « bigram » et le codage du compteur de décalage "
+"différentiel fait que ces bases de données sont 20 à 25 % plus petites que "
+"celles du nouveau format mais elles ne sont pas dans un format 8 bits "
+"classique. Tout octet dans un nom de fichier qui est dans l'intervalle "
+"utilisé par les codes spéciaux est remplacé dans la base de données par un "
+"« ? » qui sans aucune coïncidence est le caractère spécial de l'interpréteur "
+"de commande pour la correspondance d'un seul caractère."
+
+# type: SH
+#: english/man5/locatedb.5:76
+#, no-wrap
+msgid "EXAMPLE"
+msgstr "EXEMPLE"
+
+# type: Plain text
+#.  with nulls changed to newlines:
+#: english/man5/locatedb.5:85
+#, no-wrap
+msgid ""
+"Input to B<frcode>:\n"
+"/usr/src\n"
+"/usr/src/cmd/aardvark.c\n"
+"/usr/src/cmd/armadillo.c\n"
+"/usr/tmp/zoo\n"
+msgstr ""
+"Entrées de B<frcode> :\n"
+"/usr/src\n"
+"/usr/src/cmd/aardvark.c\n"
+"/usr/src/cmd/armadillo.c\n"
+"/usr/tmp/zoo\n"
+
+# type: Plain text
+#: english/man5/locatedb.5:91
+#, no-wrap
+msgid ""
+"Length of the longest prefix of the preceding entry to share:\n"
+"0 /usr/src\n"
+"8 /cmd/aardvark.c\n"
+"14 rmadillo.c\n"
+"5 tmp/zoo\n"
+msgstr ""
+"Longueur du plus long préfixe de l'entrée précédente à partager :\n"
+"0 /usr/src\n"
+"8 /cmd/aardvark.c\n"
+"14 rmadillo.c\n"
+"5 tmp/zoo\n"
+
+# type: Plain text
+#: english/man5/locatedb.5:95
+msgid ""
+"Output from B<frcode>, with trailing nulls changed to newlines and count "
+"bytes made printable:"
+msgstr ""
+"Sortie de B<frcode> avec les caractères nuls restant changés en caractères "
+"saut de ligne et les octets de compteurs rendus affichables :"
+
+# type: Plain text
+#: english/man5/locatedb.5:101
+#, no-wrap
+msgid ""
+"0 LOCATE02\n"
+"0 /usr/src\n"
+"8 /cmd/aardvark.c\n"
+"6 rmadillo.c\n"
+"-9 tmp/zoo\n"
+msgstr ""
+"0 LOCATE02\n"
+"0 /usr/src\n"
+"8 /cmd/aardvark.c\n"
+"6 rmadillo.c\n"
+"-9 tmp/zoo\n"
+
+# type: Plain text
+#: english/man5/locatedb.5:103
+#, no-wrap
+msgid "(6 = 14 - 8, and -9 = 5 - 14)\n"
+msgstr "(6 = 14 - 8 et -9 = 5 - 14)\n"
+
+# type: SH
+#: english/man5/locatedb.5:104 english/man1/updatedb.1:103
+#: english/man1/locate.1:189
+#, no-wrap
+msgid "SEE ALSO"
+msgstr "VOIR AUSSI"
+
+# type: Plain text
+#: english/man5/locatedb.5:107 english/man1/updatedb.1:106
+msgid ""
+"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> (on-"
+"line in Info, or printed)"
+msgstr ""
+"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> (en "
+"ligne avec info ou en version imprimée)"
+
+# type: SH
+#: english/man5/locatedb.5:107 english/man1/updatedb.1:106
+#: english/man1/locate.1:193
+#, no-wrap
+msgid "BUGS"
+msgstr "BOGUES"
+
+# type: Plain text
+#: english/man5/locatedb.5:116 english/man1/locate.1:211
+msgid ""
+"The best way to report a bug is to use the form at http://savannah.gnu.org/"
+"bugs/?group=findutils.  The reason for this is that you will then be able to "
+"track progress in fixing the problem.  Other comments about B<locate>(1) and "
+"about the findutils package in general can be sent to the I<bug-findutils> "
+"mailing list.  To join the list, send email to I<bug-findutils-request@gnu."
+"org>."
+msgstr ""
+"La meilleure façon de signaler un bogue est d'utiliser le formulaire à "
+"l'adresse http://savannah.gnu.org/bugs/?group=findutils. L'utilité de cette "
+"page est que vous serez en mesure de suivre l'évolution de la correction du "
+"problème. D'autres commentaires à propos de B<locate> et du paquet findutils "
+"peuvent être envoyés à la liste de diffusion I<bug-findutils>. Pour "
+"s'abonner à cette liste, envoyez un courriel à I<bug-findutils-request@gnu."
+"org>."
+
+# type: TH
+#.  -*- nroff -*-
 #: english/man1/updatedb.1:1
 #, no-wrap
 msgid "UPDATEDB"
 msgstr "UPDATEDB"
-
-# type: SH
-#: english/man1/updatedb.1:2 english/man1/locate.1:2
-#, no-wrap
-msgid "NAME"
-msgstr "NOM"
 
 # type: Plain text
 #: english/man1/updatedb.1:4
@@ -42,12 +336,6 @@ msgstr "SYNOPSIS"
 #: english/man1/updatedb.1:6
 msgid "B<updatedb [>I<options>B<]>"
 msgstr "B<updatedb [>I<options>B<]>"
-
-# type: SH
-#: english/man1/updatedb.1:6 english/man1/locate.1:11
-#, no-wrap
-msgid "DESCRIPTION"
-msgstr "DESCRIPTION"
 
 # type: Plain text
 #: english/man1/updatedb.1:19
@@ -282,27 +570,6 @@ msgstr "I<--help>"
 #: english/man1/updatedb.1:103
 msgid "Print a summary of the options to B<updatedb> and exit."
 msgstr "Afficher un résumé des options de B<updatedb> et quitter."
-
-# type: SH
-#: english/man1/updatedb.1:103 english/man1/locate.1:189
-#, no-wrap
-msgid "SEE ALSO"
-msgstr "VOIR AUSSI"
-
-# type: Plain text
-#: english/man1/updatedb.1:106
-msgid ""
-"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> (on-"
-"line in Info, or printed)"
-msgstr ""
-"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> (en "
-"ligne avec info ou en version imprimée)"
-
-# type: SH
-#: english/man1/updatedb.1:106 english/man1/locate.1:193
-#, no-wrap
-msgid "BUGS"
-msgstr "BOGUES"
 
 # type: Plain text
 #: english/man1/updatedb.1:118
@@ -813,21 +1080,3 @@ msgstr ""
 "système sort possède une option I<-z> opérationnelle. Si vous suspectez que "
 "B<locate> ait besoin de retourner des noms de fichiers incluant des "
 "caractères saut de ligne, alors utilisez l'option I<--null>."
-
-# type: Plain text
-#: english/man1/locate.1:211
-msgid ""
-"The best way to report a bug is to use the form at http://savannah.gnu.org/"
-"bugs/?group=findutils.  The reason for this is that you will then be able to "
-"track progress in fixing the problem.  Other comments about B<locate>(1) and "
-"about the findutils package in general can be sent to the I<bug-findutils> "
-"mailing list.  To join the list, send email to I<bug-findutils-request@gnu."
-"org>."
-msgstr ""
-"La meilleure façon de signaler un bogue est d'utiliser le formulaire à "
-"l'adresse http://savannah.gnu.org/bugs/?group=findutils. L'utilité de cette "
-"page est que vous serez en mesure de suivre l'évolution de la correction du "
-"problème. D'autres commentaires à propos de B<locate> et du paquet findutils "
-"peuvent être envoyés à la liste de diffusion I<bug-findutils>. Pour "
-"s'abonner à cette liste, envoyez un courriel à I<bug-findutils-request@gnu."
-"org>."
