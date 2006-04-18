@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2006-04-11 22:38+0200\n"
+"POT-Creation-Date: 2006-04-18 14:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,28 +14,524 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING"
 
-#.  -*- nroff -*-
+# type: TH
+#: english/man1/xargs.1:1
+#, no-wrap
+msgid "XARGS"
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:2 english/man5/locatedb.5:2 english/man1/updatedb.1:2 english/man1/locate.1:2
+#, no-wrap
+msgid "NAME"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:4
+msgid "xargs - build and execute command lines from standard input"
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:4 english/man1/updatedb.1:4 english/man1/locate.1:4
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:14
+msgid ""
+"B<xargs> [-0prtx] [-E eof-str] [-e[eof-str]] [--eof[=eof-str]] [--null] [-d "
+"delimiter] [--delimiter delimiter] [-I replace-str] [-i[replace-str]] "
+"[--replace[=replace-str]] [-l[max-lines]] [-L max-lines] "
+"[--max-lines[=max-lines]] [-n max-args] [--max-args=max-args] [-s max-chars] "
+"[--max-chars=max-chars] [-P max-procs] [--max-procs=max-procs] "
+"[--interactive] [--verbose] [--exit] [--no-run-if-empty] [--arg-file=file] "
+"[--version] [--help] [command [initial-arguments]]"
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:14 english/man5/locatedb.5:4 english/man1/updatedb.1:6 english/man1/locate.1:11
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:27
+msgid ""
+"This manual page documents the GNU version of B<xargs>.  B<xargs> reads "
+"items from the standard input, delimited by blanks (which can be protected "
+"with double or single quotes or a backslash) or newlines, and executes the "
+"I<command> (default is /bin/echo) one or more times with any "
+"I<initial-arguments> followed by items read from standard input.  Blank "
+"lines on the standard input are ignored."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:40
+msgid ""
+"Because Unix filenames can contain blanks and newlines, this default "
+"behaviour is often problematic; filenames containing blanks and/or newlines "
+"are incorrectly processed by B<xargs>.  In these situations it is better to "
+"use the `-0' option, which prevents such problems.  When using this option "
+"you will need to ensure that the program which produces the input for "
+"B<xargs> also uses a null character as a separator.  If that program is GNU "
+"B<find> for example, the `-print0' option does this for you."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:45
+msgid ""
+"If any invocation of the command exits with a status of 255, B<xargs> will "
+"stop immediately without reading any further input.  An error message is "
+"issued on stderr when this happens."
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:45 english/man1/updatedb.1:42 english/man1/locate.1:51
+#, no-wrap
+msgid "OPTIONS"
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:46
+#, no-wrap
+msgid "I<--arg-file=file, -a file>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:54
+msgid ""
+"Read items from I<file> instead of standard input.  If you use this option, "
+"stdin remains unchanged when commands are run.  Otherwise, stdin is "
+"redirected from I</dev/null>."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:55
+#, no-wrap
+msgid "I<--null, -0>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:63
+msgid ""
+"Input items are terminated by a null character instead of by whitespace, and "
+"the quotes and backslash are not special (every character is taken "
+"literally).  Disables the end of file string, which is treated like any "
+"other argument.  Useful when input items might contain white space, quote "
+"marks, or backslashes.  The GNU find -print0 option produces input suitable "
+"for this mode."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:63
+#, no-wrap
+msgid "I<--delimiter=delim, -d delim>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:78
+msgid ""
+"Input items are terminated by the specified character.  Quotes and backslash "
+"are not special; every character in the input is taken literally.  Disables "
+"the end-of-file string, which is treated like any other argument.  This can "
+"be used when the input consists of simply newline-separated items, although "
+"it is almost always better to design your program to use `--null' where this "
+"is possible.  The specified delimiter may be a single character, a C-style "
+"character escape such as B<\\en>, or an octal or hexadecimal escape code.  "
+"Octal and hexadecimal escape codes are understood as for the B<printf> "
+"command.  Multibyte characters are not supported."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:79
+#, no-wrap
+msgid "I<-Eeof-str>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:84
+msgid ""
+"Set the end of file string to I<eof-str>.  If the end of file string occurs "
+"as a line of input, the rest of the input is ignored.  If neither -E nor -e "
+"is used, no end of file string is used."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:84
+#, no-wrap
+msgid "I<--eof[=eof-str], -e[eof-str]>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:90
+msgid ""
+"This option is a synonym for the `-E' option.  Use `-E' instead, because it "
+"is POSIX compliant while this option is not.  If I<eof-str> is omitted, "
+"there is no end of file string.  If neither -E nor -e is used, no end of "
+"file string is used."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:90 english/man1/updatedb.1:98 english/man1/locate.1:171
+#, no-wrap
+msgid "I<--help>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:95
+msgid "Print a summary of the options to B<xargs> and exit."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:95
+#, no-wrap
+msgid "I<-I replace-str>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:101
+msgid ""
+"Replace occurrences of I<replace-str> in the initial-arguments with names "
+"read from standard input.  Also, unquoted blanks do not terminate input "
+"items; instead the separator is the newline character.  Implies I<-x> and "
+"I<-L 1>."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:101
+#, no-wrap
+msgid "I<--replace[=replace-str], -i[replace-str]>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:106
+msgid ""
+"This option is a synonym for -II<replace-str> if I<replace-str> is "
+"specified, and for -I{} otherwise.  This option is deprecated; use -I "
+"instead."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:106
+#, no-wrap
+msgid "I<-L max-lines>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:111
+msgid ""
+"Use at most I<max-lines> nonblank input lines per command line.  Trailing "
+"blanks cause an input line to be logically continued on the next input "
+"line.  Implies I<-x>."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:111
+#, no-wrap
+msgid "I<--max-lines[=max-lines], -l[max-lines]>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:117
+msgid ""
+"Synonym for the -L option.  Unlike -L, the I<max-lines> argument is "
+"optional.  If I<max-args> is not specified, it defaults to one.  The -l "
+"option is deprecated since the POSIX standard specifies -L instead."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:117
+#, no-wrap
+msgid "I<--max-args=max-args, -n max-args>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:123
+msgid ""
+"Use at most I<max-args> arguments per command line.  Fewer than I<max-args> "
+"arguments will be used if the size (see the -s option)  is exceeded, unless "
+"the -x option is given, in which case B<xargs> will exit."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:123
+#, no-wrap
+msgid "I<--interactive, -p>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:128
+msgid ""
+"Prompt the user about whether to run each command line and read a line from "
+"the terminal.  Only run the command line if the response starts with `y' or "
+"`Y'.  Implies I<-t>."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:128
+#, no-wrap
+msgid "I<--no-run-if-empty, -r>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:133
+msgid ""
+"If the standard input does not contain any nonblanks, do not run the "
+"command.  Normally, the command is run once even if there is no input.  This "
+"option is a GNU extension."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:133
+#, no-wrap
+msgid "I<--max-chars=max-chars, -s max-chars>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:144
+msgid ""
+"Use at most I<max-chars> characters per command line, including the command "
+"and initial-arguments and the terminating nulls at the ends of the argument "
+"strings.  The default is 131072 characters, not including the size of the "
+"environment variables (which are provided for separately so that it doesn't "
+"matter if your environment variables take up more than 131072 bytes).  The "
+"operating system places limits on the values that you can usefully specify, "
+"and if you exceed these a warning message is printed and the value actually "
+"used is set to the appropriate upper or lower limit."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:144
+#, no-wrap
+msgid "I<--verbose, -t>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:148
+msgid "Print the command line on the standard error output before executing it."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:148 english/man1/locate.1:176
+#, no-wrap
+msgid "I<--version>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:153
+msgid "Print the version number of B<xargs> and exit."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:153
+#, no-wrap
+msgid "I<--exit, -x>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:156
+msgid "Exit if the size (see the I<-s> option) is exceeded."
+msgstr ""
+
+# type: TP
+#: english/man1/xargs.1:156
+#, no-wrap
+msgid "I<--max-procs=max-procs, -P max-procs>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:162
+msgid ""
+"Run up to I<max-procs> processes at a time; the default is 1.  If "
+"I<max-procs> is 0, B<xargs> will run as many processes as possible at a "
+"time.  Use the I<-n> option with I<-P>; otherwise chances are that only one "
+"exec will be done."
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:162
+#, no-wrap
+msgid "EXAMPLES"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:165
+#, no-wrap
+msgid "B<find /tmp -name core -type f -print | xargs /bin/rm -f>\n"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:173
+msgid ""
+"Find files named B<core> in or below the directory B</tmp> and delete them.  "
+"Note that this will work incorrectly if there are any filenames containing "
+"newlines or spaces."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:175
+msgid "B<find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:183
+msgid ""
+"Find files named B<core> in or below the directory B</tmp> and delete them, "
+"processing filenames in such a way that file or directory names containing "
+"spaces or newlines are correctly handled."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:186
+#, no-wrap
+msgid "B<cut -d: -f1 E<lt> /etc/passwd | sort | xargs echo>\n"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:189
+msgid "Generates a compact listing of all the users on the system."
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:189
+#, no-wrap
+msgid "EXIT STATUS"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:192
+msgid "B<xargs> exits with the following status:"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:200
+#, no-wrap
+msgid ""
+"0 if it succeeds\n"
+"123 if any invocation of the command exited with status 1-125\n"
+"124 if the command exited with status 255\n"
+"125 if the command is killed by a signal\n"
+"126 if the command cannot be run\n"
+"127 if the command is not found\n"
+"1 if some other error occurred.\n"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:204
+msgid ""
+"Exit codes greater than 128 are used by the shell to indicate that a program "
+"died due to a fatal signal."
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:204
+#, no-wrap
+msgid "STANDARDS CONFORMANCE"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:209
+msgid ""
+"As of GNU xargs version 4.2.9, the default behaviour of B<xargs> is not to "
+"have a logical end-of-file marker.  POSIX (IEEE Std 1003.1, 2004 Edition) "
+"allows this."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:213
+msgid ""
+"The -l and -i options appear in the 1997 version of the POSIX standard, but "
+"do not appear in the 2004 version of the standard.  Therefore you should use "
+"-L and -I instead, respectively."
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:214 english/man5/locatedb.5:104 english/man1/updatedb.1:103 english/man1/locate.1:189
+#, no-wrap
+msgid "SEE ALSO"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:217
+msgid ""
+"B<find>(1), B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<Finding Files> "
+"(on-line in Info, or printed)"
+msgstr ""
+
+# type: SH
+#: english/man1/xargs.1:217 english/man5/locatedb.5:107 english/man1/updatedb.1:106 english/man1/locate.1:193
+#, no-wrap
+msgid "BUGS"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:219
+msgid "The -L option is incompatible with the -I option, but perhaps should not be."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:236
+msgid ""
+"It is not possible for B<xargs> to be used securely, since there will always "
+"be a time gap between the production of the list of input files and their "
+"use in the commands that B<xargs> issues.  If other users have access to the "
+"system, they can manipulate the filesystem during this time window to force "
+"the action of the commands B<xargs> runs to apply to files that you didn't "
+"intend.  For a more detailed discussion of this and related problems, please "
+"refer to the ``Security Considerations'' chapter in the findutils Texinfo "
+"documentation.  The -execdir option of B<find> can often be used as a more "
+"secure alternative."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:249
+msgid ""
+"When you use the -I option, each line read from the input is buffered "
+"internally.  This means that there is an upper limit on the length of input "
+"line that B<xargs> will accept when used with the -I option.  To work around "
+"this limitation, you can use the -s option to increase the amount of buffer "
+"space that B<xargs> uses, and you can also use an extra invocation of "
+"B<xargs> to ensure that very long lines do not occur.  For example:"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:251
+msgid "B<somecommand | xargs -s 50000 echo | xargs -I '{}' -s 100000 rm '{}'>"
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:264
+msgid ""
+"Here, the first invocation of B<xargs> has no input line length limit "
+"because it doesn't use the -i option.  The second invocation of B<xargs> "
+"does have such a limit, but we have ensured that the it never encounters a "
+"line which is longer than it can handle.  This is not an ideal solution.  "
+"Instead, the -i option should not impose a line length limit, which is why "
+"this discussion appears in the BUGS section.  The problem doesn't occur with "
+"the output of B<find>(1)  because it emits just one filename per line."
+msgstr ""
+
+# type: Plain text
+#: english/man1/xargs.1:272
+msgid ""
+"The best way to report a bug is to use the form at "
+"http://savannah.gnu.org/bugs/?group=findutils.  The reason for this is that "
+"you will then be able to track progress in fixing the problem.  Other "
+"comments about B<xargs>(1) and about the findutils package in general can be "
+"sent to the I<bug-findutils> mailing list.  To join the list, send email to "
+"I<bug-findutils-request@gnu.org>."
+msgstr ""
+
 # type: TH
 #: english/man5/locatedb.5:1
 #, no-wrap
 msgid "LOCATEDB"
 msgstr ""
 
-# type: SH
-#: english/man5/locatedb.5:2 english/man1/updatedb.1:2 english/man1/locate.1:2
-#, no-wrap
-msgid "NAME"
-msgstr ""
-
 # type: Plain text
 #: english/man5/locatedb.5:4
 msgid "locatedb - front-compressed file name database"
-msgstr ""
-
-# type: SH
-#: english/man5/locatedb.5:4 english/man1/updatedb.1:6 english/man1/locate.1:11
-#, no-wrap
-msgid "DESCRIPTION"
 msgstr ""
 
 # type: Plain text
@@ -189,23 +685,11 @@ msgstr ""
 msgid "(6 = 14 - 8, and -9 = 5 - 14)\n"
 msgstr ""
 
-# type: SH
-#: english/man5/locatedb.5:104 english/man1/updatedb.1:103 english/man1/locate.1:189
-#, no-wrap
-msgid "SEE ALSO"
-msgstr ""
-
 # type: Plain text
 #: english/man5/locatedb.5:107 english/man1/updatedb.1:106
 msgid ""
 "B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> "
 "(on-line in Info, or printed)"
-msgstr ""
-
-# type: SH
-#: english/man5/locatedb.5:107 english/man1/updatedb.1:106 english/man1/locate.1:193
-#, no-wrap
-msgid "BUGS"
 msgstr ""
 
 # type: Plain text
@@ -219,7 +703,6 @@ msgid ""
 "to I<bug-findutils-request@gnu.org>."
 msgstr ""
 
-#.  -*- nroff -*-
 # type: TH
 #: english/man1/updatedb.1:1
 #, no-wrap
@@ -229,12 +712,6 @@ msgstr ""
 # type: Plain text
 #: english/man1/updatedb.1:4
 msgid "updatedb - update a file name database"
-msgstr ""
-
-# type: SH
-#: english/man1/updatedb.1:4 english/man1/locate.1:4
-#, no-wrap
-msgid "SYNOPSIS"
 msgstr ""
 
 # type: Plain text
@@ -274,12 +751,6 @@ msgid ""
 "share the databases.  The new GNU B<locate> can read both the old and new "
 "database formats.  However, old versions of B<locate> and B<find> produce "
 "incorrect results if given a new-format database."
-msgstr ""
-
-# type: SH
-#: english/man1/updatedb.1:42 english/man1/locate.1:51
-#, no-wrap
-msgid "OPTIONS"
 msgstr ""
 
 # type: TP
@@ -413,12 +884,6 @@ msgstr ""
 msgid "Print the version number of B<updatedb> and exit."
 msgstr ""
 
-# type: TP
-#: english/man1/updatedb.1:98 english/man1/locate.1:171
-#, no-wrap
-msgid "I<--help>"
-msgstr ""
-
 # type: Plain text
 #: english/man1/updatedb.1:103
 msgid "Print a summary of the options to B<updatedb> and exit."
@@ -444,7 +909,6 @@ msgid ""
 "to I<bug-findutils-request@gnu.org>."
 msgstr ""
 
-#.  -*- nroff -*-
 # type: TH
 #: english/man1/locate.1:1
 #, no-wrap
@@ -757,12 +1221,6 @@ msgstr ""
 # type: Plain text
 #: english/man1/locate.1:176
 msgid "Print a summary of the options to B<locate> and exit."
-msgstr ""
-
-# type: TP
-#: english/man1/locate.1:176
-#, no-wrap
-msgid "I<--version>"
 msgstr ""
 
 # type: Plain text
