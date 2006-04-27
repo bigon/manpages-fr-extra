@@ -7,6 +7,26 @@ PO4ADIR=po4a
 PODIR=$(PO4ADIR)/po
 PO4ACONFIGFILE=$(PO4ADIR)/$(PACKAGE).cfg
 
+# function to create symbolic links
+# examples:
+#   $(call create_link,foo.1,bar.1)
+#     creates the symbolic links bar.1 pointing to foo.1 in french/man1
+#   $(call create_link,../man1/foo.1,bar.2)
+#     creates the symbolic links bar.2 in french/man2 pointing to
+#     ../man1/foo.1, i.e. french/man1/foo.1
+#     creates the french/man2 directory if needed
+define create_link
+  @echo "Create link from $(1) to $(2)";
+  @section1=`echo $(1) | sed -e "s/^.*\.\(.\)[^.]*$$/\1/"`; \
+  section2=`echo $(2) | sed -e "s/^.*\.\(.\)[^.]*$$/\1/"`; \
+  if [ -e french/man$$section1/$(1) ]; then \
+    if [ ! -d french/man$$section2 ]; then \
+      mkdir french/man$$section2; \
+    fi; \
+    ln -sf $(1) french/man$$section2/$2; \
+  fi
+endef
+
 all: build
 
 pre-build:
