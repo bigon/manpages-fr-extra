@@ -16,7 +16,7 @@ PO4ACONFIGFILE=$(PO4ADIR)/$(PACKAGE).cfg
 #     ../man1/foo.1, i.e. french/man1/foo.1
 #     creates the french/man2 directory if needed
 define create_link
-  @echo "Create link from $(1) to $(2)";
+  @echo -n "Checking link from $(1) to $(2)... ";
   @section1=`echo $(1) | sed -e "s/^.*\.\(.\)[^.]*$$/\1/"`; \
   section2=`echo $(2) | sed -e "s/^.*\.\(.\)[^.]*$$/\1/"`; \
   if [ -e french/man$$section1/$(1) ]; then \
@@ -24,6 +24,9 @@ define create_link
       mkdir french/man$$section2; \
     fi; \
     ln -sf $(1) french/man$$section2/$2; \
+    echo "created."; \
+  else \
+    echo "ignored."; \
   fi
 endef
 
