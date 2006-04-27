@@ -16,15 +16,15 @@ PO4ACONFIGFILE=$(PO4ADIR)/$(PACKAGE).cfg
 #     ../man1/foo.1, i.e. french/man1/foo.1
 #     creates the french/man2 directory if needed
 define create_link
-  @echo -n "Checking link from $(1) to $(2)... "; \
+  @echo -n "Creating link $(2) pointing to $(1)... "; \
   section1=`echo $(1) | sed -e "s/^.*\.\([1-9]\)[^.]*$$/\1/"`; \
   section2=`echo $(2) | sed -e "s/^.*\.\([1-9]\)[^.]*$$/\1/"`; \
   if [ -e french/man$$section1/$(1) ]; then \
     if [ ! -d french/man$$section2 ]; then \
       mkdir french/man$$section2; \
     fi; \
-    ln -sf $(1) french/man$$section2/$2; \
-    echo "created."; \
+    ln -sf $(1) french/man$$section2/$(2); \
+    echo "done."; \
   else \
     echo "ignored."; \
   fi
