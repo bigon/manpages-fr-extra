@@ -46,6 +46,10 @@ post-build:
 
 build: pre-build po4a-build post-build
 
+stats:
+	@echo -n "$(PACKAGE): ";
+	@msgfmt --statistics -o /dev/null $(PODIR)/fr.po;
+
 clean:
 	po4a --rm-translations $(PO4ACONFIGFILE)
 	-rm -rf french

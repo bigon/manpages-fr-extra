@@ -9,3 +9,8 @@ clean:
 	for dir in $(SUBDIRS); do \
 	  $(MAKE) clean -C $$dir; \
 	done;
+
+stats:
+	-@for dir in $(SUBDIRS); do \
+	  $(MAKE) stats -s -C $$dir; \
+	done;
