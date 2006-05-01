@@ -18,8 +18,12 @@ PO4ACONFIGFILE=$(PO4ADIR)/$(PACKAGE).cfg
 #     creates the french/man2 directory if needed
 define create_link
   @echo -n "Creating link $(2) pointing to $(1)... "; \
-  section1=`echo $(1) | sed -e "s/^.*\.\([1-9]\)[^.]*$$/\1/"`; \
-  section2=`echo $(2) | sed -e "s/^.*\.\([1-9]\)[^.]*$$/\1/"`; \
+  section1=`echo $(1) | sed -e "s/^.*\.\([1-9]\)\([^1-9.][^.]*\)*$$/\1/"`; \
+  section2=`echo $(2) | sed -e "s/^.*\.\([1-9]\)\([^1-9.][^.]*\)*$$/\1/"`; \
+  if [ `expr $$section1 : "[1-9]"` == 0 -o `expr $$section2 : "[1-9]"` == 0 ]; then \
+    echo "failed."; \
+    exit 0; \
+  fi; \
   if [ -e french/man$$section1/$(1) ]; then \
     if [ ! -d french/man$$section2 ]; then \
       mkdir french/man$$section2; \
