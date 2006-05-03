@@ -1,4 +1,4 @@
-SUBDIRS=at coreutils cron diffutils grep lilo procps tar util-linux
+SUBDIRS=at coreutils cron diffutils findutils grep lilo procps tar util-linux
 
 all: build stats
 
