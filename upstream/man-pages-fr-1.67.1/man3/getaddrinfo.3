@@ -1,0 +1,319 @@
+.\" Copyright 2000 Sam Varshavchik <mrsam@stop.mail-abuse.org>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References: RFC 2553
+.\" Traduction 31/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.31
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH GETADDRINFO 3 "12 décembre 2000" LDP "Manuel du programmeur Linux"
+.SH NOM
+getaddrinfo, freeaddrinfo, gai_strerror \- Traduction d'adresses et de services réseau.
+.SH SYNOPSIS
+.nf
+.B #include <sys/types.h>
+.B #include <sys/socket.h>
+.B #include <netdb.h>
+.sp
+.BI "int getaddrinfo(const char * " node ", const char * " service ,
+.BI "                   const struct addrinfo *" hints ,
+.BI "                   struct addrinfo ** " res );
+.sp
+.BI "void freeaddrinfo(struct addrinfo * " res );
+.sp
+.BI "char * gai_strerror(int " errcode );
+.fi
+.SH DESCRIPTION
+La fonction
+.BR getaddrinfo (3)
+combine les possibilités offertes par les fonctions
+.BR getipnodebyname (3),
+.BR getipnodebyaddr (3),
+.BR getservbyname (3),
+et
+.BR getservbyport (3)
+en une unique interface.
+La fonction
+.BR getaddrinfo (3),
+adaptée aux contextes multithreads, crée une ou plusieurs structures
+d'adresses de socket, utilisables par
+.BR bind (2)
+et
+.BR connect (2)
+pour créer une socket de client ou de serveur.
+.PP
+La fonction
+.BR getaddrinfo (3)
+n'est pas limitée aux structures d'adresses IPv4,
+elle permet également la création de structures IPv6 si le support en est disponible.
+Ces structures peuvent être utilisées directement par
+.BR bind (2)
+ou
+.BR connect (2),
+pour préparer une socket de client ou de serveur.
+.PP
+La structure
+.B addrinfo
+utilisée par cette fonction contient les membres suivants\ :
+.sp
+.nf
+.B "struct addrinfo {"
+.BI "    int     " "ai_flags" ";"
+.BI "    int     " "ai_family" ";"
+.BI "    int     " "ai_socktype" ";"
+.BI "    int     " "ai_protocol" ";"
+.BI "    size_t  " "ai_addrlen" ";"
+.BI "    struct sockaddr *" "ai_addr" ";"
+.BI "    char   *" "ai_canonname" ";"
+.BI "    struct addrinfo *" "ai_next" ";"
+.B "};"
+.fi
+.PP
+La fonction
+.BR getaddrinfo (3)
+fait pointer
+.I res
+vers une liste de structures
+.B addrinfo
+nouvellement allouées, chaînées par leurs membres
+.IR ai_next .
+La liste peut contenir plusieurs structures
+.B addrinfo
+pour plusieurs raisons, par exemple\ :
+l'hôte fonctionne en multi-home,
+ou le même service est disponible sur
+plusieurs types de sockets (une socket
+.B SOCK_STREAM
+et une socket
+.B SOCK_DGRAM
+par exemple).
+.PP
+Les membres
+.IR ai_family ,
+.IR ai_socktype ,
+et
+.I ai_protocol
+ont la même signification que leurs homologues de l'appel système
+.BR socket (2).
+La fonction
+.BR getaddrinfo (3)
+renvoie les adresses de sockets autant en IPv4
+qu'en IPv6
+.RI ( ai_family
+contiendra
+.B PF_INET
+ou
+.BR PF_INET6 ).
+.PP
+L'argument
+.I hints
+permer de préciser
+le type préféré de socket ou de protocole.
+Un argument
+.I hints
+NULL indique que tout type d'adresse ou de protocole est acceptable.
+Si ce paramètre n'est pas
+.B NULL
+il doit pointer sur une structure
+.B addrinfo
+dont les membres
+.IR ai_family ,
+.IR ai_socktype ,
+et
+.I ai_protocol
+indiquent les types de socket préférés.
+.B PF_UNSPEC
+dans le membre
+.I ai_family
+indique que toute famille de d'adresse (autant IPv4 que IPv6, par exemple) est acceptable.
+De même, un 0 dans les membres
+.I ai_socktype
+ou
+.I ai_protocol
+indique que tout type de socket ou de protocole est admis.
+Le membre
+.I ai_flags
+indique des options supplémentaires décrites plus bas.
+Divers attributs sont regroupés par un OU binaire.
+Tous les autres membres de l'argument
+.I hints
+doivent contenir 0 ou être des pointeurs NULL.
+.PP
+L'argument
+.I node
+ou l'argument
+.I service
+peuvent être NULL, mais pas les deux en même temps.
+.I node
+indique soit une adresse réseau en format numérique
+(décimal pointé pour l'IPv4, hexadécimal pour l'IPv6),
+soit un nom d'hôte, dont l'adresse réseau est alors résolue.
+Si le membre
+.I ai_flags
+de l'argument
+.I hints
+contient l'attribut
+.B AI_NUMERICHOST
+alors le paramètre
+.I node
+devra être une adresse réseau numérique.
+L'attribut
+.B AI_NUMERICHOST
+empêche toute tentative - éventuellement longue - de résolution de nom d'hôte.
+.PP
+La fonction
+.BR getaddrinfo (3)
+crée une liste chaînée de structures
+.BR addrinfo ,
+une pour chaque adresse réseau soumise aux restrictions imposées
+par l'argument
+.IR hints .
+Le membre
+.I ai_canonname
+pointera vers le nom officiel de l'hôte si le membre
+.I ai_flags
+de l'argument
+.I hints
+contient l'attribut
+.BR AI_CANONNAME .
+Les membres
+.IR ai_family ,
+.IR ai_socktype ,
+et
+.I ai_protocol
+indiquent les paramètres de création de socket.
+Un pointeur vers l'adresse de la socket est placé dans le membre
+.IR ai_addr ,
+et la longueur de l'adresse de la socket, en octets,
+est inscrite dans le membre
+.I ai_addrlen
+de la structure.
+.PP
+Si l'argument
+.I node
+est NULL,
+l'adresse réseau
+dans chaque structure d'adresse est initialisée en fonction de l'attribut
+.B AI_PASSIVE
+que l'on inscrit dans le membre
+.I ai_flags
+de l'argument
+.IR hints .
+L'adresse réseau de chaque structure sera laissée vide si l'attribut
+.B AI_PASSIVE
+est présent.
+Ceci est utilisé par les serveurs qui désirent accepter les
+connexions des clients sur n'importe quelle interface réseau.
+L'adresse réseau sera remplie avec l'adresse de boucle loopback
+si l'attribut
+.B AI_PASSIVE
+n'est pas utilisé.
+Ceci est utilisé par les clients qui désirent se connecter sur
+un serveur fonctionnant sur le même hôte.
+.PP
+L'argument
+.I service
+indique le numéro de port au sein de l'adresse réseau de la socket. Si
+.I service
+est NULL le numéro de port restera non initialisé.
+.PP
+La fonction
+.BR freeaddrinfo (3)
+libère la mémoire qui a été allouée dynamiquement pour la liste chaînée
+.IR res .
+.SH "VALEUR RENVOYÉE"
+.BR getaddrinfo (3)
+renvoie 0 si elle réussit, ou l'un des codes d'erreur non-nuls suivants\ :
+.TP
+.B EAI_FAMILY
+La famille d'adresse réclamée n'est pas supportée du tout.
+.TP
+.B EAI_SOCKTYPE
+Le type de socket demandé n'est pas supporté.
+.TP
+.B EAI_BADFLAGS
+.I ai_flags
+contient des attributs invalides.
+.TP
+.B EAI_NONAME
+Le contenu du champ
+.I node
+ou de
+.I service
+est inconnu.
+Cette erreur est aussi renvoyée si
+.I node
+et
+.I service
+sont simultanément NULL.
+.TP
+.B EAI_SERVICE
+Le service demandé n'est pas disponible pour le type de socket réclamé.
+Il peut être disponible pour un autre type de socket.
+.TP
+.B EAI_ADDRFAMILY
+L'hôte indiqué n'a pas d'adresse dans la famille réseau demandée.
+.TP
+.B EAI_NODATA
+L'hôte existe mais n'a pas d'adresse réseau définie.
+.TP
+.B EAI_MEMORY
+Pas assez de mémoire.
+.TP
+.B EAI_FAIL
+Le serveur de noms a renvoyé une erreur définitive.
+.TP
+.B EAI_AGAIN
+Le serveur de noms a renvoyé une erreur temporaire. Réessayez plus tard.
+.TP
+.B EAI_SYSTEM
+Autre erreur système, voir
+.I errno
+pour plus de détail.
+.PP
+La fonction
+.BR gai_strerror (3)
+traduit ces codes d'erreur en une chaîne de caractères compréhensible,
+utilisable pour rendre compte du problème.
+.SH "CONFORMITÉ"
+POSIX 1003.1-2003.
+La fonction
+.B getaddrinfo()
+est documentée dans la RFC 2553.
+.SH "VOIR AUSSI"
+.BR getipnodebyname (3),
+.BR getipnodebyaddr (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 31\ août\ 2000
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ getaddrinfo\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

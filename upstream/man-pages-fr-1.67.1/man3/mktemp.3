@@ -1,0 +1,95 @@
+.\" Copyright (C) 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:48:06 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Fri Jun 23 01:26:34 1995 by Andries Brouwer (aeb@cwi.nl)
+.\" (prompted by Scott Burkett <scottb@IntNet.net>)
+.\" Modified Sun Mar 28 23:44:38 1999 by Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Traduction 05/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 05/05/1999 LDP-1.23
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH MKTEMP 3 "3 avril 1993" LDP "Manuel du programmeur Linux"
+.SH NOM
+mktemp \- Créer un nom de fichier temporaire unique.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "char *mktemp (char *" template );
+.fi
+.SH DESCRIPTION
+La fonction \fBmktemp\fP() crée un nom de fichier temporaire unique, en
+utilisant le motif \fItemplate\fP. Les 6 derniers caractères de \fItemplate\fP
+doivent être XXXXXX, ils seront remplacés par une chaîne rendant le nom
+de fichier unique.
+Comme il sera modifié,
+.I template
+ne doit pas être une chaîne constante, mais un tableau de caractères.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBmktemp\fP() renvoie NULL en cas d'erreur ou un pointeur
+sur \fItemplate\fP sinon.
+En cas d'échec \fItemplate\fP est une chaîne vide.
+.SH "ERREURS"
+.TP
+.B EINVAL
+Les 6 derniers caractères de \fItemplate\fP ne sont pas XXXXXX.
+.SH "CONFORMITÉ"
+BSD 4.3. POSIX recommande
+.BR tmpnam ().
+.SH "NOTE"
+Le prototype se trouve dans
+.I <unistd.h>
+pour libc4, libc5, glibc1. glibc2 suit les spécifications Single Unix et
+place le prototype dans
+.IR <stdlib.h> .
+.SH "BOGUES"
+Évitez d'utiliser \fBmktemp\fP(). Certaines implémentations suivent BSD 4.3,
+et remplacent XXXXXX par le numéro de processus et une lettre, ce qui donne
+26 noms différents possibles. Comme d'une part ces noms sont faciles à deviner,
+et d'autre part il existe une condition de concurrence entre le test
+d'existence du nom et l'ouverture du fichier, chaque invocation de
+\fBmktemp\fP() est un trou de sécurité. Les conditions de concurrences
+sont évitées par
+.BR mkstemp (3).
+.SH "VOIR AUSSI"
+.BR mkstemp (3),
+.BR tempnam (3),
+.BR tmpfile (3).
+.BR tmpnam (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 5\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ mktemp\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

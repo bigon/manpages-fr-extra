@@ -1,0 +1,245 @@
+.\" Copyright (c) 1993 Michael Haardt (michael@cantor.informatik.rwth-aachen.de), Fri Apr  2 11:32:09 MET DST 1993
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Modified Sun Jul 25 10:44:50 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Thu Feb 26 16:08:49 MET 1995 by Michael Haardt
+.\" Modified Sat Jul 20 14:39:03 MET DST 1996 by Michael Haardt
+.\" Modified Wed Jul  2 20:20:53 ART 1997 by Nicolás Lichtmaier <nick@debian.org>
+.\"
+.\" Traduction 18/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 18/05/1998 LDP-1.19
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 04/07/2005 LDP-1.61
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH UTMP 5 "2 juillet 1997" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+utmp, wtmp \- Enregistrements de connexion.
+.SH SYNOPSIS
+.B #include <utmp.h>
+.SH DESCRIPTION
+Le fichier
+.I utmp
+permet de voir qui est connecté sur le système. Tous les programmes n'utilisant
+pas les enregistrement utmp, il se peut qu'il y ait plus d'utilisateurs que
+ceux affichés.
+.PP
+.BR Attention " :"
+.I utmp
+ne doit pas être accessible en écriture car de nombreux programmes systèmes
+dépendent (malheureusement) de son intégrité. En laissant
+.I utmp
+accessible en écriture pour les utilisateurs, vous prenez le risque d'avoir de
+mauvais fichiers de journalisation, et des modifications de fichiers système.
+.PP
+Le fichier est une suite d'enregistrements avec la structure suivante
+(remarquez que les détails d'implémentation dépendent d'une version à l'autre
+de la bibliothèque C)\ :
+.in +3
+.nf
+.sp
+.ta 3i
+#define UT_UNKNOWN	0
+#define RUN_LVL		1
+#define BOOT_TIME	2
+#define NEW_TIME	3
+#define OLD_TIME	4
+#define INIT_PROCESS	5
+#define LOGIN_PROCESS	6
+#define USER_PROCESS	7
+#define DEAD_PROCESS	8
+#define ACCOUNTING	9
+
+#define UT_LINESIZE	12
+#define UT_NAMESIZE	32
+#define UT_HOSTSIZE	256
+
+struct exit_status {
+  short int e_termination;    /* Code de fin du processus   */
+  short int e_exit;           /* Valeur de fin du processus */
+};
+
+struct utmp {
+  short ut_type;              /* type de login              */
+  pid_t ut_pid;               /* pid du processus           */
+  char ut_line[UT_LINESIZE];  /* périphérique tty - "/dev/" */
+  char ut_id[4];              /* ID tty initial             */
+  char ut_user[UT_NAMESIZE];  /* nom utilisateur            */
+  char ut_host[UT_HOSTSIZE];  /* nom hôte si login distant  */
+  struct exit_status ut_exit; /* Code de fin d'un processus */
+                              /* déjà marqué DEAD_PROCESS.  */
+  long ut_session;            /* ID de session              */
+  struct timeval ut_tv;       /* Horodatage                 */
+  int32_t ut_addr_v6[4];      /* Adresse IP hôte distant    */
+  char __unused[20];          /* Remplissage, réservé...    */
+};
+
+/* Bidouille pour compatibilité ascendante  */
+#define ut_name ut_user
+#ifndef _NO_UT_TIME
+  #define ut_time ut_tv.tv_sec
+#endif
+#define ut_xtime ut_tv.tv_sec
+#define ut_addr ut_addr_v6[0]
+.sp
+.fi
+.in
+Cette structure donne le nom du fichier spécial associé au terminal de
+l'utilisateur, le nom d'utilisateur, l'heure de connexion sous la forme
+.BR time (2).
+Les chaînes de caractères se terminent par «\ \fB\e0\fP\ » si elles sont plus
+courtes que les longueurs définies dans la structure.
+.PP
+Le premier enregistrement créé est le traitement de
+.BR inittab (5)
+par
+.BR init (8).
+Néanmoins, avant ça,
+.BR init (8)
+positionne le champ \fIut_type\fP à \fBDEAD_PROCESS\fP,
+et efface \fIut_user\fP, \fIut_host\fP et \fIut_time\fP (remplis avec
+des octets nuls) de tous les enregistrement dont l'\fIut_type\fP
+n'est ni \fBDEAD_PROCESS\fP ni \fBRUN_LVL\fP, et si aucun processus
+de PID \fIut_pid\fP n'existe. Si aucun enregistrement vide n'est trouvé avec
+le \fIut_id\fP correct, init en crée un nouveau. Il positionne \fIut_id\fP en
+s'aidant de l'inittab, \fIut_pid\fP et \fIut_time\fP avec les valeurs actuelles et
+\fIut_type\fP à \fBINIT_PROCESS\fP.
+.PP
+.BR getty (8)
+récupère l'entrée correspondant à son PID, positionne \fIut_type\fP
+à la valeur \fBLOGIN_PROCESS\fP, modifie \fIut_time\fP, positionne \fIut_line\fP
+et attend une connexion.
+Une fois qu'un utilisateur est authentifié,
+.BR login (8)
+modifie \fIut_type\fP à \fBUSER_PROCESS\fP, modifie \fIut_time\fP
+et positionne \fIut_host\fP et \fIut_addr\fP. En fonction du
+.BR getty (8)
+et
+.BR login (8)
+utilisés, les enregistrements sont parfois identifiés par \fIut_line\fP
+plutôt que \fIut_pid\fP qui est toutefois préférable.
+.PP
+Quand
+.BR init (8)
+s'aperçoit qu'un processus est terminé, il identifie son
+enregistrement utmp grâce au champ \fIut_pid\fP, positionne \fIut_type\fP à
+\fBDEAD_PROCESS\fP et efface \fIut_user\fP, \fIut_host\fP et \fIut_time\fP
+avec des octets nuls.
+.PP
+.BR xterm (1)
+(comme les autres émulateurs de terminaux) crée directement un
+enregistrement \fBUSER_PROCESS\fP, engendrant \fIut_id\fP grâce aux deux
+dernières lettres de \fI/dev/ttyp\fP\fI%c\fP ou en utilisant \fIp\fP\fI%d\fP
+pour \fI/dev/pts/\fP\fI%d\fP.
+S'il trouve un \fBDEAD_PROCESS\fP pour cet ID, il le recycle, sinon il en crée
+un nouveau. Si possible, il marque l'enregistrement avec \fBDEAD_PROCESS\fP
+à la sortie. Il est recommandé qu'il efface également \fIut_line\fP,
+\fIut_time\fP, \fIut_user\fP et \fIut_host\fP.
+.PP
+\fBxdm\fP(8) ne doit pas créer d'enregistrement car il n'y a pas de
+terminal associé. Le forcer à en créer peut déclencher des problèmes, tels
+que l'impossibilité de faire fonctionner finger. Par contre, \fBxdm\fP peut
+très bien créer des entrées wtmp tout comme
+.BR ftpd (8).
+.PP
+.BR telnetd (8)
+construit un enregistrement \fBLOGIN_PROCESS\fP
+et laisse le reste du travail à
+.BR login (8).
+Une fois que la session telnet est terminée,
+.BR telnetd (8)
+efface l'utmp de la manière décrite plus haut.
+.PP
+Le fichier \fIwtmp\fP enregistre les connexions et déconnexions. Son
+format est exactement le même que \fIutmp\fP excepté qu'un utilisateur nul
+indique une déconnexion sur le terminal associé. De plus, un nom de terminal
+«\ \fB~\fP\ » associé à un nom d'utilisateur «\ \fBshutdown\fP\ » ou «\ \fBreboot\fP\ »
+indique un arrêt ou un redémarrage du système. Une paire d'enregistrements avec
+les noms de terminaux «\ \fB|\fP/\fB}\fP\ » indique une modification de
+l'heure système avec
+.BR date (1).
+Le fichier \fIwtmp\fP est maintenu par
+.BR login (1),
+.BR init (1)
+et quelques uns des
+.BR getty (1).
+Aucun de ces programmes ne crée le fichier. Aussi, si on le supprime, les
+enregistrements de connexions sont arrêtés.
+.SH FICHIERS
+.I /var/run/utmp
+.br
+.I /var/run/wtmp
+.SH "CONFORMITÉ"
+Les enregistrements utmp de Linux ne se conforment ni à v7/BSD ni à SYSV.
+Ils sont en réalité un mélange des deux.
+v7/BSD dispose de moins de champs, par exemple pas de \fIut_type\fP,
+ce qui conduit les programmes pour v7/BSD à afficher des entrées invalides
+de login.
+Sous Linux (comme sous SYS V), le champ \fIut_id\fP d'un enregistrement ne
+sera jamais modifié après son initialisation. L'effacement de \fIut_id\fP
+peut engendrer des conditions de concurrence menant à l'endommagement
+des enregistrements utmp.
+.PP
+SYSV n'utilise le champ \fIut_type\fP que pour noter et horodater des messages
+informatifs comme par exemple «\ \fBnew time\fP\ ».
+\fBUT_UNKNOWN\fP semble être une innovation de Linux.
+SYSV n'a pas de champ \fIut_host\fP ni \fIut_addr_v6\fP.
+.PP
+Contrairement à d'autres systèmes, sur lesquels l'effacement du fichier
+arrête la journalisation, le fichier utmp doit toujours exister sous
+Linux. Si vous désirez désactiver \fBwho\fP(1), laissez le fichier
+utmp en place, mais ne le laissez pas lisible par tout le monde.
+.PP
+Notez que l'implémentation de la structure utmp a changé entre les bibliothèques
+C libc5 et libc6. À cause de ceci, les fichiers exécutables utilisant l'ancien
+format libc5 risquent d'endommager les fichiers
+.IR /var/run/utmp " et/ou " /var/log/wtmp .
+Les distributions Debian utilisent une version modifiée de libc5 proposant le
+nouveau format. Néanmoins, le problème persiste car wtmp est accédé directement
+dans la libc5.
+.SH RESTRICTIONS
+Le format de ces fichiers dépend de la machine, et il est recommandé de
+ne les utiliser que sur la machine où ils ont été créés.
+.SH BOGUES
+Cette page de manuel est basée sur la libc5, et les choses fonctionnent
+peut-être différemment à présent.
+.SH "VOIR AUSSI"
+.BR ac (1),
+.BR date (1),
+.BR last (1),
+.BR login (1),
+.BR who (1),
+.BR getutent (3),
+.BR updwtmp (3),
+.BR init (8)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 18\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 5\ utmp\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

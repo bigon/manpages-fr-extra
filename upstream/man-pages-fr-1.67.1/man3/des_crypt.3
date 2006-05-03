@@ -1,0 +1,147 @@
+.\" @(#)des_crypt.3	2.1 88/08/11 4.0 RPCSRC; from 1.16 88/03/02 SMI;
+.\"
+.\" Taken from libc4 sources, which say:
+.\" Copyright (C) 1993 Eric Young - can be distributed under GPL.
+.\"
+.\" However, the above header line suggests that this file in fact is
+.\" Copyright Sun Microsystems, Inc (and is provided for unrestricted use,
+.\" see other Sun RPC sources).
+.\"
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" 30/07/2003 LDP-1.58
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH DES_CRYPT 3 "6 octobre 1987" LDP "Manuel du programmeur Linux"
+.SH NOM
+des_crypt, ecb_crypt, cbc_crypt, des_setparity, DES_FAILED \- Cryptage DES rapide.
+.SH SYNOPSIS
+.nf
+.\" Sun version
+.\" .B #include <des_crypt.h>
+.B #include <rpc/des_crypt.h>
+.LP
+.BI "int ecb_crypt(char *" key ", char *" data ", unsigned " datalen ,
+.BI "              unsigned " mode );
+.LP
+.BI "int cbc_crypt(char *" key ", char *" data ", unsigned " datalen ,
+.BI "              unsigned " mode ", char *" ivec );
+.LP
+.BI "void des_setparity(char *" key );
+.LP
+.BI "int DES_FAILED(int " status );
+.fi
+.SH DESCRIPTION
+.BR ecb_crypt ( \| )
+et
+.BR cbc_crypt ( \| )
+implémentent le standard
+.SM NBS
+.SM DES
+(Data Encryption Standard).
+Ces routines sont plus rapides et plus générales que la classique
+.BR crypt (3).
+Elles sont aussi capable d'utiliser une puce de cryptage
+.SM DES
+si elle est disponible.
+.BR ecb_crypt ( \| )
+encrypte en mode
+.SM ECB
+(Electronic Code Book),
+ce qui encode des blocs de données indépendamment les uns des autres.
+.BR cbc_crypt ( \| )
+encrypte en mode
+.SM CBC
+(Cipher Block Chaining),
+qui enchaîne le cryptage des
+blocs successifs. Le mode
+.SM CBC
+protège contre les insertions, supressions ou substitutions de blocs.
+De plus, les répétitions dans le texte en clair n'apparaîtront pas
+dans le texte chiffré.
+.LP
+Voici comment utiliser ces routines. Le premier paramètre,
+.IR key ,
+est la clé de codage 8-octets avec parité.
+Pour fixer la parité de la clé, qui pour
+.SM DES
+est le bit de poid faible de chaque octet, utilisez
+.BR des_setparity .
+Le second paramètre,
+.IR data ,
+contient les données à crypter ou décrypter. Le
+troisième paramètre,
+.IR datalen ,
+est la longueur en octets de
+.IR data ,
+qui doit être un multiple de 8. Le quatrième paramètre,
+.IR mode ,
+est formé par un
+.SM "OU binaire"
+entre différents attributs. Pour le sens de fonctionnement, il faut mettre
+.SM DES_ENCRYPT
+ou
+.SM DES_DECRYPT\s0.
+Pour l'encyptage matériel (hardware) ou
+logiciel (software) il faut ajouter
+.SM DES_HW
+ou
+.SM DES_SW\s0.
+Si
+.SM DES_HW
+est indiqué et qu'il n'y a pas de matériel spécialisé disponible, le
+cryptage est réalisé en mode logiciel et la routine renvoie
+.SM DESERR_NOHWDEVICE\s0.
+Pour
+.BR cbc_crypt (),
+le paramètre
+.I ivec
+est un vecteur d'initialisation de 8 octets
+pour le chaînage. Il est mis à jour avec le prochain vecteur
+d'initialisation au retour.
+.LP
+.SH DIAGNOSTIQUE
+.PD 0
+.TP 20
+.SM DESERR_NONE
+Pas d'erreur.
+.TP
+.SM DESERR_NOHWDEVICE
+Cryptage réussi, mais en mode logiciel plutôt que matériel.
+.TP
+.SM DESERR_HWERROR
+Une erreur s'est produite dans le matériel ou le pilote.
+.TP
+.SM DESERR_BADPARAM
+Mauvais paramètre pour la routine.
+.PD
+.LP
+Étant donné un résultat
+.IR stat ,
+la macro
+.\" .SM DES_FAILED\c
+.\" .BR ( stat )
+.BI DES_FAILED( stat )
+est fausse pour les deux premiers états.
+.\" So far the Sun page
+.\" Some additions - aeb
+.SH DISPONIBILITÉ
+Ces routines sont présentes dans la libc 4.6.27 et ultérieures, et
+dans la glibc 2.1 et suivantes.
+.SH "VOIR AUSSI"
+.BR des (1),
+.BR crypt (3)
+.\" added, aeb
+et
+.BR xcrypt (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 30\ juillet\ 2003
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ des_crypt\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

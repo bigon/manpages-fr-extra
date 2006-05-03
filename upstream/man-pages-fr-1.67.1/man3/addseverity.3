@@ -1,0 +1,71 @@
+.\"  Copyright 2002 walter harms (walter.harms@informatik.uni-oldenburg.de)
+.\"  Distributed under GPL
+.\"  adapted glibc info page
+.\"
+.\"  polished a little, aeb
+.\"
+.\" Traduction : Alain Portal
+.\" 06/07/2005 LDP-1.62
+.\" Màj 14/12/2005 LDP-1.65
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ADDSEVERITY 3 "7 août 2002" LDP "Manuel du programmeur Linux"
+.SH "NOM"
+addseverity \- Introduire de nouvelles classes de sévérité.
+.SH SYNOPSIS
+.nf
+.sp
+.B #define _SVID_SOURCE
+.br
+.B #include <fmtmsg.h>
+.sp
+.BI "int addseverity(int " severity ", const char *" s );
+.sp
+.fi
+.SH DESCRIPTION
+Cette fonction permet l'introduction de nouvelles classes de sévérité
+qui peuvent être adressées par le paramètre
+.I severity
+de la fonction
+.BR fmtmsg (3).
+Par défaut, cette dernière ne sait afficher des messages que pour les
+sévérités de 0 à 4 (avec les chaînes (aucune), HALT, ERROR, WARNING, INFO).
+Cet appel associe la chaîne
+.I s
+donnée à la valeur
+.I severity
+donnée. Si
+.I s
+est vide (NULL), la classe de sévérité de valeur numérique
+.I severity
+est supprimée.
+Il n'est pas possible de surcharger ou supprimer une des classes de
+sévérité par défaut. La valeur de sévérité ne doit pas être négative.
+.SH "VALEUR RENVOYÉE"
+En cas de réussite, la valeur
+.B MM_OK
+est renvoyée. En cas d'échec, la valeur de retour sera
+.BR MM_NOTOK .
+Parmi les erreurs possibles, on trouve\ : pas assez de mémoire, tentative de
+suppression d'une classe de sévérité par défaut ou inexistante.
+.SH NOTE
+De nouvelles classes de sévérité peuvent également être ajoutées en
+positionnant la variable d'environnement
+.BR SEV_LEVEL .
+.SH "CONFORMITÉ"
+Cette fonction n'est pas spécifiée dans le «\ X/Open Portability Guide\ »
+bien que la fonction «\ fmtmsg\ » le soit. Elle est disponible sur les
+systèmes System V.
+.SH "VOIR AUSSI"
+.BR fmtmsg (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Alain Portal
+<aportal AT univ-montp2 DOT fr> le 6\ juillet\ 2005
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ addseverity\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

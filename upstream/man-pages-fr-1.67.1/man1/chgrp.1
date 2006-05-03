@@ -1,0 +1,134 @@
+.\" Copyright Andries Brouwer, 2000
+.\"
+.\" This file may be copied under the conditions described
+.\" in the LDP GENERAL PUBLIC LICENSE, Version 1, September 1998
+.\" that should have been distributed together with this file.
+.\"
+.\" Traduction 29/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/12/1998 LDP-1.22
+.\" Màj 30/08/2000 LDP-1.31
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH CHGRP 1 "Août 2000" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+chgrp \- Modifier le groupe propriétaire d'un fichier.
+.SH SYNOPSIS
+.BI "chgrp [" options "] " "groupe fichier..."
+.sp
+Options POSIX\ :
+.B "[\-R] [\-\-]"
+.sp
+Options POSIX 1003.1-2001\ :
+.B [\-hHLPR]
+.sp
+Description GNU de groupe :
+.BI [\-\-reference= rfile ]
+.sp 
+Options GNU (forme courte)\ :
+.B [\-cfvR]
+.B "[\-\-help] [\-\-version] [\-\-]"
+.SH DESCRIPTION
+.B chgrp
+change l'appartenance de chacun des
+.IR fichier s
+indiqués pour qu'ils deviennent propriétés du
+.I groupe
+indiqué.
+.PP
+Le groupe peut être mentionné par son nom ou par un GID numérique.
+.SH "OPTIONS POSIX"
+.TP
+.B "\-R"
+Modifier récursivement l'appartenance des répertoires et de leurs contenus.
+Continuer la descente même si des erreurs surviennent.
+.TP
+.B "\-\-"
+Terminer la liste des options.
+.SH "OPTIONS DU DRAFT D'AUSTIN"
+.TP
+.B \-h
+Si un fichier est un lien symbolique, changer le groupe du lien lui-même et pas celui
+de l'objet vers lequel il pointe. Si le système ne supporte pas les groupes pour les
+liens symboliques, ne rien faire.
+.TP
+.BR \-H " (half-logical)"
+(Quand elle est fournie conjointement avec
+.BR \-R .)
+Si un fichier est un lien symbolique vers un répertoire, changer le groupe du répertoire et
+des fichiers de la hiérarchie en dessous.
+.TP
+.BR \-L " (logique)"
+(Quand elle est fournie conjointement avec
+.BR \-R .)
+Si un fichier rencontré sur la ligne de commande ou durant la traversée de l'arborescence est un
+lien symbolique vers un répertoire, changer le groupe du répertoire et
+des fichiers de la hiérarchie en dessous.
+.TP
+.BR \-P " (physique)"
+(Quand elle est fournie conjointement avec
+.BR \-R .)
+Si un fichier rencontré sur la ligne de commande ou durant la traversée de l'arborescence 
+est un lien symbolique, changer le groupe du lien lui-même et pas celui
+de l'objet vers lequel il pointe. Si le système ne supporte pas les groupes pour les
+liens symboliques, ne rien faire. C'est le comportement par défaut.
+.TP
+.BR \-R
+Changer récursivement le groupe des répertoires et de leurs contenus.
+.SH "DESCRIPTION GNU DE GROUPE"
+Une extension GNU (nouvelle dans les fileutils 4.0) permet d'utiliser
+.BI "\-\-reference=" "rfile"
+comme une description de groupe\ : on considérera le groupe auquel appartient le fichier
+.IR rfile .
+.SH "OPTIONS GNU"
+.TP
+.B "\-c, \-\-changes"
+Décrire seulement les fichiers dont l'appartenance change effectivement.
+.TP
+.B "\-f, \-\-silent, \-\-quiet"
+Ne pas afficher de message d'erreur concernant les fichiers dont
+le groupe ne peut pas être modifié.
+.TP
+.B "\-h, \-\-no\-dereference"
+Agir sur un lien symbolique lui-même plutôt que sur l'objet vers lequel
+il pointe. Disponible uniquement si l'appel système
+.BR lchown ()
+est fourni.
+.TP
+.B "\-v, \-\-verbose"
+Décrire les modifications d'appartenance.
+.TP
+.B "\-R, \-\-recursive"
+Modifier récursivement l'appartenance des répertoires et de leurs contenus.
+Continuer la descente même si des erreurs surviennent.
+.SH "OPTIONS STANDARDS GNU"
+.TP
+.B "\-\-help"
+Afficher un message d'aide sur la sortie standard, puis terminer correctement.
+.TP
+.B "\-\-version"
+Afficher le numéro de version sur la sortie standard, puis terminer correctement.
+.SH ENVIRONNEMENT
+LANG, LC_ALL, LC_CTYPE et LC_MESSAGES ont leurs significations habituelles.
+Sur un système conforme XSI, NLSPATH a la signification normale.
+.SH "CONFORMITÉ"
+POSIX 1003.2 ne documente que l'option \-R. Toutes les autres options peuvent
+ne pas être portables.
+.SH NOTES
+Cette page décrit la version de
+.B chgrp
+trouvée dans le paquetage fileutils-4.0, d'autres versions
+peuvent différer légèrement.
+Envoyez par courriel corrections et ajout sur cette page à aeb@cwi.nl.
+Signalez les bogues du programme à fileutils-bugs@gnu.ai.mit.edu (Ndt\ : en anglais)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 29\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 1\ chgrp\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

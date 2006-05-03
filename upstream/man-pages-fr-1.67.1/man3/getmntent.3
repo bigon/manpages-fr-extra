@@ -1,0 +1,170 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 21:46:57 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 961109, 031115, aeb
+.\"
+.\" Traduction 27/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/01/1997
+.\" Màj 11/12/1997 LDP-1.18
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 08/07/2005 LDP-1.63
+.\" Màj 23/12/2005 LDP-1.67
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH GETMNTENT 3 "15 novembre 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+getmntent, setmntent, addmntent, endmntent, hasmntopt \- Obtenir des descriptions d'un système de fichiers.
+.SH SYNOPSIS
+.nf
+.B #include <stdio.h>
+.B #include <mntent.h>
+.sp
+.BI "FILE *setmntent (const char *" filename ", const char *" type );
+.sp
+.BI "struct mntent *getmntent (FILE *" fp );
+.sp
+.BI "int addmntent (FILE *" fp ", const struct mntent *" mnt );
+.sp
+.BI "int endmntent (FILE *" fp );
+.sp
+.BI "char *hasmntopt (const struct mntent *" mnt ", const char *" opt );
+.sp
+/* Extension GNU */
+.BR "#define _GNU_SOURCE" "    /* ou _SVID_SOURCE ou _BSD_SOURCE */
+.B #include <mntent.h>
+.sp
+.BI "struct mntent *getmntent_r(FILE *" fp ", struct mntent *" mntbuf ,
+.BI "                           char *" buf ", int " buflen );
+.fi
+.SH DESCRIPTION
+Ces routines servent à accéder au fichier de description des
+systèmes de fichiers \fI/etc/fstab\fP et aux descriptions des
+systèmes de fichiers montés \fI/etc/mtab\fP.
+.PP
+La fonction \fBsetmntent\fP() ouvre le fichier de description des
+systèmes de fichiers \fIfp\fP et renvoie un pointeur de fichier
+utilisable avec \fBgetmntent\fP().
+L'argument \fItype\fP est le type d'accès demandé, et peut prendre les
+même valeurs que l'argument \fImode\fP de \fBfopen\fP(3).
+.PP
+La fonction \fBgetmntent\fP() lit la ligne suivante du fichier de description
+des systèmes de fichiers \fIfp\fP et renvoie un pointeur sur une structure
+détaillant les champs de cette ligne. Il s'agit d'un pointeur sur une zone
+de données statiques, qui peut être écrasée par les appels ultérieurs à
+\fBgetmntent\fP().
+.PP
+La fonction \fBaddmntent\fP() ajoute la structure mntent \fImnt\fP à la
+fin du fichier ouvert \fIfp\fP.
+.PP
+La fonction \fBendmntent\fP() ferme le fichier de description des systèmes
+de fichiers \fIfp\fP.
+.PP
+La fonction \fBhasmntopt\fP() parcourt le champ \fImnt_opts\fP
+(voir plus bas) de la structure mntent \fImnt\fP, à la recherche
+d'une chaîne correspondant à \fIopt\fP.
+Voir \fI<mntent.h>\fP pour les options de montage.
+.PP
+La fonction réentrante
+.BR getmntent_r ()
+est similaire à
+.BR getmntent (),
+mais enregistre la structure mount dans le
+.RI * mntbuf
+fourni et enregistre les chaînes pointées par les entrées de cette structure
+dans le tampon
+.I buf
+fourni, de taille
+.IR buflen .
+.PP
+La structure \fImntent\fP est définie dans \fI<mntent.h>\fP ainsi\ :
+.sp
+.RS
+.nf
+.ne 8
+.ta 8n 16n 32n
+struct mntent {
+   char *mnt_fsname; /* Nom du système de fichiers monté      */
+   char *mnt_dir;    /* Chemin d'accès au système de fichiers */
+   char *mnt_type;   /* Type de montage (voir mntent.h)       */
+   char *mnt_opts;   /* Options de montage (voir mntent.h)    */
+   int   mnt_freq;   /* Fréquence de sauvegarde (en jour)     */
+   int   mnt_passno; /* Ordre de passage dans fsck            */
+};
+.ta
+.fi
+.RE
+.SH "VALEUR RENVOYÉE"
+Les fonctions
+.BR getmntent ()
+et
+.BR getmntent_r ()
+renvoient un pointeur sur la structure mntent,
+ou NULL en cas d'échec.
+.PP
+La fonction \fBaddmntent\fP() renvoie 0 si elle réussit, et 1 si elle échoue.
+.PP
+La fonction \fBendmntent\fP() renvoie toujours 1.
+.PP
+La fonction \fBhasmntopt\fP() renvoie l'adresse de la sous-chaîne si une
+correspondance est trouvée, ou NULL sinon.
+.SH FICHIERS
+.nf
+.IR /etc/fstab "    Description des systèmes de fichiers.
+.IR /etc/mtab "     Description des systèmes de fichiers montés.
+.fi
+.SH "CONFORMITÉ"
+Les fonctions non réentrantes viennent de SunOS 4.1.3.
+Une routine
+.BR getmntent_r ()
+a été introduite dans HPUX 10, mais retourne un entier. Le prototype
+ci-dessus ne concerne que la glibc.
+LSB rend obsolètes les fonctions
+.BR endhostent (),
+.BR sethostent ()
+et
+.BR setmntent ().
+.SH NOTES
+SysV a aussi une fonction \fBgetmntent\fP() mais l'appel est
+différent, ainsi que la structure renvoyée. Sous SysV, le
+fichier \fI/etc/mnttab\fP est employé.
+BSD 4.4 et Digital Unix ont une routine \fBgetmntinfo\fP(),
+qui sert à invoquer l'appel-système \fBgetfsstat\fP().
+.SH "VOIR AUSSI"
+.BR fopen (3),
+.BR fstab (5)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 27\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ getmntent\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

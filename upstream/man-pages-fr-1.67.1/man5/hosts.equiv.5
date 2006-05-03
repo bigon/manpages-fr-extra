@@ -1,0 +1,78 @@
+.\" Copyright (c) 1995 Peter Tobias <tobias@et-inf.fho-emden.de>
+.\" This file may be distributed under the GNU General Public License.
+.\" Màj 06/06/2001 LDP-1.36
+.\" LDP 1.47
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH HOSTS.EQUIV 5 "24 août 2003" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+/etc/hosts.equiv \- Liste des ordinateurs et des utilisateurs de confiance.
+.SH DESCRIPTION
+Le fichier \fBhosts.equiv\fP autorise ou interdit à des ordinateurs et à des
+utilisateurs l'utilisation des commandes \fBr\fP (telles que \fBrlogin\fP,
+\fBrsh\fP ou \fBrcp\fP) sans donner de mot de passe.
+.PP
+Le fichier utilise le format suivant\ :
+.TP
+\fI[ + | - ]\fP \fI[ordinateur]\fP \fI[utilisateur]\fP
+.PP
+Le champ \fIordinateur\fP est le nom d'un ordinateur équivalent à l'ordinateur
+local en terme d'autorisations. Les utilisateurs connectés sur cet ordinateur
+sont autorisés à accéder aux comptes du même nom sans fournir de mot de passe.
+\fIordinateur\fP peut être optionnellement précédé d'un signe plus «\ +\ ». Un signe
+plus seul signifie que toutes les machines sont autorisées à se connecter au
+système. Il est possible d'interdire l'accès à un ordinateur particulier en
+précédant \fIordinateur\fP d'un signe moins «\ \-\ ». Les utilisateurs de ces
+ordinateurs devront toujours fournir un mot de passe. Pour des raisons de
+sécurité, vous devriez toujours utiliser le nom complet de l'ordinateur et non
+son diminutif.
+.PP
+Le champ \fIutilisateur\fP permet de donner accès à tous les comptes (excepté
+root) sans mot de passe à un utilisateur particulier. Cela signifie que cet
+utilisateur
+.BR n "'est " pas
+limité au compte du même nom\ ! Le champ \fIutilisateur\fP peut être
+optionnellement précédé par un signe plus «\ +\ ». Vous pouvez aussi explicitement
+interdire l'accès à un utilisateur particulier en précédant \fIutilisateur\fP
+par un signe moins «\ \-\ ». Cela signifie que cet utilisateur n'est pas déclaré sûr
+quelles que soient les entrées relatives aux machines.
+.PP
+Les netgroupes peuvent être utilisés en plaçant un signe «\ @\ » devant.
+.PP
+Soyez très attentifs quand vous employez le signe plus «\ +\ ».
+Une simple erreur typographique et vous placerez un signe plus sur une ligne
+vide\ ; ce qui signifiera que tous les ordinateurs seront autorisés à employer
+les \fIr\fP-commandes sans mot de passe\ !
+.SH FICHIERS
+.I /etc/hosts.equiv
+.SH NOTES
+Certains systèmes ne tiennent compte du contenu de ce fichier que lorsque
+que le propriétaire est root et que personne d'autre ne peut le modifier.
+Certains systèmes particulièrement paranoïaques nécessitent même qu'il n'y ait
+qu'un seul lien physique sur le fichier.
+.PP
+Les systèmes modernes utilisent la bibliothèque «\ Pluggable Authentication
+Modules\ » (PAM). Avec PAM, un signe plus tout seul est considéré comme un
+caractère de remplacement (Ndt\ : wildcard) qui signifie «\ n'importe quel
+hôte \» lorsque le mot
+.I promiscuous
+est ajouté à la ligne «\ auth\ » de votre fichier PAM pour un service
+particulier
+.RB "(par exemple " rlogin ).
+.SH "VOIR AUSSI"
+.BR rhosts (5),
+.BR rlogind (8),
+.BR rshd (8)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 1999
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 5\ hosts.equiv\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,479 @@
+'\" t
+.\" Don't remove the line above, it tells man that tbl is needed.
+.\" This man page is Copyright (C) 1999 Andi Kleen <ak@muc.de>.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\" Based on the original comments from Alexey Kuznetsov, written with
+.\" help from Matthew Wilcox.
+.\" $Id: rtnetlink.7,v 1.8 2000/01/22 01:55:04 freitag Exp $
+.\"
+.\" Traduction Christophe Blaess, <ccb@club-internet.fr>
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH RTNETLINK  7 "30 avril 1999" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+rtnetlink, NETLINK_ROUTE \- Socket de routage Linux IPv4.
+.SH SYNOPSIS
+.B #include <asm/types.h>
+.br
+.B #include <linux/netlink.h>
+.br
+.B #include <linux/rtnetlink.h>
+.br
+.B #include <sys/socket.h>
+
+.BI "rtnetlink_socket = socket(PF_NETLINK, int " socket_type ", NETLINK_ROUTE);"
+.SH DESCRIPTION
+Rtnetlink permet de lire et modifier les tables de routage du noyau.
+Cela permet des communications entre divers sous-systèmes du noyau, bien que
+cette utilisation ne soit pas documentée ici, et pour les communications
+avec les programmes de l'espace utilisateur.
+Les routes réseau, les adresses IP, les paramètres de liaison,
+la configuration du voisinage, les files, les classes de trafic et les
+classes de paquets peuvent être configurés par le biais des sockets
+.BR NETLINK_ROUTE .
+Elles sont basées sur des messages netlink, voir
+.BR netlink (7)
+pour plus d'informations.
+.\" XXX: all these macros could be moved to rtnetlink(3)
+.SH "ATTRIBUTS DE ROUTAGE"
+Certains messages netlink ont des attributs supplémentaires après l'en-tête
+initial\ :
+
+.nf
+.ta 4 19 32
+struct rtattr
+{
+	unsigned short	rta_len;	/* Longueur option */
+	unsigned short	rta_type;	/* Type d'option   */
+	/* Les données suivent... */
+};
+.fi
+
+Ces attributs ne doivent être manipulés qu'en utilisant les macros RTA_* ou
+libnetlink, voir
+.BR rtnetlink (3).
+.SH MESSAGES
+Rtnetlink est constitué de trois types de messages (en plus des messages
+netlink standards)\ :
+.TP
+.BR RTM_NEWLINK ", " RTM_DELLINK ", " RTM_GETLINK
+Créer, supprimer, ou obtenir des informations  à propos d'une interface
+réseau spécifique. Ces messages contiennent une structure
+.B ifinfomsg
+suivie d'une série de
+structures
+.BR rtattr .
+
+.nf
+.ta 4 19 32
+struct ifinfomsg
+{
+	unsigned char	ifi_family;	/* AF_UNSPEC         */
+	unsigned short	ifi_type;	/* Type périphérique */
+	int	ifi_index;		/* Index Interface   */
+	unsigned int	ifi_flags;	/* Attributs périph. */
+	unsigned int	ifi_change;	/* Masque modificat° */
+};
+.fi
+
+.\" XXX ifi_type
+.B ifi_flags
+contient les attributs du périphérique, voir
+.BR netdevice "(7) ;"
+.B ifi_index
+est l'index unique de l'interface\ ;
+.B ifi_change
+est réservé pour un usage ultérieur et doit toujours valoir 0xFFFFFFFF.
+
+.TS
+tab(:);
+c
+l l l.
+Attributs de routage
+rta_type:type valeur:description
+_
+IFLA_UNSPEC:-:non-spécifié.
+IFLA_ADDRESS:adresse matérielle:Adresse L2 interface.
+IFLA_BROADCAST:adresse matérielle:Adresse L2 Broadcast.
+IFLA_IFNAME:chaîne AsciiZ:Nom périphérique.
+IFLA_MTU:unsigned int:MTU du périphérique.
+IFLA_LINK:int:Type liaison.
+IFLA_QDISC:chaîne AsciiZ:Mécanismes files.
+IFLA_STATS:T{
+struct net_device_stats
+T}:Statistiques interface.
+.TE
+.TP
+.BR RTM_NEWADDR ", " RTM_DELADDR ", " RTM_GETADDR
+Ajouter, supprimer ou obtenir des informations sur une adresse IP associée
+à une interface. Sous Linux 2.2., une interface peut gérer plusieurs adresses
+IP, ce qui remplace le concept d'alias de Linux 2.0. Dans Linux 2.2., ces
+messages supportent les adresses IPv4 et IPv6. Ils contiennent une structure
+.BR ifaddrmsg ,
+suivie éventuellement par des
+attributs de routage
+.BR rtaddr .
+
+.nf
+.ta 4 19 32
+struct ifaddrmsg
+{
+	unsigned char	ifa_family;	/* Type adresse       */
+	unsigned char	ifa_prefixlen;	/* Lg préfixe adresse */
+	unsigned char	ifa_flags;	/* Attributs adresse  */
+	unsigned char	ifa_scope;	/* Portée adresse     */
+	int	ifa_index;		/* Index interface    */
+};
+.fi
+
+.B ifa_family
+est le type de famille d'adresse (actuellement
+.B AF_INET
+ou
+.B AF_INET6),
+.B ifa_prefixlen
+est la longueur du masque d'adresse, s'il est défini pour la
+famille (comme avec IPv4),
+.B ifa_scope
+est la portée de l'adresse,
+.B ifa_index
+est l'index de l'interface associée à l'adresse.
+.B ifa_flags
+est un attribut composé de
+.B IFA_F_SECONDARY
+pour une adresse secondaire (les anciens alias d'interface),
+.B IFA_F_PERMANENT
+pour une adresse fixée par l'utilisateur, et d'autres attribut non documentés.
+
+.TS
+tab(:);
+c
+l l l.
+Attributes
+rta_type:type valeur:description
+_
+IFA_UNSPEC:-:non-spécifié.
+IFA_ADDRESS:Adresse protocole raw:Adresse interface.
+IFA_LOCAL:Adresse protocole raw:Adresse locale.
+IFA_LABEL:Chaîne AsciiZ:Nom de l'interface.
+IFA_BROADCAST:Adresse protocole raw:Adresse broadcast.
+IFA_ANYCAST:Adresse protocole raw:Adresse anycast.
+IFA_CACHEINFO:struct ifa_cacheinfo:Informations adresse.
+.TE
+.\" XXX struct ifa_cacheinfo
+.TP
+.BR RTM_NEWROUTE ", " RTM_DELROUTE ", " RTM_GETROUTE
+Créer, supprimer ou obtenir des informations à propos d'une route réseau.
+Ces messages contiennent une structure
+.B rtmsg
+suivie d'une séquence éventuelle de structures
+.BR rtattr .
+Pour
+.B RTM_GETROUTE
+mettre
+.B rtm_dst_len
+et
+.B rtm_src_len
+à 0 signifie obtenir toutes les entrées pour la table de routage indiquée.
+Pour les autres champs, sauf
+.B rtm_table
+et
+.BR rtm_protocol ,
+0 est le symbole générique signifiant «\ toutes valeurs\ ».
+
+.nf
+.ta 4 19 32
+struct rtmsg
+{
+	unsigned char	rtm_family;	/* Famille d'adresse de la route */
+	unsigned char	rtm_dst_len;	/* Longueur source               */
+	unsigned char	rtm_src_len;	/* Longueur destination          */
+	unsigned char	rtm_tos;	/* Filtre TOS                    */
+
+	unsigned char	rtm_table;	/* ID table routage              */
+	unsigned char	rtm_protocol;	/* Protocole route, cf plus bas  */
+	unsigned char	rtm_scope;	/* Cf plus bas                   */
+	unsigned char	rtm_type;	/* Cf plus bas                   */
+
+	unsigned int	rtm_flags;
+};
+.fi
+
+.TS
+tab(:);
+l l
+l l.
+rtm_type:Type route
+_
+RTN_UNSPEC:Route inconnue
+RTN_UNICAST:Passerelle ou route directe
+RTN_LOCAL:Route interface locale
+RTN_BROADCAST:T{
+Route broadcast locale (envoi en broadcast)
+T}
+RTN_ANYCAST:T{
+Route broadcast locale (envoi en unicast)
+T}
+RTN_MULTICAST:Route multicast
+RTN_BLACKHOLE:Route d'abandon de paquets
+RTN_UNREACHABLE:Destination inaccessible
+RTN_PROHIBIT:Route de rejet de paquets
+RTN_THROW:Routage prolongé dans une autre table
+RTN_NAT:Route de traduction d'adresse
+RTN_XRESOLVE:T{
+Référence à une résolution externe (non implémenté)
+T}
+.TE
+
+.TS
+tab(:);
+l l.
+rtm_protocol:Origine de la route.
+_
+RTPROT_UNSPEC:inconnue
+RTPROT_REDIRECT:T{
+redirection ICMP (inutilisé actuellement)
+T}
+RTPROT_KERNEL:fixée par le noyau
+RTPROT_BOOT:obtenue pendant le démarrage
+RTPROT_STATIC:fixée par l'administrateur
+.TE
+
+Les valeurs plus grandes que
+.B RTPROT_STATIC
+ne sont pas interprétées par le noyau, et servent d'information utilisateur.
+Elles permettent de marquer la source de la route ou de faire une distinction
+entre plusieurs démons de routage. Voir
+.BR <linux/rtnetlink.h>
+pour les identificateurs de démons de routage déjà affectés.
+
+.B rtm_scope
+est la distance à la destination\ :
+
+.TS
+tab(:);
+l l.
+RT_SCOPE_UNIVERSE:route globale
+RT_SCOPE_SITE:T{
+route locale interne au système autonome
+T}
+RT_SCOPE_LINK:route sur ce lien
+RT_SCOPE_HOST:route sur l'hôte local
+RT_SCOPE_NOWHERE:destination inexistante
+.TE
+
+Les valeurs entre
+.B RT_SCOPE_UNIVERSE
+et
+.B RT_SCOPE_SITE
+sont disponibles pour l'utilisateur.
+
+Le champ
+.B rtm_flags
+prend les significations suivantes\ :
+
+.TS
+tab(:);
+l l.
+RTM_F_NOTIFY:T{
+si la route change, notifier l'utilisateur via rtnetlink
+T}
+RTM_F_CLONED:la route est clonée depuis une autre route
+RTM_F_EQUALIZE:répartiteur multicast (pas encore implémenté)
+.TE
+
+.B rtm_table
+indique la table de routage
+
+.TS
+tab(:);
+l l.
+RT_TABLE_UNSPEC:table de routage non spécifiée
+RT_TABLE_DEFAULT:la table par défaut
+RT_TABLE_MAIN:la table principale
+RT_TABLE_LOCAL:la table locale
+.TE
+
+L'utilisateur peut affecter à son gré les valeurs entre
+.B RT_TABLE_UNSPEC
+et
+.BR RT_TABLE_DEFAULT .
+
+.TS
+tab(:);
+c
+l l l.
+Attributes
+rta_type:type de valeur:description
+_
+RTA_UNSPEC:-:ignoré.
+RTA_DST:Adresse protocole:Adresse de la route destination.
+RTA_SRC:Adresse protocole:Adresse de la route source.
+RTA_IIF:int:Index interface d'entrée.
+RTA_OIF:int:Index interface de sortie.
+RTA_GATEWAY:Adresse protocole:Passerelle de la route.
+RTA_PRIORITY:int:Priorité de la route.
+RTA_PREFSRC::
+RTA_METRICS:int:Métrique de la route.
+RTA_MULTIPATH::
+RTA_PROTOINFO::
+RTA_FLOW::
+RTA_CACHEINFO::
+.TE
+
+.\".B Fill these values in!
+.TP
+.BR RTM_NEWNEIGH ", " RTM_DELNEIGH  ", " RTM_GETNEIGH
+Ajouter, supprimer ou obtenir des informations sur les voisinage d'un
+élément de table (p.ex.\ : entrée ARP). Le message contient une
+structure
+.BR ndmsg .
+
+.nf
+.ta 4 19 32
+struct ndmsg
+{
+	unsigned char	ndm_family;
+	int	ndm_ifindex;	/* Index interface */
+	__u16	ndm_state;	/* États */
+	__u8	ndm_flags;	/* Attributs */
+	__u8	ndm_type;
+};
+
+struct nda_cacheinfo
+{
+	__u32	ndm_confirmed;
+	__u32	ndm_used;
+	__u32	ndm_updated;
+	__u32	ndm_refcnt;
+};
+.fi
+
+.B ndm_state
+est un masque contenant les bits suivants\ :
+
+.TS
+tab(:);
+l l.
+NUD_INCOMPLETE:une entrée de cache non résolue.
+NUD_REACHABLE:une entrée de cache confirmée correcte.
+NUD_STALE:une entrée de cache expirée.
+NUD_DELAY:une entrée de cache en attente de timer.
+NUD_PROBE:une entrée de cache en vérification.
+NUD_FAILED:une entrée de cache invalide.
+NUD_NOARP:un périphérique sans cache de destination.
+NUD_PERMANENT:une entrée statique.
+.TE
+
+Les valeurs valides pour
+.B ndm_flags
+sont\ :
+
+.TS
+tab(:);
+l l.
+NTF_PROXY:nne entrée proxy Arp.
+NTF_ROUTER:un routeur IPv6.
+.TE
+
+.\".B document the members of the struct better
+
+La structure
+.B rtaddr
+prend les significations suivantes pour
+le champ
+.BR rta_type " :"
+
+.TS
+tab(:);
+l l.
+NDA_UNSPEC:type inconnu
+NDA_DST:une adresse niveau réseau dans le cache de voisinage.
+NDA_LLADDR:une adresse niveau liaison dans le cache voisinage.
+NDA_CACHEINFO:statistiques sur le cache.
+.TE
+
+Si le champ
+.B rta_type
+vaut
+.B NDA_CACHEINFO
+alors un en-tête
+.B struct nda_cacheinfo
+suit.
+.TP
+.BR RTM_NEWRULE ", " RTM_DELRULE ", " RTM_GETRULE
+Ajouter, supprimer ou rechercher une règle de routage. Utilise une
+.BR struct rtmsg .
+.TP
+.BR RTM_NEWQDISC ", " RTM_DELQDISC ", " RTM_GETQDISC
+Ajouter, supprimer ou rechercher une displine de file d'attente. Le message
+contient une structure
+.B struct tcmsg
+et peut être suivi par une série d'attributs.
+
+.nf
+.ta 4 19 32
+struct tcmsg
+{
+	unsigned char	tcm_family;
+	int	tcm_ifindex;	/* Index interface */
+	__u32	tcm_handle;	/* Handle Qdisc    */
+	__u32	tcm_parent;	/* Parent Qdisc    */
+	__u32	tcm_info;
+};
+.fi
+
+.TS
+tab(:);
+c
+l l l.
+Attributes
+rta_type:Type valeur:Description
+_
+TCA_UNSPEC:-:unspecified
+TCA_KIND:Chaîne AsciiZ:Nom de la discipline de file
+TCA_OPTIONS:Séquence octets:Options spécifiques Qdisc suivent
+TCA_STATS:struct tc_stats:Statistiques Qdisc
+TCA_XSTATS:Spécifique Qdisc:Statistiques spécifiques module
+TCA_RATE:struct tc_estimator:Limitation taux
+.TE
+
+De plus, d'autres attributs spécifiques au module Qdisc sont possibles.
+Pour plus d'information, voir les fichiers d'en-tête appropriés.
+.TP
+.BR RTM_NEWTCLASS ", " RTM_DELTCLASS ", " RTM_GETTCLASS
+Ajouter, supprimer ou rechercher une classe de trafic. Ces messages
+contiennent une
+.B struct tcmsg
+décrite plus haut.
+.TP
+.BR RTM_NEWTFILTER ", " RTM_DELTFILTER ", " RTM_GETTFILTER
+Ajouter, supprimer ou obtenir des informations sur un filtre de trafic.
+Ces messages contiennent une
+.B struct tcmsg
+décrite plus haut.
+.SH VERSIONS
+.B rtnetlink
+est une nouveauté Linux 2.2.
+.SH BOGUES
+Cette page de manuel est très incomplète.
+.SH "VOIR AUSSI"
+.BR netlink (7),
+.BR cmsg (3),
+.BR ip (7),
+.BR rtnetlink (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 25\ juillet\ 2003
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 7\ rtnetlink\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

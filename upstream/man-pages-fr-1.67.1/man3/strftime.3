@@ -1,0 +1,288 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:03:44 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Corrected return value, aeb, 970307
+.\" Added Single Unix Spec conversions and %z, aeb/esr, 990329.
+.\"
+.\" Traduction 09/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 28/04/1998 LDP-1.19
+.\" Màj 18/05/1999 LDP-1.23
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH STRFTIME 3 "29 mars 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+strftime \- Formater la date et l'heure.
+.SH SYNOPSIS
+.nf
+.B #include <time.h>
+.sp
+.BI "size_t strftime (char *" s ", size_t " max ", const char *" format ,
+.BI "				const struct tm *" tm );
+.fi
+.SH DESCRIPTION
+La fonction \fBstrftime\fP() formate les divers champs de la
+structure \fItm\fP en fonction de la chaîne de spécification \fIformat\fP,
+puis place le résultat dans la chaîne \fIs\fP de taille \fImax\fP.
+.PP
+Les caractères ordinaires présents dans la chaîne \fIformat\fP seront
+simplement copiés dans \fIs\fP. Les indicateurs de conversion sont
+introduits par le caractère «\ %\ » et sont remplacés, dans la chaîne \fIs\fP
+ainsi\ :
+.TP
+.B %a
+Le nom abrégé du jour de la semaine, en fonction de la localisation en cours.
+.TP
+.B %A
+Le nom complet du jour de la semaine, en fonction de la localisation en cours.
+.TP
+.B %b
+Le nom abrégé du mois, en fonction de la localisation en cours.
+.TP
+.B %B
+Le nom complet du mois, en fonction de la localisation en cours.
+.TP
+.B %c
+La représentation classique de la date et de l'heure, suivant la
+localisation en cours.
+.TP
+.B %C
+Le siècle (année/100) sous forme de nombre de deux chiffres. (SU)
+.TP
+.B %d
+Le quantième du mois sous forme de nombre décimal (entre 01 et 31).
+.TP
+.B %D
+Équivalent à %m/%d/%y. Seulement pour les américains.
+Ces derniers doivent noter que les autres pays préfèrent le
+format %d/%m/%y. Dans un contexte international ce format est
+ambigu et doit être évité. (SU)
+.TP
+.B %e
+Comme %d, le quantième du mois sous forme décimal, mais l'éventuel
+zéro en tête est remplacé par un espace. (SU)
+.TP
+.B %E
+Modificateur\ : Utiliser un format de rechange. Voir plus bas. (SU)
+.TP
+.B %F
+Équivalent de %Y-%m-%d (Format de date ISO 8601). (C99)
+.TP
+.B %G
+L'année ISO 8601 avec le siècle comme nombre décimal. L'année sur quatre
+chiffres correspond au numéro de la semaine ISO (voir %V).
+C'est le même format que %y, sauf que si le numéro de semaine appartient
+à l'année suivante ou précédente, c'est celle-ci qui est affichée à la
+place. (TZ)
+.TP
+.B %g
+Comme %G sans le siècle, c'est-à-dire avec une année sur deux chiffres (00-99). (TZ)
+.TP
+.B %h
+Équivalent à %b. (SU)
+.TP
+.B %H
+L'heure, sur 24 heures, sous forme de nombre décimal (entre 00 et 23).
+.TP
+.B %I
+L'heure, sur 12 heures, sous forme de nombre décimal (entre 01 et 12).
+.TP
+.B %j
+Le numéro du jour dans l'année (entre 001 et 366).
+.TP
+.B %k
+L'heure (sur 24 heures) sous forme de nombre décimal (intervalle 0 à 23).
+Les chiffres uniques sont précédés d'un blanc (voir aussi %H). (TZ).
+.TP
+.B %l
+L'heure  (sur 12 heures) sous forme de nombre décimal (intervalle 1 à 12).
+Les chiffres uniques sont précédés d'un blanc (voir aussi %I). (TZ).
+.TP
+.B %m
+Le numéro du mois (entre 01 et 12).
+.TP
+.B %M
+La minute, sous forme de nombre décimal (00 à 59).
+.TP
+.B %n
+Un caractère saut-de-ligne. (SU)
+.TP
+.B %O
+Modificateur\ : Utiliser un format de rechange. Voir plus bas. (SU)
+.TP
+.B %p
+L'une des deux chaînes «\ AM\ » ou «\ PM\ » en fonction de l'heure, ou la traduction
+de ces chaînes en fonctions de la localisation en cours.
+Midi est traité comme «\ PM\ » et Minuit comme «\ AM\ ».
+.TP
+.B %P
+Comme %p mais en minuscule: «\ am\ » ou «\ pm\ » ou une chaîne locale équivalente. (GNU)
+.TP
+.B %r
+L'heure en notation a.m. ou p.m.
+Dans la localisation POSIX, c'est équivalent à «\ %I:%M:%S %p\ ». (SU)
+.TP
+.B %R
+L'heure en format 24 heures (%H:%M). (SU).
+Pour avoir les secondes voir %T.
+.TP
+.B %s
+Le nombre de secondes écoulées depuis le 1er Janvier 1970 à 00:00:00 UTC. (TZ).
+.TP
+.B %S
+La seconde, sous forme de nombre décimal. (00-61)
+.TP
+.B %t
+Un caractère Tab. (SU)
+.TP
+.B %T
+L'heure en notation 24 heures (%H:%M:%S). (SU)
+.TP
+.B %u
+Le jour de la semaine sous forme décimal, de 1 (Lundi) à 7.
+Voir aussi %w. (SU)
+.TP
+.B %U
+Le numéro de la semaine dans l'année, sous forme de nombre décimal (00-53),
+en commençant le comptage au premier Dimanche de l'année. Voir aussi %V et %W.
+.TP
+.B %V
+Le numéro de semaine ISO 8601:1988 de l'année en cours sous forme de nombre
+décimal dans l'intervalle 01-53, où la semaine 1 est la première ayant au
+moins 4 jours dans l'année en cours, et où Lundi est le premier jour de la
+semaine. Voir aussi %U et %W. (SU)
+.TP
+.B %W
+Le numéro de la semaine dans l'année, sous forme de nombre décimal (00-53), en
+commençant le comptage au premier Lundi de l'année.
+.TP
+.B %w
+Le numéro du jour de la semaine, sous forme décimale (0-6), Dimanche
+valant 0. Voir aussi %u.
+.TP
+.B %x
+La représentation usuelle de la date, sans l'heure, dans la localisation
+en cours.
+.TP
+.B %X
+La représentation usuelle de l'heure, sans la date, dans la localisation
+en cours.
+.TP
+.B %y
+L'année, sous forme de nombre décimal, sans le siècle (entre 00 et 99).
+.TP
+.B %Y
+L'année, sous forme de nombre décimal, incluant le siècle.
+.TP
+.B %z
+Le fuseau horaire sous forme de décalage GMT. Nécessaire pour crééer
+des dates conformes à la RFC 822
+(avec "%a, %d %b %Y %H:%M:%S %z"). (GNU)
+.TP
+.B %Z
+Le nom ou l'abréviation du fuseau horaire.
+.TP
+.B %+
+La date et l'heure au format date(1). (TZ)
+.TP
+.B %%
+Un caractère «\ %\ ».
+.PP
+Certains indicateurs de conversion peuvent être modifiés en les faisant
+précéder par le modificateur E ou O pour indiquer un format de rechange.
+Si le format de rechange n'existe pas pour la localisation en cours, le
+comportement ne sera pas modifié.
+Les spécifications Single Unix mentionnent %Ec, %EC, %Ex, %EX,
+%Ry, %EY, %Od, %Oe, %OH, %OI, %Om, %OM, %OS, %Ou, %OU, %OV,
+%Ow, %OW, %Oy,
+où l'action du modificateur O est d'utiliser un autre format numérique
+(par exemple des chiffres romains), et l'action de E est d'utiliser
+une représentaiton dépendant de la localisation.
+.PP
+Les champs de la structure \fItm\fP sont définis dans \fI<time.h>\fP.
+Voir aussi
+.BR ctime (3).
+.SH "VALEUR RENVOYÉE"
+La fonction \fBstrftime\fP() renvoie le nombre de caractères écrits dans
+la table \fIs\fP, sans compter le caractère NUL final. Si la chaîne était
+trop courte, \fBstrftime\fP() renvoie 0, et le contenu de la chaîne est
+indéfini. (Ceci, du moins, depuis la libc 4.4.4, des versions plus anciennes
+de la libc, comme la 4.4.1, renvoyaient \fImax\fP si la chaîne était trop
+courte)
+
+Remarquez qu'une valeur de retour nulle n'indique pas toujours une erreur.
+Dans de nombreuses localisations, par exemple, %p renvoie une chaîne vide.
+.SH ENVIRONNEMENT
+Les variables d'environnement TZ et LC_TIME sont utilisées.
+.SH "CONFORMITÉ"
+ANSI C, SVID 3, ISO 9899.
+Il y a une inclusion stricte entre les jeux de conversions fournies
+par ANSI (sans marque), celles indiquées par les Spécifications Single
+Unix (marquées SU), celles fournies par le paquetage TimeZone d'Olson
+(marquées TZ), et celles de la glibc (marquées GNU), sauf pour %+
+qui n'est pas supporté par glibc2. D'un autre côté glibc2 offre
+plusieurs extensions.
+POSIX.1 ne traite que les conversions ANSI C. POSIX.2 décrit à propos de
+.BR date (1)
+plusieurs extensions applicables également à
+.BR strftime.
+La conversion %F est dans C99 et POSIX 1003.1-2001.
+.SH BOGUES
+Certaines versions boguées de gcc se plaignent de l'utilisation de %c\ :
+.IR "warning: `%c' yields only last 2 digits of year in some locales" .
+(Attention\ : ne donne que les deux derniers chiffres de l'année dans certaines
+localisations).
+Bien sûr, les programmeurs sont encouragés à utiliser %c, cela donne la
+représentation préférée de date et d'heure. Il y a eu des tas d'astuces
+bizarres pour éviter ce problème de gcc. Une relativement propre est
+d'utiliser une fonction intermédiaire\ :
+.RS
+size_t my_strftime(char *s, size_t max, const char *fmt,
+const struct tm *tm) {
+.br
+        return strftime(s, max, fmt, tm);
+.br
+}
+.RE
+.SH "VOIR AUSSI"
+.BR date (1),
+.BR time (2),
+.BR ctime (3),
+.BR setlocale (3),
+.BR sprintf (3),
+.BR strptime (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 9\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ strftime\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

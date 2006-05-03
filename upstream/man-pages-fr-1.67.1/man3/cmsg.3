@@ -1,0 +1,238 @@
+.\" This man page is Copyright (C) 1999 Andi Kleen <ak@muc.de>.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\" $Id: cmsg.3,v 1.8 2000/12/20 18:10:31 ak Exp $
+.\"
+.\" Traduction 03/09/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.31
+.\" Màj 04/06/2001 LDP-1.36
+.\" Màj 21/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 08/07/2005 LDP-1.63
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH CMSG 3 "2 octobre 1998" LDP "Manuel du programmeur Linux"
+.SH NOM
+CMSG_ALIGN, CMSG_SPACE, CMSG_NXTHDR, CMSG_FIRSTHDR \- Accès aux informations de service.
+.SH SYNOPSIS
+.B #include <sys/socket.h>
+.br
+.sp 2
+.BI "struct cmsghdr *CMSG_FIRSTHDR(struct msghdr *" msgh );
+.br
+.BI "struct cmsghdr *CMSG_NXTHDR(struct msghdr *" msgh ", struct cmsghdr *" cmsg );
+.br
+.BI "size_t CMSG_ALIGN(size_t " length );
+.br
+.BI "size_t CMSG_SPACE(size_t " length );
+.br
+.BI "size_t CMSG_LEN(size_t " length );
+.br
+.BI "unsigned char *CMSG_DATA(struct cmsghdr *" cmsg );
+.sp
+.nf
+.ta 8n 20n 32n
+struct cmsghdr {
+  socklen_t     cmsg_len;   /* Nombre d'octets, y compris l'en-tête */
+  int           cmsg_level; /* Protocole d'origine                  */
+  int           cmsg_type;  /* Type spécifique au protocole         */
+  /* suivi de\ :
+  unsigned char cmsg_data[]; */
+};
+.ta
+.fi
+.SH DESCRIPTION
+Ces macros servent à créer et à accéder aux messages de contrôle (informations
+de service \-
+.IR "ancillary data" )
+qui ne font pas partie du trafic normal des sockets.
+Ces informations de contrôle peuvent inclure l'interface sur laquelle le paquet
+a été reçu, des champs d'en-tête rarement employés, des descriptions d'erreur
+approfondies, un ensemble de descripteurs de fichiers ou des identificateurs Unix.
+Par exemple, les messages de services peuvent servir à envoyer des champs d'en-tête
+supplémentaires tels que les options IP. Les données de services sont émises avec
+.BR sendmsg (2)
+et reçues avec
+.BR recvmsg (2).
+Se reporter à leurs pages de manuel respectives pour avoir plus d'informations.
+.PP
+Une information de service est une séquence de structures
+.B struct cmsghdr
+avec des données ajoutées. Cette séquence ne doit être manipulée qu'au moyen des
+macros décrites dans cette page de manuel, et jamais directement. Voir les pages
+spécifiques des protocoles pour les types de messages de commande disponibles.
+La taille maximale de tampon de service par socket est paramétré avec l'option
+.B net.core.optmem_max
+de sysctl(). Voir
+.BR socket (7).
+.PP
+.B CMSG_FIRSTHDR
+renvoie un pointeur sur la première
+.B cmsghdr
+du tampon de données de service associé avec
+.BR  msghdr .
+.PP
+.B CMSG_NXTHDR
+renvoie la
+.B cmsghdr
+suivante après la
+.BR cmsghdr
+transmise. Elle renvoie
+.B NULL
+s'il n'y a plus assez de place dans le tampon.
+.PP
+.BR CMSG_ALIGN ,
+renvoie la longueur transmise en argument additionnée de la taille nécessaire
+pour les alignements. Il s'agit d'une expression constante.
+.PP
+.B CMSG_SPACE
+renvoie le nombre d'octets occupés par un élément de service contenant la taille
+indiquée de données transmises. Il s'agit d'une expression constante.
+.PP
+.B CMSG_DATA
+renvoie un pointeur sur les données d'une
+.BR cmsghdr .
+.PP
+.B CMSG_LEN
+renvoie la valeur à stocker dans le membre
+.I cmsg_len
+d'une structure
+.B cmsghdr
+en tenant compte des alignements. Elle prend en argument la longueur des données.
+Il s'agit d'une expression constante.
+.PP
+Pour créer des données de service, il faut tout d'abord initialiser le membre
+.I msg_controllen
+de la structure
+.B msghdr
+avec la longueur du tampon de message de contrôle. Utilisez
+.B CMSG_FIRSTHDR
+sur la
+.B msghdr
+pour obtenir le premier message de contrôle, puis
+.B CMSG_NEXTHDR
+pour accéder aux suivants.
+Dans chaque message de contrôle, initialisez
+.I cmsg_len
+(avec
+.BR CMSG_LEN ),
+les champs d'en-tête de l'autre
+.BR cmsghdr ,
+et la partie données avec
+.BR CMSG_DATA .
+Finallement, il faut remplir le membre
+.I msg_controllen
+de la structure
+.B msghdr
+avec la somme de
+.B CMSG_SPACE
+appliqué à tous les messages de contrôle
+dans le tampon.
+Pour plus d'informations sur
+.BR msghdr ,
+voir
+.BR recvmsg (2).
+.PP
+Lorsque le tampon de message de contrôle est trop court pour stocker tous les messages, l'attribut
+.B MSG_CTRUNC
+est activé dans le membre
+.I msg_flags
+de
+.BR msghdr .
+.SH EXEMPLE
+Ce code recherche l'option
+.B IP_TTL
+dans un tampon de messages de service reçus\ :
+.PP
+.RS
+.nf
+.ta 8n 16n 32n
+struct msghdr msgh;
+struct cmsghdr *cmsg;
+int *ttlptr;
+int received_ttl;
+
+/* Receive auxiliary data in msgh */
+for (cmsg = CMSG_FIRSTHDR(&msgh);
+     cmsg != NULL;
+     cmsg = CMSG_NXTHDR(&msgh,cmsg) {
+	if (cmsg->cmsg_level == SOL_IP
+	  && cmsg->cmsg_type == IP_TTL) {
+		ttlptr = (int *) CMSG_DATA(cmsg);
+		received_ttl = *ttlptr;
+		break;
+	}
+}
+if (cmsg == NULL) {
+	/* Error: IP_TTL not enabled or small buffer
+	 * or I/O error.
+	 */
+}
+.ta
+.fi
+.RE
+.PP
+Ce code passe une table de descripteurs de fichiers au travers d'une socket Unix en utilisant
+.BR SCM_RIGHTS \ :
+.PP
+.RS
+.nf
+.ta 8n 16n 32n
+struct msghdr msg = {0};
+struct cmsghdr *cmsg;
+int myfds[NUM_FD]; /* Contains the file descriptors to pass. */
+char buf[CMSG_SPACE(sizeof myfds)];  /* ancillary data buffer */
+int *fdptr;
+
+msg.msg_control = buf;
+msg.msg_controllen = sizeof buf;
+cmsg = CMSG_FIRSTHDR(&msg);
+cmsg->cmsg_level = SOL_SOCKET;
+cmsg->cmsg_type = SCM_RIGHTS;
+cmsg->cmsg_len = CMSG_LEN(sizeof(int) * NUM_FD);
+/* Initialize the payload: */
+fdptr = (int *)CMSG_DATA(cmsg);
+memcpy(fdptr, myfds, NUM_FD * sizeof(int));
+/* Sum of the length of all control messages in the buffer: */
+msg.msg_controllen = cmsg->cmsg_len;
+.ta
+.fi
+.RE
+.SH NOTES
+Pour des questions de portabilité, les données de services ne doivent être
+manipulées qu'avec les macros décrites ici.
+.B CMSG_ALIGN
+est une extension Linux et ne doit pas être utilisée dans un programme portable.
+.PP
+Sous Linux,
+.BR CMSG_LEN ,
+.BR CMSG_DATA ,
+et
+.B CMSG_ALIGN
+sont des expressions constantes (si leur argument est une constante) \- on peut
+donc les utiliser pour déclarer la taille de variables
+globales. Cela peut néanmoins ne pas être portable.
+.SH "CONFORMITÉ"
+Le modèle des données de service est conforme à POSIX.1003.1g draft, 4.4BSD-Lite,
+l'API IPv6 avancée décrite dans la RFC2292 et les spécifications Single Unix v2.
+.B
+CMSG_ALIGN
+est une extension Linux.
+.SH "VOIR AUSSI"
+.BR sendmsg (2),
+.BR recvmsg (2)
+.PP
+RFC 2292
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 3\ septembre\ 2000
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ cmsg\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

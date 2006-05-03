@@ -1,0 +1,148 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 19:46:03 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 23/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH DRAND48 3 "2 juillet 19933" LDP "Manuel du programmeur Linux"
+.SH NOM
+drand48, erand48, lrand48, nrand48, mrand48, jrand48, srand48, seed48, lcong48 \- Générateurs de nombres pseudo-aléatoires uniformément distribués.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.B double drand48 (void);
+.sp
+.BI "double erand48 (unsigned short " xsubi [3]);
+.sp
+.B long int lrand48 (void);
+.sp
+.BI "long int nrand48 (unsigned short " xsubi [3]);
+.sp
+.B long int mrand48 (void);
+.sp
+.BI "long int jrand48 (unsigned short " xsubi [3]);
+.sp
+.BI "void srand48 (long int " seedval );
+.sp
+.BI "unsigned short * seed48 (unsigned short " seed16v [3]);
+.sp
+.BI "void lcong48 (unsigned short " param [7]);
+.fi
+.SH DESCRIPTION
+Ces fonctions engendrent des nombres pseudo-aléatoires en utilisant un
+algorithme de congruence linéaire, et une arithmétique entière sur 48 bits.
+.PP
+les fonctions \fBdrand48\fP() et \fBerand48\fP() renvoient des valeurs réelles
+en virgule flottante uniformément distribuées dans l'intervalle
+[0.0, 1.0].
+.PP
+Les fonctions \fBlrand48\fP() et \fBnrand48\fP() renvoient des entiers longs
+positifs ou nuls, uniformément distribués entre 0 et 2^31.
+.PP
+Les fonctions \fBmrand48\fP() et \fBjrand48\fP() renvoient des entiers longs
+signés uniformément distribués entre \-2^31 et 2^31.
+.PP
+Les fonctions \fBsrand48\fP(), \fBseed48\fP() et \fBlcong48\fP() sont
+des fonctions d'initialisation. Une d'entre elles devrait être appelée
+avant d'utiliser \fBdrand48\fP(), \fBlrand48\fP() ou \fBmrand48\fP().
+Les fonctions \fBerand48\fP(), \fBnrand48\fP() et \fBjrand48\fP()
+ne nécessitent pas de fonction d'initialisation préliminaire.
+.PP
+Toutes ces fonctions engendrent une séquence d'entiers
+\fIXi\fP, sur 48 bits, en utilisant la formule de congruence linéaire\ :
+.sp
+.nf
+.RS
+.B Xn+1 = (aXn + c) mod m,   avec n >= 0
+.RE
+.fi
+.sp
+Le paramètre \fIm\fP vaut 2^48, ainsi l'arithmétique entière 48 bits est
+respectée.
+Tant que \fBlcong48\fP() n'est pas appelé, \fIa\fP et \fIc\fP valent\ :
+.sp
+.nf
+.RS
+.B a = 0x5DEECE66D
+.B c = 0xB
+.RE
+.fi
+.sp
+Les fonctions \fBdrand48\fP(), \fBerand48\fP(), \fBlrand48\fP(),
+\fBnrand48\fP(), \fBmrand48\fP() et \fBjrand48\fP() commencent par
+calculer le \fIXi\fP suivant dans la séquence, puis le nombre de
+bits approprié à la valeur de retour est copié en partant des bits
+de poids forts, enfin cette dernière valeur est renvoyée.
+.PP
+Les fonctions \fBdrand48\fP(), \fBlrand48\fP() et \fBmrand48\fP() mémorisent
+le dernier \fIXi\fP créé dans un tampon interne. Les fonctions
+\fBerand48\fP(), \fBnrand48\fP() et \fBjrand48\fP() nécessitent que le
+programme appelant fournisse un emplacement de stockage pour les
+valeurs successives de \fIXi\fP, Cet emplacement est le tableau
+correspondant à l'argument \fIxsubi\fP.
+Ces fonctions sont initialisées en plaçant une valeur pour \fIXi\fP
+dans le tableau avant le premier appel.
+.PP
+La fonction d'initialisation \fBsrand48\fP() place l'argument
+\fIseedval\fP dans les 32 bits de poids fort de \fIXi\fP.
+Les 16 bits de poids faibles sont initialisés avec la valeur arbitraire 0x330E.
+.PP
+La fonction d'initialisation \fBseed48\fP() place les éléments du tableau
+\fIseed16v\fP dans les 48 bits de \fIXi\fP.
+La valeur précédente de \fIXi\fP est copiée dans un tampon interne sur lequel
+un pointeur est renvoyé par \fBseed48\fP().
+.PP
+La fonction d'initialisation \fBlcong48\fP() permet à l'utilisateur
+de fournir les valeurs initiales de \fIXi\fP, \fIa\fP et \fIc\fP.
+Les éléments \fIparam[0-2]\fP du tableau fourni en argument représentent
+les 48 bits de \fIXi\fP, \fIparam[3-5]\fP correspondent à \fIa\fP, et
+\fIparam[6]\fP correspond à \fIc\fP.
+Après un appel à \fBlcong48\fP(), un appel ultérieur à \fBsrand48\fP() ou à
+\fBseed48\fP() rétablira les valeurs normales de \fIa\fP et \fIc\fP.
+.SH "CONFORMITÉ"
+SVID 3
+.SH NOTES
+Ces fonctions sont déclarées obsolètes par SVID 3, qui indique que
+\fBrand\fP(3) devrait être utilisé à la place.
+.SH "VOIR AUSSI"
+.BR rand (3),
+.BR random (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 23\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ drand48\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,112 @@
+.\" Copyright (c) 1983, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)setregid.2	6.4 (Berkeley) 3/10/91
+.\"
+.\" Modified Sat Jul 24 09:08:49 1993 by Rik Faith <faith@cs.unc.edu>
+.\" Portions extracted from linux/kernel/sys.c:
+.\"             Copyright (C) 1991, 1992  Linus Torvalds
+.\"             May be distributed under the GNU General Public License
+.\" Changes: Fri Jul 29 10:56:01 BST 1994 by Wilf. <G.Wilford@ee.surrey.ac.uk>
+.\"          Tue Aug  2 14:56:48 BST 1994 by Wilf due to change in kernel.
+.\"
+.\" Traduction 04/06/2001 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-1.36
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SETREUID 2 "2 août 1994" LDP "Manuel du programmeur Linux"
+.SH NOM
+setreuid, setregid \- Fixer les UID et GID effectifs et/ou réels.
+.SH SYNOPSIS
+.B #include <sys/types.h>
+.br
+.B #include <unistd.h>
+.sp
+.BI "int setreuid(uid_t " ruid ", uid_t " euid );
+.br
+.BI "int setregid(gid_t " rgid ", gid_t " egid );
+.SH DESCRIPTION
+.B setreuid
+fixe les ID d'utilisateur effectif et réel du processus appelant.
+Les utilisateurs non privilégiés peuvent seulement fixer leur UID réel à
+la valeur de l'UID réel ou de l'UID effectif, et ne peuvent fixer leur UID
+effectif qu'à la valeur de l'UID réel, de l'UID effectif ou de l'UID sauvé.
+
+Fournir une valeur \-1 pour l'un des arguments demande au système de ne
+pas modifier l'ID correspondant
+
+Si l'UID réel est changé, ou si l'UID effectif est rempli avec une valeur
+différente de l'UID réel précédent, l'UID sauvé sera également rempli avec
+la valeur du nouvel UID effectif.
+
+De manière analogue,
+.B setregid
+fixe les ID de groupe du processus appelant, et toutes les remarques
+précédentes s'appliquent, en remplaçant GID par UID.
+
+.SH "VALEUR RENVOYÉE"
+En cas de réussite, zéro est renvoyé, sinon \-1 est renvoyé et
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EPERM
+Le processus n'est pas super-utilisateur, des modifications ont été demandées autres
+que (i) l'échange de l'UID (resp. GID) effectif avec l'UID (GID) réel,
+(ii) la copie d'un UID (GID) dans un autre, ou (iii) le remplissage de
+l'UID (GID) effectif avec la valeur de l'UID (GID) sauvé.
+.SH NOTES
+Fixer l'UID (GID) sauvé est possible de Linux 1.1.37 (1.1.38).
+.SH "CONFORMITÉ"
+BSD 4.3 (Les fonctions
+.B setreuid
+et
+.B setregid
+sont apparues dans BSD 4.2).
+.SH "VOIR AUSSI"
+.BR getuid (2),
+.BR getgid (2),
+.BR setuid (2),
+.BR setgid (2),
+.BR seteuid (2),
+.BR setresuid (2)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 4\ juin\ 2001
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ setreuid\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

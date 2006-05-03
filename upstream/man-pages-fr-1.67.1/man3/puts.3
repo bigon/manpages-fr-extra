@@ -1,0 +1,128 @@
+.\" (c) 1993 by Thomas Koenig (ig25@rz.uni-karlsruhe.de)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" License.
+.\" Modified Sat Jul 24 18:42:59 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 05/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/04/1998 LDP-1.19
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH PUTS 3 "4 avril 1993" LDP "Manuel du programmeur Linux"
+.SH NOM
+puts, fputc, fputs, putc, putchar \- Écriture de caractères et de chaînes.
+.SH SYNOPSIS
+.nf
+.B #include <stdio.h>
+.sp
+.BI "int fputc (int " c ", FILE *" stream );
+.nl
+.BI "int fputs (const char *" "s" ", FILE *" "stream" );
+.nl
+.BI "int putc (int " c ", FILE *" stream );
+.nl
+.BI "int putchar (int " c );
+.nl
+.BI "int puts (const char * " s );
+.SH DESCRIPTION
+.BR fputc ()
+écrit le caractère
+.IR c ,
+transformé en
+.BR "unsigned char" ,
+dans le flux
+.IR stream .
+.PP
+.BR fputs ()
+écrit la chaîne de caractères
+.I s
+dans le flux
+.IR stream ,
+sans écrire le
+.RB «\  \e0 "\ »
+final.
+.PP
+.BR putc ()
+est équivalent à
+.BR fputc ()
+sauf qu'il peut être implémenté comme une macro évaluant plusieurs fois
+son argument
+.IR stream .
+.PP
+.BR putchar (c)
+est équivalent à
+.BR putc "(c,stdout).
+.PP
+.BR puts ()
+écrit la chaîne de caractères
+.I s
+et un retour-chariot final sur
+.IR stdout .
+.PP
+Les appels de ces fonctions peuvent être utilisés conjointement, ainsi qu'avec
+les autres fonctions d'écriture de la bibliotheque
+.BR stdio .
+.PP
+Pour des versions de ces fonctions ignorant les verrouillages, voir
+.BR unlocked_stdio (3).
+.SH "VALEUR RENVOYÉE"
+.BR fputc "(), " putc "() et " putchar "()
+renvoient le caractère écrit en tant qu'\fBunsigned char\fP, converti en
+.B int
+ou
+.B EOF
+en cas d'erreur.
+.PP
+.BR puts "() et " fputs "()
+renvoient un nombre non négatif s'ils réussissent et
+.B EOF
+s'ils échouent.
+.PP
+.SH "CONFORMITÉ"
+ANSI - C, POSIX.1
+.SH "BOGUES"
+Il est fortement déconseillé de mêler les fonctions d'écriture de
+.B stdio
+avec les appels bas-niveau
+.BR write ()
+sur le descripteur du fichier associé au flux. Les résultats sont imprévisibles.
+.SH "VOIR AUSSI"
+.BR write (2),
+.BR ferror (3),
+.BR fopen (3),
+.BR fseek (3),
+.BR fwrite (3),
+.BR gets (3),
+.BR scanf (3),
+.BR unlocked_stdio (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 5\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ puts\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

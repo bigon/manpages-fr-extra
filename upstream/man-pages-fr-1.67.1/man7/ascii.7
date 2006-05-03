@@ -1,0 +1,191 @@
+.\" Copyright (c) 1993 Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de)
+.\" Created Fri Apr  2 11:32:09 MET DST 1993
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Modified 1993-07-24 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 1994-05-15 by Daniel Quinlan (quinlan@yggdrasil.com)
+.\" Modified 1994-11-22 by Daniel Quinlan (quinlan@yggdrasil.com)
+.\" Modified 1995-07-11 by Daniel Quinlan (quinlan@yggdrasil.com)
+.\" Modified 1996-12-18 by Michael Haardt and aeb
+.\" Modified 1999-05-31 by Dimitri Papadopoulos (dpo@club-internet.fr)
+.\" Modified 1999-08-08 by Michael Haardt (michael@moria.de)
+.\" Modified 2004-04-01 by aeb
+.\"
+.\" Traduction 19/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/01/1997
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 23/12/2005 LDP-1.67
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ASCII 7 "1er avril 2004" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+ascii \- Le jeu de caractères ASCII en octal, décimal, et hexadécimal.
+.SH DESCRIPTION
+ASCII est l'acronyme de American Standard Code for Information Interchange.
+Il s'agit d'un code sur 7 bits. De nombreux codes sur 8 bits (tels que
+l'ISO 8859-1, le jeu de caractères par défaut de Linux) contiennent
+l'ASCII dans leur première moitié.
+L'équivalent international de l'ASCII est connu sous le nom de ISO 646.
+.LP
+La table suivante contient les 128 caractères ASCII.
+.LP
+Les séquences d'échappement \f(CW'\eX'\fP pour les programmes C sont mentionnées.
+.LP
+.if t \{\
+.in 1i
+.ft CW
+\}
+.TS
+l l l l l l l l l.
+Oct	Dec	Hex	Car		Oct	Dec	Hex	Car
+_
+000	0	00	NUL '\e0'		100	64	40	@
+001	1	01	SOH		101	65	41	A
+002	2	02	STX		102	66	42	B
+003	3	03	ETX		103	67	43	C
+004	4	04	EOT		104	68	44	D
+005	5	05	ENQ		105	69	45	E
+006	6	06	ACK		106	70	46	F
+007	7	07	BEL '\ea'		107	71	47	G
+010	8	08	BS  '\eb'		110	72	48	H
+011	9	09	HT  '\et'		111	73	49	I
+012	10	0A	LF  '\en'		112	74	4A	J
+013	11	0B	VT  '\ev'		113	75	4B	K
+014	12	0C	FF  '\ef'		114	76	4C	L
+015	13	0D	CR  '\er'		115	77	4D	M
+016	14	0E	SO		116	78	4E	N
+017	15	0F	SI		117	79	4F	O
+020	16	10	DLE		120	80	50	P
+021	17	11	DC1		121	81	51	Q
+022	18	12	DC2		122	82	52	R
+023	19	13	DC3		123	83	53	S
+024	20	14	DC4		124	84	54	T
+025	21	15	NAK		125	85	55	U
+026	22	16	SYN		126	86	56	V
+027	23	17	ETB		127	87	57	W
+030	24	18	CAN		130	88	58	X
+031	25	19	EM		131	89	59	Y
+032	26	1A	SUB		132	90	5A	Z
+033	27	1B	ESC		133	91	5B	[
+034	28	1C	FS		134	92	5C	\e   '\e\e'
+035	29	1D	GS		135	93	5D	]
+036	30	1E	RS		136	94	5E	^
+037	31	1F	US		137	95	5F	\&_
+040	32	20	SPACE		140	96	60	\`
+041	33	21	!		141	97	61	a
+042	34	22	"		142	98	62	b
+043	35	23	#		143	99	63	c
+044	36	24	$		144	100	64	d
+045	37	25	%		145	101	65	e
+046	38	26	&		146	102	66	f
+047	39	27	'		147	103	67	g
+050	40	28	(		150	104	68	h
+051	41	29	)		151	105	69	i
+052	42	2A	*		152	106	6A	j
+053	43	2B	+		153	107	6B	k
+054	44	2C	,		154	108	6C	l
+055	45	2D	\-		155	109	6D	m
+056	46	2E	.		156	110	6E	n
+057	47	2F	/		157	111	6F	o
+060	48	30	0		160	112	70	p
+061	49	31	1		161	113	71	q
+062	50	32	2		162	114	72	r
+063	51	33	3		163	115	73	s
+064	52	34	4		164	116	74	t
+065	53	35	5		165	117	75	u
+066	54	36	6		166	118	76	v
+067	55	37	7		167	119	77	w
+070	56	38	8		170	120	78	x
+071	57	39	9		171	121	79	y
+072	58	3A	:		172	122	7A	z
+073	59	3B	;		173	123	7B	{
+074	60	3C	<		174	124	7C	|
+075	61	3D	= 		175	125	7D	}
+076	62	3E	>		176	126	7E	~
+077	63	3F	?		177	127	7F	DEL
+.TE
+.fi
+.if t \{\
+.in
+.ft P
+\}
+.SH HISTORIQUE
+Une page de manuel
+.B ascii
+est apparue dans AT&T UNIX VERSION 7.
+.LP
+Sur les terminaux anciens, le code de soulignement (underscore) est
+affiché sous forme de flèche vers la gauche (backarrow), l'accent
+circonflexe (caret) est affiché sous forme de flèche vers le haut, et
+la barre verticale est interrompue en son centre.
+.LP
+Les caractères majuscules et minuscules ne différent que par un bit, et le
+caractère Ascii «\ 2\ » ne diffère du guillemet que d'un bit (ils partagent la
+même touche sur un clavier QWERTY) ceci facilite l'encodage mécanique ou
+par un clavier sans micro-contrôleur, comme sur les anciens télétypes.
+.LP
+Le standard ASCII a été publié par l'USASI (United States of America
+Standards Institute) en 1968.
+.SH "VOIR AUSSI"
+.BR iso_8859-1 (7),
+.BR iso_8859-15 (7),
+.BR iso_8859-16 (7),
+.BR iso_8859-2 (7),
+.BR iso_8859-7 (7),
+.BR iso_8859-9 (7)
+.SH TABLES
+Pour plus de commodité, nous vous fournissons des tables plus compactes
+en hexadécimal et en décimal.
+.sp
+.nf
+   2 3 4 5 6 7       30 40 50 60 70 80 90 100 110 120
+ -------------      ---------------------------------
+0:   0 @ P ` p     0:    (  2  <  F  P  Z  d   n   x
+1: ! 1 A Q a q     1:    )  3  =  G  Q  [  e   o   y
+2: " 2 B R b r     2:    *  4  >  H  R  \e  f   p   z
+3: # 3 C S c s     3: !  +  5  ?  I  S  ]  g   q   {
+4: $ 4 D T d t     4: "  ,  6  @  J  T  ^  h   r   |
+5: % 5 E U e u     5: #  -  7  A  K  U  _  i   s   }
+6: & 6 F V f v     6: $  .  8  B  L  V  `  j   t   ~
+7: ' 7 G W g w     7: %  /  9  C  M  W  a  k   u  DEL
+8: ( 8 H X h x     8: &  0  :  D  N  X  b  l   v
+9: ) 9 I Y i y     9: '  1  ;  E  O  Y  c  m   w
+A: * : J Z j z
+B: + ; K [ k {
+C: , < L \e l |
+D: - = M ] m }
+E: . > N ^ n ~
+F: / ? O _ o DEL
+.fi
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 19\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 7\ ascii\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

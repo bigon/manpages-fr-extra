@@ -1,0 +1,166 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH WPRINTF 3 "20 novembre 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+wprintf, fwprintf, swprintf, vwprintf, vfwprintf, vswprintf \- Formatage de chaînes de caractères larges.
+.SH SYNOPSIS
+.nf
+.B #include <stdio.h>
+.B #include <wchar.h>
+.sp
+.BI "int wprintf (const wchar_t* " format ", ...);"
+.BI "int fwprintf (FILE * " flux ", const wchar_t* " format ", ...);"
+.BI "int swprintf (wchar_t* " wcs ", size_t " maxlen ,
+.BI "              const wchar_t* " format ", ...);"
+.sp
+.B #include <stdarg.h>
+.sp
+.BI "int vwprintf (const wchar_t* " format ", va_list " args );
+.BI "int vfwprintf (FILE * " flux ", const wchar_t* " format ", va_list " args );
+.BI "int vswprintf (wchar_t* " wcs ", size_t " maxlen ,
+.BI "               const wchar_t* " format ", va_list " args );
+.fi
+.SH DESCRIPTION
+La famille de fonctions \fBwprintf\fP() est l'équivalent pour les caractères
+étendus de la famille de fonctions \fBprintf\fP(). Elle réalise une mise en forme
+de ses arguments.
+.PP
+Les fonctions \fBwprintf\fP() et \fBvwprintf\fP() réalisent le traitement et la
+sortie de chaînes de caractères larges sur \fBstdout\fP. \fBstdout\fP ne doit
+pas être un périphérique spécial orienté caractères (voir la fonction \fBfwide\fP()
+pour plus d'informations).
+.PP
+Les fonctions \fBfwprintf\fP() et \fBvfwprintf\fP() réalisent la mise en forme de
+chaînes de caractères en vue d'une écriture dans le fichier \fIflux\fP.
+\fIflux\fP ne doit pas être un périphérique spécial orienté caractères
+(voir la fonction \fBfwide\fP pour plus d'informations).
+.PP
+Les fonctions \fBswprintf\fP() et \fBvswprintf\fP() réalisent la mise en forme d'une
+chaîne de caractères longs avant de l'écrire dans un tableau de caractères
+larges. Le programmeur doit s'assurer qu'il y ait assez de place pour au moins
+\fImaxlen\fP caractères larges dans \fIwcs\fP.
+.PP
+Ces fonctions se comportent de la même manière que les fonctions \fBprintf\fP(),
+\fBvprintf\fP(), \fBfprintf\fP(), \fBvfprintf\fP(), \fBsprintf\fP() et \fBvsprintf\fP(),
+hormis les différences suivantes\ :
+.TP
+.B \(bu
+La chaîne \fIformat\fP est composée de caractères larges.
+.TP
+.B \(bu
+La sortie est faite de caractères larges, pas d'octets.
+.TP
+.B \(bu
+\fBswprintf\fP() et \fBvswprintf\fP() prennent un argument \fImaxlen\fP, au
+contraire de \fBsprintf\fP ()et \fBvsprintf\fP(). (\fBsnprintf\fP() et \fBvsnprintf\fP()
+prennent un argument \fImaxlen\fP, mais ces fonctions ne renvoient pas -1 en
+cas de débordement mémoire sous Linux).
+.PP
+Le traitement des caractères de conversion \fBc\fP et \fBs\fP est différent\ :
+.TP
+.B c
+Si aucun modificateur
+.B l
+n'est présent, l'argument
+.I int
+est converti en un caractère large par un appel à la fonction
+.BR btowc ()
+et le caractère large en résultant est écrit.
+Si un modificateur
+.B l
+est présent, l'argument
+.I wint_t
+(caractère large) est écrit.
+.TP
+.B s
+Si aucun modificateur
+.B l
+n'est présent, l'argument
+.IR "" «\  "const char *" \ » "
+est interprété comme un pointeur sur un tableau de caractères (une chaîne)
+contenant une séquence de caractères larges commençant à l'état initial. Les
+caractères du tableau sont convertis en caractères larges (un par un par
+l'appel de la fonction
+.B mbrtowc
+avec un état de conversion réinitialisé avant le premier octet).
+La chaîne de caractères larges en résultant est écrite jusqu'au dernier
+caractère (non compris le caractère nul final). Si la taille est donnée,
+le nombre de caractères écrits ne la dépassera pas.
+Notez bien que la taille détermine le nombre de
+.I caractères larges
+écrit et non le nombre
+.RI "d'" octets
+ou de
+.IR "positions d'écran" .
+Le tableau doit contenir un caractère nul final, à moins que la taille
+donnée soit si petite que le nombre de caractères larges est atteint avant la
+fin du tableau. \-\- Si un modificateur
+.B l
+est présenti\ : L'argument
+.IR "" «\  "const wchar_t *" \ » "
+est interprété comme un pointeur sur un tableau de caractères (une chaîne).
+Les caractères larges du tableau sont écrits jusqu'au dernier (non compris le
+caractère nul final). Si la taille est indiquée, le nombre de caractères
+écrits ne la dépassera pas. Le tableau doit contenir un caractère nul final
+à moins que la taille donnée soit inférieure ou égale au nombre de
+caractères larges du tableau.
+.SH "VALEUR RENVOYÉE"
+Ces fonctions renvoient le nombre de caractères larges écrits, non compris le
+caractère nul final dans le cas des fonctions \fBswprintf\fP() et \fBvswprintf\fP().
+Elles renvoient \-1 en cas d'erreur.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR printf (3),
+.BR fprintf (3),
+.BR snprintf (3),
+.BR fputwc (3),
+.BR fwide (3),
+.BR wscanf (3)
+.SH NOTES
+Le comportement de \fBwprintf\fP() et compagnie dépend de la catégorie LC_CTYPE
+de la locale courante.
+.PP
+Si la chaîne \fIformat\fP contient des caractères larges non ASCII, le
+programme ne fonctionnera correctement que si la catégorie LC_CTYPE de la
+localisation courante lors de l'exécution est la même que lors de la compilation. En
+effet, la représentation de
+.B wchar_t
+dépend de l'architecture et de la localisation. (La libc de GNU représente les
+caractères larges à l'aide de leurs codes Unicode (ISO-10646), mais les autres
+architectures ne font pas de même. De plus, l'utilisation des noms de
+caractères universels de la norme ISO C99 (de la forme \\unnnn) ne résoud pas
+ce problème.). Aussi, la chaîne \fIformat\fP ne devrait être constituée que de
+caractères larges dans les programmes internationalisés, ou alors elle doit
+être construite à l'exécution de manière internationalisée (en
+utilisant
+.BR gettext ()
+ou
+.BR iconv (),
+suivi de
+.BR mbstowcs ()).
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 1999
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ wprintf\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

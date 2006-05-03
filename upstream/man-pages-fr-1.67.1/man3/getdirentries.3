@@ -1,0 +1,79 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright 1993 Rickard E. Faith (faith@cs.unc.edu)
+.\" Portions extracted from /usr/include/dirent.h are:
+.\"                    Copyright 1991, 1992 Free Software Foundation
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 26/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH GETDIRENTRIES 3 "22 juillet 1993" LDP "Manuel du programmeur Linux"
+.SH NOM
+getdirentries \- Lire le contenu d'un répertoire dans un format indépendant du système.
+.SH SYNOPSIS
+.B #define _BSD_SOURCE
+or
+.B #define _SVID_SOURCE
+.br
+.B #include <dirent.h>
+.sp
+.BI "ssize_t getdirentries (int " fd ", char *" buf ", size_t " nbytes
+.BI ", off_t *" basep );
+.SH DESCRIPTION
+La fonction
+.BR getdirentries ()
+lit les entrées d'un répertoire indiqué par
+.I fd
+dans le tampon
+.IR buf .
+.I nbytes
+octets au maximum sont lus.
+La lecture démarre à la position
+.RI * base ,
+puis
+.RI * basep
+est mis
+à jour avec la nouvelle position à lire.
+.SH "VALEUR RENVOYÉE"
+.BR getdirentries ()
+renvoie le nombre d'octets lus, ou 0 à la fin du répertoire.
+En cas d'échec, \-1 est renvoyé, et
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+Voir le code source de la bibliothèque Linux pour obtenir des détails.
+.SH "VOIR AUSSI"
+.BR open (2),
+.BR lseek (2)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 26\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ getdirentries\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

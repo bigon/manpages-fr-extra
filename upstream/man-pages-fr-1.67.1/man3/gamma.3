@@ -1,0 +1,83 @@
+.\" Copyright 2002 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\"
+.\" Modified 2003-11-18, aeb: historical remarks
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 06/07/2005 LDP-1.62
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH GAMMA 3 "10 août 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+gamma, gammaf, gammal \- Logarithme de la fonction gamma.
+.SH SYNOPSIS
+.B #include <math.h>
+.sp
+.BI "double gamma(double " x ");"
+.sp
+.BI "float gammaf(float " x ");"
+.sp
+.BI "long double gammal(long double " x ");"
+.sp
+.SH DESCRIPTION
+Pour la définition de la fonction Gamma, voir
+.BR tgamma (3).
+.PP
+.SS "Versions BSD*"
+La libm de BSD 4.4 et FreeBSD a une fonction
+.BR gamma ()
+qui calcule la fonction Gamma, comme on s'y attend.
+.SS "Version glibc"
+La glibc a une fonction
+.BR gamma ()
+qui est équivalente à
+.BR lgamma ()
+et qui calcule le logarithme naturel de la fonction Gamma.
+(Ceci est seulement pour des raisons de compatibilité. N'utilisez pas
+cette fonction.)
+.SH HISTORIQUE
+BSD 4.2 avait une fonction
+.BR gamma ()
+qui calculait
+.RI ln(|Gamma(| x |)|),
+laissant le signe de
+.RI Gamma(| x |)
+dans l'entier externe
+.IR signgam .
+Dans BSD 4.3, le nom a été modifié en
+.BR lgamma (),
+et la page de manuel promettait\ :
+.sp
+.in +3
+«\ Un jour où l'autre, le nom gamma sera réhabilité et utilisé pour la
+fonction Gamma\ ».
+.in
+.sp
+Cela est vraiment arrivé dans BSD 4.4 où
+.BR gamma ()
+calcule la fonction Gamma (sans effet sur
+.IR signgam ).
+Toutefois, cela est venu trop tard, et maintenant nous avons
+.BR tgamma (),
+la vraie fonction gamma (Ndt\ : «\ true gamma\ »).
+.\" The FreeBSD man page says about gamma() that it is like lgamma()
+.\" except that is does not set signgam.
+.\" Also, that 4.4BSD has a gamma() that computes the true gamma function.
+.SH "CONFORMITÉ"
+BSD 4.2. Compatible avec de précédentes confusions.
+.SH "VOIR AUSSI"
+.BR lgamma (3),
+.BR signgam (3),
+.BR tgamma (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 2002
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ gamma\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

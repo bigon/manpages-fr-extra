@@ -1,0 +1,208 @@
+.\" Copyright (c) 1983, 1991 Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)getpgrp.2	6.4 (Berkeley) 3/10/91
+.\"
+.\" Modified Sat Jul 24 01:15:33 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 15 April 1995 by Michael Chastain (mec@shell.portal.com):
+.\"   Added 'getpgid'.
+.\" Modified 1996-07-21 by Andries Brouwer <aeb@cwi.nl>
+.\" Modified 1996-11-06 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified 1999-09-02 by Michael Haardt <michael@moria.de>
+.\" Modified 2002-01-18 by Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\" Modified 2003-01-20 by Andries Brouwer <aeb@cwi.nl>
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SETPGID 2 "20 janvier 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+setpgid, getpgid, setpgrp, getpgrp \- Fixer/lire le groupe du processus.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.BI "int setpgid(pid_t " pid ", pid_t " pgid );
+.br
+.BI "pid_t getpgid(pid_t " pid );
+.br
+.B int setpgrp(void);
+.br
+.B pid_t getpgrp(void);
+.SH DESCRIPTION
+.B setpgid
+fixe à
+.I pgid
+l'ID du groupe de processus auquel appartient le processus
+mentionné par
+.IR pid.
+Si
+.I pid
+vaut zéro, le PID du processus en cours est utilisé. Si
+.I pgid
+vaut zéro, le PID du processus indiqué par
+.I pid
+est utilisé. Si \fBsetpgid\fP est utilisé pour déplacer un processus d'un
+groupe dans un autre (comme cela peut être fait par certains shell pour les
+pipelines), les deux groupes de processus doivent appartenir à la même session.
+Dans ce cas, \fIpgid\fP indique un groupe de processus existant à rejoindre
+et l'ID de session de ce groupe doit être celui du processus concerné.
+.B getpgid
+renvoie l'ID du groupe de processus auquel appartient le processus
+indiqué par
+.IR pid .
+Si
+.I pid
+vaut zéro, le PID du processus en cours est utilisé.
+
+L'appel
+.B setpgrp ()
+invoque simplement
+.BR setpgid (0,0).
+
+De même
+.B getpgrp
+est équivalent à
+.BR getpgid (0).
+Chaque groupe de processus est membre d'une session et chaque processus
+est membre de cette session.
+
+Les groupes de processus sont utilisés pour la distribution de signaux,
+et par les terminaux pour contrôler les requêtes de saisie.
+Les processus appartenant au même groupe que le terminal sont
+en avant-plan, et peuvent y lire des données, alors que les autres sont
+en arrière-plan et seront bloqués s'ils tentent de lire des données.
+Ces appels sont utilisés par des programmes comme
+.BR csh (1)
+pour créer des groupes de processus afin d'implémenter le contrôle de jobs.
+Les appels
+.B TIOCGPGRP
+et
+.B TIOCSPGRP
+décrits dans
+.BR termios (3)
+servent à fixer/lire le groupe de processus du terminal de contrôle.
+
+Si une session a un terminal de contrôle, CLOCAL n'est pas actif, et une
+déconnexion se produit, alors le leader de la session recevra SIGHUP. Si le
+leader se termine, le signal SIGHUP sera envoyé à tous les processus du
+groupe en avant-plan sur le terminal de contrôle.
+
+Si la fin du processus rend un groupe orphelin, et si l'un des membres de
+ce groupe est arrêté, alors un signal SIGHUP suivi de SIGCONT sera envoyé
+à tous les processus du groupe.
+
+.SH "VALEUR RENVOYÉE"
+.BR setpgid " et " setpgrp
+renvoient zéro s'ils réussissent, ou \-1 s'ils échouent, auquel
+cas
+.I errno
+contient le code d'erreur.
+
+.I getpgid
+renvoie le groupe du processus s'il réussit
+ou \-1 s'il échoue, et
+.I errno
+contient le code d'erreur.
+
+.I getpgrp
+retourne toujours le groupe du processus courant.
+.SH ERREURS
+.TP
+.B EINVAL
+.I pgid
+est inférieur à 0
+(\fBsetpgid\fP, \fBsetpgrp\fP).
+.TP
+.B EACCES
+On a essayé de changer le groupe de processus d'un enfant du processus
+appelant, et ce fils a déjà effectué
+un \fBexecve\fP
+(\fBsetpgid\fP, \fBsetpgrp\fP).
+.TP
+.B EPERM
+On a essayé de déplacer un processus dans un groupe d'une session différente,
+ou de changer le groupe d'un fils du processus appelant qui se trouve
+dans une autre session, ou de modifier le groupe d'un
+leader de session
+(\fBsetpgid\fP, \fBsetpgrp\fP).
+.TP
+.B ESRCH
+Pour
+.BR getpgid "\ :"
+.I pid
+ne corespond à aucun processus.
+Pour
+.BR setpgid "\ :"
+.I pid
+n'est ni le processus appelant, ni l'un de ses enfants.
+.SH CONFORMITÉ
+Les fonctions
+.B setpgid
+et
+.B getpgid
+sont conformes à POSIX.1.
+La fonction
+.B setpgrp
+provient de BSD 4.2, et
+.B getpgid
+de SVr4.
+.SH NOTES
+POSIX à défini
+.B setpgid
+à partir de la fonction
+.B setpgrp
+de BSD. Une fonction Système V existe avec le même nom, mais
+fonctionnant comme
+.BR setsid (2).
+.LP
+Pour obtenir les prototypes avec la GlibC, définissez à la fois _XOPEN_SOURCE
+et _XOPEN_SOURCE_EXTENDED ou utilisez un "#define _XOPEN_SOURCE \fIn\fP"
+avec \fIn\fP supérieur ou égal à 500.
+.SH "VOIR AUSSI"
+.BR getuid (2),
+.BR setsid (2),
+.BR tcgetpgrp (3),
+.BR tcsetpgrp (3),
+.BR termios (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 15\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ setpgid\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

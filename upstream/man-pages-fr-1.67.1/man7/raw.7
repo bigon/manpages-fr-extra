@@ -1,0 +1,284 @@
+'\" t
+.\" Don't change the first line, it tells man that we need tbl.
+.\" This man page is Copyright (C) 1999 Andi Kleen <ak@muc.de>.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\" Please send bug reports, corrections and suggestions for improvements to
+.\" <ak@muc.de>
+.\" $Id: raw.7,v 1.6 1999/06/05 10:32:08 freitag Exp $
+.\"
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" 07/06/2001 LDP-1.37
+.\"
+.\" Màj LDP-1.53
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 14/12/2005 LDP-1.65
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH RAW  7 "2 octobre 1998" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+raw, SOCK_RAW \- Sockets brutes (raw) IPv4 sous Linux.
+.SH SYNOPSIS
+.B #include <sys/socket.h>
+.br
+.B #include <netinet/in.h>
+.br
+.BI "raw_socket = socket(PF_INET, SOCK_RAW, int " protocol );
+
+.SH DESCRIPTION
+Les sockets brutes (raw) permettent d'implémenter des protocoles IPv4 dans l'espace
+utilisateur. Une socket raw reçoit ou envoie des datagrammes sans les en-têtes
+de la couche de liaison.
+
+La couche IPv4 génère des en-têtes IP lorsqu'elle envoie un paquet à moins que l'option
+.B IP_HDRINCL
+soit activée sur la socket.
+Lorsqu'elle est activée, la socket doit contenir l'en-tête IP.
+Pour la réception, l'en-tête IP est toujours inclus dans le paquet.
+
+Seuls les processus avec un UID effectif nul ou une capacité
+.B CAP_NET_RAW
+sont autorisés à ouvrir des sockets raw.
+
+Tous les paquets ou les erreurs correspondant au numéro de
+.I protocole
+spécifié pour la
+socket raw sont transmis à cette socket. Pour voir une liste des
+protocoles autorisés, consulter les numéros assignés dans la RFC 1700 et
+.BR getprotobyname (3).
+
+Un protocole
+.B IPPROTO_RAW
+implique l'activation de
+.B IP_HDRINCL
+et autorise l'émission suivant n'importe quel protocole IP indiquée dans
+l'en-tête. La réception de tous les protocoles IP avec
+.B IPPROTO_RAW
+n'est pas possible avec les sockets raw.
+
+.TS
+tab(:) allbox;
+c s
+l l.
+IP Champs d'en-tête modifiés en émission par IP_HDRINCL
+Checksum IP:Toujours rempli.
+Adresse source:Rempli si contient des zéros.
+ID Paquet:Rempli si contient des zéros.
+Longueur totale:Toujours rempli.
+.TE
+.PP
+
+Si
+.B IP_HDRINCL
+est spécifié et si l'en-tête IP à une adresse non-nulle, alors l'adresse
+destination de la socket est utilisée pour router le paquet. Quand
+.B MSG_DONTROUTE
+est spécifié, l'adresse de destination devrait toujours viser une interface locale.
+Sinon, un examen de la table de routage a quand même lieu, mais les routes avec
+une passerelle sont ignorées.
+
+Si
+.B IP_HDRINCL
+n'est pas spécifié, les options d'en-tête IP peuvent être fixées sur les
+sockets raw avec
+.BR setsockopt (2);
+voir
+.BR ip (7)
+pour plus d'informations.
+
+Dans Linux 2.2 tous les champs d'en-tête et les options peuvent être fixés en
+utilisant les options IP. Ceci signifie que les sockets raw ne servent en général
+que pour les nouveaux protocoles ou les protocoles sans interface utilisateur (comme ICMP).
+
+Lorsqu'un paquet est reçu, il est passé à toutes les sockets raw qui ont été attachées
+à son protocole avant d'être transmis aux gestionnaires des autres protocoles (par exemple
+les modules des protocoles du noyau).
+
+.SH "FORMAT D'ADRESSE"
+
+Les sockets raw utilisent la structure d'adresse
+.B sockaddr_in
+standard, définie dans
+.BR ip (7).
+
+Le champ
+.B sin_port
+peut être utilisé pour spécifier un numéro de protocole IP, mais il est ignoré pour
+l'émission dans Linux 2.2 et devrait être toujours mis à
+zéro (voir paragraphe BOGUES).
+Pour les paquets entrants
+.B sin_port
+est rempli avec le protocole du paquet.
+Voir le fichier d'en-tête
+.I <netinet/in.h>
+pour les protocoles IP valides.
+
+.SH "OPTIONS DES SOCKETS"
+Les options des sockets raw peuvent être écrites avec
+.BR setsockopt (2)
+et lues avec
+.BR getsockopt (2)
+en passant l'attribut de
+famille
+.IR SOL_RAW .
+
+.TP
+.B ICMP_FILTER
+Active un filtre spécial sur les sockets raw attachées au protocole
+.BR IPPROTO_ICMP .
+La valeur a un bit pour chaque type de message ICMP qui doit être
+rejeté. La valeur par défaut est de ne filtrer aucun messages ICMP.
+
+.PP
+De plus, toutes les options
+.BR SOL_IP " de"
+.BR ip (7)
+valides pour les sockets datagrammes sont supportées.
+
+.SH NOTES
+Les sockets raw fragmentent un paquet lorsque sa longueur totale dépasse le
+MTU de l'interface (voir toutefois le paragraphe BOGUES).
+Une alternative plus rapide et préférable pour le réseau est d'implémenter la recherche
+du MTU des chemins comme décrit dans la section
+.B IP_MTU_DISCOVER
+de
+.BR ip (7).
+
+Une socket raw peut être attachée à une adresse locale spécifique en utilisant l'appel
+.BR bind (2).
+Si elle n'est pas attachée, tous les paquets du protocole IP spécifié sont reçus.
+De plus, une socket raw peut être attachée à un périphérique réseau particulier avec
+.BR SO_BINDTODEVICE " ;"
+voir
+.BR socket (7).
+
+Une socket
+.B IPPROTO_RAW
+ne fonctionne qu'en émission.
+Si vous désirez vraiment recevoir tous les paquets IP, utilisez une socket
+.BR packet (7)
+avec le protocole
+.BR ETH_P_IP .
+Notez que les sockets packet ne réassemblent pas les fragments IP contrairement aux sockets raw.
+
+Si vous voulez recevoir tous les paquets ICMP pour une socket datagramme, il est souvent
+préférable d'utiliser
+.B IP_RECVERR
+sur cette socket particulière, voir
+.BR ip (7).
+
+Les sockets raw peuvent capturer tous les protocoles sous Linux, même les protocoles comme
+ICMP ou TCP qui ont un module dans le noyau. Dans ce cas, le paquet est passé simultanément
+au module du noyau et à la socket raw. Ce comportement n'est pas portable, de nombreuses
+autres implémentations des sockets BSD ont des limitations ici.
+
+Linux ne modifie jamais les en-têtes fournis par l'utilisateur (sauf pour remplir les
+champs ne contenant que des zéros comme cela est décrit pour
+.BR IP_HDRINCL ).
+Ceci diffère de nombreuses autres implémentations des sockets raw.
+
+Les sockets raw sont en général peu portables et devrait être évitées dans les
+programmes conçus pour être adaptés sur d'autres systèmes
+
+L'émission sur les sockets raw devrait employer le protocole dans
+.BR sin_port " ;"
+ceci a été perdu dans Linux 2.2. Un remède est d'utiliser
+.BR IP_HDRINCL .
+
+.SH "GESTION D'ERREUR"
+Les erreurs provenant du réseau ne sont transmises à l'utilisateur que lorsque la socket
+est connectée ou si le drapeau
+.B IP_RECVERR
+est actif. Pour les sockets connectées, seules
+.B EMSGSIZE
+et
+.B EPROTO
+sont transmises, pour compatibilité. Avec
+.BR IP_RECVERR ,
+toutes les erreurs réseau sont sauvegardées dans la file d'erreurs.
+
+.SH ERREURS
+.TP
+.B EMSGSIZE
+Paquet trop grand. Soit la recherche du MTU des chemins est active (voir l'attribut
+.B IP_MTU_DISCOVER
+de socket), soit la taille du paquet dépasse le maximum autorisé par IPv4
+(64\ Ko).
+.TP
+.B EACCES
+L'utilisateur essaye d'envoyer sur une adresse broadcast sans avoir le
+drapeau broadcast sur la socket.
+.TP
+.B EPROTO
+Une erreur ICMP est arrivée, indiquant un problème de paramétrage.
+.TP
+.B EFAULT
+Une adresse mémoire invalide a été fournie.
+.TP
+.B EOPNOTSUPP
+Un attribut invalide a été transmis à un appel sur la socket (comme
+.BR MSG_OOB ).
+.TP
+.B EINVAL
+Argument invalide.
+.TP
+.B EPERM
+L'utilisateur n'a pas la permission d'ouvrir des sockets raw. Seuls les
+processus avec un UID effectif nul ou la capacité
+.B CAP_NET_RAW
+peuvent le faire.
+
+.SH VERSIONS
+.B IP_RECVERR
+et
+.B ICMP_FILTER
+sont nouveaux dans Linux 2.2. Ce sont des extensions Linux et ne doivent pas être
+employés dans des programmes portables.
+
+Linux 2.0 assurait une compatibilité bogue-à-bogue avec le code des sockets raw de
+BSD lorsque l'attribut SO_BSDCOMPAT était utilisé. Ceci a été supprimé dans 2.2.
+
+.SH BOGUES
+Les extensions de Proxy transparent ne sont pas décrites.
+
+Lorsque l'option
+.B IP_HDRINCL
+est active, les datagrammes ne seront pas fragmentés et sont limités au MTU de l'interface.
+C'est une limitation de Linux 2.2.
+
+Utiliser en émission le protocole IP indiqué dans
+.B sin_port
+a été supprimé dans Linux 2.2. On utilise toujours le protocole auquel la socket a été attachée
+avec \fBbind\fP(2) ou celui de l'appel
+.BR socket (2)
+initial.
+
+.SH AUTEURS
+Cette page de manuel a été écrite par Andi Kleen.
+
+.SH "VOIR AUSSI"
+.BR ip (7),
+.BR socket (7),
+.BR recvmsg (2),
+.BR sendmsg (2).
+.PP
+.B RFC1191
+pour la recherche du MTU par chemin.
+
+.B RFC791
+et le fichier d'en-tête
+.B <linux/ip.h>
+pour le protocole IP.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 7\ juin\ 2001
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 7\ raw\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

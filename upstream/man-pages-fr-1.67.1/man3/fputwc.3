@@ -1,0 +1,74 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH FPUTWC 3 "25 juillet 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+fputwc, putwc \- Écrire un caractère large dans un fichier.
+.SH SYNOPSIS
+.nf
+.B #include <stdio.h>
+.br
+.B #include <wchar.h>
+.sp
+.BI "wint_t fputwc (wchar_t " wc ", FILE * " fichier );
+.BI "wint_t putwc (wchar_t " wc ", FILE * " fichier );
+.fi
+.SH DESCRIPTION
+La fonction \fBfputwc\fP() est l'équivalent pour les caractères larges de la
+fonction \fBfputc\fP(). Elle écrit le caractère large \fIwc\fP dans
+\fIfichier\fP. Si \fIferror(fichier)\fP devient vraie, WEOF est renvoyé. Si
+une erreur de conversion du caractère large se produit, \fBerrno\fP est
+positionnée à \fBEILSEQ\fP et WEOF est renvoyé. Sinon \fIwc\fP est renvoyé.
+.PP
+La fonction \fBputwc\fP() est identique à \fBfputwc\fP(). Elle peut être
+implémentée comme une macro et donc évaluer plusieurs fois son argument. Il n'y
+a plus aucune raison de l'utiliser.
+.PP
+Pour des versions de ces fonctions ignorant les verrouillages, voir
+.BR unlocked_stdio (3).
+.SH "VALEUR RENVOYÉE"
+La fonction \fBfputwc\fP() renvoie \fIwc\fP si aucune erreur ne s'est produite,
+ou WEOF sinon.
+.SH ERREURS
+En plus des erreurs usuelles associées à fputc, on peut rencontrer\ :
+.TP
+.B EILSEQ
+La conversion de \fIwc\fP vers l'encodage du fichier a échoué.
+.SH "CONFORME A"
+ISO/ANSI C, UNIX98
+.SH NOTES
+Le comportement de \fBfputwc\fP() dépend de la valeur de la locale LC_CTYPE
+courrante.
+.PP
+En l'absence d'informations supplémentaires passées à l'appel fopen, il est
+raisonnable de penser que \fBfputwc\fP() écrira en fait la séquence multi-octets
+correspondant au caractère large \fIwc\fP.
+.SH "VOIR AUSSI"
+.BR fgetwc (3),
+.BR fputws (3),
+.BR unlocked_stdio (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 2000
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ fputwc\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

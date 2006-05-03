@@ -1,0 +1,96 @@
+.\" Copyright (C) 2003 Free Software Foundation, Inc.
+.\" This file is distributed according to the GNU General Public License.
+.\" See the file COPYING in the top level source directory for details.
+.\"
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.de Sh \" Subsection
+.br
+.if t .Sp
+.ne 5
+.PP
+\fB\\$1\fR
+.PP
+..
+.de Sp \" Vertical space (when we can't use .PP)
+.if t .sp .5v
+.if n .sp
+..
+.de Ip \" List item
+.br
+.ie \\n(.$>=3 .ne \\$3
+.el .ne 3
+.IP "\\$1" \\$2
+..
+.TH "SET_THREAD_AREA" 2 "21 février 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+set_thread_area \- Fixer la zone de stockage local (TLS) du thread.
+.SH "SYNOPSIS"
+.ad l
+.hy 0
+
+#include <linux/unistd.h>
+.sp
+
+#include <asm/ldt.h>
+.sp
+.HP 21
+int\ \fBset_thread_area\fR\ (struct\ user_desc\ \fI*u_info\fR);
+.ad
+.hy
+.SH "DESCRIPTION"
+.PP
+\fBset_thread_area\fR remplit une entrée de la table TLS de stockage
+du thread en cours.
+Le numéro de l'entrée remplie par \fBset_thread_area\fR correspond à
+la valeur \fIu_info->\fR\fIentry_number\fR fournie par l'utilisateur.
+Si la valeur est dans les limites, \fIset_thread_area\fR copie le
+descripteur pointé par \fIu_info\fR dans la table TLS du thread.
+.PP
+Quand \fBset_thread_area\fR reçoit un numéro \fIentry_number\fR valant -1,
+il utilise une entrée libre dans la table TLS.
+Si \fBset_thread_area\fR trouve une entrée TLS libre, la valeur de
+\fIu_info->\fR\fIentry_number\fR est remplie au retour pour montrer
+quelle entrée a été modifiée.
+.SH "VALEUR RENVOYÉE"
+.PP
+\fBset_thread_area\fR renvoie 0 s'il réussit.
+Sinon, il renvoie l'un des codes d'erreur décrits ci-dessous.
+.SH "ERREURS"
+.TP
+EINVAL
+\fIu_info->\fR\fIentry_number\fR est hors-limite.
+.TP
+EFAULT
+\fIu_info\fR est un pointeur invalide.
+.TP
+ESRCH
+Impossible de trouver une entrée TLS libre.
+.SH "CONFORMITÉ"
+.PP
+\fBset_thread_area\fR est spécifique à Linux et ne doit pas être employé dans
+un programme conçu pour être portable.
+.SH "HISTORIQUE"
+.PP
+Une version de \fBset_thread_area\fR est apparue dans Linux 2.5 en août 2002.
+.SH "VOIR AUSSI"
+.PP
+\fBget_thread_area\fR(2).
+.SH "NOTES"
+.PP
+\fBset_thread_area\fR a été écrit par Ingo Molnar.
+.SH AUTEUR
+Kent Yoder.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 18\ juillet\ 2003
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ set_thread_area\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

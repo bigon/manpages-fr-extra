@@ -1,0 +1,222 @@
+.\" Copyright 2002 walter harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\" based on the description in glibc source and infopages
+.\"
+.\" Corrections and additions, aeb
+.\"
+.\" Traduction Christophe Blaess, <ccb@club-internet.fr>
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ARGZ_ADD 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+argz_add, argz_add_sep, argz_append, argz_count, argz_create, argz_create_sep, argz_delete, argz_extract, argz_insert, argz_next, argz_replace, argz_stringify \- Fonctions pour manipuler es vecteurs argz.
+.SH SYNOPSIS
+.nf
+.sp
+.B "#include <argz.h>"
+.sp
+.BI "error_t"
+.BI "argz_add(char **" argz ", size_t *" argz_len ", const char *" str );
+.sp
+.BI "error_t"
+.BI "argz_add_sep(char **" argz ", size_t *" argz_len ,
+.ti 20n
+.BI "const char *" str ", int " delim );
+.sp
+.BI "error_t"
+.BI "argz_append(char **" argz ", size_t *" argz_len ,
+.ti 20n
+.BI "const char *" buf ", size_t " buf_len );
+.sp
+.BI "size_t"
+.BI "argz_count(const char *" argz ", size_t " argz_len );
+.sp
+.BI "error_t"
+.BI "argz_create(char * const " argv "[], char **" argz ,
+.ti 20n
+.BI "size_t *" argz_len );
+.sp
+.BI "error_t"
+.BI "argz_create_sep(const char *" str ", int " sep ", char **" argz ,
+.ti 20n
+.BI "size_t *" argz_len );
+.sp
+.BI "error_t"
+.BI "argz_delete(char **" argz ", size_t *" argz_len ", char *" entry );
+.sp
+.BI "void"
+.BI "argz_extract(char *" argz ", size_t " argz_len ", char  **" argv );
+.sp
+.BI "error_t"
+.BI "argz_insert (char **" argz ", size_t *" argz_len ", char *" before ,
+.ti 20n
+.BI "const char *" entry );
+.sp
+.BI "char *"
+.BI "argz_next(char *" argz ", size_t " argz_len ", const char *" entry );
+.sp
+.BI "error_t"
+.BI "argz_replace(char **" argz ", size_t *" argz_len ", const char *" str ,
+.ti 20n
+.BI "const char *" with ", unsigned int *" replace_count );
+.sp
+.BI "void"
+.BI "argz_stringify(char *" argz ", size_t " len ", int " sep );
+.sp
+.SH DESCRIPTION
+Ces fonctions sont spécifiques à la glibc.
+.LP
+Un vecteur argz est un pointeur sur un tampon de caractères associé à une longueur.
+L'interprétation voulue pour le tampon de caractères est un tableau de chaînes,
+où les chaînes sont séparées par des octets nuls.
+Si la longueur est non nulle, le dernier octet du tampon doit être nul.
+.LP
+Ces fonctions servent à manipuler les vecteurs argz. La paire (NULL, 0)
+est un vecteur argz, et réciproquement les vecteurs argz de longueur
+zéro doivent avoir un pointeur NULL.
+L'allocation de vecteurs argz non nuls est faite avec
+.BR malloc (3),
+afin que
+.BR free (3)
+puisse être utilisée pour les libérer.
+.LP
+.BR argz_add ()
+ajoute la chaîne
+.I str
+à la fin de la table
+.RI * argz ,
+et met à jour
+.RI * argz
+et
+.RI * argz_len .
+.LP
+.BR argz_add_sep ()
+est similaire, mais découpe la chaîne
+.I str
+en sous-chaînes séparées par le délimiteur
+.IR delim .
+Par exemple, on peut l'utiliser sur la liste de recherche des chemins Unix avec le
+délimiteur «\ :\ ».
+.LP
+.BR argz_append ()
+ajoute le vecteur argz
+.RI ( buf , buf_len )
+à la fin de
+.RI (* argz ,* argz_len )
+et met à jour
+.RI * argz
+et
+.RI * argz_len .
+(Donc,
+.RI * argz_len
+sera augmentée de
+.IR buf_len ).
+.LP
+.BR argz_count ()
+compte le nombre de chaînes, c'est-à-dire de caractères nuls dans le vecteur
+.RI ( argz , argz_len ).
+.LP
+.BR argz_create ()
+convertit un vecteur de type argv Unix
+.IR argv ,
+terminé par (char *) 0, en un vecteur argz
+.RI (* argz ,* argz_len ).
+.LP
+.BR argz_create_sep ()
+convertit la chaîne terminée par un caractère nul
+.I str
+en un vecteur argz
+.RI (* argz ,* argz_len )
+en la découpant à chaque occurrence du séparateur
+.IR sep .
+.LP
+.BR argz_delete ()
+retire la sous-chaîne pointée par
+.I entry
+du vecteur argz
+.RI (* argz ,* argz_len )
+et met à jour
+.RI * argz
+et
+.RI * argz_len .
+.LP
+.BR argz_extract ()
+est l'inverse de
+.BR argz_create ().
+Elle prend le vecteur argz
+.RI ( argz , argz_len )
+et remplit la table commençant à
+.I argv
+avec des pointeurs sur les sous-chaînes, et un NULL final
+en créant un vecteur de type argv Unix.
+La table
+.I argv
+doit avoir assez de place pour
+.IR argz_count ( argz , argz_len ") + 1"
+pointeurs.
+.LP
+.BR argz_insert ()
+est l'opposée de
+.BR argz_delete ().
+Elle insère l'argument
+.I entry
+à la position
+.I before
+dans le vecteur argz
+.RI (* argz ,* argz_len )
+et met à jour
+.RI * argz
+et
+.RI * argz_len .
+Si
+.I before
+est NULL, alors
+.I entry
+est insérée à la fin.
+.LP
+.BR argz_next ()
+est une fonction pour se déplacer dans le vecteur argz. Si
+.I entry
+est NULL, elle renvoie la première entrée. Sinon, l'entrée
+suivante est renvoyée. Elle renvoie NULL s'il n'y a pas d'entrée suivante.
+.LP
+.BR argz_replace ()
+remplace chaque occurrence de
+.I str
+avec
+.IR with ,
+en réallouant argz si nécessaire. Si
+.I replace_count
+est non-NULL,
+.RI * replace_count
+sera incrémenté du nombre de remplacements.
+.LP
+.BR argz_stringify ()
+est l'opposée de
+.BR argz_create_sep ().
+Elle transforme le vecteur argz en une chaîne normale en remplaçant tous
+les caractères nuls sauf le dernier par
+.IR sep .
+.SH "VALEUR RENVOYÉE"
+Toutes les fonctions argz qui font de l'allocation mémoire ont un type de retour
+\fIerror_t\fP, et renvoient \fB0\fP si elles réussissent et \fBENOMEM\fP
+si l'allocation échoue.
+.SH BOGUES
+Les vecteurs argz sans caractère nul final conduisent une faute de segmentation.
+.SH NOTES
+Ces fonctions sont des extensions GNU, à utiliser avec précaution.
+.SH "VOIR AUSSI"
+.BR envz (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 21\ juillet\ 2003
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ argz_add\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

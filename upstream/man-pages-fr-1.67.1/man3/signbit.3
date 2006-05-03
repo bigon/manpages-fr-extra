@@ -1,0 +1,41 @@
+.\" Copyright 2002 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\" Based on glibc infopages
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SIGNBIT 3 "10 août 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+signbit \- Tester le signe d'un nombre réel à virgule flottante.
+.SH SYNOPSIS
+.B "#include <math.h>"
+.sp
+.BI  "int signbit (" X ");"
+.sp
+.SH DESCRIPTION
+«\ signbit\ » est une macro générique qui peut travailler sur tous les
+types de réel à virgule flottante. Elle renvoie une valeur non nulle
+si la valeur de X a son bit de signe positionné.
+.PP
+Ceci n'est pas identique à «\ x < 0.0\ », car la représentation des
+nombres en virgule flottante IEEE\ 754 permet à zéro d'être signé (-0
+ou +0). La comparaison «\ -0.0 < 0.0\ » est fausse, mais «\ signbit
+(-0.0)\ » retourne une valeur non nulle.
+.SH "CONFORMITÉ"
+Cette fonction est définie dans IEC 559 (et dans l'annexe sur les
+fonctions recommandées dans IEEE 754/IEEE 854).
+.SH "VOIR AUSSI"
+.BR copysign (3)
+.SH TRADUCTION
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 2002
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ signbit\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

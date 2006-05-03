@@ -1,0 +1,200 @@
+.\" Copyright Andries Brouwer, Ragnar Hojland Espinosa and A. Wik, 1998.
+.\"
+.\" This file may be copied under the conditions described
+.\" in the LDP GENERAL PUBLIC LICENSE, Version 1, September 1998
+.\" that should have been distributed together with this file.
+.\"
+.\" Traduction 19/12/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/12/1998 LDP-1.22
+.\" Màj 30/05/2001 LDP-1.36
+.\" Màj 22/10/2002 LDP-1.53
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH DU 1 "Novembre 1998" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+du \- Statistiques sur l'utilisation du disque.
+.SH SYNOPSIS
+.BI "du [" options "] [" fichier... ]
+.sp
+Options POSIX\ :
+.B "[\-askx] [\-\-]"
+.sp
+Options GNU (forme courte)\ :
+.B [\-abcDhHklLmsSxX]
+.BI "[\-\-block\-size=" taille ]
+.BI "[\-\-exclude=" motif ]
+.BI "[\-\-max\-depth=" n ]
+.B "[\-\-help] [\-\-version] [\-\-]"
+.SH DESCRIPTION
+.B du
+affiche la quantité d'espace disque utilisée par chacun des arguments, et
+pour chaque sous-répertoire des répertoires indiqués en argument.
+Toutes les mesures contiennent l'ensemble de la hiérarchie des sous-répertoires
+dans le système de fichiers.
+.PP
+Sans argument,
+.B du
+mesure l'espace occupé par le répertoire courant et ses descendants.
+.SH "DÉTAILS POSIX"
+La sortie affiche les tailles par blocs de 510 octets par défaut, à moins
+que l'option \-k ne soit présente, auquel cas les blocs font 1024 octets.
+.SH "DÉTAILS GNU"
+L'espace est mesuré en blocs d'un Ko par défaut, à moins que la variable
+d'environnement
+.B POSIXLY_CORRECT
+soit configurée, auquel cas les blocs représentent 512 octets.
+.SH "OPTIONS POSIX"
+.TP
+.B "\-a"
+Afficher les statistiques pour tous les fichiers, pas seulement les répertoires.
+.TP
+.B "\-k"
+Afficher la taille en ko (kilo-octets, 1024 octets).
+.TP
+.B "\-s"
+Afficher seulement le total pour chaque argument.
+.TP
+.B "\-x"
+Ignorer les répertoires situés sur un système de fichiers différent
+de celui de l'argument étudié.
+.TP
+.B "\-\-"
+Fin de la liste des options.
+.SH "OPTIONS GNU"
+.TP
+.B "\-a, \-\-all"
+Afficher les statistiques pour tous les fichiers, pas seulement les répertoires.
+.TP
+.B "\-b, \-\-bytes"
+Afficher les tailles en octets.
+.TP
+.B "\-\-block\-size=" nombre
+Afficher les tailles en utilisant des blocs ayant le
+.I nombre
+indiqué d'octets.
+(Nouveauté dans fileutils-4.0).
+.TP
+.B "\-c, \-\-total"
+Afficher un total complet de tous les arguments, après les avoir tous
+affichés. Ceci permet de connaître l'espace occupé par un répertoire
+en excluant certains fichiers.
+.TP
+.B "\-D, \-\-dereference-args"
+Déréférencer les liens symboliques indiqués en tant qu'argument sur la
+ligne de commande. Ne pas déréférencer les autres liens symboliques.
+Ceci permet de mesurer la place disque occupée par des répertoires comme
+.I /usr/tmp
+quand il s'agit de liens symboliques vers un autre répertoire.
+.TP
+.BI "\-\-exclude=" motif
+Lors du parcours récursif, ignorer les répertoires et fichiers correspondant au
+.IR motif .
+Le
+.I motif
+peut être une chaîne contenant des métacaractères standards du shell Bourne.
+(Nouveauté dans fileutils-4.0).
+.TP
+.B "\-h, \-\-human\-readable"
+Afficher les tailles de manière facile à lire par un humain, en ajoutant
+un suffixe correspondant à l'unité (K, M, G).
+.TP
+.B "\-H, \-\-si"
+Comme \-h, mais en utilisant des unités du Système International (avec des
+puissances de 1000 plutôt que 1024, ainsi M vaut 1.000.000 et non 1.048.576).
+(Nouveauté dans fileutils-4.0).
+.TP
+.B "\-k, \-\-kilobytes"
+Afficher la taille en kilo-octets. Cette option a priorité sur la variable
+d'environnement POSIXLY_CORRECT.
+.TP
+.B "\-l, \-\-count-links"
+Compter la taille de tous les fichiers, même s'ils ont déjà été pris en compte
+via un autre lien physique.
+.TP
+.B "\-L, \-\-dereference"
+Déréférencer les liens symboliques (prendre en compte l'espace utilisé
+par le fichier ou le répertoire pointé par le lien, à la place de
+l'espace utilisé seulement par le lien).
+.TP
+.B "\-m, \-\-megabytes"
+Afficher les tailles en Mo (méga-octets, 1.048.576 octets).
+.TP
+.BI "\-\-max\-depth=" n
+N'afficher le résultat pour un répertoire (ou fichier avec l'option
+.BR \-a )
+que s'il est à moins de
+.I n
+niveaux en dessous du répertoire de démarrage.
+.BI "\-\-max\-depth=" 0
+est équivalent à
+.BR "\-s" .
+(Nouveauté dans fileutils-4.0).
+.TP
+.B "\-s, \-\-summarize"
+Afficher seulement le total pour chaque argument.
+.TP
+.B "\-S, \-\-separate-dirs"
+Compter la taille de chaque répertoire séparément, sans inclure les
+tailles des sous-répertoires.
+.TP
+.B "\-x, \-\-one-file-system"
+Ignorer les répertoires situés sur un système de fichiers différent
+de celui de l'argument étudié.
+.TP
+.BI "\-X " "fichier, " "\-\-exclude\-from=" "fichier"
+Comme
+.BR \-\-exclude ,
+sauf que les motifs à exclure sont lus dans le
+.I fichier
+indiqué. Les motifs sont listés sur des lignes séparées. Si le
+.I fichier
+est «\ \-\ », les motifs sont lus depuis l'entrée standard.
+(Nouveauté dans fileutils-4.0).
+.SH "OPTIONS STANDARDS GNU"
+.TP
+.B "\-\-help"
+Afficher un message d'aide et se terminer normalement.
+.TP
+.B "\-\-version"
+Afficher un numéro de version et se terminer normalement.
+.TP
+.B "\-\-"
+Fin de la liste des options.
+.SH BOGUES
+Sur les systèmes BSD,
+.B du
+affiche des tailles correspondant à la moitié de la taille réelle pour
+les fichiers situés sur un système HP-UX monté par NFS.
+Sur les systèmes HP-UX, les tailles sont doublées pour les fichiers
+montés par NFS depuis un système BSD.
+Ceci est dû à un défaut d'HP-UX, qui affecte également la version
+HP-UX de la commande
+.BR du .
+.SH ENVIRONNEMENT
+La variable POSIXLY_CORRECT détermine le choix des unités.
+Si elle n'existe pas, et si la variable BLOCKSIZE a une valeur
+commençant par HUMAN alors, le comportement est celui de
+l'option \-h (à moins qu'il soit surchargé par une option \-k ou \-m).
+Les variables
+LANG, LC_ALL, LC_CTYPE et LC_MESSAGES ont leurs significations habituelles.
+.SH "CONFORMITÉ"
+POSIX 1003.2
+.SH "NOTES"
+Cette page documente la version de
+.B du
+trouvée dans le paquetage fileutils-4.0, d'autres versions
+peuvent différer légèrement.
+Envoyez par courriel corrections et ajout sur cette page à aeb@cwi.nl.
+Signalez les bogues du programme à fileutils-bugs@gnu.ai.mit.edu (Ndt\ : en anglais)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 19\ décembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 1\ du\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

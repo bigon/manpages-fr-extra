@@ -1,0 +1,142 @@
+.\" Copyright (c) 2001 Markus Kuhn <mkuhn@acm.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 manual
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"
+.\" Corrected prototype, 2002-10-18, aeb
+.\"
+.\" Traduction 14/05/2002 par Stéphan Rafin (stephan.rafin@laposte.net)
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH NL_LANGINFO 3 "11 mai 2001" LDP "Manuel du programmeur Linux"
+.SH NOM
+nl_langinfo \- Demande d'informations sur la langue et la localisation.
+.SH SYNOPSIS
+.nf
+.B #include <langinfo.h>
+.sp
+.BI "char *nl_langinfo(nl_item " item );
+.fi
+.SH DESCRIPTION
+La fonction \fBnl_langinfo\fP() fournit un accès aux informations de localisation
+de façon plus flexible que ne le fait
+.BR localeconv (3).
+Des éléments individuels et supplémentaires des catégories de localisation
+peuvent être interrogés.
+.PP
+Voici des exemples d'éléments de localisation qui peuvent être spécifiés via
+\fIitem\fP en utilisant les constantes définies dans <langinfo.h>\ :
+
+.TP
+.BR CODESET \ (LC_CTYPE)
+renvoie une chaîne contenant le nom de l'encodage de caractères utilisé
+dans la localisation sélectionnée, par exemple «\ UTF-8\ », «\ ISO-8859-1\ », ou
+«\ ANSI_X3.4-1968\ » (mieux connu sous US-ASCII). Il s'agit de la même chaîne
+que celle obtenue avec «\ locale charmap\ ». Pour une liste des noms d'encodage
+de caractères, essayez «\ locale \-m\ », cf.\&
+.BR locale (1).
+
+.TP
+.BR D_T_FMT \ (LC_TIME)
+renvoie une chaîne qui peut être utilisée en tant que chaîne de format pour
+.BR strftime (3)
+afin de représenter l'heure et la date de façon spécifique à la localisation.
+
+.TP
+.BR D_FMT \ (LC_TIME)
+renvoie une chaîne qui peut être utilisée en tant que chaîne de format pour
+.BR strftime (3)
+afin de représenter la date de façon spécifique à la localisation.
+
+.TP
+.BR T_FMT \ (LC_TIME)
+renvoie une chaîne qui peut être utilisée en tant que chaîne de format pour
+.BR strftime (3)
+afin de représenter l'heure de façon spécifique à la localisation.
+
+.TP
+.BR DAY_ "{1\(en7} (LC_TIME)"
+renvoie le nom du \fIn\fP\-ième jour de la semaine. [Attention\ : cela suit
+la convention américaine stipulant que  DAY_1 = Dimanche, et pas la convention
+internationale (ISO 8601) spécifiant que Lundi est le premier jour de la semaine.]
+
+.TP
+.BR ABDAY_ "{1\(en7} (LC_TIME)"
+renvoie le nom abrégé du \fIn\fP\-ième jour de la semaine.
+
+.TP
+.BR MON_ "{1\(en12} (LC_TIME)"
+renvoie le nom du \fIn\fP\-ième mois.
+
+.TP
+.BR ABMON_ "{1\(en12} (LC_TIME)"
+renvoie le nom abrégé du \fIn\fP\-ième mois.
+
+.TP
+.BR RADIXCHAR \ (LC_NUMERIC)
+renvoie le caractère indiquant la base (point, virgule, etc.).
+
+.TP
+.BR THOUSEP \ (LC_NUMERIC)
+renvoie le caractère séparateur pour les milliers (groupe de trois chiffres).
+
+.TP
+.BR YESEXPR \ (LC_MESSAGES)
+renvoie une expression rationelle qui peut être utilisée avec
+la fonction
+.BR regex (3)
+afin de reconnaître une réponse affirmative à une question de type oui/non.
+
+.TP
+.BR NOEXPR \ (LC_MESSAGES)
+renvoie une expression rationelle qui peut être utilisée avec
+la fonction
+.BR regex (3)
+afin de reconnaître une réponse négative à une question de type oui/non.
+
+.TP
+.BR CRNCYSTR \ (LC_MONETARY)
+renvoie le symbole monétaire précédé par «\ \-\ » si le symbole doit
+apparaître avant la valeur, «\ +\ » si le symbole doit apparaître après
+la valeur, ou bien «\ .\ » si le symbole doit remplacer la virgule.
+.PP
+La liste ci-dessus ne couvre que quelques exemples des éléments qui
+peuvent être obtenus. Pour une liste plus détaillée, veuillez consulter
+.IR "The GNU C Library Reference Manual" .
+.SH "VALEUR RENVOYÉE"
+Si aucune localisation n'a été sélectionnée pour la catégorie appropriée,
+\fBnl_langinfo\fP renvoie un pointeur vers la chaîne correspondante dans
+la localisation "C".
+.PP
+Si \fIitem\fP n'est pas un pointeur valide, alors un pointeur vers une
+chaîne vide est renvoyée.
+.PP
+Ce pointeur peut faire référence à une donnée statique susceptible d'être écrasée
+lors du prochain appel à \fBnl_langinfo\fP ou à \fBsetlocale\fP.
+.SH "CONFORMITÉ"
+The Single UNIX\*R Specification, Version 2
+.SH "VOIR AUSSI"
+.BR localeconv (3),
+.BR setlocale (3),
+.BR locale (1),
+.BR locale (7),
+.BR charsets (7),
+The GNU C Library Reference Manual
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Stéphan Rafin
+<stephan DOT rafin AT laposte DOT net> le 14\ mai\ 2002
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ nl_langinfo\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

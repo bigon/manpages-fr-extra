@@ -1,0 +1,157 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1992 Drew Eckhardt;
+.\"                               1993 Ian Jackson.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified Sat Jul 24 13:00:50 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Sun Sep  8 18:59:01 1996 by aeb following remarks by
+.\"     Arnt Gulbrandsen <agulbra@troll.no>
+.\" Modified Fri Jan 31 23:49:15 1997 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified Thu May 17 12:15:26 2001 by aeb
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/04/1997
+.\" Màj 11/12/1997 LDP-1.18
+.\" Màj 12/12/1998 LDP-1.21
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 04/06/2001 LDP-1.36
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH UNLINK 2 "21 août 2001" LDP "Manuel du programmeur Linux"
+.SH NOM
+unlink \- Détruire un nom et éventuellement le fichier associé.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.BI "int unlink(const char *" pathname );
+.SH DESCRIPTION
+.B unlink
+détruit un nom dans le système de fichiers. Si ce nom était le
+dernier lien sur un fichier, et si aucun processus n'a ouvert ce fichier,
+ce dernier est effacé, et l'espace qu'il utilisait est rendu disponible.
+
+Si le nom était le dernier lien sur un fichier, mais qu'un
+processus conserve encore le fichier ouvert, celui continue d'exister
+jusqu'à ce que le dernier descripteur le référençant soit fermé.
+
+Si le nom correspond à un lien symbolique, le lien est effacé.
+
+Si le nom correspond à une socket, une FIFO, ou un périphérique,
+le nom est effacé mais les processus qui ont ouvert l'objet
+peuvent continuer à l'utiliser.
+.SH "VALEUR RENVOYÉE"
+.B unlink
+renvoie 0 s'il réussit ou \-1 s'il échoue, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EACCES
+L'accès en écriture au répertoire contenant
+.I pathname
+n'est pas autorisé pour l'UID effectif du processus, ou bien
+l'un des répertoires de
+.IR pathname
+n'autorise pas le parcours.
+.TP
+.BR EPERM " ou " EACCESS
+Le répertoire contenant
+.I pathname
+a son Sticky\-Bit à 1, et l'UID effectif du processus n'est
+ni celui du fichier ni celui du répertoire.
+.TP
+.BR EPERM " (spécifique Linux)"
+Le système de fichiers ne permet pas la destruction avec unlink.
+.TP
+.B EPERM
+Le système ne permet pas la destruction des répertoires avec unlink, ou
+cette destruction nécessite des privilèges que le processus appelant
+n'a pas.
+(Il s'agit d'une erreur conseillée par POSIX).
+.TP
+.B EISDIR
+.IR pathname " est un répertoire."
+(Il s'agit d'une erreur non-POSIX renvoyée par Linux depuis le 2.1.132).
+.TP
+.BR EBUSY " (spécifique Linux)"
+Le fichier
+.I pathname
+ne peut pas être détruit avec unlink car il est utilisé par le système ou
+par un autre processus, et l'implémentation considère que c'est une erreur.
+.TP
+.B EFAULT
+.IR pathname " pointe en dehors de l'espace d'adressage accessible"
+.TP
+.B ENAMETOOLONG
+.IR pathname " est trop long."
+.TP
+.B ENOENT
+Un répertoire dans le chemin d'accès
+.I pathname
+n'existe pas ou est un lien symbolique pointant nulle part.
+.TP
+.B ENOTDIR
+Un élément du chemin d'accès
+.I pathname
+n'est pas un répertoire.
+.B ENOMEM
+Pas assez de mémoire pour le noyau.
+.TP
+.B EROFS
+.I pathname
+est placé sur un système de fichiers en lecture seule.
+.TP
+.B ELOOP
+Trop de liens symboliques dans le chemin d'accès
+.IR pathname .
+.TP
+.B EIO
+une erreur d'entrée-sortie bas niveau s'est produite.
+.SH "CONFORMITÉ"
+SVr4, SVID, POSIX, X/OPEN, BSD 4.3. SVr4 mentionne les conditions
+d'erreur supplémentaires EINTR, EMULTIHOP, ETXTBSY, ENOLINK.
+.SH BOGUES
+Des problèmes dans le protocole sous-jacent à NFS peuvent
+causer la disparition inattendue de fichiers encore en
+utilisation.
+.SH "VOIR AUSSI"
+.BR rm (1),
+.BR link (2),
+.BR mknod (2),
+.BR open (2),
+.BR rename (2),
+.BR rmdir (2),
+.BR mkfifo (3),
+.BR remove (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 15\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ unlink\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,192 @@
+.\" (c) 1993 by Thomas Koenig (ig25@rz.uni-karlsruhe.de)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" License.
+.\" Modified Wed Jul 21 22:35:42 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 18 Mar 1996 by Martin Schulze (joey@infodrom.north.de):
+.\"   Corrected description of getwd().
+.\" Modified Sat Aug 21 12:32:12 MET 1999 by aeb - applied fix by aj
+.\" Modified Mon Dec 11 13:32:51 MET 2000 by aeb
+.\" Modified Thu Apr 22 03:49:15 CEST 2002 by Roger Luethi <rl@hellgate.ch>
+.\"
+.\" Traduction 26/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH GETCWD 3 "22 avril 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+getcwd, get_current_dir_name, getwd \- Obtenir le répertoire courant.
+.SH SYNOPSIS
+.nf
+.B #include <unistd.h>
+.sp
+.BI "char * getcwd (char * " buf ", size_t " size );
+.B  "char * get_current_dir_name (void);"
+.BI "char * getwd (char * " buf );
+.fi
+.SH DESCRIPTION
+La fonction
+.BR getcwd ()
+copie le chemin d'accès absolu du répertoire de travail courant dans la chaîne
+pointée par
+.IR buf ,
+qui est de longueur
+.IR size .
+.PP
+Si le chemin du répertoire en cours nécessite un tampon plus long que
+.I size
+octets, la fonction renvoie
+.BR NULL ,
+et
+.I errno
+contient le code d'erreur
+.BR ERANGE .
+Une application doit détecter cette erreur et allouer un tampon plus grand
+si besoin est.
+.PP
+Si
+.I buf
+est NULL, le comportement de
+.BR getcwd ()
+est indéfini.
+.PP
+Comme extension du standard POSIX.1, la version Linux (libc4, libc5, glibc) de
+.BR getcwd ()
+alloue le tampon dynamiquement, en utilisant
+.BR malloc (),
+si
+.I buf
+est
+.B NULL
+lors de l'appel. Alors, le tampon alloué a la longueur
+.I size
+à moins que
+.I size
+soit égal à zéro, dans ce cas
+.I buf
+a la taille nécessaire. Il est possible (et même fortement conseillé) de
+libérer le tampon avec
+.BR free ()
+lorsqu'il a été obtenu ainsi.
+
+.BR get_current_dir_name ,
+qui ne possède un prototype que si la constante
+.B _GNU_SOURCE
+est définie, allouera avec
+.BR malloc (3)
+une chaîne suffisamment grande pour contenir le nom du répertoire. Si la
+variable d'environnement
+.B PWD
+est configurée, et correcte, cette valeur sera renvoyée.
+
+.BR getwd ,
+qui ne possède un prototype que si les constantes
+.B _BSD_SOURCE
+ou
+.B _XOPEN_SOURCE_EXTENDED
+sont définies, n'allouera aucune mémoire.
+L'argument
+.I buf
+doit être un pointeur sur une chaîne comportant au moins
+.B PATH_MAX
+octets.
+.BR getwd
+ne renverra que les
+.B PATH_MAX
+premiers octets du nom réel.
+Notez que
+.B PATH_MAX
+n'est pas nécessairement une constante à la compilation. Elle peut dépendre du
+système de fichiers, voire être illimitée. Pour des raisons de portabilité et
+de sécuriré, on déconseille l'utilisation de
+.BR getwd .
+.SH "VALEUR RENVOYÉE"
+.B NULL
+en cas d'échec, avec
+.I errno
+contenant le code d'erreur. En cas de réussite
+.I buf
+est renvoyé. Le contenu de la chaîne pointée par
+.I buf
+est indéfini en cas d'erreur.
+.SH ERREURS
+.TP
+.B EACCES
+Impossible de lire ou de parcourir un composant du chemin d'accès.
+.TP
+.B EFAULT
+.IR buf
+pointe sur une adresse illégale.
+.TP
+.B EINVAL
+L'argument
+.IR size
+vaut zéro et
+.IR buf
+n'est pas un pointeur NULL.
+.TP
+.B ENOENT
+Le répertoire en cours a été supprimé.
+.TP
+.B ERANGE
+L'argument
+.IR size
+est inférieur à la longueur du nom du répertoire.
+Allouez un tampon plus grand et ré-essayez.
+.SH NOTES
+Sous Linux, la fonction
+.BR getcwd ()
+est un appel système (depuis le 2.1.92).
+Sur des systèmes plus anciens, elle interrogerait
+.IR /proc/self/cwd .
+Si l'appel système et le système de fichiers proc sont absents, une implémentation
+générique est utilisée. Dans ce cas seulement la fonction peut renvoyer
+.B EACCES
+sous Linux.
+.LP
+Ces fonctions sont souvent utilisées pour sauver le répertoire de travail
+afin d'y revenir plus tard. Ouvrir le répertoire courant («\ .\ ») et appeler
+.BR fchdir (2)
+pour y revenir est habituellement une alternative plus rapide et plus fiable
+(surtout sur d'autres systèmes que Linux) si l'on dispose de suffisamment de
+descripteurs de fichiers.
+.SH "CONFORMITÉ"
+POSIX.1
+.SH "VOIR AUSSI"
+.BR chdir (2),
+.BR fchdir (2),
+.BR open (2),
+.BR unlink (2),
+.BR free (3),
+.BR malloc (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 26\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ getcwd\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,115 @@
+.\" From dholland@burgundy.eecs.harvard.edu Tue Mar 24 18:08:15 1998
+.\"
+.\" This man page was written in 1998 by David A. Holland
+.\" and placed in the Public Domain. Polished a bit by aeb.
+.\"
+.\" Traduction 30/04/1998 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-1.19
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH STDIN 3 "24 mars 1998" LDP "Manuel du programmeur Linux"
+.SH NOM
+stdin, stdout, stderr \- Flux d'entrées-sorties standards.
+.SH SYNOPSIS
+.nf
+.B #include <stdio.h>
+.sp
+.BI "extern FILE *" stdin ;
+.BI "extern FILE *" stdout ;
+.BI "extern FILE *" stderr ;
+.SH DESCRIPTION
+Normalement, tout programme Unix démarre avec 3 flux déjà ouverts, l'un
+pour l'entrée des données, un autre pour la sortie des données, et un
+troisième pour l'affichage des messages de diagnostique ou d'erreur.
+Ces trois flux sont typiquement attachés au terminal de l'utilisateur
+(voir \fBtty\fP(4)), mais peuvent également être redirigés vers des
+fichiers ou vers d'autres périphériques suivant les choix du processus
+parent. (Voir le paragraphe «\ Redirection\ » dans \fBsh\fP(1)).
+.PP
+Le flux d'entrée est appelé «\ entrée standard\ » (standard input), le flux
+de sortie, «\ sortie standard\ » (standard output), et le flux d'erreur est
+souvent appelé «\ erreur standard\ » (standard error).
+Ces noms sont abrégés dans les dénominations symboliques de ces fichiers\ :
+\fIstdin\fP, \fIstdout\fP, et \fIstderr\fP.
+.PP
+Chacun de ces symboles est une macro de \fBstdio\fP(3) de type pointeur
+sur un FILE, et peut être utilisé dans des fonctions comme
+\fBfprintf\fP(3) ou \fBfread\fP(3).
+.PP
+Comme les FILEs sont simplement des coquilles entourant les descripteurs
+de fichiers en ajoutant une mémoire tampon, il est également possible
+d'accéder aux fichiers Unix «\ bruts\ », avec des fonctions comme
+\fBread\fP(2) ou \fBlseek\fP(2).
+Les descripteurs des fichiers associés aux flux
+\fIstdin\fP, \fIstdout\fP, et \fIstderr\fP sont respectivement
+0, 1, et 2.
+Les constantes symboliques STDIN_FILENO, STDOUT_FILENO, et STDERR_FILENO
+sont définies avec ces valeurs dans <unistd.h>.
+.PP
+Notez que l'utilisation conjointe des FILEs et des descripteurs bruts
+risque de produire des résultats inattendus, et doit être généralement
+évitée.
+Pour les plus masochistes d'entre-vous, POSIX.1 décrit en détail, dans son
+paragraphe 8.2.3, comment ces interactions sont censées fonctionner.
+
+Une règle générale est que les descripteurs de fichiers sont manipulés
+par le noyau, alors que \fBstdio\fP est simplement une bibliothèque.
+Ceci signifie par exemple qu'après un \fBexec\fP, le processus fils
+hérite de tous les descripteurs de fichiers ouverts, mais que les flux
+deviennent inaccessibles.
+.PP
+Comme les symboles \fIstdin\fP, \fIstdout\fP, et \fIstderr\fP
+sont définis comme des macros, il est interdit de leur assigner
+une valeur.
+On peut utiliser la fonction de bibliothèque \fBfreopen\fP(3)
+pour réassigner les flux standards de manière portable.
+.PP
+Les flux standards sont fermés lors d'un appel à \fBexit\fP(3), ou
+lors d'une fin normale de programme.
+.SH NOTES
+Le flux
+.B stderr
+n'a pas de tampon. Le flux
+.B stdout
+a un tampon de ligne lorsqu'il est dirigé vers un terminal. Les lignes
+partielles n'apparaîtront pas avant que
+\fBfflush\fP(3) ou \fBexit\fP(3) ne soient invoquées, ou qu'un
+retour-chariot soit écrit.
+
+Ceci a parfois des effets inattendus, principalement lors du débogage
+des programmes.
+La gestion des tampons des flux standards (et des autres flux également)
+peut être modifiée en utilisant
+\fBsetbuf\fP(3) ou \fBsetvbuf\fP(3).
+
+Remarquez que dans le cas où \fIstdin\fP est associée à un terminal,
+il peut également y avoir un tampon d'entrée dans le pilote de terminal,
+sans aucune relation avec le tampon de stdio. En fait, normalement,
+la saisie depuis un terminal est gérée avec un tampon de ligne dans
+le noyau. Cette gestion par le noyau peut être configurée en utilisant
+des appels système comme \fBtcsetattr\fP(3). Voir également \fBstty\fP(1)
+ou \fBtermios\fP(3).
+.SH CONFORMITÉ
+Les macros \fIstdin\fP, \fIstdout\fP, et \fIstderr\fP
+sont conformes au standard
+.BR "Ansi C" ,
+et celui-ci stipule également que ces trois flux doivent être
+ouverts au démarrage du programme.
+.SH "VOIR AUSSI"
+.BR sh (1),
+.BR csh (1),
+.BR open (2),
+.BR fopen (3),
+.BR stdio (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 30\ avril\ 1998
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ stdin\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

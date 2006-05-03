@@ -1,0 +1,70 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Traduction 11/12/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH WCTOMB 3 "25 juillet 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+wctomb \- Convertir un caractère étendu en caractère multi-octet.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "int wctomb (char *" s ", wchar_t " wchar );
+.fi
+.SH DESCRIPTION
+Si \fIs\fP n'est pas NULL, la fonction \fBwctomb\fP() convertit le caractère large
+\fIwc\fP dans sa représentation multi-octets et le stocke au début de la chaîne
+de caractères pointée par \fIs\fP. Elle met à jour l'état de décalage, variable statique
+anonyme connue uniquement de la fonction wctomb, et renvoie la longueur de la représentation
+multioctets, c'est-à-dire le nombre d'octets écrits dans \fIs\fP.
+.PP
+Le programmeur doit s'assurer qu'il y a suffisamment de place pour \fBMB_CUR_MAX\fP octets
+au moins dans \fIs\fP.
+.PP
+Si \fIs\fP est NULL, la fonction \fBwctomb\fP() réinitialise l'état de décalage, connu seulement
+de cette fonction, à sa valeur initiale et renvoie une valeur non-nulle si l'encodage a
+un état de décalage non trivial, ou zéro si l'encodage est sans état.
+.SH "VALEUR RENVOYÉE"
+Si \fIs\fP n'est pas NULL, la fonction \fBwctomb\fP() renvoie le nombre d'octets qui ont
+été écrit dans la chaîne d'octet à l'adresse \fIs\fP. Si \fIwc\fP ne peut pas être représenté
+par une séquence multi-octets (d'après la localisation en cours), elle renvoie \-1.
+.PP
+Si \fIs\fP est NULL, la fonction \fBwctomb\fP() renvoie une valeur non-nulle si l'encodage a
+un état de décalage non trivial, ou zéro si l'encodage est sans état.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR wcrtomb (3),
+.BR wcstombs (3),
+.BR MB_CUR_MAX (3)
+.SH NOTES
+Le comportement de \fBwctomb\fP() dépend de la catégorie LC_TYPE de la localisation
+en cours.
+.PP
+Cette fonction ne doit pas être utilisée dans un environnement multi-threads. La routine
+\fBwcrtomb\fP() fournit une meilleure interface pour la même fonctionnalité.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 11\ décembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ wctomb\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

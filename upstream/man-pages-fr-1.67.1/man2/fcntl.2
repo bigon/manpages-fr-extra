@@ -1,0 +1,757 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1992 Drew Eckhardt;
+.\"                               1993 Michael Haardt, Ian Jackson.
+.\"                               1998 Jamie Lokier;
+.\"                               2002 Michael Kerrisk.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified 1993-07-24 by Rik Faith <faith@cs.unc.edu>
+.\" Modified 1995-09-26 by Andries Brouwer <aeb@cwi.nl>
+.\" and again on 960413 and 980804 and 981223.
+.\" Modified 1998-12-11 by Jamie Lokier <jamie@imbolc.ucc.ie>
+.\" Applied correction by Christian Ehrhardt - aeb, 990712
+.\" Modified 2002-04-23 by Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\"	Added note on F_SETFL and O_DIRECT
+.\"	Complete rewrite + expansion of material on file locking
+.\"	Incorporated description of F_NOTIFY, drawing on
+.\"		Stephen Rothwell's notes in Documentation/dnotify.txt.
+.\"	Added description of F_SETLEASE and F_GETLEASE
+.\" Corrected and polished, aeb, 020527.
+.\" Modified 2004-03-03 by Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\"     Modified description of file leases: fixed some errors of detail
+.\"     Replaced the term "lease contestant" by "lease breaker"
+.\"
+.\" Traduction 11/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 21/09/1998 LDP-1.20
+.\" Màj 05/05/1999 LDP-1.23
+.\" Màj 30/05/2001 LDP-1.36
+.\" Màj 15/01/2002 LDP-1.47
+.\" Màj 30/07/2003 LDP-1.58
+.\" Màj 04/07/2005 LDP-1.61
+.\" Màj 23/12/2005 LDP-1.67
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH FCNTL 2 "3 mars 2004" Linux-2.6.3 "Manuel du programmeur Linux"
+.SH NOM
+fcntl \- Manipuler un descripteur de fichier.
+.SH SYNOPSIS
+.nf
+.B #include <unistd.h>
+.B #include <fcntl.h>
+.sp
+.BI "int fcntl(int " fd ", int " cmd );
+.BI "int fcntl(int " fd ", int " cmd ", long " arg );
+.BI "int fcntl(int " fd ", int " cmd ", struct flock *" lock );
+.fi
+.SH DESCRIPTION
+.B fcntl
+permet de se livrer à diverses opérations sur le descripteur de fichier
+.IR fd .
+L'opération en question est déterminée par la valeur de l'argument
+.IR cmd .
+.SS "Manipulation de Close-on-exec"
+.TP
+.B F_DUPFD
+Trouve le plus petit numéro de descripteur libre supérieur ou
+égal à
+.I arg
+et le transforme en copie de
+.IR fd .
+Ceci est différent de
+.BR dup (2)
+qui utilise exactement le descripteur transmis.
+.sp
+Le nouveau et l'ancien descripteurs deviennent interchangeables. Ils partagent
+les verrous, l'indicateur de position et les attributs. Si par exemple la
+tête de lecture/écriture est déplacée en utilisant
+.B lseek
+sur l'un des deux descripteurs, la position sera aussi modifiée pour l'autre.
+.sp
+Les deux descripteurs ne partagent toutefois pas l'attribut Close\-on\-exec.
+L'attribut Close\-on\-exec de la copie est désactivé, ce qui signifie qu'il
+ne sera pas fermé lors d'un exec().
+.sp
+En cas de réussite, le nouveau descripteur est renvoyé.
+.TP
+.B F_GETFD
+Retourne la valeur de l'attribut Close\-on\-exec. Si le bit
+.B FD_CLOEXEC
+est 0, le fichier restera ouvert même au travers d'un
+.BR exec ,
+autrement il sera fermé.
+.TP
+.B F_SETFD
+Positionne l'attribut Close\-on\-Exec avec la valeur précisée par le bit
+.B FD_CLOEXEC
+de
+.IR arg .
+.SS "Attribut d'état du fichier"
+Un descripteur de fichier dispose de certains attributs, initialisés par
+.BR open (2)
+et eventuellement modifiés par
+.BR fcnt (2).
+Les attributs sont partagés entre les copies (obtenues avec
+.BR dup (2),
+.BR fork (2),
+etc.) du même descripteur de fichier.
+.sp
+Les attributs et leurs sémantiques sont décrits dans la page
+.BR open (2).
+.TP
+.B F_GETFL
+Renvoie l'attribut d'état du descripteur.
+.TP
+.B F_SETFL
+Positionne les nouveaux attributs pour le descripteur de fichier à la valeur
+indiquée par
+.IR arg .
+Les bits restants (mode d'accès, attributs de création) de
+.I arg
+sont ignorés.
+Sous Linux, cette commande ne peut changer que O_APPEND, O_NONBLOCK, O_ASYNC,
+et O_DIRECT.
+.P
+.SS "Verrouillages coopératifs"
+.BR F_GETLK ", " F_SETLK " et " F_SETLKW
+servent à gérer les verrouillages d'enregistrements (de segments ou de
+régions de fichiers).
+Le troisième argument
+.I lock
+est un pointeur sur une structure qui a au moins les champs suivants
+(dans un ordre non spécifié).
+.in +2n
+.nf
+.sp
+struct flock {
+    ...
+    short l_type;    /* Type de verrouillage\ : F_RDLCK,
+                        F_WRLCK, F_UNLCK */
+    short l_whence;  /* Interprétation de l_start:
+                        SEEK_SET, SEEK_CUR, SEEK_END */
+    off_t l_start;   /* Décalage de début du verrouillage */
+    off_t l_len;     /* Nombre d'octets du verrouillage */
+    pid_t l_pid;     /* PID du processus bloquant notre verrou
+                        (F_GETLK seulement) */
+    ...
+};
+.fi
+.in -2n
+.P
+Les champs
+.IR l_whence ", " l_start ", et " l_len
+de cette structure indiquent l'intervalle à verrouiller.
+.I l_start
+est le décalage de début du verrouillage et s'interprète
+par rapport\ :
+au début du fichier (si
+.I l_whence
+vaut
+.BR SEEK_SET )\ ;
+à la position actuelle dans le fichier (si
+.I l_whence
+vaut
+.BR SEEK_CUR )\ ;
+ou la fin du fichier (si
+.I l_whence
+vaut
+.BR SEEK_END ).
+Dans les deux derniers cas,
+.I l_start
+peut être un nombe négatif, à condition de ne
+pas indiquer une position avant le début du fichier.
+.I l_len
+est un entier non-négatif (mais voir les NOTES plus bas) indiquant
+le nombre d'octets à verrouiller.
+On peut verrouiller des octets après la fin du fichier, mais
+pas avant son début.
+Fournir un 0 dans
+.I l_len
+a un sens particulier\ : verrouiller tous les octets de la position indiquée
+par
+.IR l_whence " et " l_start
+jusqu'à la fin du fichier, quelque soit sa taille.
+.P
+Le champ
+.I l_type
+peut servir à placer un verrou en lecture
+.RB ( F_RDLCK )
+ou en écriture
+.RB ( F_WDLCK )
+sur un fichier.
+Un nombre quelconque de processus peuvent tenir un verrou en lecture (partagé),
+sur une région d'un fichier, mais un seul peut avoir un verrou en écriture
+(exclusif). Un verrou en écriture exclut tous les autres verrous, aussi bien
+en lecture qu'en écriture.
+Un processus donné ne peut tenir qu'un seul verrou sur une région d'un fichier,
+si un nouveau verrou y est appliqué, alors le verrou précédent est
+converti suivant le nouveau type.
+Ceci peut entraîner le découpage, la réduction ou l'extension du verrou
+existant si le nombre d'octets du nouveau verrou ne coïncide pas exactement
+avec celui de l'ancien.
+.TP
+.B F_SETLK
+Acquérir (si
+.B l_type
+vaut
+.B F_RDLCK
+ou
+.BR F_WRLCK )
+ou libérer (si
+.B l_type
+vaut
+.BR F_UNLCK )
+le verrou sur les octets indiqués par les champs
+.IR l_whence ", " l_start ", et " l_len
+de
+.IR lock .
+Si un conflit avec un verrou tenu par un autre processus existe,
+cet appel renvoie \-1 et positionne
+.I errno
+aux valeurs
+.B EACCES
+ou
+.BR EAGAIN .
+.TP
+.B F_SETLKW
+Comme
+.BR F_SETLK,
+mais attend la libération du verrou au lieu de retourner une
+erreur.
+Si un signal à intercepter est reçu pendant l'attente,
+l'appel est interrompu et renverra immédiatement (après retour du
+gestionnaire de signaux) la valeur \-1.
+.I errno
+sera remplie avec la valeur
+.BR EINTR .
+.TP
+.B F_GETLK
+En entrée dans cette routine,
+.I lock
+décrit un verrou que nous aimerions placer sur le fichier.
+Si le verrouillage est possible,
+.BR fcntl ()
+ne le fait pas, mais renvoie
+.B F_UNLCK
+dans le champ
+.I l_type
+de
+.I lock
+et laisse les autres champs de la structure inchangés.
+Si un ou plusieurs verrouillages incompatibles empêchaient l'action,
+alors
+.BR fcntl ()
+renvoie des informations sur l'un de ces verrous dans les champs
+.IR l_type ", " l_whence ", " l_start ", et " l_len
+de
+.I lock
+et remplit
+.I l_pid
+avec le PID du processus tenant le verrou.
+.P
+Pour pouvoir placer un verrou en lecture,
+.I fd
+doit être ouvert au moins en lecture.
+Pour placer un verrou en écriture,
+.I fd
+doit être ouvert en écriture.
+Pour placer les deux types de verrous, il faut une ouverture en lecture-écriture.
+.P
+Outre la suppression par un
+.B F_UNLCK
+explicite, les verrous sont automatiquement libérés lorsque le processus
+se termine, ou s'il ferme
+.I l'un
+des descripteurs se référant au fichier sur lequel le verrou est placé.
+.\" (Additional file descriptors referring to the same file
+.\" may have been obtained by calls to
+.\" .BR open "(2), " dup "(2), " dup2 "(2), or " fcntl (2).)
+C'est dangereux\ : cela signifie qu'un processus peut perdre un verrou sur
+un fichier comme
+.I /etc/passwd
+ou
+.I /etc/mtab
+si, pour une raison quelconque, une fonction de bibliothèque décide de l'ouvrir
+puis de le refermer.
+.P
+Les verrouillages d'enregistrements ne sont pas hérités par les enfants lors d'un
+.BR fork (2),
+mais sont préservés au cours d'un
+.BR execve (2).
+.P
+À cause des tampons gérés par la bibliothèque
+.BR stdio (3),
+l'utilisation des verrous d'enregistrements avec les routines de celle-ci
+est déconseillé. Utilisez plutôt
+.BR read "(2) et " write (2).
+.P
+.SS "Verrouillage obligatoire"
+(NON-POSIX)
+Les verrouillages d'enregistrements ci-dessus peuvent être coopératifs ou
+impératifs (coopératifs par défaut). Pour utiliser des verrous impératifs,
+ce type de verrouillage doit être activé sur le système de fichiers
+contenant le fichier à verrouiller
+(en utilisant l'option «\ -o mand\ » de
+.BR mount (8))
+et validé pour le fichier lui-même (en désactivant la permission d'exécution
+du groupe et en activant le bit de permission
+Set-GID).
+
+Les verrouillages coopératifs ne fonctionnent qu'entre processus qui les
+utilisent. Les verrouillages impératifs fonctionnent avec
+tous les processus.
+.P
+.SS "Gestion des signaux"
+.BR F_GETOWN ", " F_SETOWN ", " F_GETSIG " et " F_SETSIG
+servent à gérer les signaux de disponibilité d'entrée-sortie\ :
+.TP
+.B F_GETOWN
+obtient le PID ou l'ID du groupe de processus qui reçoit les signaux
+SIGIO et SIGURG pour les événements concernant le descripteur de fichier
+.IR fd .
+Les groupes de processus sont renvoyés sous forme de valeurs négatives.
+.TP
+.B F_SETOWN
+fixe le PID ou l'ID du groupe de processus qui recevront les signaux
+SIGIO et SIGURG pour les événements concernant le descripteur
+.IR fd .
+Les groupes de processus sont formulés en tant que valeurs négatives.
+.RB ( F_SETSIG
+peut servir à indiquer un autre signal que SIGIO).
+
+.\" From glibc.info:
+Si vous fixez l'attribut
+.B O_ASYNC
+sur un descripteur de fichier (soit en utilisant ce drapeau lors de l'appel à
+.BR open (2),
+soit en utilisant la commande
+.B F_SETFL
+de
+.BR fcntl (2)),
+un signal SIGIO est envoyé dès que l'entrée ou la sortie sont possibles sur
+ce descripteur.
+.sp
+Le processus, ou le groupe de processus, susceptibles de
+recevoir le signal peut être indiqué avec la commande
+.B F_SETOWN
+de la fonction
+.BR fcntl .
+Si le descripteur est une socket, ceci permet également la réception de
+signaux SIGURG lorsque des données hors-bande arrivent sur la socket.
+(SIGURG est émis dans toutes les situations où l'appel
+.BR select (2)
+aurait indiqué que la socket est dans une «\ situation exceptionnelle\ »).
+Si le descripteur de fichier correspond à un terminal, le signal SIGIO est
+envoyé au groupe de processus en avant-plan sur ce terminal.
+.TP
+.B F_GETSIG
+Renvoie le numéro du signal émis lorsque l'entrée ou la sortie deviennent possibles.
+Une valeur nulle signifie l'émission de SIGIO. Toute autre valeur (y compris
+SIGIO) précise le signal émis, et des informations supplémentaires
+seront disponibles pour le gestionnaire s'il est installé avec SA_SIGINFO.
+.TP
+.B F_SETSIG
+Indique le signal à émettre lorsque l'entrée ou la sortie deviennent possibles.
+Une valeur nulle signifie l'émission de SIGIO. Toute autre valeur (y compris
+SIGIO) précise le signal à émettre, et des informations supplémentaires
+seront disponibles pour le gestionnaire s'il est installé avec SA_SIGINFO.
+.sp
+En utilisant F_SETDIG avec une valeur non-nulle, et en configurant SA_SIGINFO
+pour le gestionnaire (voir
+.BR sigaction (2)),
+des informations supplémentaires sur les événements d'entrées-sorties sont
+fournies au gestionnaire à travers une structure
+.IR siginfo_t .
+Si le champ
+.I si_code
+indique que la source est SI_SIGIO, le champ
+.I si_fd
+fournit le descripteur du fichier concerné par l'événement. Sinon il n'y
+a pas d'indication du descripteur en attente, et il faut utiliser
+le mécanisme habituel
+.RB ( select (2),
+.BR poll (2),
+.BR read (2)
+avec
+.B O_NONBLOCK
+configuré etc.)
+pour déterminer quels descripteurs sont disponibles pour les entrées-sorties.
+.sp
+En sélectionnant un signal temps réel POSIX.1b (valeur >= SIGRTMIN), de
+multiples événements d'entrées-sorties peuvent être mémorisés avec le même numéro.
+Des informations supplémentaires sont disponibles, comme ci-dessus, si
+SA_SIGINFO est configuré pour le gestionnaire.
+.PP
+En utilisant ces mécanismes, un programme peut implémenter des entrées-sorties
+totalement asynchrones, la plupart du temps sans avoir besoin d'invoquer
+.BR select (2)
+ou
+.BR poll (2).
+
+.PP
+L'utilisation de
+.BR O_ASYNC ,
+.BR F_GETOWN ,
+.BB F_SETOWN
+est spécifique BSD et Linux.
+.B F_GETSIG
+et
+.B F_SETSIG
+sont spécifiques à Linux. POSIX disposent d'entrées-sorties asynchrones
+et de la structure
+.I aio_sigevent
+pour effectuer la même chose. Ceci est également disponible sous
+Linux dans la bibliothèque GNU C (Glibc).
+.P
+.SS Baux
+.B F_SETLEASE
+et
+.B F_GETLEASE
+(depuis Linux 2.4) servent respectivement à établir et consulter le paramétrage
+du bail dont le processus appelant dispose sur le fichier indiqué par
+.IR fd .
+(Ndt\ : je traduis «\ lease\ » par «\ bail\ », faute de terme plus technique.)
+Le bail sur un fichier fournit un mécanisme par lequel un processus détenteur du
+bail est averti (par délivrance d'un signal) lorsqu'un autre
+processus (le «\ casseur de bail\ ») essaye d'appeler
+.BR open (2)
+ou
+.BR truncate (2)
+sur ce fichier.
+.TP
+.B F_SETLEASE
+Fixe ou supprime un bail de fichier en fonction de la valeur
+fournie dans l'entier
+.IR arg \ :
+
+.RS
+.TP
+.B F_RDLCK
+Prendre un bail en lecture.
+Le processus sera prévenu lorsqu'un autre processus
+ouvrira le fichier en écriture ou le tronquera.
+.TP
+.B F_WRLCK
+Prendre un bail en écriture.
+Le processus sera prévenu lorsqu'un autre processus
+ouvrira le fichier (en lecture ou écriture) ou le tronquera.
+Un bail en écriture ne peut être pris sur le fichier que si aucun autre
+processus ne l'a actuellement ouvert.
+.TP
+.B F_UNLCK
+Supprimer le bail sur un fichier.
+.RE
+.P
+Un processus ne peut prendre qu'un seul type de bail sur un fichier.
+.P
+Les baux ne peuvent être pris que sur des fichiers normaux.
+Un processus non-privilégié ne peut prendre un bail que sur un fichier dont
+l'UID correspond au FS-UID du processus.
+.TP
+.B F_GETLEASE
+Indique le type de bail possédé sur le fichier
+indiqué par
+.I fd
+en renvoyant
+.BR F_RDLCK ", " F_WRLCK ", ou " F_UNLCK,
+pour signifiquer respectivement que le processus appelant a un bail en
+lecture, écriture, ou pas de bail sur le fichier.
+(Le troisième argument de
+.BR fcntl (2)
+est omis).
+.PP
+Lorsqu'un processus (le «\ casseur de bail\ » appelle
+.BR open (2)
+ou
+.BR truncate (2)
+en conflit avec un bail établi par
+.BR F_SETLEASE ,
+l'appel-système est bloqué par le noyau, sauf si l'attribut
+.B O_NONBLOCK
+est indiqué avec
+.BR open (2),
+auquel cas l'appel-système revient tout de suite avec l'erreur
+.BR EWOULDBLOCK .
+Le noyau avertit le processus tenant le bail par l'envoi d'un signal
+(SIGIO par défaut).
+Le tenant du bail doit répondre à ce signal en effectuant tout le
+nettoyage nécessaire pour que le fichier soit accessible par un
+autre processus (p.ex. en vidant des tampons internes) et
+en supprimant ou déclassant son bail.
+Un bail est supprimé en appelant la commande
+.B F_SETLEASE
+avec
+.I arg
+valant
+.BR F_UNLCK .
+Si on tient un bail en écriture sur le fichier et que le casseur de bail
+ouvre le fichier en lecture, cela est suffisant pour déclasser le bail en
+un bail en lecture. Cela est effectué en appelant la commande
+.B F_SETLEASE
+avec
+.I arg
+valant
+.BR F_RDLCK .
+
+Si le détenteur du bail n'arrive pas à le déclasser ou le supprimer avant
+le nombre de secondes indiqué dans
+.I /proc/sys/fs/lease-break-time
+alors le noyau supprimera ou déclassera de force le bail du processus qui le tient.
+
+Dès que le bail a été, de gré ou de force, résilié ou déclassé et en supposant
+que le casseur de bail n'a pas débloqué son appel-système,
+le noyau permet à ce dernier de se dérouler.
+
+Le signal de notification par défaut pour le tenant du bail est SIGIO,
+mais on peut le modifier avec la commande
+.B F_SETSIG
+de la fonction
+.B fcntl (2).
+Si une commande
+.B F_SETSIG
+est réalisée (même pour SIGIO), et si le gestionnaire de signal est installé
+avec SA_SIGINFO, alors il recevra une
+structure
+.I siginfo_t
+en second argument, et le champ
+.I si_fd
+contiendra le descripteur de fichier du bail où il y a
+eu une tentative d'accès par un autre processus.
+(Ceci sert si le processus tient des bails sur plusieurs fichiers.)
+.SS "Notification de modification de fichier et de répertoire"
+.TP
+.B F_NOTIFY
+(Nouveauté Linux 2.4)
+Fournit un avertissement lorsque le répertoire correspondant à
+.I fd
+ou l'un des fichiers qu'il contient est modifié.
+Les événements à notifier sont précisés dans
+.IR arg ,
+sous forme de masque regroupant par un OU binaire zéro, une ou
+plusieurs des constantes suivantes\ :
+
+.TS
+l l
+----
+lB l.
+Bit	Description (événement dans le répertoire)
+DN_ACCESS	Accès à un fichier (read, pread, readv)
+DN_MODIFY	Modification d'un fichier (write, pwrite,
+	writev, truncate, ftruncate)
+DN_CREATE	Création d'un fichier (open, creat, mknod,
+	mkdir, link, symlink, rename)
+DN_DELETE	Suppression d'un fichier (unlink, renommage
+	dans un autre répertoire, rmdir)
+DN_RENAME	Un fichier a été renommé dans le même
+	répertoire (rename)
+DN_ATTRIB	Les attributs d'un fichier ont été modifiés
+	(chown, chmod, utime[s])
+.TE
+.sp
+(Afin d'obtenir ces définitions, la macro _GNU_SOURCE_ doit être
+définie avant l'inclusion de <fcntl.h>.)
+.sp
+Les notifications de répertoire sont habituellement uniques, et l'application
+doit ré-enregistrer une demande pour les notifications ultérieures.
+Inversement, si
+.B DN_MULTISHOT
+est incluse dans
+.IR arg ,
+les notifications resteront en effet jusqu'à une demande explicite de suppression.
+.\" The following does seem a poor API-design choice...
+Une série de
+.B F_NOTIFY
+sont cumulés, les événements décrits dans
+.I arg
+étant ajoutés à l'ensemble des événements déjà surveillés.
+Pour supprimer les notifications de tous les événements, il faut invoquer
+.B F_NOTIFY
+avec
+.I arg
+valant 0.
+.sp
+La notification se produit par l'occurrence d'un signal.
+Le signal par défaut est SIGIO, mais on peut le changer avec la commande
+.B F_SETSIG
+de
+.BR fcntl ().
+Dans ce cas, le gestionnaire de signal reçoit une structure
+.I siginfo_t
+en second argument (si le gestionnaire a été installé
+avec SA_SIGINFO) dont le champ
+.I si_fd
+contient le descripteur du fichier qui a déclenché la notification
+(utile pour superviser plusieurs
+répertoires).
+.sp
+En outre, avec
+.BR DN_MULTISHOT ,
+un signal temps-réel POSIX.1b devrait être utilisé pour la notification
+pour pouvoir empiler les notifications successives.
+.SH "VALEUR RENVOYÉE"
+La valeur renvoyée par fcntl varie suivant le type d'opération\ :
+.TP 0.9i
+.B F_DUPFD
+renvoie le nouveau descripteur.
+.TP
+.B F_GETFD
+renvoie l'attribut.
+.TP
+.B F_GETFL
+renvoie les attributs.
+.TP
+.B F_GETOWN
+renvoie le propriétaire du descripteur fichier.
+.TP
+.B F_GETSIG
+valeur du signal envoyé lorsque la lecture ou l'écriture deviennent possibles,
+ou zéro pour le comportement SIGIO traditionnel.
+.TP
+Toutes les autres commandes renvoient zéro.
+.PP
+En cas d'échec \-1 est renvoyé, auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EACCESS " ou " EAGAIN
+L'opération est impossible à cause d'un verrou maintenu par un autre
+processus. Ou l'opération est impossible à cause d'une projection en mémoire
+effectuée par un autre processus.
+.TP
+.B EBADF
+.I fs
+n'est pas un descripteur de fichier ouvert, ou la commande était
+.B F_SETLK
+ou
+.B F_SETLKW
+et le mode d'ouverture du descripteur de fichier ne correspond pas à celui
+du type de verrou demandé.
+.TP
+.B EDEADLK
+Le verrouillage
+.B F_SETLKW
+conduirait à un blocage.
+.TP
+.B EFAULT
+.I lock
+se trouve en dehors de l'espace d'adressage.
+.TP
+.B EINTR
+Pour
+.BR F_SETLKW ,
+la commande a été interrompue par un signal.
+Pour
+.BR F_GETLK " et " F_SETLK ,
+la commande a été interrompue par un signal avant la vérification ou
+l'acquisition du verrou. Se produit surtout lors d'un verrouillage distant
+(par exemple à travers NFS), mais peut également arriver localement.
+.TP
+.B EINVAL
+Pour
+.BR F_DUPFD ,
+.I arg
+est soit négatif, soit trop grand. Pour
+.BR F_SETSIG ,
+.I arg
+n'est pas un numéro de signal correct.
+.TP
+.B EMFILE
+Pour
+.BR F_DUPFD ,
+le processus a déjà ouvert le nombre maximal de descripteurs de fichiers.
+.TP
+.B ENOLCK
+La table des verrous est pleine, ou le verrouillage distant
+(par exemple via NFS) a échoué.
+.TP
+.B EPERM
+Essai d'effacement de l'attribut
+.B O_APPEND
+sur un fichier, mais il est considéré comme en-ajout-seulement.
+.SH NOTES
+Les erreurs renvoyées par
+.B dup2
+ne sont pas les mêmes que celles renvoyées par
+.BR F_DUPFD .
+
+Depuis le noyau 2.0, il n'y a pas d'interaction entre les verrous
+placés par
+.BR flock (2)
+et ceux de
+.BR fcntl (2).
+
+POSIX 1003.1-2001 permet à
+.I l_len
+d'être négative (et si c'est le cas, l'intervalle décrivant le verrou
+couvre les octets
+.IR l_start + l_len
+jusqu'à
+.IR l_start -1
+inclus). Ceci est supporté par Linux depuis les versions 2.4.21 et 2.5.49.
+
+Plusieurs systèmes ont d'autres champs dans
+.I "struct flock"
+comme, par exemple,
+.IR l_sysid .
+Clairement,
+.I l_pid
+seul ne sera pas très utile si le processus tenant le verrou s'exécute
+sur une autre machine.
+
+.SH "CONFORMITÉ"
+SVr4, SVID, POSIX, X/OPEN, BSD 4.3. Seules les opérations F_DUPFD,
+F_GETFD, F_SETFD, F_GETFL, F_SETFL, F_GETLK, F_SETLK et F_SETLKW
+sont spécifiées dans POSIX.1. F_GETOWN et F_SETOWN sont des BSDismes
+non supportés par SVr4. F_GETSIG et F_SETSIG sont spécifiques à Linux.
+.BR F_NOTIFY ", " F_GETLEASE ", et " F_SETLEASE
+sont spécifiques à Linux.
+(Définissez la macro _GNU_SOURCE avant d'inclure <fcntl.h> pour avoir
+ces définitions).
+Les attributs autorisés pour F_GETFL/F_SETFL sont ceux supportés par
+.BR open (2)
+et peuvent être différents suivant les systèmes.
+O_APPEND, O_NONBLOCK, O_RDONLY, et O_RDWR sont spécifiés par POSIX.1.
+SVr4 propose plusieurs autres options et attributs non documentés ici.
+.PP
+SVr4 indique des erreurs EIO, ENOLINK et EOVERFLOW supplémentaires.
+.SH "VOIR AUSSI"
+.BR dup2 (2),
+.BR flock (2),
+.BR lockf (3),
+.BR open (2),
+.BR socket (2),
+.P
+Voir aussi les fichiers locks.txt, mandatory.txt et dnotify.txt dans
+la documentation du noyau.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 11\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ fcntl\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

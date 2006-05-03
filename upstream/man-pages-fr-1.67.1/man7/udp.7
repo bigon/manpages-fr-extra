@@ -1,0 +1,182 @@
+.\" This man page is Copyright (C) 1999 Andi Kleen <ak@muc.de>.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\" $Id: udp.7,v 1.7 2000/01/22 01:55:05 freitag Exp $
+.\"
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" 08/06/2001 LDP-1.37
+.\"
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\" Màj 14/12/2005 LDP-1.65
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH UDP 7 "2 octobre 1998" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+udp \- Protocole UDP pour IPv4
+.SH SYNOPSIS
+.B #include <sys/socket.h>
+.br
+.B #include <netinet/in.h>
+.br
+.B udp_socket = socket(PF_INET, SOCK_DGRAM, 0);
+.SH DESCRIPTION
+Il s'agit d'une implémentation de l'User Datagram Protocol décrit dans la RFC 768. Elle
+implémente un service de paquets datagrammes non-fiables, sans connexion.
+Les paquets peuvent être réordonnés ou dupliqués avant leur arrivée.
+UDP créé et vérifie des sommes de contrôle pour détecter les erreurs de transmission.
+
+Lorsqu'une socket UDP est créée, ses adresses locales et distantes sont indéterminées.
+Les datagrammes peuvent être envoyés immédiatement en utilisant
+.BR sendto (2)
+ou
+.BR sendmsg (2)
+avec une adresse de destination valide en argument. Lorsque
+.BR connect (2)
+est appelé sur une socket, l'adresse de destination par défaut est fixée, et les
+datagrammes pourront être envoyés avec
+.BR send (2)
+ou
+.BR write (2)
+sans spécifier d'adresse de destination.
+Il restera possible d'envoyer des données à d'autres destinations en passant l'adresse à
+.BR sendto (2)
+ou
+.BR sendmsg (2).
+Afin de recevoir les paquets, une socket doit être attachée à une adresse locale
+en utilisant
+.BR bind (2).
+Sinon la couche socket affectera automatiquement une port local libre, hors de
+l'intervalle défini par
+.I net.ipv4.ip_local_port_range
+et attacher la socket à l'adresse
+.IR INADDR_ANY .
+
+Les opérations de réception ne renvoient qu'un seul paquet à la fois. Si le paquet est plus
+petit que le tampon transmis, il n'y aura pas plus de données renvoyées. S'il est plus grand,
+le paquet sera tronqué et le drapeau
+.B MSG_TRUNC
+sera activé.
+.I MSG_WAITALL
+n'est pas supporté.
+
+Les options IP peuvent être fixées ou lues en utilisant les options des sockets décrites dans
+.BR ip (7).
+Elles ne sont traitées par le noyau que lorsque le sysctl approprié est activé
+(mais sont quand même fournies à l'utilisateur quant il est inhibé). Voir
+.BR ip (7).
+
+Quand l'attribut
+.B MSG_DONTROUTE
+est actif à l'émission, l'adresse de destination doit représenter une adresse d'interface
+locale, et le paquet n'est envoyé qu'à cette interface.
+
+UDP fragmente un paquet quand sa longueur totale excède le MTU de l'interface
+(Maximum Transmission Unit). Une alternative plus efficace pour le réseau est d'utiliser
+la recherche du MTU du chemin,
+comme indiqué dans la section
+.B IP_MTU_DISCOVER
+de
+.BR ip (7).
+./"
+.SH "FORMAT D'ADRESSE"
+UDP utilise le format d'adresse IPv4
+.B sockaddr_in
+comme indiqué dans
+.BR ip (7).
+./"
+.SH "GESTION D'ERREUR"
+Toutes les erreurs fatales seront transmises à l'utilisateur comme un retour d'erreur même
+lorsque la socket n'est pas connectée. Ceci inclut les erreurs asynchrones reçues du réseau.
+Vous pouvez ainsi recevoir une erreur due à un paquet précédemment
+envoyé sur la même socket.
+Ce comportement diffère de celui de nombreuses autres implémentations des sockets BSD, qui
+ne transmettent pas d'erreur si la socket n'est pas connectée.
+Les comportements de Linux correspondent à la
+.BR "RFC 1122" .
+
+Pour assurer la compatibilité avec du code ancien, on peut fixer l'option SOL_SOCKET
+.B SO_BSDCOMPAT
+pour ne recevoir les erreurs distantes que si la socket a été
+connectée (sauf pour
+.B EPROTO
+et
+.BR EMSGSIZE ).
+Il vaut mieux corriger le code pour
+gérer les erreurs proprement plutôt que d'activer cette option.
+Les erreurs locales sont toujours transmises.
+
+Lorsque l'option
+.B IP_RECVERR
+est active, toutes les erreurs sont stockées dans la file d'erreur de la socket
+et peuvent être lues avec
+.BR recvmsg (2)
+en activant son option
+.BR MSG_ERRQUEUE .
+./"
+.SH IOCTLS
+Les ioctls sont accessibles avec l'appel système
+.BR ioctl (2).
+La syntaxe correcte est\ :
+.PP
+.RS
+.nf
+.BI int " value";
+.IB error " = ioctl(" tcp_socket ", " ioctl_type ", &" value ");"
+.fi
+.RE
+.TP
+.B SIOCINQ
+Prend en argument un pointeur sur un entier. Y écrit la taille en octets du prochain
+datagramme en attente, ou 0 si aucun datagramme n'est disponible.
+.TP
+.B SIOCOUTQ
+Renvoie le nombre d'octets de données dans la file d'émission locale. Seulement sur
+Linux 2.4 et ultérieurs.
+.PP
+De plus, les ioctls documentés dans
+.BR ip (7)
+et
+.BR socket (7)
+sont supportés.
+.SH "ERREURS"
+Toutes les erreurs documentées pour
+.BR socket (7)
+ou
+.BR ip (7)
+peuvent être renvoyées lors d'une émission ou d'une réception sur une socket UDP.
+
+.B ECONNREFUSED
+Aucun correspondant sur l'adresse destination associée à la socket. Ceci peut être
+causé par l'émission antérieure d'un paquet sur la socket.
+./"
+.SH VERSIONS
+IP_RECVERR est une nouveauté de Linux 2.2.
+./"
+.SH AUTEUR
+Cette page de manuel a été écrite par Andi Kleen.
+./"
+.SH "VOIR AUSSI"
+.BR ip (7),
+.BR socket (7),
+.BR raw (7)
+
+RFC 768 pour le protocole UDP.
+.br
+RFC 1122 pour les nécessités de l'hôte.
+.br
+RFC 1191 pour une description de la recherche du MTU par chemin.
+./"
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 8\ juin\ 2001
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 7\ udp\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,109 @@
+.\" Copyright (C) 2001 Andries Brouwer <aeb@cwi.nl>.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 23/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH EXIT 3 "17 novembre 2001" LDP "Manuel du programmeur Linux"
+.SH NOM
+exit \- Fin normale d'un programme.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "void exit (int " status );
+.fi
+.SH DESCRIPTION
+La fonction \fBexit\fP() termine normalement le programme en cours.
+La valeur \fIstatus & 0377\fP est renvoyée au processus parent.
+(voir
+.BR wait (2)).
+Toutes les fonctions enregistrées avec \fBatexit\fP(3) et \fBon_exit\fP()
+sont invoquées dans l'ordre inverse de l'enregistrement, les flux ouverts
+sont vidés et fermés.
+Les fichiers créés par \fBtmpfile\fP(2) sont supprimés.
+.LP
+Le standard C mentionne deux constantes symboliques \fIEXIT_SUCCESS\fP et
+\fIEXIT_FAILURE\fP qui peuvent être passée à \fBexit\fP() pour indiquer
+respectivement une terminaison en succès ou en échec.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBexit\fP() ne revient jamais.
+.SH "CONFORMITÉ"
+SVID 3, POSIX, BSD 4.3, ISO 9899 ("ANSI C")
+.SH NOTES
+Durant le traitement de exit, il est possible d'enregistrer des
+fonctions supplémentaires avec \fBatexit\fP() et \fBon_exit\fP().
+C'est toujours la dernière fonction enregistrée qui est extraite de
+leur liste et invoquée.
+Le comportement est indéfini si durant ce traitement, on invoque
+\fBexit\fP() ou \fBlongjmp\fP().
+.LP
+L'utilisation d'EXIT_SUCCESS et EXIT_FAILURE est légèrement plus portable
+(vers des environnements non-Unix) que celle de zéro et d'une valeur non-nulle
+comme 1 ou -1. En particulier, VMS utilise une convention différente.
+.LP
+BSD a tenté de standardiser les codes de sortie, voir le fichier
+.IR <sysexits.h> .
+.LP
+Après un \fBexit\fP(), le code de retour doit être transmis au processus
+parent. Il y a trois cas. Si le parent a mentionné SA_NOCLDWAIT ou s'il
+a positionné le comportement de SIGCHLD à SIG_IGN, le status est ignoré.
+Si le père était en attente de la fin de son fils, il reçoit le status
+de retour. Dans ces deux cas, le fils meurt immédiatement.
+Si le parent n'est pas en attente, mais n'a pas indiqué qu'il
+désire ignorer le code de retour, le processus fils devient un «\ zombie\ ».
+Ce n'est rien d'autre qu'une coquille enveloppant le code de retour,
+que le processus père pourra consulter ultérieurement grâce à l'une des
+fonctions de la famille \fIwait\fP().
+.LP
+Si l'implémentation supporte le signal SIGCHLD, celui-ci est envoyé au
+processus père. Si le père a mentionné SA_NOCLDWAIT, il n'est pas précisé
+si SIGCHLD est envoyé ou non.
+.LP
+Si le processus est un leader de session, et si son terminal de contrôle est
+le terminal de la session, alors chaque processus du groupe de processus en
+avant-plan su ce terminal reçoit un signal SIGHUP, et le terminal est
+dissocié de la session, lui permettant d'être réacquis par un nouveau processus
+de contrôle.
+.LP
+Si la fin du processus rend orphelin un groupe de processus, et si certain
+membres de ce groupe sont arrêtés, alors tous les processus du groupe vont recevoir
+SIGHUP suivi de SIGCONT.
+.SH "VOIR AUSSI"
+.BR _exit (2),
+.BR wait (2),
+.BR atexit (3),
+.BR on_exit (3)
+.BR tmpfile (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 23\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ exit\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

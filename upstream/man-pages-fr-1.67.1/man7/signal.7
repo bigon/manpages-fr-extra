@@ -1,0 +1,272 @@
+'\" t
+.\" Copyright (c) 1993 by Thomas Koenig (ig25@rz.uni-karlsruhe.de)
+.\" Copyright (c) 2002 by Michael Kerrisk (mtk16@ext.canterbury.ac.nz)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" License.
+.\" Modified Sat Jul 24 17:34:08 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Sun Jan  7 01:41:27 1996 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified Sun Apr 14 12:02:29 1996 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified Sat Nov 13 16:28:23 1999 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified 10 Apr 2002, by Michael Kerrisk (mtk16@ext.canterbury.ac.nz)
+.\" Modified  7 Jun 2002, by Michael Kerrisk (mtk16@ext.canterbury.ac.nz)
+.\"	Added information on real-time signals
+.\" Modified 13 Jun 2002, by Michael Kerrisk (mtk16@ext.canterbury.ac.nz)
+.\"	Noted that SIGSTKFLT is in fact unused
+.\"
+.\" Traduction 19/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 18/05/1998 LDP-1.19
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj LDP 1.53
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SIGNAL 7 "13 juin 2002" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+signal \- Liste des signaux disponibles.
+.SH DESCRIPTION
+Linux supporte supporte à la fois les signaux POSIX classiques («\ signaux
+standards\ ») et les signaux POSIX temps-réel.
+.SS "Signaux standards"
+Linux supporte les signaux standards indiqués ci-dessous. Plusieurs
+d'entre-eux dépendent de l'architecture, comme on le voit dans la colonne
+«\ Valeur\ ». Lorsque trois valeurs sont indiquées, la première correspond
+normalement aux architectures Alpha et Sparc, la seconde aux ix86,
+PPC et la dernière aux Mips.
+Un «\ -\ » dénote un signal absent pour l'architecture correspondante.
+
+Les symboles de la colonne «\ Action\ » ont la signification suivante\ :
+.IP Term
+Par défaut, terminer le processus.
+.IP Ign
+Par défaut, ignorer le signal.
+.IP Core
+Par défaut, créer un fichier core et terminer le processus.
+.IP Stop
+Par défaut, arrêter le processus.
+.PP
+Voici tout d'abord les signaux décrits dans le standard Posix.1 original\ :
+.sp
+.PP
+.TS
+l c c l
+____
+lB c c l .
+Signal	Valeur	Action	Commentaire
+ SIGHUP	\01	Term	Raccrochement (déconnexion) sur terminal
+  	 		de contrôle, ou mort du processus
+  	 		de contrôle.
+SIGINT	\02	Term	Interruption depuis le clavier.
+SIGQUIT	\03	Core	Demande «\ Quitter\ » depuis le clavier.
+SIGILL	\04	Core	Instruction illégale.
+SIGABRT	\06	Core	Signal d'arrêt depuis \fIabort\fP(3).
+SIGFPE	\08	Core	Erreur mathématique virgule flottante.
+SIGKILL	\09	Term	Signal «\ KILL\ ».
+SIGSEGV	11	Core	Référence mémoire invalide.
+SIGPIPE	13	Term	Écriture dans un tube sans lecteur.
+SIGALRM	14	Term	Temporisation \fIalarm\fP(2) écoulée.
+SIGTERM	15	Term	Signal de fin.
+SIGUSR1	30,10,16	Term	Signal utilisateur 1.
+SIGUSR2	31,12,17	Term	Signal utilisateur 2.
+SIGCHLD	20,17,18	Ign	Fils arrêté ou terminé.
+SIGCONT	19,18,25		Continuer si arrêté.
+SIGSTOP	17,19,23	Stop	Arrêt du processus.
+SIGTSTP	18,20,24	Stop	Stop invoqué depuis tty.
+SIGTTIN	21,21,26	Stop	Lecture sur tty en arrière-plan.
+SIGTTOU	22,22,27	Stop	Écriture sur tty en arrière-plan.
+.TE
+
+Les signaux
+.B SIGKILL
+et
+.B SIGSTOP
+ne peuvent ni capturés ni ignorés.
+
+Ensuite, les signaux non décrits par POSIX.1, mais présents dans les spécifications SUSv2 et SUSv3 / POSIX 1003.1-2001\ :
+.sp
+.PP
+.TS
+l c c l
+____
+lB c c l .
+Signal	Valeur	Action	Commentaire
+SIGBUS	10,7,10	Core	Erreur de Bus.
+SIGPOLL		Term	Synonyme de SIGIO (System V).
+SIGPROF	27,27,29	Term	Horloge pour le suivi
+SIGSYS	12,\-,12	Core	Mauvais argument de fonction (System V)
+SIGTRAP	5	Core	Point d'arrêt rencontré.
+SIGURG	16,23,21	Ign	Condition urgente sur socket (4.2 BSD).
+SIGVTALRM	26,26,28	Term	Alarme virtuelle (4.2 BSD).
+SIGXCPU	24,24,30	Core	Limite de temps CPU dépassée (4.2 BSD).
+SIGXFSZ	25,25,31	Core	Taille de fichier excessive (4.2 BSD).
+.TE
+
+Jusqu'à Linux 2.2 inclus, l'action par défaut pour
+.BR SIGSYS ", " SIGXCPU ", " SIGXFSZ ", "
+et (sur les architectures autres que Sparc ou Mips)
+.B SIGBUS
+était de terminer simplement le processus, sans fichier core.
+(Sur certains Unix, l'action par défaut pour
+.BR SIGXCPU " et " SIGXFSZ
+est de finir le processus sans fichier core).
+Linux 2.4 se conforme à Posix 1003.1-2001 pour ces signaux, et termine le
+processus avec un fichier core.
+
+Puis quelques signaux divers\ :
+.sp
+.PP
+.TS
+l c c l
+____
+lB c c l .
+Signal	Valeur	Action	Commentaire
+SIGIOT	6	Core	Arrêt IOT. Un synonyme de SIGABRT.
+SIGEMT	7,\-,7	Term
+SIGSTKFLT	-,16,-	Term	Erreur de pile sur coprocesseur
+ 			(inutilisé).
+SIGIO	23,29,22	Term	E/S à nouveau possible(4.2 BSD).
+SIGCLD	-,-,18	Ign	Synonyme de SIGCHLD.
+SIGPWR	29,30,19	Term	Chute d'alimentation (System V).
+SIGINFO	29,-,-		Synonyme de SIGPWR
+SIGLOST	-,-,-	Term	Perte de verrou de fichier.
+SIGWINCH	28,28,20	Ign	Fenêtre redimensionnée (4.3 BSD, Sun).
+SIGUNUSED	-,31,-	Term	Signal inutilisé (sera SIGSYS).
+.TE
+
+(Le signal 29 est
+est
+.B SIGINFO
+/
+.B SIGPWR
+sur Alpha mais
+.B SIGLOST
+sur Sparc).
+
+.B SIGEMT
+n'est pas spécifié par Posix 1003.1-2001 mais apparaît néanmoins sur la
+plupart des Unix, avec une action par défaut typique correspondant à une
+fin du processus avec fichier core.
+
+.B SIGPWR
+(non spécifié dans Posix 1003.1-2001) est typiquement ignoré sur les autres
+Unix où il apparaît.
+
+.B SIGIO
+(non sécifié par Posix 1003.1-2001) est ignoré par défaut sur plusieurs
+autres Unix.
+.SS "Signaux temps-réel"
+Linux supporte les signaux temps-réel tels qu'ils ont été définis à l'origine
+dans les extentions temps-réel Posix.4 (et inclus à présent dans Posix
+1003.1-2001). Linux supporte 32 signaux temps-réel numérotés de 32
+.RB ( SIGRTMIN )
+à 63
+.RB ( SIGRTMAX ).
+(Les applications doivent toujours se référer aux signaux temps-réel en
+utilisant la notation
+.BR SIGRTMIN +n,
+car la plage des numéros des signaux varie suivant les Unix).
+.PP
+Contrairement aux signaux standards, les signaux temps-réel n'ont pas de
+signification prédéfinie\ : l'ensemble complet de ces signaux peut être
+utilisée à des fins spécifiques à l'application.
+(Notez quand même que l'implémentation LinuxThreads utilise les trois
+premiers signaux temps-réel).
+.PP
+L'action par défaut pour un signal temps-réel non capturé est de terminer
+le processus récepteur.
+.PP
+Les signaux temps-réel se distinguent de leurs homologues classiques ainsi\ :
+.IP 1. 4
+Plusieurs instances d'un signal temps-réel peuvent être empilées. Au
+contraire, si plusieurs instances d'un signal standard arrivent alors qu'il
+est bloqué, une seule instance sera mémorisée.
+.IP 2. 4
+Si le signal est envoyé en utilisant
+.BR sigqueue (2),
+il peut être accompagné d'une valeur (un entier ou un pointeur).
+Si le processus récepteur positionne un gestionnaire en utilisant
+l'attribut
+.B SA_SIGACTION
+de l'appel
+.BR sigaction (2)
+alors il peut accéder à la valeur transmise dans le champ
+.I si_value
+de la structure
+.I siginfo_t
+passée en second argument au gestionnaire.
+De plus, les champs
+.I si_pid
+et
+.I si_uid
+de cette structure fournissent le PID et l'UID réel du processus émetteur.
+.IP 3. 4
+Les signaux temps-réel sont délivrés dans un ordre précis.
+Les divers signaux temps-réel du même type sont délivrés dans l'ordre
+où ils ont été émis.
+Si différents signaux temps-réel sont envoyés au processus, ils sont
+délivrés en commençant par le signal de numéro le moins élevé (le signal
+de plus fort numéro est celui de priorité la plus faible).
+.PP
+Si des signaux standards et des signaux temps-réel sont simultanément en
+attente pour un processus, Posix ne précise pas d'ordre de délivrance.
+Linux, comme beaucoup d'autres implémentations, donne priorité aux
+signaux temps-réel dans ce cas.
+.PP
+D'après Posix, une implémentation doit permettre l'empilement d'au moins
+_POSIX_SIGQUEUE_MAX (32) signaux pour un processus.
+Néanmoins, plutôt que de fixer une limite par processus, Linux impose une
+limite pour l'ensemble des signaux empilés sur le système pour tous les
+processus.
+Cette limite peut être consultée, et modifiée (avec les privilèges adéquats)
+grâce au fichier
+.IR /proc/sys/kernel/rtsig-max .
+Un fichier associé,
+.IR /proc/sys/kernel/rtsig-max ,
+indique combien de signaux temps-réel sont actuellement empilés.
+.SH "CONFORMITÉ"
+POSIX.1
+.SH BOGUES
+.B SIGIO
+et
+.B SIGLOST
+ont la même valeur, le dernier est
+mis en commentaire dans les sources du noyau, mais certaines
+applications considèrent encore que le signal 29 est
+.BR SIGLOST .
+.SH "VOIR AUSSI"
+.BR kill (1),
+.BR kill (2),
+.BR setitimer (2)
+.BR sigaction (2),
+.BR signal (2),
+.BR sigprocmask (2),
+.BR sigqueue (2)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 19\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 7\ signal\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

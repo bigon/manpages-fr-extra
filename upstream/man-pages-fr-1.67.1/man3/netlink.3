@@ -1,0 +1,93 @@
+.\" This manpage copyright 1998 by Andi Kleen. Subject to the GPL.
+.\" Based on the original comments from Alexey Kuznetsov
+.\" $Id: netlink.3,v 1.1 1999/05/14 17:17:24 freitag Exp $
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH NETLINK 3 "14 mai 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+netlink \- Macros pour netlink.
+.SH SYNOPSIS
+.nf
+.\" XXX what will glibc2.1 use here?
+.B #include <asm/types.h>
+.br
+.B #include <linux/netlink.h>
+.br
+.BI "int NLMSG_ALIGN(size_t " taille );
+.br
+.BI "int NLMSG_LENGTH(size_t " taille );
+.br
+.BI "int NLMSG_SPACE(size_t " taille );
+.br
+.BI "void *NLMSG_DATA(struct nlmsghdr *" nlh );
+.br
+.BI "struct nlmsghdr *NLMSG_NEXT(struct nlmsghdr *" nlh ", int " taille );
+.br
+.BI "int NLMSG_OK(struct nlmsghdr *" nlh ", int " taille );
+.br
+.BI "int NLMSG_PAYLOAD(struct nlmsghdr *" nlh ", int " taille );
+.fi
+.SH DESCRIPTION
+.I netlink.h
+définit plusieurs macros standards pour accéder ou créer un datagramme
+netlink. Elles sont similaires dans leurs principes aux macros définies dans
+.BR cmsg (3)
+pour les données auxiliaires. Le tampon passé à une socket netlink ne devrait
+pas être manipulé autrement que par ces macros.
+.TP
+.TP
+NLMSG_ALIGN
+Arrondit la taille du message netlink pour avoir un alignement correct.
+.TP
+NLMSG_LENGTH
+Prend la taille de message comme argument et retourne la taille alignée à
+stocker dans le champ
+.B nlmsg_len
+de
+.IR nlmsghdr .
+.TP
+NLMSG_SPACE
+Renvoie le nombre d'octets qu'un message netlink occuperait pour la quantité
+de données indiquée.
+.TP
+NLMSG_DATA
+Retourne un pointeur sur l'objet associé au
+.IR nlmsghdr
+passé.
+.TP
+.\" XXX this is bizarre, maybe the interface should be fixed.
+NLMSG_NEXT
+Récupère la structure
+.I nlmsghdr
+suivante d'un message multiple. L'appelant doit vérifier que le nlmsghdr en cours
+n'a pas l'attribut NLMSG_DONE positionné \- cette fonction ne retourne pas NULL à
+la fin. Le paramètre taille est une lvalue contenant la taille restante du
+tampon du message. La macro diminue cette taille de celle de l'en-tête de message.
+.TP
+NLMSG_OK
+Renvoie vrai si le message netlink n'est pas tronqué et prêt à être traité.
+.TP
+NLMSG_PAYLOAD
+Retourne la taille des données associées à
+.IR nlmsghdr .
+.SH NOTES
+Il vaut souvent mieux utiliser la bibliothèque netlink via
+.B libnetlink
+que par les interfaces de bas niveau du noyau.
+.SH VOIR AUSSI
+.BR netlink (7)
+.PP
+et ftp://ftp.inr.ac.ru/ip-routing/iproute2*  pour libnetlink.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 1999
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ netlink\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

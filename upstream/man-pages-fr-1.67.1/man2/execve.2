@@ -1,0 +1,231 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1992 Drew Eckhardt (drew@cs.colorado.edu), March 28, 1992
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified by Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de)
+.\" Modified Wed Jul 21 22:47:01 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 21 Aug 1994 by Michael Chastain (mec@shell.portal.com):
+.\"   Fixed typoes.
+.\" Modified Fri Jan 31 16:24:28 1997 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified Fri Nov 12 22:57:27 1999 by Urs Thuermann <urs@isnogud.escape.de>
+.\"
+.\" Traduction 9/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Màj 10/12/1997 LDP-1.18
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 30/05/2001 LDP-1.36
+.\" Màj 15/01/2002 LDP-1.47
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 23/12/2005 LDP-1.67
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH EXECVE 2 "3 septembre 1997" LDP "Manuel du programmeur Linux"
+.SH NOM
+execve \- Exécuter un programme.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.BI "int execve (const char *" fichier ", char * const " argv
+.BI "[], char * const " envp []);
+.SH DESCRIPTION
+\fBexecve()\fP exécute le programme correspondant au \fIfichier\fP.
+Celui-ci doit être un exécutable binaire ou bien un script
+commençant par une ligne du type "\fB#! \fIinterpréteur \fR[arg]".
+Dans ce dernier cas, l'interpréteur doit être indiqué par un nom
+complet, avec son chemin d'accès, et qui sera invoqué sous la forme
+\fBinterpréteur\fP [arg] \fIfichier\fP.
+
+.I argv
+est un tableau de chaînes d'arguments passées au nouveau programme.
+.I envp
+est un tableau de chaînes, ayant par convention la forme
+.BR "cle=valeur" ,
+qui sont passées au nouveau programme comme environnement.
+.I argv
+ainsi que
+.I envp
+doivent se terminer par un pointeur NULL. Les arguments et l'environnement
+sont accessibles par le nouveau programme dans sa fonction principale,
+lorsqu'elle est définie comme \fBint main (int argc, char * argv [], char * envp [])\fR.
+
+En cas de réussite, \fBexecve()\fP ne revient pas à l'appelant, et les
+segments de texte, de données, ainsi que la pile du processus appelant sont
+remplacés par ceux du programme chargé.
+Le programme invoqué hérite du PID du processus appelant, et de tous
+les descripteurs de fichiers qui ne possèdent pas le drapeau
+Close-on-Exec. Les signaux en attente destinés au processus parent sont
+effacés. Les signaux prêts à être intercepté par le processus
+appelant reprennent leur comportement par défaut.
+Le signal SIGCHLD (lorsqu'il est configuré sur SIG_IGN) peut ou non être
+réinitialisé à SIG_DFL.
+
+Si l'on effectuait un
+.IR ptrace (2)
+sur le programme appelant, un signal
+\fBSIGTRAP\fP est envoyé après la réussite de \fBexecve()\fP.
+
+Si le bit Set\-UID est positionné sur le \fIfichier\fP du programme, l'UID
+effectif du processus appelant est modifié pour prendre celui du propriétaire
+du fichier. De même, lorsque le bit Set\-GID est positionné, le GID effectif
+est modifié pour correspondre à celui du groupe du fichier.
+
+Si l'exécutable est un fichier binaire a.out lié dynamiquement, et contenant
+des appels aux bibliothèques partagées, le linker dynamique de Linux
+.BR ld.so (1)
+est appelé avant l'exécution, afin de charger les bibliothèques partagées
+nécessaires en mémoire, et d'effectuer l'édition des liens de l'exécutable.
+
+Si l'exécutable est au format ELF lié dynamiquement, l'interpréteur
+indiqué dans le segment PT_INTERP sera invoqué pour charger les bibliothèques
+partagées. Cet interpréteur est généralement
+\fI/lib/ld-linux.so.1\fR pour les fichiers binaires liés avec la libc Linux
+version 5, ou \fI/lib/ld-linux.so.2\fR pour ceux liés avec la
+GNU libc version 2.
+.SH "VALEUR RENVOYÉE"
+En cas de réussite, \fBexecve()\fP ne revient pas, en cas d'échec il
+renvoie \-1 et
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EACCES
+Le \fIfichier\fP n'est pas un fichier régulier.
+.TP
+.B EACCES
+L'autorisation d'exécution est refusée pour le \fIfichier\fP, ou un script, ou un interpréteur ELF.
+.TP
+.B EACCES
+Le système de fichiers est monté avec l'option
+.IR noexec .
+.TP
+.B EPERM
+Le système de fichiers est monté avec l'attribut
+.I nosuid
+et le fichier a un bit Set\-UID ou Set\-GID positionné.
+.TP
+.B EPERM
+Le processus est suivi avec \fBptrace\fP(2), l'utilisateur n'est pas
+le super-utilisateur, et le fichier a un bit Set-UID ou Set-GID activé.
+.TP
+.B E2BIG
+La liste d'arguments est trop grande.
+.TP
+.B ENOEXEC
+Le fichier exécutable n'est pas dans le bon format, ou est destiné
+à une autre architecture.
+.TP
+.B EFAULT
+L'argument
+.I fichier
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B ENAMETOOLONG
+La chaîne de caractères
+.I fichier
+est trop longue.
+.TP
+.B ENOENT
+Le
+.I fichier
+ou un script ou un interpréteur ELF n'existe pas, ou une bibliothèque partagée
+nécessaire pour le fichier ou l'interpréteur n'est pas disponible.
+.TP
+.B ENOMEM
+Pas assez de mémoire pour le noyau.
+.TP
+.B ENOTDIR
+Un élément du chemin d'accès n'est pas un répertoire.
+.TP
+.B EACCES
+L'accès à un élément du chemin n'est pas autorisé.
+.TP
+.B ELOOP
+Le chemin d'accès au
+.I fichier
+contient une référence circulaire (à travers un lien symbolique)
+.TP
+.B ETXTBSY
+Le \fIfichier\fP exécutable a été ouvert en écriture par un ou plusieurs
+processus.
+.TP
+.B EIO
+Une erreur d'entrée-sortie de bas niveau s'est produite.
+.TP
+.B ENFILE
+Le nombre maximal de fichiers ouverts sur le système est atteint
+.TP
+.B EMFILE
+Le nombre maximal de fichiers ouverts par processus est atteint.
+.TP
+.B EINVAL
+Un exécutable ELF a plusieurs segments PT_INTERP (indique plusieurs
+interpréteurs).
+.TP
+.B EISDIR
+L'interpréteur ELF cité est un répertoire.
+.TP
+.B ELIBBAD
+L'interpréteur ELF mentionné n'est pas dans un format connu.
+.SH "CONFORMITÉ"
+SVr4, SVID, X/OPEN, BSD 4.3.  POSIX ne documente pas le comportement
+avec #! mais est néanmoins compatible. SVr4 décrit des erreurs supplémentaires
+EAGAIN, EINTR, ELIBACC, ENOLINK, EMULTIHOP; POSIX ne décrit pas les conditions
+d'erreur ETXTBSY, EPERM, EFAULT, ELOOP, EIO, ENFILE, EMFILE, EINVAL, EISDIR, ni
+ELIBBAD.
+.SH NOTES
+Les processus Set\-UID et Set\-GID ne peuvent pas être suivis par
+\fBptrace()\fP.
+
+Linux ignore les bits Set\-UID et Set\-GID sur les scripts.
+
+Le résultat d'un montage de système de fichiers avec l'attribut
+.I nosuid
+peut varier suivant les versions de noyau\ : certaines refuseront l'exécution
+des fichiers SUID/SGID lorsque cela donnerait à l'appelant des privilèges
+qu'il n'a pas (et renverront l'erreur EPERM), d'autres ignoreront simplement
+les bits SUID/SGID mais accepteront d'effectuer l'appel execve.
+
+La première ligne d'un shell script exécutable (#!) a une longueur
+maximale de 127 caractères.
+.SH HISTORIQUE
+Avec Unix V6, la liste des arguments d'un appel exec se terminait par 0,
+alors que la liste des arguments de
+.I main
+se terminait par \-1. Aussi, cette liste d'arguments n'était pas utilisable
+directement dans un appel exec supplémentaire.
+.SH "VOIR AUSSI"
+.BR chmod (2),
+.BR fork (2),
+.BR execl (3),
+.BR environ (5),
+.BR ld.so (8).
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 9\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ execve\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

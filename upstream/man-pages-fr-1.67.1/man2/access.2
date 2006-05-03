@@ -1,0 +1,195 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1992 Drew Eckhardt;
+.\"                               1993 Michael Haardt, Ian Jackson.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified Wed Jul 21 19:36:29 1993, Rik Faith (faith@cs.unc.edu)
+.\" Modified 21 Aug 1994 by Michael Chastain (mec@shell.portal.com):
+.\"   Removed note about old kernel (pre-1.1.44) using wrong id on path.
+.\" Modified 18 Mar 1996 by Martin Schulze (joey@infodrom.north.de):
+.\"   Stated more clearly how it behaves with symbolic links.
+.\" Added correction due to Nick Duffek (nsd@bbc.com), aeb, 960426
+.\" Modified Sat Sep 07 18:17:26 MET DST 1996 by Michael Haardt:
+.\"   Restrictions for NFS
+.\" Modified by Joseph S. Myers <jsm28@cam.ac.uk>, 970909
+.\" Modified Tue Jan 13 21:21:03 MET 1998 by Michael Haardt:
+.\"   Using access is often insecure
+.\" Modified Tue Oct 16 02:40:48 CEST 2001 by aeb
+.\" Modified Tue Apr 23 19:51:15 CEST 2002 by Roger Luethi <rl@hellgate.ch>
+.\"
+.\" Traduction 9/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 09/12/1997 LDP-1.18
+.\" Màj 26/04/1998 LDP-1.19
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ACCESS 2 "23 avril 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+access \- Vérifier les permissions d'accès à un fichier.
+.SH SYNOPSIS
+.nf
+.B #include <unistd.h>
+.sp
+.BI "int access(const char *" pathname ", int " mode );
+.fi
+.SH DESCRIPTION
+.B access
+vérifie si le processus serait autorisé à lire, écrire,
+exécuter, ou tester l'existence d'un fichier (ou d'un autre objet
+appartenant au système de fichiers), dont le nom est
+.IR pathname .
+Si
+.I pathname
+est un lien symbolique, ce sont les permissions du fichier pointé
+par celui\-ci qui sont testées.
+
+.I mode
+est un masque constitué des arguments liés par un OU binaire «\ |\ »
+.BR R_OK ", " W_OK ", " X_OK " et  " F_OK .
+Les requêtes
+.BR R_OK ", " W_OK " et " X_OK
+servent respectivement à tester la lecture, l'écriture, et
+l'exécution du fichier. La requête
+.B F_OK
+teste l'existence du fichier.
+
+Les tests dépendent des permissions des répertoires apparaissant
+dans le chemin
+.I pathname
+et éventuellement des liens symboliques
+rencontrés sur ce chemin.
+
+Le test est effectué avec les UID et GID
+.I réels
+du processus, plutôt qu'avec les IDs effectifs qui sont utilisés lorsque
+l'on tente l'opération. Ceci permet aux programmes Set\-UID de déterminer
+les autorisations de l'utilisateur ayant invoqué le programme.
+
+Seuls les bits d'accès sont vérifiés, et non pas le contenu du fichier.
+Ainsi, l'autorisation d'écriture dans un répertoire indique la possibilité
+d'y créer des fichiers et non d'y écrire comme dans un fichier. De même,
+un fichier DOS peut être considéré comme exécutable, alors que l'appel
+.BR execve (2)
+échouera évidemment.
+
+Si le processus a les privilèges suffisants, une implémentation peut indiquer
+un succès pour
+.B X_OK
+même si le fichier n'a aucun bit d'exécution positionné.
+.SH "VALEUR RENVOYÉE"
+L'appel renvoie 0 s'il réussit (toutes les requêtes sont autorisées),
+ou \-1 s'il échoue (au moins une requête du
+.I mode
+est interdite),
+auquel cas
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.B access
+doit échouer si\ :
+.TP
+.B EACCES
+L'accès serait refusé au fichier lui-même, ou il n'est pas permis de
+parcourir l'un des répertoires de
+.IR pathname .
+.TP
+.B ELOOP
+Trop de liens symboliques ont été rencontrés en parcourant
+.IR pathname .
+.TP
+.B ENAMETOOLONG
+.IR pathname
+est trop long.
+.TP
+.B ENOENT
+Un répertoire contenu dans le
+.I pathname
+aurait été accessible mais n'existe pas, ou est un lien symbolique
+pointant dans le vide.
+.TP
+.B ENOTDIR
+Un élément contenu dans le chemin
+.I pathname
+n'est pas un répertoire.
+.TP
+.B EROFS
+On demande une écriture sur un système de fichiers en lecture-seule.
+.PP
+.B access
+peut échouer si\ :
+.TP
+.B EFAULT
+.I pathname
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B EINVAL
+.I mode
+était mal spécifié.
+.TP
+.B EIO
+Une erreur d'entrée-sortie s'est produite.
+.TP
+.B ENOMEM
+Le noyau n'a pas assez de mémoire.
+.TP
+.B ETXTBSY
+On a demandé l'écriture dans un fichier exécutable
+qui en cours d'utilisation.
+.SH RESTRICTIONS
+.B access
+renvoie une erreur si l'un des types d'accès est refusé,
+même si les autres sont acceptés.
+.PP
+.B access
+peut fonctionner incorrectement sur un serveur NFS si les correspondances
+d'UID sont activées, car ces correspondances sont gérées par le serveur,
+et masquées au client qui effectue les vérifications d'autorisation.
+.PP
+Utiliser
+.B access
+pour vérifier si un utilisateur a le droit, par exemple, d'ouvrir un fichier
+avant d'effectuer réellement l'ouverture avec
+.BR open (2),
+risque de créer un trou de sécurité. En effet, l'utilisateur peut exploiter le
+petit intervalle de temps entre la vérification et l'accès pour modifier le
+fichier (via un lien symbolique en général).
+.SH "CONFORMITÉ"
+SVID, AT&T, POSIX, X/OPEN, BSD 4.3
+.SH "VOIR AUSSI"
+.BR stat (2)
+.BR open (2)
+.BR chmod (2)
+.BR chown (2)
+.BR setuid (2)
+.BR setgid (2).
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 9\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ access\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

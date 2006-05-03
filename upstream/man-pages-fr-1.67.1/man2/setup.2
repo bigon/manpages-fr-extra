@@ -1,0 +1,87 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1992 Drew Eckhardt (drew@cs.colorado.edu), March 28, 1992
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified by Michael Haardt (u31b3hs@pool.informatik.rwth-aachen.de)
+.\" Modified Sun Jul 25 10:14:13 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 15 April 1995 by Michael Chastain (mec@shell.portal.com)
+.\"   Update calling parameters to Linux 1.2.4 values.
+.\" Modified 10 June 1995 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified 3 May 1996 by Martin Schulze (joey@infodrom.north.de)
+.\" Modified Wed Nov  6 04:05:28 1996 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified Sat Jan 29 01:08:23 2000 by aeb
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/04/1997
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SETUP 2 "3 mai 1996" LDP "Manuel du programmeur Linux"
+.SH NOM
+setup \- Configurer les périphériques, les systèmes de fichiers et monter le système de fichiers racine.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.B _syscall0(int, setup);
+.sp
+.B int setup(void);
+.SH DESCRIPTION
+.B setup
+est appelé une fois dans
+.IR linux/init/main.c .
+Il appelle les fonctions d'initialisation des périphériques
+et des systèmes de fichiers configurés dans le noyau.
+Ensuite, il monte le système de fichiers racine.
+.PP
+Aucun processus ne peut appeler
+.BR setup .
+Même un processus avec des privilèges super-utilisateur déclenchera
+une erreur
+.BR EPERM .
+.SH "VALEUR RENVOYÉE"
+.B setup
+renvoie toujours \-1 pour un processus utilisateur.
+.SH ERREURS
+.TP
+.B EPERM
+Toujours déclenchée pour un processus utilisateur.
+.SH "CONFORMITÉ"
+Cette fonction est spécifique Linux et ne doit pas être employée
+dans un programme portable, ni même dans aucun programme du tout.
+Depuis Linux 2.1.121 cette fonction n'existe plus.
+La séquence d'appel a changé, elle a d'abord eu un paramètre unique
+.I "void * BIOS"
+et plus tard un paramètre unique
+.IR "int magic" .
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 15\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ setup\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

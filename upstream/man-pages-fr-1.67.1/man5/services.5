@@ -1,0 +1,223 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1996 Austin Donnelly <and1000@cam.ac.uk>,
+.\"  with additional material (c) 1995 Martin Schulze <joey@infodrom.north.de>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\"   This manpage was made by merging two independently written manpages,
+.\"   one written by Martin Schulze (18 Oct 95), the other written by
+.\"   Austin Donnelly, (9 Jan 96).
+.\"
+.\" Thu Jan 11 12:14:41 1996 Austin Donnelly  <and1000@cam.ac.uk>
+.\"   * Merged two services(5) manpages
+.\"
+.\" Traduction 18/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj LDP-1.53
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SERVICES 5 "11 janvier 1996" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+services \- Liste des services Internet.
+.SH DESCRIPTION
+.B services
+est un fichier de texte ASCII fournissant une correspondance entre un nom
+intelligible décrivant un service internet et l'ensemble
+numéro de port/protocole utilisé.
+Chaque programme réseau devrait consulter ce fichier pour obtenir le numéro de
+port et le protocole sous-jacent au service qu'il fournit.
+Les fonctions de la bibliothèque C
+.BR getservent (3),
+.BR getservbyname (3),
+.BR getservbyport (3),
+.BR setservent (3),
+et
+.BR endservent (3)
+permettent d'interroger ce fichier depuis un programme.
+
+Les numéros de ports sont affectés par le IANA (Internet Assigned Numbers
+Authority), et leur politique actuelle consiste à assigner à la fois les
+protocoles TCP et UDP à chaque numéro de port.
+Ainsi la plupart des services auront deux entrées, même si elles n'utilisent
+que le protocole TCP.
+
+Les numéros de ports en-dessous de 1024 ne peuvent être assignés à une
+socket que par un programme super-utilisateur (voir
+.BR bind (2),
+.BR tcp (7),
+et
+.BR udp (7).
+C'est ainsi que les clients se connectant sur ces ports de petits numéros
+peuvent être sûrs que le service correspondant est une implémentation
+standard et non pas le bricolage d'un utilisateur.
+Normalement les ports biens connus (well-known) affectés par le IANA se
+situent dans cet espace réservé au super-utilisateur.
+
+La présence d'une ligne indiquant un service dans le fichier
+.B services
+ne signifie pas nécessairement que le service en question est disponible
+sur la machine. Voir
+.BR inetd.conf (5)
+pour la configuration des services Internet offerts. Notez que tous les
+services réseau ne sont pas obligatoirement lancés par
+.BR inetd (8),
+et n'apparaîtront donc pas toujours dans
+.BR inetd.conf (5).
+En particulier les serveurs de News (NNTP) et de courrier (SMTP) sont souvent
+initialisés par le système dans les scripts de démarrage.
+
+L'emplacement du fichier
+.B services
+est défini par la constante
+.B _PATH_SERVICES
+dans
+.IR /usr/include/netdb.h "."
+C'est généralement
+.IR /etc/services .
+
+Chaque ligne décrivant un service est de la forme
+.IP
+\f2service-name\ \ \ port\f3/\f2protocole\ \ \ \f1[\f2alias ...\f1]
+.TP
+où\ :
+.TP 10
+.I service-name
+est le nom intelligible du service. La casse (différence majuscule/minuscule) est
+importante. Souvent, le programme client possède un nom rappelant celui du
+service.
+.TP
+.I port
+est le numéro de port (en décimal) utilisé pour ce service.
+.TP
+.I protocol
+est le type de protocole utilisé, il doit s'agir d'un nom déclaré dans le
+fichier
+.BR protocols (5).
+Les protocoles les plus courants sont
+.B tcp
+et
+.BR udp .
+.TP
+.I alias
+est une liste éventuelle d'autres noms se référant au même service, séparés par
+des espaces ou des tabulations (voir section BOGUES plus bas).
+Encore une fois, la casse (différence majuscule/minuscule) est importante.
+.PP
+
+Les différents champs sont séparés par des espaces ou des tabulations.
+
+Un signe # débute un commentaire, qui s'étendra jusqu'à la fin de la ligne.
+Les lignes blanches sont ignorées.
+
+Le champ
+.I service-name
+doit débuter à la première colonne du fichier, car les espaces en tête de ligne
+ne sont pas éliminés.
+.I service-name
+peut contenir n'importe quel caractère imprimable, sauf espace et tabulation.
+Il est néanmoins déconseillé d'utiliser d'autres caractères que a\-z, 0\-9, et
+le tiret «\ \-\ ».
+
+Les lignes ne se conformant pas à ce format sont ignorées silencieusement par
+.BR getservent (3),
+.BR getservbyname (3),
+et
+.BR getservbyport (3),
+mais ce comportement peut changer.
+
+À titre de compatibilité avec les versions précédentes, la barre oblique
+«\ /\ » entre le numéro de
+.I port
+et le nom du
+.I protocole
+peut être également remplacée par une virgule, mais c'est déconseillé.
+
+Ce fichier peut être diffusé sur le réseau en utilisant des services comme
+.B "Yellow Pages/NIS"
+ou
+.BR BIND/Hesiod .
+
+.SH EXEMPLE
+.nf
+$ ls -l /etc/services
+-rw-r--r--   1 root   root   3432 Feb 16  1996 /etc/services
+$ cat /etc/services
+   ...
+netstat         15/tcp
+qotd            17/tcp          quote
+msp             18/tcp          # message send protocol
+msp             18/udp          # message send protocol
+chargen         19/tcp          ttytst source
+chargen         19/udp          ttytst source
+ftp             21/tcp
+# 22 - unassigned
+telnet          23/tcp
+   ...
+$
+.fi
+.SH BOGUES
+Il y a un maximum de 35 alias par service à cause des limitations de
+.BR getservent (3).
+
+Les lignes plus longues que
+.B BUFSIZ
+(actuellement 1024) sont ignorées par
+.BR getservent (3),
+.BR getservbyname (3),
+et
+.BR getservbyport (3).
+De plus, la ligne suivante sera mal interprétée.
+.SH FICHIERS
+.TP
+.I /etc/services
+La liste des services internet.
+.TP
+.I /usr/include/netdb.h
+Définition de
+.BR _PATH_SERVICES .
+.SH "VOIR AUSSI"
+.BR getservent (3),
+.BR getservbyname (3),
+.BR getservbyport (3),
+.BR setservent (3),
+.BR endservent (3),
+.BR protocols (5),
+.BR listen (2),
+.BR inetd.conf (5),
+.BR inetd (8)
+
+RFC "Assigned Numbers", actuellement RFC 1700, (AKA STD0002)
+
+Guide to Yellow Pages Service
+
+Guide to BIND/Hesiod Service
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 18\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 5\ services\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

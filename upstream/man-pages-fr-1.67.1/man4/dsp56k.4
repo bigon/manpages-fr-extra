@@ -1,0 +1,121 @@
+.\" Copyright (c) 2000 lars brinkhoff <lars@nocrew.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111,
+.\" USA.
+.\"
+.\" Modified, Thu Jan 27 19:16:19 CET 2000, lars@nocrew.org
+.\" Traduction 28/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.30
+.\" LDP 1.47
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 04/07/2005 LDP-1.61
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH DSP56K 4 "1er mars 2000" LDP "Manuel du programmeur Linux"
+.SH NOM
+dsp56k \- Périphérique d'interface DSP 56001.
+.SH SYNOPSIS
+.nf
+#include <asm/dsp56k.h>
+.sp
+.BI "ssize_t read (int " fd ", void * " data ", size_t " length );
+.BI "ssize_t write (int " fd ", void * " data ", size_t " length );
+.BI "int ioctl (int " fd ", \s-1DSP56K_UPLOAD\s+1, struct dsp56k_upload *" program );
+.BI "int ioctl (int " fd ", \s-1DSP56K_SET_TX_WSIZE\s+1, int " wsize );
+.BI "int ioctl (int " fd ", \s-1DSP56K_SET_RX_WSIZE\s+1, int " wsize );
+.BI "int ioctl (int " fd ", \s-1DSP56K_HOST_FLAGS\s+1, struct dsp56k_host_flags *" flags );
+.BI "int ioctl (int " fd ", \s-1DSP56K_HOST_CMD\s+1, int " cmd );
+.fi
+.SH CONFIGURATION
+Le DSP 56001 est un périphérique de type caractère, ayant un numéro majeur
+valant 55 et un mineur 0.
+.SH DESCRIPTION
+Le DSP 56001 Motorola est un processeur de signal numérique 24 bits entièrement
+programmable, que l'on trouve dans les ordinateurs compatibles avec l'Atari
+Falcon 030. Le fichier spécial \fBdsp56k\fP sert à commander le DSP 56001,
+pour envoyer ou recevoir des signaux sur le port hôte.
+.PP
+Pour envoyer un flux de signal vers le processeur, utilisez
+.BR write ()
+sur le périphérique, et pour en recevoir utilisez
+.BR read ().
+Les données peuvent être émises ou reçues par blocs de 8,
+16, 24 ou 32 bits du côté hôte, mais seront toujours vues comme des blocs de
+24 bits du côté du DSP 56001.
+.PP
+Les appels
+.IR ioctl (2)
+suivants permettent de commander le périphérique
+\fBdsp56k\fP\ :
+.IP \fBDSP56K_UPLOAD\fP
+réinitialise le DSP 56001 et télécharge un programme.
+Le troisième argument de l'appel
+.BR ioctl ()
+doit être un pointeur sur une \fBstruct dsp56k_binary\fP dont le champ
+\fBbin\fP pointe sur un programme DSP 56001 binaire. Le champ \fBlen\fP doit
+contenir la longueur du programme en mots de 24 bits.
+.IP \fBDSP56K_SET_TX_WSIZE\fP
+configure la taille des mots émis. Les valeurs autorisées se trouvent dans
+l'intervalle 1 à 4, correspondant au nombre d'octets envoyés à la fois.
+Ces données seront soit complétées avec des zéros, soit tronquées pour
+s'aligner sur le format natif 24 bits du DSP 56001.
+.IP \fBDSP56K_SET_RX_WSIZE\fP
+configure la taille des mots reçus. Les valeurs autorisées se trouvent dans
+l'intervalle 1 à 4, correspondant au nombre d'octets reçus en une fois.
+Ces données seront soit complétées avec des zéros, soit tronquées pour
+s'aligner sur le format natif 24 bits du DSP 56001.
+.IP \fBDSP56K_HOST_FLAGS\fP
+Lire ou écrire les attributs d'hôte. Ces attributs sont représentés par 4 bits
+à usage général qui peuvent être lus aussi bien par l'ordinateur hôte que par
+le DSP 56001. Les bits 0 et 1 peuvent être fixés par l'hôte, et
+les bits 2 et 3 peuvent être écrits par le DSP 56001.
+
+Pour accéder aux attributs d'hôte, le troisième argument de l'appel
+.BR ioctl ()
+doit être un pointeur sur une
+\fBstruct dsp56k_host_flags\fP. Si les bits 0 ou 1 sont à 1 dans le champ
+\fBdir\fP, le bit correspondant de
+\fBout\fP sera écrit dans les attributs d'hôte. L'état des attributs d'hôte
+sera renvoyé dans les quatre bits de poids faible du membre \fBstatus\fP.
+.IP \fBDSP56K_HOST_CMD\fP
+envoie une commande d'hôte. Les valeurs autorisés sont dans l'intervalle 0 à 31
+et correspondent à un numéro de commande (définie par l'utilisateur) manipulé
+par le programme tournant sur le DSP 56001.
+.SH FICHIERS
+/dev/dsp56k
+.SH AUTEURS
+Fredrik Noring <noring@nocrew.org>, lars brinkhoff <lars@nocrew.org>,
+Tomas Berndtsson <tomas@nocrew.org>.
+.SH "VOIR AUSSI"
+linux/include/asm-m68k/dsp56k.h,
+linux/drivers/char/dsp56k.c,
+http://dsp56k.nocrew.org/,
+DSP56000/DSP56001 Digital Signal Processor User's Manual
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 28\ août\ 2000
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 4\ dsp56k\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,274 @@
+.\" This man page is Copyright (C) 1999 Matthew Wilcox <willy@bofh.ai>.
+.\" Permission is granted to distribute possibly modified copies
+.\" of this page provided the header is included verbatim,
+.\" and in case of nontrivial modification author and date
+.\" of the modification is added to the header.
+.\"
+.\" Traduction 04/01/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-1.28
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ARP 7 "3 juin 1999" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+arp \- Module ARP du noyau Linux.
+.SH DESCRIPTION
+Ce module du noyau implémente le protocole de résolution d'adresse
+ARP tel qu'il est décrit dans le document RFC 826.
+Il sert à la conversion entre les adresses matérielles de niveau 2 et
+les adresses du protocole IPv4 sur les réseaux connectés en direct.
+L'utilisateur n'a normalement pas d'interactions avec ce module sauf
+pour le configurer. En fait, ce module fournit des services aux autres
+protocoles du noyau.
+
+Un processus utilisateur peut recevoir les paquets ARP en utilisant
+les sockets de type
+.BR packet (7).
+Il y a aussi un mécanisme pour gérer le cache ARP dans l'espace
+utilisateur avec des sockets
+.BR netlink (7).
+La table ARP peut être contrôlée par le biais d'un
+.B ioctl (2)
+sur n'importe quelle socket
+.BR PF_INET .
+
+Le module ARP maintient un cache des correspondances entre les adresses
+matérielles et les adresses logiques. Le cache a une taille limitée, ainsi
+les entrées anciennes et utilisées moins fréquemment sont récupérées.
+Les entrées qui sont marquées comme permanentes ne sont jamais effacées.
+Le cache peut être manipulé directement par l'intermédiaire des \fBioctl\fPs et
+son comportement peut être ajusté à l'aide des \fBsysctl\fPs décrits plus bas.
+
+Lorsqu'il n'y a pas de retour positif pour une correspondance existante après
+un certain temps (voir les \fBsysctl\fPs ci-dessous), l'entrée est considérée
+comme gelée. Un retour positif peut être obtenu d'un niveau supérieur, par
+exemple un ACK TCP réussi. D'autres protocoles peuvent signaler des avancées
+en utilisant l'attribut
+.B MSG_CONFIRM
+de
+.BR sendmsg (2).
+Pour envoyer à nouveau des données à cette cible, l'ARP essaye
+d'abord d'interroger un démon arp local au maximum
+.B app_solicit
+fois, afin d'obtenir une adresse MAC à jour. Si ceci échoue, et si une
+ancienne adresse MAC est connue, une tentative unicast est envoyée
+.B ucast_solicit
+fois. Si on échoue encore, il enverra une requête ARP en broadcast sur le
+réseau. Les requêtes ne sont envoyées que s'il y a des données en attente
+d'émission.
+
+Linux ajoutera automatiquement une entrée arp proxy non-permanente lorsqu'il
+reçoit une requête pour une adresse à laquelle il envoie des données, et si
+l'arp proxy est validé sur l'interface réceptrice. Aucune entrée n'est
+ajoutée s'il y a une route de rejet.
+
+.SH IOCTLS
+Trois ioctls sont disponibles pour les sockets
+.BR PF_INET .
+Elles prennent un pointeur sur une
+.B struct arpreq
+comme paramètre.
+
+.nf
+.ta 4 20 33
+struct arpreq
+{
+    struct sockaddr   arp_pa;       /* adresse protocole          */
+    struct sockaddr   arp_ha;       /* adresse matérielle         */
+    int               arp_flags;    /* attributs                  */
+    struct sockaddr   arp_netmask;  /* masque réseau du protocole */
+    char              arp_dev[16];
+};
+.fi
+
+.BR SIOCSARP ", " SIOCDARP " et " SIOCGARP
+ajoute, supprime, et consulte respectivement une correspondance ARP.
+L'ajout et la suppression de correspondance ARP sont des opérations
+privilégiées ne pouvant être réalisées que par un processus avec la capacité
+.B CAP_NET_ADMIN
+ou un UID effectif nul.
+
+.I arp_pa
+doit être une socket
+.B AF_INET
+et
+.I arp_ha
+doit être du même type que le périphérique indiqué dans
+.IR arp_dev .
+.I arp_dev
+est une chaîne terminée par un caractère nul, contenant le nom d'un périphérique.
+
+.TS
+tab(:) allbox;
+c s
+l l.
+\fIarp_flags\fR
+attribut:signification
+ATF_COM:Recherche complète
+ATF_PERM:Entrée permanente
+ATF_PUBL:Entrée publique
+ATF_USETRAILERS:Demande trailer
+ATF_NETMASK:Utiliser le masque réseau
+ATF_DONTPUB:Ne pas répondre
+.TE
+
+.PP
+Si l'attribut
+.B ATF_NETMASK
+est activé, alors le membre
+.I arp_netmask
+doit être valide.
+Linux 2.2 ne supporte pas les entrées ARP proxy réseau. Ainsi, il doit
+être configuré avec 0xFFFFFFFF ou 0 pour supprimer une entrée arp proxy existante.
+.B ATF_USETRAILERS
+est obsolète et ne doit pas être utilisé.
+
+.SH SYSCTLS
+ARP supporte une interface \fBsysctl\fP pour configurer les paramètres
+sur une base globale ou interface par interface.
+Les sysctls peuvent être accessibles en lisant ou en écrivant dans le fichier
+.I /proc/sys/net/ipv4/neigh/*/*
+ou en utilisant l'interface
+.BR sysctl (2).
+Chaque interface dans le système a son propre répertoire dans
+.IR /proc/sys/net/ipv4/neigh/ .
+La configuration dans le répertoire \fBdefault\fP sert pour tous les nouveaux
+périphériques. Sauf mention contraire, les durées sont en secondes.
+.TP
+.B anycast_delay
+Le nombre maximum de jiffies à attendre avant de répondre à un message de
+sollicitation IPv6 du voisinage.
+Le support Anycast n'est pas encore implémenté.
+Par défaut, le délai est 1 seconde.
+.TP
+.B app_solicit
+Le nombre maximum d'essai d'envoi au démon ARP de l'espace utilisateur par
+netlink avant de basculer en tentatives multicast (voir
+.IR mcast_solicit ).
+La valeur par défaut est 0.
+.TP
+.B base_reachable_time
+Une fois qu'un voisin a été trouvé, l'entrée est considérée comme valide
+pendant, au moins, une durée aléatoire entre
+.IR base_reachable_time "/2 et 3*" base_reachable_time /2.
+La validité d'une entrée sera étendue si on reçoit un retour positif
+des protocoles de plus haut niveau.
+La valeur par défaut est 30 secondes.
+.TP
+.B delay_first_probe_time
+Délai avant la première tentative multicast après avoir décidé qu'un
+voisin est gelé.
+La valeur par défaut est 5 secondes.
+.TP
+.B gc_interval
+Fréquence avec laquelle on vérifie les entrées valides.
+La valeur par défaut est 30 secondes.
+.TP
+.B gc_stale_time
+Fréquence avec laquelle on vérifie une entrée de voisinage gelée. Lorsqu'une
+correspondance est considérée comme gelée, elle sera à nouveau
+redéterminée avant d'y envoyer des données.
+La valeur par défaut est 60 secondes.
+.TP
+.B gc_thresh1
+Le nombre minimal d'entrées à conserver dans le cache ARP. Le récupérateur
+ne sera pas déclenché s'il y a moins d'entrées que cette valeur.
+La valeur par défaut est 128.
+.TP
+.B gc_thresh2
+La limite maximale souple d'entrées à conserver dans le cache ARP.
+Le récupérateur autorisera un dépassement de cette valeur pendant 5 secondes
+avant de lancer une véritable récupération.
+La valeur par défaut est 512 entrées.
+.TP
+.B gc_thresh3
+La limite maximale d'entrées à conserver dans le cache ARP. Le récupérateur
+sera immédiatement déclenché si cette valeur est dépassée.
+La valeur par défaut est 1024.
+.TP
+.B locktime
+Le nombre minimum de jiffies pendant lesquels on conserve une entrée ARP
+dans le cache. Ceci évite la dégradation du cache s'il y a plusieurs
+correspondances possibles (généralement à cause d'une mauvaise configuration
+du réseau).
+La valeur par défaut est 1 seconde.
+.TP
+.B mcast_solicit
+Le nombre maximal de tentatives de résolution d'une adresse par le multicast et
+le broadcast avant de marquer l'entrée comme inaccessible.
+La valeur par défaut est 3.
+.TP
+.B proxy_delay
+Lorsqu'une requête arrive pour une adresse proxy-ARP, on attend
+.I proxy_delay
+jiffies avant de répondre.
+Ceci permet d'éviter des saturations du réseau dans certains cas.
+La valeur par défaut est 0,8 secondes.
+.TP
+.B proxy_qlen
+Le nombre maximal de paquets qui peuvent être conservés pour des adresses
+proxy-ARP.
+La valeur par défaut est 64.
+.TP
+.B retrans_time
+Le nombre de jiffies à attendre avant de retransmettre une requête.
+La valeur par défaut est 1 seconde.
+.TP
+.B ucast_solicit
+Le nombre maximal de tentatives d'envoi unicast avant d'interroger le
+démon ARP (voir
+.IR app_solicit ).
+La valeur par défaut est 3.
+.TP
+.B unres_qlen
+Le nombre maximal de paquets conservés pour chaque adresse non résolue
+par les autres couches réseau.
+La valeur par défaut est 3.
+.SH BOGUES
+Certaines temporisations sont exprimées en jiffies qui dépendent de l'architecture.
+Sur Alpha, un jiffy correspond à 1/1024 seconde, sur la plupart des autres
+il correspond à 1/100 seconde.
+
+Il n'y a pas de moyen d'envoyer une réponse positive de l'espace utilisateur.
+Ceci signifie que les protocoles orientés connexion implémentés dans l'espace
+utilisateur engendreront un trafic ARP excessif, car ndisc revérifiera
+régulièrement les adresses MAC. Le même problème se pose pour certains
+protocoles du noyau (par exemple NFS sur UDP).
+Cette page de manuel mélange les spécificités IPv4 et les fonctionnalités
+communes à IPv4 et IPv6.
+.SH VERSIONS
+La structure
+.B arpreq
+a changé dans Linux 2.0 pour inclure le membre
+.I arp_dev
+et les numéros d'ioctl ont changé en même temps.
+Le support pour les anciens ioctl a été abandonné dans Linux 2.2.
+
+Le support pour les entrées proxy ARP concernant des réseaux
+(netmask différent de 0xFFFFFFF) a été supprimé de Linux 2.2.
+Il est remplacé par une configuration proxy ARP automatique dans le
+noyau pour tous les hôtes accessibles sur les autres interfaces
+(lorsque l'on fait du forwarding et que le proxy ARP est activé sur l'interface).
+
+Les requêtes sysctl neigh/* n'existaient pas avant Linux 2.2.
+.SH "VOIR AUSSI"
+.BR ip (7)
+.PP
+RFC826 pour une description de l'ARP.
+.br
+RFC2461 pour une description de l'exploration du voisinage IPv6 et des
+algorithmes de base employés.
+.LP
+L'ARP IPv4 de Linux 2.2 et ultérieurs emploie l'algorithme IPv6 lorsque c'est possible.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 4\ janvier\ 2000
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 7\ arp\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

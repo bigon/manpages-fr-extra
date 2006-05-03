@@ -1,0 +1,98 @@
+.\" Copyright (C) 2004 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Traduction 13/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/04/1997
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 23/12/2005 LDP-1.67
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SIGPAUSE 2 "10 mai 2004" Linux 2.6 "Manuel du programmeur Linux"
+.SH NOM
+sigpause \- Débloquer individuellement des signaux et les attendre.
+.SH SYNOPSIS
+.nf
+.B #include <signal.h>
+.sp
+.BI "int sigpause(int " sigmask ");  /* BSD */"
+.sp
+.BI "int sigpause(int " sig ");      /* Unix95 */"
+.fi
+.SH DESCRIPTION
+N'utilisez pas cette fonction. Utilisez plutôt
+.BR sigsuspend (2).
+.LP
+La fonction
+.B sigpause
+est conçue pour attendre un signal.
+Elle modifie le masque signal d'un processus (ensemble de signaux bloqués)
+et attend qu'un signal arrive. À l'arrivée d'un signal, le masque signal
+original est rétabli.
+.SH VALEUR RENVOYÉE
+Si
+.B sigpause
+se termine, c'est qu'elle a été interrompue par un signal et la valeur
+de retour est \-1 avec
+.I errno
+positionnée à
+.BR EINTR .
+.SH HISTORIQUE
+La version BSD classique de cette fonction est apparue dans BSD 4.2.
+Elle positionne le masque signal de processus à
+.IR sigmask .
+Lorsque le nombre de signaux a dépassé 32, cette version a été remplacée
+par la version Unix95, incompatible, qui supprime seulement le signal
+.I sig
+spécifié du masque signal de processus
+.\" __xpg_sigpause: Unix 95, spec 1170, SVID, SVR4, XPG
+La situation malheureuse de deux fonctions incompatibles possédant
+le même nom a été résolue avec la fonction
+.BR \%sigsuspend (2),
+qui prend un paramètre de type
+.B "sigset_t *"
+(au lieu d'un entier).
+.LP
+Sous Linux, cette routine est un appel\-système seulement sur l'architecture
+Sparc (sparc64). Les libc4 et libc5 ne connaisent que la version BSD.
+La glibc utilise la version BSD à moins que _XOPEN_SOURCE ne soit définie.
+.\" .SH NOTE
+.\" For the BSD version, one usually uses a zero
+.\" .I sigmask
+.\" to indicate that no signals are to be blocked.
+.SH VOIR AUSSI
+.BR kill (2),
+.BR sigaction (2),
+.BR sigblock (2),
+.BR sigprocmask (2),
+.BR sigsuspend (2),
+.BR sigvec (2)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 13\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ sigpause\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

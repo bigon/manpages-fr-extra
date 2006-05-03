@@ -1,0 +1,104 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:48:48 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified 980310, aeb
+.\" Modified 990328, aeb
+.\"
+.\" Traduction 05/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 21/07/1997
+.\" Màj 17/05/1998 LDP-1.19
+.\" Màj 05/05/1999 LDP-1.23
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH MKSTEMP 3 "23 décembre 2001" LDP "Manuel du programmeur Linux"
+.SH NOM
+mkstemp \- Créér un fichier temporaire unique.
+.SH SYNOPSIS
+.nf
+.B #include <stdlib.h>
+.sp
+.BI "int mkstemp (char *" template );
+.fi
+.SH DESCRIPTION
+La fonction \fBmkstemp\fP() engendre un nom de fichier temporaire unique,
+à partir du motif \fItemplate\fP. Les six derniers caractères de \fItemplate\fP
+doivent être XXXXXX et ils seront alors remplacés par une chaîne rendant
+ce nom de fichier unique. Le fichier est créé avec les permission 0666 jusqu'à
+la glibc 2.0.6, puis 0600 depuis la glibc 2.0.7.
+Comme il sera modifié,
+.I template
+ne doit pas être une chaîne constante, mais devrait être déclaré comme un tableau de caractères.
+Le fichier est ouvert avec l'attribut O_EXCL, garantissant que nous
+soyons le seul propriétaire du fichier.
+.SH "VALEUR RENVOYÉE"
+La fonction \fBmkstemp\fP() renvoie le descripteur du fichier temporaire
+créé ou \-1 en cas d'erreur.
+.SH "ERREURS"
+.TP
+.B EINVAL
+Les 6 derniers caractères de \fItemplate\fP ne sont pas XXXXXX.
+Dans ce cas, \fItemplate\fP n'est pas modifié.
+.TP
+.B EEXIST
+Impossible de créer un nom de fichier unique. Le contenu du
+fichier est imprévisible.
+.SH NOTES
+L'ancien comportement (créer les fichiers avec le mode 0666) est un
+trou de sécurité potentiel, surtout depuis que les autres dérivés Unix
+utilisent le mode 0600 et quelqu'un risque d'oublier ce détail en
+effectuant un portage de programme.
+
+Plus généralement, les spécifications POSIX ne disent rien des modes
+des fichiers, ainsi les applications doivent s'assurer que la valeur
+d'umask est correcte avant d'appeler
+.BR mkstemp .
+.SH "CONFORMITÉ"
+BSD 4.3, POSIX 1003.1-2001
+.SH "NOTE"
+Le prototype se trouve dans
+.I <unistd.h>
+pour libc4, libc5, glibc1. glibc2 suit les spécifications Single Unix et
+place le prototype dans
+.IR <stdlib.h> .
+.SH "VOIR AUSSI"
+.BR mkdtemp (3),
+.BR mktemp (3),
+.BR tmpnam (3),
+.BR tempnam (3),
+.BR tmpfile (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 5\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ mkstemp\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

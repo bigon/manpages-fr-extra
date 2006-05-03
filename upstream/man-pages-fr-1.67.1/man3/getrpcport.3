@@ -1,0 +1,48 @@
+.\" @(#)getrpcport.3r	2.2 88/08/02 4.0 RPCSRC; from 1.12 88/02/26 SMI
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH GETRPCPORT 3 "6 octobre 1987" LDP "Manuel du programmeur Linux"
+.SH NOM
+getrpcport \- Renvoie un numéro de port RPC.
+.SH SYNOPSIS
+.ft B
+.nf
+int getrpcport(host, prognum, versnum, proto)
+	char *host;
+	int prognum, versnum, proto;
+.fi
+.SH DESCRIPTION
+.BR getrpcport ()
+renvoie le numéro de port pour la version
+.I versnum
+du programme RPC
+.I prognum
+qui fonctionne sur la machine
+.I host
+et utilisant le protocole
+.IR proto .
+.SH "VALEUR RENVOYÉE"
+0 est renvoyé s'il n'est
+.B pas
+possible de contacter le portmapper, ou si
+.I prognum
+n'est pas déclaré. Si
+.I prognum
+est déclaré mais la version
+.IR versnum ,
+n'est pas celle employée, un numéro de port sera bien renvoyé, indiquant que le
+programme est bien enregistré. L'erreur de version ne sera détectée qu'au
+premier appel à ce service.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 1999
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ getrpcport\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

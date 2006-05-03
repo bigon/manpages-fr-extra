@@ -1,0 +1,152 @@
+.\" @(#)tzfile.5	7.11
+.\" This file is in the public domain, so clarified as of
+.\" 1996-06-05 by Arthur David Olson <arthur_david_olson@nih.gov>.
+.\"
+.\" Traduction 11/05/1999 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-1.23
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH TZFILE 5 "5 juin 1996" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+tzfile \- Information de fuseau horaire.
+.SH SYNOPSIS
+.B
+#include <tzfile.h>
+.SH DESCRIPTION
+Les fichiers d'information de fuseau horaire utilisés par
+.BR tzset (3)
+commencent par les caractères magiques «\ TZif\ » pour les identifier
+(Time Zone information file).
+Ces caractères sont suivis de 16 octets réservés pour une utilisation
+future, suivis de 6 valeurs sur 4 octets de type
+.BR long ,
+écrites dans l'ordre «\ standard\ » des octets
+(poids fort en premier).
+Ces valeurs sont, dans l'ordre\ :
+.TP
+.I tzh_ttisgmtcnt
+Le nombre d'indicateurs UTC/local enregistrés dans le fichier.
+.TP
+.I tzh_ttisstdcnt
+Le nombre d'indicateurs standard/wall enregistrés dans le fichier.
+.TP
+.I tzh_leapcnt
+Le nombre de secondes de rattrapage pour lesquelles des données sont enregistrées.
+.TP
+.I tzh_timecnt
+Le nombre d'instants de transition pour lesquels des données sont
+enregistrées dans le fichier.
+.TP
+.I tzh_typecnt
+Le nombre de types d'heures locales pour lesquelles des données sont
+enregistrées dans le fichier (ne doit pas être nul).
+.TP
+.I tzh_charcnt
+Le nombre de caractères de chaînes d'abréviation de fuseau horaire
+enregistrées dans le fichier.
+.PP
+Cet en-tête est suivi par
+.I tzh_timecnt
+valeurs sur 4 octets de type
+.BR long ,
+classées en ordre croissant.
+Ces valeurs sont écrites dans l'ordre standard des octets.
+Chacune est un instant de transition (comme renvoyé par l'appel-système
+.BR time (2))
+auquel les règles de calcul de l'heure locale changent.
+Ensuite, viennent
+.I tzh_timecnt
+valeurs sur un octet de type
+.BR "unsigned char\ " ;
+chacune indiquant lequel des différents types d'heures locales décrites
+dans le fichier est associé avec l'instant de transition ayant le même rang.
+Ces valeurs servent d'indice dans une table de structures
+.I ttinfo
+qui apparaissent ensuite dans le fichier.
+Ces structures sont définies ainsi\ :
+.in +.5i
+.sp
+.nf
+.ta .5i +\w'unsigned int\0\0'u
+struct ttinfo {
+	long	tt_gmtoff;
+	int	tt_isdst;
+	unsigned int	tt_abbrind;
+};
+.in -.5i
+.fi
+.sp
+Chaque structure est écrite sous forme d'une valeur 4 octets pour
+.I tt_gmtoff
+du type
+.BR long ,
+dans l'ordre standard des octets, suivie d'une valeur sur 1 octet pour
+.I tt_isdst
+et une valeur sur 1 octet pour
+.IR tt_abbrind .
+Dans chaque structure,
+.I tt_gmtoff
+indique le nombre de secondes à ajouter à l'UTC,
+.I tt_isdst
+indique si
+.I tm_isdst
+doit être indiqué par
+.BR localtime (3)
+et
+.I tt_abbrind
+sert d'index dans la table des caractères d'abréviation de la zone horaire
+qui suit les structures
+.I ttinfo
+dans le fichier.
+.PP
+Viennent ensuite
+.I tzh_leapcnt
+paires de valeurs 4 octets, écrites dans l'ordre standard des octets. La
+première valeur de chaque paire donne l'instant
+(comme fourni par
+.BR time (2))
+auquel se trouve une seconde de rattrapage.
+La seconde indique le nombre
+.I total
+de secondes de rattrapage à insérer après l'instant donné.
+Ces paires sont classées en ordre croissant de date.
+.PP
+Ensuite se trouvent
+.I tzh_ttisstdcnt
+indicateurs standard/wall, chacun enregistré sur un octet. Ils indiquent
+si les instants de transition associés aux types d'heures locales ont été
+spécifiés en heure standard ou locale, et servent lorsqu'un fichier
+de fuseau horaire permet de manipuler des variables d'environnement
+de zone horaire à la manière POSIX.
+.PP
+Finalement se trouvent
+.I tzh_ttisgmtcnt
+indicateurs UTC/local, chacun enregistré sur un octet. Ils indiquent si les
+instants de transition associés aux types d'heures locales ont été spécifiés
+en heure UTC ou locale, et servent lorsqu'un fichier de fuseau horaire
+permet de manipuler des variables d'environnement
+de zone horaire à la manière POSIX.
+.PP
+.I Localtime
+utilise la première structure
+.I ttinfo
+en heure standard du fichier (ou simplement la première structure
+.I ttinfo
+s'il n'y en a pas en heure standard), si
+.I tzh_timecnt
+est nul, ou si son argument temporel est antérieur à la première transition
+enregistrée dans le fichier.
+.\".SH "VOIR AUSSI"
+.\".BR newctime (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 11\ mai\ 1999
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 5\ tzfile\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

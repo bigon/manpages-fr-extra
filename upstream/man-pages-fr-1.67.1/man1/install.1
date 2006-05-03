@@ -1,0 +1,215 @@
+.\" Copyright Andries Brouwer, Ragnar Hojland Espinosa and A. Wik, 1998.
+.\"
+.\" This file may be copied under the conditions described
+.\" in the LDP GENERAL PUBLIC LICENSE, Version 1, September 1998
+.\" that should have been distributed together with this file.
+.\"
+.\" Traduction 24/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH INSTALL 1 "Novembre 1998" LDP "Manuel de l'utilisateur Linux"
+.SH NOM
+install \- Copier des fichiers et positionner leurs attributs.
+.SH SYNOPSIS
+.B install
+.BI [ options ]
+.B [\-s] [\-\-strip]
+.I source dest
+.br
+.B install
+.BI [ options ]
+.B [\-s] [\-\-strip]
+.I source... répertoire
+.br
+.B install
+.BI [ options ]
+.B [\-d,\-\-directory]
+.I répertoire...
+.sp
+Options (version courte)\ :
+.br
+.B [\-b]
+.B [\-c]
+.B [\-D]
+.BI "[\-g " groupe ]
+.BI "[\-m " mode ]
+.BI "[\-o " propriétaire ]
+.BI "[\-S " SUFFIXE ]
+.B [\-V {numbered,existing,simple}]
+.B [\-\-help] [\-\-version] [\-\-]
+.SH DESCRIPTION
+.B install
+copie des fichiers tout en positionnant les modes d'accès et si possible
+le propriétaire et le groupe.
+.PP
+Dans sa première forme, le fichier
+.I source
+est copié dans le fichier
+.IR dest .
+Dans la seconde, chaque fichier
+.I source
+est copié dans le
+.I répertoire
+destination.
+Dans la dernière forme, chaque
+.I répertoire
+(ainsi que tout répertoire parent inexistant) est créé.
+.PP
+.B install
+est similaire à
+.BR cp ,
+mais vous permet de contrôler les attributs des fichiers destinations.
+Il est typiquement utilisé dans les fichiers Makefiles, pour copier
+les programmes dans leurs répertoires définitifs.
+Il refuse de copier un fichier sur lui-même.
+.PP
+.SH OPTIONS
+.TP
+.B "\-c"
+Ignoré. Pour compatibilité avec de vieilles versions Unix d'\fBinstall\fP.
+.TP
+.B "\-d, \-\-directory"
+Créer chaque répertoire indiqué ainsi que les répertoires parents manquants,
+en fixant le propriétaire, le groupe et le mode comme indiqué sur la
+ligne de commande, ou avec les valeurs par défaut.
+Donner ces attributs aux répertoires parents créés (ce qui diffère de
+SunOS 4.x où
+.BR install ,
+donne les attributs par défaut aux répertoires parents créés.)
+.TP
+.B "\-D"
+Créer tous les répertoires parents de
+.I dest
+sauf le dernier, puis copier
+.I source
+dans
+.IR dest .
+Cette option est utile avec le premier format ci-dessus.
+(Nouveauté dans fileutils-4.0).
+.TP
+.BI "\-g " "groupe" ", \-\-group=" "groupe"
+Donner aux fichiers installés et aux répertoires crées le
+.I groupe
+indiqué.
+La valeur par défaut est le groupe du processus appelant.
+Le
+.I groupe
+peut être mentionné sous forme numérique ou par son nom.
+.TP
+.BI "\-m " "mode" ", \-\-mode=" "mode"
+Donner aux fichiers installés et aux répertoires crées le
+.I mode
+indiqué. Celui-ci peut être fournit sous forme de nombre octal,
+ou sous forme de mode symbolique comme avec
+.BR chmod ,
+en utilisant 0 comme point de départ. Le mode par défaut est 0755,
+lecture, écriture, exécution pour le propriétaire, lecture et exécution
+pour le groupe et les autres.
+.TP
+.BI "\-o " "propriétaire" ", \-\-owner=" "propriétaire"
+Si
+.B install
+est invoqué avec les privilèges appropriés (exécuté sous root), il donne
+aux fichiers installés et aux répertoires créés le
+.I propriétaire
+indiqué. La valeur par défaut est «\ root\ ».
+Le
+.I propriétaire
+peut être mentionné sous forme numérique ou par son nom.
+.TP
+.B "\-s, \-\-strip"
+Réduire la table des symboles des exécutables binaires installés.
+.SH "OPTIONS DE SAUVEGARDE GNU"
+Les versions GNU des programmes comme
+.BR cp ,
+.BR mv ,
+.BR ln ,
+.B install
+et
+.B patch
+créeront au besoin une copie de sauvegarde des fichiers à écraser,
+à modifier ou à détruire.
+On demande une copie de sauvegarde à l'aide de l'option \-b,
+on indique la nomenclature à adopter avec l'option \-V, et si
+la sauvegarde se fait avec un suffixe, celui-ci est précisé avec l'option \-S.
+.TP
+.B "\-b, \-\-backup"
+Créer une copie de sauvegarde des fichiers à écraser ou à détruire.
+.TP
+.BI "\-S " SUFFIXE ", \-\-suffix=" SUFFIXE
+Ajouter le
+.I SUFFIXE
+indiqué à chaque fichier de sauvegarde créé.
+Si cette option n'est pas indiquée, on utilisera la valeur de la variable
+d'environnement
+.BR SIMPLE_BACKUP_SUFFIX .
+Si la variable
+.B SIMPLE_BACKUP_SUFFIX
+n'existe pas, la valeur par défaut est «\ ~\ ».
+.TP
+.BI "\-V " MÉTHODE ", \-\-version\-control=" MÉTHODE
+.RS
+Préciser la nomenclature des fichiers de sauvegarde
+La
+.I MÉTHODE
+indiquée peut être «\ numbered\ » («\ t\ »), «\ existing\ » («\ nil\ »),
+ou «\ never\ » («\ simple\ »).
+Si cette option n'est pas indiquée, la valeur de la variable
+d'environnement
+.B VERSION_CONTROL
+est utilisée, et si la variable
+.B VERSION_CONTROL
+n'existe pas, la valeur par défaut est «\ existing\ ».
+.PP
+Cette option correspond à la variable «\ version-control\ » sous Emacs.
+Les
+.IR MÉTHODES
+valides (les abréviations non-ambiguës sont acceptées) sont\ :
+.TP
+.BR t ", " numbered
+Toujours faire une sauvegarde numérotée.
+.TP
+.BR nil ", " existing
+Faire une sauvegarde numérotée des fichiers en ayant déjà une précédente, et
+une sauvegarde simple pour les autres.
+.TP
+.BR never ", " simple
+Faire toujours une sauvegarde simple.
+.RE
+.SH "OPTIONS STANDARDS GNU"
+.TP
+.B "\-\-help"
+Afficher un message d'aide sur la sortie standard, et se terminer correctement.
+.TP
+.B "\-\-version"
+Afficher un numéro de version sur la sortie standard, et se terminer
+correctement.
+.TP
+.B "\-\-"
+Fin de la liste d'options.
+.SH ENVIRONNEMENT
+Les variables LANG, LC_ALL, LC_CTYPE et LC_MESSAGES
+ont leurs significations habituelles. Pour la version GNU, les variables
+SIMPLE_BACKUP_PREFIX et VERSION_CONTROL modifient les noms des fichiers
+de sauvegarde, comme décrit ci-dessus.
+.SH "CONFORMITÉ"
+BSD 4.2 (qui dispose des options \-c, \-m, \-o, \-g et \-s).
+.SH NOTES
+Cette page décrit la version de
+.B install
+trouvée dans le paquetage fileutils-4.0, d'autres versions
+peuvent différer légèrement.
+Envoyez par courriel corrections et ajout sur cette page à aeb@cwi.nl.
+Signalez les bogues du programme à fileutils-bugs@gnu.ai.mit.edu (Ndt\ : en anglais)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 24\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 1\ install\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

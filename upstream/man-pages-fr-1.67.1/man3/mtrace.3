@@ -1,0 +1,61 @@
+.\"  Copyright 2002 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\"  Distributed under GPL
+.\"  the glibc-info pages are very helpful here
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH MTRACE 3 "20 juillet 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+mtrace, muntrace \- Débogage de malloc.
+.SH SYNOPSIS
+.sp
+.B "#include <mcheck.h>"
+.sp
+.B "void mtrace(void);"
+.sp
+.B "void muntrace(void);"
+.SH DESCRIPTION
+La fonction
+.BR mtrace ()
+installe un gestionnaire (qui surveille les allocations mémoire) pour
+.BR malloc (),
+.BR realloc ()
+et
+.BR free ().
+La fonction
+.BR muntrace ()
+désactive ce gestionnaire.
+.br
+La variable d'environnement
+.B MALLOC_TRACE
+définit le nom d'un fichier où
+.BR mtrace ()
+écrit ses résultats.
+Ce fichier doit être accessible en écriture à l'utilisateur sinon
+.BR mtrace ()
+ne fera rien.
+Si le fichier n'est pas vide, il sera tronqué.
+.SH NOTES
+Le résultat de
+.BR mtrace ()
+est en ASCII mais pas dans un format humainement compréhensible.
+Aussi la glibc fournit-elle un script perl appelé mtrace qui affiche
+un résultat plus compréhensible.
+.SH "CONFORMITÉ"
+Ce sont des extensions GNU.
+.SH "VOIR AUSSI"
+.BR malloc (3),
+.BR malloc_hook (3)
+.SH TRADUCTION
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 2002
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ mtrace\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

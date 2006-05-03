@@ -1,0 +1,191 @@
+.\" Copyright 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)popen.3	6.4 (Berkeley) 4/30/91
+.\"
+.\" Converted for Linux, Mon Nov 29 14:45:38 1993, faith@cs.unc.edu
+.\" Modified Sat May 18 20:37:44 1996 by Martin Schulze (joey@linux.de)
+.\" Modified 7 May 1998 by Joseph S. Myers (jsm28@cam.ac.uk)
+.\"
+.\" Traduction 05/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 21/07/1997
+.\" Màj 14/12/1998 LDP-1.21
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH POPEN 3 "7 juillet 1998" LDP "Manuel du programmeur Linux"
+.SH NOM
+popen, pclose \- Entrées-sorties pour un processus.
+.SH SYNOPSIS
+.B #include <stdio.h>
+.sp
+.BI "FILE *popen (const char *" commande ", const char *" type );
+.sp
+.BI "int pclose (FILE *" stream );
+.SH DESCRIPTION
+La fonction
+.BR popen ()
+engendre un processus en créant un tube (pipe), exécutant un \fBfork\fP(),
+et en invoquant le shell. Comme un tube est unidirectionnel par définition,
+l'argument
+.I type
+doit indiquer seulement une lecture ou une écriture, et non pas les deux.
+Le flux correspondant sera ouvert en lecture seule ou écriture seule.
+.PP
+L'argument
+.I commande
+est un pointeur sur une chaîne de caractères, terminée par un caractère nul,
+et contenant une ligne de commande shell.
+Cette commande est transmise à
+.I /bin/sh
+en utilisant l'option
+.BR \-c .
+L'interprétation en est laissée au shell.
+.PP
+L'argument
+.I type
+est un pointeur sur une chaîne de caractères, terminée par un caractère nul,
+qui doit contenir «\ r\ » pour la lecture ou «\ w\ » pour l'écriture.
+.PP
+La valeur renvoyée par
+.BR popen ()
+est un flux d'entrée-sortie normal, à la seule différence qu'il doit être
+fermé en appelant
+.BR pclose ()
+à la place de
+.BR fclose() .
+L'écriture dans le flux correspond à écrire sur l'entrée standard de
+la commande. Le flux de sortie standard de la commande est le même que
+celui du processus appelant
+.BR popen (),
+à moins que la commande le modifie.
+Symétriquement, la lecture depuis un flux ouvert par \fBpopen\fP() correspond
+à lire la sortie standard de la commande, et dans ce cas l'entrée standard
+de la commande est la même que celle du processus appelant
+.BR popen .
+.PP
+Notez que, par défaut, les flux de sortie fournis par
+.B popen
+disposent d'un tampon.
+.PP
+La fonction
+.B pclose
+attend que le processus correspondant se termine, et renvoie
+alors l'état de sortie de la commande, comme en utilisant
+.BR wait4 .
+.SH "VALEUR RENVOYÉE"
+La fonction
+.B popen
+renvoie
+.B NULL
+si l'appel système
+.BR fork (2)
+ou
+.BR pipe (2)
+échoue, ou s'il n'a pas assez de mémoire.
+.PP
+La fonction
+.B pclose
+renvoie \-1 si
+.\" Ces conditions donnent en fait un résultat indéfini -> mise en commentaire
+.\" .I stream
+.\" n'est pas associé avec une commande lancée par \fBpopen\fP, si
+.\" .I stream
+.\" a déjà été fermé par \fBpclose\fP, ou si
+.B wait4
+échoue, ou si une autre erreur est détectée.
+.SH ERREURS
+La fonction
+.B popen
+ne remplit pas
+.I errno
+si une allocation mémoire échoue. Si les appels
+.BR fork "() ou " pipe "()
+sous-jacents échouent,
+.I errno
+est correctement rempli. Si l'argument
+.I type
+est invalide, et si cette condition est détectée,
+.I errno
+contient
+.BR EINVAL .
+.PP
+Si
+.BR pclose ()
+n'arrive pas à obtenir l'état du fils,
+.I errno
+contient
+.BR ECHILD .
+.SH "CONFORMITÉ"
+POSIX.2
+.SH BOGUES
+Comme l'entrée standard d'une commande ouverte en lecture partage son pointeur
+de position dans le flux avec le processus appelant
+.BR popen (),
+si le processus original a effectué des lectures en tampon, la position
+du flux d'entrée de la commande peut être différente de celle attendue.
+Symétriquement, la sortie d'une commande ouverte en écriture peut s'emmêler
+avec celle du processus original. Le second problème peut être évité en
+appelant
+.BR fflush (3)
+avant
+.BR popen .
+.PP
+Il n'est pas possible de distinguer un échec d'exécution du shell lui-même,
+d'un échec d'exécution d'une commande par le shell, ni même d'une sortie
+immédiate de la commande. Le seul indice est un code de retour de 127.
+.SH HISTORIQUE
+Des fonctions
+.BR popen ()
+et
+.BR pclose ()
+sont apparues dans la Version 7 d'AT&T UNIX.
+.SH "VOIR AUSSI"
+.BR fork (2),
+.BR sh (1),
+.BR pipe (2),
+.BR wait4 (2),
+.BR fflush (3),
+.BR fclose (3),
+.BR fopen (3),
+.BR stdio (3),
+.BR system (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 5\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ popen\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

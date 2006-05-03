@@ -1,0 +1,105 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" This manpage is Copyright (C) 1992 Drew Eckhardt;
+.\"                               1993 Michael Haardt, Ian Jackson.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified Wed Jul 21 19:42:57 1993, Rik Faith (faith@cs.unc.edu)
+.\" Modified Sun Jul 21 21:25:26 1996 by Andries Brouwer <aeb@cwi.nl>
+.\" Modified Wed Nov  6 03:46:05 1996 by Eric S. Raymond <esr@thyrsus.com>
+.\"
+.\" Traduction 9/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 30/08/2000 LDP-1.31
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ALARM 2 "21 juillet 1993" LDP "Manuel du programmeur Linux"
+.SH NOM
+alarm \- Programmer un réveil pour l'émission d'un signal.
+.SH SYNOPSIS
+.nf
+.B #include <unistd.h>
+.sp
+.BI "unsigned int alarm(unsigned int " nb_sec );
+.fi
+.SH DESCRIPTION
+.BR alarm
+programme une temporisation pour qu'elle envoie un signal
+.BR SIGALRM
+au processus en cours dans
+.I nb_sec
+secondes. Si le signal n'est pas bloqué ou intercepté, sa
+réception terminera le processus.
+
+Si
+.I nb_sec
+vaut zéro, aucune
+.B alarme
+n'est planifiée.
+
+Dans tous les cas, l'appel
+.B alarm
+annule l'éventuelle programmation précédente.
+
+.SH "VALEUR RENVOYÉE"
+.B alarm
+renvoie le nombre de secondes qu'il restait de la programmation
+précédente (annulée), ou zéro si aucune alarme n'avait été planifiée
+auparavant.
+.SH NOTES
+Les fonctions
+.BR alarm " et " setitimer
+partagent la même temporisation, aussi l'appel de l'une interfère avec
+l'utilisation de l'autre.
+.PP
+.BR sleep ()
+peut être implémenté en utilisant
+.BR SIGALRM ,
+aussi il est déconseillé de mélanger les appels
+.BR alarm ()
+et
+.BR sleep ().
+
+Les délais dûs au multitâche peuvent, comme toujours, retarder
+le déclenchement d'une alarme d'une durée arbitraire.
+.SH "CONFORMITÉ"
+SVr4, SVID, POSIX, X/OPEN, BSD 4.3
+.SH "VOIR AUSSI"
+.BR setitimer (2),
+.BR signal (2),
+.BR sigaction (2),
+.BR gettimeofday (2),
+.BR select (2),
+.BR pause (2),
+.BR sleep (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 9\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ alarm\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,212 @@
+.\" Copyright (c) 1997 Martin Schulze (joey@infodrom.north.de)
+.\" 2003-08-23 Martin Schulze <joey@infodrom.org> Updated according to glibc 2.3.2
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" Much of the text is copied from the manpage of resolv+(8).
+.\"
+.\" 2003-08-23 Martin Schulze <joey@infodrom.org> Updated according to glibc 2.3.2
+.\"
+.\" Traduction 06/09/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP 1.31
+.\" Màj 06/06/2001 LDP-1.36
+.\" Màj 25/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH HOST.CONF 5 "23 août 2003" LDP "Manuel de l'administrateur Linux"
+.SH NOM
+host.conf \- Configuration de la résolution de noms.
+.SH DESCRIPTION
+Le fichier
+.I /etc/host.conf
+contient des informations spécifiques pour la configuration de la bibliothèque de résolution de noms.
+Elle doit contenir un mot-clé de configuration par ligne, suivi par l'information
+appropriée. Les mots-clés reconnus sont
+.IR order ", " trim ", " multi ", " nospoof ", " spoof " et " reorder .
+Chaque mot-clé est décrit individuellement ci-dessous.
+
+.TP
+.I order
+Ce mot-clé indique dans quel ordre la résolution des noms d'hôtes doit avoir lieu.
+Il doit être suivi par une ou plusieurs méthodes séparées par des virgules.
+Ces méthodes sont
+.IR bind ", " hosts " et " nis .
+.TP
+.I trim
+Ce mot-clé peut être indiqué à plusieurs reprises. À chaque fois, il doit être
+suivi  par une liste de nom de domaines séparés par des deux-points «\ :\ »,
+des points-virgules «\ ;\ » ou des virgules «\ ,\ » liste débutant par un
+point. Lorsqu'il est actif, la bibliothèque
+resolv+ enlèvera automatiquement ce domaine des noms d'hôtes résolus par le DNS.
+Ceci est prévu pour être employé avec des noms d'hôtes ou de domaines locaux.
+(Note\ : trim n'affectera pas les noms d'hôtes gérés par NIS ou
+par le fichier \fIhosts\fP. Il faut prendre soin pour chaque nom d'hôte
+se trouvant dans le fichier \fIhosts\fP que la première entrée soit
+complète (fully qualified) ou au contraire limitée au nom d'hôte, suivant les
+usages de l'installation.)
+.TP
+.I multi
+Les valeurs valides sont
+.IR on " et " off .
+Si cette option est sur
+.IR on ,
+la bibliothèque resolv+ renverra toutes les adresses valides pour un hôte
+apparaissant dans le fichier
+.I /etc/hosts
+plutôt que de ne renvoyer
+que la première. Par défaut elle est sur
+.I off
+car cela peut causer des dégradations sensibles des performances sur les
+sites ayant un gros fichier \fIhosts\fP.
+.TP
+.I nospoof
+Les valeurs valides sont
+.IR on " et " off .
+Si cette option est sur
+.IR on ,
+la bibliothèque resolv+ essayera d'empêcher toute falsification des
+noms d'hôtes, pour améliorer la sécurité de
+.BR rlogin " et " rsh .
+Elle fonctionne comme suit\ : après avoir réalisé une résolution de nom d'hôte, resolv+
+effectuera une demande de nom pour cette adresse. Si les deux noms d'hôtes ne
+correspondent pas, la recherche échouera.
+La valeur par défaut est
+.IR off .
+.TP
+.I spoofalert
+Les valeurs valides sont
+.IR on " et " off .
+Si cette option est sur
+.I on
+et si l'option
+.I nospoof
+est aussi active, resolv+ journalisera un message d'erreur avec les fonctionnalités syslog.
+La valeur par défaut est
+.IR off .
+.TP
+.I spoof
+Les valeurs valides sont
+.IR off ", " nowarn " est " warn .
+Si cette option est positionnée à
+.IR off ,
+les adresses «\ falsifiées\ » (Ndt\ : spoofed) sont autorisées et aucun
+avertissement ne sera émis vers les fonctionnalités syslog.
+Si cette option est positionnée à
+.IR warn ,
+resolv+ tentera de prévenir l'usurpation d'adresse de l'hôte afin d'améliorer
+la sécurité et journalisera un avertissement de l'erreur via syslog.
+Si cette option est positionnée à
+.IR nowarn ,
+resolv+ tentera de prévenir l'usurpation d'adresse de l'hôte afin d'améliorer
+la sécurité mais n'émettra pas d'avertissement via syslog.
+Positionner cette option à toute autre valeur est équivalent à la positionner à
+.IR nowarn .
+.TP
+.I reorder
+Les valeurs valides sont
+.IR on " et " off .
+Si cette option est sur
+.IR on ,
+resolv+ essayera de réordonner les adresses d'hôtes afin que l'adresse locale
+(sur le même sous-réseau) soit présentée en premier lors d'un appel à
+.BR gethostbyname (3).
+La remise en ordre est assurée pour toutes les méthodes de recherche.
+Par défaut, la valeur est
+.IR off .
+.SH ENVIRONNEMENT
+Six variables d'environnement sont mises à disposition de l'utilisateur afin
+qu'il puisse modifier le comportement configuré dans
+.IR /etc/host.conf .
+.TP
+.B RESOLV_HOST_CONF
+Si elle est positionnée, cette variable pointe vers un fichier qui sera lu en
+lieu et place de
+.IR /etc/host.conf .
+.TP
+.B RESOLV_SERV_ORDER
+Supplante la commande
+.IR order .
+.TP
+.B RESOLV_SPOOF_CHECK
+Supplante les commandes
+.IR nospoof ", " spoofalert " et " spoof
+de la même manière que la commande
+.I spoof
+est analysée. Les valeurs valides sont
+.IR off ", " nowarn " et " warn .
+.TP
+.B RESOLV_MULTI
+Supplante la commande
+.IR multi .
+.TP
+.B RESOLV_REORDER
+Supplante la commande
+.IR reorder .
+.TP
+.B RESOLV_ADD_TRIM_DOMAINS
+Une liste de nom de domaines, séparés par des deux-points «\ :\ »,
+des points-virgules «\ ;\ » ou des virgules «\ ,\ » liste débutant par un
+point et qui sera ajoutée à la liste des domaines qui pourraient être
+amputés.
+.TP
+.B RESOLV_OVERRIDE_TRIM_DOMAINS
+Une liste de nom de domaines, séparés par des deux-points «\ :\ »,
+des points-virgules «\ ;\ » ou des virgules «\ ,\ » liste débutant par un
+point et qui remplacera la liste des domaines qui pourraient être
+amputés. Cette variable supplante la commande
+.IR trim .
+.SH FICHIERS
+.TP
+.I /etc/host.conf
+Fichier de configuration de la résolution de noms.
+.TP
+.I /etc/resolv.conf
+Fichier de configuration de la résolution de noms.
+.TP
+.I /etc/hosts
+Base de données locale des noms d'hôtes.
+.SH NOTES
+Les différences suivantes existent par rapport à l'implémentation d'origine.
+Une nouvelle commande
+.I spoof
+et une nouvelle variable d'environnement
+.B RESOLV_SPOOF_CHECK
+peuvent prendre des arguments tels que
+.IR off ", " nowarn " et " warn .
+Des commentaires peuvent apparaître n'importe où et pas seulement en début
+de ligne.
+.SH "VOIR AUSSI"
+.BR gethostbyname (3),
+.BR hostname (7),
+.BR resolv+ (8),
+.BR named (8)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 6\ septembre\ 2000
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 5\ host.conf\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

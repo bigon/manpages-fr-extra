@@ -1,0 +1,145 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (c) 1992 Drew Eckhardt (drew@cs.colorado.edu), March 28, 1992
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified by Michael Haardt (michael@moria.de)
+.\" Modified by Thomas Koenig (ig25@rz.uni-karlsruhe.de)
+.\" Modified Fri Jul 23 21:51:36 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Sun Jul 25 10:53:24 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Wed Nov 01 18:56:43 1995 by Michael Haardt
+.\"  (michael@cantor.informatik.rwth-aachen.de)
+.\" Modified Sun Apr 14 17:04:32 1996 by Andries Brouwer (aeb@cwi.nl)
+.\"  [added some polishing contributed by Mike Battersby (mib@deakin.edu.au)]
+.\" Modified Sun Jul 21 21:25:26 1996 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified Fri Jan 17 23:49:46 1997 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified Tue Dec 18 10:53:02 2001 by Andries Brouwer (aeb@cwi.nl)
+.\" Modified, 24 Jul 2002, Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\"	Added note on historical rules enforced when an unprivileged process
+.\"	sends a signal.
+.\"
+.\" Traduction  10/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Màj 23/01/1997
+.\" Màj 08/04/1997
+.\" Màj 10/12/1997 LDP-1.18
+.\" Màj 30/05/2001 LDP-1.36
+.\" Màj 19/01/2002 LDP-1.47
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH KILL 2 "18 décembre 2001" LDP "Manuel du programmeur Linux"
+.SH NOM
+kill \- Envoyer un signal à un processus.
+.SH SYNOPSIS
+.nf
+.B #include <sys/types.h>
+.br
+.B #include <signal.h>
+.sp
+.BI "int kill(pid_t " pid ", int " sig );
+.fi
+.SH DESCRIPTION
+L'appel-système
+.B kill
+peut être utilisé pour envoyer n'importe quel signal à n'importe
+quel processus ou groupe de processus.
+.PP
+Si \fIpid\fP est positif, le signal \fIsig\fP est envoyé au processus \fIpid\fP.
+.PP
+Si \fIpid\fP vaut zéro, alors le signal \fIsig\fP est envoyé à tous les processus
+appartenant au même groupe que le processus appelant.
+.PP
+Si \fIpid\fP vaut \-1, alors le signal \fIsig\fP est envoyé à tous les
+processus sauf celui de PID 1 (init), mais voir plus bas.
+.PP
+Si \fIpid\fP est inférieur à \-1, alors le signal \fIsig\fP
+est envoyé à tous les processus du groupe \fI\-pid\fP.
+.PP
+Si \fIsig\fP vaut 0, aucun signal n'est envoyé mais les conditions d'erreur
+sont vérifiées.
+.SH "VALEUR RENVOYÉE"
+En cas de réussite 0 est renvoyé,
+en cas d'échec \-1 est renvoyé et
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EINVAL
+Numéro de signal invalide.
+.TP
+.B ESRCH
+Le processus ou le groupe de processus n'existe pas.
+Remarquez qu'un processus existant peut être un zombie,
+c'est-à-dire qu'il s'est déjà terminé mais que son père n'a pas
+encore lu sa valeur de retour avec \fBwait()\fP.
+.TP
+.B EPERM
+Le processus appelant n'a pas l'autorisation d'envoyer un
+signal à l'un des processus concernés. Pour qu'un processus
+ait le droit d'envoyer un signal à un autre processus
+.I pid
+il doit avoir des privilèges de super-utilisateur,
+ou avoir un UID réel ou effectif égal à l'ID réel ou sauvegardé
+du processus récepteur. Dans le cas de SIGCONT, il suffit que les
+processus émetteur et récepteur appartiennent à la même session.
+.SH NOTES
+On ne peut envoyer au processus numéro un (init) que des signaux pour
+lesquels il a expressément installé un gestionnaire.
+Ceci évite que le système soit arrêté accidentellement.
+.LP
+POSIX 1003.1-2001 réclame que \fIkill(-1,sig)\fP envoie \fIsig\fP
+à tous les processus accessibles par le processus appelant,
+sauf à certains processus système dépendant de l'implémentation.
+Linux autorise un processus à s'envoyer un signal à lui-même, mais
+l'appel \fIkill(-1,sig)\fP n'envoie pas le signal au processus appelant.
+.SH "HISTORIQUE"
+Suivant les différentes versions du noyau, Linux a utilisé différentes règles
+pour les permissions nécessaires à un processus non-privilégié pour
+envoyer un signal a un autre processus.
+.\" In the 0.* kernels things chopped and changed quite
+.\" a bit - MTK, 24 Jul 02
+Dans les noyaus 1.0 à 1.2.2, un signal pouvait être envoyé si l'UID effectif
+de l'émetteur correspondait à celui du récepteur, ou si l'UID réel de
+l'émetteur correspondant à celui du récepteur.
+Dans les noyaux 1.2.3 à 1.3.77, un signal pouvait être envoyé si l'UID
+effectif de l'émetteur correspondait à UID effectif ou réel du récepteur.
+Les règles actueles, conformes à POSIX 1003.1-2001 ont été adoptées
+dans le noyau 1.3.78.
+.SH "CONFORMITÉ"
+SVr4, AT&T, POSIX.1, X/OPEN, BSD 4.3
+.SH "VOIR AUSSI"
+.BR _exit (2),
+.BR killpg (2),
+.BR signal (2),
+.BR exit (3),
+.BR signal (7)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 10\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ kill\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

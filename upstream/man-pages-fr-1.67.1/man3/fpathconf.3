@@ -1,0 +1,183 @@
+.\" (c) 1993 by Thomas Koenig (ig25@rz.uni-karlsruhe.de)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" License.
+.\" Modified Wed Jul 28 11:12:26 1993 by Rik Faith (faith@cs.unc.edu)
+.\"
+.\" Traduction 23/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 19/07/1997
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH FPATHCONF 3 "4 avril 1993" LDP "Manuel du programmeur Linux"
+.SH NOM
+fpathconf, pathconf \- Lire les valeurs de configuration concernant un fichier.
+.SH SYNOPSIS
+.nf
+.B #include <unistd.h>
+.sp
+.BI "long fpathconf (int " filedes ", int " name );
+.nl
+.BI "long pathconf (char *" path ", int " name );
+.fi
+.SH DESCRIPTION
+La fonction
+.BR fpathconf ()
+retourne la valeur de l'option de configuration
+.I name
+concernant le descripteur de fichier ouvert
+.IR filedes .
+.PP
+La fonction
+.BR pathconf ()
+retourne la valeur de l'option de configuration
+.I name
+concernant le fichier nommé
+.IR path .
+.PP
+Les macros correspondantes définissent, dans
+.IR <unistd.h> ,
+des valeurs minimales. Si une application désire tirer parti des valeurs
+qui peuvent évoluer, l'appel de
+.BR fpathconf ()
+ou
+.BR pathconf ()
+renvoie des résultats plus précis.
+.PP
+Il faut mettre dans
+.I name
+une des constantes suivantes pour obtenir la valeur de l'option de
+configuration correspondante\ :
+.TP
+.B _PC_LINK_MAX
+renvoie le nombre maximal de liens sur le fichier. Si
+.I filedes
+ou
+.I path
+correspondent à un répertoire, la valeur s'applique à l'ensemble
+du répertoire.
+La macro correspondante est
+.BR _POSIX_LINK_MAX .
+.TP
+.B _PC_MAX_CANON
+renvoie la longueur maximale des lignes de saisie formatée,
+.I filedes
+ou
+.I path
+doivent correspondre à un terminal.
+La macro correspondante est
+.BR _POSIX_MAX_CANON .
+.TP
+.B _PC_MAX_INPUT
+renvoie la longueur maximale d'une ligne de saisie,
+.I filedes
+ou
+.I path
+doivent correspondre à un terminal.
+La macro correspondante est
+.BR _POSIX_MAX_INPUT .
+.TP
+.B _PC_NAME_MAX
+renvoie la longueur maximale du nom de fichier que le processus
+a le droit de créer dans les répertoires
+.I path
+ou
+.IR filedes .
+La macro correspondante est
+.BR _POSIX_NAME_MAX_ .
+.TP
+.B _PC_PATH_MAX
+renvoie la longueur maximale des chemins d'accès relatifs quand
+.I path
+ou
+.I filedes
+est le répertoire courant.
+La macro correspondante est
+.BR _POSIX_PATH_MAX.
+.TP
+.B _PC_PIPE_BUF
+renvoie la taille du tampon d'un tube, quand
+.I filedes
+correspond à un tube ou une FIFO, ou quand
+.I path
+correspond à une FIFO.
+La macro correspondante est
+.BR _POSIX_PIPE_BUF .
+.TP
+.B _PC_CHOWN_RESTRICTED
+renvoie une valeur non nulle si
+.BR chown (2)
+peut être utilisé sur le fichier. Si
+.I filedes
+ou
+.I path
+est un répertoire, ceci s'applique à l'ensemble des fichiers
+dans ce répertoire.
+La macro correspondante est
+.BR _POSIX_CHOWN_RESTRICTED .
+.TP
+.B _PC_NO_TRUNC
+renvoie une valeur non nulle si l'accès à un nom de fichier plus long que
+.B _POSIX_NAME_MAX
+déclenche une erreur.
+La macro correspondante est
+.BR _POSIX_NO_TRUNC .
+.TP
+.B _PC_VDISABLE
+renvoie une valeur non nulle si la gestion des caractères spéciaux peut
+être désactivée.
+.I filedes
+ou
+.I path
+doit correspondre à un terminal.
+.SH "VALEUR RENVOYÉE"
+La limite demandée est renvoyée si elle existe.
+Si le systeme n'a pas de limite pour la ressource réclamée, \-1 est
+renvoyé et \fIerrno\fP est inchangé.
+S'il se produit une erreur \-1 est renvoyé, et \fIerrno\fP contient le
+code d'erreur.
+.SH "CONFORMITÉ"
+POSIX.1
+.SH NOTES
+Les fichiers dont la longueur du nom excède la valeur renvoyée pour
+.I name
+valant
+.B _PC_NAME_MAX
+peuvent exister dans le répertoire considéré.
+.PP
+Certaines valeurs renvoyées sont énormes. Elles ne sont pas utilisables
+pour faire une allocation mémoire.
+.SH "VOIR AUSSI"
+.BR getconf (1),
+.BR statfs (2),
+.BR open (2),
+.BR sysconf (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 23\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ fpathconf\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

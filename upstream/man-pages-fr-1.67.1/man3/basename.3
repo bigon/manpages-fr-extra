@@ -1,0 +1,179 @@
+.\" (c) 2000 by Michael Kerrisk (michael.kerrisk@gmx.net)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" License.
+.\" Created, 14 Dec 2000 by Michael Kerrisk
+.\"
+.\" Traduction 04/06/2001 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-1.36
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 04/07/2005 LDP-1.61
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH BASENAME 3 "14 décembre 2000" LDP "Manuel du programmeur Linux"
+.SH NOM
+basename, dirname \- Analyse des composants d'un chemin d'accès.
+.SH SYNOPSIS
+.nf
+.B #include <libgen.h>
+.sp
+.BI "char *basename(char " "*chemin" );
+.nl
+.BI "char *dirname(char " "*chemin" );
+.fi
+.SH DESCRIPTION
+Attention\ : il y a deux fonctions
+.B basename
+différentes - voir plus loin.
+.LP
+Les fonctions
+.B basename
+et
+.B dirname
+décomposent une chaîne terminée par un caractère nul, représentant un chemin
+d'accès en ses composants répertoire et nom de fichier.
+En général,
+.B dirname
+renvoie la chaîne s'étendant jusqu'au dernier «\ /\ », non compris, et
+.B basename
+renvoie la partie se trouvant après le dernier «\ /\ ».
+Les caractères «\ /\ » en fin de chaîne ne font pas partie du chemin.
+.PP
+Si le
+.I chemin
+ne contient pas de barre oblique,
+.B dirname
+renvoie la chaîne «\ .\ » et
+.B basename
+renvoie une copie de la chaîne
+.IR chemin .
+Si le
+.I chemin
+est représenté par la chaîne «\ /\ », alors
+.B dirname
+et
+.B basename
+renvoient tout deux la chaîne «\ /\ ».
+Si le
+.I chemin
+est un pointeur NULL, ou pointe vers une chaîne vide, alors
+.B dirname
+et
+.B basename
+renvoient tout deux la chaîne «\ .\ »
+.PP
+En mettant bout à bout la chaîne renvoyée par
+.BR dirname ,
+un «\ /\ », et la chaîne renvoyée par
+.BR basename ,
+on obtient un chemin d'accès complet.
+.PP
+Autant
+.B dirname
+que
+.B basename
+peuvent modifier le contenu de la chaîne
+.IR chemin ,
+aussi, il faut leur transmettre des copies de la chaîne. De plus,
+.B dirname
+et
+.B basename
+peuvent renvoyer des pointeurs sur des zones mémoires allouées
+statiquement, qui peuvent être écrasées par des appels consécutifs.
+.PP
+La liste suivante d'exemple (prise dans SUSv2)
+montre les chaînes renvoyées par
+.B dirname
+et
+.B basename
+pour différents chemins d'accès\ :
+.sp
+.nf
+.B
+chemin        dirname    basename
+«\ /usr/lib\ »  «\ /usr\ »   «\ lib\ »
+«\ /usr/\ »     «\ /\ »      «\ usr\ »
+«\ usr\ »       «\ .\ »      «\ usr\ »
+«\ /\ »         «\ /\ »      «\ /\ »
+«\ .\ »         «\ .\ »      «\ .\ »
+«\ ..\ »        «\ ..\ »     «\ ..\ »
+.fi
+.SH "EXEMPLE"
+.RS
+.nf
+char *dirc, *basec, *bname, *dname;
+char *chemin = "/etc/passwd";
+
+dirc = strdup(chemin);
+basec = strdup(chemin);
+dname = dirname(dirc);
+bname = basename(basec);
+printf("dirname=%s, basename=%s\\n", dname, bname);
+.fi
+.RE
+.SH "VALEUR RENVOYÉE"
+Les fonctions
+.B dirname
+et
+.B basename
+renvoient des pointeurs sur des chaînes terminées par un caractère nul.
+.SH NOTES
+Il y a deux versions différentes de
+.B basename
+- la version POSIX décrite précédemment, et la version GNU que l'on récupère
+avec
+.br
+.nf
+.B "  #define _GNU_SOURCE"
+.br
+.B "  #include <string.h>"
+.fi
+La version GNU ne modifie jamais son argument et renvoye une chaîne vide
+lorsque
+.I chemin
+finit par une barre oblique «\ /\ » et en particulier aussi lorsqu'il vaut
+«\ /\ ». Il n'y a pas de version GNU de
+.BR dirname .
+.LP
+Avec la glibc, on récupère la version POSIX de
+.B basename
+lorsqu'est inclus <libgen.h>, et la version GNU autrement.
+.SH "BOGUES"
+Dans l'implémentation glibc des versions POSIX de ces fonctions, celles-ci
+modifient leur argument et provoquent une erreur de segmentation lorsqu'elles
+sont invoquées avec une chaîne statique comme «\ /usr/\ ».
+Avant la version 2.2.1 de la glibc, les versions glibc de
+.B dirname
+ne géraient pas correctement les chemins se terminant par un caractère «\ /\ »
+et déclenchaient une erreur de segmentation en recevant un pointeur NULL.
+.SH "CONFORMITÉ"
+POSIX 1003.1-2001
+.SH "VOIR AUSSI"
+.BR dirname (1),
+.BR basename (1)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 4\ juin\ 2001
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ basename\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

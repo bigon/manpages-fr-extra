@@ -1,0 +1,308 @@
+.\" Copyright (c) 1990, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" This code is derived from software contributed to Berkeley by
+.\" the American National Standards Committee X3, on Information
+.\" Processing Systems.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"	@(#)stdarg.3	6.8 (Berkeley) 6/29/91
+.\"
+.\" Converted for Linux, Mon Nov 29 15:11:11 1993, faith@cs.unc.edu
+.\" Additions, 2001-10-14, aeb
+.\"
+.\" Traduction 07/11/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 26/01/2002 LDP-1.47
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH STDARG 3 "14 octobre 2001" LDP "Manuel du programmeur Linux"
+.SH NOM
+stdarg, va_start, va_arg, va_copy, va_end \- Liste variable d'arguments.
+.SH SYNOPSIS
+.B #include <stdarg.h>
+.sp
+.BI "void va_start (va_list " ap ", " last );
+.br
+.BI "" type " va_arg (va_list " ap ", " type );
+.br
+.BI "void va_end (va_list " ap );
+.b
+.BI "void va_copy (va_list " dest ", va_list " src );
+.SH DESCRIPTION
+Une fonction peut être appelée avec un nombre variable d'arguments, eux-mêmes
+de types variables. Une telle fonction est dite «\ variadique\ ». Le fichier d'en-tête
+.I stdarg.h
+déclare un type
+.B va_list
+et définit trois macros permettant de parcourir la liste d'arguments dont
+le nombre et les types ne sont pas connus par la fonction appelée.
+.PP
+La fonction appelée doit déclarer un objet de type
+.B va_list
+utilisé par les macros
+.BR va_start (),
+.BR va_arg ()
+et
+.BR va_end ().
+.SS va_start
+La macro
+.BR va_start ()
+initialise
+.I ap
+pour les utilisations ultérieures de
+.BR va_arg ()
+et
+.BR va_end (),
+et doit donc être appelée en premier.
+.PP
+Le paramètre
+.I last
+est le nom du dernier paramètre avant la liste d'argument variable, c'est-à-dire
+le dernier paramètre dont la fonction connaisse le type.
+.PP
+Comme l'adresse de ce paramètre est utilisée dans la macro
+.BR va_start (),
+il ne doit pas être déclaré comme une variable en registre, ni comme un
+type fonction ou tableau.
+.SS va_arg
+La macro
+.BR va_arg ()
+se développe en une expression qui a le type et la valeur de l'argument
+suivant de l'appel. Le paramètre
+.I ap
+est la
+.B va_list
+.I ap
+initialisée par
+.BR va_start ().
+Chaque appel de
+.BR va_arg ()
+modifie
+.I ap
+pour que l'appel suivant renvoie l'argument suivant. Le paramètre
+.I type
+est le nom du type, indiqué de telle manière qu'un pointeur sur un objet de
+ce type puisse être déclaré simplement en ajoutant un astérisque à
+.IR type .
+.PP
+La première utilisation de la macro
+.BR va_arg ()
+après celle de
+.BR va_start ()
+renvoie l'argument suivant
+.IR last .
+Les invocations successives renvient les valeurs des arguments restants.
+.PP
+S'il n'y a pas d'argument suivant, ou si
+.I type
+n'est pas compatible avec le type réel du prochain argument, des erreurs
+imprévisibles se produiront.
+.PP
+Si
+.I ap
+est passé à une fonction qui utilise
+.BI va_arg( ap , type )
+alors la valeur de
+.I ap
+est indéfinie après le retour de cette fonction.
+.SS va_end
+À chaque invocation de
+.BR va_start ()
+doit correspondre une invocation de
+.BR va_end ()
+dans la même fonction. Après l'appel
+.BI va_end( ap )
+la variable
+.I ap
+est indéfinie. Plusieurs traversées de la liste sont possible, à
+condition que chacune soit encadrée par
+.BR va_start ()
+et
+.BR va_end ().
+.BR va_end ()
+peut être une macro ou ue fonction.
+.SS va_copy
+.\" Prop...
+Une implémentation évidente est de représenter
+.B va_list
+par un pointeur dans la pile de la fonction variadique.
+Dans une telle situation (de loin la plus courante), rien ne semble
+s'opposer à une affectation
+.RS
+.nf
+        va_list aq = ap;
+.fi
+.RE
+Malheureusement, il y a aussi des systèmes qui créent une table
+de pointeurs (de longueur 1), et on devrait écrire
+.RS
+.nf
+        va_list aq;
+        *aq = *ap;
+.fi
+.RE
+De plus, sur les systèmes où les paramètres sont passés dans des registres,
+il peut être nécessaire pour
+.BR va_start ()
+d'allouer de la mémoire, d'y enregistrer les paramètres ainsi que l'indication
+du paramètre suivant, afin que
+.BR va_arg ()
+puisse balayer la liste. Ainsi
+.BR va_end ()
+pourra libérer la mémoire allouée.
+Pour gérer ces situations, C99 ajoute une macro
+.BR va_copy (),
+afin que les affectations ci-dessus soient remplacées par
+.RS
+.nf
+        va_list aq;
+        va_copy(aq, ap);
+        ...
+        va_end(aq);
+.fi
+.RE
+À chaque invocation de
+.BR va_copy ()
+doit correspondre une invocation de
+.BR va_end ()
+dans la même fonction.
+Certains systèmes qui ne disposent pas de
+.BR va_copy ()
+ont une macro
+.BR __va_copy ()
+à la place, puisque c'était le nom proposé auparavant.
+.SH EXEMPLES
+La fonction
+.BR foo ()
+prend une chaîne de caractères de mise en forme, et affiche les arguments
+associés avec chaque format correspondant au type indiqué.
+.RS
+.nf
+#include <stdio.h>
+#include <stdarg.h>
+
+void
+foo (char *fmt, ...)
+{
+  va_list ap;
+  int     d;
+  char    c, *p, *s;
+
+  va_start  (ap, fmt);
+  while     (*fmt)
+    switch  (*fmt ++) {
+      case 's': /* chaîne */
+        s = va_arg (ap, char *);
+        printf ("chaîne %s\en", s);
+        break;
+      case 'd':  /* entier */
+        d = va_arg (ap, int);
+        printf ("int %d\en", d);
+        break;
+      case 'c':	/* caractère */
+        c = va_arg (ap, char);
+        printf ("char %c\en", c);
+        break;
+    }
+  va_end (ap);
+}
+.fi
+.RE
+.SH CONFORMITÉ
+Les macros
+.BR va_start (),
+.BR va_arg ()
+et
+.BR va_end ()
+sont conformes à ANSI X3.159-1989 ("C89").
+C99 définit la macro
+.BR va_copy .
+.SH COMPATIBILITÉ
+Ces macros
+.I ne
+sont
+.I PAS
+compatibles avec les anciennes macros qu'elles remplacent.
+Une compatibilité de version peut être obtenue en incluant le fichier d'en-tête
+.IR varargs.h .
+.SH COMPARAISON
+La mise en oeuvre historique est\ :
+.RS
+.nf
+#include <varargs.h>
+
+void foo(va_alist) va_dcl {
+        va_list ap;
+
+        va_start(ap);
+        while(...) {
+                ...
+                x = va_arg(ap, type);
+                ...
+        }
+        va_end(ap);
+}
+.fi
+.RE
+Sur certains systèmes,
+.BR va_end ()
+contient une accolade fermante «\ }\ » correspondant à l'accolade ouvrante «\ {\ » dans
+.BR va_start (),
+ainsi les deux macros doivent se trouver dans la même fonction, placées d'une
+manière qui permette ceci.
+
+.SH BOGUES
+Contrairement aux macros
+.BR varargs (),
+les macros
+.BR stdarg ()
+ne permettent pas aux programmeurs de coder une fonction sans aucun argument
+fixe. Ce problème se pose principalement en convertissant directement
+du code utilisant
+.BR varargs ()
+en code utilisant
+.BR stdarg (),
+mais il se pose également pour les fonctions qui désirent passer tous leurs
+arguments à une fonction utilisant un argument
+.I va_list
+comme
+.BR vfprintf (3).
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 7\ novembre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ stdarg\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

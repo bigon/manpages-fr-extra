@@ -1,0 +1,141 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (C) Tom Bjorkholm & Markus Kuhn, 1996
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.\" 1996-04-01 Tom Bjorkholm <tomb@mydata.se>
+.\"            First version written
+.\" 1996-04-10 Markus Kuhn <mskuhn@cip.informatik.uni-erlangen.de>
+.\"            revision
+.\"
+.\" Traduction 14/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SCHED_SETPARAM 2 "10 avril 1996" LDP "Manuel du programmeur Linux"
+.SH NOM
+sched_getparam, sched_setparam \- Lire/écrire les paramètres d'ordonnancement.
+.SH SYNOPSIS
+.B #include <sched.h>
+.sp
+\fBint sched_setparam(pid_t \fIpid\fB, const struct sched_param *\fIp\fB);
+.sp
+\fBint sched_getparam(pid_t \fIpid\fB, struct sched_param *\fIp\fB);
+.sp
+.nf
+.ta 4n
+\fBstruct sched_param {
+	...
+	int \fIsched_priority\fB;
+	...
+};
+.ta
+.fi
+.SH DESCRIPTION
+.B sched_setparam
+fixe les paramètres associés à la politique d'ordonnancement
+du processus identifié par \fIpid\fR.
+Si \fIpid\fR vaut zéro, les paramètres concernant le processus
+en cours sont fixés. L'interprétation des paramètres dépend
+de la politique d'ordonnancement utilisée. Actuellement les
+trois politiques suivantes sont disponibles sous Linux\ :
+.IR SCHED_FIFO ,
+.IR SCHED_RR ,
+et
+.IR SCHED_OTHER.
+
+.B sched_getparam
+lit les paramètres associés à la politique d'ordonnancement
+du processus identifié par \fIpid\fR.
+Si \fIpid\fR vaut zéro, les paramètres concernant le processus
+en cours sont lus.
+
+.B sched_setparam
+vérifie la validité de \fIp\fR pour la politique concernée. Le paramètre
+\fIp->sched_priority\fR doit se situer dans l'intervalle obtenu
+par \fBsched_get_priority_min\fR et
+\fBsched_get_priority_max\fR.
+
+Les systèmes POSIX sur lesquels
+.B sched_setparam
+et
+.B sched_getparam
+sont disponibles définissent
+.I _POSIX_PRIORITY_SCHEDULING
+dans <unistd.h>.
+
+.SH "VALEUR RENVOYÉE"
+.BR sched_setparam
+et
+.BR sched_getparam
+renvoient 0 s'ils réussissent.
+En cas d'échec, \-1 est renvoyé, et
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B ESRCH
+Le processus numéro \fIpid\fR n'existe pas.
+.TP
+.B EPERM
+Le processus appelant n'a pas les privilèges nécessaires. L'appel
+.BR sched_setparam
+nécessite un UID effectif égal à celui du processus identifié par
+.IR pid ,
+ou doit être super-utilisateur.
+.TP
+.B EINVAL
+Le paramètre \fIp\fR n'a pas de sens pour la politique
+d'ordonnancement utilisée.
+.SH CONFORMITÉ
+POSIX.1b (POSIX.4)
+.SH "VOIR AUSSI"
+.BR sched_setscheduler (2),
+.BR sched_getscheduler (2),
+.BR sched_get_priority_max (2),
+.BR sched_get_priority_min (2),
+.BR nice (2),
+.BR setpriority (2),
+.BR getpriority (2),
+.PP
+.BR sched_setscheduler (2)
+décrit les politiques d'ordonnancement sous Linux.
+.PP
+.I Programming for the real world - POSIX.4
+by Bill O. Gallmeister, O'Reilly & Associates, Inc., ISBN 1-56592-074-0
+.br
+.I IEEE Std 1003.1b-1993
+(standard POSIX.1b)
+.br
+.I ISO/IEC 9945-1:1996
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 14\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ sched_setparam\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

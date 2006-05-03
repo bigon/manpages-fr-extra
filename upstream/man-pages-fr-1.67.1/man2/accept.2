@@ -1,0 +1,309 @@
+.\" Copyright (c) 1983, 1990, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     $Id: accept.2,v 1.11 2000/12/20 18:10:31 ak Exp $
+.\"
+.\" Modified Sat Jul 24 16:42:42 1993 by Rik Faith <faith@cs.unc.edu>
+.\" Modified Mon Oct 21 23:05:29 EDT 1996 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified 1998-2000 by Andi Kleen to match Linux 2.2 reality
+.\" Modified Tue Apr 23 20:33:18 CEST 2002 by Roger Luethi <rl@hellgate.ch>
+.\"
+.\" Traduction 9/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\"
+.\" Correction le 15/12/96 suite a une remarque de <Yves.Arrouye@marin.fdn.fr>
+.\" Màj 08/04/1997
+.\" Màj 18/05/1999 LDP-1.23
+.\" Màj 30/05/2001 LDP-1.36
+.\" Màj 18/07/2003 LDP-1.53
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ACCEPT 2 "23 avril 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+accept \- Accepter une connexion sur une socket.
+.SH SYNOPSIS
+.B #include <sys/types.h>
+.br
+.B #include <sys/socket.h>
+.sp
+.BI "int accept(int " sock ", struct sockaddr *" adresse ", socklen_t *" longueur );
+.SH DESCRIPTION
+.B accept
+est utilisé généralement avec des processus serveurs orientés connexion.
+Cet appel système est employé avec les sockets utilisant un protocole
+en mode connecté
+.RB ( SOCK_STREAM ,
+.B SOCK_SEQPACKET
+et
+.BR SOCK_RDM )
+Il extrait la première connexion de la file des connexions en attente,
+crée une nouvelle socket avec essentiellement les mêmes propriétés que
+.I sock
+et alloue pour cette socket un nouveau descripteur de fichier qu'il renvoie.
+La nouvelle socket n'est plus en état d'écoute.
+La socket originale
+.I sock
+n'est pas modifiée par l'appel-système. Remarquez que les attributs du
+descripteur de fichier (tout ce qu'on peut configurer avec l'option
+.B F_SETFL
+de fcntl() comme l'état non-bloquant ou asynchrone), ne sont pas hérités
+durant un
+.BR accept .
+.PP
+L'argument
+.I sock
+est une socket qui a été créée avec la fonction
+.BR socket (2).
+attachée à une adresse avec
+.BR bind (2).
+et attend des connextions après un appel
+.BR listen (2).
+
+L'argument
+.I adresse
+est un pointeur sur une structure sockaddr. La structure sera remplie avec
+l'adresse du correspondant se connectant, telle qu'elle est
+connue par la couche de communication. Le format exact du
+paramètre
+.I adresse
+dépend du domaine dans lequel la communication s'établit. (Voir
+.BR socket (2)
+et la page de manuel correspondant au protocole).
+L'argument
+.I longueur
+est un paramètre-résultat\ : il doit contenir initialement la
+taille de la structure pointée par
+.IR adresse ,
+et est renseigné au retour par la longueur réelle (en octet) de
+l'adresse remplie. Quand
+.I adresse
+vaut NULL, rien n'est rempli.
+.PP
+S'il n'y a pas de connexion en attente dans la file,
+et si la socket n'est
+pas marquée comme non-bloquante,
+.B accept
+se met en attente d'une connexion. Si la socket est
+non-bloquante, et qu'aucune connexion n'est présente dans la file,
+.B accept
+retourne une erreur EAGAIN.
+.PP
+Pour être prévenu de l'arrivée d'une connexion sur une socket on peut utiliser
+.BR select (2)
+ou
+.BR poll (2).
+Un événement «\ lecture\ » sera délivré lorsqu'une tentative de connexion
+aura lieu, et on pourra alors appeler
+.B accept
+pour la valider. Autrement, on peut configurer la socket pour qu'elle
+envoie un signal
+.B SIGIO
+lorsqu'une activité la concernant se produit, voir
+.BR socket (7)
+pour plus de détails.
+.PP
+Pour certains protocoles nécessitant une confirmation explicite,
+comme
+DECNet,
+.B accept
+peut être considéré comme extrayant simplement la connexion suivante de
+la file, sans demander de confirmation. On peut effectuer la confirmation
+par une simple lecture ou écriture sur le nouveau descripteur, et le rejet
+en fermant la nouvelle socket. Pour le moment, seul
+DECNet
+se comporte ainsi sous Linux.
+.SH NOTES
+Il n'y a pas nécessairement de connexion en attente après la réception de
+.B SIGIO
+ou après que
+.BR select (2)
+ou
+.BR poll (2)
+indiquent quelque chose à lire. En effet la connexion peut avoir été annulée
+à cause d'une erreur réseau asynchrone ou par un autre thread avant que
+.B accept
+ne se termine.
+Si cela se produit, l'appel bloquera en attendant une autre connexion.
+Pour s'assurer
+que
+.B accept
+ne bloquera jamais, la socket
+.I sock
+transmise doit avoir l'attribut
+.B O_NONBLOCK
+(voir
+.BR socket (7)).
+.SH "VALEUR RENVOYÉE"
+L'appel renvoie \-1 en cas d'erreur. S'il réussit il renvoie
+un entier non-négatif, constituant un descripteur pour la nouvelle socket.
+.SH "GESTION DES ERREURS"
+Sous Linux,
+.B accept
+renvoie les erreurs réseau déjà en attente sur la socket comme
+une erreur de
+l'appel-système.
+Ce comportement diffère d'autres implémentations des sockets BSD.
+Pour un comportement fiable, une application doit détecter les
+erreurs réseau définies par le protocole après le
+.B accept
+et les traiter
+comme des erreurs
+.BR EAGAIN ,
+en réitérant le mécanisme. Dans le cas de TCP/IP, ces erreurs sont
+.BR ENETDOWN ,
+.BR EPROTO ,
+.BR ENOPROTOOPT ,
+.BR EHOSTDOWN ,
+.BR ENONET ,
+.BR EHOSTUNREACH ,
+.BR EOPNOTSUPP ,
+et
+.BR ENETUNREACH .
+.SH ERREURS
+.B accept
+doit échouer si\ :
+.TP
+.BR "EAGAIN " ou " EWOULDBLOCK"
+La socket est non-bloquante et aucune connexion n'est
+présente dans la file.
+.TP
+.B EBADF
+Le descripteur est invalide.
+.TP
+.B ENOTSOCK
+Le descripteur n'est pas celui d'une socket.
+.TP
+.B EOPNOTSUPP
+La socket de référence n'est pas de type
+.BR SOCK_STREAM .
+.TP
+.B EINTR
+L'appel-système a été interrompu par l'arrivée d'un
+signal avant qu'une connexion valide ne survienne.
+.TP
+.B ECONNABORTED
+Une connexion a été abandonnée.
+.TP
+.B EINVAL
+La socket n'est pas en attente de connexions.
+.TP
+.B EMFILE
+La limite des descripteurs ouverts pour le processus a été atteinte.
+.TP
+.B ENFILE
+Le nombre maximal de descripteurs sur le système a été atteint.
+.PP
+.B accept
+peut échouer si\ :
+.TP
+.B EFAULT
+.I adresse
+n'est pas dans l'espace d'adressage accessible
+en écriture.
+.TP
+.B ENOBUFS, ENOMEM
+Par assez de mémoire disponible. En général, cette erreur
+due à la taille limitée du tampon des sockets, et pas à la mémoire
+système proprement dite.
+.TP
+.B EPROTO
+Erreur de protocole.
+.PP
+La version Linux de
+.B accept
+peut échouer si\ :
+.TP
+.B EPERM
+Les règles du firewall interdisent la connexion.
+.PP
+De plus il peut se produire des erreurs réseau dépendant du protocole
+de la socket. Certains noyaux Linux peuvent renvoyer d'autres erreurs
+comme
+.BR ENOSR,
+.BR ESOCKTNOSUPPORT ,
+.BR EPROTONOSUPPORT ,
+.BR ETIMEDOUT.
+L'erreur
+.B ERESTARTSYS
+peut être rencontrée durant un suivi dans un débogueur.
+.SH "CONFORMITÉ"
+SVr4, BSD 4.4 (La fonction
+.B accept
+est apparue dans BSD 4.2).
+La page de manuel BSD documente cinq erreurs possibles
+(EBADF, ENOTSOCK, EOPNOTSUPP, EWOULDBLOCK, EFAULT).
+SUSv3 documente les erreurs EAGAIN, EBADF, ECONNABORTED, EINTR, EINVAL, EMFILE,
+ENFILE, ENOBUFS, ENOMEM, ENOTSOCK, EOPNOTSUPP, EPROTO, EWOULDBLOCK, De
+Plus, SUSv2 documentait EFAULT et ENOSR.
+.LP
+La version Linux de \fBaccept\fP ne fait \fBpas\fP hériter les attributs comme
+.BR O_NONBLOCK .
+Ce comportement est différent d'autres implémentations BSD. Les
+programmes portables ne doivent pas s'appuyer sur cette particularité,
+et doivent reconfigurer les attributs sur la socket renvoyée par accept.
+.SH NOTE
+Le troisième argument de
+.B accept
+était, à l'origine, déclaré comme un «\ int *\ » (ceci dans libc4 et libc5
+ainsi que pour beaucoup d'autres systèmes comme BSD 4.*, SunOS 4, SGI).
+Une proposition de standard POSIX 1003.1g l'a modifié en «\ `size_t *\ » et c'est
+ce qu'utilise SunOS. Les dernières propositions POSIX en ont fait un
+«\ socklen_t *\ », ce que suivent les spécifications Single Unix, et la glibc2.
+Pour citer Linus Torvalds\ :
+
+\fI_Toute_ bibliothèque sensée _doit_ garder "socklen_t" équivalent à un int.
+Toute autre chose invaliderait tout le niveau des sockets BSD.
+POSIX l'avait d'abord remplacé par un size_t, et je m'en suis plaint violemment
+(ainsi que d'autres heureusement, mais bien entendu pas tant que ça). Le
+remplacement par un size_t est complètement inutile car size_t à exactement
+la même taille qu'un int sur les architectures 64 bits par exemple. Et il
+_a_ la même taille qu'un "int" parce que c'était l'interface des sockets BSD.
+Quoiqu'il en soit, les gens de POSIX ont compris et ont créé un "socklen_t".
+Ils n'auraient jamais dû y toucher, mais une fois commencé, ils ont décidé de
+créer un type spécifique, pour des raisons inavouées (probablement quelqu'un
+qui ne veut pas perdre la face en expliquant que le premier travail était
+stupide et ils ont simplement renommé leur bricolage).\fP
+.SH "VOIR AUSSI"
+.BR bind (2),
+.BR connect (2),
+.BR listen (2),
+.BR select (2),
+.BR socket (2)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 9\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ accept\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

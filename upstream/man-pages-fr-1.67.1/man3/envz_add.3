@@ -1,0 +1,153 @@
+.\" Copyright 2002 walter harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\" based on the description in glibc source and infopages
+.\"
+.\" Corrections and additions, aeb
+.\"
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH ENVZ_ADD 3 "21 juillet 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+envz_add, envz_entry, envz_get, envz_merge, envz_remove, envz_strip \- Support des chaînes d'environnement.
+.SH SYNOPSIS
+.nf
+.sp
+.B "#include <envz.h>"
+.sp
+.BI "error_t"
+.BI "envz_add(char **" envz ", size_t *" envz_len ,
+.ti 16n
+.BI "const char *" nom ", const char *" valeur );
+.sp
+.BI "char *"
+.BI "envz_entry(const char *" envz ", size_t *" envz_len ", const char *" nom );
+.sp
+.BI "char *"
+.BI "envz_get(const char *" envz ", size_t *" envz_len ", const char *" nom );
+.sp
+.BI "error_t"
+.BI "envz_merge(char **" envz ", size_t *" envz_len ,
+.ti 16n
+.BI "const char *" envz2 ", size_t " envz2_len ", int " override );
+.sp
+.BI "void"
+.BI "envz_remove(char **" envz ", size_t *" envz_len ", const char *" nom );
+.sp
+.BI "void"
+.BI "envz_strip(char **" envz ", size_t *" envz_len );
+.sp
+.SH DESCRIPTION
+Ces fonctions sont spécifiques à la glibc.
+.LP
+Un vecteur argz est un pointeur sur un tampon de caractère associé à une longueur,
+voyez
+.BR argz_add (3).
+Un vecteur envz est un vecteur argz spécial, plus précisément un dont les chaînes
+ont la forme "nom=valeur". Tout ce qui suit le «\ =\ » est considéré comme la valeur.
+S'il n'y a pas de «\ =\ », la valeur correspondante est NULL
+(tandis qu'un «\ =\ » en dernière position indique une chaîne valeur vide "").
+.LP
+Ces fonctions permettent la manipulation des vecteurs envz.
+.LP
+.BR envz_add ()
+ajoute la chaîne
+.RI \&" nom = valeur \&"
+(si
+.I valeur
+n'est pas NULL) ou
+.RI \&" nom \&"
+(si la
+.I valeur
+est NULL) au vecteur envz
+.RI (* envz ,* envz_len )
+et met à jour
+.RI * envz
+et
+.RI * envz_len .
+Si une entrée avec le même
+.I nom
+existe, elle est supprimée.
+.LP
+.BR envz_entry ()
+recherche le
+.I nom
+dans le vecteur envz
+.RI ( envz , envz_len )
+et renvoie son entrée si elle est trouvée, ou NULL sinon.
+.LP
+.BR envz_get ()
+recherche le
+.I name
+dans le vecteur envz
+.RI ( envz , envz_len )
+et renvoie sa valeur si elle est trouvée, et NULL sinon.
+(Notez que la valeur peut aussi être NULL, lorsqu'il y a une
+entrée pour
+.I nom
+sans le signe «\ =\ »)
+.LP
+.BR envz_merge ()
+ajoute les entrées de
+.I envz2
+dans
+.RI * envz ,
+comme avec
+.BR envz_add ().
+Si
+.I override
+est vrai, alors les valeurs de
+.I envz2
+écraseront celles avec le même nom dans
+.RI * envz ,
+sinon elles seront ignorées.
+.LP
+.BR envz_remove ()
+supprime l'entrée correspondant au
+.I nom
+du vecteur
+.RI (* envz ,* envz_len )
+si elle s'y trouve.
+.LP
+.B envz_strip
+supprime toutes les entrées avec une valeur NULL.
+.SH "VALEUR RENVOYÉE"
+Toutes les fonctions envz qui font une allocation mémoire ont un type de
+retour \fIerror_t\fP, et renvoient \fB0\fP si elles réussissent et \fBENOMEM\fP
+si une erreur d'allocation se produit.
+.SH EXEMPLE
+.sp
+.nf
+#include <stdio.h>
+#include <envz.h>
+int
+main(int argc, char *argv[], char *envp[]) {
+	int i, e_len = 0;
+	char *str;
+
+	for (i=0; envp[i] != NULL; i++)
+		e_len += strlen(envp[i]) + 1;
+
+	str = envz_entry(*envp, e_len, "HOME");
+	printf("%s\en", str);
+	str = envz_get(*envp, e_len, "HOME");
+	printf("%s\en", str);
+	return 0;
+}
+.fi
+.SH NOTES
+Ces fonctions sont des extensions GNU à traiter avec précaution.
+.SH "VOIR AUSSI"
+.BR argz (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 21\ juillet\ 2003
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ envz_add\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

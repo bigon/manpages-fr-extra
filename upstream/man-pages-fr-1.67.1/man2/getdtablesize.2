@@ -1,0 +1,75 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright 1993 Rickard E. Faith (faith@cs.unc.edu)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified 2002-04-15 by Roger Luethi <rl@hellgate.ch> and aeb
+.\"
+.\" Traduction  10/10/1996 Christophe BLAESS (ccb@club-internet.fr)
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH GETDTABLESIZE 2 "15 avril 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+getdtablesize \- Lire la taille de la table des descripteurs.
+.SH SYNOPSIS
+.B #include <unistd.h>
+.sp
+.B int getdtablesize(void);
+.SH DESCRIPTION
+.B getdtablesize
+retourne le nombre maximal de fichiers qu'un processus puisse ouvrir
+simultanément.
+.SH "VALEUR RENVOYÉE"
+Le numéro du plus grand descripteur possible plus un.
+.SH NOTES
+.B getdtablesize
+est implémentée comme fonction de bibliothèque. La version de la glibc appelle
+.BR getrlimit (2)
+et renvoie la valeur de la limite
+.B RLIMIT_NOFILE
+actuelle, ou
+.B OPEN_MAX
+si cela échoue.
+Les versions des bibliothèques libc4 et libc5 renvoyaient
+.B OPEN_MAX
+(256 depuis Linux 0.98.4).
+.SH CONFORMITÉ
+SVr4, 4.4BSD (l'appel système
+.B getdtablesize
+est apparu pour la première fois dans BSD 4.2).
+.SH "VOIR AUSSI"
+.BR close (2),
+.BR dup (2),
+.BR getrlimit (2),
+.BR open (2)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 10\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ getdtablesize\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

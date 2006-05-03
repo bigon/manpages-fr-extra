@@ -1,0 +1,58 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Traduction 29/08/2000 par Christophe Blaess (ccb@club-internet.fr)
+.\" LDP-1.30
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH WCTRANS 3 "25 juillet 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+wctrans \- Descripteur de transposition des caractères larges.
+.SH SYNOPSIS
+.nf
+.B #include <wctype.h>
+.sp
+.BI "wctrans_t wctrans (const char *" nom );
+.fi
+.SH DESCRIPTION
+Le type \fBwctrans_t\fP représente un descripteur de transposition permettant de transformer un caractère
+large en un autre. Le détail de son implémentation peut varier, mais la valeur spéciale \fI(wctrans_t)0\fP
+indique une transformation invalide. Les valeurs non-nulles de \fBwctrans_t\fP peut être transmises à
+la fonction \fBtowctrans\fP() pour faire la transposition réelle.
+.PP
+La fonction \fBwctrans\fP() renvoie un descripteur de transposition à partir de son nom. Les noms valides dépendent
+de la catégorie LC_CTYPE de la localisation, mais les noms suivants sont toujours valides\ :
+.nf
+  "tolower" - effectue la transformation \fBtolower\fP(3)
+  "toupper" - effectue la transformation \fBtoupper\fP(3)
+.fi
+.SH "VALEUR RENVOYÉE"
+La fonction \fBwctrans\fP() renvoie un descripteur de transposition si le \fInom\fP est valide. Sinon elle renvoie \fI(wctrans_t)0\fP.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98
+.SH "VOIR AUSSI"
+.BR towctrans (3)
+.SH NOTES
+Le comportement de \fBwctrans\fP() dépend de la catégorie LC_CTYPE de la localisation.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 29\ août\ 2000
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ wctrans\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

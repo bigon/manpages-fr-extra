@@ -1,0 +1,122 @@
+.\" Copyright (c) 1983, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)sigblock.2	6.7 (Berkeley) 3/10/91
+.\"
+.\" Modified Sat Jul 24 10:09:15 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Fri Aug 11 1995 by Stephen Lee (sl14@cornell.edu)
+.\" Modified 1995 by Mike Battersby <mib@deakin.edu.au>
+.\"
+.\" Traduction 13/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/04/1997
+.\" Màj 21/10/1999
+.\" Màj 26/06/2000 LDP 1.30
+.\" Màj 04/06/2001 LDP 1.36
+.\" Màj 18/07/2003 LDP 1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SIGBLOCK 2 "31 août 1995" LDP "Manuel du programmeur Linux"
+.SH NOM
+sigblock, siggetmask, sigsetmask, sigmask \- Manipuler les masquages de signaux.
+.SH SYNOPSIS
+.B #include <signal.h>
+.sp
+.BI "int sigblock(int " mask );
+.sp
+.B int siggetmask(void);
+.sp
+.BI "int sigsetmask(int " mask );
+.sp
+.BI "int sigmask(" signum );
+.SH DESCRIPTION
+Cette interface est désormais obsolète, il vaut mieux utiliser
+.BR sigprocmask (2).
+
+L'appel
+.BR sigblock ()
+ajoute les signaux spécifiés par
+.I mask
+dans l'ensemble des signaux à bloquer avant réception.
+.PP
+L'appel
+.BR sigsetmask ()
+remplace totalement l'ensemble des signaux bloqués par le nouveau masque
+.IR mask .
+Les signaux sont bloqués si le bit leur correspondant dans
+.I mask
+est à 1.
+.PP
+L'ensemble des signaux actuellement bloqués peut être obtenu en utilisant
+.BR siggetmask ().
+.PP
+La macro
+.B sigmask
+est fournie pour construire le masque depuis le numéro de signal
+.IR signum .
+
+.SH "VALEUR RENVOYÉE"
+.BR siggetmask ()
+renvoie le masque actuel.
+
+.BR sigsetmask ()
+et
+.BR sigblock ()
+renvoient le masque précédent
+.SH NOTES
+Les prototypes de ces fonctions ne sont disponibles que si la constante
+.B _BSD_SOURCE
+est définie avant l'inclusion des fichiers d'en-tête.
+.PP
+Il n'est possible de bloquer ni
+.B SIGKILL
+ni
+.BR SIGSTOP .
+Ceci est imposé silencieusement par le système.
+
+.SH CONFORMITÉ
+BSD 4.4. Ces fonctions sont apparues dans BSD 4.3
+et sont maintenant déconseillées. Utilisez plutôt la gestion POSIX
+des signaux pour vos nouveaux programmes.
+.SH "VOIR AUSSI"
+.BR kill (2),
+.BR sigprocmask (2),
+.BR signal (7)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 13\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ sigblock\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

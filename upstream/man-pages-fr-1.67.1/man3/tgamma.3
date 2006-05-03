@@ -1,0 +1,74 @@
+.\" Copyright 2002 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\" Based on glibc infopages
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH TGAMMA 3 "10 août 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+tgamma, tgammaf, tgammal \- Véritables fonctions Gamma.
+.SH SYNOPSIS
+.B #include <math.h>
+.sp
+.BI "double tgamma(double " x );
+.br
+.BI "float tgammaf(float " x );
+.br
+.BI "long double tgammal(long double " x );
+.sp
+.SH DESCRIPTION
+La fonction Gamma est définie ainsi\ :
+.sp
+ Gamma(x) = intégrale de 0 à l'infini de t^(x-1) e^-t dt
+.sp
+Elle est déféinie pour tous réels sauf les entiers négatifs ou nuls.
+Pour un entier non-négatif \fIm\fP on a
+.sp
+ Gamma(m+1) = m!
+.sp
+et, plus généralement pour tout \fIx\fP:
+.sp
+ Gamma(x+1) = x * Gamma(x)
+.sp
+Pour \fIx\fP < 0.5 on peut écrire
+.sp
+ Gamma(x) * Gamma(1-x) = PI/sin(PI*x)
+.PP
+Ces fonctions renvoient la valeur de la fonction Gamma pour l'argument
+\fIx\fP.
+Le préfixe «\ t\ » signifie «\ true gamma\ » («\ véritable fonction Gamma\ »)
+car il existe deja une fonction
+.BR gamma ()
+qui retourne un autre résultat.
+.SH ERREURS
+Une application voulant vérifier les conditions d'erreur doit mettre
+.I errno
+à zéro et appeler
+.I feclearexcept(FE_ALL_EXCEPT)
+avant d'invoquer ces fontions. En retour, si
+.I errno
+est non nul ou si
+.B fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW)
+est non nul, une erreur s'est produite.
+.LP
+Une erreur d'échelle survient si x est trop grand.
+Une erreur de pôle survient si x est nul.
+Une erreur de domaine (ou erreur de pôle) survient si x est un entier négatif.
+.SH "CONFORMITÉ"
+C99.
+.SH "VOIR AUSSI"
+.BR lgamma (3),
+.BR gamma (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 2002
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ tgamma\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

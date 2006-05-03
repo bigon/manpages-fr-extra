@@ -1,0 +1,75 @@
+.\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" References consulted:
+.\"   GNU glibc-2 source code and manual
+.\"   Dinkumware C library reference http://www.dinkumware.com/
+.\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
+.\"   ISO/IEC 9899:1999
+.\"
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH FGETWC 3 "25 juillet 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+fgetwc, getwc \- Lire une chaîne de caractères larges dans un flux.
+.SH SYNOPSIS
+.nf
+.B #include <stdio.h>
+.br
+.B #include <wchar.h>
+.sp
+.BI "wint_t fgetwc (FILE * " flux ");
+.BI "wint_t getwc (FILE * " flux ");
+.fi
+.SH DESCRIPTION
+La fonction \fBfgetwc\fP() est l'équivalent pour les caractères larges de la
+fonction \fBfgetc\fP(). Elle lit un caractère large depuis le \fIflux\fP et le
+renvoie. Si la fin du fichier est rencontrée, elle retourne WEOF. Si une erreur
+se produit lors de la conversion du caractère large, \fBerrno\fP est positionnée
+à \fBEILSEQ\fP et WEOF est retourné.
+.PP
+La fonction\fBgetwc\fP() fonctionne de manière identique à
+\fBfgetwc\fP(). Elle peut être implémentée sous forme de macro, et peut évaluer
+ses arguments plus d'une fois. Il n'existe plus aucune raison de l'utiliser.
+.PP
+Pour des versions de ces fonctions ignorant les verrouillages, voir
+.BR unlocked_stdio (3).
+.SH "VALEUR RENVOYÉE"
+La fonction \fBfgetwc\fP() renvoie le caractère large suivant du flux ou
+WEOF.
+.SH ERREURS
+Hormis les erreurs habituelles, on peut rencontrer\ :
+.TP
+.B EILSEQ
+Les données lues depuis le flux d'entrée ne forment pas des caractères
+corrects.
+.SH "CONFORMITÉ"
+ISO/ANSI C, UNIX98.
+.SH NOTES
+Le comportement de \fBfgetwc\fP() dépend de la catégorie LC_CTYPE de la localisation
+courante.
+.PP
+En l'absence d'informations supplémentaires passées à l'appel fopen, il est
+normal de présumer que \fBfgetwc\fP() va lire une séquence multi-caractères du
+flux puis la convertir en une chaîne à caractères larges.
+.SH "VOIR AUSSI"
+.BR fputwc (3),
+.BR fgetws (3),
+.BR ungetwc (3),
+.BR unlocked_stdio (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Thierry Vignaud
+<tvignaud AT mandriva DOT com> en 1999
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ fgetwc\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,340 @@
+.\" Hey Emacs! This file is -*- nroff -*- source.
+.\"
+.\" Copyright (C) 1996 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified Fri Jan 31 16:38:25 1997 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified Sat Mar 25 08:11:16 2000 by Jim Van Zandt <jrv@vanzandt.mv.com>
+.\" Modified Thu Oct  4 03:09:44 2001 by John Levon <moz@compsoc.man.ac.uk>
+.\" Modified Sun Feb  2 16:00    2003 by Andi Kleen <ak@muc.de>
+.\" Modified 21 May 2003, Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\"	MAP_LOCKED workks from 2.5.37
+.\"
+.\" Traduction 14/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 19/07/1997
+.\" Màj 02/10/1999
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 30/05/2001 LDP-1.36
+.\" Màj 19/01/2002 LDP-1.47
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 25/07/2003 LDP-1.57
+.\" Màj 30/07/2003 LDP-1.58
+.\" Màj 27/06/2005 LDP-1.60
+.\" Màj 04/07/2005 LDP-1.61
+.\" Màj 23/12/2005 LDP-1.67
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH MMAP 2 "21 mai 2003" LDP "Manuel du programmeur Linux"
+.SH NOM
+mmap, munmap \- Établir/supprimer une projection en mémoire (map/unmap) des fichiers ou des périphériques.
+.SH SYNOPSIS
+.B #include <sys/mman.h>
+.sp
+.BI "void * mmap(void *" start ", size_t " length ", int " prot
+.BI ", int " flags ", int " fd ", off_t " offset );
+.sp
+.BI "int munmap(void *" start ", size_t " length );
+.SH DESCRIPTION
+La fonction
+.B mmap
+demande la projection en mémoire de
+.I length
+octets commençant à la position
+.I offset
+depuis un fichier (ou un autre objet) indiqué par le descripteur
+.I fd,
+de préférence à l'adresse pointée par
+.IR start.
+Cette adresse n'est qu'une préférence, généralement 0.
+La véritable adresse où l'objet est projeté est renvoyée par la
+fonction
+.BR mmap ,
+et n'est jamais nulle.
+.LP
+L'argument
+.I prot
+indique la protection que l'on désire pour cette zone de mémoire, et ne
+doit pas entrer en conflit avec le mode d'ouverture du fichier.
+Il s'agit soit de
+.B PROT_NONE
+(le contenu de la mémoire est inaccessible) soit d'un OU binaire entre
+les constantes suivantes\ :
+.TP 1.1.i
+.B PROT_EXEC
+On peut exécuter du code dans la zone mémoire.
+.TP
+.B PROT_READ
+On peut lire le contenu de la zone mémoire.
+.TP
+.B PROT_WRITE
+On peut écrire dans la zone mémoire.
+.TP
+.B PROT_NONE
+Les pages ne peuvent pas être accédées.
+.LP
+Le paramètre
+.I flags
+indique le type de fichier projeté, les options de projection, et si
+les modifications faites sur la portion projetée sont privées ou doivent
+être partagées avec les autres références. Les options sont\ :
+.TP
+.B MAP_FIXED
+N'utiliser que l'adresse indiquée. Si c'est impossible,
+.B mmap
+échouera. Si MAP_FIXED est spécifié,
+.I start
+doit être un multiple de la longueur de page. Il est déconseillé d'utiliser
+cette option.
+.TP
+.B MAP_SHARED
+Partager la projection avec tout autre processus utilisant l'objet.
+L'écriture dans la zone est équivalente à une écriture dans le fichier. En revanche,
+ce dernier n'est pas nécessairement mis à jour tant qu'on n'a pas appelé
+.BR msync (2)
+ou
+.BR munmap (2).
+.TP
+.B MAP_PRIVATE
+Créer une projection privée, utilisant la méthode de copie à l'écriture.
+L'écriture dans la zone ne modifie pas le fichier. Il n'est pas précisé
+si les changements effectués dans le fichier après l'appel
+.B mmap
+seront visibles.
+.LP
+Vous devez indiquer soit MAP_SHARED, soit MAP_PRIVATE.
+.LP
+Les trois attributs ci-dessus sont décrits dans POSIX.1b (anciennement POSIX.4)
+et SUSv2. Linux propose également des attributs non standards\ :
+.TP
+.B MAP_DENYWRITE
+Cet attribut est ignoré.
+(Autrefois, une tentative d'écriture dans le fichier sous-jacent échouait avec
+l'erreur ETXTBUSY. Mais ceci permettait des attaques de déni de service).
+.TP
+.B MAP_EXECUTABLE
+Cet attribut est ignoré.
+.TP
+.B MAP_NORESERVE
+(Utilisé conjointement à MAP_PRIVATE). Ne pas réserver d'espace de swap pour
+les pages de cette projection. Une telle réservation garantit que l'on puisse
+modifier les zones soumises à une copie-en-écriture. Sans réservation, on peut
+recevoir un signal SIGSEGV durant une écriture, s'il n'y a plus de place
+disponible.
+.TP
+.B MAP_LOCKED
+(Depuis Linux 2.5.37) Verrouille la page projetée en mémoire à la manière de
+.BR mlock ().
+Cet attribut est ignoré sur les noyaux plus anciens.
+.TP
+.B MAP_GROWSDOWN
+Utilisé pour les piles. Indique au système de gestion de la mémoire virtuelle
+que la projection doit s'étendre en croissant vers le bas de la mémoire.
+.TP
+.B MAP_ANONYMOUS
+La projection n'est supportée par aucun fichier. Les arguments
+.I fd
+et
+.I offset
+sont ignorés. Cet attribut, utilisé en conjonction de MAP_SHARE,
+est implémenté depuis Linux 2.4.
+.TP
+.B MAP_ANON
+Alias de MAP_ANONYMOUS. Déconseillé.
+.TP
+.B MAP_FILE
+Attribut pour compatibilité. Ignoré.
+.TP
+.B MAP_32BIT
+Faire la projection dans les premiers 2Go de l'espace d'adressage du processus.
+Ignoré si
+.I MAP_FIXED
+est présent. Cet attribut n'est supporté que sur x86-64 pour les programmes 64-bits.
+.LP
+Certains systèmes utilisent les attributs supplémentaires MAP_AUTOGROW,
+MAP_AUTORESRV, MAP_COPY, et MAP_LOCAL.
+.LP
+.I fd
+doit être un descripteur de fichier valide, sauf si on utilise MAP_ANONYMOUS,
+auquel cas cet argument est ignoré.
+.LP
+L'argument
+.I offset
+doit normalement être un multiple de la taille de page renvoyée par l'appel
+.BR getpagesize (2).
+.LP
+La mémoire obtenue par
+.B mmap
+est préservée lors d'un
+.BR fork (2),
+avec les mêmes attributs.
+.LP
+La projection doit avoir une taille multiple de celle des pages. Pour un fichier
+dont la longueur n'est pas un multiple de la taille de page, la mémoire restante
+est remplie de zéros lors de la projection, et les écritures dans cette zone
+n'affectent pas le fichier. Les effets de la modification de la taille du fichier sous-jacent
+sur les pages correspondant aux zones ajoutées ou supprimées ne sont pas précisés.
+L'appel système
+.B munmap
+détruit la projection dans la zone de mémoire spécifiée, et s'arrange pour
+que toute référence ultérieure à cette zone mémoire déclenche une
+erreur d'adressage. La projection est aussi automatiquement détruite lorsque
+le processus se termine. À l'inverse, la fermeture du descripteur de fichier
+ne supprime pas la projection.
+.LP
+L'adresse
+.I start
+doit être un multiple de la taille de page. Tous les pages contenant une partie
+de l'intervalle indiqué sont libérées, et tout accès ultérieur
+déclenchera SIGSEGV. Aucune erreur n'est détectée si l'intervalle
+indiqué ne contient pas de page projetée.
+
+Pour les projections supportées par un fichier, le champ
+.I st_atime
+du fichier peut être mis à jour à tout moment entre l'appel
+.BR mmap ()
+et le
+.BR munmap ()
+correspondant. Le premier accès dans la page projetée
+mettra le champ à jour si cela n'a pas été déjà fait.
+.LP
+Les champs
+.B st_ctime
+et
+.B st_mtime
+pour un fichier projeté avec PROT_WRITE et MAP_SHARED seront mis à jour après
+une écriture dans la région projetée, et avant l'éventuel
+.BR msync ()
+suivant avec attribut MS_SYNC ou MS_ASYNC.
+.SH "VALEUR RENVOYÉE"
+.B mmap
+renvoie un pointeur sur la zone de mémoire, s'il réussit. En
+cas d'échec il retourne la valeur
+.B MAP_FAILED
+(c.-à-d. (void *) \-1) et
+.I errno
+contient le code d'erreur.
+
+.B munmap
+renvoie 0 s'il réussit. En cas d'échec, \-1 est renvoyé et
+.I errno
+contient le code d'erreur (probablement EINVAL).
+.SH NOTES
+Suivant l'architecture,
+.I PROT_READ
+peut include
+.I PROT_EXEC
+ou non. Les programmes portables doivent toujours indiquer
+.I PROT_EXEC
+s'ils veulent exécuter du code dans la projection.
+
+.SH ERREURS
+.TP
+.B EBADF
+.I fd
+n'est pas un descripteur de fichier valide (et MAP_ANONYMOUS n'était pas précisé).
+.TP
+.B EACCES
+Le descripteur ne correspond pas à un fichier normal, ou
+on demande une projection privée MAP_PRIVATE mais
+.I fd
+n'est pas ouvert en lecture, ou on demande une projection
+partagée MAP_SHARED avec protection PROT_WRITE, mais
+.I fd
+n'est pas ouvert en lecture et écriture (O_RDWR).
+Ou encore PROT_WRITE est demandé, mais le fichier est ouvert en ajout seulement.
+.TP
+.B EINVAL
+.I start
+ou
+.I length
+ou
+.IR offset
+sont invalides.
+(par exemple\ : zone trop grande, ou non alignée sur une frontière de page).
+.TP
+.B ETXTBSY
+MAP_DENYWRITE a été réclamé mais
+.I fd
+est ouvert en écriture.
+.TP
+.B EAGAIN
+Le fichier est verrouillé, ou trop de pages ont été verrouillées en mémoire.
+.TP
+.B ENOMEM
+pas assez de mémoire, ou le nombre maximal de projection par processus a été
+dépassé.
+.TP
+.B ENODEV
+Le système de fichiers sous-jacent ne supporte pas la projection en mémoire.
+.LP
+L'accès à une zone de projection peut déclencher les signaux suivants\ :
+.TP
+.B SIGSEGV
+Tentative d'écriture dans une zone en lecture seule.
+.TP
+.B SIGBUS
+Tentative d'accès à une portion de la zone qui ne correspond pas au fichier
+(par exemple après la fin du fichier, y compris lorsqu'un autre fichier l'a
+tronqué).
+.SH DISPONIBILITÉ
+Sur les systèmes POSIX sur lesquels
+.BR mmap ,
+.B msync
+et
+.B munmap
+sont disponibles, la constante symbolique
+.B _POSIX_MAPPED_FILES
+est définie dans <unistd.h> comme étant une valeur supérieure à 0. (Voir aussi
+.BR sysconf (3).)
+.\" POSIX 1003.1-2001: devrait être définie à -1, 0 ou 200112L.
+.\" -1: indisponible, 0: demander en utilisant sysconf().
+.\" glibc les définit à 1.
+.SH "CONFORMITÉ"
+SVr4, POSIX.1b (anciennement POSIX.4), BSD 4.4, SUSv2.
+SVr4 documente les codes d'erreur supplémentaires ENXIO et ENODEV.
+SUSv2 documente les codes d'erreur supplémentaires EMFILE et EOVERFLOW.
+
+.I MAP_32BIT
+est une extension Linux.
+.SH "VOIR AUSSI"
+.BR getpagesize (2),
+.BR mlock (2),
+.BR mmap2 (2),
+.BR mremap (2),
+.BR msync (2),
+.BR shm_open (2),
+B.O. Gallmeister, POSIX.4, O'Reilly, pp. 119-124 et 365-369.
+.\"
+.\" Repeat after me: private read-only mappings are 100% equivalent to shared
+.\" read-only mappings. No ifs, buts, or maybes.
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 14\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ mmap\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

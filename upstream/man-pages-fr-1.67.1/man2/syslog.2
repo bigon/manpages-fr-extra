@@ -1,0 +1,204 @@
+.\" Copyright 1995 Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Written 11 June 1995 by Andries Brouwer (aeb@cwi.nl)
+.\"
+.\" Traduction 15/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/04/1997
+.\" Màj 09/04/1999 LDP-1.22
+.\" Màj 20/01/2002 LDP-1.47
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SYSLOG 2 "25 novembre 2001" LDP "Manuel du programmeur Linux"
+.SH NOM
+syslog, klogctl \- Lire et/ou effacer les tampons circulaires de messages du noyau.
+
+.SH SYNOPSIS
+.nf
+/* L'interface GlibC */
+.br
+.B "#include <sys/klog.h>"
+.sp
+.BI "int klogctl(int " type ", char *" bufp ", int " len );
+.sp
+/* L'appel-système déclaré à la main */
+.br
+.B #include <unistd.h>
+.sp
+.B #include <linux/unistd.h>
+.sp
+.B _syscall3(int, syslog, int, type, char *, bufp, int, len);
+.sp
+.BI "int syslog(int " type ", char *" bufp ", int " len );
+.fi
+.SH DESCRIPTION
+Cette fonction n'est probablement pas celle qui vous intéresse,
+regardez plutôt
+.BR syslog (3)
+pour l'interface avec la bibliothèque C. Cette page ne documente
+que l'interface directe de l'appel-système avec le noyau.
+
+L'argument \fItype\fP détermine l'action effectuée par cette fonction.
+
+Extrait de
+.IR kernel/printk.c :
+.nf
+/*
+ * Commandes de sys_syslog\ :
+ *
+ *   0 -- Fermer le journal (actuellement NOP)
+ *   1 -- ouvrir le journal (actuellement NOP)
+ *   2 -- Lire depuis le journal
+ *   3 -- Lire jusqu'à 4Ko des derniers messages du tampon circulaire.
+ *   4 -- Lire et effacer les 4Ko derniers messages du tampon circulaire.
+ *   5 -- Vider le tampon circulaire
+ *   6 -- Désactiver printk sur la console
+ *   7 -- Activer printk sur la console
+ *   8 -- Indiquer le niveau des messages à afficher sur la console.
+ *   9 -- Renvoie le nombre de caractères non lus dans le tampon.
+ */
+.fi
+
+Seule la fonction 3 est autorisée pour les processus non super-utilisateur.
+(La fonction 9 a été ajoutée dans le 2.4.10)
+
+.B Le tampon de journalisation du noyau.
+.br
+Le noyau dispose d'un tampon circulaire d'une longueur LOG_BUF_LEN
+(4096 à l'origine, 8192 depuis le 1.3.54, et 16384 depuis la version 2.1.113)
+dans laquelle il stocke les messages reçus par la fonction \fIprintk\fP().
+Ce tampon est le journal du système.
+
+L'appel
+.B syslog
+.RI (2, buf , len )
+attend que ce journal soit non vide, puis lit au plus \fIlen\fP
+octets qu'il place dans le tampon \fIbuf\fP. Il renvoie le
+nombre d'octets lus. Les octets lus sont extraits du journal\ :
+les informations ne peuvent être lues qu'une seule fois.
+C'est la fonction exécutée par le noyau quand un programme
+utilisateur lit
+.IR /proc/kmsg .
+
+L'appel
+.B syslog
+.RI (3, buf , len )
+lit les \fIlen\fP dernier octets depuis le journal (de manière non destructive).
+Il ne lira pas plus que ce qui a été écrit dans le tampon depuis la
+dernière commande de lecture destructrice.
+Il renvoie le nombre d'octets lus.
+
+L'appel
+.B syslog
+.RI (4, buf , len )
+effectue la même chose puis vide le tampon.
+
+L'appel
+.B syslog
+.RI (5, dummy , idummy )
+vide uniquement le tampon.
+
+.B Le niveau de journalisation (loglevel)
+.br
+La routine du noyau \fIprintk\fP() n'écrira un message sur la console
+que si celui-ci a un niveau de journalisation inférieur à la valeur
+de la variable
+.I console_loglevel
+(initialement DEFAULT_CONSOLE_LOGLEVEL (7), mais augmenté à 10
+si la ligne de commande du noyau contient le mot «\ debug\ », et à
+15 si une faute du noyau se produit - en réalité, les valeurs
+10 et 15 sont idiotes et n'apportent rien de plus que 8).
+Cette variable est positionnée (dans l'intervalle 1\-8) par l'appel
+.B syslog
+.RI (8, dummy , value ).
+L'appel
+.B syslog
+.RI ( type , dummy , idummy )
+avec \fItype\fP
+égal à 6 ou 7 la positionne à 1 (seulement les messages kernel panics)
+ou 7 (tout sauf les messages de débogage), respectivement.
+
+Chaque ligne de texte dans un message a son propre niveau de journalisation.
+Ce niveau est DEFAULT_MESSAGE_LOGLEVEL - 1 (6)
+à moins que la ligne ne commence par <d>
+où \fId\fP est un chiffre dans l'intervalle 1\-7.
+La signification conventionnelle des niveaux de journalisation est
+définie dans
+.I <linux/kernel.h>
+comme suit\ :
+
+.nf
+#define KERN_EMERG    "<0>"  /* système inutilisable             */
+#define KERN_ALERT    "<1>"  /* action à effectuer immédiatement */
+#define KERN_CRIT     "<2>"  /* conditions critiques             */
+#define KERN_ERR      "<3>"  /* conditions d'erreurs             */
+#define KERN_WARNING  "<4>"  /* message d'avertissement          */
+#define KERN_NOTICE   "<5>"  /* normal mais significatif         */
+#define KERN_INFO     "<6>"  /* informations                     */
+#define KERN_DEBUG    "<7>"  /* messages de débugging            */
+.fi
+
+.SH "VALEUR RENVOYÉE"
+En cas d'erreur, \-1 est renvoyé et \fIerrno\fP contient le
+code d'erreur.
+En cas de réussite
+\fBsyslog\fP() renvoie le nombre d'octets lus
+pour \fItype\fP valant 2, 3 ou 4,
+et 0 sinon.
+.SH "ERREURS"
+.TP
+.B EPERM
+Une tentative de changer console_loglevel ou d'effacer le
+tampon circulaire du noyau par un processus sans les privilèges
+super-utilisateur.
+.TP
+.B EINVAL
+Mauvais paramètres
+.TP
+.B ERESTARTSYS
+L'appel-système a été interrompu par un signal - rien n'a été lu.
+(Ceci ne peut être vu que pendant un suivi de processus).
+.SH "CONFORMITÉ"
+Cet appel-système est spécifique Linux et ne doit pas être employé dans
+des programmes destinés à être portables.
+.SH NOTES
+Depuis longtemps, des gens trouvent regrettable qu'un appel-système du
+noyau et une routine de bibliothèque aient le même nom bien qu'ils
+n'aient pas de rapport entre eux.
+Dans les libc4 et libc5 le numéro de cet appel-système était défini par
+.BR SYS_klog .
+Dans la glibc 2.0, l'appel-système est nommé
+.BR klogctl .
+.SH "VOIR AUSSI"
+.BR syslog (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 15\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ syslog\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

@@ -1,0 +1,361 @@
+.\" Copyright (c) 1983, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)socket.2	6.8 (Berkeley) 3/10/91
+.\"
+.\" Modified Sat Jul 24 10:36:46 1993 by Rik Faith (faith@cs.unc.edu)
+.\" Modified Tue Oct 22 22:10:43 1996 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified 1998,1999 by Andi Kleen <ak@muc.de>
+.\" Modified, 17 Jul 02 by Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\"
+.\" Traduction 13/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 15/04/1997
+.\" Màj 18/05/1999 LDP-1.23
+.\" Màj 26/06/2000 LDP-1.30
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 27/06/2005 LDP-1.60
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH SOCKET 2 "24 avril 1999" LDP "Manuel du programmeur Linux"
+.SH NOM
+socket \- Créer un point de communication.
+.SH SYNOPSIS
+.B #include <sys/types.h>
+.br
+.B #include <sys/socket.h>
+.sp
+.BI "int socket(int " domain ", int " type ", int " protocol );
+.SH DESCRIPTION
+.B socket
+crée un point de communication, et renvoie un descripteur.
+.PP
+Le paramètre
+.I domain
+indique le domaine de communication pour le dialogue\ ; ceci sélectionne
+la famille de protocole à employer. Elles sont définies dans le fichier
+.IR <linux/socket.h> .
+Les formats actuellement proposés sont\ :
+.PP
+.TS
+tab(:);
+l l l.
+Nom:Utilisation:Page
+T{
+.B PF_UNIX,PF_LOCAL
+T}:T{
+Communication locale
+T}:T{
+.BR unix (7)
+T}
+T{
+.B PF_INET
+T}:IPv4 Protocoles Internet:T{
+.BR ip (7)
+T}
+T{
+.B PF_INET6
+T}:IPv6 Protocoles Internet:
+T{
+.B PF_IPX
+T}:IPX - Protocoles Novell:
+T{
+.B PF_NETLINK
+T}:T{
+Interface utilisateur noyau
+T}:T{
+.BR netlink (7)
+T}
+T{
+.B PF_X25
+T}:Protocole ITU-T X.25 / ISO-8208:T{
+.BR x25 (7)
+T}
+T{
+.B PF_AX25
+T}:T{
+Protocole AX.25 radio amateur
+T}:
+T{
+.B PF_ATMPVC
+T}:Accès direct ATM PVCs:
+T{
+.B PF_APPLETALK
+T}:Appletalk:T{
+.BR ddp (7)
+T}
+T{
+.B PF_PACKET
+T}:T{
+Interface paquet bas-niveau
+T}:T{
+.BR packet (7)
+T}
+.TE
+.PP
+Les sockets ont le
+.IR type ,
+indiqué ce qui fixe la sémantique des communications. Les types
+définis actuellement sont\ :
+.TP
+.B SOCK_STREAM
+Support de dialogue garantissant l'intégrité, fournissant un flux de données
+binaires, et intégrant un mécanisme pour les transmissions de données hors-bande.
+.TP
+.B SOCK_DGRAM
+Transmissions sans connexion, non garantie, de datagrammes de
+longueur fixe, généralement courte.
+.TP
+.B SOCK_SEQPACKET
+Dialogue garantissant l'intégrité, pour le transport de datagrammes
+de longueur fixe. Le lecteur peut avoir à lire le paquet de
+données complet à chaque appel-système read.
+.TP
+.B SOCK_RAW
+Accès direct aux données réseau.
+.TP
+.B SOCK_RDM
+Transmission fiable de datagrammes, sans garantie de l'ordre de délivrance.
+.TP
+.B SOCK_PACKET
+Obsolète, à ne pas utiliser dans les programmes actuels.
+Voir
+.BR packet (7).
+.PP
+Certains types de sockets peuvent ne pas être implémentés par toutes les familles de
+protocoles. Par exemple,
+.B SOCK_SEQPACKET
+n'est pas implémenté pour
+.BR AF_INET .
+.PP
+Le protocole à utiliser sur la socket est indiqué par l'argument
+.IR protocol .
+Normalement, il n'y a qu'un seul protocole par type de socket pour
+une famille donnée, auquel
+cas l'argument
+.I protocol
+peut être nul.
+Néanmoins, rien ne s'oppose à ce que plusieurs protocoles existent, auquel
+cas il est nécessaire de le spécifier.
+Le numéro de protocole dépend du domaine de communication de la
+socket. Voir
+.BR protocols (5).
+Voir
+.BR getprotoent (3)
+pour savoir comment associer un nom de protocole à un numéro.
+.PP
+Une socket de type
+.BR SOCK_STREAM
+est un flux d'octets full-duplex, similaire aux tubes (pipes). Elle ne
+préserve pas les limites d'enregistrements. Une socket SOCK_STREAM
+doit être dans un état
+.I connecté
+avant que des données puisse y être lues ou écrites. Une connexion
+sur une autre socket est établie par l'appel système
+.BR connect (2).
+Une fois connectée, les données y sont transmises par
+.BR read (2)
+et
+.BR write (2)
+ou par des variantes de
+.BR send (2)
+et
+.BR recv (2).
+Quand une session se termine, on referme la socket avec
+.BR close (2).
+Les données hors-bande sont envoyées ou reçues en utilisant
+.BR send (2)
+et
+.BR recv (2).
+.PP
+Les protocoles de communication qui implémentent les sockets
+.B SOCK_STREAM
+garantissent qu'aucune donnée n'est perdue ou dupliquée.
+Si un bloc de données, pour lequel le correspondant a suffisamment de
+place dans son tampon, n'est pas transmis correctement dans un délai
+raisonnable, la connexion est considérée comme inutilisable.
+Si l'option
+.B SO_KEEPALIVE
+est activée sur la socket, le protocole vérifie, d'une manière qui lui est
+spécifique, si le correspondant est toujours actif.
+Un signal
+.B SIGPIPE
+est envoyé au processus tentant d'écrire sur une socket inutilisable,
+forçant les programmes ne gérant pas ce signal à se terminer.
+Les sockets de type
+.B SOCK_SEQPACKET
+emploient les mêmes appels systèmes que celles de types
+.B SOCK_STREAM,
+à la différence que la fonction
+.BR read (2)
+ne renverra que le nombre d'octets requis, et toute autre donnée
+restante sera éliminée. De plus, les frontières des messages seront
+préservées.
+.PP
+Les sockets de type
+.B SOCK_DGRAM
+ou
+.B SOCK_RAW
+permettent l'envoi de datagrammes aux correspondants indiqués dans l'appel système
+.BR send (2).
+Les datagrammes sont généralement lus par la fonction
+.BR recvfrom (2),
+qui fournit également l'adresse du correspondant.
+.PP
+Les sockets
+.B SOCK_PACKET
+sont obsolètes. Elles servent à recevoir les paquets bruts directement
+depuis le gestionnaire de périphérique. Utilisez plutôt
+.BR packet (7).
+.PP
+Un appel à
+.BR fcntl (2)
+avec l'argument
+.B F_SETOWN
+permet de préciser un groupe de processus qui recevront un
+signal
+.B SIGURG
+lors de l'arrivée de données hors-bande, ou le signal
+.B SIGPIPE
+lorsqu'une connexion sur une socket
+.B SOCK_STREAM
+se termine inopinément.
+Cette fonction permet également de valider des entrées/sorties
+non bloquantes, et une notification asynchrone des événements par le signal
+.BR SIGIO .
+L'utilisation de
+.B F_SETOWN
+est équivalent à un appel
+.BR ioctl (2)
+avec l'argument
+.B FSIOSETOWN
+ou
+.BR SIOCSPRGR .
+.PP
+Lorsque le réseau indique une condition d'erreur au module du protocole
+(par exemple l'utilisation d'un message ICMP au lieu d'IP), un drapeau
+signale une erreur en attente sur la socket. L'opération suivante sur cette
+socket renverra ce code d'erreur. Pour certains protocoles, il est possible
+d'activer une file d'attente d'erreurs par socket. Pour plus de détails, voir
+.B IP_RECVERR
+dans
+.BR ip (7).
+.PP
+Les opérations sur les sockets sont représentées par des
+.IR options
+du niveau socket.
+Ces options sont définies dans
+.IR sys/socket.h .
+Les fonctions
+.BR setsockopt (2)
+et
+.BR getsockopt (2)
+sont utilisées respectivement pour fixer ou lire les options.
+.SH "VALEUR RENVOYÉE"
+.BR socket
+retourne un descripteur référençant la socket créée en cas de réussite.
+En cas d'échec \-1 est renvoyé, et
+.I errno
+contient le code d'erreur.
+.SH ERREURS
+.TP
+.B EPROTONOSUPPORT
+Le type de protocole, ou le protocole lui-même n'est pas disponible
+dans ce domaine de communication.
+.TP
+.B EAFNOSUPPORT
+L'implémentation ne supporte pas la famille d'adresses indiquée.
+.TP
+.B ENFILE
+La table des descripteurs par processus est pleine.
+.TP
+.B EMFILE
+La table des fichiers est pleine.
+.TP
+.B EACCES
+La création d'une telle socket n'est pas autorisée.
+.TP
+.BR ENOBUFS " ou " ENOMEM
+Pas suffisamment d'espace pour allouer les tampons nécessaires.
+.TP
+.B EINVAL
+Protocole inconnu, ou famille de protocole inexistante.
+.PP
+D'autres erreurs peuvent être dues aux modules de protocoles sous-jacents.
+.SH CONFORMITÉ
+BSD 4.4, SUSv2, POSIX 1003.1-2001.
+La fonction
+.B socket
+est apparue dans BSD 4.2. Elle est généralement portable de/vers les systèmes
+non-BSD supportant des clones des sockets BSD (y compris les variantes
+de System V).
+.SH NOTE
+Les constantes explicites utilisées sous BSD 4.* pour les familles de
+protocoles sont PF_UNIX, PF_INET... et AF_UNIX... sont utilisées
+pour les familles d'adresses. Toutefois, même la page de manuel de BSD
+indiquait «\ La famille de protocoles est généralement la même que la
+famille d'adresse\ », et les standards ultérieurs utilisent AF_* partout.
+.SH BOGUES
+.B SOCK_UUCP
+n'est pas encore implémentée.
+.SH "VOIR AUSSI"
+.BR accept (2),
+.BR bind (2),
+.BR connect (2),
+.BR fcntl (2),
+.BR getpeername (2),
+.BR getsockname (2),
+.BR getsockopt (2),
+.BR ioctl (2),
+.BR listen (2),
+.BR read (2),
+.BR recv (2),
+.BR select (2),
+.BR send (2),
+.BR shutdown (2),
+.BR socketpair (2),
+.BR write (2),
+.BR getprotoent (3),
+.BR ip (7),
+.BR socket (7),
+.BR tcp (7),
+.BR udp (7),
+.BR unix (7)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 13\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ socket\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

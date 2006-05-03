@@ -1,0 +1,78 @@
+.\" Copyright 2002 Walter Harms (walter.harms@informatik.uni-oldenburg.de)
+.\" Distributed under GPL
+.\" based on glibc infopages
+.\"
+.\" Traduction Christophe Blaess <ccb@club-internet.fr>
+.\" Màj 21/07/2003 LDP-1.56
+.\" Màj 20/07/2005 LDP-1.64
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH LGAMMA 3 "10 août 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+lgamma, lgammaf, lgammal, lgamma_r, lgammaf_r, lgammal_r \- Logarithme de la fonction gamma.
+.SH SYNOPSIS
+.nf
+.B #include <math.h>
+.sp
+.BI "double lgamma(double " x );
+.br
+.BI "float lgammaf(float " x );
+.br
+.BI "long double lgammal(long double " x );
+.sp
+.BI "double lgamma_r(double " x ", int *" signp );
+.br
+.BI "float lgammaf_r(float " x ", int *" signp );
+.br
+.BI "long double lgammal_r(long double " x ", int *" signp );
+.fi
+.SH DESCRIPTION
+Pour la définition de la fonction Gamma, voir
+.BR tgamma (3).
+.PP
+La fonction \fBlgamma\fP() renvoie le logarithme naturel (néperien) de
+la valeur absolue de la fonction Gamma.
+Le signe de la fonction Gamma est stocké dans la variable entière
+externe \fIsigngam\fP déclaré dans
+.IR <math.h> .
+Il vaut 1 si la fonction Gamma est positive ou nulle, \-1
+si elle est négative.
+.PP
+Comme l'utilisation de la variable statique
+.I signgam
+n'est pas sûre en multi-threads, les fonctions \fBlgamma_r\fP() etc. ont été
+introduites, elles renvoient le signe dans le paramètre
+.IR signp .
+.PP
+Pour les \fIx\fP entiers négatifs ou nuls, \fBlgamma\fP() renvoie HUGE_VAL,
+remplit \fIerrno\fP avec ERANGE, et déclenche l'exception Division par zéro.
+(De même, \fBlgammaf\fP() renvoie HUGE_VALF et \fBlgammal\fP() renvoie
+HUGE_VALL.)
+.SH ERREURS
+Une application voulant vérifier les conditions d'erreur doit mettre
+.I errno
+à zéro et appeler
+.BI feclearexcept( FE_ALL_EXCEPT )
+avant d'invoquer ces fontions. En retour, si
+.I errno
+est non nul ou si
+.BI fetestexcept( "FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW" )
+est non nul, une erreur s'est produite.
+.LP
+Une erreur d'échelle survient si x est trop grand.
+Une erreur de pôle survient si x est un entier négatif ou nul.
+.SH "CONFORMITÉ"
+C99, SVID 3, BSD 4.3
+.SH "VOIR AUSSI"
+.BR tgamma (3)
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 21\ juillet\ 2003
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 3\ lgamma\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.

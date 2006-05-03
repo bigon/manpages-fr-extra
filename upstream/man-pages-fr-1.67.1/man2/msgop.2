@@ -1,0 +1,384 @@
+.\" Copyright 1993 Giorgio Ciucci (giorgio@crcc.it)
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" Modified Tue Oct 22 16:40:11 1996 by Eric S. Raymond <esr@thyrsus.com>
+.\" Modified Mon Jul 10 21:09:59 2000 by aeb
+.\" Modified 1 Jun 2002, Michael Kerrisk <mtk16@ext.canterbury.ac.nz>
+.\"	Language clean-ups.
+.\"	Enhanced and corrected information on msg_qbytes, MSGMNB and MSGMAX
+.\"	Added note on restart behaviour of msgsnd and msgrcv
+.\"	Formatting clean-ups (argument and field names marked as .I 
+.\"		instead of .B)
+.\"
+.\" Traduction 14/10/1996 par Christophe Blaess (ccb@club-internet.fr)
+.\" Màj 08/04/1997
+.\" Màj 18/04/1997
+.\" Màj 19/07/1997
+.\" Màj 30/08/2000 LDP-1.31
+.\" Màj 18/07/2003 LDP-1.56
+.\" Màj 01/05/2006 LDP-1.67.1
+.\"
+.TH MSGOP 2 "1er juin 2002" LDP "Manuel du programmeur Linux"
+.SH NOM
+msgop, msgrcv, msgsnd \- Opérations sur les messages.
+.SH SYNOPSIS
+.nf
+.B
+#include <sys/types.h>
+.br
+.B
+#include <sys/ipc.h>
+.br
+.B
+#include <sys/msg.h>
+.fi
+.sp
+.BI "int msgsnd (int " msqid ,
+.BI "struct msgbuf * " msgp ,
+.BI "size_t " msgsz ,
+.BI "int " msgflg );
+.sp
+.BI "ssize msgrcv (int " msqid ,
+.BI "struct msgbuf * " msgp ,
+.BI "size_t " msgsz ,
+.BI "long " msgtyp ,
+.BI "int " msgflg );
+.SH DESCRIPTION
+Pour envoyer ou recevoir un message, le processus appelant alloue
+une structure comme celle-ci\ :
+
+.nf
+struct msgbuf {
+  long  mtype;    /* type de message ( > 0 ) */
+  char  mtext[1]; /* contenu du message      */
+};
+.fi
+
+avec une table
+.B mtext
+de taille
+.IR msgsz ,
+valeur entière non-négative. Les message de taille nulle (sans champ
+.IR msgsz )
+sont autorisés.
+Le membre
+.B mtype
+doit avoir une valeur strictement positive qui puisse
+être utilisée par le processus lecteur pour la
+sélection de messages (voir plus bas).
+.PP
+Le processus doit avoir une permission d'écriture sur la
+file pour envoyer un message, et une permission de
+lecture pour en recevoir un.
+.PP
+L'appel système
+.B msgsnd
+insère une copie du message pointé par l'argument
+.I msgp
+dans la file dont l'identificateur est indiqué par la valeur
+de l'argument
+.IR msqid .
+.PP
+S'il y a assez de place dans la file,
+.B msgsnd
+réussit immédiatement.
+(La capacité de la file est définie par le champ
+.I msg_bytes
+de la structure associée à la file de message. Durant la création de la file,
+ce champ est initialisé à
+.B MSGMNB
+octets, mais cette limite peut être modifiée avec
+.BR msgctl ).
+S'il n'y a pas assez de place, alors le comportement par défaut de
+.B msgsnd
+est de bloquer jusqu'à obtenir suffisamment d'espace.
+En indiquant
+.BR IPC_NOWAIT ,
+le message ne sera pas envoyé et l'appel système échouera en retournant
+.BR EAGAIN
+dans
+.BR errno .
+Sinon, le processus sera suspendu jusqu'à ce que la condition de
+blocage soit levée (auquel cas le message sera envoyé et l'appel
+système réussira), ou que la file soit supprimée
+(auquel cas l'appel système échouera et
+.B errno
+contiendra
+.BR EIDRM ),
+ou que le processus reçoive un signal à intercepter (auquel cas
+l'appel système échouera et
+.B errno
+contiendra
+.BR EINTR ).
+.RB ( msgsnd " et " msgrcv )
+ne sont jamais relancés automatiquement après interruption par un
+gestionnaire de signal, quelque soit la configuration de
+.B SA_RESTART
+lors de l'installation du gestionnaire).
+.PP
+Si l'appel réussit, la structure de file de messages sera mise
+à jour ainsi\ :
+.IP
+.B msg_lspid
+contient le PID du processus appelant.
+.IP
+.B msg_qnum
+est incrémenté de 1.
+.IP
+.B msg_stime
+est rempli avec l'heure actuelle.
+.PP
+l'appel système
+.B msgrcv
+lit un message depuis la file indiquée par
+.I msqid
+dans la structure
+.B msgbuf
+pointée par l'argument
+.IR msgp ,
+en extrayant le message en cas de réussite.
+.PP
+L'argument
+.I msgsz
+indique la taille maximale en octets du membre
+.B mtext
+de la structure pointée par l'argument
+.IR msgp .
+Si le contenu du message est plus long que
+.IR msgsz
+octets, et si l'argument
+.I msgflg
+contient
+.BR MSG_NOERROR ,
+alors le message sera tronqué (et la partie tronquée sera perdue).
+Sinon le message ne sera pas extrait de la file, et l'appel
+système échouera en indiquant
+.BR E2BIG
+dans
+.B errno
+.PP
+L'argument
+.I msgtyp
+indique le type de message désiré\ :
+.IP
+Si
+.I msgtyp
+vaut
+.BR 0 ,
+le premier message est lu.
+.IP
+Si
+.I msgtyp
+est supérieur à
+.BR 0 ,
+alors le premier message de type
+.I msgtyp
+est extrait de la file.
+Si
+.I msgflg
+contient
+.B MSG_EXCEPT
+l'inverse est effectué, le premier message de
+type
+.B différent
+de
+.I msgtyp
+est extrait de la file.
+.IP
+Si
+.I msgtyp
+est inférieur à
+.BR 0 ,
+le premier message de la file avec un type inférieur ou égal
+à la valeur absolue de
+.I msgtyp
+est extrait.
+.PP
+L'argument
+.I msgflg
+est composé d'un
+.I OU
+binaire «\ |\ » avec les options suivantes\ :
+.IP
+.B IPC_NOWAIT
+Si aucun message du type désiré n'est présent, l'appel système échoue
+et
+.B errno
+est fixé à
+.BR ENOMSG.
+.IP
+.B MSG_EXCEPT
+Utilisé avec
+.I msgtyp
+supérieur à
+.B 0
+pour lire les messages de type différent de
+.IR msgtyp.
+.IP
+.B MSG_NOERROR
+Tronque silencieusement les messages trop longs
+.PP
+Si aucun message du type requis n'est disponible et
+si on n'a pas demandé
+.B IPC_NOWAIT
+dans
+.IR msgflg ,
+Le processus appelant est bloqué jusqu'à l'occurrence d'un
+des événements suivants.
+.IP
+Un message du type désiré arrive dans la file.
+.IP
+La file de messages est supprimée.
+L'appel système échoue et
+.B errno
+contient
+.BR EIDRM.
+.IP
+Le processus appelant reçoit un signal à intercepter.
+L'appel système échoue et
+.B errno
+contient
+.BR EINTR.
+.PP
+Si l'appel système réussit, la structure décrivant la file de messages
+est mise à jour comme suit\ :
+.IP
+.B msg_lrpid
+est rempli avec le PID du processus appelant.
+.IP
+.B msg_qnum
+est décrémenté de 1
+.IP
+.B msg_rtime
+est rempli avec l'heure actuelle.
+.SH "VALEUR RENVOYÉE"
+En cas d'échec les deux appels systèmes renvoient
+.B \-1
+et
+.B errno
+contient le code d'erreur.
+Sinon
+.B msgsnd
+renvoie
+.B 0
+et
+.B msgrcv
+renvoie le nombre d'octets copiés dans la table
+.B mtext.
+.SH ERREURS
+.B msgsnd"\ :"
+.TP
+.B EAGAIN
+Le message n'a pas pu être envoyé à cause de la limite
+.B msg_qbytes
+pour la file et de la requête
+.B IPC_NOWAIT
+dans
+.IR mgsflg.
+.TP
+.B EACCES
+le processus appelant n'a pas de permissions de lecture dans la file.
+.TP
+.B EFAULT
+.I msgp
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B EIDRM
+La file de message a été supprimée
+.TP
+.B EINTR
+Un signal est arrivé avant d'avoir pu écrire quoi que ce soit.
+.TP
+.B EINVAL
+.I msqid
+ou
+.I mtype
+ou
+.I msgsz
+sont invalides.
+.TP
+.B ENOMEM
+pas assez de mémoire pour le noyau.
+.PP
+.B msgrcv"\ :"
+.TP
+.B E2BIG
+message trop long, et
+.B MSG_NOERROR
+n'a pas été requis.
+.TP
+.B EACCES
+Le processus appelant n'a pas de permission de lecture dans la file.
+.TP
+.B EFAULT
+.I msgp
+pointe en dehors de l'espace d'adressage accessible.
+.TP
+.B EIDRM
+La file de messages a été supprimée.
+.TP
+.B EINTR
+Un signal est arrivé avant d'avoir pu lire quoi que ce soit.
+.TP
+.B EINVAL
+.I msgqid
+ou
+.I msgsz
+invalides.
+.TP
+.B ENOMSG
+.B IPC_NOWAIT
+a été requis et aucun message du type réclamé n'existe dans la file.
+.SH NOTES
+Les limites systèmes suivantes influent sur
+.B msgsnd "\ :"
+.TP 11
+.B MSGMAX
+Taille maximum d'un message\ : l'implémentation Linux 0.99.13 fixe cette
+limite à 4080 octets.
+.TP
+.B MSGMNB
+Taille maximale d'une file de messages. Peut être augmentée par
+le super-utilisateur.
+.SH CONFORMITÉ
+SVr4, SVID.
+.SH NOTES
+L'argument pointeur est déclaré comme un \fIstruct msgbuf *\fP avec les bibliothèques libc4, libc5, glibc 2.0, glibc 2.1.
+Il est déclaré comme un \fIvoid *\fP (\fIconst void *\fP pour \fImsgsnd()\fP) avec la bibliothèque glibc 2.2, suivant ainsi
+les spécifications SUSv2.
+.SH "VOIR AUSSI"
+.BR ipc (5),
+.BR msgctl (2),
+.BR msgget (2),
+.BR msgrcv (2),
+.BR msgsnd (2).
+.SH TRADUCTION
+.PP
+Ce document est une traduction réalisée par Christophe Blaess
+<http://www.blaess.fr/christophe/> le 14\ octobre\ 1996
+et révisée le 2\ mai\ 2006.
+.PP
+L'équipe de traduction a fait le maximum pour réaliser une adaptation
+française de qualité. La version anglaise la plus à jour de ce document est
+toujours consultable via la commande\ : «\ \fBLANG=en\ man\ 2\ msgop\fR\ ».
+N'hésitez pas à signaler à l'auteur ou au traducteur, selon le cas, toute
+erreur dans cette page de manuel.
