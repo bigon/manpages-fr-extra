@@ -1,0 +1,403 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2006-05-11 17:21+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING"
+
+# type: TH
+#: english/man8/exportfs.8:6
+#, no-wrap
+msgid "exportfs"
+msgstr ""
+
+# type: TH
+#: english/man8/exportfs.8:6
+#, no-wrap
+msgid "18 July 2003"
+msgstr ""
+
+# type: SH
+#: english/man8/exportfs.8:7
+#, no-wrap
+msgid "NAME"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:9
+msgid "exportfs - maintain list of NFS exported file systems"
+msgstr ""
+
+# type: SH
+#: english/man8/exportfs.8:9
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:11
+msgid "B</usr/sbin/exportfs [-avi] [-o >I<options,..>B<] [>I<client:/path>B< ..]>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:13
+msgid "B</usr/sbin/exportfs -r [-v]>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:15
+msgid "B</usr/sbin/exportfs [-av] -u [>I<client:/path>B< ..]>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:17
+msgid "B</usr/sbin/exportfs [-v]>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:19
+msgid "B</usr/sbin/exportfs -f>"
+msgstr ""
+
+# type: SH
+#: english/man8/exportfs.8:20
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:30
+msgid ""
+"The B<exportfs> command is used to maintain the current table of exported "
+"file systems for NFS. This list is kept in a separate file named "
+"B</var/lib/nfs/xtab> which is read by B<mountd> when a remote host requests "
+"access to mount a file tree, and parts of the list which are active are kept "
+"in the kernel's export table."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:37
+msgid ""
+"Normally this B<xtab> file is initialized with the list of all file systems "
+"named in B</etc/exports> by invoking B<exportfs -a>."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:43
+msgid ""
+"However, administrators can choose to add and delete individual file systems "
+"without modifying B</etc/exports> using B<exportfs>."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:56
+msgid ""
+"B<exportfs> and it's partner program B<mountd> work in one of two modes, a "
+"legacy mode which applies to 2.4 and earlier versions of the Linux kernel, "
+"and a new mode which applies to 2.6 and later versions providing the B<nfsd> "
+"virtual filesystem has been mounted at B</proc/fs/nfsd> or B</proc/fs/nfs>.  "
+"If this filesystem is not mounted in 2.6, the legacy mode is used."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:67
+msgid ""
+"In the new mode, B<exportfs> does not give any information to the kernel but "
+"only provides it to B<mountd> through the B</var/lib/nfs/xtab> file.  "
+"B<mountd> will listen to requests from the kernel and will provide "
+"information as needed."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:80
+msgid ""
+"In the legacy mode, any export requests which identify a specific host "
+"(rather than a subnet or netgroup etc) are entered directly into the "
+"kernel's export table as well as being written to B</var/lib/nfs/xtab>.  "
+"Further, any mount points listed in B</var/lib/nfs/rmtab> which match a non "
+"host-specific export request will cause an appropriate export entry for the "
+"host given in B<rmtab> to be entered into the kernel's export table."
+msgstr ""
+
+# type: SH
+#: english/man8/exportfs.8:80
+#, no-wrap
+msgid "OPTIONS"
+msgstr ""
+
+# type: TP
+#: english/man8/exportfs.8:81
+#, no-wrap
+msgid "B<-a>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:84
+msgid "Export or unexport all directories."
+msgstr ""
+
+# type: TP
+#: english/man8/exportfs.8:84
+#, no-wrap
+msgid "B<-o >I<options,...>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:88
+msgid "Specify a list of export options in the same manner as in B<exports(5)>."
+msgstr ""
+
+# type: TP
+#: english/man8/exportfs.8:88
+#, no-wrap
+msgid "B<-i>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:94
+msgid ""
+"Ignore the B</etc/exports> file, so that only default options and options "
+"given on the command line are used."
+msgstr ""
+
+# type: TP
+#: english/man8/exportfs.8:94
+#, no-wrap
+msgid "B<-r>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:100
+msgid ""
+"Reexport all directories. It synchronizes /var/lib/nfs/xtab with "
+"/etc/exports. It removes entries in /var/lib/nfs/xtab which are deleted from "
+"/etc/exports, and remove any entries from the kernel export table which are "
+"no longer valid."
+msgstr ""
+
+# type: TP
+#: english/man8/exportfs.8:100
+#, no-wrap
+msgid "B<-u>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:103
+msgid "Unexport one or more directories."
+msgstr ""
+
+# type: TP
+#: english/man8/exportfs.8:103
+#, no-wrap
+msgid "B<-f>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:109
+msgid ""
+"In 'new' mode, flush everything out of the kernels export table. Any clients "
+"that are active will get new entries added by B<mountd> when they make their "
+"next request."
+msgstr ""
+
+# type: TP
+#: english/man8/exportfs.8:109
+#, no-wrap
+msgid "B<-v>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:114
+msgid ""
+"Be verbose. When exporting or unexporting, show what's going on. When "
+"displaying the current export list, also display the list of export options."
+msgstr ""
+
+# type: SH
+#: english/man8/exportfs.8:114
+#, no-wrap
+msgid "DISCUSSION"
+msgstr ""
+
+#.  -------------------- Exporting Directories --------------------
+# type: SS
+#: english/man8/exportfs.8:116
+#, no-wrap
+msgid "Exporting Directories"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:125
+msgid ""
+"The first synopsis shows how to invoke the command when adding new entries "
+"to the export table.  When using B<exportfs -a>, all directories in "
+"B<exports(5)> are added to B<xtab> and the resulting list is pushed into the "
+"kernel."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:133
+msgid ""
+"The I<host:/path> argument specifies the directory to export along with the "
+"host or hosts to export it to. All formats described in B<exports(5)> are "
+"supported; to export a directory to the world, simply specify I<:/path>."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:151
+msgid ""
+"The export options for a particular host/directory pair derive from several "
+"sources.  There is a set of default options which can be overridden by "
+"entries in B</etc/exports> (unless the B<-i> option is given).  In addition, "
+"the administrator may overide any options from these sources using the B<-o> "
+"argument which takes a comma-separated list of options in the same fashion "
+"as one would specify them in B<exports(5)>.  Thus, B<exportfs> can also be "
+"used to modify the export options of an already exported directory."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:157
+msgid ""
+"Modifications of the kernel export table used by B<nfsd(8)> take place "
+"immediately after parsing the command line and updating the B<xtab> file."
+msgstr ""
+
+#.  -------------------- Unexporting Directories ------------------
+# type: Plain text
+#: english/man8/exportfs.8:161
+msgid "The default export options are B<sync,ro,root_squash,no_delay>."
+msgstr ""
+
+# type: SS
+#: english/man8/exportfs.8:161
+#, no-wrap
+msgid "Unexporting Directories"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:169
+msgid ""
+"The third synopsis shows how to unexported a currently exported directory.  "
+"When using B<exportfs -ua>, all entries listed in B<xtab> are removed from "
+"the kernel export tables, and the file is cleared. This effectively shuts "
+"down all NFS activity."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:175
+msgid ""
+"To remove individial export entries, one can specify a I<host:/path> "
+"pair. This deletes the specified entry from B<xtab> and removes the "
+"corresponding kernel entry (if any)."
+msgstr ""
+
+#.  -------------------- Dumping the Export Table -----------------
+# type: SS
+#: english/man8/exportfs.8:177
+#, no-wrap
+msgid "Dumping the Export Table"
+msgstr ""
+
+#.  -------------------- EXAMPLES ---------------------------------
+# type: Plain text
+#: english/man8/exportfs.8:185
+msgid ""
+"Invoking B<exportfs> without further options shows the current list of "
+"exported file systems.  When giving the B<-v> option, the list of flags "
+"pertaining to each export are shown in addition."
+msgstr ""
+
+# type: SH
+#: english/man8/exportfs.8:185
+#, no-wrap
+msgid "EXAMPLES"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:189
+msgid ""
+"The following adds all directories listed in B</etc/exports to "
+"/var/lib/nfs/xtab> and pushes the resulting export entries into the kernel:"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:192
+#, no-wrap
+msgid "B<# exportfs -a>\n"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:199
+msgid ""
+"To export the B</usr/tmp> directory to host B<djando>, allowing asynchronous "
+"writes, one would do this:"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:202
+#, no-wrap
+msgid "B<# exportfs -o async django:/usr/tmp>\n"
+msgstr ""
+
+#.  -------------------- DEPENDENCIES -----------------------------
+# type: SH
+#: english/man8/exportfs.8:204
+#, no-wrap
+msgid "DEPENDENCIES"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:214
+msgid ""
+"Exporting to IP networks, DNS and NIS domains does not enable clients from "
+"these groups to access NFS immediately; rather, these sorts of exports are "
+"hints to B<mountd(8)> to grant any mount requests from these clients.  This "
+"is usually not a big problem, because any existing mounts are preserved in "
+"B<rmtab> across reboots."
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:218
+msgid ""
+"When unexporting a network or domain entry, any current exports to members "
+"of this group will be checked against the remaining valid exports and if "
+"they themselves are nolonger valid they will be removed."
+msgstr ""
+
+#.  -------------------- SEE ALSO --------------------------------
+# type: SH
+#: english/man8/exportfs.8:220
+#, no-wrap
+msgid "SEE ALSO"
+msgstr ""
+
+#.  -------------------- AUTHOR ----------------------------------
+# type: Plain text
+#: english/man8/exportfs.8:223
+msgid "B<exports(5)>, B<mountd(8)>"
+msgstr ""
+
+# type: SH
+#: english/man8/exportfs.8:223
+#, no-wrap
+msgid "AUTHORS"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:225
+msgid "Olaf Kirch, E<lt>okir@monad.swb.deE<gt>"
+msgstr ""
+
+# type: Plain text
+#: english/man8/exportfs.8:227
+msgid "Neil Brown, E<lt>neilb@cse.unsw.edu.auE<gt>"
+msgstr ""
