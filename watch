@@ -1,0 +1,50 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Mail::Header;
+use LWP::UserAgent;
+use Compress::Zlib;
+
+my @packages = ("at","coreutils","cron","diffutils","findutils",
+                "grep","lilo","procps","tar","util-linux");
+
+my $Web_agent =  LWP::UserAgent -> new;
+my $sources = "";
+foreach my $section ("main","contrib","non-free") {
+  print STDERR "Fetching source file of $section...";
+  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.debian.org/debian/dists/unstable/$section/source/Sources.gz"))
+      or die "Unable to fetch $section source\n";
+  $sources .= Compress::Zlib::memGunzip($answer->content) ;
+  print STDERR "done\n";
+}
+
+open INDEX, "<", \$sources;
+while (1) {
+  my $reader = new Mail::Header \*INDEX;
+  last unless($reader->get("Package"));
+  my $pkg = $reader->get("Package");
+  chomp($pkg);
+  my $pkgregexp = quotemeta($pkg);
+  next unless(grep ( /^$pkgregexp$/, @packages));
+  my ($version, $directory, $binaries) =
+     ($reader->get("Version"),
+      $reader->get("Directory"),
+      $reader->get("Binary"));
+  chomp($version, $directory, $binaries);
+  open (VERSION, "$pkg/VERSION");
+  my $translated= <VERSION>;
+  chomp($translated);
+  if ($translated ne $version) {
+    print "$pkg need to be synced with version $version\n";
+    $version =~ s/^.*:(.*)$/$1/;
+    foreach my $binary (split(", ",$binaries)) {
+      my $package_name = "$binary"."_".$version."_i386.deb";
+      parse_binary($package_name);
+    }
+  }
+}
+close (INDEX);
+
+sub parse_binary {
+  #TODO: download, extract and parse the package
+}
