@@ -18,7 +18,7 @@ foreach my $section ("main","contrib","non-free") {
   print STDERR "done\n";
 }
 
-open INDEX, "<", \$sources;
+open (INDEX, "<", \$sources);
 while (1) {
   my $reader = new Mail::Header \*INDEX;
   last unless($reader->get("Package"));
@@ -32,7 +32,8 @@ while (1) {
       $reader->get("Binary"));
   chomp($version, $directory, $binaries);
   open (VERSION, "$pkg/VERSION");
-  my $translated= <VERSION>;
+  my $translated=<VERSION>;
+  close (VERSION);
   chomp($translated);
   if ($translated ne $version) {
     print "$pkg need to be synced with version $version\n";
