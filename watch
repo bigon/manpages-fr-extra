@@ -4,15 +4,19 @@ use strict;
 use Mail::Header;
 use LWP::UserAgent;
 use Compress::Zlib;
+use File::Temp;
+use File::Copy;
 
 my @packages = ("at","coreutils","cron","diffutils","findutils",
                 "grep","lilo","procps","tar","util-linux");
+
+my $new_versions = {};
 
 my $Web_agent =  LWP::UserAgent -> new;
 my $sources = "";
 foreach my $section ("main","contrib","non-free") {
   print STDERR "Fetching source file of $section...";
-  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.debian.org/debian/dists/unstable/$section/source/Sources.gz"))
+  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.debian.org/debian/dists/unstable/$section/binary-i386/Packages.gz"))
       or die "Unable to fetch $section source\n";
   $sources .= Compress::Zlib::memGunzip($answer->content) ;
   print STDERR "done\n";
@@ -22,30 +26,77 @@ open (INDEX, "<", \$sources);
 while (1) {
   my $reader = new Mail::Header \*INDEX;
   last unless($reader->get("Package"));
-  my $pkg = $reader->get("Package");
-  chomp($pkg);
-  my $pkgregexp = quotemeta($pkg);
+  my ($pkg, $source) = ($reader->get("Package"), $reader->get("Source"));
+  $source = $pkg if (not defined $source);
+  chomp($pkg, $source);
+  my $pkgregexp = quotemeta($source);
   next unless(grep ( /^$pkgregexp$/, @packages));
-  my ($version, $directory, $binaries) =
+  my ($version, $filename) =
      ($reader->get("Version"),
-      $reader->get("Directory"),
-      $reader->get("Binary"));
-  chomp($version, $directory, $binaries);
-  open (VERSION, "$pkg/VERSION");
+      $reader->get("Filename"));
+  chomp($version, $filename);
+  $version =~ s/(-[^+])\+.*$/$1/;
+  $new_versions->{$source} = $version;
+  open (VERSION, "$source/VERSION");
   my $translated=<VERSION>;
   close (VERSION);
   chomp($translated);
   if ($translated ne $version) {
     print "$pkg need to be synced with version $version\n";
-    $version =~ s/^.*:(.*)$/$1/;
-    foreach my $binary (split(", ",$binaries)) {
-      my $package_name = "$binary"."_".$version."_i386.deb";
-      parse_binary($package_name);
-    }
+    parse_binary($source, $filename);
   }
 }
 close (INDEX);
 
+foreach my $pkg (sort keys %$new_versions) {
+  open (VERSION, ">$pkg/VERSION");
+  print VERSION "$new_versions->{$pkg}\n";
+  close VERSION;
+}
+
+sub check_version {
+}
 sub parse_binary {
-  #TODO: download, extract and parse the package
+  my ($source, $filename) = (shift, shift, shift, shift);
+  my $pkg = $source;
+  $pkg =~ s/\/([^\/]+)$/$1/;
+  my $tmpdir = mkdtemp("labXXXXXX");
+  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.debian.org/debian/$filename"));
+  open (PACKAGE,">$tmpdir/$pkg");
+  print PACKAGE $answer->content;
+  close (PACKAGE);
+  system ("dpkg -x $tmpdir/$pkg $tmpdir");
+  process_mandir($tmpdir, $source);
+  unlink $tmpdir;
+}
+
+sub process_mandir {
+  my ($curdir, $source) = (shift, shift);
+  $curdir .= "/usr/share/man/";
+  return unless (-d $curdir);
+  opendir DIR, $curdir or die "Cannot open directory $curdir";
+  my @allfiles = grep !/^\.\.?$/, readdir DIR;
+  foreach my $section (@allfiles) {
+    print "Found directory: $section\n";
+    process_section($curdir, $section, $source);
+  }
+  closedir DIR;
+}
+
+sub process_section {
+  my ($curdir, $section, $source) = (shift, shift, shift);
+  $curdir = "$curdir/$section";
+  opendir DIR, $curdir or die "Cannot open directory $curdir";
+  foreach my $man (grep !/^\.\.?$/, readdir DIR) {
+    next if (-l "$curdir/$man");
+    my $dest_man = $man;
+    $dest_man =~ s/\.gz$//;
+    open(MAN,">$source/english/$section/$dest_man");
+    my $buffer;
+    my $gz = gzopen("$curdir/$man", "rb");
+    print MAN $buffer while $gz->gzread($buffer) > 0;
+    $gz->gzclose();
+    close MAN;
+  }
+  closedir DIR;
 }
