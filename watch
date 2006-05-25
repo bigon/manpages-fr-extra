@@ -7,6 +7,12 @@ use Compress::Zlib;
 use File::Temp;
 use File::Copy;
 
+#TODO: check if there is no obsolete manpage
+#TODO: check if all manpages are in po4a config file
+#TODO: check the symlinks
+
+
+#TODO: unhardcode this list
 my @packages = ("at","coreutils","cron","diffutils","findutils",
                 "grep","lilo","procps","tar","util-linux");
 
@@ -42,7 +48,7 @@ while (1) {
   close (VERSION);
   chomp($translated);
   if ($translated ne $version) {
-    print "$pkg need to be synced with version $version\n";
+    print "Syncing $pkg ($source) with $version\n";
     parse_binary($source, $filename);
   }
 }
