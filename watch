@@ -87,7 +87,7 @@ sub parse_binary {
   close (PACKAGE);
   system ("dpkg -x $tmpdir/$pkg $tmpdir");
   process_mandir($tmpdir, $source);
-  unlink $tmpdir;
+  File::Path::rmtree($tmpdir);
 }
 
 sub process_mandir {
