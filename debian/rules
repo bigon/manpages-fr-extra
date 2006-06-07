@@ -1,0 +1,48 @@
+#!/usr/bin/make -f
+export LC_ALL=C
+
+BUILDROOT = $(CURDIR)/build-tree
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+	make install INSTDIR=$(BUILDROOT)
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean
+	make clean
+	-rm -rf $(BUILDROOT)
+	-rm -f *-stamp
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+# Build architecture-dependent files here.
+binary-arch: build install
+# We have nothing to do by default.
+
+# Build architecture-independent files here.
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installchangelogs 
+	find $(BUILDROOT) -type f | xargs dh_installman --language=fr
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+deb:
+	dpkg-buildpackage -rfakeroot -i'/\.svn|/\.git'
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure
