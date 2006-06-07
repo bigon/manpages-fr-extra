@@ -11,11 +11,11 @@ PO4ACONFIGFILE=$(PO4ADIR)/$(PACKAGE).cfg
 # It uses ".so" inclusions, even if the original link is a symbolic link
 # examples:
 #   $(call create_link,foo.1,bar.1)
-#     creates the link bar.1 pointing to foo.1 in french/man1
+#     creates the link bar.1 pointing to foo.1 in fr/man1
 #   $(call create_link,../man1/foo.1,bar.2)
-#     creates the link bar.2 in french/man2 pointing to
-#     ../man1/foo.1, i.e. french/man1/foo.1
-#     creates the french/man2 directory if needed
+#     creates the link bar.2 in fr/man2 pointing to
+#     ../man1/foo.1, i.e. fr/man1/foo.1
+#     creates the fr/man2 directory if needed
 
 define create_link
   echo -n "Creating link $(2) pointing to $(1)... "; \
@@ -25,11 +25,11 @@ define create_link
     echo "failed."; \
     exit 0; \
   fi; \
-  if [ -e french/man$$section1/$(1) ]; then \
-    if [ ! -d french/man$$section2 ]; then \
-      mkdir french/man$$section2; \
+  if [ -e fr/man$$section1/$(1) ]; then \
+    if [ ! -d fr/man$$section2 ]; then \
+      mkdir fr/man$$section2; \
     fi; \
-    echo ".so man$$section1/$(1)" > french/man$$section2/$(2); \
+    echo ".so man$$section1/$(1)" > fr/man$$section2/$(2); \
     echo "done."; \
   else \
     echo "ignored."; \
@@ -60,5 +60,5 @@ stats:
 
 clean:
 	po4a --rm-translations $(PO4ACONFIGFILE)
-	-rm -rf french
+	-rm -rf fr
 	-rm -f $(PODIR)/*~

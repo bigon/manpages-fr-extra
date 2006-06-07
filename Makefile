@@ -29,8 +29,8 @@ install: build
 	@echo "Note: This is not a 'real' install target."
 	[ -d $(INSTDIR) ] || mkdir -p $(INSTDIR)
 	@for dir in $(SUBDIRS); do \
-	  [ -d $$dir/french ] || continue; \
-	  cd $$dir/french; \
+	  [ -d $$dir/fr ] || continue; \
+	  cd $$dir/fr; \
 	  for f in man*/*; do \
 	    [ -f $$f ] || continue; \
 	    d=$(INSTDIR)/`dirname $$f`; \
