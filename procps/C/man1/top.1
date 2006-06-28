@@ -52,7 +52,7 @@
 .ds CF configuration file
 .ds CI interactive command
 .ds CO command\-line option
-.ds CW 'current' window
+.ds CW \'current' window
 .ds FM full\-screen mode
 .ds MP \fBphysical\fR memory
 .ds MS \fBshared\fR memory
@@ -85,7 +85,7 @@ top \- display Linux tasks
 .\" ----------------------------------------------------------------------
 .SH SYNOPSIS
 .\" ----------------------------------------------------------------------
-\*(ME \-\fBhv\fR | \-\fBbcisS\fR \-\fBd\fI delay\fR \-\fBn\fI
+\*(ME \-\fBhv\fR | \-\fBbcHisS\fR \-\fBd\fI delay\fR \-\fBn\fI
 iterations\fR \-\fBp\fI pid\fR [,\fI pid\fR ...]
 
 The traditional switches '-' and whitespace are optional.
@@ -190,7 +190,7 @@ command-line.
        'I' - Irix mode        On\ \ (no, 'solaris' smp)
      * 'p' - PID monitoring   Off
      * 's' - Secure mode      Off (unsecured)
-       'B' - Bold disable     Off
+       'B' - Bold enable      Off
     \fISummary_Area_defaults\fR
        'l' - Load Avg/Uptime  On\ \ (thus program name)
        't' - Task/Cpu states  On\ \ (1+1 lines, see '1')
@@ -199,6 +199,7 @@ command-line.
     \fITask_Area_defaults\fR
        'b' - Bold hilite      On\ \ (not 'reverse')
      * 'c' - Command line     Off (name, not cmdline)
+     * 'H' - Threads          Off\ (show all threads)
      * 'i' - Idle tasks       On\ \ (show all tasks)
        'R' - Reverse sort     On\ \ (pids high-to-low)
      * 'S' - Cumulative time  Off (no, dead children)
@@ -212,7 +213,7 @@ command-line.
 .\" ----------------------------------------------------------------------
 The command-line syntax for \*(Me consists of:
 
-     \-\fBhv\fR\ |\ -\fBbcisS\fR\ \-\fBd\fI\ delay\fR\ \-\fBn\fI\ iterations\
+     \-\fBhv\fR\ |\ -\fBbcHisS\fR\ \-\fBd\fI\ delay\fR\ \-\fBn\fI\ iterations\
 \fR\ \-\fBp\fI\ pid\fR\ [,\fIpid\fR...]
 
 The typically mandatory switches ('-') and even whitespace are completely
@@ -247,6 +248,11 @@ For additional information on 'Secure mode' \*(Xt 5a. SYSTEM Configuration File.
 .TP 5
 \-\fBh\fR :\fB Help\fR
 Show library version and the usage prompt, then quit.
+
+.TP 5
+\-\fBH\fR :\fB Threads\fR toggle
+Starts \*(Me with the last remembered 'H' state reversed.
+When this toggle is \*O, all individual threads will be displayed.  Otherwise, \*(Me displays a summation of all threads in a process.
 
 .TP 5
 \-\fBi\fR :\fB Idle Processes\fR toggle
@@ -367,10 +373,10 @@ processes to change \*(PUs more often (because of the extra demand for
 
 .TP 3
 k:\fB %CPU\fR \*(EM \*(PU usage
-The task's share of the elapsed \*(PU time since the last screen update, expressed
-as a percentage of total \*(PU time.
-In a true SMP environment, if 'Irix mode' is \*F, \*(Me will operate in
-'Solaris mode' where a task's \*(Pu usage will be divided by the total
+The task's share of the elapsed \*(PU time since the last screen update,
+expressed as a percentage of total \*(PU time.
+In a true SMP environment, if 'Irix mode' is \*F, \*(Me will operate
+in 'Solaris mode' where a task's \*(Pu usage will be divided by the total
 number of \*(PUs.
 You toggle 'Irix/Solaris' modes with the 'I' \*(CI.
 
@@ -533,6 +539,37 @@ You\fI move\fR a field to the\fB left\fR by pressing the corresponding\fB
 upper case\fR letter and to the\fB right\fR with the\fB lower case\fR
 letter.
 
+.\" ......................................................................
+.SS 2c. CPU States
+.\" ----------------------------------------------------------------------
+The CPU states are shown in the Summary Area. They are always shown as a 
+percentage and are for the time between now and the last refresh.
+
+.TP 3
+\fB us\fR \*(EM User CPU time
+The time the CPU has spent running users' processes that are not
+niced.
+
+.TP 3
+\fB sy\fR \*(EM System CPU time
+The time the CPU has spent running the kernel and its processes.
+
+.TP 3
+\fB ni\fR \*(EM Nice CPU time
+The time the CPU has spent running users' proccess that have been
+niced.
+
+.TP 3
+\fB wa\fR \*(EM iowait
+Amount of time the CPU has been waiting for I/O to complete.
+
+.TP 3
+\fB hi\fR \*(EM Hardware IRQ
+The amount of time the CPU has been servicing hardware interrupts.
+
+.TP 3
+\fB si\fR \*(EM Software Interrupts
+The amount of time the CPU has been servicing software interrupts.
 
 .\" ----------------------------------------------------------------------
 .SH 3. INTERACTIVE Commands
@@ -547,7 +584,7 @@ depending on the context in which they are issued.
         l, m, t, 1
   3c.\fI TASK_Area_Commands\fR
         Appearance:  b, x, y, z
-        Content:     c, f, o, S, u
+        Content:     c, f, H, o, S, u
         Size:        #, i, n
         Sorting:     <, >, F, O, R
   3d.\fI COLOR_Mapping\fR
@@ -793,6 +830,10 @@ For additional information on these \*(CIs
 
 .TP 7
 \ \ \<\fBS\fR\> :\fICumulative_Time_Mode_toggle\fR
+When this toggle is \*O, all individual threads will be displayed.  Otherwise, \*(Me displays a summation of all threads in a process.
+
+.TP 7
+\ \ \'\fBS\fR\' :\fICumulative_Time_Mode_toggle\fR
 When 'Cumulative mode' is \*O, each process is listed with the \*(Pu
 time that it and its dead children have used.
 
