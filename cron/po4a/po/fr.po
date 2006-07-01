@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cron\n"
-"POT-Creation-Date: 2006-06-09 15:13+0200\n"
+"POT-Creation-Date: 2006-07-02  1:06+0200\n"
 "PO-Revision-Date: 2006-06-05 18:00+0200\n"
 "Last-Translator: Steve Petruzzello <dlist@bluewin.ch>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -16,262 +16,273 @@ msgstr ""
 "X-Poedit-SourceCharset: iso-8859-15\n"
 
 # type: TH
-#: C/man8/cron.8:20
+#: C/man1/crontab.1:20 C/man5/crontab.5:20
 #, no-wrap
-msgid "CRON"
-msgstr "CRON"
+msgid "CRONTAB"
+msgstr "CRONTAB"
 
 # type: TH
-#: C/man8/cron.8:20
+#: C/man1/crontab.1:20
 #, no-wrap
-msgid "20 December 1993"
-msgstr "20 décembre 1993"
+msgid "29 December 1993"
+msgstr "29 décembre 1993"
 
 # type: SH
-#: C/man8/cron.8:22 C/man5/crontab.5:22 C/man1/crontab.1:22
+#: C/man1/crontab.1:22 C/man5/crontab.5:22 C/man8/cron.8:22
 #, no-wrap
 msgid "NAME"
 msgstr "NOM"
 
 # type: Plain text
-#: C/man8/cron.8:24
-msgid "cron - daemon to execute scheduled commands (Vixie Cron)"
-msgstr "cron - Démon permettant de lancer des commandes différées (Vixie Cron)"
+#: C/man1/crontab.1:24
+msgid "crontab - maintain crontab files for individual users (V3)"
+msgstr ""
+"crontab - Maintenir les fichiers crontab pour les utilisateurs individuels "
+"(V3)"
 
 # type: SH
-#: C/man8/cron.8:24 C/man1/crontab.1:24
+#: C/man1/crontab.1:24 C/man8/cron.8:24
 #, no-wrap
 msgid "SYNOPSIS"
 msgstr "SYNOPSIS"
 
 # type: Plain text
-#: C/man8/cron.8:27
-msgid "cron [B<-f>]"
-msgstr "cron [B<-f>]"
+#: C/man1/crontab.1:26
+msgid "crontab [ -u user ] file"
+msgstr "crontab [ -u utilisateur ] fichier"
+
+# type: Plain text
+#: C/man1/crontab.1:28
+msgid "crontab [ -u user ] { -l | -r | -e }"
+msgstr "crontab [ -u utilisateur ] { -l | -r | -e }"
 
 # type: SH
-#: C/man8/cron.8:27 C/man5/crontab.5:24 C/man1/crontab.1:28
+#: C/man1/crontab.1:28 C/man5/crontab.5:24 C/man8/cron.8:27
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
 
 # type: Plain text
-#: C/man8/cron.8:31
+#: C/man1/crontab.1:36
 msgid ""
-"I<cron> is started automatically from /etc/init.d on entering multi-user "
-"runlevels."
+"I<crontab> is the program used to install, deinstall or list the tables used "
+"to drive the I<cron>(8)  daemon in Vixie Cron.  Each user can have their own "
+"crontab, and though these are files in /var/spool/cron/crontabs, they are "
+"not intended to be edited directly."
 msgstr ""
-"I<Cron> est démarré automatiquement depuis un script du répertoire /etc/init."
-"d au moment d'entrer dans un niveau de fonctionnement multiutilisateur."
+"I<Crontab> est le programme utilisé pour installer, désinstaller, ou "
+"afficher le contenu des tables permettant de piloter le fonctionnement du "
+"démon I<cron>(8) de Vixie Cron. Chaque utilisateur dispose de sa propre "
+"crontab, et bien que celles-ci se trouvent dans /var/spool/cron/crontabs, "
+"elles ne sont pas conçues pour être modifiées directement."
+
+# type: Plain text
+#: C/man1/crontab.1:50
+msgid ""
+"If the I</etc/cron.allow> file exists, then you must be listed therein in "
+"order to be allowed to use this command.  If the I</etc/cron.allow> file "
+"does not exist but the I</etc/cron.deny> file does exist, then you must "
+"B<not> be listed in the I</etc/cron.deny> file in order to use this "
+"command.  If neither of these files exists, then depending on site-dependent "
+"configuration parameters, only the super user will be allowed to use this "
+"command, or all users will be able to use this command. For standard Debian "
+"systems, all users may use this command."
+msgstr ""
+"Si le fichier I</etc/cron.allow> existe, alors vous devez être mentionné "
+"dans celui-ci pour pouvoir utiliser cette commande. S'il n'existe pas, mais "
+"que le fichier I</etc/cron.deny> existe, alors vous B<ne> devez B<pas> être "
+"mentionné dans celui-ci si vous désirez utiliser cette commande. Si aucun de "
+"ces deux fichiers n'existe, alors, selon la configuration du site, soit seul "
+"le superutilisateur a le droit d'utiliser cette commande, soit tous les "
+"utilisateurs le peuvent. Sur les systèmes Debian standards, tous les "
+"utilisateurs peuvent l'utiliser."
+
+# type: Plain text
+#: C/man1/crontab.1:66
+msgid ""
+"If the I<-u> option is given, it specifies the name of the user whose "
+"crontab is to be tweaked.  If this option is not given, I<crontab> examines "
+"\"your\" crontab, i.e., the crontab of the person executing the command.  "
+"Note that I<su>(8)  can confuse I<crontab> and that if you are running "
+"inside of I<su>(8)  you should always use the I<-u> option for safety's sake."
+msgstr ""
+"Si l'option I<-u> est indiquée, elle permet de préciser le nom de "
+"l'utilisateur dont la crontab doit être manipulée. Si cette option n'est pas "
+"indiquée, I<crontab> examinera « votre » table, c'est-à-dire la table de la "
+"personne invoquant la commande. Notez qu'un appel à I<su>(8) peut induire "
+"I<crontab> en erreur. Ainsi si vous avez effectué un I<su>(8), vous devriez "
+"toujours utiliser l'option I<-u> par précaution."
+
+# type: Plain text
+#: C/man1/crontab.1:69
+msgid ""
+"The first form of this command is used to install a new crontab from some "
+"named file or standard input if the pseudo-filename ``-'' is given."
+msgstr ""
+"La première forme de cette commande sert à installer une nouvelle crontab, "
+"en utilisant le fichier indiqué, ou l'entrée standard si le nom de fichier "
+"vaut « - »."
+
+# type: Plain text
+#: C/man1/crontab.1:76
+msgid ""
+"The I<-l> option causes the current crontab to be displayed on standard "
+"output. See the note under B<DEBIAN SPECIFIC> below."
+msgstr ""
+"L'option I<-l> permet d'afficher la crontab en cours sur la sortie standard. "
+"Veuillez lire la note B<PARTICULARITÉS DEBIAN> ci-dessous."
+
+# type: Plain text
+#: C/man1/crontab.1:80
+msgid "The I<-r> option causes the current crontab to be removed."
+msgstr "L'option I<-r> supprime la crontab en cours."
+
+# type: Plain text
+#: C/man1/crontab.1:89
+msgid ""
+"The I<-e> option is used to edit the current crontab using the editor "
+"specified by the \\s-1VISUAL\\s+1 or \\s-1EDITOR\\s+1 environment "
+"variables.  After you exit from the editor, the modified crontab will be "
+"installed automatically. If neither of the environment variables is defined, "
+"then the default editor /usr/bin/editor is used."
+msgstr ""
+"L'option I<-e> permet de modifier la table en cours, en utilisant l'éditeur "
+"indiqué par les variables d'environnement \\s-1VISUAL\\s+1 ou \\s-1EDITOR\\s"
+"+1. Une fois que vous sortez de l'éditeur, la table modifiée sera installée "
+"automatiquement. Si aucune des variables d'environnement n'est définie, "
+"alors l'éditeur par défaut /usr/bin/editor est utilisé."
 
 # type: SH
-#: C/man8/cron.8:31
+#: C/man1/crontab.1:89
 #, no-wrap
-msgid "OPTIONS"
-msgstr "OPTIONS"
-
-# type: TP
-#: C/man8/cron.8:32
-#, no-wrap
-msgid "B<-f>"
-msgstr "B<-f>"
+msgid "DEBIAN SPECIFIC"
+msgstr "PARTICULARITÉS DEBIAN"
 
 # type: Plain text
-#: C/man8/cron.8:35
-msgid "Stay in foreground mode, don't daemonize."
-msgstr "Rester en mode « premier plan », ne pas utiliser de démon."
-
-# type: TP
-#: C/man8/cron.8:35
-#, no-wrap
-msgid "B<-l>"
-msgstr "B<-l>"
-
-# type: Plain text
-#: C/man8/cron.8:38
-msgid "Enable LSB compliant names for /etc/cron.d files"
+#: C/man1/crontab.1:96
+msgid ""
+"The \"out-of-the-box\" behaviour for I<crontab -l> is to display the three "
+"line \"DO NOT EDIT THIS FILE\" header that is placed at the beginning of the "
+"crontab when it is installed. The problem is that it makes the sequence"
 msgstr ""
-"Activer les noms conformes LSB pour les fichiers du répertoire /etc/cron.d."
+"Le comportement par défaut de I<crontab -l> est d'afficher l'en-tête de "
+"trois lignes « DO NOT EDIT THIS FILE » (NE PAS MODIFIER CE FICHIER) qui est "
+"placé au début de la crontab à son installation. Le problème est que cela "
+"rend la séquence"
+
+# type: Plain text
+#: C/man1/crontab.1:98
+msgid "crontab -l | crontab -"
+msgstr "crontab -l | crontab -"
+
+# type: Plain text
+#: C/man1/crontab.1:109
+msgid ""
+"non-idempotent -- you keep adding copies of the header. This causes pain to "
+"scripts that use sed to edit a crontab. Therefore, the default behaviour of "
+"the B<-l> option has been changed to not output such header. You may obtain "
+"the original behaviour by setting the environment variable "
+"B<CRONTAB_NOHEADER> to 'N', which will cause the I<crontab -l> command to "
+"emit the extraneous header."
+msgstr ""
+"non idempotente -- l'en-tête est ajouté systématiquement. Cela perturbe les "
+"scripts qui utilisent sed pour modifier une crontab. Par conséquent, le "
+"comportement par défaut de l'option B<-l> a été modifié afin de ne pas "
+"afficher cet en-tête. Vous pouvez obtenir le comportement originel en "
+"définissant la variable d'environnement B<CRONTAB_NOHEADER> à « N », ce qui "
+"aura pour effet que la commande I<crontab -l> affichera l'en-tête."
 
 # type: SH
-#: C/man8/cron.8:38
-#, no-wrap
-msgid "NOTES"
-msgstr "NOTES"
-
-# type: Plain text
-#: C/man8/cron.8:48
-msgid ""
-"I<cron> searches its spool area (/var/spool/cron/crontabs) for crontab files "
-"(which are named after accounts in /etc/passwd); crontabs found are loaded "
-"into memory.  Note that crontabs in this directory should not be accessed "
-"directly - the I<crontab> command should be used to access and update them."
-msgstr ""
-"I<Cron> recherche, dans le répertoire /var/spool/cron/crontabs, des fichiers "
-"de crontab ayant des noms de compte existant dans /etc/passwd. Les crontabs "
-"trouvées sont chargées en mémoire. Veuillez noter que les crontabs de ce "
-"répertoire ne doivent pas être accédées directement - la commande I<crontab> "
-"doit être utilisée pour y accéder et les mettre à jour."
-
-# type: Plain text
-#: C/man8/cron.8:75
-msgid ""
-"I<cron> also reads /etc/crontab, which is in a slightly different format "
-"(see I<crontab(5)>).  Additionally, I<cron> reads the files in /etc/cron.d: "
-"it treats the files in /etc/cron.d as in the same way as the /etc/crontab "
-"file (they follow the special format of that file, i.e. they include the "
-"I<user> field). However, they are independent of /etc/crontab: the do not, "
-"for example, inherit environment variable settings from it. The intended "
-"purpose of this feature is to allow packages that require finer control of "
-"their scheduling than the /etc/cron.{daily,weekly,monthly} directories allow "
-"to add a crontab file to /etc/cron.d. Such files should be named after the "
-"package that supplies them. Files must conform to the same naming convention "
-"as used by I<run-parts(8)>: they must consist solely of upper- and lower-"
-"case letters, digits, underscores, and hyphens. If the B<-l> option is "
-"specified, then they must conform to the LSB namespace specification, "
-"exactly as in the B<--lsbsysinit> option in I<run-parts>."
-msgstr ""
-"I<cron> lit également le fichier /etc/crontab, qui est dans un format "
-"légèrement différent (voir I<crontab(5)>). De plus, I<cron> lit les fichiers "
-"dans /etc/cron.d : il traite les fichiers dans /etc/cron.d de la même "
-"manière que le fichier /etc/crontab (ils ont le même format spécial que ce "
-"fichier, c'est-à-dire qu'ils intègrent le champ I<user>). Toutefois ils sont "
-"indépendants du fichier /etc/crontab : par exemple, ils n'héritent pas de "
-"ses variables d'environnement. La raison avouée de cette caractéristique est "
-"de permettre à des paquets un contrôle plus fin de leur planning que les "
-"répertoires /etc/cron.{daily,weekly,monthly} ne le permettent en ajoutant un "
-"fichier crontab au répertoire /etc/cron.d. Ces fichiers devraient être "
-"nommés selon le nom du paquet qui les fournit. Les fichiers doivent suivre "
-"la même convention de nommage que celle utilisée par I<run-parts(8)> : ils "
-"peuvent contenir des lettres majuscules et minuscules, des chiffres, le "
-"caractère de soulignement et le trait d'union. Si l'option B<-l> est "
-"indiquée, alors ils doivent se conformer à la spécification de l'espace de "
-"nommage LSB, exactement comme pour l'option B<--lsbsysinit> de I<run-parts>."
-
-# type: Plain text
-#: C/man8/cron.8:79
-msgid ""
-"Like /etc/crontab, the files in the /etc/cron.d directory are monitored for "
-"changes. In general, the admin should not use /etc/cron.d/, but use the "
-"standard system crontab /etc/crontab."
-msgstr ""
-"Comme le fichier /etc/crontab, les changements des fichiers du répertoire /"
-"etc/cron.d sont surveillés. En général, l'administrateur ne devrait pas "
-"utiliser /etc/cron.d/ mais le système crontab standard constitué du fichier /"
-"etc/crontab."
-
-# type: Plain text
-#: C/man8/cron.8:88
-msgid ""
-"I<cron> then wakes up every minute, examining all stored crontabs, checking "
-"each command to see if it should be run in the current minute.  When "
-"executing commands, any output is mailed to the owner of the crontab (or to "
-"the user named in the MAILTO environment variable in the crontab, if such "
-"exists).  The children copies of cron running these processes have their "
-"name coerced to uppercase, as will be seen in the syslog and ps output."
-msgstr ""
-"Ensuite, I<cron> s'éveille toutes les minutes, examine les crontabs "
-"existantes, et vérifie chaque commande pour savoir s'il doit la lancer dans "
-"la minute à venir. Lors de l'exécution d'une commande, toute sortie est "
-"envoyée par courriel au propriétaire de la crontab (ou à l'utilisateur dont "
-"le nom est mentionné dans la variable d'environnement MAILTO si elle "
-"existe). Les copies des processus enfant ont leur nom mis en majuscules, "
-"observable dans le syslog et dans la sortie de la commande ps. "
-
-# type: Plain text
-#: C/man8/cron.8:103
-msgid ""
-"Additionally, I<cron> checks each minute to see if its spool directory's "
-"modtime (or the modtime on I</etc/crontab)> has changed, and if it has, "
-"I<cron> will then examine the modtime on all crontabs and reload those which "
-"have changed.  Thus I<cron> need not be restarted whenever a crontab file is "
-"modified.  Note that the I<crontab>(1)  command updates the modtime of the "
-"spool directory whenever it changes a crontab."
-msgstr ""
-"De plus, I<cron> vérifie chaque minute si la date de modification de son "
-"répertoire de stockage (ou la date de modification de I</etc/crontab>) a "
-"changé. Si c'est le cas, I<cron> examinera les dates de modification de "
-"chaque fichier crontab, et rechargera ceux qui ont été modifiés. Ainsi, "
-"I<cron> n'a pas besoin d'être redémarré après la modification d'un fichier "
-"crontab. Notez que la commande I<crontab>(1) met à jour la date de "
-"modification du répertoire de stockage si un changement a lieu."
-
-# type: Plain text
-#: C/man8/cron.8:110
-msgid ""
-"Special considerations exist when the clock is changed by less than 3 hours, "
-"for example at the beginning and end of daylight savings time. If the time "
-"has moved forwards, those jobs which would have run in the time that was "
-"skipped will be run soon after the change.  Conversely, if the time has "
-"moved backwards by less than 3 hours, those jobs that fall into the repeated "
-"time will not be re-run."
-msgstr ""
-"Il existe des dispositions spéciales lorsque l'horloge est modifiée de moins "
-"de 4 heures, par exemple au début et à la fin de l'heure d'été. Si l'heure a "
-"été avancée, les travaux qui auraient dû être exécutés à ce moment là le "
-"seront juste après le changement. À l'inverse, si l'heure a été retardée de "
-"moins de 3 heures, les travaux qui tombent dans cet intervalle de temps ne "
-"seront pas exécutés de nouveau."
-
-# type: Plain text
-#: C/man8/cron.8:115
-msgid ""
-"Only jobs that run at a particular time (not specified as @hourly, nor with "
-"'*' in the hour or minute specifier) are affected. Jobs which are specified "
-"with wildcards are run based on the new time immediately."
-msgstr ""
-"Seuls les travaux qui sont exécutés à un moment particulier (ni spécifiés "
-"par @hourly ni par « * » dans le champ heure ou minute) sont affectés. Les "
-"travaux spécifiés avec des astérisques sont exécutés immédiatement sur la "
-"base de l'heure modifiée."
-
-# type: Plain text
-#: C/man8/cron.8:118
-msgid ""
-"Clock changes of more than 3 hours are considered to be corrections to the "
-"clock, and the new time is used immediately."
-msgstr ""
-"Les changements d'horloge de plus de 3 heures sont considérés comme des "
-"corrections de l'horloge, et la nouvelle heure est utilisée immédiatement."
-
-# type: Plain text
-#: C/man8/cron.8:122
-msgid ""
-"I<cron> logs its action to the syslog facility 'cron', and logging may be "
-"controlled using the standard syslogd(8) facility."
-msgstr ""
-"I<cron> journalise ses actions à l'aide du paramètre « cron » de syslog, et "
-"la journalisation peut être contrôlée en utilisant le système standard "
-"syslogd(8)."
-
-# type: SH
-#: C/man8/cron.8:122 C/man5/crontab.5:232 C/man1/crontab.1:109
+#: C/man1/crontab.1:109 C/man5/crontab.5:232 C/man8/cron.8:122
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 # type: Plain text
-#: C/man8/cron.8:124
-msgid "crontab(1), crontab(5)"
-msgstr "crontab(1), crontab(5)."
+#: C/man1/crontab.1:111
+msgid "crontab(5), cron(8)"
+msgstr "crontab(5), cron(8)"
 
 # type: SH
-#: C/man8/cron.8:124 C/man5/crontab.5:255 C/man1/crontab.1:134
+#: C/man1/crontab.1:111
+#, no-wrap
+msgid "FILES"
+msgstr "FICHIERS"
+
+# type: Plain text
+#: C/man1/crontab.1:115
+#, no-wrap
+msgid ""
+"/etc/cron.allow\n"
+"/etc/cron.deny\n"
+msgstr ""
+"/etc/cron.allow\n"
+"/etc/cron.deny\n"
+
+# type: SH
+#: C/man1/crontab.1:116
+#, no-wrap
+msgid "STANDARDS"
+msgstr "STANDARDS"
+
+# type: Plain text
+#: C/man1/crontab.1:122
+msgid ""
+"The I<crontab> command conforms to IEEE Std1003.2-1992 (``POSIX'').  This "
+"new command syntax differs from previous versions of Vixie Cron, as well as "
+"from the classic SVR3 syntax."
+msgstr ""
+"La commande I<crontab> est conforme au standard IEEE Std1003.2-1992 "
+"(« POSIX »). Cette nouvelle syntaxe diffère des versions précédentes de "
+"Vixie Cron, ainsi que de la syntaxe SVR3 classique."
+
+# type: SH
+#: C/man1/crontab.1:123
+#, no-wrap
+msgid "DIAGNOSTICS"
+msgstr "DIAGNOSTICS"
+
+# type: Plain text
+#: C/man1/crontab.1:126
+msgid ""
+"A fairly informative usage message appears if you run it with a bad command "
+"line."
+msgstr ""
+"Un message d'aide approprié est affiché si vous invoquez crontab avec des "
+"arguments erronés."
+
+# type: SH
+#: C/man1/crontab.1:127
+#, no-wrap
+msgid "BUGS"
+msgstr "BOGUES"
+
+# type: Plain text
+#: C/man1/crontab.1:133
+msgid ""
+"Although cron requires that each entry in a crontab end in a newline "
+"character, the neither the crontab command nor the cron daemon will detect "
+"this error. Instead, the crontab will appear load normally. However, the "
+"command will never run. The best choice is to ensure that your crontab has a "
+"blank line at the end."
+msgstr ""
+"Bien que chaque entrée d'une crontab doit être terminée par un retour à la "
+"ligne, ni la commande crontab ni le démon cron ne détectera cette erreur. Au "
+"contraire, la crontab se chargera normalement. Toutefois, la commande ne "
+"sera jamais exécutée. La meilleure solution est de s'assurer que la crontab "
+"est terminé par une ligne blanche."
+
+# type: SH
+#: C/man1/crontab.1:134 C/man5/crontab.5:255 C/man8/cron.8:124
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTEUR"
 
 # type: Plain text
-#: C/man8/cron.8:126 C/man5/crontab.5:257 C/man1/crontab.1:136
+#: C/man1/crontab.1:136 C/man5/crontab.5:257 C/man8/cron.8:126
 #, no-wrap
 msgid "Paul Vixie E<lt>paul@vix.comE<gt>\n"
 msgstr "Paul Vixie E<lt>paul@vix.comE<gt>\n"
-
-# type: TH
-#: C/man5/crontab.5:20 C/man1/crontab.1:20
-#, no-wrap
-msgid "CRONTAB"
-msgstr "CRONTAB"
 
 # type: TH
 #: C/man5/crontab.5:20
@@ -826,228 +837,217 @@ msgstr ""
 "premiers champs sont des extensions."
 
 # type: TH
-#: C/man1/crontab.1:20
+#: C/man8/cron.8:20
 #, no-wrap
-msgid "29 December 1993"
-msgstr "29 décembre 1993"
+msgid "CRON"
+msgstr "CRON"
+
+# type: TH
+#: C/man8/cron.8:20
+#, no-wrap
+msgid "20 December 1993"
+msgstr "20 décembre 1993"
 
 # type: Plain text
-#: C/man1/crontab.1:24
-msgid "crontab - maintain crontab files for individual users (V3)"
-msgstr ""
-"crontab - Maintenir les fichiers crontab pour les utilisateurs individuels "
-"(V3)"
+#: C/man8/cron.8:24
+msgid "cron - daemon to execute scheduled commands (Vixie Cron)"
+msgstr "cron - Démon permettant de lancer des commandes différées (Vixie Cron)"
 
 # type: Plain text
-#: C/man1/crontab.1:26
-msgid "crontab [ -u user ] file"
-msgstr "crontab [ -u utilisateur ] fichier"
+#: C/man8/cron.8:27
+msgid "cron [B<-f>]"
+msgstr "cron [B<-f>]"
 
 # type: Plain text
-#: C/man1/crontab.1:28
-msgid "crontab [ -u user ] { -l | -r | -e }"
-msgstr "crontab [ -u utilisateur ] { -l | -r | -e }"
-
-# type: Plain text
-#: C/man1/crontab.1:36
+#: C/man8/cron.8:31
 msgid ""
-"I<crontab> is the program used to install, deinstall or list the tables used "
-"to drive the I<cron>(8)  daemon in Vixie Cron.  Each user can have their own "
-"crontab, and though these are files in /var/spool/cron/crontabs, they are "
-"not intended to be edited directly."
+"I<cron> is started automatically from /etc/init.d on entering multi-user "
+"runlevels."
 msgstr ""
-"I<Crontab> est le programme utilisé pour installer, désinstaller, ou "
-"afficher le contenu des tables permettant de piloter le fonctionnement du "
-"démon I<cron>(8) de Vixie Cron. Chaque utilisateur dispose de sa propre "
-"crontab, et bien que celles-ci se trouvent dans /var/spool/cron/crontabs, "
-"elles ne sont pas conçues pour être modifiées directement."
-
-# type: Plain text
-#: C/man1/crontab.1:50
-msgid ""
-"If the I</etc/cron.allow> file exists, then you must be listed therein in "
-"order to be allowed to use this command.  If the I</etc/cron.allow> file "
-"does not exist but the I</etc/cron.deny> file does exist, then you must "
-"B<not> be listed in the I</etc/cron.deny> file in order to use this "
-"command.  If neither of these files exists, then depending on site-dependent "
-"configuration parameters, only the super user will be allowed to use this "
-"command, or all users will be able to use this command. For standard Debian "
-"systems, all users may use this command."
-msgstr ""
-"Si le fichier I</etc/cron.allow> existe, alors vous devez être mentionné "
-"dans celui-ci pour pouvoir utiliser cette commande. S'il n'existe pas, mais "
-"que le fichier I</etc/cron.deny> existe, alors vous B<ne> devez B<pas> être "
-"mentionné dans celui-ci si vous désirez utiliser cette commande. Si aucun de "
-"ces deux fichiers n'existe, alors, selon la configuration du site, soit seul "
-"le superutilisateur a le droit d'utiliser cette commande, soit tous les "
-"utilisateurs le peuvent. Sur les systèmes Debian standards, tous les "
-"utilisateurs peuvent l'utiliser."
-
-# type: Plain text
-#: C/man1/crontab.1:66
-msgid ""
-"If the I<-u> option is given, it specifies the name of the user whose "
-"crontab is to be tweaked.  If this option is not given, I<crontab> examines "
-"\"your\" crontab, i.e., the crontab of the person executing the command.  "
-"Note that I<su>(8)  can confuse I<crontab> and that if you are running "
-"inside of I<su>(8)  you should always use the I<-u> option for safety's sake."
-msgstr ""
-"Si l'option I<-u> est indiquée, elle permet de préciser le nom de "
-"l'utilisateur dont la crontab doit être manipulée. Si cette option n'est pas "
-"indiquée, I<crontab> examinera « votre » table, c'est-à-dire la table de la "
-"personne invoquant la commande. Notez qu'un appel à I<su>(8) peut induire "
-"I<crontab> en erreur. Ainsi si vous avez effectué un I<su>(8), vous devriez "
-"toujours utiliser l'option I<-u> par précaution."
-
-# type: Plain text
-#: C/man1/crontab.1:69
-msgid ""
-"The first form of this command is used to install a new crontab from some "
-"named file or standard input if the pseudo-filename ``-'' is given."
-msgstr ""
-"La première forme de cette commande sert à installer une nouvelle crontab, "
-"en utilisant le fichier indiqué, ou l'entrée standard si le nom de fichier "
-"vaut « - »."
-
-# type: Plain text
-#: C/man1/crontab.1:76
-msgid ""
-"The I<-l> option causes the current crontab to be displayed on standard "
-"output. See the note under B<DEBIAN SPECIFIC> below."
-msgstr ""
-"L'option I<-l> permet d'afficher la crontab en cours sur la sortie standard. "
-"Veuillez lire la note B<PARTICULARITÉS DEBIAN> ci-dessous."
-
-# type: Plain text
-#: C/man1/crontab.1:80
-msgid "The I<-r> option causes the current crontab to be removed."
-msgstr "L'option I<-r> supprime la crontab en cours."
-
-# type: Plain text
-#: C/man1/crontab.1:89
-msgid ""
-"The I<-e> option is used to edit the current crontab using the editor "
-"specified by the \\s-1VISUAL\\s+1 or \\s-1EDITOR\\s+1 environment "
-"variables.  After you exit from the editor, the modified crontab will be "
-"installed automatically. If neither of the environment variables is defined, "
-"then the default editor /usr/bin/editor is used."
-msgstr ""
-"L'option I<-e> permet de modifier la table en cours, en utilisant l'éditeur "
-"indiqué par les variables d'environnement \\s-1VISUAL\\s+1 ou \\s-1EDITOR\\s"
-"+1. Une fois que vous sortez de l'éditeur, la table modifiée sera installée "
-"automatiquement. Si aucune des variables d'environnement n'est définie, "
-"alors l'éditeur par défaut /usr/bin/editor est utilisé."
+"I<Cron> est démarré automatiquement depuis un script du répertoire /etc/init."
+"d au moment d'entrer dans un niveau de fonctionnement multiutilisateur."
 
 # type: SH
-#: C/man1/crontab.1:89
+#: C/man8/cron.8:31
 #, no-wrap
-msgid "DEBIAN SPECIFIC"
-msgstr "PARTICULARITÉS DEBIAN"
+msgid "OPTIONS"
+msgstr "OPTIONS"
+
+# type: TP
+#: C/man8/cron.8:32
+#, no-wrap
+msgid "B<-f>"
+msgstr "B<-f>"
 
 # type: Plain text
-#: C/man1/crontab.1:96
-msgid ""
-"The \"out-of-the-box\" behaviour for I<crontab -l> is to display the three "
-"line \"DO NOT EDIT THIS FILE\" header that is placed at the beginning of the "
-"crontab when it is installed. The problem is that it makes the sequence"
+#: C/man8/cron.8:35
+msgid "Stay in foreground mode, don't daemonize."
+msgstr "Rester en mode « premier plan », ne pas utiliser de démon."
+
+# type: TP
+#: C/man8/cron.8:35
+#, no-wrap
+msgid "B<-l>"
+msgstr "B<-l>"
+
+# type: Plain text
+#: C/man8/cron.8:38
+msgid "Enable LSB compliant names for /etc/cron.d files"
 msgstr ""
-"Le comportement par défaut de I<crontab -l> est d'afficher l'en-tête de "
-"trois lignes « DO NOT EDIT THIS FILE » (NE PAS MODIFIER CE FICHIER) qui est "
-"placé au début de la crontab à son installation. Le problème est que cela "
-"rend la séquence"
-
-# type: Plain text
-#: C/man1/crontab.1:98
-msgid "crontab -l | crontab -"
-msgstr "crontab -l | crontab -"
-
-# type: Plain text
-#: C/man1/crontab.1:109
-msgid ""
-"non-idempotent -- you keep adding copies of the header. This causes pain to "
-"scripts that use sed to edit a crontab. Therefore, the default behaviour of "
-"the B<-l> option has been changed to not output such header. You may obtain "
-"the original behaviour by setting the environment variable "
-"B<CRONTAB_NOHEADER> to 'N', which will cause the I<crontab -l> command to "
-"emit the extraneous header."
-msgstr ""
-"non idempotente -- l'en-tête est ajouté systématiquement. Cela perturbe les "
-"scripts qui utilisent sed pour modifier une crontab. Par conséquent, le "
-"comportement par défaut de l'option B<-l> a été modifié afin de ne pas "
-"afficher cet en-tête. Vous pouvez obtenir le comportement originel en "
-"définissant la variable d'environnement B<CRONTAB_NOHEADER> à « N », ce qui "
-"aura pour effet que la commande I<crontab -l> affichera l'en-tête."
-
-# type: Plain text
-#: C/man1/crontab.1:111
-msgid "crontab(5), cron(8)"
-msgstr "crontab(5), cron(8)"
+"Activer les noms conformes LSB pour les fichiers du répertoire /etc/cron.d."
 
 # type: SH
-#: C/man1/crontab.1:111
+#: C/man8/cron.8:38
 #, no-wrap
-msgid "FILES"
-msgstr "FICHIERS"
+msgid "NOTES"
+msgstr "NOTES"
 
 # type: Plain text
-#: C/man1/crontab.1:115
-#, no-wrap
+#: C/man8/cron.8:48
 msgid ""
-"/etc/cron.allow\n"
-"/etc/cron.deny\n"
+"I<cron> searches its spool area (/var/spool/cron/crontabs) for crontab files "
+"(which are named after accounts in /etc/passwd); crontabs found are loaded "
+"into memory.  Note that crontabs in this directory should not be accessed "
+"directly - the I<crontab> command should be used to access and update them."
 msgstr ""
-"/etc/cron.allow\n"
-"/etc/cron.deny\n"
-
-# type: SH
-#: C/man1/crontab.1:116
-#, no-wrap
-msgid "STANDARDS"
-msgstr "STANDARDS"
+"I<Cron> recherche, dans le répertoire /var/spool/cron/crontabs, des fichiers "
+"de crontab ayant des noms de compte existant dans /etc/passwd. Les crontabs "
+"trouvées sont chargées en mémoire. Veuillez noter que les crontabs de ce "
+"répertoire ne doivent pas être accédées directement - la commande I<crontab> "
+"doit être utilisée pour y accéder et les mettre à jour."
 
 # type: Plain text
-#: C/man1/crontab.1:122
+#: C/man8/cron.8:75
 msgid ""
-"The I<crontab> command conforms to IEEE Std1003.2-1992 (``POSIX'').  This "
-"new command syntax differs from previous versions of Vixie Cron, as well as "
-"from the classic SVR3 syntax."
+"I<cron> also reads /etc/crontab, which is in a slightly different format "
+"(see I<crontab(5)>).  Additionally, I<cron> reads the files in /etc/cron.d: "
+"it treats the files in /etc/cron.d as in the same way as the /etc/crontab "
+"file (they follow the special format of that file, i.e. they include the "
+"I<user> field). However, they are independent of /etc/crontab: the do not, "
+"for example, inherit environment variable settings from it. The intended "
+"purpose of this feature is to allow packages that require finer control of "
+"their scheduling than the /etc/cron.{daily,weekly,monthly} directories allow "
+"to add a crontab file to /etc/cron.d. Such files should be named after the "
+"package that supplies them. Files must conform to the same naming convention "
+"as used by I<run-parts(8)>: they must consist solely of upper- and lower-"
+"case letters, digits, underscores, and hyphens. If the B<-l> option is "
+"specified, then they must conform to the LSB namespace specification, "
+"exactly as in the B<--lsbsysinit> option in I<run-parts>."
 msgstr ""
-"La commande I<crontab> est conforme au standard IEEE Std1003.2-1992 "
-"(« POSIX »). Cette nouvelle syntaxe diffère des versions précédentes de "
-"Vixie Cron, ainsi que de la syntaxe SVR3 classique."
-
-# type: SH
-#: C/man1/crontab.1:123
-#, no-wrap
-msgid "DIAGNOSTICS"
-msgstr "DIAGNOSTICS"
+"I<cron> lit également le fichier /etc/crontab, qui est dans un format "
+"légèrement différent (voir I<crontab(5)>). De plus, I<cron> lit les fichiers "
+"dans /etc/cron.d : il traite les fichiers dans /etc/cron.d de la même "
+"manière que le fichier /etc/crontab (ils ont le même format spécial que ce "
+"fichier, c'est-à-dire qu'ils intègrent le champ I<user>). Toutefois ils sont "
+"indépendants du fichier /etc/crontab : par exemple, ils n'héritent pas de "
+"ses variables d'environnement. La raison avouée de cette caractéristique est "
+"de permettre à des paquets un contrôle plus fin de leur planning que les "
+"répertoires /etc/cron.{daily,weekly,monthly} ne le permettent en ajoutant un "
+"fichier crontab au répertoire /etc/cron.d. Ces fichiers devraient être "
+"nommés selon le nom du paquet qui les fournit. Les fichiers doivent suivre "
+"la même convention de nommage que celle utilisée par I<run-parts(8)> : ils "
+"peuvent contenir des lettres majuscules et minuscules, des chiffres, le "
+"caractère de soulignement et le trait d'union. Si l'option B<-l> est "
+"indiquée, alors ils doivent se conformer à la spécification de l'espace de "
+"nommage LSB, exactement comme pour l'option B<--lsbsysinit> de I<run-parts>."
 
 # type: Plain text
-#: C/man1/crontab.1:126
+#: C/man8/cron.8:79
 msgid ""
-"A fairly informative usage message appears if you run it with a bad command "
-"line."
+"Like /etc/crontab, the files in the /etc/cron.d directory are monitored for "
+"changes. In general, the admin should not use /etc/cron.d/, but use the "
+"standard system crontab /etc/crontab."
 msgstr ""
-"Un message d'aide approprié est affiché si vous invoquez crontab avec des "
-"arguments erronés."
-
-# type: SH
-#: C/man1/crontab.1:127
-#, no-wrap
-msgid "BUGS"
-msgstr "BOGUES"
+"Comme le fichier /etc/crontab, les changements des fichiers du répertoire /"
+"etc/cron.d sont surveillés. En général, l'administrateur ne devrait pas "
+"utiliser /etc/cron.d/ mais le système crontab standard constitué du fichier /"
+"etc/crontab."
 
 # type: Plain text
-#: C/man1/crontab.1:133
+#: C/man8/cron.8:88
 msgid ""
-"Although cron requires that each entry in a crontab end in a newline "
-"character, the neither the crontab command nor the cron daemon will detect "
-"this error. Instead, the crontab will appear load normally. However, the "
-"command will never run. The best choice is to ensure that your crontab has a "
-"blank line at the end."
+"I<cron> then wakes up every minute, examining all stored crontabs, checking "
+"each command to see if it should be run in the current minute.  When "
+"executing commands, any output is mailed to the owner of the crontab (or to "
+"the user named in the MAILTO environment variable in the crontab, if such "
+"exists).  The children copies of cron running these processes have their "
+"name coerced to uppercase, as will be seen in the syslog and ps output."
 msgstr ""
-"Bien que chaque entrée d'une crontab doit être terminée par un retour à la "
-"ligne, ni la commande crontab ni le démon cron ne détectera cette erreur. Au "
-"contraire, la crontab se chargera normalement. Toutefois, la commande ne "
-"sera jamais exécutée. La meilleure solution est de s'assurer que la crontab "
-"est terminé par une ligne blanche."
+"Ensuite, I<cron> s'éveille toutes les minutes, examine les crontabs "
+"existantes, et vérifie chaque commande pour savoir s'il doit la lancer dans "
+"la minute à venir. Lors de l'exécution d'une commande, toute sortie est "
+"envoyée par courriel au propriétaire de la crontab (ou à l'utilisateur dont "
+"le nom est mentionné dans la variable d'environnement MAILTO si elle "
+"existe). Les copies des processus enfant ont leur nom mis en majuscules, "
+"observable dans le syslog et dans la sortie de la commande ps. "
+
+# type: Plain text
+#: C/man8/cron.8:103
+msgid ""
+"Additionally, I<cron> checks each minute to see if its spool directory's "
+"modtime (or the modtime on I</etc/crontab)> has changed, and if it has, "
+"I<cron> will then examine the modtime on all crontabs and reload those which "
+"have changed.  Thus I<cron> need not be restarted whenever a crontab file is "
+"modified.  Note that the I<crontab>(1)  command updates the modtime of the "
+"spool directory whenever it changes a crontab."
+msgstr ""
+"De plus, I<cron> vérifie chaque minute si la date de modification de son "
+"répertoire de stockage (ou la date de modification de I</etc/crontab>) a "
+"changé. Si c'est le cas, I<cron> examinera les dates de modification de "
+"chaque fichier crontab, et rechargera ceux qui ont été modifiés. Ainsi, "
+"I<cron> n'a pas besoin d'être redémarré après la modification d'un fichier "
+"crontab. Notez que la commande I<crontab>(1) met à jour la date de "
+"modification du répertoire de stockage si un changement a lieu."
+
+# type: Plain text
+#: C/man8/cron.8:110
+msgid ""
+"Special considerations exist when the clock is changed by less than 3 hours, "
+"for example at the beginning and end of daylight savings time. If the time "
+"has moved forwards, those jobs which would have run in the time that was "
+"skipped will be run soon after the change.  Conversely, if the time has "
+"moved backwards by less than 3 hours, those jobs that fall into the repeated "
+"time will not be re-run."
+msgstr ""
+"Il existe des dispositions spéciales lorsque l'horloge est modifiée de moins "
+"de 4 heures, par exemple au début et à la fin de l'heure d'été. Si l'heure a "
+"été avancée, les travaux qui auraient dû être exécutés à ce moment là le "
+"seront juste après le changement. À l'inverse, si l'heure a été retardée de "
+"moins de 3 heures, les travaux qui tombent dans cet intervalle de temps ne "
+"seront pas exécutés de nouveau."
+
+# type: Plain text
+#: C/man8/cron.8:115
+msgid ""
+"Only jobs that run at a particular time (not specified as @hourly, nor with "
+"'*' in the hour or minute specifier) are affected. Jobs which are specified "
+"with wildcards are run based on the new time immediately."
+msgstr ""
+"Seuls les travaux qui sont exécutés à un moment particulier (ni spécifiés "
+"par @hourly ni par « * » dans le champ heure ou minute) sont affectés. Les "
+"travaux spécifiés avec des astérisques sont exécutés immédiatement sur la "
+"base de l'heure modifiée."
+
+# type: Plain text
+#: C/man8/cron.8:118
+msgid ""
+"Clock changes of more than 3 hours are considered to be corrections to the "
+"clock, and the new time is used immediately."
+msgstr ""
+"Les changements d'horloge de plus de 3 heures sont considérés comme des "
+"corrections de l'horloge, et la nouvelle heure est utilisée immédiatement."
+
+# type: Plain text
+#: C/man8/cron.8:122
+msgid ""
+"I<cron> logs its action to the syslog facility 'cron', and logging may be "
+"controlled using the standard syslogd(8) facility."
+msgstr ""
+"I<cron> journalise ses actions à l'aide du paramètre « cron » de syslog, et "
+"la journalisation peut être contrôlée en utilisant le système standard "
+"syslogd(8)."
+
+# type: Plain text
+#: C/man8/cron.8:124
+msgid "crontab(1), crontab(5)"
+msgstr "crontab(1), crontab(5)."
