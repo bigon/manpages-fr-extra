@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2006-07-08 12:42+0200\n"
+"POT-Creation-Date: 2006-07-08 13:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgid "B<mount -t nfsd nfsd /proc/fs/nfsd>"
 msgstr ""
 
 # type: SH
-#: C/man7/nfsd.7:12 C/man8/exportfs.8:20 C/man8/gssd.8:10 C/man8/nfsstat.8:10
+#: C/man7/nfsd.7:12 C/man8/exportfs.8:20 C/man8/gssd.8:10 C/man8/nfsstat.8:11
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr ""
@@ -369,7 +369,7 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man7/nfsd.7:198 C/man8/exportfs.8:220 C/man8/gssd.8:53 C/man8/nfsstat.8:64
+#: C/man7/nfsd.7:198 C/man8/exportfs.8:220 C/man8/gssd.8:62 C/man8/nfsstat.8:109
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -380,7 +380,7 @@ msgid "B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8)  B<exportfs>(8
 msgstr ""
 
 # type: SH
-#: C/man7/nfsd.7:205 C/man8/nfsstat.8:67
+#: C/man7/nfsd.7:205 C/man8/nfsstat.8:125
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
@@ -493,7 +493,7 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man8/exportfs.8:80 C/man8/gssd.8:21 C/man8/nfsstat.8:14
+#: C/man8/exportfs.8:80 C/man8/gssd.8:21 C/man8/nfsstat.8:15
 #, no-wrap
 msgid "OPTIONS"
 msgstr ""
@@ -534,7 +534,7 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man8/exportfs.8:94 C/man8/nfsstat.8:26
+#: C/man8/exportfs.8:94 C/man8/gssd.8:58
 #, no-wrap
 msgid "B<-r>"
 msgstr ""
@@ -574,7 +574,7 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man8/exportfs.8:109 C/man8/gssd.8:50
+#: C/man8/exportfs.8:109 C/man8/gssd.8:55
 #, no-wrap
 msgid "B<-v>"
 msgstr ""
@@ -638,7 +638,7 @@ msgstr ""
 #.  -------------------- Unexporting Directories ------------------
 # type: Plain text
 #: C/man8/exportfs.8:161
-msgid "The default export options are B<sync,ro,root_squash,no_delay>."
+msgid "The default export options are B<sync,ro,root_squash,wdelay>."
 msgstr ""
 
 # type: SS
@@ -681,7 +681,7 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man8/exportfs.8:185 C/man8/nfsstat.8:52
+#: C/man8/exportfs.8:185 C/man8/nfsstat.8:74
 #, no-wrap
 msgid "EXAMPLES"
 msgstr ""
@@ -744,13 +744,13 @@ msgid "B<exports(5)>, B<mountd(8)>"
 msgstr ""
 
 # type: SH
-#: C/man8/exportfs.8:223 C/man8/gssd.8:55
+#: C/man8/exportfs.8:223 C/man8/gssd.8:64
 #, no-wrap
 msgid "AUTHORS"
 msgstr ""
 
 # type: Plain text
-#: C/man8/exportfs.8:225 C/man8/nfsstat.8:68
+#: C/man8/exportfs.8:225
 msgid "Olaf Kirch, E<lt>okir@monad.swb.deE<gt>"
 msgstr ""
 
@@ -778,7 +778,7 @@ msgstr ""
 
 # type: Plain text
 #: C/man8/gssd.8:10
-msgid "B<rpc.gssd [-f] [-k keytab] [-p pipefsdir] [-v]>"
+msgid "B<rpc.gssd [-f] [-k keytab] [-p pipefsdir] [-v] [-r] [-d ccachedir]>"
 msgstr ""
 
 # type: Plain text
@@ -835,33 +835,53 @@ msgid ""
 "value is \"/var/lib/nfs/rpc_pipefs\"."
 msgstr ""
 
-# type: Plain text
-#: C/man8/gssd.8:53
-msgid "Increases the verbosity of the output (can be specified multiple times)."
+# type: TP
+#: C/man8/gssd.8:50
+#, no-wrap
+msgid "B<-d directory>"
 msgstr ""
 
 # type: Plain text
 #: C/man8/gssd.8:55
-msgid "B<rpc.svcgssd(8)>"
+msgid ""
+"Tells B<rpc.gssd> where to look for kerberos credential files.  The default "
+"value is \"/tmp\"."
 msgstr ""
 
 # type: Plain text
 #: C/man8/gssd.8:58
-msgid "Dug Song E<lt>dugsong@umich.eduE<gt>"
-msgstr ""
-
-# type: Plain text
-#: C/man8/gssd.8:60
-msgid "Andy Adamson E<lt>andros@umich.eduE<gt>"
+msgid "Increases the verbosity of the output (can be specified multiple times)."
 msgstr ""
 
 # type: Plain text
 #: C/man8/gssd.8:62
+msgid ""
+"If the rpcsec_gss library supports setting debug level, increases the "
+"verbosity of the output (can be specified multiple times)."
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:64
+msgid "B<rpc.svcgssd(8)>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:67
+msgid "Dug Song E<lt>dugsong@umich.eduE<gt>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:69
+msgid "Andy Adamson E<lt>andros@umich.eduE<gt>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:71
 msgid "Marius Aamodt Eriksen E<lt>marius@umich.eduE<gt>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:63
+#: C/man8/gssd.8:72
 msgid "J. Bruce Fields E<lt>bfields@umich.eduE<gt>"
 msgstr ""
 
@@ -874,172 +894,368 @@ msgstr ""
 # type: TH
 #: C/man8/nfsstat.8:5
 #, no-wrap
-msgid "05 Oct 2001"
+msgid "11 Apr 2005"
 msgstr ""
 
 # type: Plain text
 #: C/man8/nfsstat.8:8
-msgid "nfsstat - print NFS statistics"
+msgid "nfsstat - list NFS statistics"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:10
-msgid "B</usr/sbin/nfsstat [-anrcsz] [-o >I<facility>B<] ...>"
+#: C/man8/nfsstat.8:11
+msgid "B<nfsstat> [I<OPTION>]..."
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:14
+#: C/man8/nfsstat.8:15
 msgid ""
 "The B<nfsstat> displays statistics kept about NFS client and server "
 "activity."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:15
+#: C/man8/nfsstat.8:16
 #, no-wrap
-msgid "B<-s>"
+msgid "B<-s, --server>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:19
+#: C/man8/nfsstat.8:20
 msgid ""
 "Print only server-side statistics. The default is to print both server and "
 "client statistics."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:19
+#: C/man8/nfsstat.8:20
 #, no-wrap
-msgid "B<-c>"
+msgid "B<-c, --client>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:22
+#: C/man8/nfsstat.8:23
 msgid "Print only client-side statistics."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:22
+#: C/man8/nfsstat.8:23
 #, no-wrap
-msgid "B<-n>"
+msgid "B<-n, --nfs>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:26
+#: C/man8/nfsstat.8:27
 msgid ""
 "Print only NFS statistics. The default is to print both NFS and RPC "
 "information."
 msgstr ""
 
+# type: TP
+#: C/man8/nfsstat.8:27
+#, no-wrap
+msgid "B<-2>"
+msgstr ""
+
 # type: Plain text
-#: C/man8/nfsstat.8:29
+#: C/man8/nfsstat.8:31
+msgid ""
+"Print only NFS v2 statistics. The default is to only print information about "
+"the versions of B<NFS> that have non-zero counts."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:31
+#, no-wrap
+msgid "B<-3>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:34
+msgid "Print only NFS v3 statistics."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:34
+#, no-wrap
+msgid "B<-4>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:37
+msgid "Print only NFS v4 statistics."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:37
+#, no-wrap
+msgid "B<-m, --mounted>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:40
+msgid "Print information about each of the mounted B<NFS> file systems."
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:42
+msgid "If this option is used, all other options are ignored."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:42
+#, no-wrap
+msgid "B<-r, --rpc>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:45
 msgid "Print only RPC statistics."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:29
+#: C/man8/nfsstat.8:45
 #, no-wrap
 msgid "B<-o>I< facility>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:32
+#: C/man8/nfsstat.8:48
 msgid "Display statistics for the specified facility, which must be one of:"
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:33
+#: C/man8/nfsstat.8:49
 #, no-wrap
 msgid "B<nfs>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:36
+#: C/man8/nfsstat.8:52
 msgid "NFS protocol information, split up by RPC call."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:36
+#: C/man8/nfsstat.8:52
 #, no-wrap
 msgid "B<rpc>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:39
+#: C/man8/nfsstat.8:55
 msgid "General RPC information."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:39
+#: C/man8/nfsstat.8:55
 #, no-wrap
 msgid "B<net>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:43
+#: C/man8/nfsstat.8:59
 msgid ""
 "Network layer statistics, such as the number of received packets, number of "
 "TCP connections, etc."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:43
+#: C/man8/nfsstat.8:59
 #, no-wrap
 msgid "B<fh>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:47
+#: C/man8/nfsstat.8:63
 msgid ""
 "Usage information on the server's file handle cache, including the total "
 "number of lookups, and the number of hits and misses."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:47
+#: C/man8/nfsstat.8:63
 #, no-wrap
 msgid "B<rc>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:51
+#: C/man8/nfsstat.8:67
 msgid ""
 "Usage information on the server's request reply cache, including the total "
 "number of lookups, and the number of hits and misses."
 msgstr ""
 
-#.  --------------------- FILES ----------------------------------
+# type: TP
+#: C/man8/nfsstat.8:67
+#, no-wrap
+msgid "B<all>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:70
+msgid "Display all of the above facilities."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:71
+#, no-wrap
+msgid "B<-v, --verbose>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:74
+msgid "This is equivalent to B<-o all>."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:75
+#, no-wrap
+msgid "B<nfsstat -o all -234>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:78
+msgid "Show all information about all versions of B<NFS>."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:78
+#, no-wrap
+msgid "B<nfsstat --verbose -234>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:81
+msgid "Same as above."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:81
+#, no-wrap
+msgid "B<nfsstat -o all>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:84
+msgid "Show all information about about active versions of B<NFS>."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:84
+#, no-wrap
+msgid "B<nfsstat --nfs --server -3>"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:87
+msgid "Show statistics for B<NFS> version 3 server."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:87
+#, no-wrap
+msgid "B<nfsstat -m>"
+msgstr ""
+
+#.  --------------------- DISPLAY --------------------------------
+# type: Plain text
+#: C/man8/nfsstat.8:91
+msgid "Show information about mounted B<NFS> filesystems."
+msgstr ""
+
 # type: SH
-#: C/man8/nfsstat.8:54
+#: C/man8/nfsstat.8:91
+#, no-wrap
+msgid "DISPLAY"
+msgstr ""
+
+#.  --------------------- FILES ----------------------------------
+# type: Plain text
+#: C/man8/nfsstat.8:95
+msgid ""
+"The B<Flags> output from the B<-m> option is the same as the flags give to "
+"the B<mount> command."
+msgstr ""
+
+# type: SH
+#: C/man8/nfsstat.8:95
 #, no-wrap
 msgid "FILES"
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:55
+#: C/man8/nfsstat.8:96
 #, no-wrap
 msgid "B</proc/net/rpc/nfsd>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/nfsstat.8:59
+#: C/man8/nfsstat.8:100
 msgid "B<procfs>-based interface to kernel NFS server statistics."
 msgstr ""
 
 # type: TP
-#: C/man8/nfsstat.8:59
+#: C/man8/nfsstat.8:100
 #, no-wrap
 msgid "B</proc/net/rpc/nfs>"
 msgstr ""
 
+# type: Plain text
+#: C/man8/nfsstat.8:104
+msgid "B<procfs>-based interface to kernel NFS client statistics."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:104
+#, no-wrap
+msgid "B</proc/mounts>"
+msgstr ""
+
 #.  -------------------- SEE ALSO --------------------------------
 # type: Plain text
-#: C/man8/nfsstat.8:64
-msgid "B<procfs>-based interface to kernel NFS client statistics."
+#: C/man8/nfsstat.8:109
+msgid "B<procfs>-based interface to the mounted filesystems."
+msgstr ""
+
+#.  ---------------------- BUGS ----------------------------------
+# type: Plain text
+#: C/man8/nfsstat.8:113
+msgid "B<rpc.nfsd>(8).  B<nfs>(5)."
+msgstr ""
+
+# type: SH
+#: C/man8/nfsstat.8:113
+#, no-wrap
+msgid "BUGS"
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:115
+msgid ""
+"The default output has be changed.  To get the old default output you must "
+"run B<nfsstat --auto -2>."
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:119
+msgid ""
+"The function of the B<-v> and B<-a> options have changed. The B<-a> option "
+"is now reserved for future use. The B<-v> does what the B<-a> option used to "
+"do, and the new B<-[234]> options replace the B<-v> option."
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:121
+msgid "The B<Display> section should be more complete."
 msgstr ""
 
 #.  -------------------- AUTHOR ----------------------------------
 # type: Plain text
-#: C/man8/nfsstat.8:67
-msgid "B<rpc.nfsd>(8)."
+#: C/man8/nfsstat.8:125
+msgid "Further bugs can be found or reported at B<http://nfs.sf.net/>."
+msgstr ""
+
+# type: Plain text
+#: C/man8/nfsstat.8:126
+msgid "Olaf Kirch, E<lt>okir@suse.deE<gt>"
 msgstr ""
