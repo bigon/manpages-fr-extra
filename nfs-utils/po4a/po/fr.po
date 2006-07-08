@@ -1,11 +1,11 @@
-# translation of exportfs.po to French
+# translation of nfs-utils to French
 # Copyright (C) 2006 Free Software Foundation, Inc.
 # Sylvain Cherrier <sylvain.cherrier@free.fr>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exportfs manpage\n"
-"POT-Creation-Date: 2006-06-09 15:13+0200\n"
+"POT-Creation-Date: 2006-07-08 12:42+0200\n"
 "PO-Revision-Date: 2006-01-13 15:29+0100\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr\n"
 "Language-Team:  French\n"
@@ -13,6 +13,497 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
+
+# type: TH
+#: C/man7/nfsd.7:7
+#, no-wrap
+msgid "nfsd"
+msgstr "nfsd"
+
+# type: TH
+#: C/man7/nfsd.7:7
+#, no-wrap
+msgid "3 July 2003"
+msgstr "3 juillet 2003"
+
+# type: SH
+#: C/man7/nfsd.7:8 C/man8/exportfs.8:7 C/man8/gssd.8:6 C/man8/nfsstat.8:6
+#, no-wrap
+msgid "NAME"
+msgstr "NOM"
+
+# type: Plain text
+#: C/man7/nfsd.7:10
+msgid "nfsd - special filesystem for controlling Linux NFS server"
+msgstr ""
+"nfsd - Système de fichiers spécial permettant le contrôle du serveur NFS de "
+"Linux"
+
+# type: SH
+#: C/man7/nfsd.7:10
+#, no-wrap
+msgid "SYNPOSIS"
+msgstr "SYNOPSIS"
+
+# type: Plain text
+#: C/man7/nfsd.7:12
+msgid "B<mount -t nfsd nfsd /proc/fs/nfsd>"
+msgstr "B<mount -t nfsd nfsd /proc/fs/nfsd>"
+
+# type: SH
+#: C/man7/nfsd.7:12 C/man8/exportfs.8:20 C/man8/gssd.8:10 C/man8/nfsstat.8:10
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "DESCRIPTION"
+
+# type: Plain text
+#: C/man7/nfsd.7:20
+msgid ""
+"The B<nfsd> filessytem is a special filesystem which provides access to the "
+"Linux NFS server.  The filesystem consists of a single directory which "
+"contains a number of files.  These files are actually gateways into the NFS "
+"server.  Writing to them can affect the server.  Reading from them can "
+"provide information about the server."
+msgstr ""
+"Le système de fichiers B<nfsd> est un système de fichiers spécial permettant "
+"de dialoguer avec le serveur NFS de Linux. Ce système de fichier ne contient "
+"qu'un seul répertoire avec un certain nombre de fichiers. Ces fichiers sont "
+"en fait des passerelles vers le serveur NFS. L'écriture dans ces fichiers "
+"affectera le comportement du serveur. La lecture du contenu de ces fichiers "
+"fournira des informations à propos du serveur."
+
+# type: Plain text
+#: C/man7/nfsd.7:24
+msgid ""
+"This file system is only available in Linux 2.6 and later series kernels "
+"(and in the later parts of the 2.5 development series leading up to 2.6).  "
+"This man page does not apply to 2.4 and earlier."
+msgstr ""
+"Ce système de fichiers n'est accessible que dans les versions 2.6 et "
+"suivantes du noyau Linux (ainsi que dans les dernières versions de "
+"développement 2.5 amenant vers la série 2.6). Cette page de manuel ne "
+"concerne pas les noyaux 2.4 et précédents."
+
+# type: Plain text
+#: C/man7/nfsd.7:31
+msgid ""
+"As well as this filesystem, there are a collection of files in the B<procfs> "
+"filesystem (normally mounted at B</proc>)  which are used to control the NFS "
+"server.  This manual page describes all of these files."
+msgstr ""
+"Comme pour ce système de fichiers, il existe un ensemble de fichiers dans le "
+"système de fichiers  B<procfs> (habituellement monté dans B</proc>) qui "
+"permettent le contrôle du serveur NFS. Cette page de manuel décrit tous ces "
+"fichiers."
+
+# type: Plain text
+#: C/man7/nfsd.7:44
+msgid ""
+"The I<exportfs> and I<mountd> programs (part of the nfs-utils package) "
+"expect to find this filesystem mounted at B</proc/fs/nfsd> or B</proc/fs/"
+"nfs>.  If it is not mounted, they will fall-back on 2.4 style "
+"functionality.  This involves accessing the NFS server via a systemcall.  "
+"This systemcall is scheduled to be removed after the 2.6 kernel series."
+msgstr ""
+"Les programmes I<exportfs> et I<mountd> (fournis dans le paquet nfs-utils) "
+"s'attendent à trouver ce système de fichiers montés dans  B</proc/fs/nfsd> "
+"ou B</proc/fs/nfs>. Si ce n'est pas le cas, ces programmes se rabattront sur "
+"les fonctionnalités du noyau 2.4. Cela implique un accès au serveur NFS via "
+"un appel système. Cet appel système devrait disparaître des noyaux qui "
+"succéderont à la série 2.6."
+
+# type: SH
+#: C/man7/nfsd.7:44
+#, no-wrap
+msgid "DETAILS"
+msgstr "DÉTAILS"
+
+# type: Plain text
+#: C/man7/nfsd.7:48
+msgid "The three files in the B<nfsd> filesystem are:"
+msgstr ""
+"Les trois fichiers présents dans le système de fichiers B<nfsd> sont\\ :"
+
+# type: TP
+#: C/man7/nfsd.7:48
+#, no-wrap
+msgid "B<exports>"
+msgstr "B<exports>"
+
+# type: Plain text
+#: C/man7/nfsd.7:59
+msgid ""
+"This file contains a list of filesystems that are currently exported and "
+"clients that each filesystem is exported to, together with a list of export "
+"options for that client/filesystem pair.  This is similar to the B</proc/fs/"
+"nfs/exports> file in 2.4.  One difference is that a client doesn't "
+"necessarily correspond to just one host.  It can respond to a large "
+"collection of hosts that are being treated identically."
+msgstr ""
+"Ce fichier contient la liste des systèmes de fichiers qui sont actuellement "
+"partagés, les clients vers lesquels ils le sont, ainsi que la liste des "
+"options de partage pour chacune des paires client/système de fichiers. Cela "
+"ressemble au contenu du fichier B</proc/fs/nfs/exports> du noyau\\ 2.4. La "
+"différence, c'est qu'un client ne correspond pas nécessairement à une seule "
+"et unique machine. Il peut s'agir d'un nombre important d'hôtes qui seront "
+"traités à l'identique."
+
+# type: Plain text
+#: C/man7/nfsd.7:64
+msgid ""
+"Each line of the file contains a path name, a client name, and a number of "
+"options in parentheses.  Any space, tab, newline or back-slash character in "
+"the path name or client name will be replaced by a backslash followed by the "
+"octal ASCII code for that character."
+msgstr ""
+"Chaque ligne de ce fichier contient un chemin, le nom d'un client, et un "
+"nombre d'options entre parenthèses. Tout caractère espace, tabulation, "
+"retour à la ligne ou barre oblique inverse présent dans le nom d'un chemin "
+"ou d'un client sera remplacé par un caractère barre oblique inverse suivi du "
+"code ASCII de ce caractère, exprimé en octal."
+
+# type: TP
+#: C/man7/nfsd.7:65
+#, no-wrap
+msgid "B<threads>"
+msgstr "B<threads>"
+
+# type: Plain text
+#: C/man7/nfsd.7:73
+msgid ""
+"This file represents the number of B<nfsd> thread currently running.  "
+"Reading it will show the number of threads.  Writing an ASCII decimal number "
+"will cause the number of threads to be changed (increased or decreased as "
+"necessary) to achieve that number."
+msgstr ""
+"Ce fichier contient le nombre de processus légers (thread) de B<nfsd> "
+"actuellement en cours de fonctionnement. La lecture du fichier affichera le "
+"nombre de processus légers. Écrire un nombre décimal en ASCII modifiera le "
+"nombre de processus légers (à la hausse ou à la baisse) afin d'atteindre la "
+"valeur demandée."
+
+# type: TP
+#: C/man7/nfsd.7:74
+#, no-wrap
+msgid "B<filehandle>"
+msgstr "B<filehandle>"
+
+# type: Plain text
+#: C/man7/nfsd.7:81
+msgid ""
+"This is a somewhat unusual file in that what is read from it depends on what "
+"was just written to it.  It provides a transactional interface where a "
+"program can open the file, write a request, and read a response.  If two "
+"separate programs open, write, and read at the same time, their requests "
+"will not be mixed up."
+msgstr ""
+"C'est un fichier un peu inhabituel, puisque ce qu'on y lit dépend de ce que "
+"l'on vient juste d'y écrire. Il offre une interface transactionnelle afin "
+"qu'un programme puisse ouvrir ce fichier, y écrire une requête, et y lire la "
+"réponse. Si deux programmes différents ouvrent, écrivent, et lisent ce "
+"fichier au même moment, leurs requêtes ne se mélangeront pas."
+
+# type: Plain text
+#: C/man7/nfsd.7:87
+msgid ""
+"The request written to B<filehandle> should be a client name, a path name, "
+"and a number of bytes.  This should be followed by a newline, with white-"
+"space separating the fields, and octal quoting of special characters."
+msgstr ""
+"Les requêtes écrites dans B<filehandle> devront être de la forme un nom de "
+"client, un nom d'un chemin, et un nombre d'octets. Un retour à la ligne "
+"terminera la requête, les champs seront séparés par une espace, et tout "
+"caractère spécial sera protégé et écrit en octal."
+
+# type: Plain text
+#: C/man7/nfsd.7:91
+msgid ""
+"On writing this, the program will be able to read back a filehandle for that "
+"path as exported to the given client.  The filehandles length will be at "
+"most the number of bytes given."
+msgstr ""
+"Grâce à cette écriture, le programme pourra accéder à un descripteur de "
+"fichier (filehandle) pour ce chemin, tel qu'il est partagé pour ce client. "
+"La taille de ce descripteur de fichier (filehandle) sera au plus du nombre "
+"d'octets demandé."
+
+# type: Plain text
+#: C/man7/nfsd.7:93
+msgid "The filehandle will be represented in hex with a leading '\\ex'."
+msgstr ""
+"Le descripteur de fichier (filehandle) sera représenté en hexadécimal, et "
+"préfixée par «\\ \\ex\\ »."
+
+# type: Plain text
+#: C/man7/nfsd.7:106
+msgid ""
+"The directory B</proc/net/rpc> in the B<procfs> filesystem contains a number "
+"of files and directories.  The files contain statistics that can be display "
+"using the I<nfsstat> program.  The directories contain information about "
+"various caches that the NFS server maintains to keep track of access "
+"permissions that different clients have for different filesystems.  The "
+"caches are:"
+msgstr ""
+"Le répertoire  B</proc/net/rpc> du système de fichiers  B<procfs> contient "
+"un certain nombre de fichiers et de répertoires. Ces fichiers contiennent "
+"des statistiques qui peuvent être affichées grâce au programme I<nfsstat>. "
+"Les répertoires contiennent des informations sur les différents caches que "
+"le serveur NFS utilise pour assurer le suivi des permissions d'accès dont "
+"disposent les différents clients sur les différents systèmes de fichiers. "
+"Ces caches sont\\ :"
+
+# type: TP
+#: C/man7/nfsd.7:107
+#, no-wrap
+msgid "B<auth.domain>"
+msgstr "B<auth.domain>"
+
+# type: Plain text
+#: C/man7/nfsd.7:111
+msgid ""
+"This cache maps the name of a client (or domain) to an internal data "
+"structure.  The only access that is possible is to flush the cache."
+msgstr ""
+"Ce cache fait la correspondance entre le nom d'un client (ou d'un domaine) "
+"et une structure de données interne. Le seul accès possible permet de vider "
+"le cache."
+
+# type: TP
+#: C/man7/nfsd.7:112
+#, no-wrap
+msgid "B<auth.unix.ip>"
+msgstr "B<auth.unix.ip>"
+
+# type: Plain text
+#: C/man7/nfsd.7:116
+msgid ""
+"This cache contains a mapping from IP address to the name of the "
+"authentication domain that the ipaddress should be treated as part of."
+msgstr ""
+"Ce cache contient la correspondance entre les adresses IP et les noms du "
+"domaine d'authentification auxquels ces adresses ip sont rattachées."
+
+# type: TP
+#: C/man7/nfsd.7:117
+#, no-wrap
+msgid "B<nfsd.export>"
+msgstr "B<nfsd.export>"
+
+# type: Plain text
+#: C/man7/nfsd.7:121
+msgid ""
+"This cache contains a mapping from directory and domain to export options."
+msgstr ""
+"Ce cache contient la correspondance entre les répertoires, les domaines et "
+"les options de partage."
+
+# type: TP
+#: C/man7/nfsd.7:122
+#, no-wrap
+msgid "B<nfsd.fh>"
+msgstr "B<nfsd.fh>"
+
+# type: Plain text
+#: C/man7/nfsd.7:128
+msgid ""
+"This cache contains a mapping from domain and a filesystem identifier to a "
+"directory.  The filesystem identifier is stored in the filehandles and "
+"consists of a number indicating the type of identifier and a number of hex "
+"bytes indicating the content of the identifier."
+msgstr ""
+"Ce cache contient la correspondance entre les domaines, les identifiants du "
+"système de fichier et les répertoires. L'identifiant du système de fichiers "
+"est stocké dans les descripteurs de fichier (filehandles), et est composé "
+"d'un nombre indiquant le type d'identifiant, ainsi qu'un nombre d'octets en "
+"hexadécimal indiquant le contenu de cet identifiant."
+
+# type: Plain text
+#: C/man7/nfsd.7:132
+msgid ""
+"Each directory representing a cache can hold from 1 to 3 files.  They are:"
+msgstr ""
+"Chaque répertoire représentant un cache peut contenir de 1 à 3 fichiers. Ce "
+"sont\\ :"
+
+# type: TP
+#: C/man7/nfsd.7:132
+#, no-wrap
+msgid "B<flush>"
+msgstr "B<flush>"
+
+# type: Plain text
+#: C/man7/nfsd.7:138
+msgid ""
+"When a number of seconds since epoch (1 Jan 1970) is written to this file, "
+"all entries in the cache that were last updated before that file become "
+"invalidated and will be flushed out.  Writing 1 will flush everything.  This "
+"is the only file that will always be present."
+msgstr ""
+"Quand un nombre de secondes depuis l'époque Unix (1 janvier 1970) est écrit "
+"dans ce fichier, toutes les mises à jour de contenus postérieures à cette "
+"date seront invalidées, et vidées du cache. Écrire 1 dans ce fichier videra "
+"tout. Ce fichier est le seul qui est toujours présent."
+
+# type: TP
+#: C/man7/nfsd.7:139
+#, no-wrap
+msgid "B<content>"
+msgstr "B<content>"
+
+# type: Plain text
+#: C/man7/nfsd.7:146
+msgid ""
+"This file, if present, contains a textual representation of ever entry in "
+"the cache, one per line.  If an entry is still in the cache (because it is "
+"actively being used) but has expired or is otherwise invalid, it will be "
+"presented as a comment (with a leading hash character)."
+msgstr ""
+"Ce fichier, s'il est présent, contient une représentation littérale de tous "
+"les contenus du cache, un par ligne. Si un contenu est toujours dans le "
+"cache (parce qu'il est actuellement en cours d'utilisation), mais qu'il est "
+"dépassé, ou invalide pour une raison quelconque, il sera affiché en tant que "
+"commentaire (avec un dièse en début de ligne)."
+
+# type: TP
+#: C/man7/nfsd.7:147
+#, no-wrap
+msgid "B<channel>"
+msgstr "B<channel>"
+
+# type: Plain text
+#: C/man7/nfsd.7:151
+msgid ""
+"This file, if present, acts a channel for request from the kernel-based nfs "
+"server to be passed to a user-space program for handling."
+msgstr ""
+"Ce fichier, s'il existe, sert de canal de communication entre le serveur nfs "
+"en mode noyau et le programme en espace utilisateur."
+
+# type: Plain text
+#: C/man7/nfsd.7:159
+msgid ""
+"When the kernel needs some information which isn't in the cache, it makes a "
+"line appear in the B<channel> file giving the key for the information.  A "
+"user-space program should read this, find the answer, and write a line "
+"containing the key, an expiry time, and the content.  For example the kernel "
+"might make"
+msgstr ""
+"Quand le noyau a besoin d'informations qui ne sont pas dans le cache, il "
+"écrit une ligne dans le fichier B<channel> qui fournit une clé pour cette "
+"information. Un programme en mode utilisateur pourra la lire, trouver une "
+"réponse, puis écrire une ligne contenant la clé, une date d'expiration, et "
+"le contenu de la réponse. Par exemple, le noyau pourrait écrire"
+
+# type: Plain text
+#: C/man7/nfsd.7:161
+msgid "nfsd 127.0.0.1"
+msgstr "nfsd 127.0.0.1"
+
+# type: Plain text
+#: C/man7/nfsd.7:165
+msgid ""
+"appear in the B<auth.unix.ip/content> file.  The user-space program might "
+"then write"
+msgstr ""
+"dans le fichier B<auth.unix.ip/content>. Le programme en espace utilisateur "
+"pourra alors écrire"
+
+# type: Plain text
+#: C/man7/nfsd.7:167
+msgid "nfsd 127.0.0.1 1057206953 localhost"
+msgstr "nfsd 127.0.0.1 1057206953 localhost"
+
+# type: Plain text
+#: C/man7/nfsd.7:169
+msgid "to indicate that 127.0.0.1 should map to localhost, atleast for now."
+msgstr ""
+"pour dire que 127.0.0.1 doit correspondre à «\\ localhost\\ », à ce moment "
+"précis."
+
+# type: Plain text
+#: C/man7/nfsd.7:175
+msgid ""
+"If the program uses select(2) or poll(2) to discover if it can read from the "
+"B<channel> then it will never see and end-of-file but when all requests have "
+"been answered, it will block until another request appears."
+msgstr ""
+"Si le programme utilise select(2) ou poll(2) pour découvrir s'il peut lire "
+"le contenu de B<channel>, il n'obtiendra jamais la fin de fichier. Si toutes "
+"les requêtes ont été résolues, il sera bloqué jusqu'à ce qu'une autre "
+"requête arrive."
+
+# type: Plain text
+#: C/man7/nfsd.7:181
+msgid ""
+"In the B</proc> filesystem there are 4 files that can be used to enabled "
+"extra tracing of nfsd and related code.  They are:"
+msgstr ""
+"Dans le système de fichier B</proc>, il y 4 fichiers qui peuvent être "
+"utilisés pour tracer un peu plus nfsd et les autres programmes associés. Il "
+"s'agit de\\ :"
+
+# type: TP
+#: C/man7/nfsd.7:183
+msgid "B</proc/sys/sunrpc/nfs_debug>"
+msgstr "B</proc/sys/sunrpc/nfs_debug>"
+
+# type: TP
+#: C/man7/nfsd.7:185
+msgid "B</proc/sys/sunrpc/nfsd_debug>"
+msgstr "B</proc/sys/sunrpc/nfsd_debug>"
+
+# type: TP
+#: C/man7/nfsd.7:187
+msgid "B</proc/sys/sunrpc/nlm_debug>"
+msgstr "B</proc/sys/sunrpc/nlm_debug>"
+
+# type: TP
+#: C/man7/nfsd.7:189
+msgid "B</proc/sys/sunrpc/rpc_debug>"
+msgstr "B</proc/sys/sunrpc/rpc_debug>"
+
+# type: Plain text
+#: C/man7/nfsd.7:197
+msgid ""
+"They control tracing for the NFS client, the NFS server, the Network Lock "
+"Manager (lockd) and the underlying RPC layer respectively.  Decimal numbers "
+"can be read from or written to these files.  Each number represents a bit-"
+"pattern where bits that are set cause certain classes of tracing to be "
+"enabled.  Consult the kernel header files to find out what number correspond "
+"to what tracing."
+msgstr ""
+"Ils contrôlent respectivement le traçage de client NFS, du serveur NFS, du "
+"gestionnaire de verrouillage réseau (lockd) et de la couche RPC sous-"
+"jacente. Des nombres décimaux peuvent être lus ou écrits dans ces fichiers. "
+"Chaque nombre représente un schéma de bits dans lesquels ces bits "
+"définissent certaines classes de traçage à activer. Consultez les fichiers "
+"d'en-têtes du noyau (kernel header files) pour savoir à quoi correspond "
+"chaque nombre."
+
+# type: SH
+#: C/man7/nfsd.7:198 C/man8/exportfs.8:220 C/man8/gssd.8:53
+#: C/man8/nfsstat.8:64
+#, no-wrap
+msgid "SEE ALSO"
+msgstr "VOIR AUSSI"
+
+# type: Plain text
+#: C/man7/nfsd.7:204
+msgid ""
+"B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8)  B<exportfs>(8)."
+msgstr ""
+"B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8)  B<exportfs>(8)."
+
+# type: SH
+#: C/man7/nfsd.7:205 C/man8/nfsstat.8:67
+#, no-wrap
+msgid "AUTHOR"
+msgstr "AUTEUR"
+
+# type: Plain text
+#: C/man7/nfsd.7:206
+msgid "NeilBrown"
+msgstr "NeilBrown"
 
 # type: TH
 #: C/man8/exportfs.8:6
@@ -26,20 +517,14 @@ msgstr "exportfs"
 msgid "18 July 2003"
 msgstr "18 juillet 2003"
 
-# type: SH
-#: C/man8/exportfs.8:7
-#, no-wrap
-msgid "NAME"
-msgstr "NOM"
-
 # type: Plain text
 #: C/man8/exportfs.8:9
 msgid "exportfs - maintain list of NFS exported file systems"
 msgstr ""
-"exportfs - gestion de la liste des systèmes de fichiers partagés par NFS"
+"exportfs - Gestion de la liste des systèmes de fichiers partagés par NFS"
 
 # type: SH
-#: C/man8/exportfs.8:9
+#: C/man8/exportfs.8:9 C/man8/gssd.8:8 C/man8/nfsstat.8:8
 #, no-wrap
 msgid "SYNOPSIS"
 msgstr "SYNOPSIS"
@@ -70,12 +555,6 @@ msgstr "B</usr/sbin/exportfs [-v]>"
 #: C/man8/exportfs.8:19
 msgid "B</usr/sbin/exportfs -f>"
 msgstr "B</usr/sbin/exportfs -f>"
-
-# type: SH
-#: C/man8/exportfs.8:20
-#, no-wrap
-msgid "DESCRIPTION"
-msgstr "DESCRIPTION"
 
 # type: Plain text
 #: C/man8/exportfs.8:30
@@ -162,7 +641,7 @@ msgstr ""
 "correspondante à l'hôte indiqué dans B<rmtab>."
 
 # type: SH
-#: C/man8/exportfs.8:80
+#: C/man8/exportfs.8:80 C/man8/gssd.8:21 C/man8/nfsstat.8:14
 #, no-wrap
 msgid "OPTIONS"
 msgstr "OPTIONS"
@@ -206,7 +685,7 @@ msgstr ""
 "par défaut ou celles données sur la ligne de commande soient utilisées."
 
 # type: TP
-#: C/man8/exportfs.8:94
+#: C/man8/exportfs.8:94 C/man8/nfsstat.8:26
 #, no-wrap
 msgid "B<-r>"
 msgstr "B<-r>"
@@ -236,7 +715,7 @@ msgid "Unexport one or more directories."
 msgstr "Interrompt le partage d'un ou plusieurs répertoires."
 
 # type: TP
-#: C/man8/exportfs.8:103
+#: C/man8/exportfs.8:103 C/man8/gssd.8:22
 #, no-wrap
 msgid "B<-f>"
 msgstr "B<-f>"
@@ -253,7 +732,7 @@ msgstr ""
 "que celui-ci fera sa prochaine requête."
 
 # type: TP
-#: C/man8/exportfs.8:109
+#: C/man8/exportfs.8:109 C/man8/gssd.8:50
 #, no-wrap
 msgid "B<-v>"
 msgstr "B<-v>"
@@ -392,7 +871,7 @@ msgstr ""
 "en plus, la liste des drapeaux spécifique à chaque partage."
 
 # type: SH
-#: C/man8/exportfs.8:185
+#: C/man8/exportfs.8:185 C/man8/nfsstat.8:52
 #, no-wrap
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
@@ -463,13 +942,6 @@ msgstr ""
 "liste des partages valides restants. Dans le cas où ce partage n'est alors "
 "plus autorisé, il est supprimé."
 
-# type: SH
-#.  -------------------- SEE ALSO --------------------------------
-#: C/man8/exportfs.8:220
-#, no-wrap
-msgid "SEE ALSO"
-msgstr "VOIR AUSSI"
-
 # type: Plain text
 #.  -------------------- AUTHOR ----------------------------------
 #: C/man8/exportfs.8:223
@@ -477,13 +949,13 @@ msgid "B<exports(5)>, B<mountd(8)>"
 msgstr "B<exports(5)>, B<mountd(8)>"
 
 # type: SH
-#: C/man8/exportfs.8:223
+#: C/man8/exportfs.8:223 C/man8/gssd.8:55
 #, no-wrap
 msgid "AUTHORS"
 msgstr "AUTEURS"
 
 # type: Plain text
-#: C/man8/exportfs.8:225
+#: C/man8/exportfs.8:225 C/man8/nfsstat.8:68
 msgid "Olaf Kirch, E<lt>okir@monad.swb.deE<gt>"
 msgstr "Olaf Kirch, E<lt>okir@monad.swb.deE<gt>"
 
@@ -491,3 +963,323 @@ msgstr "Olaf Kirch, E<lt>okir@monad.swb.deE<gt>"
 #: C/man8/exportfs.8:227
 msgid "Neil Brown, E<lt>neilb@cse.unsw.edu.auE<gt>"
 msgstr "Neil Brown, E<lt>neilb@cse.unsw.edu.auE<gt>"
+
+# type: TH
+#: C/man8/gssd.8:5
+#, no-wrap
+msgid "rpc.gssd"
+msgstr "rpc.gssd"
+
+# type: TH
+#: C/man8/gssd.8:5
+#, no-wrap
+msgid "17 Mar 2003"
+msgstr "17 mars 2003"
+
+# type: Plain text
+#: C/man8/gssd.8:8
+msgid "rpc.gssd - rpcsec_gss daemon"
+msgstr "rpc.gssd - Démon rpcsec_gss"
+
+# type: Plain text
+#: C/man8/gssd.8:10
+msgid "B<rpc.gssd [-f] [-k keytab] [-p pipefsdir] [-v]>"
+msgstr "B<rpc.gssd [-f] [-k rep_clés] [-p pipefsdir] [-v]>"
+
+# type: Plain text
+#: C/man8/gssd.8:20
+msgid ""
+"The rpcsec_gss protocol gives a means of using the gss-api generic security "
+"api to provide security for protocols using rpc (in particular, nfs).  "
+"Before exchanging any rpc requests using rpcsec_gss, the rpc client must "
+"first establish a security context.  The linux kernel's implementation of "
+"rpcsec_gss depends on the userspace daemon B<rpc.gssd> to establish security "
+"contexts.  The B<rpc.gssd> daemon uses files in the rpc_pipefs filesystem to "
+"communicate with the kernel."
+msgstr ""
+"Le protocole rpcsec_gss donne la possibilité d'utiliser l'api de sécurité "
+"générique gss-api pour sécuriser les protocoles basés sur rpc (nfs en "
+"particulier). Avant tout échange de requêtes rpc basées sur rpcsec_gss, le "
+"client doit tout d'abord établir un contexte sécurisé. L'implémentation de "
+"rpcsec_gss dans le noyau Linux s'appuie sur le démon en espace utilisateur "
+"B<rpc.gssd> pour la construction du contexte sécurisé. Le démon B<rpc.gssd> "
+"se sert des fichiers présents dans le système de fichiers rpc_pipefs pour "
+"communiquer avec le noyau."
+
+# type: Plain text
+#: C/man8/gssd.8:27
+msgid ""
+"Runs B<rpc.gssd> in the foreground and sends output to stderr (as opposed to "
+"syslogd)"
+msgstr ""
+"Lancer B<rpc.gssd> en tâche de premier plan, et rediriger sa sortie standard "
+"vers la sortie d'erreur (contrairement à syslogd)"
+
+# type: TP
+#: C/man8/gssd.8:27
+#, no-wrap
+msgid "B<-k keytab>"
+msgstr "B<-k rep_clés>"
+
+# type: Plain text
+#. .TP
+#. .B -m
+#. Ordinarily,
+#. .B rpc.gssd
+#. looks for a cached ticket for user $UID in /tmp/krb5cc_$UID.
+#. With the -m option, the user with uid 0 will be treated specially, and will
+#. be mapped instead to the credentials for the principal nfs/hostname found in
+#. the keytab file.
+#. (This option is now the default and is ignored if specified.)
+#: C/man8/gssd.8:44
+msgid ""
+"Tells B<rpc.gssd> to use the keys for principals nfs/hostname in I<keytab> "
+"to obtain machine credentials.  The default value is \"/etc/krb5.keytab\"."
+msgstr ""
+"Demander à  B<rpc.gssd> d'utiliser les clés principales nfs/nom d'hôte "
+"présentes dans I<rep_clés> afin d'obtenir les accréditations pour la "
+"machine. La valeur par défaut est \"/etc/krb5.keytab\"."
+
+# type: TP
+#: C/man8/gssd.8:44
+#, no-wrap
+msgid "B<-p path>"
+msgstr "B<-p chemin>"
+
+# type: Plain text
+#: C/man8/gssd.8:50
+msgid ""
+"Tells B<rpc.gssd> where to look for the rpc_pipefs filesystem.  The default "
+"value is \"/var/lib/nfs/rpc_pipefs\"."
+msgstr ""
+"Indiquer à B<rpc.gssd> où chercher le système de fichiers rpc_pipefs. Par "
+"défaut, il s'agit de \"/var/lib/nfs/rpc_pipefs\"."
+
+# type: Plain text
+#: C/man8/gssd.8:53
+msgid ""
+"Increases the verbosity of the output (can be specified multiple times)."
+msgstr ""
+"Augmenter le niveau de bavardage de la sortie (peut être demandé plusieurs "
+"fois)."
+
+# type: Plain text
+#: C/man8/gssd.8:55
+msgid "B<rpc.svcgssd(8)>"
+msgstr "B<rpc.svcgssd(8)>"
+
+# type: Plain text
+#: C/man8/gssd.8:58
+msgid "Dug Song E<lt>dugsong@umich.eduE<gt>"
+msgstr "Dug Song E<lt>dugsong@umich.eduE<gt>"
+
+# type: Plain text
+#: C/man8/gssd.8:60
+msgid "Andy Adamson E<lt>andros@umich.eduE<gt>"
+msgstr "Andy Adamson E<lt>andros@umich.eduE<gt>"
+
+# type: Plain text
+#: C/man8/gssd.8:62
+msgid "Marius Aamodt Eriksen E<lt>marius@umich.eduE<gt>"
+msgstr "Marius Aamodt Eriksen E<lt>marius@umich.eduE<gt>"
+
+# type: Plain text
+#: C/man8/gssd.8:63
+msgid "J. Bruce Fields E<lt>bfields@umich.eduE<gt>"
+msgstr "J. Bruce Fields E<lt>bfields@umich.eduE<gt>"
+
+# type: TH
+#: C/man8/nfsstat.8:5
+#, no-wrap
+msgid "nfsstat"
+msgstr "nfsstat"
+
+# type: TH
+#: C/man8/nfsstat.8:5
+#, no-wrap
+msgid "05 Oct 2001"
+msgstr "05 octobre 2001"
+
+# type: Plain text
+#: C/man8/nfsstat.8:8
+msgid "nfsstat - print NFS statistics"
+msgstr "nfsstat - Afficher des statistiques NFS."
+
+# type: Plain text
+#: C/man8/nfsstat.8:10
+msgid "B</usr/sbin/nfsstat [-anrcsz] [-o >I<facility>B<] ...>"
+msgstr "B</usr/sbin/nfsstat [-anrcsz] [-o >I<service>B<] ...>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:14
+msgid ""
+"The B<nfsstat> displays statistics kept about NFS client and server activity."
+msgstr ""
+"La commande B<nfsstat> affiche des statistiques concernant l'activité du "
+"client et du serveur NFS."
+
+# type: TP
+#: C/man8/nfsstat.8:15
+#, no-wrap
+msgid "B<-s>"
+msgstr "B<-s>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:19
+msgid ""
+"Print only server-side statistics. The default is to print both server and "
+"client statistics."
+msgstr ""
+"Afficher seulement les informations du coté serveur. Par défaut, les "
+"informations concernant à la fois le serveur et le client sont affichées."
+
+# type: TP
+#: C/man8/nfsstat.8:19
+#, no-wrap
+msgid "B<-c>"
+msgstr "B<-c>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:22
+msgid "Print only client-side statistics."
+msgstr "Afficher seulement les informations coté client."
+
+# type: TP
+#: C/man8/nfsstat.8:22
+#, no-wrap
+msgid "B<-n>"
+msgstr "B<-n>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:26
+msgid ""
+"Print only NFS statistics. The default is to print both NFS and RPC "
+"information."
+msgstr ""
+"Afficher seulement les statistiques sur NFS. Par défaut, les informations "
+"sur RPC et NFS sont affichées."
+
+# type: Plain text
+#: C/man8/nfsstat.8:29
+msgid "Print only RPC statistics."
+msgstr "Afficher seulement les statistiques sur les RPC."
+
+# type: TP
+#: C/man8/nfsstat.8:29
+#, no-wrap
+msgid "B<-o>I< facility>"
+msgstr "B<-o>I< service>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:32
+msgid "Display statistics for the specified facility, which must be one of:"
+msgstr ""
+"Afficher les statistiques pour le service indiqué. Ce dernier peut être l'un "
+"des suivants\\ :"
+
+# type: TP
+#: C/man8/nfsstat.8:33
+#, no-wrap
+msgid "B<nfs>"
+msgstr "B<nfs>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:36
+msgid "NFS protocol information, split up by RPC call."
+msgstr "Informations sur le protocole NFS, découpées par appel RPC."
+
+# type: TP
+#: C/man8/nfsstat.8:36
+#, no-wrap
+msgid "B<rpc>"
+msgstr "B<rpc>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:39
+msgid "General RPC information."
+msgstr "Informations générales sur les RPC."
+
+# type: TP
+#: C/man8/nfsstat.8:39
+#, no-wrap
+msgid "B<net>"
+msgstr "B<net>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:43
+msgid ""
+"Network layer statistics, such as the number of received packets, number of "
+"TCP connections, etc."
+msgstr ""
+"Statistiques de la pile réseau telles que le nombre de paquets reçus, le "
+"nombre de connections TCP,..."
+
+# type: TP
+#: C/man8/nfsstat.8:43
+#, no-wrap
+msgid "B<fh>"
+msgstr "B<fh>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:47
+msgid ""
+"Usage information on the server's file handle cache, including the total "
+"number of lookups, and the number of hits and misses."
+msgstr ""
+"Informations sur l'utilisation du cache des descripteurs de fichier du "
+"serveur, en particulier le nombre total de recherches, et le nombre de "
+"réponses trouvées ou absentes du cache."
+
+# type: TP
+#: C/man8/nfsstat.8:47
+#, no-wrap
+msgid "B<rc>"
+msgstr "B<rc>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:51
+msgid ""
+"Usage information on the server's request reply cache, including the total "
+"number of lookups, and the number of hits and misses."
+msgstr ""
+"Information sur l'utilisation du cache des réponses aux requêtes, y compris "
+"le nombre total de recherches, et le nombre de réponses trouvées ou absentes "
+"du cache."
+
+# type: SH
+#.  --------------------- FILES ----------------------------------
+#: C/man8/nfsstat.8:54
+#, no-wrap
+msgid "FILES"
+msgstr "FICHIERS"
+
+# type: TP
+#: C/man8/nfsstat.8:55
+#, no-wrap
+msgid "B</proc/net/rpc/nfsd>"
+msgstr "B</proc/net/rpc/nfsd>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:59
+msgid "B<procfs>-based interface to kernel NFS server statistics."
+msgstr ""
+"Interface basée sur B<procfs> pour les statistiques du serveur NFS du noyau."
+
+# type: TP
+#: C/man8/nfsstat.8:59
+#, no-wrap
+msgid "B</proc/net/rpc/nfs>"
+msgstr "B</proc/net/rpc/nfs>"
+
+# type: Plain text
+#.  -------------------- SEE ALSO --------------------------------
+#: C/man8/nfsstat.8:64
+msgid "B<procfs>-based interface to kernel NFS client statistics."
+msgstr ""
+"Interface basée sur B<procfs> pour les statistiques du client NFS du noyau."
+
+# type: Plain text
+#.  -------------------- AUTHOR ----------------------------------
+#: C/man8/nfsstat.8:67
+msgid "B<rpc.nfsd>(8)."
+msgstr "B<rpc.nfsd>(8)."
