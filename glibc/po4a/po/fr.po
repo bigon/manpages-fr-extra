@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "POT-Creation-Date: 2006-07-02  1:06+0200\n"
-"PO-Revision-Date: 2006-07-13 16:44+0200\n"
+"PO-Revision-Date: 2006-07-13 18:31+0200\n"
 "Last-Translator: Florentin Duneau <f.baced@wanadoo.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr "NOM"
 #: C/man3/pthread_atfork.3:5
 msgid "pthread_atfork - register handlers to be called at fork(2) time"
 msgstr ""
-"pthread_atfork - enregistre des gestionnaires à invoquer lors de l'appel à "
+"pthread_atfork - Enregistrer des gestionnaires à invoquer lors de l'appel à "
 "fork(2)"
 
 # type: SH
@@ -150,10 +150,10 @@ msgid ""
 msgstr ""
 "B<pthread_atfork> peut être appelée plusieurs fois pour enregistrer "
 "plusieurs ensembles de gestionnaires. Lors de l'appel à B<fork>(2), les "
-"gestionnaires I<prepare> sont appelés dans l'ordre LIFO (Last In First Out"
-"\\ : dans l'ordre inverse de l'enregistrement) juste avant B<fork>(), alors "
-"que les gestionnaires I<parent> et I<child> sont appelés dans l'ordre FIFO "
-"(First In First Out\\ : dans l'ordre d'enregistrement)."
+"gestionnaires I<prepare> sont appelés dans l'ordre LIFO (dernier ajouté avec "
+"B<pthread_affork>, premier appelé avant B<fork>(2)), alors que les "
+"gestionnaires I<parent> et I<child> sont appelés dans l'ordre FIFO (premier "
+"ajouté, premier appelé)."
 
 # type: Plain text
 #: C/man3/pthread_atfork.3:37
@@ -168,7 +168,7 @@ msgid ""
 msgstr ""
 "Pour comprendre l'objectif de B<pthread_atfork>(), rappelons que B<fork>(2) "
 "copie toute l'image mémoire du processus, y compris ses mutexes dans leur "
-"état de bloquage courant, mais seulement le thread courant\\ : les autres "
+"état de bloquage courant, mais seulement le thread appelant\\ : les autres "
 "threads ne s'exécutent pas dans le processus fils. Les mutexes ne sont pas "
 "utilisables après le B<fork>() et doivent être initialisés avec "
 "B<pthread_mutex_init>() dans le processus fils. C'est une limitation de "
@@ -267,7 +267,7 @@ msgstr "VOIR AUSSI"
 # type: Plain text
 #: C/man3/pthread_atfork.3:53
 msgid "!fork!(2), !pthread_mutex_lock!(3), !pthread_mutex_unlock!(3)."
-msgstr "B<fork>(2), B<pthread_mutex_lock>(3), B<pthread_mutex_unlock>(3)"
+msgstr "B<fork>(2), B<pthread_mutex_lock>(3), B<pthread_mutex_unlock>(3)."
 
 # type: TH
 #: C/man3/pthread_attr_init.3:1
@@ -388,10 +388,10 @@ msgid ""
 "attribute object with all attributes set to their default values."
 msgstr ""
 "Pour modifier les attributs des threads, il faut remplir la structure des "
-"attributs de threads I<attr> qui est du type B<pthread_attr_t>, puis la "
-"passer en tant que second argument à B<pthread_create>(3). Un paramètre égal "
-"à B<NULL> revient à choisir les paramètres par défaut pour tous les "
-"attributs."
+"attributs de threads I<attr>, qui est du type B<pthread_attr_t>, puis la "
+"passer en tant que second argument à B<pthread_create>(3). Si l'argument est "
+"égal à B<NULL>, cela revient à choisir les paramètres par défaut pour tous "
+"les attributs."
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:56
@@ -411,8 +411,8 @@ msgid ""
 "individually set using the function !pthread_attr_set!|attrname| and "
 "retrieved using the function !pthread_attr_get!|attrname|."
 msgstr ""
-"Chaque attribut I<attrname> (voir plus bas la liste de tous les attributs) "
-"peut être individuellement modifié en utilisant la fonction "
+"Chaque attribut I<attrname> (la liste de tous les attributs se trouve plus "
+"bas) peut être individuellement modifié en utilisant la fonction "
 "B<pthread_attr_set(>I<attrname)> et récupéré à l'aide de la fonction "
 "B<pthread_attr_get(>I<attrname).>"
 
@@ -423,8 +423,8 @@ msgid ""
 "reused until it is reinitialized. !pthread_attr_destroy! does nothing in the "
 "LinuxThreads implementation."
 msgstr ""
-"B<pthread_attr_destroy>() détruit un objet attribut_de_thread, qui ne doit "
-"plus jamais être réutilisé jusqu'à ce qu'il soit réinitialisé. "
+"B<pthread_attr_destroy>() détruit une structure d'attribut de thread, qui ne "
+"doit plus jamais être réutilisée jusqu'à ce qu'elle soit réinitialisée. "
 "B<pthread_attr_destroy>() ne fait rien dans l'implémentation LinuxThreads."
 
 # type: Plain text
@@ -443,7 +443,7 @@ msgstr ""
 # type: Plain text
 #: C/man3/pthread_attr_init.3:72
 msgid "The following thread attributes are supported:"
-msgstr "Les attributs de thread supportés sont les suivants\\ :"
+msgstr "Les attributs de thread disponibles sont les suivants\\ :"
 
 # type: SS
 #: C/man3/pthread_attr_init.3:73
@@ -459,7 +459,7 @@ msgid ""
 "PTHREAD_CREATE_DETACHED!)."
 msgstr ""
 "Indique si le thread est créé dans l'état joignable (valeur "
-"B<PTHREAD_CREATE_JOINABLE>)  ou dans l'état détaché "
+"B<PTHREAD_CREATE_JOINABLE>) ou dans l'état détaché "
 "(B<PTHREAD_CREATE_DETACHED>)."
 
 # type: Plain text
@@ -500,7 +500,7 @@ msgid ""
 "thread using !pthread_detach!(3)."
 msgstr ""
 "Un thread créé dans l'état joignable peut ensuite être mis dans l'état "
-"détaché en utilisant B<pthread_detach>(3)."
+"détaché avec B<pthread_detach>(3)."
 
 # type: SS
 #: C/man3/pthread_attr_init.3:94
@@ -516,10 +516,10 @@ msgid ""
 "(realtime, first-in first-out). See !sched_setpolicy!(2) for more "
 "information on scheduling policies."
 msgstr ""
-"change la politique et les paramètres d'ordonnancement pour le thread pour "
-"l'une parmi B<SCHED_OTHER> (processus normal, non temps-réel), B<SCHED_RR> "
-"(temps-réel, round-robin) ou B<SCHED_FIFO> (temps-réel, fifo). Voir "
-"B<sched_setpolicy>(2) pour plus d'informations sur ces politiques "
+"Change la politique d'ordonnancement du thread pour l'une parmi "
+"B<SCHED_OTHER> (processus normal, non temps réel), B<SCHED_RR> (temps réel, "
+"«\\ round-robin\\ ») ou B<SCHED_FIFO> (temps réel, «\\ fifo\\ »). Voyez "
+"B<sched_setpolicy>(2) pour plus d'informations sur les politiques "
 "d'ordonnancement."
 
 # type: Plain text
@@ -533,9 +533,9 @@ msgid ""
 "The realtime scheduling policies !SCHED_RR! and !SCHED_FIFO! are available "
 "only to processes with superuser privileges."
 msgstr ""
-"Les politiques d'ordonnancement temps-réel B<SCHED_RR> et B<SCHED_FIFO> ne "
-"sont disponibles que pour les processus possédant les privilèges du super-"
-"utilisateur."
+"Les politiques d'ordonnancement temps réel B<SCHED_RR> et B<SCHED_FIFO> ne "
+"sont disponibles que pour les processus possédant les privilèges du "
+"superutilisateur."
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:109
@@ -560,7 +560,7 @@ msgid ""
 "parameters."
 msgstr ""
 "Contient les paramètres d'ordonnancement (essentiellement, la priorité "
-"d'ordonnancement) pour le thread. Voir B<sched_setparam>(2) pour plus "
+"d'ordonnancement) du thread. Voyez B<sched_setparam>(2) pour plus "
 "d'informations sur les paramètres d'ordonnancement."
 
 # type: Plain text
@@ -575,7 +575,7 @@ msgid ""
 "it only matters for the realtime policies !SCHED_RR! and !SCHED_FIFO!."
 msgstr ""
 "Cet attribut est sans signification si la politique d'ordonnancement est "
-"B<SCHED_OTHER>\\ ; il n'a d'importance que pour les ordonnancements temps-"
+"B<SCHED_OTHER>\\ ; il n'a d'importance que pour les ordonnancements temps "
 "réel B<SCHED_RR> et B<SCHED_FIFO>."
 
 # type: Plain text
@@ -601,9 +601,9 @@ msgid ""
 "schedparam| attributes (value !PTHREAD_EXPLICIT_SCHED!) or are inherited "
 "from the parent thread (value !PTHREAD_INHERIT_SCHED!)."
 msgstr ""
-"Indique si la politique et les paramètres d'ordonnancement pour le nouveau "
-"thread sont déterminés par les valeurs des attributs I<schedpolicy> et "
-"I<schedparam> (valeur B<PTHREAD_EXPLICIT_SCHED>)  ou sont héritées du thread "
+"Indique si la politique et les paramètres d'ordonnancement du nouveau thread "
+"sont déterminés par les valeurs des attributs I<schedpolicy> et "
+"I<schedparam> (valeur B<PTHREAD_EXPLICIT_SCHED>) ou sont héritées du thread "
 "parent (valeur B<PTHREAD_INHERIT_SCHED>)."
 
 # type: Plain text
@@ -632,17 +632,18 @@ msgid ""
 "of other processes.  !PTHREAD_SCOPE_PROCESS! is not supported in "
 "LinuxThreads."
 msgstr ""
-"Définit comment sont interprétés les paramètres d'ordonnancement pour le "
-"nouveau thread. Une seule valeur est supportée dans l'implémentation "
-"LinuxThreads\\ : B<PTHREAD_SCOPE_SYSTEM>, qui signifie que tous les threads "
-"sont en compétition avec tous les processus en cours d'exécution pour le "
-"temps processeur. En particulier, les priorités de threads sont interprétées "
-"relativement aux priorités de tous les autres processus sur la machine. "
+"Définit comment sont interprétés les paramètres d'ordonnancement du nouveau "
+"thread. Une seule valeur est supportée dans l'implémentation LinuxThreads"
+"\\ : B<PTHREAD_SCOPE_SYSTEM>, qui signifie que tous les threads sont en "
+"compétition avec tous les processus en cours d'exécution pour le temps "
+"processeur. En particulier, les priorités des threads sont interprétées "
+"relativement aux priorités de tous les autres processus de la machine. "
 "L'autre valeur spécifiée par le standard, B<PTHREAD_SCOPE_PROCESS>, signifie "
 "que les threads ne sont en compétition qu'avec les autres threads du même "
-"processus\\ : les priorités de threads sont interprétées relativement à "
-"celles des autres threads du processus, quel que soit la priorité des autres "
-"processus. B<PTHREAD_SCOPE_PROCESS> n'est pas supportée dans LinuxThreads."
+"processus\\ : les priorités des threads sont interprétées relativement à "
+"celles des autres threads du processus, quelle que soit la priorité des "
+"autres processus. B<PTHREAD_SCOPE_PROCESS> n'est pas supportée dans "
+"LinuxThreads."
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:149
@@ -658,8 +659,8 @@ msgid ""
 "argument."
 msgstr ""
 "Toutes ces fonctions renvoient 0 en cas de succès et un code d'erreur non "
-"nul en cas d'erreur. En cas de succès, les fonctions B<pthread_attr_get"
-"(>I<attrname>B<)> sauvegardent également la valeur courante de l'attribut "
+"nul en cas d'erreur. En cas de succès, les fonctions B<pthread_attr_get>"
+"(I<attrname>) sauvegardent également la valeur courante de l'attribut "
 "I<attrname> à l'emplacement pointé par leur second argument."
 
 # type: Plain text
@@ -669,7 +670,7 @@ msgid ""
 "on error:"
 msgstr ""
 "La fonction B<pthread_attr_setdetachstate>() renvoie le code d'erreur "
-"suivant en cas de problème\\ :"
+"suivant lors d'une erreur\\ :"
 
 # type: TP
 #: C/man3/pthread_attr_init.3:162 C/man3/pthread_attr_init.3:171
@@ -702,7 +703,7 @@ msgid ""
 "on error:"
 msgstr ""
 "La fonction B<pthread_attr_setschedparam>() renvoie le code d'erreur suivant "
-"en cas de problème\\ :"
+"lors d'une erreur\\ :"
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:176
@@ -711,7 +712,7 @@ msgid ""
 "for the scheduling policy currently in |attr| (1 to 99 for !SCHED_FIFO! and !"
 "SCHED_RR!; 0 for !SCHED_OTHER!)."
 msgstr ""
-"La priorité indiquée par I<param> n'est pas dans l'intervalle autorisé pour "
+"La priorité indiquée par I<param> n'est pas dans l'intervalle autorisé par "
 "la politique d'ordonnancement actuellement dans I<attr> (1 à 99 pour "
 "B<SCHED_FIFO> et B<SCHED_RR>\\ ; 0 pour B<SCHED_OTHER>)."
 
@@ -722,7 +723,7 @@ msgid ""
 "on error:"
 msgstr ""
 "La fonction B<pthread_attr_setschedpolicy>() renvoie l'un des codes d'erreur "
-"suivants en cas de problème\\ :"
+"lors d'une erreur\\ :"
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:185
@@ -737,11 +738,7 @@ msgstr ""
 #: C/man3/pthread_attr_init.3:186 C/man3/pthread_attr_init.3:209
 #, no-wrap
 msgid "!ENOTSUP!"
-msgstr ""
-"#-#-#-#-#  choice  #-#-#-#-#\n"
-"B<ENOTSUP\">\n"
-"#-#-#-#-#  choice  #-#-#-#-#\n"
-"B<ENOTSUP>"
+msgstr "B<ENOTSUP>"
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:190
@@ -758,8 +755,8 @@ msgid ""
 "The !pthread_attr_setinheritsched! function returns the following error "
 "codes on error:"
 msgstr ""
-"La fonction B<pthread_attr_setinheritsched>() renvoie le code d'erreur "
-"suivant en cas de problème\\ :"
+"La fonction B<pthread_attr_setinheritsched>() renvoie le code d'erreur lors "
+"d'un erreur\\ :"
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:199
@@ -776,8 +773,8 @@ msgid ""
 "The !pthread_attr_setscope! function returns the following error codes on "
 "error:"
 msgstr ""
-"La fonction B<pthread_attr_setscope>() renvoie l'un des codes d'erreur "
-"suivants en cas de problème\\ :"
+"La fonction B<pthread_attr_setscope>() renvoie l'un des codes d'erreur lors "
+"d'une erreur\\ :"
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:208
@@ -792,7 +789,7 @@ msgstr ""
 #: C/man3/pthread_attr_init.3:212
 msgid "the specified |scope| is !PTHREAD_SCOPE_PROCESS! (not supported)."
 msgstr ""
-"Le paramètre I<scope> spécifié est B<PTHREAD_SCOPE_PROCESS> (non supporté)."
+"Le paramètre I<scope> spécifié est B<PTHREAD_SCOPE_PROCESS> (non géré)."
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:221
@@ -801,7 +798,7 @@ msgid ""
 "pthread_setschedparam!(3)."
 msgstr ""
 "B<pthread_create>(3), B<pthread_join>(3), B<pthread_detach>(3), "
-"B<pthread_setschedparam>(3)"
+"B<pthread_setschedparam>(3)."
 
 # type: TH
 #: C/man3/pthread_cancel.3:1
@@ -865,12 +862,12 @@ msgid ""
 "return value !PTHREAD_CANCELED!. See !pthread_exit!(3) for more information."
 msgstr ""
 "Quand un thread réalise finalement la requête d'annulation, il se comporte "
-"comme si B<pthread_exit(PTHREAD_CANCELED)> avait été appelé à cet endroit"
-"\\ : tous les gestionnaires de nettoyage sont exécutés dans l'ordre inverse "
-"de leur enregistrement. Puis les fonctions de destruction des données "
-"spécifiques au thread sont appelées. Enfin, le thread interrompt "
+"comme si la fonction B<pthread_exit(PTHREAD_CANCELED)> avait été appelée à "
+"cet endroit\\ : tous les gestionnaires de nettoyage sont exécutés dans "
+"l'ordre inverse de leur enregistrement. Puis les fonctions de destruction "
+"des données spécifiques au thread sont appelées. Enfin, le thread interrompt "
 "définitivement son exécution en retournant la valeur B<PTHREAD_CANCELED>. "
-"Voir B<pthread_exit>(3) pour plus d'information."
+"Voyez B<pthread_exit>(3) pour plus d'informations."
 
 # type: Plain text
 #: C/man3/pthread_cancel.3:38
@@ -893,15 +890,14 @@ msgid ""
 "pointed to by |oldstate|, and can thus be restored later by another call to !"
 "pthread_setcancelstate!."
 msgstr ""
-"B<pthread_setcancelstate>() modifie l'état d'annulation pour le thread "
-"appelant, c'est-à-dire si les requêtes d'annulation sont ignorées ou non. Le "
-"paramètre I<state> est le nouvel état d'annulation\\ : soit "
-"B<PTHREAD_CANCEL_ENABLE> pour autoriser les annulations, soit "
-"B<PTHREAD_CANCEL_DISABLE> pour les désactiver (les requêtes d'annulation "
-"sont alors ignorées). Si I<etat_pred> est différent de B<NULL>, le précédent "
-"état d'annulation est sauvegardé à l'emplacement pointé par I<etat_pred>, et "
-"peut donc être restauré plus tard par un autre appel à "
-"B<pthread_setcancelstate>."
+"B<pthread_setcancelstate>() modifie l'état d'annulation du thread appelant, "
+"c'est-à-dire si les requêtes d'annulation sont ignorées ou non. Le paramètre "
+"I<state> est le nouvel état d'annulation\\ : soit B<PTHREAD_CANCEL_ENABLE> "
+"pour autoriser les annulations, soit B<PTHREAD_CANCEL_DISABLE> pour les "
+"désactiver (les requêtes d'annulation sont alors ignorées). Si I<oldstate> "
+"est différent de B<NULL>, le précédent état d'annulation est sauvegardé à "
+"l'emplacement pointé par I<oldstate>, et peut donc être restauré plus tard "
+"par un autre appel à B<pthread_setcancelstate>."
 
 # type: Plain text
 #: C/man3/pthread_cancel.3:59
@@ -916,15 +912,15 @@ msgid ""
 "pointed to by |oldtype|, and can thus be restored later by another call to !"
 "pthread_setcanceltype!."
 msgstr ""
-"B<pthread_setcanceltype>() modifie le mode de la réponse à une requête "
-"d'annulation pour le thread appelant\\ : asynchrone (immédiate) ou retardée. "
-"Le paramètre I<type> est le nouveau mode d'annulation\\ : soit "
+"B<pthread_setcanceltype>() modifie le mode de réponse de la requête "
+"d'annulation du thread appelant\\ : asynchrone (immédiate) ou retardée. Le "
+"paramètre I<type> est le nouveau mode d'annulation\\ : soit "
 "B<PTHREAD_CANCEL_ASYNCHRONOUS> pour annuler le thread appelant dès que "
 "possible après la réception d'une requête d'annulation, soit "
 "B<PTHREAD_CANCEL_DEFERRED> pour mettre en attente la requête jusqu'à ce "
-"qu'un point d'annulation soit atteint. Si I<ancien_mode> n'est pas égal à "
+"qu'un point d'annulation soit atteint. Si I<oldtype> n'est pas égal à "
 "B<NULL>, alors le précédent état d'annulation est sauvegardé à l'emplacement "
-"pointé par I<ancien_mode>, et peut donc être restauré plus tard par un autre "
+"pointé par I<oldtype>, et peut donc être restauré plus tard par un autre "
 "appel à B<pthread_setcanceltype>()."
 
 # type: Plain text
@@ -946,7 +942,7 @@ msgid ""
 "for pending cancellation requests is performed and cancellation is executed "
 "if positive. The following POSIX threads functions are cancellation points:"
 msgstr ""
-"Les points d'annulation sont les points dans l'exécution d'un programme où "
+"Les points d'annulation sont des points dans l'exécution d'un programme où "
 "l'on teste si des requêtes d'annulation ne sont pas en attente de "
 "traitement. Si des requêtes sont en attente, alors l'annulation du thread "
 "est exécutée. Les fonctions suivantes relatives aux threads de la norme "
@@ -1001,7 +997,7 @@ msgid ""
 "cancellation in long sequences of code that do not call cancellation point "
 "functions otherwise."
 msgstr ""
-"B<pthread_testcancel>() ne fait rien si ce n'est tester si une requête "
+"B<pthread_testcancel>() ne fait rien, si ce n'est tester si une requête "
 "d'annulation est en attente de réalisation et la traiter. Sa fonction est "
 "d'introduire des tests explicites pour vérifier ponctuellement qu'aucune "
 "requête d'annulation n'a été reçue lors des longues séquences de code sans "
@@ -1034,7 +1030,7 @@ msgstr "B<ESRCH>"
 msgid ""
 "no thread could be found corresponding to that specified by the |thread| ID."
 msgstr ""
-"Aucun thread correspondant au descripteur I<thread> n'a pu êtes trouvé."
+"Aucun thread correspondant au descripteur I<thread> n'a pu êtres trouvé."
 
 # type: Plain text
 #: C/man3/pthread_cancel.3:106
