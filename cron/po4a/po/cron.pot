@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2006-07-02  1:06+0200\n"
+"POT-Creation-Date: 2006-08-16 18:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,7 +152,7 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man1/crontab.1:109 C/man5/crontab.5:232 C/man8/cron.8:122
+#: C/man1/crontab.1:109 C/man5/crontab.5:244 C/man8/cron.8:122
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -213,20 +213,20 @@ msgstr ""
 #: C/man1/crontab.1:133
 msgid ""
 "Although cron requires that each entry in a crontab end in a newline "
-"character, the neither the crontab command nor the cron daemon will detect "
-"this error. Instead, the crontab will appear load normally. However, the "
+"character, neither the crontab command nor the cron daemon will detect this "
+"error. Instead, the crontab will appear to load normally. However, the "
 "command will never run. The best choice is to ensure that your crontab has a "
 "blank line at the end."
 msgstr ""
 
 # type: SH
-#: C/man1/crontab.1:134 C/man5/crontab.5:255 C/man8/cron.8:124
+#: C/man1/crontab.1:134 C/man5/crontab.5:267 C/man8/cron.8:124
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
 
 # type: Plain text
-#: C/man1/crontab.1:136 C/man5/crontab.5:257 C/man8/cron.8:126
+#: C/man1/crontab.1:136 C/man5/crontab.5:269 C/man8/cron.8:126
 #, no-wrap
 msgid "Paul Vixie E<lt>paul@vix.comE<gt>\n"
 msgstr ""
@@ -336,7 +336,20 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:102
+#: C/man5/crontab.5:106
+msgid ""
+"By default, cron will send mail using the mail 'Content-Type:' header of "
+"'text/plain' with the 'charset=' parameter set to the charmap / codeset of "
+"the locale in which I<crond(8)> is started up - ie. either the default "
+"system locale, if no LC_* environment variables are set, or the locale "
+"specified by the LC_* environment variables ( see I<locale(7)>).  You can "
+"use different character encodings for mailed cron job output by setting the "
+"CONTENT_TYPE and CONTENT_TRANSFER_ENCODING variables in crontabs, to the "
+"correct values of the mail headers of those names"
+msgstr ""
+
+# type: Plain text
+#: C/man5/crontab.5:114
 msgid ""
 "The format of a cron command is very much the V7 standard, with a number of "
 "upward-compatible extensions.  Each line has five time and date fields, "
@@ -347,7 +360,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:112
+#: C/man5/crontab.5:124
 msgid ""
 "Commands are executed by I<cron>(8)  when the minute, hour, and month of "
 "year fields match the current time, I<and> when at least one of the two day "
@@ -357,53 +370,53 @@ msgid ""
 msgstr ""
 
 # type: ta
-#: C/man5/crontab.5:113 C/man5/crontab.5:175
+#: C/man5/crontab.5:125 C/man5/crontab.5:187
 #, no-wrap
 msgid "1.5i"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:115
+#: C/man5/crontab.5:127
 msgid "field\tallowed values"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:117
+#: C/man5/crontab.5:129
 msgid "-----\t--------------"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:119
+#: C/man5/crontab.5:131
 msgid "minute\t0-59"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:121
+#: C/man5/crontab.5:133
 msgid "hour\t0-23"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:123
+#: C/man5/crontab.5:135
 msgid "day of month\t1-31"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:125
+#: C/man5/crontab.5:137
 msgid "month\t1-12 (or names, see below)"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:127
+#: C/man5/crontab.5:139
 msgid "day of week\t0-7 (0 or 7 is Sun, or use names)"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:130
+#: C/man5/crontab.5:142
 msgid "A field may be an asterisk (*), which always stands for ``first-last''."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:135
+#: C/man5/crontab.5:147
 msgid ""
 "Ranges of numbers are allowed.  Ranges are two numbers separated with a "
 "hyphen.  The specified range is inclusive.  For example, 8-11 for an "
@@ -411,14 +424,14 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:138
+#: C/man5/crontab.5:150
 msgid ""
 "Lists are allowed.  A list is a set of numbers (or ranges)  separated by "
 "commas.  Examples: ``1,2,5,9'', ``0-4,8-12''."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:146
+#: C/man5/crontab.5:158
 msgid ""
 "Step values can be used in conjunction with ranges.  Following a range with "
 "``/E<lt>numberE<gt>'' specifies skips of the number's value through the "
@@ -429,7 +442,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:151
+#: C/man5/crontab.5:163
 msgid ""
 "Names can also be used for the ``month'' and ``day of week'' fields.  Use "
 "the first three letters of the particular day or month (case doesn't "
@@ -437,7 +450,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:162
+#: C/man5/crontab.5:174
 msgid ""
 "The ``sixth'' field (the rest of the line) specifies the command to be run.  "
 "The entire command portion of the line, up to a newline or % character, will "
@@ -450,7 +463,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:168
+#: C/man5/crontab.5:180
 msgid ""
 "Note: The day of a command's execution can be specified by two fields \\(em "
 "day of month, and day of week.  If both fields are restricted (i.e., aren't "
@@ -459,75 +472,75 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:172
+#: C/man5/crontab.5:184
 msgid ""
 "``30 4 1,15 * 5'' would cause a command to be run at 4:30 am on the 1st and "
 "15th of each month, plus every Friday."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:174
+#: C/man5/crontab.5:186
 msgid "Instead of the first five fields, one of eight special strings may appear:"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:177
+#: C/man5/crontab.5:189
 msgid "string\tmeaning"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:179
+#: C/man5/crontab.5:191
 msgid "------\t-------"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:181
+#: C/man5/crontab.5:193
 msgid "@reboot\tRun once, at startup."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:183
+#: C/man5/crontab.5:195
 msgid "@yearly\tRun once a year, \"0 0 1 1 *\"."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:185
+#: C/man5/crontab.5:197
 msgid "@annually\t(same as @yearly)"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:187
+#: C/man5/crontab.5:199
 msgid "@monthly\tRun once a month, \"0 0 1 * *\"."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:189
+#: C/man5/crontab.5:201
 msgid "@weekly\tRun once a week, \"0 0 * * 0\"."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:191
+#: C/man5/crontab.5:203
 msgid "@daily\tRun once a day, \"0 0 * * *\"."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:193
+#: C/man5/crontab.5:205
 msgid "@midnight\t(same as @daily)"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:195
+#: C/man5/crontab.5:207
 msgid "@hourly\tRun once an hour, \"0 * * * *\"."
 msgstr ""
 
 # type: SH
-#: C/man5/crontab.5:196
+#: C/man5/crontab.5:208
 #, no-wrap
 msgid "EXAMPLE CRON FILE"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:212
+#: C/man5/crontab.5:224
 #, no-wrap
 msgid ""
 "# use /bin/bash to run commands, instead of the default /bin/sh\n"
@@ -546,18 +559,18 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man5/crontab.5:213
+#: C/man5/crontab.5:225
 #, no-wrap
 msgid "EXAMPLE SYSTEM CRON FILE"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:215
+#: C/man5/crontab.5:227
 msgid "This has the username field, as used by /etc/crontab."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:220
+#: C/man5/crontab.5:232
 #, no-wrap
 msgid ""
 "# /etc/crontab: system-wide crontab\n"
@@ -567,7 +580,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:223
+#: C/man5/crontab.5:235
 #, no-wrap
 msgid ""
 "SHELL=/bin/sh\n"
@@ -575,7 +588,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:231
+#: C/man5/crontab.5:243
 #, no-wrap
 msgid ""
 "# m h dom mon dow user    command\n"
@@ -588,25 +601,25 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:234
+#: C/man5/crontab.5:246
 msgid "cron(8), crontab(1)"
 msgstr ""
 
 # type: SH
-#: C/man5/crontab.5:234
+#: C/man5/crontab.5:246
 #, no-wrap
 msgid "EXTENSIONS"
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:237
+#: C/man5/crontab.5:249
 msgid ""
 "When specifying day of week, both day 0 and day 7 will be considered "
 "Sunday.  BSD and ATT seem to disagree about this."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:240
+#: C/man5/crontab.5:252
 msgid ""
 "Lists and ranges are allowed to co-exist in the same field.  \"1-3,7-9\" "
 "would be rejected by ATT or BSD cron -- they want to see \"1-3\" or "
@@ -614,24 +627,24 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:242
+#: C/man5/crontab.5:254
 msgid "Ranges can include \"steps\", so \"1-9/2\" is the same as \"1,3,5,7,9\"."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:244
+#: C/man5/crontab.5:256
 msgid "Months or days of the week can be specified by name."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:247
+#: C/man5/crontab.5:259
 msgid ""
 "Environment variables can be set in the crontab.  In BSD or ATT, the "
 "environment handed to child processes is basically the one from /etc/rc."
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:252
+#: C/man5/crontab.5:264
 msgid ""
 "Command output is mailed to the crontab owner (BSD can't do this), can be "
 "mailed to a person other than the crontab owner (SysV can't do this), or the "
@@ -640,7 +653,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/crontab.5:255
+#: C/man5/crontab.5:267
 msgid ""
 "All of the `@' commands that can appear in place of the first five fields "
 "are extensions."
