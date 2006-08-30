@@ -5,16 +5,14 @@
 # Florentin Duneau <f.baced@wanadoo.fr>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
-"POT-Creation-Date: 2006-07-02  1:06+0200\n"
-"PO-Revision-Date: 2006-08-03 14:30+0200\n"
+"Project-Id-Version: manpages-fr-extra-glibc\n"
+"PO-Revision-Date: 2006-08-28 22:37+0200\n"
 "Last-Translator: Florentin Duneau <f.baced@wanadoo.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
-"Plural-Forms:  nplurals=2; plural=(n > 1);\n"
 
 # type: TH
 #: C/man3/pthread_atfork.3:1
@@ -136,7 +134,7 @@ msgid ""
 "given as !NULL!, meaning that no handler needs to be called at the "
 "corresponding point."
 msgstr ""
-"L'un ou plusieurs des trois gestionnaires I<prepare>, I<parent> et I<child> "
+"Un ou plusieurs des trois gestionnaires I<prepare>, I<parent> et I<child> "
 "peut être affecté à B<NULL>, ce qui signifie qu'aucun gestionnaire ne sera "
 "appelé au moment correspondant."
 
@@ -169,12 +167,12 @@ msgid ""
 msgstr ""
 "Pour comprendre l'objectif de B<pthread_atfork>(), rappelons que B<fork>(2) "
 "copie toute l'image mémoire du processus, y compris ses mutexes dans leur "
-"état de bloquage courant, mais seulement le thread appelant\\ : les autres "
+"état de blocage courant, mais seulement le thread appelant\\ : les autres "
 "threads ne s'exécutent pas dans le processus fils. Les mutexes ne sont pas "
 "utilisables après le B<fork>() et doivent être initialisés avec "
 "B<pthread_mutex_init>() dans le processus fils. C'est une limitation de "
-"l'implémentation actuelle et peut être ou ne pas être présente dans les "
-"prochaines versions."
+"l'implémentation actuelle et peut être ou non présente dans les prochaines "
+"versions."
 
 # type: SH
 #: C/man3/pthread_atfork.3:38 C/man3/pthread_attr_init.3:150
@@ -392,8 +390,8 @@ msgid ""
 "below for each attribute.)"
 msgstr ""
 "B<pthread_attr_init>() initialise la structure d'attributs de thread I<attr> "
-"et la remplit avec les valeurs par défaut pour tous les attributs (Les "
-"valeurs par défauts de chaque attribut sont données plus bas)."
+"et la remplit avec les valeurs par défaut pour tous les attributs (les "
+"valeurs par défaut de chaque attribut sont données plus bas)."
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:60
@@ -414,7 +412,7 @@ msgid ""
 "reused until it is reinitialized. !pthread_attr_destroy! does nothing in the "
 "LinuxThreads implementation."
 msgstr ""
-"B<pthread_attr_destroy>() détruit une structure d'attribut de thread, qui ne "
+"B<pthread_attr_destroy>() détruit une structure d'attribut de thread qui ne "
 "doit plus jamais être réutilisée jusqu'à ce qu'elle soit réinitialisée. "
 "B<pthread_attr_destroy>() ne fait rien dans l'implémentation LinuxThreads."
 
@@ -509,7 +507,7 @@ msgid ""
 msgstr ""
 "Change la politique d'ordonnancement du thread pour l'une parmi "
 "B<SCHED_OTHER> (processus normal, non temps réel), B<SCHED_RR> (temps réel, "
-"«\\ round-robin\\ ») ou B<SCHED_FIFO> (temps réel, «\\ fifo\\ »). Voyez "
+"«\\ round-robin\\ ») ou B<SCHED_FIFO> (temps réel, «\\ fifo\\ »). Consultez "
 "B<sched_setpolicy>(2) pour plus d'informations sur les politiques "
 "d'ordonnancement."
 
@@ -594,7 +592,7 @@ msgid ""
 msgstr ""
 "Indique si la politique et les paramètres d'ordonnancement du nouveau thread "
 "sont déterminés par les valeurs des attributs I<schedpolicy> et "
-"I<schedparam> (valeur B<PTHREAD_EXPLICIT_SCHED>) ou sont héritées du thread "
+"I<schedparam> (valeur B<PTHREAD_EXPLICIT_SCHED>) ou sont hérités du thread "
 "parent (valeur B<PTHREAD_INHERIT_SCHED>)."
 
 # type: Plain text
@@ -747,7 +745,7 @@ msgid ""
 "codes on error:"
 msgstr ""
 "La fonction B<pthread_attr_setinheritsched>() renvoie le code d'erreur lors "
-"d'un erreur\\ :"
+"d'une erreur\\ :"
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:199
@@ -764,8 +762,8 @@ msgid ""
 "The !pthread_attr_setscope! function returns the following error codes on "
 "error:"
 msgstr ""
-"La fonction B<pthread_attr_setscope>() renvoie l'un des codes d'erreur lors "
-"d'une erreur\\ :"
+"En cas d'erreur, la fonction B<pthread_attr_setscope>() renvoie l'un des "
+"codes d'erreur\\ :"
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:208
@@ -852,13 +850,13 @@ msgid ""
 "specific data are called, and finally the thread stops executing with the "
 "return value !PTHREAD_CANCELED!. See !pthread_exit!(3) for more information."
 msgstr ""
-"Quand un thread réalise finalement la requête d'annulation, il se comporte "
+"Quand un thread réalise finalement une requête d'annulation, il se comporte "
 "comme si la fonction B<pthread_exit(PTHREAD_CANCELED)> avait été appelée à "
 "cet endroit\\ : tous les gestionnaires de nettoyage sont exécutés dans "
 "l'ordre inverse de leur enregistrement. Puis les fonctions de destruction "
 "des données spécifiques au thread sont appelées. Enfin, le thread interrompt "
 "définitivement son exécution en retournant la valeur B<PTHREAD_CANCELED>. "
-"Voyez B<pthread_exit>(3) pour plus d'informations."
+"Consultez B<pthread_exit>(3) pour plus d'informations."
 
 # type: Plain text
 #: C/man3/pthread_cancel.3:38
@@ -882,7 +880,7 @@ msgid ""
 "pthread_setcancelstate!."
 msgstr ""
 "B<pthread_setcancelstate>() modifie l'état d'annulation du thread appelant, "
-"c'est-à-dire si les requêtes d'annulation sont ignorées ou non. Le paramètre "
+"indiquant si les requêtes d'annulation sont ignorées ou non. Le paramètre "
 "I<state> est le nouvel état d'annulation\\ : soit B<PTHREAD_CANCEL_ENABLE> "
 "pour autoriser les annulations, soit B<PTHREAD_CANCEL_DISABLE> pour les "
 "désactiver (les requêtes d'annulation sont alors ignorées). Si I<oldstate> "
@@ -1021,7 +1019,7 @@ msgstr "B<ESRCH>"
 msgid ""
 "no thread could be found corresponding to that specified by the |thread| ID."
 msgstr ""
-"Aucun thread correspondant au descripteur I<thread> n'a pu êtres trouvé."
+"Aucun thread correspondant au descripteur I<thread> n'a pu être trouvé."
 
 # type: Plain text
 #: C/man3/pthread_cancel.3:106
@@ -1079,7 +1077,7 @@ msgstr ""
 "et les fonctions des bibliothèques qui invoquent ces appels système (par "
 "exemple, B<fprintf>(3)) sont des points d'annulation. LinuxThreads n'est pas "
 "encore assez intégré à la bibliothèque standard C pour implémenter cela\\ ; "
-"et donc, aucune fonction de la glibc n'est un point d'annulation."
+"c'est pourquoi aucune fonction de la glibc n'est un point d'annulation."
 
 # type: Plain text
 #: C/man3/pthread_cancel.3:144
@@ -1092,7 +1090,7 @@ msgid ""
 msgstr ""
 "Pour les appels système, il existe un moyen détourné d'y parvenir. Les "
 "requêtes d'annulation sont transmises au thread ciblé en lui envoyant un "
-"signal. Ce dernier va interrompre tous les appels système bloquant, ils "
+"signal. Ce dernier va interrompre tous les appels système bloquants qui "
 "renvoient alors immédiatement l'erreur B<EINTR>. Ainsi, pour vérifier qu'un "
 "thread n'a pas été annulé au cours de l'appel système B<read>(), par "
 "exemple, on peut utiliser la méthode suivante\\ :"
@@ -1173,12 +1171,12 @@ msgid ""
 msgstr ""
 "Le rôle d'un gestionnaire de nettoyage est de libérer les ressources "
 "acquises par un thread lorsque son exécution s'achève. En particulier, si un "
-"thread se termine, ou est annulé alors qu'il verrouille un mutex, ce dernier "
+"thread se termine ou est annulé alors qu'il verrouille un mutex, ce dernier "
 "restera verrouillé pour toujours, empêchant d'autres threads de s'exécuter "
 "normalement. La meilleure manière d'empêcher cela est d'installer un "
 "gestionnaire de nettoyage dont la fonction sera de déverrouiller le mutex. "
 "Les gestionnaires de nettoyage peuvent également être utilisés pour libérer "
-"des blocs de mémoire alloués par B<malloc>(3), ou fermer des descripteurs de "
+"des blocs de mémoire alloués par B<malloc>(3) ou fermer des descripteurs de "
 "fichiers lorsque le thread se termine."
 
 # type: Plain text
@@ -1243,11 +1241,11 @@ msgid ""
 msgstr ""
 "B<pthread_cleanup_push_defer_np>() est une extension non portable qui "
 "combine B<pthread_cleanup_push>() et B<pthread_setcanceltype>(3). Elle "
-"enregistre le gestionnaires de nettoyage comme le fait "
-"B<pthread_cleanup_push>(), mais sauvegarde également le mode d'annulation "
-"courant et le passe en mode d'annulation retardée. Cela permet de s'assurer "
-"que le mécanisme de nettoyage est efficace même si le thread fonctionne en "
-"mode d'annulation asynchrone."
+"enregistre le gestionnaire de nettoyage comme le fait B<pthread_cleanup_push>"
+"(), mais sauvegarde également le mode d'annulation courant et le passe en "
+"mode d'annulation retardée. Cela permet de s'assurer que le mécanisme de "
+"nettoyage est efficace même si le thread fonctionne en mode d'annulation "
+"asynchrone."
 
 # type: Plain text
 #: C/man3/pthread_cleanup_push.3:68
@@ -1268,7 +1266,7 @@ msgid ""
 "occur in matching pairs, at the same level of block nesting."
 msgstr ""
 "B<pthread_cleanup_push_defer_np>() et B<pthread_cleanup_pop_restore_np>() "
-"doivent être exécutées en paire, dans le même bloc, au même niveau et ne "
+"doivent être exécutées par paire, dans le même bloc, au même niveau et ne "
 "peuvent pas être entrelacées avec une autre paire."
 
 # type: Plain text
@@ -1354,7 +1352,7 @@ msgid ""
 msgstr ""
 "B<pthread_cleanup_push(pthread_mutex_unlock, (void *) &mut);\n"
 "pthread_mutex_lock(&mut);\n"
-"/* Faire des choses */\n"
+"/* do some work */\n"
 "pthread_mutex_unlock(&mut);\n"
 "pthread_cleanup_pop(0);>\n"
 
@@ -1395,9 +1393,9 @@ msgid ""
 "If the code above must also work in asynchronous cancellation mode, then it "
 "must switch to deferred mode for locking and unlocking the mutex:"
 msgstr ""
-"Afin que ce code fonctionne aussi en mode d'annulation asynchrone, il doit "
-"passer en mode d'annulation retardée pour verrouiller et déverrouiller le "
-"mutex\\ :"
+"Afin que le code précédent fonctionne aussi en mode d'annulation asynchrone, "
+"il doit passer en mode d'annulation retardée pour verrouiller et "
+"déverrouiller le mutex\\ :"
 
 # type: Plain text
 #: C/man3/pthread_cleanup_push.3:173
@@ -1413,7 +1411,7 @@ msgstr ""
 "B<pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, &oldtype);\n"
 "pthread_cleanup_push(pthread_mutex_unlock, (void *) &mut);\n"
 "pthread_mutex_lock(&mut);\n"
-"/* Faire des choses */\n"
+"/* do some work */\n"
 "pthread_cleanup_pop(1);\n"
 "pthread_setcanceltype(oldtype, NULL);>\n"
 
@@ -1424,9 +1422,9 @@ msgid ""
 "using the non-portable functions !pthread_cleanup_push_defer_np! and !"
 "pthread_cleanup_pop_restore_np!:"
 msgstr ""
-"Le code ci-dessus peut être ré-écrit de manière plus compacte et plus "
-"efficace en utilisant les extensions non portables "
-"B<pthread_cleanup_push_defer_np>() et B<pthread_cleanup_pop_restore_np>()\\ :"
+"Le code ci-dessus peut être récrit de manière plus compacte et plus efficace "
+"en utilisant les extensions non portables B<pthread_cleanup_push_defer_np>() "
+"et B<pthread_cleanup_pop_restore_np>()\\ :"
 
 # type: Plain text
 #: C/man3/pthread_cleanup_push.3:190
@@ -1439,7 +1437,7 @@ msgid ""
 msgstr ""
 "B<pthread_cleanup_push_restore_np(pthread_mutex_unlock, (void *) &mut);\n"
 "pthread_mutex_lock(&mut);\n"
-"/* faire des choses */\n"
+"/* do some work */\n"
 "pthread_cleanup_pop_restore_np(1);>\n"
 
 # type: TH
@@ -1514,7 +1512,7 @@ msgstr ""
 "de synchronisation permettant à un thread de suspendre son exécution jusqu'à "
 "ce qu'une certaine condition (un prédicat) sur des données partagées soit "
 "vérifiée. Les opérations fondamentales sur les conditions sont\\ : signaler "
-"la condition (quand le prédicat devient vrai), et attendre la condition en "
+"la condition (quand le prédicat devient vrai) et attendre la condition en "
 "suspendant l'exécution du thread jusqu'à ce qu'un autre thread signale la "
 "condition."
 
@@ -1542,8 +1540,8 @@ msgstr ""
 "B<pthread_cond_init>() initialise la variable condition I<cond>, en "
 "utilisant les attributs de condition spécifiés par I<cond_attr>, ou les "
 "attributs par défaut si I<cond_attr> vaut B<NULL>. L'implémentation "
-"LinuxThreads ne supporte aucun attribut de conditions, aussi le paramètre "
-"I<cond_attr> est-il pour l'instant ignoré."
+"LinuxThreads ne supporte aucun attribut de condition, aussi le paramètre "
+"I<cond_attr> est pour l'instant ignoré."
 
 # type: Plain text
 #: C/man3/pthread_cond_init.3:51
@@ -1590,12 +1588,12 @@ msgid ""
 "pthread_lock_mutex!)."
 msgstr ""
 "B<pthread_cond_wait>() déverrouille atomiquement le I<mutex> (comme "
-"B<pthread_unlock_mutex>())  et attend que la variable condition I<cond> soit "
+"B<pthread_unlock_mutex>()) et attend que la variable condition I<cond> soit "
 "signalée. L'exécution du thread est suspendue et ne consomme pas de temps "
 "CPU jusqu'à ce que la variable condition soit signalée. Le I<mutex> doit "
 "être verrouillé par le thread appelant à l'entrée de B<pthread_cond_wait>(). "
-"Avant de rendre la main au thread appelant, B<pthread_cond_wait>() re-"
-"verrouille I<mutex> (comme B<pthread_lock_mutex>())."
+"Avant de rendre la main au thread appelant, B<pthread_cond_wait>() "
+"reverrouille I<mutex> (comme B<pthread_lock_mutex>())."
 
 # type: Plain text
 #: C/man3/pthread_cond_init.3:74
@@ -1668,7 +1666,7 @@ msgid ""
 msgstr ""
 "B<pthread_cond_wait>() et B<pthread_cond_timedwait>() sont des points "
 "d'annulation. Si un thread est annulé alors qu'il est suspendu dans l'une de "
-"ces fonctions, son exécution reprend immédiatement, re-verrouillant le "
+"ces fonctions, son exécution reprend immédiatement, reverrouillant le "
 "paramètre I<mutex> à B<pthread_cond_wait>() et B<pthread_cond_timedwait>(), "
 "et exécute finalement l'annulation. Aussi, les gestionnaires d'annulation "
 "sont assurés que I<mutex> est verrouillé lorsqu'ils sont exécutés."
@@ -1710,7 +1708,7 @@ msgid ""
 "pthread_cond_wait! never return an error code."
 msgstr ""
 "B<pthread_cond_init>(), B<pthread_cond_signal>(), B<pthread_cond_broadcast>"
-"(), et B<pthread_cond_wait>() ne renvoient jamais de code d'erreur."
+"() et B<pthread_cond_wait>() ne renvoient jamais de code d'erreur."
 
 # type: Plain text
 #: C/man3/pthread_cond_init.3:120
@@ -1822,7 +1820,7 @@ msgstr ""
 "while (x E<lt>= y) {\n"
 "        pthread_cond_wait(&cond, &mut);\n"
 "}\n"
-"/* agir sur x et y */\n"
+"/* operate on x and y */\n"
 "pthread_mutex_unlock(&mut);>\n"
 
 # type: Plain text
@@ -1844,7 +1842,7 @@ msgid ""
 "pthread_mutex_unlock(&mut);>\n"
 msgstr ""
 "B<pthread_mutex_lock(&mut);\n"
-"/* modifie x et y */\n"
+"/* modify x and y */\n"
 "if (x E<gt> y) pthread_cond_broadcast(&cond);\n"
 "pthread_mutex_unlock(&mut);>\n"
 
@@ -1858,7 +1856,7 @@ msgid ""
 "pthread_cond_broadcast!."
 msgstr ""
 "S'il peut être prouvé qu'au plus un thread en attente nécessite d'être "
-"réveillé (par exemple, s'il n'y a que deux threads communicant via I<x> et "
+"réveillé (par exemple, s'il n'y a que deux threads communiquant via I<x> et "
 "I<y>), B<pthread_cond_signal>() peut être utilisé en tant qu'alternative "
 "efficace à B<pthread_cond_broadcast>(). En cas de doute, utilisez "
 "B<pthread_cond_broadcast>()."
@@ -1868,7 +1866,7 @@ msgstr ""
 msgid ""
 "To wait for |x| to becomes greater than |y| with a timeout of 5 seconds, do:"
 msgstr ""
-"Pour attendre que I<x> devienne plus grand que I<y> avec un timeout de 5 "
+"Pour attendre que I<x> devienne plus grand que I<y> avec un délai de 5 "
 "secondes, faîtes\\ :"
 
 # type: Plain text
@@ -1911,9 +1909,9 @@ msgstr ""
 "        retcode = pthread_cond_timedwait(&cond, &mut, &timeout);\n"
 "}\n"
 "if (retcode == ETIMEDOUT) {\n"
-"        /* timeout */\n"
+"        /* timeout occurred */\n"
 "} else {\n"
-"        /* agir sur x et y */\n"
+"        /* operate on x and y */\n"
 "}\n"
 "pthread_mutex_unlock(&mut);>\n"
 
@@ -1952,9 +1950,8 @@ msgid ""
 msgstr ""
 "Les attributs de condition peuvent être spécifiés lors de la création de ces "
 "conditions, en passant un attribut de condition comme second argument à "
-"B<pthread_cond_init>(3). Le paramètre B<NULL> est équivalent à passer un "
-"attribut de condition où tous les attributs sont initialisés à leur valeur "
-"par défaut."
+"B<pthread_cond_init>(3). Le paramètre B<NULL> revient à passer un attribut "
+"de condition où tous les attributs sont initialisés à leur valeur par défaut."
 
 # type: Plain text
 #: C/man3/pthread_condattr_init.3:25
@@ -1978,7 +1975,7 @@ msgid ""
 msgstr ""
 "B<pthread_condattr_init>() initialise l'attribut de condition I<attr> et le "
 "remplit avec les valeurs par défaut pour les attributs. "
-"B<pthread_condattr_destroy>() détruit un objet attribut condition qui ne "
+"B<pthread_condattr_destroy>() détruit un objet attribut de condition qui ne "
 "doit pas être réutilisé jusqu'à ce qu'il soit réinitialisé. Ces deux "
 "fonctions sont sans effet dans l'implémentation LinuxThreads."
 
@@ -2011,8 +2008,8 @@ msgid ""
 "int pthread_create(pthread_t * thread, pthread_attr_t * attr, void * "
 "(*start_routine)(void *), void * arg);"
 msgstr ""
-"B<int pthread_create(pthread_t * >I<thread>B<, pthread_attr_t * >I<attr>B<, "
-"void * (*>I<start_routine>B<)(void *), void * >I<arg>B<);>"
+"int pthread_create(pthread_t * thread, pthread_attr_t * attr, void * "
+"(*start_routine)(void *), void * arg);"
 
 # type: Plain text
 #: C/man3/pthread_create.3:19
@@ -2027,7 +2024,7 @@ msgstr ""
 "B<pthread_create>() crée un nouveau thread s'exécutant simultanément avec le "
 "thread appelant. Le nouveau thread exécute la fonction I<start_routine> en "
 "lui passant I<arg> comme premier argument. Le nouveau thread s'achève soit "
-"explicitement en appelant B<pthread_exit>(3), ou implicitement lorsque la "
+"explicitement en appelant B<pthread_exit>(3), soit implicitement lorsque la "
 "fonction I<start_routine> s'achève. Ce dernier cas est équivalent à appeler "
 "B<pthread_exit>(3) avec la valeur renvoyée par I<start_routine> comme code "
 "de sortie."
@@ -2041,7 +2038,7 @@ msgid ""
 "used: the created thread is joinable (not detached) and has default (non "
 "real-time) scheduling policy."
 msgstr ""
-"Le paramètre I<attr> indique les attributs du nouveau thread. Voir "
+"Le paramètre I<attr> indique les attributs du nouveau thread. Voyez "
 "B<pthread_attr_init>(3) pour une liste complète des attributs. Le paramètre "
 "I<attr> peut être B<NULL>, auquel cas, les attributs par défaut sont utilisés"
 "\\ : le thread créé est joignable (non détaché) et utilise la politique "
@@ -2096,7 +2093,7 @@ msgstr "PTHREAD_DETACH"
 #: C/man3/pthread_detach.3:5
 msgid "pthread_detach - put a running thread in the detached state"
 msgstr ""
-"pthread_detach - Place un thread en cours d'exécution dans l'état détaché"
+"pthread_detach - Placer un thread en cours d'exécution dans l'état détaché"
 
 # type: Plain text
 #: C/man3/pthread_detach.3:10
@@ -2165,7 +2162,7 @@ msgstr "Le thread I<th> est déjà dans l'état détaché."
 msgid ""
 "!pthread_create!(3), !pthread_join!(3), !pthread_attr_setdetachstate!(3)."
 msgstr ""
-"B<pthread_create>(3), B<pthread_join>(3), B<pthread_attr_setdetachstate>(3)"
+"B<pthread_create>(3), B<pthread_join>(3), B<pthread_attr_setdetachstate>(3)."
 
 # type: TH
 #: C/man3/pthread_equal.3:1
@@ -2204,7 +2201,7 @@ msgstr ""
 # type: Plain text
 #: C/man3/pthread_equal.3:23
 msgid "!pthread_self!(3)."
-msgstr "B<pthread_self>(3)"
+msgstr "B<pthread_self>(3)."
 
 # type: TH
 #: C/man3/pthread_exit.3:1
@@ -2238,7 +2235,7 @@ msgstr ""
 "B<pthread_cleanup_push>(3) sont exécutés dans l'ordre inverse "
 "d'enregistrement. Les fonctions de fin pour les données spécifiques au "
 "thread sont ensuite appelées pour toutes les clés qui ont une valeur non "
-"B<NULL> associée dans le thread appelant (voir B<pthread_key_create>(3)). "
+"B<NULL> associée dans le thread appelant (voyez B<pthread_key_create>(3)). "
 "Enfin, l'exécution du thread appelant est arrêtée."
 
 # type: Plain text
@@ -2248,7 +2245,7 @@ msgid ""
 "from another thread using !pthread_join!(3)."
 msgstr ""
 "Le paramètre I<retval> est la valeur de retour du thread. Il peut être "
-"consulté par un autre thread en utilisant B<pthread_join>(3)."
+"consulté par un autre thread avec B<pthread_join>(3)."
 
 # type: Plain text
 #: C/man3/pthread_exit.3:26
@@ -2258,7 +2255,7 @@ msgstr "La fonction B<pthread_exit>() ne rend jamais la main."
 # type: Plain text
 #: C/man3/pthread_exit.3:32
 msgid "!pthread_create!(3), !pthread_join!(3)."
-msgstr "B<pthread_create>(3), B<pthread_join>(3)"
+msgstr "B<pthread_create>(3), B<pthread_join>(3)."
 
 # type: TH
 #: C/man3/pthread_join.3:1
@@ -2285,7 +2282,7 @@ msgid ""
 msgstr ""
 "B<pthread_join>() suspend l'exécution du thread appelant jusqu'à ce que le "
 "thread identifié par I<th> achève son exécution, soit en appelant "
-"B<pthread_exit>(3) soit après avoir été annulé."
+"B<pthread_exit>(3), soit après avoir été annulé."
 
 # type: Plain text
 #: C/man3/pthread_join.3:20
@@ -2306,7 +2303,7 @@ msgid ""
 "detached using !pthread_detach!(3) or the !PTHREAD_CREATE_DETACHED! "
 "attribute to !pthread_create!(3)."
 msgstr ""
-"Le thread rejoint B<th> doit être dans l'état joignable\\ : il ne doit pas "
+"Le thread joint B<th> doit être dans l'état joignable\\ : il ne doit pas "
 "avoir été détaché par B<pthread_detach>(3) ou par l'attribut "
 "B<PTHREAD_CREATE_DETACHED> lors de sa création par B<pthread_create>(3)."
 
@@ -2396,7 +2393,7 @@ msgid ""
 msgstr ""
 "B<pthread_exit>(3), B<pthread_detach>(3), B<pthread_create>(3), "
 "B<pthread_attr_setdetachstate>(3), B<pthread_cleanup_push>(3), "
-"B<pthread_key_create>(3)"
+"B<pthread_key_create>(3)."
 
 # type: TH
 #: C/man3/pthread_key_create.3:1
@@ -2446,7 +2443,7 @@ msgstr ""
 "Les programmes ont souvent besoin de variables globales ou statiques ayant "
 "différentes valeurs dans des threads différents. Comme les threads partagent "
 "le même espace mémoire, cet objectif ne peut être réalisé avec les variables "
-"usuelles. Les données spécifiques à un thread de POSIX sont la réponse à ce "
+"usuelles. Les données spécifiques à un thread POSIX sont la réponse à ce "
 "problème."
 
 # type: Plain text
@@ -2458,9 +2455,9 @@ msgid ""
 "threads, but the value associated with a given TSD key can be different in "
 "each thread."
 msgstr ""
-"Chaque thread possède un segment mémoire privé, le TSD (Thred-Specific Data"
+"Chaque thread possède un segment mémoire privé, le TSD (Thread-Specific Data"
 "\\ : Données Spécifiques au Thread). Cette zone mémoire est indexée par des "
-"clés TSD. La zone TST associe des valeurs du type B<void *> aux clés TST. "
+"clés TSD. La zone TSD associe des valeurs du type B<void *> aux clés TSD. "
 "Ces clés sont communes à tous les threads, mais la valeur associée à une clé "
 "donnée est différente dans chaque thread."
 
@@ -2483,8 +2480,8 @@ msgid ""
 "When a thread is created, its TSD area initially associates !NULL! with all "
 "keys."
 msgstr ""
-"Quand un thread est créé, sa zone TST est initialement associée aux clés "
-"B<NULL>."
+"Quand un thread est créé, sa zone TSD associe initialement B<NULL> à toutes "
+"les clés."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:43
@@ -2495,7 +2492,7 @@ msgid ""
 "with the returned key is !NULL! in all currently executing threads."
 msgstr ""
 "B<pthread_key_create>() alloue une nouvelle clé TSD. Cette clé est "
-"enregistrée à l'emplacement pointée par I<clé>. Il ne peut y avoir plus de "
+"enregistrée à l'emplacement pointée par I<key>. Il ne peut y avoir plus de "
 "B<PTHREAD_KEYS_MAX> clés allouées à un instant donné. La valeur initialement "
 "associée avec la clé renvoyée est B<NULL> dans tous les threads en cours "
 "d'exécution."
@@ -2511,7 +2508,7 @@ msgid ""
 "are called at thread termination time is unspecified."
 msgstr ""
 "Le paramètre I<destr_function>, si différent de B<NULL>, spécifie une "
-"fonction destructrice associée à une clé. Quand le thread se termine par "
+"fonction de destruction associée à une clé. Quand le thread se termine par "
 "B<pthread_exit>() ou par une annulation, I<destr_function> est appelée avec "
 "en argument les valeurs associées aux clés de ce thread. La fonction "
 "I<destr_function> n'est pas appelée si cette valeur est B<NULL>. L'ordre "
@@ -2561,7 +2558,7 @@ msgid ""
 "thread, storing the given |pointer| instead."
 msgstr ""
 "B<pthread_setspecific>() change la valeur associée avec I<clé> dans le "
-"thread appelant, sauve le paramètre I<pointeur> à sa place."
+"thread appelant, sauve le paramètre I<pointer> à sa place."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:73
@@ -2569,7 +2566,7 @@ msgid ""
 "!pthread_getspecific! returns the value currently associated with |key| in "
 "the calling thread."
 msgstr ""
-"B<pthread_getspecific>() renvoie la valeur actuellement associée avec I<clé> "
+"B<pthread_getspecific>() renvoie la valeur actuellement associée avec I<key> "
 "dans le thread appelant."
 
 # type: Plain text
@@ -2583,7 +2580,7 @@ msgstr ""
 "B<pthread_key_create>(), B<pthread_key_delete>() et B<pthread_setspecific>() "
 "renvoient 0 en cas de succès et un code d'erreur non nul en cas d'échec. En "
 "cas de succès, B<pthread_key_create>() enregistre la clé récemment créée à "
-"l'emplacement pointé par son argument I<clé>."
+"l'emplacement pointé par son argument I<key>."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:83
@@ -2616,7 +2613,7 @@ msgstr ""
 # type: Plain text
 #: C/man3/pthread_key_create.3:98
 msgid "|key| is not a valid, allocated TSD key"
-msgstr "I<clé> n'est pas une clé valide ou allouée."
+msgstr "I<key> n'est pas une clé TSD allouée valable."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:102
@@ -2624,13 +2621,13 @@ msgid ""
 "!pthread_getspecific! returns !NULL! if |key| is not a valid, allocated TSD "
 "key."
 msgstr ""
-"B<pthread_getspecific>() renvoie B<NULL> si la I<clé> n'est pas associée à "
-"des données spécifiques."
+"B<pthread_getspecific>() renvoie B<NULL> si I<key> n'est pas une clef TSD "
+"allouée valable."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:108
 msgid "pthread_create(3), pthread_exit(3), pthread_testcancel(3)."
-msgstr "B<pthread_create>(3), B<pthread_exit>(3), B<pthread_testcancel>(3)"
+msgstr "B<pthread_create>(3), B<pthread_exit>(3), B<pthread_testcancel>(3)."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:113
@@ -2649,7 +2646,7 @@ msgid ""
 "B</* Key for the thread-specific buffer */\n"
 "static pthread_key_t buffer_key;>\n"
 msgstr ""
-"B</* Clé pour le tampon spécifique au thread */\n"
+"B</* Key for the thread-specific buffer */\n"
 "static pthread_key_t buffer_key;>\n"
 
 # type: Plain text
@@ -2659,7 +2656,7 @@ msgid ""
 "B</* Once-only initialisation of the key */\n"
 "static pthread_once_t buffer_key_once = PTHREAD_ONCE_INIT;>\n"
 msgstr ""
-"B</* Initialisation unique de la clé */\n"
+"B</* Once-only initialisation of the key */\n"
 "static pthread_once_t buffer_key_once = PTHREAD_ONCE_INIT;>\n"
 
 # type: Plain text
@@ -2673,7 +2670,7 @@ msgid ""
 "  pthread_setspecific(buffer_key, malloc(100));\n"
 "}>\n"
 msgstr ""
-"B</* Alloue le tampon spécifique au thread */\n"
+"B</* Allocate the thread-specific buffer */\n"
 "void buffer_alloc(void)\n"
 "{\n"
 "  pthread_once(&buffer_key_once, buffer_key_alloc);\n"
@@ -2690,7 +2687,7 @@ msgid ""
 "  return (char *) pthread_getspecific(buffer_key);\n"
 "}>\n"
 msgstr ""
-"B</* Renvoie le tampon spécifique au thread */\n"
+"B</* Return the thread-specific buffer */\n"
 "char * get_buffer(void)\n"
 "{\n"
 "  return (char *) pthread_getspecific(buffer_key);\n"
@@ -2706,7 +2703,7 @@ msgid ""
 "  pthread_key_create(&buffer_key, buffer_destroy);\n"
 "}>\n"
 msgstr ""
-"B</* Alloue la clé */\n"
+"B</* Allocate the key */\n"
 "static void buffer_key_alloc()\n"
 "{\n"
 "  pthread_key_create(&buffer_key, buffer_destroy);\n"
@@ -2722,7 +2719,7 @@ msgid ""
 "  free(buf);\n"
 "}>\n"
 msgstr ""
-"B</* Libère le tampon spécifique au thread */\n"
+"B</* Free the thread-specific buffer */\n"
 "static void buffer_destroy(void * buf)\n"
 "{\n"
 "  free(buf);\n"
@@ -2771,8 +2768,9 @@ msgid ""
 "cleanup handlers are not executed in the terminated threads."
 msgstr ""
 "L'interruption des autres threads n'est pas réalisée via B<pthread_cancel>"
-"(3) et n'exécute pas les gestionnaires de nettoyage dans les threads dont "
-"l'exécution s'achève."
+"(3) et ignore les mécanismes d'annulation. Ainsi, les paramètres courants "
+"pour l'état et le type d'annulation sont ignorés et les gestionnaires de "
+"nettoyage ne sont pas exécutés dans les threads dont l'exécution s'achève."
 
 # type: Plain text
 #: C/man3/pthread_kill_other_threads_np.3:32
@@ -2781,7 +2779,7 @@ msgid ""
 "pthread_cancel!(3)."
 msgstr ""
 "B<execve>(2), B<pthread_setcancelstate>(3), B<pthread_setcanceltype>(3), "
-"B<pthread_cancel>(3)"
+"B<pthread_cancel>(3)."
 
 # type: Plain text
 #: C/man3/pthread_kill_other_threads_np.3:40
@@ -2795,7 +2793,7 @@ msgid ""
 msgstr ""
 "D'après POSIX 1003.1c, un appel couronné de succès à B<exec*> dans l'un des "
 "threads devrait terminer automatiquement tous les autres threads du "
-"processus. Ce comportement n'est pas encore implémenté dans LinuxThreads. "
+"programme. Ce comportement n'est pas encore implémenté dans LinuxThreads. "
 "Appeler B<pthread_kill_other_threads_np>() avant B<exec*> revient au même, "
 "excepté que si B<exec*> échoue, alors tous les autres threads ont déjà été "
 "interrompus."
@@ -2868,7 +2866,7 @@ msgid ""
 msgstr ""
 "Un mutex est un objet d'exclusion mutuelle (MUTual EXclusion), et il est "
 "très pratique pour protéger des données partagées de modifications "
-"simultanées et pour implémenter des sections critiques."
+"simultanées et pour implémenter des sections critiques et moniteurs."
 
 # type: Plain text
 #: C/man3/pthread_mutex_init.3:40
@@ -2904,7 +2902,7 @@ msgid ""
 "that already owns it.  The default kind is ``fast''. See !"
 "pthread_mutexattr_init!(3) for more information on mutex attributes."
 msgstr ""
-"L'implémentation LinuxThreads ne supporte qu'un seul attribut, le I<type de "
+"L'implémentation LinuxThreads ne gère qu'un seul attribut, le I<type de "
 "mutex>, qui peut être soit «\\ rapide\\ », «\\ récursif\\ » ou à «\\ "
 "vérification d'erreur\\ ». Le type de mutex détermine s'il peut être "
 "verrouillé plusieurs fois par le même thread. Le type par défaut est «\\ "
@@ -2922,7 +2920,7 @@ msgstr ""
 "Les variables de type B<pthread_mutex_t> peuvent aussi être initialisées de "
 "manière statique, en utilisant les constantes B<PTHREAD_MUTEX_INITIALIZER> "
 "(pour les mutex «\\ rapides\\ »), B<PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP> "
-"(pour les mutex «\\ récursifs\\ »), et "
+"(pour les mutex «\\ récursifs\\ ») et "
 "B<PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP> (pour les mutex à «\\ "
 "vérification d'erreur\\ »)."
 
@@ -3033,8 +3031,8 @@ msgid ""
 "is unlocked."
 msgstr ""
 "B<pthread_mutex_destroy>() détruit un mutex, libérant les ressources qu'il "
-"détient. Le mutex doit être déverrouillé. Dans l'implémentation LinuxThreads "
-"des threads POSIX, aucune ressource ne peut être associé à un mutex, aussi "
+"détient. Le mutex doit être déverrouillé. Dans l'implémentation "
+"LinuxThreads, aucune ressource ne peut être associée à un mutex, aussi "
 "B<pthread_mutex_destroy>() ne fait rien si ce n'est vérifier que le mutex "
 "n'est pas verrouillé."
 
@@ -3056,7 +3054,7 @@ msgstr ""
 "d'annulation de déverrouiller précisément ces mutex qui nécessitent d'être "
 "déverrouillés avant que l'exécution du thread ne s'arrête définitivement. "
 "Aussi, les threads travaillant en mode d'annulation retardée ne doivent-"
-"t'ils jamais verrouiller un mutex pour de longues périodes de temps."
+"jamais verrouiller un mutex pour de longues périodes de temps."
 
 # type: Plain text
 #: C/man3/pthread_mutex_init.3:122
@@ -3079,7 +3077,7 @@ msgid ""
 "success and a non-zero error code on error."
 msgstr ""
 "B<pthread_mutex_init>() retourne toujours 0. Les autres fonctions renvoient "
-"0 en cas succès et un code d'erreur non nul en cas de problème."
+"0 en cas de succès et un code d'erreur non nul en cas de problème."
 
 # type: Plain text
 #: C/man3/pthread_mutex_init.3:132
@@ -3162,7 +3160,7 @@ msgid ""
 "pthread_cancel!(3)."
 msgstr ""
 "B<pthread_mutexattr_init>(3), B<pthread_mutexattr_setkind_np>(3), "
-"B<pthread_cancel>(3)"
+"B<pthread_cancel>(3)."
 
 # type: Plain text
 #: C/man3/pthread_mutex_init.3:186
@@ -3200,7 +3198,7 @@ msgid ""
 "pthread_mutex_unlock(&mut);>\n"
 msgstr ""
 "B<pthread_mutex_lock(&mut);\n"
-"/* agir sur x */\n"
+"/* operate on x */\n"
 "pthread_mutex_unlock(&mut);>\n"
 
 # type: TH
@@ -3290,9 +3288,9 @@ msgstr ""
 "mutex qui peut être soit B<PTHREAD_MUTEX_FAST_NP> pour des mutex «\\ rapides"
 "\\ », soit B<PTHREAD_MUTEX_RECURSIVE_NP> pour des mutex «\\ récursifs\\ », "
 "soit B<PTHREAD_MUTEX_ERRORCHECK_NP> pour des mutex avec «\\ vérification "
-"d'erreur\\ ». Comme le suffixe B<NP> l'indique, ce sont des extensions non-"
-"portables aux spécifications POSIX et ne devraient donc jamais être employés "
-"dans un programme portable."
+"d'erreur\\ ». Comme le suffixe B<NP> l'indique, ce sont des extensions non "
+"portables aux spécifications POSIX et ne devraient donc jamais être "
+"employées dans un programme portable."
 
 # type: Plain text
 #: C/man3/pthread_mutexattr_init.3:53
@@ -3308,7 +3306,7 @@ msgid ""
 "thread must call !pthread_mutex_unlock!(3) the same number of times before "
 "the mutex returns to the unlocked state."
 msgstr ""
-"Le type de mutex détermine ce qui se passe si un thread essaye de "
+"Le type de mutex détermine ce qu'il se passe si un thread essaye de "
 "verrouiller un mutex déjà verrouillé par B<pthread_mutex_lock>(3). Si le "
 "mutex est de type «\\ rapide\\ »; B<pthread_mutex_lock>(3) suspend "
 "simplement le thread appelant. Si le mutex est de type avec «\\ vérification "
@@ -3334,7 +3332,7 @@ msgid ""
 "value specified by |kind|."
 msgstr ""
 "B<pthread_mutexattr_settype>() modifie l'attribut type_de_mutex dans I<attr> "
-"à la valeur spécifiée par I<type>."
+"à la valeur spécifiée par I<kind>."
 
 # type: Plain text
 #: C/man3/pthread_mutexattr_init.3:62
@@ -3344,7 +3342,7 @@ msgid ""
 msgstr ""
 "B<pthread_mutexattr_gettype>() récupère la valeur courante de l'attribut "
 "type de mutex dans I<attr> et l'enregistre à l'emplacement pointé par "
-"I<type>."
+"I<kind>."
 
 # type: Plain text
 #: C/man3/pthread_mutexattr_init.3:66
@@ -3386,7 +3384,7 @@ msgid ""
 "!pthread_mutex_init!(3), !pthread_mutex_lock!(3), !pthread_mutex_unlock!(3)."
 msgstr ""
 "B<pthread_mutex_init>(3), B<pthread_mutex_lock>(3), B<pthread_mutex_unlock>"
-"(3)"
+"(3)."
 
 # type: TH
 #: C/man3/pthread_mutexattr_setkind_np.3:1
@@ -3444,7 +3442,7 @@ msgid ""
 "On error, !pthread_mutexattr_setkind_np! returns the following error code:"
 msgstr ""
 "Si elle échoue, B<pthread_mutexattr_setkind_np>() renvoie le code d'erreur "
-"suivants\\ :"
+"suivant\\ :"
 
 # type: Plain text
 #: C/man3/pthread_mutexattr_setkind_np.3:39
@@ -3498,13 +3496,13 @@ msgstr ""
 "La première fois que B<pthread_once>() est appelée avec un argument "
 "I<once_control> donné, elle appelle I<init_routine> sans aucun argument et "
 "modifie la valeur de la variable I<once_control> pour enregistrer le fait "
-"que l'initialisation a été réalisée. Les appels suivants à B<pthread_once>() "
-"avec le même argument B<once_control> ne feront rien."
+"que l'initialisation a été réalisée. Les appels suivants B<pthread_once>() "
+"avec le même argument I<once_control> ne feront rien."
 
 # type: Plain text
 #: C/man3/pthread_once.3:28
 msgid "!pthread_once! always returns 0."
-msgstr "B<pthread_once>() renvoi toujours 0."
+msgstr "B<pthread_once>() renvoie toujours 0."
 
 # type: TH
 #: C/man3/pthread_self.3:1
@@ -3534,7 +3532,7 @@ msgid ""
 "pthread_setschedparam!(3), !pthread_getschedparam!(3)."
 msgstr ""
 "B<pthread_equal>(3), B<pthread_join>(3), B<pthread_detach>(3), "
-"B<pthread_setschedparam>(3), B<pthread_getschedparam>(3)"
+"B<pthread_setschedparam>(3), B<pthread_getschedparam>(3)."
 
 # type: TH
 #: C/man3/pthread_setschedparam.3:1
@@ -3580,12 +3578,12 @@ msgid ""
 "for more information on scheduling policies."
 msgstr ""
 "B<pthread_setschedparam>() change la politique et les paramètres "
-"d'ordonnancement pour le thread I<target_thread> tels qu'indiqués par "
-"I<politique> et I<param>. I<politique> peut être soit B<SCHED_OTHER> "
-"(processus normal non temps-réel), B<SCHED_RR> (temps réel round-robin) ou "
-"B<SCHED_FIFO> (temps-réel fifo). I<param> change les paramètres "
+"d'ordonnancement pour le thread I<target_thread> tels qu'indiqué par "
+"I<policy> et I<param>. I<policy> peut être soit B<SCHED_OTHER> (processus "
+"normal non temps-réel), B<SCHED_RR> (temps réel round-robin) ou "
+"B<SCHED_FIFO> (temps-réel fifo). I<param> précise les paramètres "
 "d'ordonnancement pour les deux politiques temps réel. Voir B<sched_setpolicy>"
-"(2) pour plus d'information sur ces politiques."
+"(2) pour plus d'informations sur ces politiques."
 
 # type: Plain text
 #: C/man3/pthread_setschedparam.3:31
@@ -3596,7 +3594,7 @@ msgid ""
 msgstr ""
 "B<pthread_getschedparam>() récupère la politique et les paramètres "
 "d'ordonnancement du thread I<target_thread> et les enregistre aux "
-"emplacements mémoire pointés respectivement par I<politique> et I<param>."
+"emplacements mémoire pointés respectivement par I<policy> et I<param>."
 
 # type: Plain text
 #: C/man3/pthread_setschedparam.3:35
@@ -3611,14 +3609,14 @@ msgstr ""
 #: C/man3/pthread_setschedparam.3:38
 msgid "On error, !pthread_setschedparam! returns the following error codes:"
 msgstr ""
-"En cas d'erreur, B<pthread_setschedparam>() renvoie l'un des codes d'erreurs "
+"En cas d'erreur, B<pthread_setschedparam>() renvoie l'un des codes d'erreur "
 "suivants\\ :"
 
 # type: Plain text
 #: C/man3/pthread_setschedparam.3:42
 msgid "|policy| is not one of !SCHED_OTHER!, !SCHED_RR!, !SCHED_FIFO!"
 msgstr ""
-"I<politique> n'est pas parmi\\ : B<SCHED_OTHER>, B<SCHED_RR>, B<SCHED_FIFO>."
+"I<policy> n'est pas parmi\\ : B<SCHED_OTHER>, B<SCHED_RR>, B<SCHED_FIFO>."
 
 # type: Plain text
 #: C/man3/pthread_setschedparam.3:46
@@ -3654,14 +3652,14 @@ msgstr "I<param> pointe en dehors de l'espace mémoire du processus."
 #: C/man3/pthread_setschedparam.3:61
 msgid "On error, !pthread_getschedparam! returns the following error codes:"
 msgstr ""
-"En cas d'erreur, B<pthread_getschedparam>() renvoie l'un des codes d'erreurs "
+"En cas d'erreur, B<pthread_getschedparam>() renvoie l'un des codes d'erreur "
 "suivants\\ :"
 
 # type: Plain text
 #: C/man3/pthread_setschedparam.3:69
 msgid "|policy| or |param| point outside the process memory space"
 msgstr ""
-"I<politique> ou I<param> pointe en dehors de l'espace mémoire du processus."
+"I<policy> ou I<param> pointe en dehors de l'espace mémoire du processus."
 
 # type: Plain text
 #: C/man3/pthread_setschedparam.3:79
@@ -3727,7 +3725,7 @@ msgid ""
 "added to the current signal mask.  If |how| is !SIG_UNBLOCK!, the signals "
 "specified to |newmask| are removed from the current signal mask."
 msgstr ""
-"La signification des paramètres I<how> et I<ewmask> est la même que pour "
+"La signification des paramètres I<how> et I<newmask> est la même que pour "
 "B<sigprocmask>(2). Si I<how> vaut B<SIG_SETMASK>, le masque de signal est "
 "positionné à I<newmask>. Si I<how> vaut B<SIG_BLOCK>, les signaux indiqués "
 "par I<newmask> sont ajoutés au masque de signaux courant. Si I<how> vaut "
@@ -3818,7 +3816,7 @@ msgstr "I<signo> n'est pas un masque de signaux valide."
 # type: Plain text
 #: C/man3/pthread_sigmask.3:81
 msgid "the thread |thread| does not exist (e.g. it has already terminated)"
-msgstr "Le thread I<thread> n'existe pas (par exemple, il s'est déjà achevé)"
+msgstr "Le thread I<thread> n'existe pas (par exemple, il s'est déjà achevé)."
 
 # type: Plain text
 #: C/man3/pthread_sigmask.3:84
@@ -3828,7 +3826,7 @@ msgstr "La fonction B<sigwait>() ne renvoie jamais de code d'erreur."
 # type: Plain text
 #: C/man3/pthread_sigmask.3:93
 msgid "!sigprocmask!(2), !kill!(2), !sigaction!(2), !sigsuspend!(2)."
-msgstr "B<sigprocmask>(2), B<kill>(2), B<sigaction>(2), B<sigsuspend>(2)"
+msgstr "B<sigprocmask>(2), B<kill>(2), B<sigaction>(2), B<sigsuspend>(2)."
 
 # type: SH
 #: C/man3/pthread_sigmask.3:94
