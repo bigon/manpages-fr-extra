@@ -1,40 +1,38 @@
-# translation of nfs-utils to French
-# Sylvain Cherrier <sylvain.cherrier@free.fr>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: nhfsrun.8\n"
-"POT-Creation-Date: 2006-08-25 15:48+0200\n"
-"PO-Revision-Date: 2006-08-04 01:02+0200\n"
+"Project-Id-Version: fr\n"
+"POT-Creation-Date: 2006-09-03 13:01+0200\n"
+"PO-Revision-Date: 2006-09-01 10:26+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
-"Language-Team: French <debian-l10n-french@list.debian.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
 # type: TH
 #: C/man5/exports.5:1
 #, no-wrap
 msgid "EXPORTS"
-msgstr ""
+msgstr "EXPORTS"
 
 # type: TH
 #: C/man5/exports.5:1
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "4 March 2005"
-msgstr "17 mars 2003"
+msgstr "4 mars 2005"
 
 # type: TH
 #: C/man5/exports.5:1
 #, no-wrap
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 # type: TH
 #: C/man5/exports.5:1
 #, no-wrap
 msgid "Linux File Formats Manual"
-msgstr ""
+msgstr "Manuel des formats de fichiers Linux"
 
 # type: SH
 #: C/man5/exports.5:2 C/man5/idmapd.conf.5:7 C/man7/nfsd.7:8
@@ -49,7 +47,7 @@ msgstr "NOM"
 # type: Plain text
 #: C/man5/exports.5:4
 msgid "exports - NFS file systems being exported (for Kernel based NFS)"
-msgstr ""
+msgstr "exports - Systèmes de fichiers à partager (pour NFS en mode noyau)"
 
 # type: SH
 #: C/man5/exports.5:4 C/man5/idmapd.conf.5:10 C/man8/exportfs.8:9
@@ -62,9 +60,8 @@ msgstr "SYNOPSIS"
 
 # type: TP
 #: C/man5/exports.5:6
-#, fuzzy
 msgid "B</etc/exports>"
-msgstr "B<exports>"
+msgstr "B</etc/exports>"
 
 # type: SH
 #: C/man5/exports.5:6 C/man5/idmapd.conf.5:12 C/man7/nfsd.7:12
@@ -84,6 +81,10 @@ msgid ""
 "information to I<mountd>(8)  and to the kernel based NFS file server daemon "
 "I<nfsd>(8)."
 msgstr ""
+"Le fichier I</etc/exports> sert de liste de contrôle d'accès pour les "
+"systèmes de fichiers à partager avec les clients NFS. Il est utilisé par "
+"B<exportfs>(8) pour informer B<mountd>(8) et le démon serveur NFS en mode "
+"noyau B<nfsd>(8)."
 
 # type: Plain text
 #: C/man5/exports.5:24
@@ -94,6 +95,13 @@ msgid ""
 "followed by a parenthesized, comma-separated list of export options for that "
 "client. No whitespace is permitted between a client and its option list."
 msgstr ""
+"Le format de ce fichier est similaire à celui du fichier I<exports> de "
+"SunOS. Chaque ligne correspond à un point de montage à partager, suivi d'une "
+"liste (aux éléments séparés par des espaces) de clients autorisés à monter "
+"le système de fichiers situé en ce point. Chaque client de la liste peut "
+"être immédiatement suivi par une liste d'options de partage pour ce client "
+"(entre parenthèses, les éléments étant séparés par des virgules). Aucun "
+"espace n'est toléré entre un nom de client et sa liste d'options."
 
 # type: Plain text
 #: C/man5/exports.5:31
@@ -104,6 +112,13 @@ msgid ""
 "You can also specify spaces or other unusual character in the export name "
 "using a backslash followed by the character code as three octal digits."
 msgstr ""
+"Les lignes blanches sont ignorées. Un «\\ #\\ » indique un commentaire "
+"s'étendant jusqu'à la fin de la ligne. Les entrées peuvent s'étendre sur "
+"plusieurs lignes en utilisant la barre oblique inverse (antislash). Si un "
+"nom de partage contient des espaces, il doit être protégé par des "
+"apostrophes doubles «\\ \"\\ ». Vous pouvez aussi utiliser la barre oblique "
+"inverse (antislash) suivi du code octal à trois chiffres pour protéger tout "
+"espace ou autre caractère inhabituel dans un nom de partage."
 
 # type: Plain text
 #: C/man5/exports.5:34
@@ -111,23 +126,26 @@ msgid ""
 "To apply changes to this file, run exportfs -ra or /etc/init.d/nfs-kernel-"
 "server reload (the latter being a distribution-specific extension)."
 msgstr ""
+"Pour la prise en compte de vos modifications sur ce fichier, vous devez "
+"exécuter «\\ exportfs -ra\\ » ou «\\ /etc/init.d/nfs-kernel-server reload\\ "
+"» (ce dernier étant spécifique à certaines distributions)."
 
 # type: SS
 #: C/man5/exports.5:35
 #, no-wrap
 msgid "Machine Name Formats"
-msgstr ""
+msgstr "Formats des noms de machine"
 
 # type: Plain text
 #: C/man5/exports.5:37
 msgid "NFS clients may be specified in a number of ways:"
-msgstr ""
+msgstr "Les clients NFS peuvent être indiqués de plusieurs façons\\ :"
 
 # type: IP
 #: C/man5/exports.5:37
 #, no-wrap
 msgid "single host"
-msgstr ""
+msgstr "Une machine seule"
 
 # type: Plain text
 #: C/man5/exports.5:41
@@ -136,12 +154,15 @@ msgid ""
 "abbreviated name recognized be the resolver, the fully qualified domain "
 "name, or an IP address."
 msgstr ""
+"C'est le format le plus courant. Vous pouvez indiquer un hôte par son nom "
+"abrégé reconnu par votre résolveur de nom, par son nom de domaine complet, "
+"ou par son adresse IP."
 
 # type: IP
 #: C/man5/exports.5:41
 #, no-wrap
 msgid "netgroups"
-msgstr ""
+msgstr "Groupes de machines"
 
 # type: Plain text
 #: C/man5/exports.5:47
@@ -150,12 +171,16 @@ msgid ""
 "netgroup members is consider in checking for membership.  Empty host parts "
 "or those containing a single dash (-) are ignored."
 msgstr ""
+"Les groupes de machines NIS peuvent être utilisés (tels que I<@group>). Seul "
+"le nom court de machine de chacun des membres du groupe est utilisé pour la "
+"vérification. Les noms de machines vides, ou ceux contenant un simple tiret "
+"(-) sont ignorés."
 
 # type: IP
 #: C/man5/exports.5:47
 #, no-wrap
 msgid "wildcards"
-msgstr ""
+msgstr "Caractères jokers"
 
 # type: Plain text
 #: C/man5/exports.5:54
@@ -166,12 +191,18 @@ msgid ""
 "also match the dots in a domain name, the given pattern will also match all "
 "hosts within any subdomain of I<cs.foo.edu>."
 msgstr ""
+"Les noms de machine peuvent contenir les caractères jokers I<*> et I<?>. "
+"Cela sert à rendre le fichier I<exports> plus compact. Par exemple, I<*.cs."
+"toto.edu> indique toutes les machines du domaine I<cs.toto.edu>. Puisque les "
+"jokers peuvent aussi remplacer les points dans un nom de domaine, ce motif "
+"correspondra aussi à toute machine de n'importe quel sous-domaine de I<cs."
+"toto.edu>."
 
 # type: IP
 #: C/man5/exports.5:54
 #, no-wrap
 msgid "IP networks"
-msgstr ""
+msgstr "Réseaux IP"
 
 # type: Plain text
 #: C/man5/exports.5:64
@@ -185,12 +216,20 @@ msgid ""
 "on IP addresses, though they may work by accident when reverse DNS lookups "
 "fail."
 msgstr ""
+"Il est aussi possible de partager des répertoires avec toutes les machines "
+"d'un (sous) réseau IP. Il suffit d'indiquer une paire adresse IP / masque de "
+"réseau (I<adresse/masque>), en utilisant le format décimal pointé, ou la "
+"longueur du masque CIDR (on peut donc ajouter soit «\\ /255.255.252.0\\ » "
+"soit «\\ /22\\ » à l'adresse du réseau pour obtenir un sous réseau avec 10 "
+"bits pour la partie machine). En général, les caractères jokers ne "
+"fonctionnent pas avec les adresses IP, bien que cela arrive accidentellement "
+"quand les recherches inverses de DNS (reverse DNS lookups) échouent."
 
 # type: SS
 #: C/man5/exports.5:65
 #, no-wrap
 msgid "RPCSEC_GSS security"
-msgstr ""
+msgstr "Sécurité RPCSEC_GSS"
 
 # type: Plain text
 #: C/man5/exports.5:69
@@ -199,23 +238,27 @@ msgid ""
 "string \"gss/krb5\" as the client.  It is not possible to simultaneously "
 "require rpcsec_gss and to make requirements on the IP address of the client."
 msgstr ""
+"Pour contrôler les accès à un partage grâce à la sécurité rpcsec_gss, "
+"utilisez la chaîne spécifique «\\ gss/krb5\\ » comme nom de client. Il n'est "
+"pas possible d'utiliser à la fois rpcsec_gss et des restrictions sur "
+"l'adresse IP d'un client."
 
 # type: Plain text
 #: C/man5/exports.5:70
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "General Options"
-msgstr "Informations générales sur les RPC."
+msgstr "Options générales"
 
 # type: Plain text
 #: C/man5/exports.5:73
 msgid "I<exportfs> understands the following export options:"
-msgstr ""
+msgstr "I<exportfs> accepte les options de partage suivantes\\ :"
 
 # type: TP
 #: C/man5/exports.5:73
 #, no-wrap
 msgid "I<secure>\\*d"
-msgstr ""
+msgstr "I<secure>\\*d"
 
 # type: Plain text
 #: C/man5/exports.5:79
@@ -224,12 +267,15 @@ msgid ""
 "IPPORT_RESERVED (1024). This option is on by default. To turn it off, "
 "specify I<insecure>."
 msgstr ""
+"Cette option impose l'utilisation d'un port réservé (inférieur à 1024) comme "
+"origine de la requête. Cette option est activée par défaut. Pour la "
+"désactiver, utilisez I<insecure>."
 
 # type: TP
 #: C/man5/exports.5:79
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "I<rw>"
-msgstr "B<-r>"
+msgstr "I<rw>"
 
 # type: Plain text
 #: C/man5/exports.5:86
@@ -238,12 +284,16 @@ msgid ""
 "disallow any request which changes the filesystem.  This can also be made "
 "explicit by using the I<ro> option."
 msgstr ""
+"Permettre les requêtes en lecture et en écriture sur le volume NFS. Le "
+"comportement par défaut est d'interdire toute requête qui modifierait le "
+"système de fichiers. On peut spécifier explicitement ce comportement par "
+"défaut en utilisant l'option I<ro>."
 
 # type: TP
 #: C/man5/exports.5:86
 #, no-wrap
 msgid "I<async>"
-msgstr ""
+msgstr "I<async>"
 
 # type: Plain text
 #: C/man5/exports.5:91
@@ -252,6 +302,9 @@ msgid ""
 "requests before any changes made by that request have been committed to "
 "stable storage (e.g. disc drive)."
 msgstr ""
+"Permettre au serveur NFS de transgresser le protocole NFS en répondant aux "
+"requêtes avant que tous les changements impliqués par la requête en cours "
+"n'aient été effectués sur le support réel (par exemple, le disque dur)."
 
 # type: Plain text
 #: C/man5/exports.5:95
@@ -259,12 +312,15 @@ msgid ""
 "Using this option usually improves performance, but at the cost that an "
 "unclean server restart (i.e. a crash) can cause data to be lost or corrupted."
 msgstr ""
+"L'utilisation de cette option améliore généralement les performances, mais "
+"au risque de perdre ou de corrompre des données en cas de redémarrage brutal "
+"d'un serveur, suite à un plantage par exemple."
 
 # type: TP
 #: C/man5/exports.5:96
 #, no-wrap
 msgid "I<sync>"
-msgstr ""
+msgstr "I<sync>"
 
 # type: Plain text
 #: C/man5/exports.5:102
@@ -272,6 +328,8 @@ msgid ""
 "Reply to requests only after the changes have been committed to stable "
 "storage (see I<async> above)."
 msgstr ""
+"Ne répondre aux requêtes qu'après l'exécution de tous les changements sur le "
+"support réel (voir I<async> plus haut)."
 
 # type: Plain text
 #: C/man5/exports.5:115
@@ -282,12 +340,18 @@ msgid ""
 "aware of this change, 'exportfs' will issue a warning if neither I<sync> nor "
 "I<async> is specified."
 msgstr ""
+"Dans toutes les versions de nfs-utils jusqu'à la 1.0.0 (incluse), c'était "
+"l'option par défaut. Dans toutes les versions suivantes, le comportement par "
+"défaut est I<sync>, et I<async> doit être explicitement indiquée si vous en "
+"avez besoin. Afin d'aider les administrateurs systèmes à prêter attention à "
+"cette modification, exportfs affichera un message d'avertissement si ni "
+"I<sync> ni I<async> ne sont précisées."
 
 # type: TP
 #: C/man5/exports.5:115
 #, no-wrap
 msgid "I<no_wdelay>"
-msgstr ""
+msgstr "I<no_wdelay>"
 
 # type: Plain text
 #: C/man5/exports.5:129
@@ -301,12 +365,21 @@ msgid ""
 "so I<no_wdelay> is available to turn it off.  The default can be explicitly "
 "requested with the I<wdelay> option."
 msgstr ""
+"Cette option est sans effet si I<async> est déjà active. Le serveur NFS va "
+"normalement retarder une requête d'écriture sur disque s'il suspecte qu'une "
+"autre requête en écriture liée à celle-ci soit en cours ou puisse survenir "
+"rapidement. Cela permet l'exécution de plusieurs requêtes d'écriture en une "
+"seule passe sur le disque, ce qui peut améliorer les performances. En "
+"revanche, si un serveur NFS reçoit principalement des petites requêtes "
+"indépendantes, ce comportement peut réellement diminuer les performances. "
+"I<no_wdelay> permet de désactiver cette option. On peut explicitement "
+"spécifier ce comportement par défaut en utilisant l'option I<wdelay>."
 
 # type: TP
 #: C/man5/exports.5:129
 #, no-wrap
 msgid "I<nohide>"
-msgstr ""
+msgstr "I<nohide>"
 
 # type: Plain text
 #: C/man5/exports.5:137
@@ -318,6 +391,12 @@ msgid ""
 "directory at the place where the other filesystem is mounted.  That "
 "filesystem is \"hidden\"."
 msgstr ""
+"Cette option est basée sur l'option de même nom fournie dans le NFS d'IRIX. "
+"Normalement, si un serveur partage deux systèmes de fichiers dont un est "
+"monté sur l'autre, le client devra explicitement monter les deux systèmes de "
+"fichiers pour obtenir l'accès complet. S'il ne monte que le parent, il verra "
+"un répertoire vide à l'endroit où l'autre système de fichiers est monté. Ce "
+"système de fichiers est «\\ caché\\ »."
 
 # type: Plain text
 #: C/man5/exports.5:143
@@ -326,6 +405,9 @@ msgid ""
 "an appropriately authorised client will be able to move from the parent to "
 "that filesystem without noticing the change."
 msgstr ""
+"Définir l'option I<nohide> sur un système de fichiers empêchera de le "
+"cacher, et tout client convenablement autorisé pourra alors se déplacer du "
+"système de fichiers parent à celui-ci sans s'en apercevoir."
 
 # type: Plain text
 #: C/man5/exports.5:147
@@ -334,6 +416,9 @@ msgid ""
 "instance, it is then possible for two files in the one apparent filesystem "
 "to have the same inode number."
 msgstr ""
+"Cependant, quelques clients NFS ne sont pas adaptés à cette situation. Il "
+"est alors possible, par exemple, que deux fichiers de ce système de fichiers "
+"apparemment unique aient le même numéro d'inode."
 
 # type: Plain text
 #: C/man5/exports.5:154
@@ -341,6 +426,9 @@ msgid ""
 "The I<nohide> option is currently only effective on I<single host> exports.  "
 "It does not work reliably with netgroup, subnet, or wildcard exports."
 msgstr ""
+"L'option I<nohide> ne concerne actuellement que les partages vers les "
+"I<hôtes seuls>. Elle ne s'applique pas aux partages vers les groupes de "
+"machines, sous-réseaux et ceux utilisant les caractères jokers."
 
 # type: Plain text
 #: C/man5/exports.5:158
@@ -349,17 +437,20 @@ msgid ""
 "with due care, and only after confirming that the client system copes with "
 "the situation effectively."
 msgstr ""
+"Cette option peut être très pratique dans certains cas, mais elle doit être "
+"utilisée avec parcimonie, et seulement après vérification du bon "
+"comportement du système client à gérer cette situation."
 
 # type: Plain text
 #: C/man5/exports.5:161
 msgid "The option can be explicitly disabled with I<hide>."
-msgstr ""
+msgstr "Cette option peut être désactivée explicitement avec I<hide>."
 
 # type: TP
 #: C/man5/exports.5:161
 #, no-wrap
 msgid "I<crossmnt>"
-msgstr ""
+msgstr "I<crossmnt>"
 
 # type: Plain text
 #: C/man5/exports.5:169
@@ -369,12 +460,17 @@ msgid ""
 "mounted on it.  Thus when a child filesystem \"B\" is mounted on a parent \"A"
 "\", setting crossmnt on \"A\" has the same effect as setting \"nohide\" on B."
 msgstr ""
+"Cette option est semblable à I<nohide> mais elle permet aux clients de se "
+"déplacer du système de fichiers marqué crossmnt aux systèmes de fichiers "
+"partagés montés dessus. Ainsi, si un système de fichiers fils «\\ B\\ » est "
+"monté sur un système de fichiers père «\\ A\\ », définir l'option crossmnt "
+"sur «\\ A\\ » aura le même effet que d'indiquer «\\ nohide\\ » sur «\\ B\\ »."
 
 # type: TP
 #: C/man5/exports.5:169
 #, no-wrap
 msgid "I<no_subtree_check>"
-msgstr ""
+msgstr "I<no_subtree_check>"
 
 # type: Plain text
 #: C/man5/exports.5:173
@@ -382,6 +478,9 @@ msgid ""
 "This option disables subtree checking, which has mild security implications, "
 "but can improve reliability in some circumstances."
 msgstr ""
+"Cette option neutralise la vérification de sous-répertoires, ce qui a des "
+"subtiles implications au niveau de la sécurité, mais peut améliorer la "
+"fiabilité dans certains cas."
 
 # type: Plain text
 #: C/man5/exports.5:180
@@ -392,6 +491,12 @@ msgid ""
 "also that it is in the exported tree (which is harder). This check is called "
 "the I<subtree_check>."
 msgstr ""
+"Si un sous-répertoire dans un système de fichiers est partagé, mais que le "
+"système de fichiers ne l'est pas, alors chaque fois qu'une requête NFS "
+"arrive, le serveur doit non seulement vérifier que le fichier accédé est "
+"dans le système de fichiers approprié (ce qui est facile), mais aussi qu'il "
+"est dans l'arborescence partagée (ce qui est plus compliqué). Cette "
+"vérification s'appelle I<subtree_check>."
 
 # type: Plain text
 #: C/man5/exports.5:186
@@ -401,6 +506,11 @@ msgid ""
 "client.  This can cause problems with accessing files that are renamed while "
 "a client has them open (though in many simple cases it will still work)."
 msgstr ""
+"Pour ce faire, le serveur doit ajouter quelques informations sur "
+"l'emplacement du fichier dans le «\\ filehandle\\ » (descripteur de fichier) "
+"qui est donné au client. Cela peut poser problème lors d'accès à des "
+"fichiers renommés alors qu'un client est en train de les utiliser (bien que "
+"dans la plupart des cas simples, cela continuera à fonctionner)."
 
 # type: Plain text
 #: C/man5/exports.5:192
@@ -410,6 +520,11 @@ msgid ""
 "exported with I<no_root_squash> (see below), even if the file itself allows "
 "more general access."
 msgstr ""
+"La vérification de sous-répertoires est également utilisée pour s'assurer "
+"que des fichiers situés dans des répertoires auxquels seul l'administrateur "
+"a accès ne sont consultables que si le système de fichiers est exporté avec "
+"l'option I<no_root_squash>(voir ci-dessous), et ce, même si les fichiers eux-"
+"mêmes offrent un accès plus généreux."
 
 # type: Plain text
 #: C/man5/exports.5:199
@@ -421,6 +536,14 @@ msgid ""
 "subdirectories may be exported, should probably be exported with subtree "
 "checks enabled."
 msgstr ""
+"D'une façon générale, un système de fichiers des répertoires personnels («\\ "
+"home directories\\ »), qui est normalement partagé à sa racine et qui va "
+"subir de multiples opérations de renommage de fichiers, devrait être partagé "
+"sans contrôle de sous-répertoires. Un système de fichiers principalement en "
+"lecture seule, et qui donc ne verra que peu de modifications de noms de "
+"fichiers (/usr ou /var par exemple) et pour lequel des sous-répertoires "
+"pourront être partagés, le sera probablement avec la vérification des sous-"
+"répertoires."
 
 # type: Plain text
 #: C/man5/exports.5:203
@@ -428,18 +551,20 @@ msgid ""
 "The default of having subtree checks enabled, can be explicitly requested "
 "with I<subtree_check>."
 msgstr ""
+"On peut explicitement spécifier ce comportement par défaut de vérification "
+"des sous-répertoires en indiquant l'option I<subtree_check>."
 
 # type: TP
 #: C/man5/exports.5:204
 #, no-wrap
 msgid "I<insecure_locks>"
-msgstr ""
+msgstr "I<insecure_locks>"
 
 # type: TP
 #: C/man5/exports.5:206
 #, no-wrap
 msgid "I<no_auth_nlm>"
-msgstr ""
+msgstr "I<no_auth_nlm>"
 
 # type: Plain text
 #: C/man5/exports.5:213
@@ -450,6 +575,12 @@ msgid ""
 "credential for a user who has read access to the file.  With this flag no "
 "access checks will be performed."
 msgstr ""
+"Cette option (les deux noms sont synonymes) indique au serveur NFS de ne pas "
+"exiger l'authentification des requêtes de verrouillage (c.-à-d. les requêtes "
+"qui utilisent le protocole NLM). Normalement le serveur de NFS doit exiger "
+"d'une requête de verrouillage qu'elle fournisse une accréditation pour un "
+"utilisateur qui a accès en lecture au fichier. Avec cette option, aucun "
+"contrôle d'accès ne sera effectué."
 
 # type: Plain text
 #: C/man5/exports.5:218
@@ -459,6 +590,11 @@ msgid ""
 "old implementations.  Use this flag if you find that you can only lock files "
 "which are world readable."
 msgstr ""
+"Les premières implémentations de clients NFS n'envoyaient pas "
+"d'accréditations lors de requêtes de verrouillage, et nombre de clients NFS "
+"encore utilisés sont basés sur ces anciennes implémentations. Utilisez cette "
+"option si vous constatez que vous ne pouvez verrouiller que les fichiers en "
+"lecture pour tous («\\ world readable\\ »)."
 
 # type: Plain text
 #: C/man5/exports.5:224
@@ -467,12 +603,15 @@ msgid ""
 "explicitly requested with either of the synonymous I<auth_nlm>, or "
 "I<secure_locks>."
 msgstr ""
+"On peut explicitement spécifier ce comportement par défaut de demande "
+"d'accréditation pour les requêtes NLM en indiquant les options synonymes "
+"I<auth_nlm> ou I<secure_locks>."
 
 # type: TP
 #: C/man5/exports.5:224
 #, no-wrap
 msgid "I<no_acl>"
-msgstr ""
+msgstr "I<no_acl>"
 
 # type: Plain text
 #: C/man5/exports.5:239
@@ -487,18 +626,30 @@ msgid ""
 "exporting filesystems with ACL support.  The default is to export with ACL "
 "support (i.e. by default, I<no_acl> is off)."
 msgstr ""
+"Sur certains noyaux spécialement modifiés, et lors de partages de systèmes "
+"de fichiers implémentant les ACL, cette option indique à nfsd ne pas "
+"dévoiler les ACL aux clients, ainsi ils verront seulement un sous-ensemble "
+"de permissions réelles sur le système de fichiers donné. Cette option est "
+"efficace pour des partages utilisés par les clients NFSv2 et les anciens "
+"clients NFSv3 qui effectuent des vérifications d'accès localement. Les "
+"clients NFSv3 actuels utilisent l'appel de procédure distante ACCESS («\\ "
+"ACCESS RPC\\ ») afin d'effectuer toutes les vérifications d'accès sur le "
+"serveur. Notez que l'option I<no_acl> n'a d'effet que sur des noyaux "
+"spécifiquement modifiés pour le supporter, et seulement lors du partage de "
+"systèmes de fichiers implémentant les ACL. Par défaut, le partage implémente "
+"les ACL (c.-à-d. par défaut, I<no_acl> est désactivée)."
 
 # type: TP
 #: C/man5/exports.5:241
 #, no-wrap
 msgid "I<mountpoint=>path"
-msgstr ""
+msgstr "I<mountpoint=>chemin"
 
 # type: TP
 #: C/man5/exports.5:243
 #, no-wrap
 msgid "I<mp>"
-msgstr ""
+msgstr "I<mp>"
 
 # type: Plain text
 #: C/man5/exports.5:253
@@ -510,6 +661,13 @@ msgid ""
 "directory underneath a mountpoint will never be exported by accident if, for "
 "example, the filesystem failed to mount due to a disc error."
 msgstr ""
+"Cette option permet de ne partager un répertoire que si son montage a "
+"réussi. Si aucun chemin n'est précisé (par exemple I<mountpoint> ou I<mp>) "
+"alors le partage doit également être un point de montage. Si ce n'est pas le "
+"cas, alors le partage n'est pas fait. Ceci vous permet d'être sûr que le "
+"répertoire d'un point de montage ne sera jamais partagé par accident si, par "
+"exemple, le montage du système de fichiers échouait suite à une erreur de "
+"disque dur."
 
 # type: Plain text
 #: C/man5/exports.5:258
@@ -517,12 +675,14 @@ msgid ""
 "If a path is given (e.g.  I<mountpoint=>/path or I<mp=>/path)  then the "
 "nominted path must be a mountpoint for the exportpoint to be exported."
 msgstr ""
+"Si un chemin est précisé (c.-à-d. I<mountpoint=>/chemin ou I<mp=>/chemin), "
+"le chemin indiqué doit être un point de montage pour le partage qui est fait."
 
 # type: TP
 #: C/man5/exports.5:259
 #, no-wrap
 msgid "I<fsid=>num"
-msgstr ""
+msgstr "I<fsid=>num"
 
 # type: Plain text
 #: C/man5/exports.5:267
@@ -533,6 +693,12 @@ msgid ""
 "filesystem is mounted.  Any 32 bit number can be used, but it must be unique "
 "amongst all the exported filesystems."
 msgstr ""
+"Cette option force la partie d'identification du système de fichiers dans le "
+"descripteur de fichier («\\ filehandle\\ ») et des attributs du fichier "
+"employés sur le réseau à être I<num> au lieu d'un nombre calculé à partir du "
+"nombre majeur et mineur du périphérique bloc sur lequel le système de "
+"fichiers est monté. N'importe quel nombre de 32 bits peut être employé, "
+"pourvu qu'il soit unique parmi tous les systèmes de fichiers partagés."
 
 # type: Plain text
 #: C/man5/exports.5:271
@@ -541,6 +707,11 @@ msgid ""
 "failover pair use the same NFS file handles for the shared filesystem thus "
 "avoiding stale file handles after failover."
 msgstr ""
+"Ceci peut être utile pour la reprise après un plantage de NFS, pour "
+"s'assurer que les deux serveurs de la redondance utilisent les mêmes "
+"descripteurs de fichier («\\ filehandle\\ ») pour le système de fichiers "
+"partagé NFS, évitant de ce fait les descripteurs incohérents après la "
+"reprise."
 
 # type: Plain text
 #: C/man5/exports.5:276
@@ -549,6 +720,10 @@ msgid ""
 "via NFS requires the use of the I<fsid> option (although that may still not "
 "be enough)."
 msgstr ""
+"Certains systèmes de fichiers de Linux ne sont pas montés sur un "
+"périphérique de type bloc. Par conséquent, le partage de ces derniers par "
+"l'intermédiaire du NFS exige l'utilisation de l'option de I<fsid> (bien que "
+"cela puisse ne pas suffire)."
 
 # type: Plain text
 #: C/man5/exports.5:280
@@ -557,12 +732,15 @@ msgid ""
 "of a root of the overall exported filesystem. The export point exported with "
 "fsid=0 will be used as this root."
 msgstr ""
+"Utilisé avec NFSv4, la valeur 0 a une signification particulière. NFSv4 a un "
+"concept d'une racine globale de système de fichiers partagés. Le point de "
+"partage exporté avec fsid=0 sera utilisé en tant que cette racine."
 
 # type: SS
 #: C/man5/exports.5:281
 #, no-wrap
 msgid "User ID Mapping"
-msgstr ""
+msgstr "Correspondance d'ID utilisateur («\\ User ID Mapping\\ »)"
 
 # type: Plain text
 #: C/man5/exports.5:290
@@ -574,6 +752,12 @@ msgid ""
 "the client and the server machine. This is not always true, nor is it always "
 "desirable."
 msgstr ""
+"I<nfsd> base son contrôle d'accès aux fichiers de la machine serveur sur "
+"l'UID et le GID fournis dans chaque requête RPC de NFS. Le comportement "
+"attendu par un utilisateur est de pouvoir accéder à ses fichiers sur le "
+"serveur de la même façon qu'il y accède sur un système de fichiers normal. "
+"Ceci exige que les mêmes UID et GID soient utilisés sur le client et la "
+"machine serveur. Ce n'est pas toujours vrai, ni toujours souhaitable."
 
 # type: Plain text
 #: C/man5/exports.5:299
@@ -584,6 +768,12 @@ msgid ""
 "I<nobody> uid. This mode of operation (called `root squashing') is the "
 "default, and can be turned off with I<no_root_squash>."
 msgstr ""
+"Bien souvent, il n'est pas souhaitable que l'administrateur d'une machine "
+"cliente soit également traité comme le superutilisateur lors de l'accès à "
+"des fichiers du serveur NFS. À cet effet, l'UID 0 est normalement transformé "
+"(«\\ mapped\\ ») en utilisateur différent\\ : le prétendu utilisateur "
+"anonyme ou UID I<nobody>. C'est le mode de fonctionnement par défaut (appelé "
+"«\\ root squashing\\ »), qui peut être désactivé grâce à I<no_root_squash>."
 
 # type: Plain text
 #: C/man5/exports.5:310
@@ -593,60 +783,74 @@ msgid ""
 "options.  Finally, you can map all user requests to the anonymous uid by "
 "specifying the I<all_squash> option."
 msgstr ""
+"Par défaut, I<exportfs> choisit un UID et un GID de 65534 pour l'accès «\\ "
+"squash\\ ». Ces valeurs peuvent également être définies par les options "
+"I<anonuid> et I<anongid>. Pour finir, vous pouvez faire correspondre toutes "
+"les requêtes des utilisateurs à l'UID anonyme en indiquant l'option "
+"I<all_squash>."
 
 # type: Plain text
 #: C/man5/exports.5:312
 msgid "Here's the complete list of mapping options:"
 msgstr ""
+"Voici la liste complète des options de correspondance («\\ mapping\\ »)\\ :"
 
 # type: TP
 #: C/man5/exports.5:312
 #, no-wrap
 msgid "I<root_squash>"
-msgstr ""
-
-# type: Plain text
-#: C/man5/exports.5:317
-msgid ""
-"Map requests from uid/gid 0 to the anonymous uid/gid. Note that this does "
-"not apply to any other uids that might be equally sensitive, such as user "
-"I<bin>."
-msgstr ""
-
-# type: TP
-#: C/man5/exports.5:317
-#, no-wrap
-msgid "I<no_root_squash>"
-msgstr ""
+msgstr "I<root_squash>"
 
 # type: Plain text
 #: C/man5/exports.5:320
+msgid ""
+"Map requests from uid/gid 0 to the anonymous uid/gid. Note that this does "
+"not apply to any other uids or gids that might be equally sensitive, such as "
+"user I<bin> or group I<staff>."
+msgstr ""
+"Transformer les requêtes d'UID/GID 0 en l'UID/GID anonyme. Notez que ceci ne "
+"s'applique à aucun autre UID ou GID qui pourrait également être sensible, "
+"tel que l'utilisateur I<bin> ou le groupe I<staff> par exemple."
+
+# type: TP
+#: C/man5/exports.5:320
+#, no-wrap
+msgid "I<no_root_squash>"
+msgstr "I<no_root_squash>"
+
+# type: Plain text
+#: C/man5/exports.5:323
 msgid ""
 "Turn off root squashing. This option is mainly useful for diskless clients."
 msgstr ""
+"Désactiver la transformation du superutilisateur. Cette option est "
+"principalement utile pour les clients sans disque dur."
 
 # type: TP
-#: C/man5/exports.5:320
+#: C/man5/exports.5:323
 #, no-wrap
 msgid "I<all_squash>"
-msgstr ""
+msgstr "I<all_squash>"
 
 # type: Plain text
-#: C/man5/exports.5:327
+#: C/man5/exports.5:330
 msgid ""
 "Map all uids and gids to the anonymous user. Useful for NFS-exported public "
 "FTP directories, news spool directories, etc. The opposite option is "
 "I<no_all_squash>, which is the default setting."
 msgstr ""
+"Transformer tous les UID/GID en l'utilisateur anonyme. Utile pour les "
+"répertoires FTP publics partagés en NFS, les répertoires de spool de news, "
+"etc. L'option inverse est I<no_all_squash>, qui est celle par défaut."
 
 # type: TP
-#: C/man5/exports.5:327
+#: C/man5/exports.5:330
 #, no-wrap
 msgid "I<anonuid> and I<anongid>"
-msgstr ""
+msgstr "I<anonuid> et I<anongid>"
 
 # type: Plain text
-#: C/man5/exports.5:336
+#: C/man5/exports.5:339
 msgid ""
 "These options explicitly set the uid and gid of the anonymous account.  This "
 "option is primarily useful for PC/NFS clients, where you might want all "
@@ -654,21 +858,27 @@ msgid ""
 "entry for B</home/joe> in the example section below, which maps all requests "
 "to uid 150 (which is supposedly that of user joe)."
 msgstr ""
+"Ces options définissent explicitement l'UID et le GID du compte anonyme. "
+"Cette option est principalement utile pour des clients PC/NFS, dans le cas "
+"où vous souhaiteriez que toutes les requêtes semblent provenir d'un seul et "
+"même utilisateur. Consultez par exemple la ligne définissant le partage pour "
+"B</home/joe> dans la section EXEMPLES ci-dessous, qui attribue toutes les "
+"requêtes à l'utilisateur 150 (qui est censé être celui de l'utilisateur Joe)."
 
 # type: SH
-#: C/man5/exports.5:337
-#, fuzzy, no-wrap
+#: C/man5/exports.5:340
+#, no-wrap
 msgid "EXAMPLE"
 msgstr "EXEMPLES"
 
 # type: ta
-#: C/man5/exports.5:340
+#: C/man5/exports.5:343
 #, no-wrap
 msgid "+3i"
-msgstr ""
+msgstr "+3i"
 
 # type: Plain text
-#: C/man5/exports.5:347
+#: C/man5/exports.5:350
 #, no-wrap
 msgid ""
 "# sample /etc/exports file\n"
@@ -678,9 +888,15 @@ msgid ""
 "/home/joe       pc001(rw,all_squash,anonuid=150,anongid=100)\n"
 "/pub            (ro,insecure,all_squash)\n"
 msgstr ""
+"# fichier exemple /etc/exports\n"
+"/               master(rw) trusty(rw,no_root_squash)\n"
+"/projects       proj*.local.domain(rw)\n"
+"/usr            *.local.domain(ro) @trusted(rw)\n"
+"/home/joe       pc001(rw,all_squash,anonuid=150,anongid=100)\n"
+"/pub            (ro,insecure,all_squash)\n"
 
 # type: Plain text
-#: C/man5/exports.5:359
+#: C/man5/exports.5:362
 msgid ""
 "The first line exports the entire filesystem to machines master and trusty.  "
 "In addition to write access, all uid squashing is turned off for host "
@@ -691,22 +907,31 @@ msgid ""
 "nobody account. The I<insecure> option in this entry also allows clients "
 "with NFS implementations that don't use a reserved port for NFS."
 msgstr ""
+"La première ligne exporte l'ensemble du système de fichiers vers les "
+"machines «\\ master\\ » et «\\ trusty\\ ». En plus des droits d'écriture, "
+"toute transformation d'UID est désactivée pour l'hôte «\\ trusty\\ ». Les "
+"deuxième et troisième lignes montrent des exemples de noms de machines avec "
+"caractères jokers, et de groupes de machines («\\ @trusted\\ »). La "
+"quatrième ligne montre une entrée pour le client PC/NFS, présenté plus haut. "
+"La dernière ligne partage un répertoire public de FTP, à toutes les machines "
+"dans le monde, en effectuant les requêtes sous le compte anonyme. L'option "
+"I<insecure> permet l'accès aux clients dont l'implémentation NFS n'utilise "
+"pas un port réservé. "
 
 # type: SH
-#: C/man5/exports.5:359 C/man8/idmapd.8:76 C/man8/mount.nfs.8:82
+#: C/man5/exports.5:362 C/man8/idmapd.8:76 C/man8/mount.nfs.8:82
 #: C/man8/nfsstat.8:95 C/man8/rpcdebug.8:71 C/man8/umount.nfs.8:56
 #, no-wrap
 msgid "FILES"
 msgstr "FICHIERS"
 
 # type: TH
-#: C/man5/exports.5:361
-#, fuzzy
+#: C/man5/exports.5:364
 msgid "/etc/exports"
-msgstr "exportfs"
+msgstr "/etc/exports"
 
 # type: SH
-#: C/man5/exports.5:361 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198
+#: C/man5/exports.5:364 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198
 #: C/man8/exportfs.8:220 C/man8/gssd.8:62 C/man8/idmapd.8:78
 #: C/man8/mount.nfs.8:91 C/man8/nfsstat.8:109 C/man8/nhfsgraph.8:23
 #: C/man8/nhfsnums.8:21 C/man8/nhfsrun.8:13 C/man8/rpcdebug.8:76
@@ -716,40 +941,41 @@ msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 # type: Plain text
-#: C/man5/exports.5:366
-#, fuzzy
+#: C/man5/exports.5:370
 msgid ""
 "B<exportfs>(8), B<netgroup>(5), B<mountd>(8), B<nfsd>(8), B<showmount>(8)."
 msgstr ""
-"B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8)  B<exportfs>(8)."
+"B<exportfs>(8), B<netgroup>(5), B<mountd>(8), B<nfsd>(8), B<showmount>(8)."
 
 # type: TH
 #: C/man5/idmapd.conf.5:4
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "July 16, 2003"
-msgstr "3 juillet 2003"
+msgstr "16 juillet 2003"
 
 # type: Dt
 #: C/man5/idmapd.conf.5:5
 #, no-wrap
 msgid "idmapd.conf 5"
-msgstr ""
+msgstr "idmapd.conf 5"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:9
 msgid "E<.Nm idmapd.conf>"
-msgstr ""
+msgstr "E<.Nm idmapd.conf>"
 
 # type: Nd
 #: C/man5/idmapd.conf.5:9
 #, no-wrap
 msgid "configuration file for idmapd, the NFSv4 ID E<lt>-E<gt> Name Mapper"
-msgstr ""
+msgstr "Fichier de configuration pour idmapd, le convertisseur Nom E<lt>-E<gt> Identifiant NFSv4"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:12
 msgid "Configuration file for idmapd, the NFSv4 ID E<lt>-E<gt> Name Mapper"
 msgstr ""
+"Fichier de configuration pour idmapd, le convertisseur Nom E<lt>-E<gt> "
+"Identifiant NFSv4"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:17
@@ -757,12 +983,15 @@ msgid ""
 "The E<.Nm> configuration file has two sections, initiated by the strings "
 "[General] and [Mapping].  Each section may contain lines of the form"
 msgstr ""
+"Le fichier de configuration E<.Nm> comporte deux sections, qui débutent par "
+"les chaînes «\\ [General]\\ » et «\\ [Mapping]\\ ». Chacune des sections "
+"peut contenir des lignes au format\\ :"
 
 # type: Dl
 #: C/man5/idmapd.conf.5:18
 #, no-wrap
 msgid "variable = value"
-msgstr ""
+msgstr "variable = valeur"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:40
@@ -774,6 +1003,12 @@ msgid ""
 "User> and E<.Va Nobody-Group,> which have the same effect as the E<.Fl U> "
 "and E<.Fl G> commandline options."
 msgstr ""
+"Les variables acceptées dans la section «\\ General\\ » sont E<.Va Verbosity,"
+"> E<.Va Pipefs-Directory,> et E<.Va Domain,> dont les valeurs ont le même "
+"effet que les arguments en ligne de commande respectivement E<.Fl v,> E<.Fl "
+"p,> et E<.Fl d>. Les variables acceptées dans la section «\\ Mapping\\ » "
+"sont E<.Va Nobody-User> et E<.Va Nobody-Group,> qui agissent comme les "
+"options en ligne de commande E<.Fl U> et E<.Fl G>."
 
 # type: SH
 #: C/man5/idmapd.conf.5:41 C/man8/exportfs.8:185 C/man8/idmapd.8:61
@@ -785,13 +1020,13 @@ msgstr "EXEMPLES"
 # type: Plain text
 #: C/man5/idmapd.conf.5:46
 msgid "An example E<.Pa /etc/idmapd.conf> file:"
-msgstr ""
+msgstr "Un exemple de fichier E<.Pa /etc/idmapd.conf>\\ :"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:49
 #, no-wrap
 msgid "[General]\n"
-msgstr ""
+msgstr "[General]\n"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:53
@@ -801,12 +1036,15 @@ msgid ""
 "Pipefs-Directory = /var/lib/nfs/rpc_pipefs\n"
 "Domain = localdomain\n"
 msgstr ""
+"Verbosity = 0\n"
+"Pipefs-Directory = /var/lib/nfs/rpc_pipefs\n"
+"Domain = localdomain\n"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:55
 #, no-wrap
 msgid "[Mapping]\n"
-msgstr ""
+msgstr "[Mapping]\n"
 
 # type: Plain text
 #: C/man5/idmapd.conf.5:58
@@ -815,6 +1053,8 @@ msgid ""
 "Nobody-User = nobody\n"
 "Nobody-Group = nobody\n"
 msgstr ""
+"Nobody-User = nobody\n"
+"Nobody-Group = nobody\n"
 
 # type: Plain text
 #. .Sh SEE ALSO
@@ -824,7 +1064,7 @@ msgstr ""
 #. .Sh ACKNOWLEDGEMENTS
 #: C/man5/idmapd.conf.5:67
 msgid "E<.Xr idmapd 8>"
-msgstr ""
+msgstr "E<.Xr idmapd 8>"
 
 # type: SH
 #: C/man5/idmapd.conf.5:67 C/man8/exportfs.8:223 C/man8/gssd.8:64
@@ -839,6 +1079,8 @@ msgid ""
 "The idmapd software has been developed by Marius Aamodt Eriksen E<.Aq "
 "marius@citi.umich.edu>."
 msgstr ""
+"Le programme idmapd a été développé par Marius Aamodt Eriksen E<.Aq "
+"marius@citi.umich.edu>."
 
 # type: TH
 #: C/man7/nfsd.7:7
@@ -880,11 +1122,11 @@ msgid ""
 "provide information about the server."
 msgstr ""
 "Le système de fichiers B<nfsd> est un système de fichiers spécial permettant "
-"de dialoguer avec le serveur NFS de Linux. Ce système de fichier ne contient "
-"qu'un seul répertoire avec un certain nombre de fichiers. Ces fichiers sont "
-"en fait des passerelles vers le serveur NFS. L'écriture dans ces fichiers "
-"affectera le comportement du serveur. La lecture du contenu de ces fichiers "
-"fournira des informations à propos du serveur."
+"de dialoguer avec le serveur NFS de Linux. Ce système de fichiers ne "
+"contient qu'un seul répertoire avec un certain nombre de fichiers. Ces "
+"fichiers sont en fait des passerelles vers le serveur NFS. L'écriture dans "
+"ces fichiers affectera le comportement du serveur. La lecture du contenu de "
+"ces fichiers fournira des informations à propos du serveur."
 
 # type: Plain text
 #: C/man7/nfsd.7:24
@@ -893,7 +1135,7 @@ msgid ""
 "(and in the later parts of the 2.5 development series leading up to 2.6).  "
 "This man page does not apply to 2.4 and earlier."
 msgstr ""
-"Ce système de fichiers n'est accessible que dans les versions 2.6 et "
+"Ce système de fichiers n'est disponible que dans les versions 2.6 et "
 "suivantes du noyau Linux (ainsi que dans les dernières versions de "
 "développement 2.5 amenant vers la série 2.6). Cette page de manuel ne "
 "concerne pas les noyaux 2.4 et précédents."
@@ -906,7 +1148,7 @@ msgid ""
 "server.  This manual page describes all of these files."
 msgstr ""
 "Comme pour ce système de fichiers, il existe un ensemble de fichiers dans le "
-"système de fichiers  B<procfs> (habituellement monté dans B</proc>) qui "
+"système de fichiers B<procfs> (habituellement monté dans B</proc>) qui "
 "permettent le contrôle du serveur NFS. Cette page de manuel décrit tous ces "
 "fichiers."
 
@@ -920,8 +1162,8 @@ msgid ""
 "This systemcall is scheduled to be removed after the 2.6 kernel series."
 msgstr ""
 "Les programmes I<exportfs> et I<mountd> (fournis dans le paquet nfs-utils) "
-"s'attendent à trouver ce système de fichiers montés dans  B</proc/fs/nfsd> "
-"ou B</proc/fs/nfs>. Si ce n'est pas le cas, ces programmes se rabattront sur "
+"s'attendent à trouver ce système de fichiers monté dans B</proc/fs/nfsd> ou "
+"B</proc/fs/nfs>. Si ce n'est pas le cas, ces programmes se rabattront sur "
 "les fonctionnalités du noyau 2.4. Cela implique un accès au serveur NFS via "
 "un appel système. Cet appel système devrait disparaître des noyaux qui "
 "succéderont à la série 2.6."
@@ -970,11 +1212,11 @@ msgid ""
 "the path name or client name will be replaced by a backslash followed by the "
 "octal ASCII code for that character."
 msgstr ""
-"Chaque ligne de ce fichier contient un chemin, le nom d'un client, et un "
+"Chaque ligne de ce fichier contient un chemin, le nom d'un client et un "
 "nombre d'options entre parenthèses. Tout caractère espace, tabulation, "
 "retour à la ligne ou barre oblique inverse présent dans le nom d'un chemin "
-"ou d'un client sera remplacé par un caractère barre oblique inverse suivi du "
-"code ASCII de ce caractère, exprimé en octal."
+"ou d'un client sera remplacé par un caractère barre oblique inverse "
+"(antislash) suivi du code ASCII de ce caractère, exprimé en octal."
 
 # type: TP
 #: C/man7/nfsd.7:65
@@ -991,10 +1233,10 @@ msgid ""
 "necessary) to achieve that number."
 msgstr ""
 "Ce fichier contient le nombre de processus légers (thread) de B<nfsd> "
-"actuellement en cours de fonctionnement. La lecture du fichier affichera le "
-"nombre de processus légers. Écrire un nombre décimal en ASCII modifiera le "
-"nombre de processus légers (à la hausse ou à la baisse) afin d'atteindre la "
-"valeur demandée."
+"actuellement en cours d'exécution. La lecture du fichier affichera le nombre "
+"de processus légers. Écrire un nombre décimal en ASCII modifiera le nombre "
+"de processus légers (à la hausse ou à la baisse) afin d'atteindre la valeur "
+"demandée."
 
 # type: TP
 #: C/man7/nfsd.7:74
@@ -1025,7 +1267,7 @@ msgid ""
 "space separating the fields, and octal quoting of special characters."
 msgstr ""
 "Les requêtes écrites dans B<filehandle> devront être de la forme un nom de "
-"client, un nom d'un chemin, et un nombre d'octets. Un retour à la ligne "
+"client, un nom de chemin, et un nombre d'octets. Un retour à la ligne "
 "terminera la requête, les champs seront séparés par une espace, et tout "
 "caractère spécial sera protégé et écrit en octal."
 
@@ -1037,16 +1279,16 @@ msgid ""
 "most the number of bytes given."
 msgstr ""
 "Grâce à cette écriture, le programme pourra accéder à un descripteur de "
-"fichier (filehandle) pour ce chemin, tel qu'il est partagé pour ce client. "
-"La taille de ce descripteur de fichier (filehandle) sera au plus du nombre "
-"d'octets demandé."
+"fichier («\\ filehandle\\ ») pour ce chemin, tel qu'il est partagé pour ce "
+"client. La taille de ce descripteur de fichier («\\ filehandle\\ ») sera au "
+"plus le nombre d'octets demandé."
 
 # type: Plain text
 #: C/man7/nfsd.7:93
 msgid "The filehandle will be represented in hex with a leading '\\ex'."
 msgstr ""
-"Le descripteur de fichier (filehandle) sera représenté en hexadécimal, et "
-"préfixée par «\\ \\ex\\ »."
+"Le descripteur de fichier («\\filehandle\\ ») sera représenté en "
+"hexadécimal, et préfixé par «\\ \\ex\\ »."
 
 # type: Plain text
 #: C/man7/nfsd.7:106
@@ -1058,11 +1300,11 @@ msgid ""
 "permissions that different clients have for different filesystems.  The "
 "caches are:"
 msgstr ""
-"Le répertoire  B</proc/net/rpc> du système de fichiers  B<procfs> contient "
-"un certain nombre de fichiers et de répertoires. Ces fichiers contiennent "
-"des statistiques qui peuvent être affichées grâce au programme I<nfsstat>. "
-"Les répertoires contiennent des informations sur les différents caches que "
-"le serveur NFS utilise pour assurer le suivi des permissions d'accès dont "
+"Le répertoire B</proc/net/rpc> du système de fichiers B<procfs> contient un "
+"certain nombre de fichiers et de répertoires. Ces fichiers contiennent des "
+"statistiques qui peuvent être affichées grâce au programme I<nfsstat>. Les "
+"répertoires contiennent des informations sur les différents caches que le "
+"serveur NFS utilise pour assurer le suivi des permissions d'accès dont "
 "disposent les différents clients sur les différents systèmes de fichiers. "
 "Ces caches sont\\ :"
 
@@ -1095,7 +1337,7 @@ msgid ""
 "authentication domain that the ipaddress should be treated as part of."
 msgstr ""
 "Ce cache contient la correspondance entre les adresses IP et les noms du "
-"domaine d'authentification auxquels ces adresses ip sont rattachées."
+"domaine d'authentification auxquels ces adresses IP sont rattachées."
 
 # type: TP
 #: C/man7/nfsd.7:117
@@ -1126,10 +1368,10 @@ msgid ""
 "bytes indicating the content of the identifier."
 msgstr ""
 "Ce cache contient la correspondance entre les domaines, les identifiants du "
-"système de fichier et les répertoires. L'identifiant du système de fichiers "
-"est stocké dans les descripteurs de fichier (filehandles), et est composé "
-"d'un nombre indiquant le type d'identifiant, ainsi qu'un nombre d'octets en "
-"hexadécimal indiquant le contenu de cet identifiant."
+"système de fichiers et les répertoires. L'identifiant du système de fichiers "
+"est stocké dans les descripteurs de fichier («\\filehandle\\ »), et est "
+"composé d'un nombre indiquant le type d'identifiant, ainsi qu'un nombre "
+"d'octets en hexadécimal indiquant le contenu de cet identifiant."
 
 # type: Plain text
 #: C/man7/nfsd.7:132
@@ -1252,7 +1494,7 @@ msgid ""
 "In the B</proc> filesystem there are 4 files that can be used to enabled "
 "extra tracing of nfsd and related code.  They are:"
 msgstr ""
-"Dans le système de fichier B</proc>, il y 4 fichiers qui peuvent être "
+"Dans le système de fichiers B</proc>, il y 4 fichiers qui peuvent être "
 "utilisés pour tracer un peu plus nfsd et les autres programmes associés. Il "
 "s'agit de\\ :"
 
@@ -1299,7 +1541,7 @@ msgstr ""
 msgid ""
 "B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8)  B<exportfs>(8)."
 msgstr ""
-"B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8)  B<exportfs>(8)."
+"B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8), B<exportfs>(8)."
 
 # type: SH
 #: C/man7/nfsd.7:205 C/man8/mount.nfs.8:98 C/man8/nfsstat.8:125
@@ -1404,9 +1646,9 @@ msgid ""
 "If this filesystem is not mounted in 2.6, the legacy mode is used."
 msgstr ""
 "B<exportfs> et son programme associé B<mountd> fonctionnent sous l'un des "
-"deux modes suivants\\ :\\ le mode traditionnel, qui s'applique aux version "
+"deux modes suivants\\ : le mode traditionnel, qui s'applique aux versions "
 "2.4 et précédentes du noyau Linux, et un mode plus récent sous les noyaux "
-"2.6 et suivantes, accessible à la condition que le système de fichiers "
+"2.6 et suivants, accessible à la condition que le système de fichiers "
 "virtuel de B<nfsd> soit bien monté sous B</proc/fs/nfsd> ou B</proc/fs/nfs>. "
 "Si ce système de fichiers n'est pas monté en 2.6, c'est le mode traditionnel "
 "qui sera utilisé."
@@ -1435,12 +1677,12 @@ msgid ""
 "host given in B<rmtab> to be entered into the kernel's export table."
 msgstr ""
 "Dans le mode traditionnel, toute demande de partage qui indique un hôte "
-"spécifique (plutôt qu'un réseau ou un groupe de machines) est directement "
-"inscrite dans la table des partages du noyau ainsi que dans le fichier B</"
-"var/lib/nfs/xtab>. De plus, tout point de montage défini dans B</var/lib/nfs/"
-"rmtab> correspondant à une demande de partage d'un hôte non spécifique "
-"entraînera l'ajout, dans la table des partages du noyau, d'une entrée "
-"correspondante à l'hôte indiqué dans B<rmtab>."
+"spécifique (plutôt qu'un sous-réseau ou un groupe de machines) est "
+"directement inscrite dans la table des partages du noyau ainsi que dans le "
+"fichier B</var/lib/nfs/xtab>. De plus, tout point de montage défini dans B</"
+"var/lib/nfs/rmtab> correspondant à une demande de partage non spécifique à "
+"un hôte entraînera l'ajout, dans la table des partages du noyau, d'une "
+"entrée correspondante à l'hôte effectif dans B<rmtab>."
 
 # type: SH
 #: C/man8/exportfs.8:80 C/man8/gssd.8:21 C/man8/mount.nfs.8:28
@@ -1459,7 +1701,7 @@ msgstr "B<-a>"
 # type: Plain text
 #: C/man8/exportfs.8:84
 msgid "Export or unexport all directories."
-msgstr "Partage ou interrompt le partage de tous les répertoires."
+msgstr "Partager ou interrompre le partage de tous les répertoires."
 
 # type: TP
 #: C/man8/exportfs.8:84
@@ -1471,7 +1713,8 @@ msgstr "B<-o >I<options,...>"
 #: C/man8/exportfs.8:88
 msgid ""
 "Specify a list of export options in the same manner as in B<exports(5)>."
-msgstr "Stipule une liste d'options de partage, à la manière de B<exports(5)>."
+msgstr ""
+"Stipuler une liste d'options de partage, à la manière de B<exports(5)>."
 
 # type: TP
 #: C/man8/exportfs.8:88
@@ -1485,7 +1728,7 @@ msgid ""
 "Ignore the B</etc/exports> file, so that only default options and options "
 "given on the command line are used."
 msgstr ""
-"Ne tient aucun compte du fichier B</etc/exports>, de façon que les options "
+"Ne tenir aucun compte du fichier B</etc/exports>, de façon que les options "
 "par défaut ou celles données sur la ligne de commande soient utilisées."
 
 # type: TP
@@ -1503,7 +1746,7 @@ msgid ""
 "exports, and remove any entries from the kernel export table which are no "
 "longer valid."
 msgstr ""
-"Relance le partage de tous les répertoires. /var/lib/nfs/xtab est "
+"Relancer le partage de tous les répertoires. /var/lib/nfs/xtab est "
 "synchronisé avec /etc/exports. Les entrées qui ont disparu de /etc/exports "
 "seront supprimées de /var/lib/nfs/xtab. Dans la table des partages du noyau, "
 "les entrées qui ne sont plus valables seront également enlevées."
@@ -1517,7 +1760,7 @@ msgstr "B<-u>"
 # type: Plain text
 #: C/man8/exportfs.8:103
 msgid "Unexport one or more directories."
-msgstr "Interrompt le partage d'un ou plusieurs répertoires."
+msgstr "Interrompre le partage d'un ou plusieurs répertoires."
 
 # type: TP
 #: C/man8/exportfs.8:103 C/man8/gssd.8:22 C/man8/mount.nfs.8:41
@@ -1533,7 +1776,7 @@ msgid ""
 "that are active will get new entries added by B<mountd> when they make their "
 "next request."
 msgstr ""
-"Dans le mode plus récent, vide complètement la table des partages du noyau. "
+"Dans le mode plus récent, vider complètement la table des partages du noyau. "
 "B<mountd> générera une nouvelle entrée pour chaque client en activité, dès "
 "que celui-ci fera sa prochaine requête."
 
@@ -1550,8 +1793,8 @@ msgid ""
 "Be verbose. When exporting or unexporting, show what's going on. When "
 "displaying the current export list, also display the list of export options."
 msgstr ""
-"Mode verbeux. Lors d'un partage ou de l'arrêt d'un partage, affiche ce qui "
-"se passe. Lors de l'affichage de la liste actuelle des partages, affiche "
+"Mode volubile. Lors d'un partage ou de l'arrêt d'un partage, afficher ce qui "
+"se passe. Lors de l'affichage de la liste actuelle des partages, afficher "
 "aussi la liste des options de partage."
 
 # type: SH
@@ -1586,10 +1829,10 @@ msgid ""
 "host or hosts to export it to. All formats described in B<exports(5)> are "
 "supported; to export a directory to the world, simply specify I<:/path>."
 msgstr ""
-"L'argument I<host:/path> définit le répertoire à partager ainsi que l'hôte "
-"ou les hôtes à qui il est offert. Tous les formats décrits dans B<exports(5)"
-"> sont acceptés. Pour partager un répertoire à tout le monde, indiquez tout "
-"simplement I<:/path>."
+"L'argument I<client:/chemin> définit le répertoire à partager ainsi que "
+"l'hôte ou les hôtes à qui il est offert. Tous les formats décrits dans "
+"B<exports(5)> sont acceptés. Pour partager un répertoire à tout le monde, "
+"indiquez tout simplement I<:/chemin>."
 
 # type: Plain text
 #: C/man8/exportfs.8:151
@@ -1606,8 +1849,8 @@ msgstr ""
 "plusieurs sources. Il y a d'abord un jeu d'options par défaut, dont on peut "
 "passer outre grâce aux entrées dans B</etc/exports> (sauf si l'option B<-i> "
 "a été utilisée). De surcroît, l'administrateur peut outrepasser toute option "
-"de ces sources grâce à l'argument B<-o>  qui attend une liste d'options "
-"séparées par des virgules, présentée de la même façon que  dans B<exports(5)"
+"de ces sources grâce à l'argument B<-o> qui attend une liste d'options "
+"séparées par des virgules, présentée de la même façon que dans B<exports(5)"
 ">. Ainsi, B<exportfs> peut aussi être utilisé pour modifier les options de "
 "partage d'un répertoire déjà partagé. "
 
@@ -1624,16 +1867,14 @@ msgstr ""
 # type: Plain text
 #.  -------------------- Unexporting Directories ------------------
 #: C/man8/exportfs.8:161
-#, fuzzy
 msgid "The default export options are B<sync,ro,root_squash,wdelay>."
-msgstr ""
-"Les options de partage par défaut sont B<sync,ro,root_squash,no_delay>."
+msgstr "Les options de partage par défaut sont B<sync,ro,root_squash,wdelay>."
 
 # type: SS
 #: C/man8/exportfs.8:161
 #, no-wrap
 msgid "Unexporting Directories"
-msgstr "L'arrêt de partage de répertoires."
+msgstr "L'arrêt de partage de répertoires"
 
 # type: Plain text
 #: C/man8/exportfs.8:169
@@ -1643,7 +1884,7 @@ msgid ""
 "the kernel export tables, and the file is cleared. This effectively shuts "
 "down all NFS activity."
 msgstr ""
-"Ce troisième synopsis montre comme arrêter le partage d'un répertoire "
+"Ce troisième synopsis montre comment arrêter le partage d'un répertoire "
 "actuellement offert. Quand on lance B<exportfs -ua>, toutes les entrées "
 "présentes dans B<xtab> sont retirées de la table des partages du noyau, puis "
 "le fichier est vidé. Cela stoppe effectivement toute activité NFS."
@@ -1656,15 +1897,15 @@ msgid ""
 "kernel entry (if any)."
 msgstr ""
 "Pour supprimer des entrées de partages particulières, vous pouvez indiquer "
-"un couple I<host:/path>. L'entrée indiquée sera supprimée de B<xtab>, ainsi "
-"que celle correspondante dans le noyau (si elle existe)."
+"un couple I<client:/chemin>. L'entrée indiquée sera supprimée de B<xtab>, "
+"ainsi que celle correspondante dans le noyau (si elle existe)."
 
 # type: SS
 #.  -------------------- Dumping the Export Table -----------------
 #: C/man8/exportfs.8:177
 #, no-wrap
 msgid "Dumping the Export Table"
-msgstr "Afficher le contenu de la table des partages,"
+msgstr "Afficher le contenu de la table des partages"
 
 # type: Plain text
 #.  -------------------- EXAMPLES ---------------------------------
@@ -1676,7 +1917,7 @@ msgid ""
 msgstr ""
 "L'usage de B<exportfs> sans la moindre option affiche la liste actuelle des "
 "systèmes de fichiers partagés. Lorsqu'on donne l'option B<-v>, on obtient, "
-"en plus, la liste des drapeaux spécifique à chaque partage."
+"en plus, la liste des drapeaux spécifiques à chaque partage."
 
 # type: Plain text
 #: C/man8/exportfs.8:189
@@ -1684,9 +1925,9 @@ msgid ""
 "The following adds all directories listed in B</etc/exports to /var/lib/nfs/"
 "xtab> and pushes the resulting export entries into the kernel:"
 msgstr ""
-"L'exemple suivant ajoute tous les répertoires indiqués dans B</etc/exports "
-"à /var/lib/nfs/xtab>, puis les entrées de partages résultantes sont "
-"inscrites dans le noyau :"
+"L'exemple suivant ajoute tous les répertoires indiqués dans B</etc/exports> "
+"à B</var/lib/nfs/xtab>, puis les entrées de partages résultantes sont "
+"inscrites dans le noyau\\ :"
 
 # type: Plain text
 #: C/man8/exportfs.8:192
@@ -1701,7 +1942,7 @@ msgid ""
 "writes, one would do this:"
 msgstr ""
 "Pour offrir le répertoire B</usr/tmp> à l'hôte B<djando>, en permettant les "
-"écritures asynchrones, on pourrait faire cela :"
+"écritures asynchrones, on pourrait faire ceci\\ :"
 
 # type: Plain text
 #: C/man8/exportfs.8:202
@@ -1779,9 +2020,8 @@ msgstr "rpc.gssd - Démon rpcsec_gss"
 
 # type: Plain text
 #: C/man8/gssd.8:10
-#, fuzzy
 msgid "B<rpc.gssd [-f] [-k keytab] [-p pipefsdir] [-v] [-r] [-d ccachedir]>"
-msgstr "B<rpc.gssd [-f] [-k rep_clés] [-p pipefsdir] [-v]>"
+msgstr "B<rpc.gssd [-f] [-k rep_clés] [-p rep_pipefs] [-v][-r] [-d ccachedir]>"
 
 # type: Plain text
 #: C/man8/gssd.8:20
@@ -1810,7 +2050,7 @@ msgid ""
 "syslogd)"
 msgstr ""
 "Lancer B<rpc.gssd> en tâche de premier plan, et rediriger sa sortie standard "
-"vers la sortie d'erreur (contrairement à syslogd)"
+"vers la sortie d'erreur (au lieu de syslogd)"
 
 # type: TP
 #: C/man8/gssd.8:27
@@ -1835,7 +2075,7 @@ msgid ""
 msgstr ""
 "Demander à  B<rpc.gssd> d'utiliser les clés principales nfs/nom d'hôte "
 "présentes dans I<rep_clés> afin d'obtenir les accréditations pour la "
-"machine. La valeur par défaut est \"/etc/krb5.keytab\"."
+"machine. La valeur par défaut est «\\ /etc/krb5.keytab\\ »."
 
 # type: TP
 #: C/man8/gssd.8:44
@@ -1850,41 +2090,40 @@ msgid ""
 "value is \"/var/lib/nfs/rpc_pipefs\"."
 msgstr ""
 "Indiquer à B<rpc.gssd> où chercher le système de fichiers rpc_pipefs. Par "
-"défaut, il s'agit de \"/var/lib/nfs/rpc_pipefs\"."
+"défaut, il s'agit de «\\ /var/lib/nfs/rpc_pipefs\\ »."
 
 # type: TP
 #: C/man8/gssd.8:50
 #, no-wrap
 msgid "B<-d directory>"
-msgstr ""
+msgstr "B<-d répertoire>"
 
 # type: Plain text
 #: C/man8/gssd.8:55
-#, fuzzy
 msgid ""
 "Tells B<rpc.gssd> where to look for kerberos credential files.  The default "
 "value is \"/tmp\"."
 msgstr ""
-"Indiquer à B<rpc.gssd> où chercher le système de fichiers rpc_pipefs. Par "
-"défaut, il s'agit de \"/var/lib/nfs/rpc_pipefs\"."
+"Indiquer à B<rpc.gssd> où chercher le fichier des accréditations kerberos. "
+"Par défaut, il s'agit de «\\ /tmp\\ »."
 
 # type: Plain text
 #: C/man8/gssd.8:58 C/man8/svcgssd.8:30
 msgid ""
 "Increases the verbosity of the output (can be specified multiple times)."
 msgstr ""
-"Augmenter le niveau de bavardage de la sortie (peut être demandé plusieurs "
+"Augmenter le niveau de volubilité de la sortie (peut être demandée plusieurs "
 "fois)."
 
 # type: Plain text
 #: C/man8/gssd.8:62 C/man8/svcgssd.8:34
-#, fuzzy
 msgid ""
 "If the rpcsec_gss library supports setting debug level, increases the "
 "verbosity of the output (can be specified multiple times)."
 msgstr ""
-"Augmenter le niveau de bavardage de la sortie (peut être demandé plusieurs "
-"fois)."
+"Augmenter le niveau de volubilité de la sortie (peut être demandée plusieurs "
+"fois) si la bibliothèque rpcsec_gss accepte la définition de niveau de "
+"débogage."
 
 # type: Plain text
 #: C/man8/gssd.8:64
@@ -1915,24 +2154,24 @@ msgstr "J. Bruce Fields E<lt>bfields@umich.eduE<gt>"
 #: C/man8/idmapd.8:4
 #, no-wrap
 msgid "February 3, 2003"
-msgstr ""
+msgstr "3 février 2003"
 
 # type: Dt
 #: C/man8/idmapd.8:5
 #, no-wrap
 msgid "RPC.IDMAPD 8"
-msgstr ""
+msgstr "RPC.IDMAPD 8"
 
 # type: Plain text
 #: C/man8/idmapd.8:9
 msgid "E<.Nm rpc.idmapd>"
-msgstr ""
+msgstr "E<.Nm rpc.idmapd>"
 
 # type: Nd
 #: C/man8/idmapd.8:9
 #, no-wrap
 msgid "NFSv4 ID E<lt>-E<gt> Name Mapper"
-msgstr ""
+msgstr "Convertisseur Identifiant NFSv4 E<lt>-E<gt> Nom"
 
 # type: Plain text
 #.  For a program:  program [-abc] file ...
@@ -1941,6 +2180,9 @@ msgid ""
 "E<.Nm rpc.idmapd> E<.Op Fl v> E<.Op Fl f> E<.Op Fl d Ar domain> E<.Op Fl p "
 "Ar path> E<.Op Fl U Ar username> E<.Op Fl G Ar groupname> E<.Op Fl c Ar path>"
 msgstr ""
+"E<.Nm rpc.idmapd> E<.Op Fl v> E<.Op Fl f> E<.Op Fl d Ar domaine> E<.Op Fl p "
+"Ar chemin> E<.Op Fl U Ar nomUtilisateur> E<.Op Fl G Ar nomGroupe> E<.Op Fl c "
+"Ar chemin>"
 
 # type: Plain text
 #: C/man8/idmapd.8:25
@@ -1950,45 +2192,47 @@ msgid ""
 "communicates via upcalls, by translating user and group IDs to names, and "
 "vice versa."
 msgstr ""
+"E<.Nm> est le serveur de conversion nom E<lt>-E<gt> ID NFSv4. Il fournit "
+"cette fonctionnalité au client et au serveur noyau NFSv4, avec lesquels il "
+"communique via appels, en traduisant les identifiants d'utilisateur et de "
+"groupes en noms, et vice versa."
 
 # type: Plain text
 #: C/man8/idmapd.8:27
 msgid "The options are as follows:"
-msgstr ""
+msgstr "Les options sont les suivantes\\ :"
 
 # type: It
 #: C/man8/idmapd.8:28
 #, no-wrap
 msgid "Fl v"
-msgstr ""
+msgstr "Fl v"
 
 # type: Plain text
 #: C/man8/idmapd.8:30
-#, fuzzy
 msgid "Increases the verbosity level (can be specified multiple times)."
 msgstr ""
-"Augmenter le niveau de bavardage de la sortie (peut être demandé plusieurs "
+"Augmenter le niveau de volubilité de la sortie (peut être demandée plusieurs "
 "fois)."
 
 # type: It
 #: C/man8/idmapd.8:30
 #, no-wrap
 msgid "Fl f"
-msgstr ""
+msgstr "Fl f"
 
 # type: Plain text
 #: C/man8/idmapd.8:34
-#, fuzzy
 msgid "Runs E<.Nm> in the foreground and prints all output to the terminal."
 msgstr ""
-"Lancer B<rpc.gssd> en tâche de premier plan, et rediriger sa sortie standard "
-"vers la sortie d'erreur (contrairement à syslogd)"
+"Lancer E<.Nm> en tâche de premier plan et afficher les sorties sur le "
+"terminal."
 
 # type: It
 #: C/man8/idmapd.8:34
 #, no-wrap
 msgid "Fl d Ar domain"
-msgstr ""
+msgstr "Fl d Ar domaine"
 
 # type: Plain text
 #: C/man8/idmapd.8:41
@@ -1997,28 +2241,31 @@ msgid ""
 "typically assigned by the system administrator.  By default, E<.Ar domain> "
 "is set to be the FQDN of the host, minus the hostname."
 msgstr ""
+"Définir le domaine à E<.Ar domaine>. Cela sera utilisé en interne par NFSv4 "
+"et est typiquement défini par l'administrateur système. E<.Ar domain> est "
+"défini par défaut comme étant le nom complet du système (FQDN) auquel on "
+"retire le nom de la machine."
 
 # type: It
 #: C/man8/idmapd.8:41
 #, no-wrap
 msgid "Fl p Ar path"
-msgstr ""
+msgstr "Fl p Ar chemin"
 
 # type: Plain text
 #: C/man8/idmapd.8:45
-#, fuzzy
 msgid ""
 "Specifies the location of the RPC pipefs to be E<.Ar path>.  The default "
 "value is \\&\"/var/lib/nfs/rpc_pipefs\\&\"."
 msgstr ""
-"Indiquer à B<rpc.gssd> où chercher le système de fichiers rpc_pipefs. Par "
-"défaut, il s'agit de \"/var/lib/nfs/rpc_pipefs\"."
+"Indiquer que le système de fichiers rpc_pipefs est situé à E<.Ar chemin>. "
+"Par défaut, il s'agit de «\\ /var/lib/nfs/rpc_pipefs\\ »."
 
 # type: It
 #: C/man8/idmapd.8:45
 #, no-wrap
 msgid "Fl U Ar username"
-msgstr ""
+msgstr "Fl U Ar nomUtilisateur"
 
 # type: Plain text
 #: C/man8/idmapd.8:49
@@ -2026,12 +2273,14 @@ msgid ""
 "Specifies the NFSv4 nobody user to be E<.Ar username>.  The default value is "
 "\\&\"nobody\\&\"."
 msgstr ""
+"Définir E<.Ar nomUtilisateur> en tant qu'utilisateur anonyme de NFSv4. La "
+"valeur par défaut est «\\ nobody\\ »."
 
 # type: It
 #: C/man8/idmapd.8:49
 #, no-wrap
 msgid "Fl G Ar groupname"
-msgstr ""
+msgstr "Fl G Ar nomGroupe"
 
 # type: Plain text
 #: C/man8/idmapd.8:53
@@ -2039,23 +2288,25 @@ msgid ""
 "Specifies the NFSv4 nobody group to be E<.Ar groupname>.  The default value "
 "is \\&\"nobody\\&\"."
 msgstr ""
+"Définir E<.Ar nomGroupe> en tant que groupe anonyme. La valeur par défaut "
+"est «\\ nobody\\ »."
 
 # type: It
 #: C/man8/idmapd.8:53
 #, no-wrap
 msgid "Fl c Ar path"
-msgstr ""
+msgstr "Fl c Ar chemin"
 
 # type: Plain text
 #: C/man8/idmapd.8:56
 msgid "Use configuration file E<.Ar path>."
-msgstr ""
+msgstr "Utiliser le fichier de configuration E<.Ar chemin>."
 
 # type: It
 #: C/man8/idmapd.8:56
 #, no-wrap
 msgid "Fl C"
-msgstr ""
+msgstr "Fl C"
 
 # type: Plain text
 #: C/man8/idmapd.8:58
@@ -2063,12 +2314,14 @@ msgid ""
 "Client-only: perform no idmapping for any NFS server, even if one is "
 "detected."
 msgstr ""
+"Pour les clients uniquement\\ : n'exécuter de conversion pour aucun serveur "
+"NFS, même si on en détecte un."
 
 # type: It
 #: C/man8/idmapd.8:58
 #, no-wrap
 msgid "Fl S"
-msgstr ""
+msgstr "Fl S"
 
 # type: Plain text
 #: C/man8/idmapd.8:60
@@ -2076,11 +2329,13 @@ msgid ""
 "Server-only: perform no idmapping for any NFS client, even if one is "
 "detected."
 msgstr ""
+"Pour les serveurs uniquement\\ : n'exécuter de conversion pour aucun client "
+"NFS, même si on en détecte un."
 
 # type: Plain text
 #: C/man8/idmapd.8:63
 msgid "E<.Cm rpc.idmapd -d \\&\"citi.umich.edu\\&\" -f -vvv>"
-msgstr ""
+msgstr "E<.Cm rpc.idmapd -d \\&\"citi.umich.edu\\&\" -f -vvv>"
 
 # type: Plain text
 #.  This next request is for sections 2 and 3 function return values only.
@@ -2096,11 +2351,14 @@ msgid ""
 "Runs E<.Nm> with the domain \\&\"citi.umich.edu\\&\" in the foreground, "
 "printing all messages to console, and with a verbosity level of 3."
 msgstr ""
+"Lancer E<.Nm> en tâche d'avant-plan avec «\\ citi.umich.edu\\ » pour "
+"domaine, en affichant tous les messages sur la console, et ce avec un niveau "
+"de volubilité de 3."
 
 # type: Plain text
 #: C/man8/idmapd.8:78
 msgid "E<.Pa /etc/idmapd.conf>"
-msgstr ""
+msgstr "E<.Pa /etc/idmapd.conf>"
 
 # type: Plain text
 #. .Sh SEE ALSO
@@ -2110,7 +2368,7 @@ msgstr ""
 #. .Sh ACKNOWLEDGEMENTS
 #: C/man8/idmapd.8:85
 msgid "E<.Xr idmapd.conf 5>"
-msgstr ""
+msgstr "E<.Xr idmapd.conf 5>"
 
 # type: Plain text
 #: C/man8/idmapd.8:89
@@ -2118,6 +2376,8 @@ msgid ""
 "The E<.Nm> software has been developed by Marius Aamodt Eriksen E<.Aq "
 "marius@citi.umich.edu>."
 msgstr ""
+"Le programme E<.Nm> a été développé par Marius Aamodt Eriksen E<.Aq "
+"marius@citi.umich.edu>."
 
 # type: TH
 #: C/man8/mount.nfs.8:2
@@ -2174,7 +2434,7 @@ msgid ""
 "directory on which the file system is to be mounted."
 msgstr ""
 "B<mount.nfs4> sert au montage de systèmes de fichiers NFSv4, tandis que "
-"B<mount.nfs> sert à monter des systèmes de fichiers NFS versions 3 ou 2.  "
+"B<mount.nfs> sert à monter des systèmes de fichiers NFS versions 3 ou 2. "
 "I<cibledistante> est un partage sur le serveur, souvent au format "
 "B<nomduserveur:/répertoire/à/partager>. I<répertoire> est le répertoire sur "
 "lequel ce système de fichiers sera monté."
@@ -2187,7 +2447,7 @@ msgstr "Monter le système de fichiers en lecture seule."
 # type: Plain text
 #: C/man8/mount.nfs.8:35 C/man8/umount.nfs.8:32
 msgid "Be verbose."
-msgstr "Mode verbeux."
+msgstr "Mode volubile."
 
 # type: TP
 #: C/man8/mount.nfs.8:35
@@ -2329,7 +2589,7 @@ msgid ""
 "or mail nfs@lists.sourceforge.net"
 msgstr ""
 "Veuillez prévenir les développeurs actuels de NFS pour tout bogue de ce "
-"logiciel, ou envoyer un mail à nfs@lists.sourceforge.net"
+"logiciel, ou envoyer un courriel à nfs@lists.sourceforge.net"
 
 # type: Plain text
 #: C/man8/mount.nfs.8:100 C/man8/umount.nfs.8:74
@@ -2344,20 +2604,19 @@ msgstr "nfsstat"
 
 # type: TH
 #: C/man8/nfsstat.8:5
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "11 Apr 2005"
-msgstr "17 mars 2003"
+msgstr "11 avril 2005"
 
 # type: Plain text
 #: C/man8/nfsstat.8:8
-#, fuzzy
 msgid "nfsstat - list NFS statistics"
-msgstr "nfsstat - Afficher des statistiques NFS."
+msgstr "nfsstat - Afficher des statistiques NFS"
 
 # type: Plain text
 #: C/man8/nfsstat.8:11
 msgid "B<nfsstat> [I<OPTION>]..."
-msgstr ""
+msgstr "B<nfsstat> [I<OPTION>]..."
 
 # type: Plain text
 #: C/man8/nfsstat.8:15
@@ -2371,7 +2630,7 @@ msgstr ""
 #: C/man8/nfsstat.8:16
 #, no-wrap
 msgid "B<-s, --server>"
-msgstr ""
+msgstr "B<-s, --server>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:20
@@ -2386,7 +2645,7 @@ msgstr ""
 #: C/man8/nfsstat.8:20
 #, no-wrap
 msgid "B<-c, --client>"
-msgstr ""
+msgstr "B<-c, --client>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:23
@@ -2395,9 +2654,9 @@ msgstr "Afficher seulement les informations coté client."
 
 # type: TP
 #: C/man8/nfsstat.8:23
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<-n, --nfs>"
-msgstr "B<nfs>"
+msgstr "B<-n, --nfs>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:27
@@ -2410,65 +2669,64 @@ msgstr ""
 
 # type: TP
 #: C/man8/nfsstat.8:27
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<-2>"
-msgstr "B<-a>"
+msgstr "B<-2>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:31
-#, fuzzy
 msgid ""
 "Print only NFS v2 statistics. The default is to only print information about "
 "the versions of B<NFS> that have non-zero counts."
 msgstr ""
-"Afficher seulement les statistiques sur NFS. Par défaut, les informations "
-"sur RPC et NFS sont affichées."
+"Afficher seulement les statistiques sur NFS v2. Par défaut, seules les "
+"informations non nulles sur les différentes versions de B<NFS> sont "
+"affichées."
 
 # type: TP
 #: C/man8/nfsstat.8:31
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<-3>"
-msgstr "B<-a>"
+msgstr "B<-3>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:34
-#, fuzzy
 msgid "Print only NFS v3 statistics."
-msgstr "Afficher seulement les statistiques sur les RPC."
+msgstr "Afficher seulement les statistiques sur NFSv3."
 
 # type: TP
 #: C/man8/nfsstat.8:34
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<-4>"
-msgstr "B<-a>"
+msgstr "B<-4>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:37
-#, fuzzy
 msgid "Print only NFS v4 statistics."
-msgstr "Afficher seulement les statistiques sur les RPC."
+msgstr "Afficher seulement les statistiques sur NFSv4."
 
 # type: TP
 #: C/man8/nfsstat.8:37
 #, no-wrap
 msgid "B<-m, --mounted>"
-msgstr ""
+msgstr "B<-m, --mounted>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:40
 msgid "Print information about each of the mounted B<NFS> file systems."
 msgstr ""
+"Afficher les informations sur chacun des systèmes de fichiers B<NFS> montés."
 
 # type: Plain text
 #: C/man8/nfsstat.8:42
 msgid "If this option is used, all other options are ignored."
-msgstr ""
+msgstr "Si cette option est utilisée, toutes les autres sont ignorées."
 
 # type: TP
 #: C/man8/nfsstat.8:42
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<-r, --rpc>"
-msgstr "B<rpc>"
+msgstr "B<-r, --rpc>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:45
@@ -2523,7 +2781,7 @@ msgid ""
 "TCP connections, etc."
 msgstr ""
 "Statistiques de la pile réseau telles que le nombre de paquets reçus, le "
-"nombre de connections TCP,..."
+"nombre de connexions TCP, etc."
 
 # type: TP
 #: C/man8/nfsstat.8:59
@@ -2559,87 +2817,92 @@ msgstr ""
 
 # type: TP
 #: C/man8/nfsstat.8:67
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<all>"
-msgstr "B<-a>"
+msgstr "B<all>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:70
 msgid "Display all of the above facilities."
-msgstr ""
+msgstr "Afficher toutes les informations décrites plus haut."
 
 # type: TP
 #: C/man8/nfsstat.8:71
 #, no-wrap
 msgid "B<-v, --verbose>"
-msgstr ""
+msgstr "B<-v, --verbose>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:74
 msgid "This is equivalent to B<-o all>."
-msgstr ""
+msgstr "Identique à B<-o all>."
 
 # type: TP
 #: C/man8/nfsstat.8:75
 #, no-wrap
 msgid "B<nfsstat -o all -234>"
-msgstr ""
+msgstr "B<nfsstat -o all -234>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:78
 msgid "Show all information about all versions of B<NFS>."
 msgstr ""
+"Afficher toutes les informations à propos de toutes les versions de B<NFS>."
 
 # type: TP
 #: C/man8/nfsstat.8:78
 #, no-wrap
 msgid "B<nfsstat --verbose -234>"
-msgstr ""
+msgstr "B<nfsstat --verbose -234>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:81
 msgid "Same as above."
-msgstr ""
+msgstr "Identique à celle du dessus."
 
 # type: TP
 #: C/man8/nfsstat.8:81
 #, no-wrap
 msgid "B<nfsstat -o all>"
-msgstr ""
+msgstr "B<nfsstat -o all>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:84
 msgid "Show all information about about active versions of B<NFS>."
 msgstr ""
+"Afficher toutes les informations à propos de la version de B<NFS> en cours "
+"d'utilisation."
 
 # type: TP
 #: C/man8/nfsstat.8:84
 #, no-wrap
 msgid "B<nfsstat --nfs --server -3>"
-msgstr ""
+msgstr "B<nfsstat --nfs --server -3>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:87
 msgid "Show statistics for B<NFS> version 3 server."
-msgstr ""
+msgstr "Afficher les statistiques pour la version 3 du serveur B<NFS>."
 
 # type: TH
 #: C/man8/nfsstat.8:87
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<nfsstat -m>"
-msgstr "nfsstat"
+msgstr "B<nfsstat -m>"
 
 # type: Plain text
 #.  --------------------- DISPLAY --------------------------------
 #: C/man8/nfsstat.8:91
 msgid "Show information about mounted B<NFS> filesystems."
 msgstr ""
+"Afficher les informations à propos de tous les systèmes de fichiers B<NFS> "
+"montés."
 
 # type: SH
 #: C/man8/nfsstat.8:91
 #, no-wrap
 msgid "DISPLAY"
-msgstr ""
+msgstr "AFFICHAGE"
 
 # type: Plain text
 #.  --------------------- FILES ----------------------------------
@@ -2648,6 +2911,8 @@ msgid ""
 "The B<Flags> output from the B<-m> option is the same as the flags give to "
 "the B<mount> command."
 msgstr ""
+"Les B<Drapeaux> de sortie de l'option B<-m> sont les mêmes que les drapeaux "
+"utilisés avec la commande B<mount>."
 
 # type: TP
 #: C/man8/nfsstat.8:96
@@ -2675,24 +2940,21 @@ msgstr ""
 
 # type: TP
 #: C/man8/nfsstat.8:104
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B</proc/mounts>"
-msgstr "B</proc/net/rpc/nfs>"
+msgstr "B</proc/mounts>"
 
 # type: Plain text
 #.  -------------------- SEE ALSO --------------------------------
 #: C/man8/nfsstat.8:109
-#, fuzzy
 msgid "B<procfs>-based interface to the mounted filesystems."
-msgstr ""
-"Interface basée sur B<procfs> pour les statistiques du client NFS du noyau."
+msgstr "Interface basée sur B<procfs> pour les systèmes de fichiers montés."
 
 # type: Plain text
 #.  ---------------------- BUGS ----------------------------------
 #: C/man8/nfsstat.8:113
-#, fuzzy
 msgid "B<rpc.nfsd>(8).  B<nfs>(5)."
-msgstr "B<rpc.nfsd>(8)."
+msgstr "B<rpc.nfsd>(8), B<nfs>(5)."
 
 # type: Plain text
 #: C/man8/nfsstat.8:115
@@ -2700,6 +2962,8 @@ msgid ""
 "The default output has be changed.  To get the old default output you must "
 "run B<nfsstat --auto -2>."
 msgstr ""
+"Le format de sortie par défaut a changé. Pour obtenir l'ancienne sortie, "
+"vous devez utiliser B<nfsstat --auto -2>."
 
 # type: Plain text
 #: C/man8/nfsstat.8:119
@@ -2708,23 +2972,26 @@ msgid ""
 "is now reserved for future use. The B<-v> does what the B<-a> option used to "
 "do, and the new B<-[234]> options replace the B<-v> option."
 msgstr ""
+"Le rôle des options B<-v> et B<-a> a changé. L'option B<-a> est maintenant "
+"réservée pour une future utilisation. B<-v> fait ce que l'option B<-a> "
+"faisait, et les nouvelles options B<-[234]> remplacent l'option B<-v>."
 
 # type: Plain text
 #: C/man8/nfsstat.8:121
 msgid "The B<Display> section should be more complete."
-msgstr ""
+msgstr "La section B<Display> devrait être plus complète."
 
 # type: Plain text
 #.  -------------------- AUTHOR ----------------------------------
 #: C/man8/nfsstat.8:125
 msgid "Further bugs can be found or reported at B<http://nfs.sf.net/>."
 msgstr ""
+"D'autres bogues pourront être trouvés ou remontés sur B<http://nfs.sf.net/>."
 
 # type: Plain text
 #: C/man8/nfsstat.8:126
-#, fuzzy
 msgid "Olaf Kirch, E<lt>okir@suse.deE<gt>"
-msgstr "Olaf Kirch, E<lt>okir@monad.swb.deE<gt>"
+msgstr "Olaf Kirch, E<lt>okir@suse.deE<gt>"
 
 # type: TH
 #: C/man8/nhfsgraph.8:1
@@ -2756,8 +3023,8 @@ msgid ""
 "runs of B<nhfsstone> at different loads."
 msgstr ""
 "Créer un graphique au format PostScript représentant les résultats de la "
-"commande nhfsstone. Le fichier de pointsB<E<lt>fichier-de-pointsE<gt>> doit "
-"contenir des couples de nombres de type  B<plot>(5) obtenus par B<nhfsstone> "
+"commande nhfsstone. Le fichier de points B<E<lt>fichier-de-pointsE<gt>> doit "
+"contenir des couples de nombres de type B<plot>(5) obtenus par B<nhfsstone> "
 "pour différents niveaux de charge."
 
 # type: Plain text
@@ -2766,7 +3033,7 @@ msgid ""
 "If you want something other than PostScript output, edit the script and "
 "replace B<psplot> with B<plot>."
 msgstr ""
-"Si vous désirez une sortie dans un format différent de PostScript, éditez le "
+"Si vous désirez une sortie dans un format autre que PostScript, éditez le "
 "script et remplacez B<psplot> par B<plot>."
 
 # type: Plain text
@@ -2803,7 +3070,7 @@ msgid ""
 "label that is the file suffix (the part following the dot)."
 msgstr ""
 "Convertir les résultats bruts obtenus en sortie de nhfsstone au format "
-"B<plot>(5). Les B<E<lt>fichiers-de-nombresE<gt>> doivent s'appeler  B<run."
+"B<plot>(5). Les B<E<lt>fichiers-de-nombresE<gt>> doivent s'appeler B<run."
 "xxx> (où B<xxx> est un nom correspondant aux valeurs collectées). Chaque "
 "fichier donnera lieu à la création d'une ligne comportant une étiquette qui "
 "sera le suffixe du fichier (la partie après le point)."
@@ -2890,10 +3157,10 @@ msgid ""
 "kernel to emit messages to the system log in response to NFS activity; this "
 "is typically useful when debugging NFS problems."
 msgstr ""
-"La commande B<rpcdebug> permet à  l'administrateur d'activer ou supprimer "
-"les drapeaux de débogage du noyau du serveur et du client NFS. La définition "
-"de ces drapeaux entraîne l'émission par le noyau de messages à destination "
-"du système de journalisation («\\ logs\\ ») en rapport avec l'activité NFS. "
+"La commande B<rpcdebug> permet à l'administrateur d'activer ou supprimer les "
+"drapeaux de débogage du noyau du serveur et du client NFS. La définition de "
+"ces drapeaux entraîne l'émission par le noyau de messages à destination du "
+"système de journalisation («\\ logs\\ ») en rapport avec l'activité NFS. "
 "Ceci est très pratique lors du débogage de problèmes NFS."
 
 # type: Plain text
@@ -2904,10 +3171,10 @@ msgid ""
 "module.  The third form sets one or more flags, and the fourth form clears "
 "one or more flags."
 msgstr ""
-"Le premier format du synopsis peut servir à lister l'ensemble des drapeaux "
-"de débogage disponibles. Le deuxième format affiche les drapeaux de débogage "
-"actuellement définis pour le module indiqué. Le troisième format définit un "
-"ou plusieurs drapeaux, et le quatrième supprime un ou plusieurs drapeaux."
+"La première forme du synopsis peut servir à lister l'ensemble des drapeaux "
+"de débogage disponible. La deuxième forme affiche les drapeaux de débogage "
+"actuellement définis pour le module indiqué. La troisième forme définit un "
+"ou plusieurs drapeaux, et la quatrième supprime un ou plusieurs drapeaux."
 
 # type: Plain text
 #: C/man8/rpcdebug.8:33
@@ -2937,7 +3204,7 @@ msgid ""
 "Print a help message and exit.  When combined with the B<-v> option, also "
 "prints the available debug flags."
 msgstr ""
-"Afficher un message d'aide et sortir. Combiné à l'option B<-v>, afficher "
+"Afficher un message d'aide et sortir. Combinée à l'option B<-v>, afficher "
 "aussi les drapeaux de débogage disponibles."
 
 # type: TP
@@ -3005,7 +3272,7 @@ msgstr "Activer les drapeaux de débogage indiqués."
 #.  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #: C/man8/rpcdebug.8:71
 msgid "Increase the verbosity of B<rpcdebug>'s output."
-msgstr "Augmenter le bavardage de la sortie de B<rpcdebug>."
+msgstr "Augmenter le volubilité de la sortie de B<rpcdebug>."
 
 # type: TP
 #: C/man8/rpcdebug.8:72
@@ -3032,7 +3299,7 @@ msgstr "B<rpc.nfsd>(8), B<nfs>(5), B<syslogd>(8)."
 #: C/man8/rpcdebug.8:85
 msgid "Bugs can be found or reported at B<http://nfs.sf.net/>."
 msgstr ""
-"Les bogues peuvent être consultés ou déclarés sur B<http://nfs.sf.net/>."
+"Les bogues peuvent être consultés ou signalés sur B<http://nfs.sf.net/>."
 
 # type: Plain text
 #: C/man8/rpcdebug.8:88
@@ -3040,31 +3307,28 @@ msgid ""
 "Program by Olaf Kirch E<lt>okir@suse.deE<gt> and E<lt>frederic.jolly@bull."
 "ext.netE<gt>.  Manpage by Greg Banks E<lt>gnb@melbourne.sgi.comE<gt>."
 msgstr ""
-"Le programme est d'Olaf Kirch E<lt>okir@suse.deE<gt> et de  E<lt>frederic."
+"Le programme est d'Olaf Kirch E<lt>okir@suse.deE<gt> et de E<lt>frederic."
 "jolly@bull.ext.netE<gt>. La page de manuel par Greg Banks E<lt>gnb@melbourne."
 "sgi.comE<gt>."
 
 # type: TH
 #: C/man8/svcgssd.8:5
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "rpc.svcgssd"
-msgstr "rpc.gssd"
+msgstr "rpc.svcgssd"
 
 # type: Plain text
 #: C/man8/svcgssd.8:8
-#, fuzzy
 msgid "rpc.svcgssd - server-side rpcsec_gss daemon"
-msgstr "rpc.gssd - Démon rpcsec_gss"
+msgstr "rpc.svcgssd - Démon rpcsec_gss coté serveur"
 
 # type: Plain text
 #: C/man8/svcgssd.8:10
-#, fuzzy
 msgid "B<rpc.svcgssd [-v] [-r] [-f] [-p pipefsdir]>"
-msgstr "B<rpc.gssd [-f] [-k rep_clés] [-p pipefsdir] [-v]>"
+msgstr "B<rpc.svcgssd [-v] [-r] [-f] [-p rep_pipefs]>"
 
 # type: Plain text
 #: C/man8/svcgssd.8:20
-#, fuzzy
 msgid ""
 "The rpcsec_gss protocol gives a means of using the gss-api generic security "
 "api to provide security for protocols using rpc (in particular, nfs).  "
@@ -3077,27 +3341,25 @@ msgstr ""
 "Le protocole rpcsec_gss donne la possibilité d'utiliser l'api de sécurité "
 "générique gss-api pour sécuriser les protocoles basés sur rpc (nfs en "
 "particulier). Avant tout échange de requêtes rpc basées sur rpcsec_gss, le "
-"client doit tout d'abord établir un contexte sécurisé. L'implémentation de "
-"rpcsec_gss dans le noyau Linux s'appuie sur le démon en espace utilisateur "
-"B<rpc.gssd> pour la construction du contexte sécurisé. Le démon B<rpc.gssd> "
-"se sert des fichiers présents dans le système de fichiers rpc_pipefs pour "
-"communiquer avec le noyau."
+"client doit tout d'abord établir un contexte sécurisé avec le serveur rpc. "
+"L'implémentation de rpcsec_gss dans le noyau Linux s'appuie sur le démon en "
+"espace utilisateur B<rpc.svcgssd> pour gérer la construction du contexte "
+"sécurisé. Le démon B<rpc.svcgssd> se sert des fichiers présents dans le "
+"système de fichiers proc pour communiquer avec le noyau."
 
 # type: Plain text
 #: C/man8/svcgssd.8:27
-#, fuzzy
 msgid ""
 "Runs B<rpc.svcgssd> in the foreground and sends output to stderr (as opposed "
 "to syslogd)"
 msgstr ""
-"Lancer B<rpc.gssd> en tâche de premier plan, et rediriger sa sortie standard "
-"vers la sortie d'erreur (contrairement à syslogd)"
+"Lancer B<rpc.svcgssd> en tâche de premier plan et rediriger sa sortie vers "
+"la sortie d'erreur (au lieu de syslogd)."
 
 # type: Plain text
 #: C/man8/svcgssd.8:37
-#, fuzzy
 msgid "B<rpc.gssd(8),>"
-msgstr "B<rpc.svcgssd(8)>"
+msgstr "B<rpc.gssd(8),>"
 
 # type: TH
 #: C/man8/umount.nfs.8:2
@@ -3127,7 +3389,7 @@ msgid ""
 "B<umount.nfs> and B<umount.nfs4> are a part of B<nfs>(5)  utilities package, "
 "which provides NFS client functionality."
 msgstr ""
-"B<umount.nfs>et B<umount.nfs4> font partie du paquet des utilitaires B<nfs>"
+"B<umount.nfs> et B<umount.nfs4> font partie du paquet des utilitaires B<nfs>"
 "(5), qui offre les fonctionnalités de client NFS."
 
 # type: Plain text
@@ -3168,7 +3430,7 @@ msgstr ""
 # type: Plain text
 #: C/man8/umount.nfs.8:42
 msgid "In case unmounting fails, try to mount read-only."
-msgstr "En cas d'échec du démontage, essayer de monter en lecture-seule."
+msgstr "En cas d'échec du démontage, essayer de monter en lecture seule."
 
 # type: TP
 #: C/man8/umount.nfs.8:42
@@ -3200,11 +3462,3 @@ msgstr ""
 #: C/man8/umount.nfs.8:68
 msgid "B<nfs>(5), B<umount>(8),"
 msgstr "B<nfs>(5), B<umount>(8),"
-
-# type: TH
-#~ msgid "05 Oct 2001"
-#~ msgstr "05 octobre 2001"
-
-# type: Plain text
-#~ msgid "B</usr/sbin/nfsstat [-anrcsz] [-o >I<facility>B<] ...>"
-#~ msgstr "B</usr/sbin/nfsstat [-anrcsz] [-o >I<service>B<] ...>"
