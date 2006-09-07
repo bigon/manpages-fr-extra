@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2006-09-03 13:01+0200\n"
+"POT-Creation-Date: 2006-09-07 12:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,7 +270,7 @@ msgstr ""
 #: C/man5/exports.5:115
 msgid ""
 "In releases of nfs-utils upto and including 1.0.0, this option was the "
-"default.  In this and future releases, I<sync> is the default, and I<async> "
+"default.  In all subsequence releases, I<sync> is the default, and I<async> "
 "must be explicit requested if needed.  To help make system adminstrators "
 "aware of this change, 'exportfs' will issue a warning if neither I<sync> nor "
 "I<async> is specified."
@@ -423,20 +423,30 @@ msgid ""
 "with I<subtree_check>."
 msgstr ""
 
+# type: Plain text
+#: C/man5/exports.5:213
+msgid ""
+"From release 1.1.0 of nfs-utils onwards, the default will be "
+"I<no_subtree_check> as subtree_checking tends to cause more problems than it "
+"is worth.  If you genuinely require subtree checking, you should explicitly "
+"put that option in the B<exports> file.  If you put neither option, "
+"I<exportfs> will warn you that the change is pending."
+msgstr ""
+
 # type: TP
-#: C/man5/exports.5:204
+#: C/man5/exports.5:214
 #, no-wrap
 msgid "I<insecure_locks>"
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:206
+#: C/man5/exports.5:216
 #, no-wrap
 msgid "I<no_auth_nlm>"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:213
+#: C/man5/exports.5:223
 msgid ""
 "This option (the two names are synonymous) tells the NFS server not to "
 "require authentication of locking requests (i.e. requests which use the NLM "
@@ -446,7 +456,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:218
+#: C/man5/exports.5:228
 msgid ""
 "Early NFS client implementations did not send credentials with lock "
 "requests, and many current NFS clients still exist which are based on the "
@@ -455,7 +465,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:224
+#: C/man5/exports.5:234
 msgid ""
 "The default behaviour of requiring authentication for NLM requests can be "
 "explicitly requested with either of the synonymous I<auth_nlm>, or "
@@ -463,13 +473,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:224
+#: C/man5/exports.5:234
 #, no-wrap
 msgid "I<no_acl>"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:239
+#: C/man5/exports.5:249
 msgid ""
 "On some specially patched kernels, and when exporting filesystems that "
 "support ACLs, this option tells nfsd not to reveal ACLs to clients, so they "
@@ -483,19 +493,19 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:241
+#: C/man5/exports.5:251
 #, no-wrap
 msgid "I<mountpoint=>path"
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:243
+#: C/man5/exports.5:253
 #, no-wrap
 msgid "I<mp>"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:253
+#: C/man5/exports.5:263
 msgid ""
 "This option makes it possible to only export a directory if it has "
 "successfully been mounted.  If no path is given (e.g.  I<mountpoint> or "
@@ -506,20 +516,20 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:258
+#: C/man5/exports.5:268
 msgid ""
 "If a path is given (e.g.  I<mountpoint=>/path or I<mp=>/path)  then the "
 "nominted path must be a mountpoint for the exportpoint to be exported."
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:259
+#: C/man5/exports.5:269
 #, no-wrap
 msgid "I<fsid=>num"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:267
+#: C/man5/exports.5:277
 msgid ""
 "This option forces the filesystem identification portion of the file handle "
 "and file attributes used on the wire to be I<num> instead of a number "
@@ -529,7 +539,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:271
+#: C/man5/exports.5:281
 msgid ""
 "This can be useful for NFS failover, to ensure that both servers of the "
 "failover pair use the same NFS file handles for the shared filesystem thus "
@@ -537,7 +547,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:276
+#: C/man5/exports.5:286
 msgid ""
 "Some Linux filesystems are not mounted on a block device; exporting these "
 "via NFS requires the use of the I<fsid> option (although that may still not "
@@ -545,7 +555,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:280
+#: C/man5/exports.5:290
 msgid ""
 "The value 0 has a special meaning when use with NFSv4.  NFSv4 has a concept "
 "of a root of the overall exported filesystem. The export point exported with "
@@ -553,13 +563,13 @@ msgid ""
 msgstr ""
 
 # type: SS
-#: C/man5/exports.5:281
+#: C/man5/exports.5:291
 #, no-wrap
 msgid "User ID Mapping"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:290
+#: C/man5/exports.5:300
 msgid ""
 "I<nfsd> bases its access control to files on the server machine on the uid "
 "and gid provided in each NFS RPC request. The normal behavior a user would "
@@ -570,7 +580,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:299
+#: C/man5/exports.5:309
 msgid ""
 "Very often, it is not desirable that the root user on a client machine is "
 "also treated as root when accessing files on the NFS server. To this end, "
@@ -580,7 +590,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:310
+#: C/man5/exports.5:320
 msgid ""
 "By default, I<exportfs> chooses a uid and gid of 65534 for squashed "
 "access. These values can also be overridden by the I<anonuid> and I<anongid> "
@@ -589,18 +599,18 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:312
+#: C/man5/exports.5:322
 msgid "Here's the complete list of mapping options:"
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:312
+#: C/man5/exports.5:322
 #, no-wrap
 msgid "I<root_squash>"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:320
+#: C/man5/exports.5:330
 msgid ""
 "Map requests from uid/gid 0 to the anonymous uid/gid. Note that this does "
 "not apply to any other uids or gids that might be equally sensitive, such as "
@@ -608,24 +618,24 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:320
+#: C/man5/exports.5:330
 #, no-wrap
 msgid "I<no_root_squash>"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:323
+#: C/man5/exports.5:333
 msgid "Turn off root squashing. This option is mainly useful for diskless clients."
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:323
+#: C/man5/exports.5:333
 #, no-wrap
 msgid "I<all_squash>"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:330
+#: C/man5/exports.5:340
 msgid ""
 "Map all uids and gids to the anonymous user. Useful for NFS-exported public "
 "FTP directories, news spool directories, etc. The opposite option is "
@@ -633,13 +643,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man5/exports.5:330
+#: C/man5/exports.5:340
 #, no-wrap
 msgid "I<anonuid> and I<anongid>"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:339
+#: C/man5/exports.5:349
 msgid ""
 "These options explicitly set the uid and gid of the anonymous account.  This "
 "option is primarily useful for PC/NFS clients, where you might want all "
@@ -649,19 +659,19 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man5/exports.5:340
+#: C/man5/exports.5:350
 #, no-wrap
 msgid "EXAMPLE"
 msgstr ""
 
 # type: ta
-#: C/man5/exports.5:343
+#: C/man5/exports.5:353
 #, no-wrap
 msgid "+3i"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:350
+#: C/man5/exports.5:360
 #, no-wrap
 msgid ""
 "# sample /etc/exports file\n"
@@ -673,7 +683,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:362
+#: C/man5/exports.5:372
 msgid ""
 "The first line exports the entire filesystem to machines master and trusty.  "
 "In addition to write access, all uid squashing is turned off for host "
@@ -686,24 +696,24 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man5/exports.5:362 C/man8/idmapd.8:76 C/man8/mount.nfs.8:82 C/man8/nfsstat.8:95 C/man8/rpcdebug.8:71 C/man8/umount.nfs.8:56
+#: C/man5/exports.5:372 C/man8/idmapd.8:76 C/man8/mount.nfs.8:82 C/man8/nfsstat.8:95 C/man8/rpcdebug.8:71 C/man8/umount.nfs.8:56
 #, no-wrap
 msgid "FILES"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:364
+#: C/man5/exports.5:374
 msgid "/etc/exports"
 msgstr ""
 
 # type: SH
-#: C/man5/exports.5:364 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198 C/man8/exportfs.8:220 C/man8/gssd.8:62 C/man8/idmapd.8:78 C/man8/mount.nfs.8:91 C/man8/nfsstat.8:109 C/man8/nhfsgraph.8:23 C/man8/nhfsnums.8:21 C/man8/nhfsrun.8:13 C/man8/rpcdebug.8:76 C/man8/svcgssd.8:35 C/man8/umount.nfs.8:65
+#: C/man5/exports.5:374 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198 C/man8/exportfs.8:220 C/man8/gssd.8:62 C/man8/idmapd.8:78 C/man8/mount.nfs.8:91 C/man8/nfsstat.8:109 C/man8/nhfsgraph.8:23 C/man8/nhfsnums.8:21 C/man8/nhfsrun.8:13 C/man8/rpcdebug.8:76 C/man8/svcgssd.8:35 C/man8/umount.nfs.8:65
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:370
+#: C/man5/exports.5:380
 msgid "B<exportfs>(8), B<netgroup>(5), B<mountd>(8), B<nfsd>(8), B<showmount>(8)."
 msgstr ""
 
