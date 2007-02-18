@@ -151,7 +151,7 @@ msgstr ""
 "B<pthread_atfork> peut être appelée plusieurs fois pour enregistrer "
 "plusieurs ensembles de gestionnaires. Lors de l'appel à B<fork>(2), les "
 "gestionnaires I<prepare> sont appelés dans l'ordre LIFO (dernier ajouté avec "
-"B<pthread_affork>, premier appelé avant B<fork>(2)), alors que les "
+"B<pthread_atfork>, premier appelé avant B<fork>), alors que les "
 "gestionnaires I<parent> et I<child> sont appelés dans l'ordre FIFO (premier "
 "ajouté, premier appelé)."
 
@@ -170,7 +170,7 @@ msgstr ""
 "copie toute l'image mémoire du processus, y compris ses mutex dans leur état "
 "de blocage courant, mais seulement le thread appelant\\ : les autres threads "
 "ne s'exécutent pas dans le processus fils. Les mutex ne sont pas utilisables "
-"après le B<fork>() et doivent être initialisés avec B<pthread_mutex_init>() "
+"après le B<fork>() et doivent être initialisés avec I<pthread_mutex_init>() "
 "dans le processus fils. C'est une limitation de l'implémentation actuelle et "
 "peut être ou non présente dans les prochaines versions."
 
@@ -247,7 +247,7 @@ msgstr "AUTEUR"
 #: C/man3/pthread_self.3:16 C/man3/pthread_setschedparam.3:73
 #: C/man3/pthread_sigmask.3:87
 msgid "Xavier Leroy E<lt>Xavier.Leroy@inria.frE<gt>"
-msgstr "Xavier Leroy E<lt>Xavier DOT Leroy AT inria DOT frE<gt>"
+msgstr "Xavier Leroy E<lt>Xavier.Leroy@inria.frE<gt>"
 
 # type: SH
 #: C/man3/pthread_atfork.3:50 C/man3/pthread_attr_init.3:217
@@ -402,8 +402,8 @@ msgid ""
 msgstr ""
 "Chaque attribut I<attrname> (la liste de tous les attributs se trouve plus "
 "bas) peut être individuellement modifié en utilisant la fonction "
-"B<pthread_attr_set(>I<attrname)> et récupéré à l'aide de la fonction "
-"B<pthread_attr_get(>I<attrname).>"
+"B<pthread_attr_set>I<attrname> et récupéré à l'aide de la fonction "
+"B<pthread_attr_get>I<attrname>."
 
 # type: Plain text
 #: C/man3/pthread_attr_init.3:64
@@ -835,8 +835,7 @@ msgid ""
 "a cancellation point."
 msgstr ""
 "L'annulation est le mécanisme par lequel un thread peut interrompre "
-"l'exécution d'un autre thread. C'est l'équivalent pour les threads de la "
-"fonction B<kill>() des processus classiques. Plus précisément, un thread "
+"l'exécution d'un autre thread. Plus précisément, un thread "
 "peut envoyer une requête d'annulation à un autre thread. Selon sa "
 "configuration, le thread visé peut soit ignorer la requête, soit l'honorer "
 "immédiatement, soit enfin retarder son application jusqu'à ce qu'un point "
@@ -2423,22 +2422,22 @@ msgstr ""
 msgid ""
 "int pthread_key_create(pthread_key_t *key, void (*destr_function) (void *));"
 msgstr ""
-"int pthread_key_create(pthread_key_t *key, void (*destr_function) (void *));"
+"int pthread_key_create(pthread_key_t *clé, void (*destr_function) (void *));"
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:12
 msgid "int pthread_key_delete(pthread_key_t key);"
-msgstr "int pthread_key_delete(pthread_key_t key);"
+msgstr "int pthread_key_delete(pthread_key_t clé);"
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:14
 msgid "int pthread_setspecific(pthread_key_t key, const void *pointer);"
-msgstr "int pthread_setspecific(pthread_key_t key, const void *pointer);"
+msgstr "int pthread_setspecific(pthread_key_t clé, const void *pointer);"
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:16
 msgid "void * pthread_getspecific(pthread_key_t key);"
-msgstr "void * pthread_getspecific(pthread_key_t key);"
+msgstr "void * pthread_getspecific(pthread_key_t clé);"
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:23
@@ -2500,7 +2499,7 @@ msgid ""
 "with the returned key is B<NULL> in all currently executing threads."
 msgstr ""
 "B<pthread_key_create>() alloue une nouvelle clé TSD. Cette clé est "
-"enregistrée à l'emplacement pointée par I<key>. Il ne peut y avoir plus de "
+"enregistrée à l'emplacement pointée par I<clé>. Il ne peut y avoir plus de "
 "B<PTHREAD_KEYS_MAX> clés allouées à un instant donné. La valeur initialement "
 "associée avec la clé renvoyée est B<NULL> dans tous les threads en cours "
 "d'exécution."
@@ -2574,7 +2573,7 @@ msgid ""
 "B<pthread_getspecific> returns the value currently associated with I<key> in "
 "the calling thread."
 msgstr ""
-"B<pthread_getspecific>() renvoie la valeur actuellement associée avec I<key> "
+"B<pthread_getspecific>() renvoie la valeur actuellement associée avec I<clé> "
 "dans le thread appelant."
 
 # type: Plain text
@@ -2588,7 +2587,7 @@ msgstr ""
 "B<pthread_key_create>(), B<pthread_key_delete>() et B<pthread_setspecific>() "
 "renvoient 0 en cas de succès et un code d'erreur non nul en cas d'échec. En "
 "cas de succès, B<pthread_key_create>() enregistre la clé récemment créée à "
-"l'emplacement pointé par son argument I<key>."
+"l'emplacement pointé par son argument I<clé>."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:83
@@ -2621,7 +2620,7 @@ msgstr ""
 # type: Plain text
 #: C/man3/pthread_key_create.3:98
 msgid "I<key> is not a valid, allocated TSD key"
-msgstr "I<key> n'est pas une clé TSD allouée valable."
+msgstr "I<clé> n'est pas une clé TSD allouée valable."
 
 # type: Plain text
 #: C/man3/pthread_key_create.3:102
@@ -2629,7 +2628,7 @@ msgid ""
 "B<pthread_getspecific> returns B<NULL> if I<key> is not a valid, allocated "
 "TSD key."
 msgstr ""
-"B<pthread_getspecific>() renvoie B<NULL> si I<key> n'est pas une clef TSD "
+"B<pthread_getspecific>() renvoie B<NULL> si I<clé> n'est pas une clef TSD "
 "allouée valable."
 
 # type: Plain text
@@ -2654,7 +2653,7 @@ msgid ""
 "B</* Key for the thread-specific buffer */\n"
 "static pthread_key_t buffer_key;>\n"
 msgstr ""
-"B</* Key for the thread-specific buffer */\n"
+"B</* Clé pour le tampon spécifique au thread */\n"
 "static pthread_key_t buffer_key;>\n"
 
 # type: Plain text
@@ -2664,7 +2663,7 @@ msgid ""
 "B</* Once-only initialisation of the key */\n"
 "static pthread_once_t buffer_key_once = PTHREAD_ONCE_INIT;>\n"
 msgstr ""
-"B</* Once-only initialisation of the key */\n"
+"B</* Initialisation unique de la clé */\n"
 "static pthread_once_t buffer_key_once = PTHREAD_ONCE_INIT;>\n"
 
 # type: Plain text
@@ -2678,7 +2677,7 @@ msgid ""
 "  pthread_setspecific(buffer_key, malloc(100));\n"
 "}>\n"
 msgstr ""
-"B</* Allocate the thread-specific buffer */\n"
+"B</* Alloue le tampon spécifique au thread */\n"
 "void buffer_alloc(void)\n"
 "{\n"
 "  pthread_once(&buffer_key_once, buffer_key_alloc);\n"
@@ -2695,7 +2694,7 @@ msgid ""
 "  return (char *) pthread_getspecific(buffer_key);\n"
 "}>\n"
 msgstr ""
-"B</* Return the thread-specific buffer */\n"
+"B</* Renvoie le tampon spécifique au thread */\n"
 "char * get_buffer(void)\n"
 "{\n"
 "  return (char *) pthread_getspecific(buffer_key);\n"
@@ -2711,7 +2710,7 @@ msgid ""
 "  pthread_key_create(&buffer_key, buffer_destroy);\n"
 "}>\n"
 msgstr ""
-"B</* Allocate the key */\n"
+"B</* Alloue la clé */\n"
 "static void buffer_key_alloc()\n"
 "{\n"
 "  pthread_key_create(&buffer_key, buffer_destroy);\n"
@@ -2727,7 +2726,7 @@ msgid ""
 "  free(buf);\n"
 "}>\n"
 msgstr ""
-"B</* Free the thread-specific buffer */\n"
+"B</* Libère le tampon spécifique au thread */\n"
 "static void buffer_destroy(void * buf)\n"
 "{\n"
 "  free(buf);\n"
@@ -3761,7 +3760,7 @@ msgid ""
 "B<pthread_kill> send signal number I<signo> to the thread I<thread>. The "
 "signal is delivered and handled as described in B<kill>(2)."
 msgstr ""
-"B<pthread_kill>() envoie le signal numéro I<signo> au thread I<thread>. Le "
+"B<pthread_kill> envoie le signal numéro I<signo> au thread I<thread>. Le "
 "signal est reçu et géré tel que décrit dans B<kill>(2)."
 
 # type: Plain text
