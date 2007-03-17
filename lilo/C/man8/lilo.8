@@ -6,7 +6,7 @@
 .\" LILO program code, documentation and auxiliary programs are
 .\" Copyright 1992-1998 Werner Almesberger.
 .\" Extensions to LILO, documentation and auxiliary programs are
-.\" Copyright 1999-2004 John Coffman.
+.\" Copyright 1999-2005 John Coffman.
 .\" All rights reserved by the respective copyright holders.
 .\" 
 .\" Redistribution and use is subject to the terms set forth in
@@ -28,8 +28,9 @@
 .\" Added Z switch, John Coffman, 030314
 .\" Added I switch options "D" and "a", John Coffman, 030513
 .\" Added I switch option "R", John Coffman, 041116
+.\" Added H switch, John Coffman, 050927
 .\"
-.TH LILO 8 "16 Nov 2004"
+.TH LILO 8 "07 Oct 2005"
 .SH NAME
 lilo \- install boot loader
 .SH SYNOPSIS
@@ -110,7 +111,7 @@ This option overrides the use of the default configuration file,
 Specifies the delay time in tenths of a second (20 = 2 sec) before
 automatically booting the first image.  Gives you time to interrupt the
 automatic boot process with Shift, Alt, Ctrl, ScrollLock, or CapsLock.  If
-interrupted, the `boot:' prompt is displayed.  This switch is overriden by
+interrupted, the `boot:' prompt is displayed.  This switch is overridden by
 the appearance of
 .I prompt
 in the configuration file.
@@ -148,6 +149,9 @@ Compare with "-P ignore", which bypasses certain partition table checks.
 .BI "\-\^g"
 Generate cylinder/head/sector (geometric) disk addresses.  Limited to
 cylinders up to 1023.  Forces compatibility with older versions of LILO.
+.TP
+.BI "\-\^H"
+Override fatal halt when a RAID array does not have all disks active.
 .TP
 .BI "\-\^i " boot-loader
 Specify a file to be used as the new boot loader. (The default is
@@ -380,9 +384,11 @@ l l.
 -Z option	bios-passes-dl=option
 .TE
 .SH "BOOT OPTIONS"
-The options described here may be specified at on the command line when a
+The options described here may be specified at boot time on
+the command line when a
 kernel image is booted.  These options are processed by LILO, and are
-removed from the command line passed to the kernel, unless otherwise noted.
+removed from the command line before it is passed to the kernel,
+unless otherwise noted.
 .LP
 .TP
 .BI lock
@@ -403,7 +409,7 @@ non-IBM-compliant BIOS's which hang with the lines:
      BIOS data check 
 .fi
 .TP
-.BI "vga=[ASK,EXT,EXTENDED,NORMAL]"
+.BI "vga=[ASK,EXT,EXTENDED,NORMAL,###,0x###]"
 Allows overriding the default video mode upon kernel startup.
 .br
 .SH BOOT ERRORS
@@ -413,7 +419,7 @@ loads the multi-sector second stage loader, but is very space limited.  When
 the first stage loader gets control, it types the letter "L"; when it is
 ready to transfer control to the second stage loader it types the letter
 "I".  If any error occurs, like a disk read error, it will put out a
-hexadecimil error code, and then it will re-try the operation.  All hex
+hexadecimal error code, and then it will re-try the operation.  All hex
 error codes are BIOS return values, except for the lilo-generated 40, 99 and 9A.
 A partial list of error codes follows:
 .br
@@ -462,7 +468,7 @@ pinpoint, more or less successfully, the point of failure.
 is known to have problems with the
 .I reiserfs
 introduced with the 2.2.x kernels, unless the file system is
-mounted with the 'notail' option.  This incompatibilty has been
+mounted with the 'notail' option.  This incompatibility has been
 resolved with reiserfs 3.6.18 and lilo 21.6.
 .I reiser4
 introduced with the 2.5.x kernels requires lilo 22.5.2 or later.
@@ -475,7 +481,7 @@ achieved using the `-x mbr-only' switch.
 .SH BUGS
 Configuration file options `backup' and `force-backup'
 should specify a backup directory or backup file pathname template on
-all RAID installations. Use of an explicit filename may not allow mulitple
+all RAID installations. Use of an explicit filename may not allow multiple
 backup files to be created correctly. It is best to use the default mechanism,
 as it works correctly in all cases.
 .SH "SEE ALSO"

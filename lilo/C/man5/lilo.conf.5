@@ -6,7 +6,7 @@
 .\" LILO program code, documentation and auxiliary programs are
 .\" Copyright 1992-1998 Werner Almesberger.
 .\" Extensions to LILO, documentation and auxiliary programs are
-.\" Copyright 1999-2004 John Coffman.
+.\" Copyright 1999-2005 John Coffman.
 .\" All rights reserved by the respective copyright holders.
 .\" 
 .\" Redistribution and use in source and binary forms of parts of or the
@@ -16,7 +16,7 @@
 .\" this software without specific prior written permission. This work
 .\" is provided "as is" and without any express or implied warranties.
 .\"
-.TH LILO.CONF 5 "16 Nov 2004"
+.TH LILO.CONF 5 "19 Feb 2007"
 .SH NAME
 lilo.conf \- configuration file for lilo
 .SH DESCRIPTION
@@ -173,7 +173,7 @@ Optional specification of the 'timeout='
 countdown timer.  <x>,<y> 
 specifies the character (or pixel) coordinate of the location of the timer
 the same as 'bmp-table='
-above; and the color triple specifes the character color attributes
+above; and the color triple specifies the character color attributes
 the same as 'bmp-colors=' above, with the exception that the background color
 .I must
 be specified.  If used to override the timer specification in a bitmap file,
@@ -288,31 +288,32 @@ since for hard disks the
 .BI lba32
 disk addressing option (LILO 21.2) ignores disk geometry.
 .sp
+(22.5.8) Developers who have implemented a disk driver for a new block storage
+device will have to indicate to LILO the maximum number of partitions
+on the device.  This is in addition to making all of the necessary
+entries for the device in the "/dev" directory (with 'mknod').  The
+maximum number of partitions must be one of 63 (like an IDE disk), 31 (uncommon), 15
+(like SCSI disks -- most common value), or 7 (like one array controller).
+An example specification would be:
+.sp
+.nf
+     disk=/dev/userd0
+          max-partitions=15
+.fi
+.sp
 In cases where there is no
-kernel paritition information available, such as on loopback devices,
+kernel partition information available, such as on loopback devices,
 the 'disk=' specification may include paritition start information;
 viz.,
 .sp
 .nf
        disk=/dev/loop0
-            bios=0x80
+            bios=0x80			# use this BIOS code
+            max-partitions=7		# declare partitionable
             paritition=/dev/loop1
                  start=63		# offset from sector 0
             paritition=/dev/loop2
                  start=102400		# offset from sector 0
-.fi
-.sp
-(22.5.8) Developers who have implemented a disk driver for a new block storage
-device will have to indicate to LILO the maximum number of partitions
-on the device.  This is in addition to making all of the necessary
-entries for the device in the "/dev" directory (with 'mknod').  The
-maximum number of partitions must be one of 63 (like an IDE disk), 15
-(like SCSI disks -- most common value), or 7 (like one array controller).
-An example specifictaion would be:
-.sp
-.nf
-     disk=/dev/userd0
-          max-partitions=15
 .fi
 .sp
 .TP
@@ -323,9 +324,9 @@ The map installer looks for
 if `disktab' is omitted. The use of disktabs is discouraged.
 .TP
 .BI "el-torito-bootable-CD"
-Flag second stage loader to terminate floppy disk emulation when booting
-from an El Torito Bootable CD. This option is used only by the
-\fBmkrescue\fP utility used with the "--iso" switch.
+Flag second stage loader to terminate disk emulation when booting
+from an El Torito Bootable CD. This option is used by the
+\fBmkrescue\fP utility when the "--iso" switch is specified.
 .TP
 .BI "fix-table"
 This allows lilo to adjust 3D addresses in partition tables. Each 
@@ -363,7 +364,7 @@ tells lilo to ignore corrupt partition tables.
 Selects the user interface which will be seen at boot time.  One of the
 following three options may be specified:  \fBtext\fP, \fBmenu\fP, or
 \fBbmp\fP. The traditional LILO interface is `text'; but `menu' is now the
-default, unless the configurtion file contains the `bitmap='
+default, unless the configuration file contains the `bitmap='
 specification.  The \fItext\fP interface is strictly a command-line
 interface as though the console were a dumb terminal.  The \fImenu\fP
 interface is a text-based screen of the boot choices, with the option to
@@ -382,7 +383,7 @@ memory above 15Mb (up to a kernel imposed limit, around 768Mb) for
 passing the initrd to the kernel.  The presence of this option merely
 indicates that your system does not have the old BIOS limitation.
 
-This switch (or its abscence) is not passed to the kernel, and does not
+This switch (or its absence) is not passed to the kernel, and does not
 in any way affect the
 amount of physical memory which it will use.  (See the
 kernel documentation for the kernel command line parameter
@@ -482,6 +483,30 @@ file is limited to 65535 bytes. The map file has to be rebuilt if the
 message file is changed or moved.  'message=' and 'bitmap=' are mutually
 exclusive.
 .TP
+.BI "nodevcache"
+(22.8)
+Disables pre-loading of the internal device cache. May be needed for
+Linux distributions which use non-standard device naming conventions;
+e.g., when the first IDE disk is not `/dev/hda'.
+.TP
+.BI "nokbdefault=" <name>
+(22.7.2)
+The named descriptor is taken to be the default boot image 
+if no IBM-PC keyboard is 
+present. If no serial interface ("serial=") is in use, then any "prompt"
+keyword and "timeout" value are bypassed, and default booting occurs as
+specified by "delay=".
+The keyboard detection codes cannot detect the presence or absence of
+a newer USB keyboard.
+.TP
+.BI "noraid"
+Disables the automatic marking of disk volumes which are components of
+RAID arrays as \fBinaccessible\fP.  This allows the user to edit the \fBdisk=\fP
+/ \fBinaccessible\fP declarations into the configuration file himself.  Without
+such declarations, duplicate Volume IDs will be overwritten, leading to
+confusing situations at boot-time, and possible failure to boot.  The use
+of this keyword is generally not necessary.
+.TP
 .BI "nowarn"
 Disables warnings about possible future dangers.
 .TP
@@ -514,14 +539,14 @@ or a comma-separated list of devices; e.g., "/dev/hda,/dev/hdc6".  Starting
 with LILO version 22.0, the boot record is normally written to the first
 sector of the RAID1 partition.  On PARALLEL raid sets, no other boot records
 are needed.  The
-default action is \fIauto\fP, meaning, automatically generate auxilary boot
+default action is \fIauto\fP, meaning, automatically generate auxiliary boot
 records as needed on SKEWED raid sets.  \fInone\fP means
 suppress generation of all auxiliary boot records.
 \fImbr-only\fP suppresses generation of a boot record on the raid device,
 and forces compatibility with versions of LILO earlier than version 22.0
 by writing boot records to all Master Boot Records (MBRs) of all disks which
 have partitions in the raid set. \fImbr\fP is like \fImbr-only\fP except the
-boot record on the RAID parition is not suppressed.
+boot record on the RAID partition is not suppressed.
 Use of an explicit list of devices, forces writing of auxiliary boot records
 only on those devices enumerated, in addition to the boot record on the RAID1
 device. Since the version 22 RAID1 codes will never automatically write a boot
@@ -610,6 +635,13 @@ prompt.  "timeout" only has meaning if "prompt" is mentioned.
 If no key is pressed for the specified time, the default image is 
 automatically booted. The default timeout is infinite.
 .TP
+.BI "unattended"
+(22.6) Alters the operation of the "timeout" parameter in a manner which
+is useful on
+noisy serial lines.  Each typed (or noise) character restarts the "timeout"
+timer and a timeout will always boot the default descriptor, even if noise
+characters have appeared on the input line.
+.TP
 .BI "verbose=" <number>
 Turns on lots of progress reporting. Higher numbers give more verbose
 output. If  \-v  is additionally specified on the lilo command line,
@@ -671,7 +703,7 @@ specification (see below).
 The string must be enclosed within double quotes.  Usually, the previous
 .B "append="
 will specify parameters common to all kernels by appearing in the top,
-or global, section of the configuratin file and
+or global, section of the configuration file and
 .B "addappend="
 will be used to add local parameter(s) to an individual image.
 Addappend= may be used only once per "image=" section.
@@ -732,6 +764,8 @@ the kernel Makefile, and can later be changed with the rdev(8) program.)
 .sp
 (22.6) The root filesystem may also be specified by a
 .B LABEL=
+or
+.B UUID=
 directive, as in '/etc/fstab'.  In this case, the argument to
 .I root=
 must be enclosed in quotation marks, to avoid a syntax error on the second
@@ -798,7 +832,7 @@ FAT32, or OS/2 on FAT16 or HPFS.
 The alternate chain loader,
 .I os2_d
 passes partition and drive information unconditionally, and uses a format
-suitalble for OS/2 and DOS (see 
+suitable for OS/2 and DOS (see 
 .I table=<letter>
 below).
 .TP
@@ -853,7 +887,7 @@ be set hidden, and deactivated.  In addition, partition 2, will be set
 normal, and activated.  Activation sets the boot-flag in the partition
 table.  The 
 .I automatic
-keyword may confict with default change rules, so the
+keyword may conflict with default change rules, so the
 .I set=
 lines above may be redundant.
 .TP
@@ -923,11 +957,15 @@ of the drive will have to be specified explicitly with "disk=/dev/XXXX
 bios=0x8X inaccessible" in the configuration file.
 `unsafe' and `table' (explicit or implicit) are mutually incompatible. 
 
-.SH "COMMON OPTIONS (image= & other=)"
+.SH "COMMON DESCRIPTOR OPTIONS (image= & other=)"
 .LP
 In both the
 .BR image= " and " other=
 cases, the following options apply.
+.TP
+.BI "bypass"
+No password is required to boot this image. Used to indicate that the global
+password does not apply to this `image=' or `other='.  See 'password=' below.
 .TP
 .BI "label=" <name>
 The boot loader uses the main file name (without its path)
@@ -941,7 +979,7 @@ A second name for the same entry can be used by specifying an alias.
 The bitmap graphic (install=bmp) is retained when control is passed to the
 loaded kernel image, or other= bootloader; i.e., the screen is not
 blanked to alphanumeric mode before starting the kernel.  This feature is
-conisdered EXPERIMENTAL, for those users working with startup splash
+considered EXPERIMENTAL, for those users working with startup splash
 screens.
 .TP
 .BI "fallback=" <command-line>
@@ -986,14 +1024,20 @@ password cache file.
 A password is required to boot this image. This is the default. May be used
 on a single `image=' or `other=' to override a different global setting.
 .TP
+.BI "nokbdisable"
+(22.7.2)
+The specified descriptor is not bootable if the IBM-PC keyboard is not present.
+This option is really only useful if the "serial=" boot terminal is in use.
+With no keyboard (and no serial terminal) attached, selecting a boot descriptor 
+other than the default is impossible.
+See
+.I nokbdefault
+above.
+.TP
 .BI "restricted"
 A password is only required to boot the image if kernel parameters
 are specified on the command line (e.g. 'single').  May be used
 on a single `image=' or `other=' to override a different global setting.
-.TP
-.BI "bypass"
-No password is required to boot this image. Used to indicate that the global
-password does not apply to this `image=' or `other='.
 .TP
 .BI "vmwarn"
 If booting under a virtual monitor such as VMware(tm), the image with this
