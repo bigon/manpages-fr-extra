@@ -52,11 +52,15 @@ while (1) {
   my ($pkg, $source) = ($reader->get("Package"), $reader->get("Source"));
   $source = $pkg if (not defined $source);
   chomp($pkg, $source);
+  my $version;
+  if ($source =~ /^(\S+) \(([^)]+)\)$/) {
+    ($source, $version) = ($1,$2);
+  } else  {
+    $version = $reader->get("Version");
+  }
   my $pkgregexp = quotemeta($source);
   next unless(grep ( /^$pkgregexp$/, @packages));
-  my ($version, $filename) =
-     ($reader->get("Version"),
-      $reader->get("Filename"));
+  my $filename = $reader->get("Filename");
   chomp($version, $filename);
   $version =~ s/(-[^+])\+.*$/$1/;
   $new_versions->{$source} = $version;
