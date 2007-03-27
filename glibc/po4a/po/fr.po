@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra-glibc\n"
-"POT-Creation-Date: 2007-03-27 23:27+0200\n"
+"POT-Creation-Date: 2007-03-27 23:39+0200\n"
 "PO-Revision-Date: 2007-03-23 22:58+0100\n"
 "Last-Translator: Florentin Duneau <f.baced@wanadoo.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -56,7 +56,7 @@ msgstr "Configuration des fuseaux horaires"
 #: C/man3/pthread_mutexattr_init.3:7 C/man3/pthread_mutexattr_setkind_np.3:5
 #: C/man3/pthread_once.3:3 C/man3/pthread_self.3:3
 #: C/man3/pthread_setschedparam.3:5 C/man3/pthread_sigmask.3:6
-#: C/man5/nscd.conf.5:4 C/man8/ld.so.8:2
+#: C/man5/nscd.conf.5:4 C/man8/ldconfig.8:2 C/man8/ld.so.8:2
 #, no-wrap
 msgid "NAME"
 msgstr "NOM"
@@ -77,6 +77,7 @@ msgstr "tzselect - Afficher les fuseaux horaires"
 #: C/man3/pthread_mutexattr_init.3:10 C/man3/pthread_mutexattr_setkind_np.3:8
 #: C/man3/pthread_once.3:6 C/man3/pthread_self.3:6
 #: C/man3/pthread_setschedparam.3:8 C/man3/pthread_sigmask.3:9
+#: C/man8/ldconfig.8:4
 #, no-wrap
 msgid "SYNOPSIS"
 msgstr "SYNOPSIS"
@@ -97,7 +98,8 @@ msgstr "B<tzselect>"
 #: C/man3/pthread_mutex_init.3:30 C/man3/pthread_mutexattr_init.3:21
 #: C/man3/pthread_mutexattr_setkind_np.3:15 C/man3/pthread_once.3:13
 #: C/man3/pthread_self.3:11 C/man3/pthread_setschedparam.3:15
-#: C/man3/pthread_sigmask.3:20 C/man5/nscd.conf.5:7 C/man8/ld.so.8:4
+#: C/man3/pthread_sigmask.3:20 C/man5/nscd.conf.5:7 C/man8/ldconfig.8:7
+#: C/man8/ld.so.8:4
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
@@ -154,7 +156,7 @@ msgstr ""
 "le programme B<tzconfig>(8) pour cela."
 
 # type: SH
-#: C/man1/tzselect.1:54 C/man8/ld.so.8:127
+#: C/man1/tzselect.1:54 C/man8/ldconfig.8:133 C/man8/ld.so.8:127
 #, no-wrap
 msgid "FILES"
 msgstr "FICHIERS"
@@ -175,7 +177,7 @@ msgstr "I</usr/share/zoneinfo/>"
 #: C/man3/pthread_mutex_init.3:178 C/man3/pthread_mutexattr_init.3:81
 #: C/man3/pthread_mutexattr_setkind_np.3:37 C/man3/pthread_self.3:17
 #: C/man3/pthread_setschedparam.3:74 C/man3/pthread_sigmask.3:88
-#: C/man5/nscd.conf.5:179 C/man8/ld.so.8:152
+#: C/man5/nscd.conf.5:179 C/man8/ldconfig.8:153 C/man8/ld.so.8:152
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
@@ -1253,7 +1255,7 @@ msgstr ""
 
 # type: SH
 #: C/man3/pthread_cancel.3:129 C/man3/pthread_kill_other_threads_np.3:33
-#: C/man3/pthread_sigmask.3:104 C/man8/ld.so.8:155
+#: C/man3/pthread_sigmask.3:104 C/man8/ldconfig.8:156 C/man8/ld.so.8:155
 #, no-wrap
 msgid "BUGS"
 msgstr "BOGUES"
@@ -4437,6 +4439,397 @@ msgid "nscd(8), nsswitch.conf(5)"
 msgstr "nscd(8), nsswitch.conf(5)"
 
 # type: TH
+#: C/man8/ldconfig.8:1
+#, no-wrap
+msgid "ldconfig"
+msgstr "LDCONFIG"
+
+# type: TH
+#: C/man8/ldconfig.8:1
+#, no-wrap
+msgid "27 August 2006"
+msgstr "27 août 2006"
+
+# type: Plain text
+#: C/man8/ldconfig.8:4
+msgid "ldconfig - configure dynamic linker run-time bindings"
+msgstr "ldconfig - Configuration de l'éditeur de liens dynamique."
+
+# type: Plain text
+#: C/man8/ldconfig.8:7
+msgid "ldconfig [OPTION...]"
+msgstr "B<ldconfig> [OPTION...]"
+
+# type: Plain text
+#: C/man8/ldconfig.8:23
+msgid ""
+"B<ldconfig> creates, updates, and removes the necessary links and cache (for "
+"use by the run-time linker, I<ld.so>)  to the most recent shared libraries "
+"found in the directories specified on the command line, in the file I</etc/"
+"ld.so.conf>, and in the trusted directories (I</usr/lib> and I</lib>).  "
+"B<ldconfig> checks the header and file names of the libraries it encounters "
+"when determining which versions should have their links updated.  "
+"B<ldconfig> ignores symbolic links when scanning for libraries."
+msgstr ""
+"B<ldconfig> crée, met à jour et supprime les liens nécessaires. Il met aussi "
+"en cache (pour être utilisé par le chargeur / éditeur de liens I<ld.so>) les "
+"bibliothèques partagées les plus récentes trouvées dans les répertoires "
+"indiqués sur la ligne de commande, dans le fichier I</etc/ld.so.conf>, et "
+"dans les répertoires sûrs (I</lib> et I</usr/lib>). B<ldconfig> vérifie les "
+"en-têtes et noms des fichiers des bibliothèques qu'il trouve pour déterminer "
+"les versions et mettre à jour les liens. B<ldconfig> ignore les liens "
+"symboliques lorsqu'il analyse les bibliothèques."
+
+# type: Plain text
+#: C/man8/ldconfig.8:32
+msgid ""
+"B<ldconfig> will attempt to deduce the type of ELF libs (ie. libc 5.x or "
+"libc 6.x (glibc))  based on what C libraries if any the library was linked "
+"against, therefore when making dynamic libraries, it is wise to explicitly "
+"link against libc (use -lc).  B<ldconfig> is capable of storing multiple ABI "
+"types of libraries into a single cache on architectures which allow native "
+"running of multiple ABIs, like ia32/ia64/x86_64 or sparc32/sparc64."
+msgstr ""
+"B<ldconfig> essaye de déduire le type de bibliothèque ELF (libc 5.x ou libc "
+"6.x, c'est-à-dire glibc) en se basant sur la bibliothèque C utilisée pour "
+"les liens de la bibliothèque. Ainsi, lorsqu'on crée une bibliothèque "
+"dynamique, il est sage d'indiquer explicitement la bibliothèque C utilisée "
+"(en employant l'option -lc). B<ldconfig> est capable de stocker plusieurs "
+"types d'ABI de bibliothèques à l'intérieur d'un seul cache, sur les "
+"architectures qui permettent nativement la prise en compte de plusieurs ABI, "
+"comme ia32/ia64/x86_64 ou sparc32/sparc64."
+
+# type: Plain text
+#: C/man8/ldconfig.8:45
+msgid ""
+"Some existing libs do not contain enough information to allow the deduction "
+"of their type, therefore the I</etc/ld.so.conf> file format allows the "
+"specification of an expected type.  This is B<only> used for those ELF libs "
+"which we can not work out. The format is like this \"dirname=TYPE\", where "
+"type can be libc4, libc5 or libc6.  (This syntax also works on the command "
+"line).  Spaces are B<not> allowed. Also see the B<-p> option."
+msgstr ""
+"Certaines bibliothèques existantes ne contiennent pas assez d'information "
+"pour déduire leur type. Ainsi, le format du fichier I</etc/ld.so.conf> "
+"permet d'indiquer le type attendu. Cela ne doit servir B<que> pour les "
+"bibliothèques ELF qui ne fonctionnent pas sinon. Le format est "
+"« répertoire=TYPE », où TYPE peut être libc4, libc5 ou libc6. (Cette syntaxe "
+"fonctionne aussi sur la ligne de commande). Les espaces ne sont B<pas> "
+"autorisés. Voir aussi l'option B<-p>."
+
+# type: Plain text
+#: C/man8/ldconfig.8:49
+msgid ""
+"Directory names containing an B<=> are no longer legal unless they also have "
+"an expected type specifier."
+msgstr ""
+"Les noms de répertoires contenant un caractère B<=> ne sont plus autorisés, "
+"à moins que leur type soit aussi spécifié."
+
+# type: Plain text
+#: C/man8/ldconfig.8:56
+msgid ""
+"B<ldconfig> should normally be run by the super-user as it may require write "
+"permission on some root owned directories and files. If you use B<-r> option "
+"to change the root directory, you don't have to be super-user though as long "
+"as you have sufficient right to that directory tree."
+msgstr ""
+"Normalement B<ldconfig> doit être lancé par le superutilisateur, car il peut "
+"avoir besoin de l'autorisation d'écriture sur certains fichiers ou "
+"répertoires appartenant à root. Si vous utilisez l'option B<-r> pour changer "
+"le répertoire racine, vous n'avez pas besoin d'être le superutilisateur si "
+"vous possédez les droits suffisants sur l'arborescence placée sous ce "
+"répertoire."
+
+# type: SH
+#: C/man8/ldconfig.8:56
+#, no-wrap
+msgid "OPTIONS"
+msgstr "OPTIONS"
+
+# type: TP
+#: C/man8/ldconfig.8:57
+#, no-wrap
+msgid "B<-v\\ --verbose>"
+msgstr "B<-v\\ --verbose>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:62
+msgid ""
+"Verbose mode.  Print current version number, the name of each directory as "
+"it is scanned and any links that are created."
+msgstr ""
+"Mode volubile. Affiche le numéro de version actuel, le nom de chaque "
+"répertoire au fur et à mesure du parcours, et les liens qui sont créés."
+
+# type: TP
+#: C/man8/ldconfig.8:62
+#, no-wrap
+msgid "B<-n>"
+msgstr "B<-n>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:73
+msgid ""
+"Only process directories specified on the command line.  Don't process the "
+"trusted directories (I</usr/lib> and I</lib>)  nor those specified in I</etc/"
+"ld.so.conf>.  Implies B<-N>."
+msgstr ""
+"Ne traiter que les répertoires indiqués sur la ligne de commande. Ne pas "
+"s'occuper des répertoires sûrs (I</lib> et I</usr/lib>) ni de ceux indiqués "
+"dans I</etc/ld.so.conf>. Implique l'option B<-N>."
+
+# type: TP
+#: C/man8/ldconfig.8:73
+#, no-wrap
+msgid "B<-N>"
+msgstr "B<-N>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:79
+msgid ""
+"Don't rebuild the cache.  Unless B<-X> is also specified, links are still "
+"updated."
+msgstr ""
+"Ne pas reconstruire le cache. Si l'option B<-X> n'est pas indiquée, les "
+"liens sont quand même mis à jour."
+
+# type: TP
+#: C/man8/ldconfig.8:79
+#, no-wrap
+msgid "B<-X>"
+msgstr "B<-X>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:85
+msgid ""
+"Don't update links.  Unless B<-N> is also specified, the cache is still "
+"rebuilt."
+msgstr ""
+"Ne pas mettre à jour les liens. Si l'option B<-N> n'est pas indiquée, le "
+"cache est quand même reconstruit."
+
+# type: TP
+#: C/man8/ldconfig.8:85
+#, no-wrap
+msgid "B<-f conf>"
+msgstr "B<-f configuration>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:91
+msgid "Use B<conf> instead of I</etc/ld.so.conf>."
+msgstr ""
+"Utiliser le fichier de B<configuration> indiqué plutôt que I</etc/ld.so."
+"conf>."
+
+# type: TP
+#: C/man8/ldconfig.8:91
+#, no-wrap
+msgid "B<-C cache>"
+msgstr "B<-C cache>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:97
+msgid "Use B<cache> instead of I</etc/ld.so.cache>."
+msgstr "Utiliser le B<cache> indiqué plutôt que I</etc/ld.so.cache>."
+
+# type: TP
+#: C/man8/ldconfig.8:97
+#, no-wrap
+msgid "B<-r root>"
+msgstr "B<-r racine>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:102
+msgid "Change to and use B<root> as the root directory."
+msgstr "Se déplacer vers, et utiliser le répertoire B<racine> indiqué."
+
+# type: TP
+#: C/man8/ldconfig.8:102
+#, no-wrap
+msgid "B<-l>"
+msgstr "B<-l>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:107
+msgid ""
+"Library mode.  Manually link individual libraries.  Intended for use by "
+"experts only."
+msgstr ""
+"Mode bibliothèque. Lier manuellement les bibliothèques individuelles. "
+"Destiné seulement aux experts."
+
+# type: TP
+#: C/man8/ldconfig.8:107
+#, no-wrap
+msgid "B<-p\\ --print-cache>"
+msgstr "B<-p\\ --print-cache>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:111
+msgid ""
+"Print the lists of directories and candidate libraries stored in the current "
+"cache."
+msgstr ""
+"Afficher la liste des répertoires et des bibliothèques potentielles "
+"enregistrés dans le cache actuel."
+
+# type: TP
+#: C/man8/ldconfig.8:111
+#, no-wrap
+msgid "B<-c\\ --format=FORMAT>"
+msgstr "B<-c\\ --format=FORMAT>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:116
+msgid ""
+"Use B<FORMAT> for the cache file. Choices are old, new and compat (the "
+"default)."
+msgstr ""
+"Utiliser le B<FORMAT> pour le cache. Les choix possibles sont old (vieux), "
+"new (nouveau) et compat (compatible), ce dernier étant le format utilisé par "
+"défaut."
+
+# type: TP
+#: C/man8/ldconfig.8:116
+#, no-wrap
+msgid "B<-?\\ --help --usage>"
+msgstr "B<-?\\ --help --usage>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:119
+msgid "Print usage information."
+msgstr "Afficher des informations sur l'utilisation de ce programme."
+
+# type: TP
+#: C/man8/ldconfig.8:119
+#, no-wrap
+msgid "B<-V\\ --version>"
+msgstr "B<-V\\ --version>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:122
+msgid "Print version and exit."
+msgstr "Afficher le numéro de version et quitter."
+
+# type: SH
+#: C/man8/ldconfig.8:122
+#, no-wrap
+msgid "EXAMPLES"
+msgstr "EXEMPLES"
+
+# type: Plain text
+#: C/man8/ldconfig.8:125
+msgid "# /sbin/ldconfig -v"
+msgstr "# /sbin/ldconfig -v"
+
+# type: Plain text
+#: C/man8/ldconfig.8:128
+msgid ""
+"will set up the correct links for the shared binaries and rebuild the cache."
+msgstr ""
+"va établir les bons liens pour les applications dynamiques et reconstruire "
+"le cache."
+
+# type: Plain text
+#: C/man8/ldconfig.8:130
+msgid "# /sbin/ldconfig -n /lib"
+msgstr "# /sbin/ldconfig -n /lib"
+
+# type: Plain text
+#: C/man8/ldconfig.8:133
+msgid ""
+"as root after the installation of a new shared library will properly update "
+"the shared library symbolic links in /lib."
+msgstr ""
+"exécuté en tant que superutilisateur après l'installation d'une nouvelle "
+"bibliothèque dynamique va mettre à jour les liens symboliques dans /lib."
+
+# type: TP
+#: C/man8/ldconfig.8:135 C/man8/ld.so.8:132
+#, no-wrap
+msgid "B</lib/ld-linux.so.*>"
+msgstr "I</lib/ld-linux.so.*>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:138
+msgid "execution time linker/loader"
+msgstr "Chargeur/éditeur de liens dynamique"
+
+# type: TP
+#: C/man8/ldconfig.8:138
+#, no-wrap
+msgid "B</etc/ld.so.conf>"
+msgstr "I</etc/ld.so.conf>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:142
+msgid ""
+"File containing a list of colon, space, tab, newline, or comma separated "
+"directories in which to search for libraries."
+msgstr ""
+"Fichier contenant une liste de répertoires où chercher les bibliothèques, "
+"séparés par des deux-points, espaces, tabulations, nouvelles lignes ou des "
+"virgules."
+
+# type: TP
+#: C/man8/ldconfig.8:142 C/man8/ld.so.8:135
+#, no-wrap
+msgid "B</etc/ld.so.cache>"
+msgstr "I</etc/ld.so.cache>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:149
+msgid ""
+"File containing an ordered list of libraries found in the directories "
+"specified in B</etc/ld.so.conf>.  This file is not in human readable format, "
+"and is not intended to be edited."
+msgstr ""
+"Fichier contenant une liste ordonnée des bibliothèques trouvées dans les "
+"répertoires indiqués dans I</etc/ld.so.conf>. Ce fichier n'est pas dans un "
+"format lisible par un être humain et n'est pas destiné à être édité."
+
+# type: TP
+#: C/man8/ldconfig.8:149
+#, no-wrap
+msgid "B<lib*.so.version>"
+msgstr "I<lib*.so.version>"
+
+# type: Plain text
+#: C/man8/ldconfig.8:152 C/man8/ld.so.8:151
+msgid "shared libraries"
+msgstr "Bibliothèques partagées."
+
+# type: Plain text
+#: C/man8/ldconfig.8:156
+msgid "B<ldd>(1), B<ld.so>(8)."
+msgstr "B<ldd>(1), B<ld.so>(8)."
+
+# type: Plain text
+#: C/man8/ldconfig.8:163
+msgid ""
+"B<ldconfig>, being a user process, must be run manually and has no means of "
+"dynamically determining and relinking shared libraries for use by B<ld.so> "
+"when a new shared library is installed."
+msgstr ""
+"Étant un processus utilisateur, B<ldconfig> doit être exécuté manuellement "
+"et n'a aucun moyen de déterminer dynamiquement les bibliothèques dynamiques "
+"que B<ld.so> doit utiliser lorsqu'une nouvelle bibliothèque dynamique est "
+"installée."
+
+# type: SH
+#: C/man8/ldconfig.8:163 C/man8/ld.so.8:165
+#, no-wrap
+msgid "AUTHORS"
+msgstr "AUTEURS"
+
+# type: Plain text
+#: C/man8/ldconfig.8:165
+msgid "Andreas Jaeger.  Manual page written by David Engel and Mitch D'Souza."
+msgstr ""
+"Andreas Jaeger. Page de manuel écrite par David Engel et Mitch D'Souza."
+
+# type: TH
 #: C/man8/ld.so.8:1
 #, no-wrap
 msgid "LD.SO"
@@ -4819,22 +5212,10 @@ msgstr "I</lib/ld.so>"
 msgid "a.out dynamic linker/loader"
 msgstr "le chargeur/éditeur de liens dynamique a.out."
 
-# type: TP
-#: C/man8/ld.so.8:132
-#, no-wrap
-msgid "B</lib/ld-linux.so.*>"
-msgstr "I</lib/ld-linux.so.*>"
-
 # type: Plain text
 #: C/man8/ld.so.8:135
 msgid "ELF dynamic linker/loader"
 msgstr "Le chargeur/éditeur de liens dynamique ELF."
-
-# type: TP
-#: C/man8/ld.so.8:135
-#, no-wrap
-msgid "B</etc/ld.so.cache>"
-msgstr "I</etc/ld.so.cache>"
 
 # type: Plain text
 #: C/man8/ld.so.8:139
@@ -4885,11 +5266,6 @@ msgid "B<lib*.so*>"
 msgstr "I<lib*.so*>"
 
 # type: Plain text
-#: C/man8/ld.so.8:151
-msgid "shared libraries"
-msgstr "Bibliothèques partagées."
-
-# type: Plain text
 #: C/man8/ld.so.8:155
 msgid "B<ldd>(1), B<ldconfig>(8)."
 msgstr "B<ldd>(1), B<ldconfig>(8)."
@@ -4912,12 +5288,6 @@ msgstr ""
 "Les fonctionnalités de B<ld.so> ne sont disponibles que pour des programmes "
 "compilés avec une libc 4.4.3 ou plus récente (ndt : les versions actuelles "
 "ont été renommées en glibc et le numéro de version a été réinitialisé)."
-
-# type: SH
-#: C/man8/ld.so.8:165
-#, no-wrap
-msgid "AUTHORS"
-msgstr "AUTEURS"
 
 # type: Plain text
 #: C/man8/ld.so.8:167
