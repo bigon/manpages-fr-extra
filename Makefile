@@ -35,7 +35,7 @@ install: build
 	    [ -f $$f ] || continue; \
 	    d=$(INSTDIR)/`dirname $$f`; \
 	    [ -d $$d ] || mkdir $$d; \
-	    iconv -f utf8 -t latin1 $$f > $(INSTDIR)/$$f; \
+	    iconv -f utf8 -t latin1 $$f > $(INSTDIR)/$$f || exit 1; \
 	  done; \
 	  cd ../..; \
 	done
