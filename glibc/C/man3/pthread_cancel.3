@@ -27,7 +27,7 @@ target thread can then either ignore the request, honor it
 immediately, or defer it till it reaches a cancellation point.
 
 When a thread eventually honors a cancellation request, it performs as
-if !pthread_exit(PTHREAD_CANCELED)! has been called at that point:
+if \fBpthread_exit(PTHREAD_CANCELED)\fP has been called at that point:
 all cleanup handlers are executed in reverse order, finalization
 functions for thread-specific data are called, and finally the thread
 stops executing with the return value \fBPTHREAD_CANCELED\fP. See
