@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "POT-Creation-Date: 2007-04-15 15:49+0200\n"
-"PO-Revision-Date: 2007-03-25 12:06+0200\n"
+"PO-Revision-Date: 2007-04-25 22:27+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -2103,9 +2103,9 @@ msgstr "rpc.gssd"
 
 # type: TH
 #: C/man8/gssd.8:5
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "14 Mar 2007"
-msgstr "17 mars 2003"
+msgstr "14 mars 2007"
 
 # type: Plain text
 #: C/man8/gssd.8:8
@@ -2114,10 +2114,10 @@ msgstr "rpc.gssd - Démon rpcsec_gss"
 
 # type: Plain text
 #: C/man8/gssd.8:10
-#, fuzzy
 msgid ""
 "B<rpc.gssd [-f] [-n] [-k keytab] [-p pipefsdir] [-v] [-r] [-d ccachedir]>"
-msgstr "B<rpc.gssd [-f] [-k rep_clés] [-p rep_pipefs] [-v][-r] [-d ccachedir]>"
+msgstr ""
+"B<rpc.gssd [-f] [-n] [-k rep_clés] [-p rep_pipefs] [-v] [-r] [-d ccachedir]>"
 
 # type: Plain text
 #: C/man8/gssd.8:20
@@ -2165,6 +2165,15 @@ msgid ""
 "manually obtain Kerberos credentials before attemtpting to mount an nfs "
 "filesystem requiring Kerberos authentication."
 msgstr ""
+"Par défaut, B<rpc.gssd> traite les accès de l'utilisateur UID 0 d'une façon "
+"particulière, et emploie les «\\ accréditations de la machine\\ » pour tous "
+"les accès de cet utilisateur qui nécessitent l'authentification Kerberos. "
+"Avec l'option -n, les «\\ accréditations de la machine\\ » ne seront pas "
+"employées pour des accès de l'UID 0. Au lieu de cela, elles devront être "
+"obtenues manuellement comme pour tous les autres utilisateurs. "
+"L'utilisation de cette option signifie que «\\ root\\ » doit obtenir "
+"manuellement des accréditations de Kerberos avant de tenter de monter un "
+"système de fichiers NFS exigeant cette authentification."
 
 # type: TP
 #: C/man8/gssd.8:40
@@ -2183,6 +2192,16 @@ msgid ""
 "hostname\" principal and keytab entry, but can instead use a \"host/hostname"
 "\" (or any other) keytab entry that is available."
 msgstr ""
+"Indiquer à B<rpc.gssd> d'utiliser les clés trouvées dans le fichier "
+"I<rep_clés> afin d'obtenir les «\\ accréditations de la machine\\ ». La "
+"valeur par défaut est «\\ /etc/krb5.keytab\\ ». les versions précédentes de  "
+"B<rpc.gssd> n'utilisaient que les clés «\\ nfs/*\\ » trouvées dans le "
+"fichier de clés I<rep_clés>. C'est maintenant la première entrée pour chaque "
+"domaine distinct de Kerberos du fichier de clés qui est employée. Ceci "
+"signifie qu'un client de NFS n'a plus besoin d'un nom d'hôte «\\ nfs/"
+"hostname\\ » principal et d'une entrée dans le répertoire de clés, mais "
+"peut à la place employer une entrée du fichier de clés de type "
+"«\\ host/hostname\\ » (ou tout autre)."
 
 # type: TP
 #: C/man8/gssd.8:56
@@ -4043,13 +4062,12 @@ msgstr "rpc.statd - Programme de Surveillance de l'activité NSM"
 
 # type: Plain text
 #: C/man8/statd.8:13
-#, fuzzy
 msgid ""
 "B<rpc.statd [-FNL] [-d] [-?] [-n name ] [-o port ] [-p port ] [-H prog ] [-V]"
 ">"
 msgstr ""
-"B<rpc.statd [-F] [-d] [-?] [-n nom ] [-o port ] [-p port ] [-H programme ] [-"
-"V]>"
+"B<rpc.statd [-FNL] [-d] [-?] [-n nom ] [-o port ] [-p port ] [-H programme ] "
+"[-V]>"
 
 # type: Plain text
 #: C/man8/statd.8:23
@@ -4077,7 +4095,6 @@ msgstr "Fonctionnement"
 
 # type: Plain text
 #: C/man8/statd.8:34
-#, fuzzy
 msgid ""
 "For each NFS client or server machine to be monitored, B<rpc.statd> creates "
 "a file in B</var/lib/nfs/sm>.  When starting, it normally runs B<sm-notify> "
@@ -4085,8 +4102,9 @@ msgid ""
 "machines."
 msgstr ""
 "Pour chaque serveur ou client NFS à surveiller, B<rpc.statd> crée un fichier "
-"dans I</var/lib/nfs/sm>. Au démarrage, il parcourt ces fichiers afin de "
-"notifier l'événement au démon B<rpc.statd> des machines spécifiées."
+"dans I</var/lib/nfs/sm>. Au démarrage, il exécute habituellement B<sm-"
+"notify> qui parcourt ces fichiers afin de notifier l'événement au démon "
+"partenaire B<rpc.statd> des machines spécifiées."
 
 # type: TP
 #: C/man8/statd.8:35
@@ -4192,7 +4210,6 @@ msgstr "B<-N>"
 
 # type: Plain text
 #: C/man8/statd.8:109
-#, fuzzy
 msgid ""
 "Causes statd to run in the notify-only mode. When started in this mode, the "
 "statd program will check its state directory, send notifications to any "
@@ -4201,16 +4218,17 @@ msgid ""
 "mode is deprecated - B<sm-notify> should be used directly instead."
 msgstr ""
 "Exécuter B<statd> dans le mode «\\ notification seulement\\ ». Lorsqu'il est "
-"exécuté dans ce mode, B<statd> exploite son répertoire d'état pour envoyer "
-"les notifications à tous les noeuds surveillés et s'arrête lorsque toutes "
-"ces notifications ont été envoyées. Ce mode est utilisé pour permettre de "
-"réaliser du NFS haute disponibilité (HA-NFS)."
+"exécuté dans ce mode, le programme B<statd> explore son répertoire d'état "
+"pour envoyer les notifications à tous les noeuds surveillés et s'arrête "
+"lorsque toutes ces notifications ont été envoyées. Ce mode est utilisé pour "
+"permettre de réaliser du NFS haute disponibilité (HA-NFS). Ce mode est "
+"déprécié. Vous devriez plutôt utiliser B<sm-notify> à la place."
 
 # type: TP
 #: C/man8/statd.8:109
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<-L>,B< --no-notify>"
-msgstr "B<-n, --nfs>"
+msgstr "B<-L>, B< --no-notify>"
 
 # type: Plain text
 #: C/man8/statd.8:121
@@ -4221,6 +4239,11 @@ msgid ""
 "until it is actually need.  In such cases B<sm-notify> should still be run "
 "at boot time."
 msgstr ""
+"Empêcher le lancement de B<sm-notify>. Si B<sm-notify> est lancé par un "
+"autre script lors de l'initialisation de la machine, B<statd> n'a nul besoin "
+"de lancer lui-même sm-notify. Cela peut être approprié si le lancement "
+"de statd doit être retardé jusqu'à un besoin réel. Dans ces cas-ci, B<sm-"
+"notify> devrait quand même être lancé au moment du démarrage de la machine."
 
 # type: TP
 #: C/man8/statd.8:121
