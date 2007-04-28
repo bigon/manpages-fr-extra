@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-04-15 15:49+0200\n"
+"POT-Creation-Date: 2007-04-28 10:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -755,7 +755,7 @@ msgid "/etc/exports"
 msgstr ""
 
 # type: SH
-#: C/man5/exports.5:418 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198 C/man8/exportfs.8:222 C/man8/gssd.8:74 C/man8/idmapd.8:78 C/man8/mount.nfs.8:91 C/man8/mountd.8:184 C/man8/nfsd.8:78 C/man8/nfsstat.8:109 C/man8/rpcdebug.8:76 C/man8/showmount.8:45 C/man8/statd.8:184 C/man8/svcgssd.8:39 C/man8/umount.nfs.8:65
+#: C/man5/exports.5:418 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198 C/man8/exportfs.8:222 C/man8/gssd.8:85 C/man8/idmapd.8:78 C/man8/mount.nfs.8:91 C/man8/mountd.8:184 C/man8/nfsd.8:78 C/man8/nfsstat.8:109 C/man8/rpcdebug.8:76 C/man8/showmount.8:45 C/man8/statd.8:184 C/man8/svcgssd.8:39 C/man8/umount.nfs.8:65
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -868,7 +868,7 @@ msgid "E<.Xr idmapd 8>"
 msgstr ""
 
 # type: SH
-#: C/man5/idmapd.conf.5:67 C/man8/exportfs.8:225 C/man8/gssd.8:76 C/man8/idmapd.8:85 C/man8/statd.8:187 C/man8/svcgssd.8:41
+#: C/man5/idmapd.conf.5:67 C/man8/exportfs.8:225 C/man8/gssd.8:87 C/man8/idmapd.8:85 C/man8/statd.8:187 C/man8/svcgssd.8:41
 #, no-wrap
 msgid "AUTHORS"
 msgstr ""
@@ -1376,7 +1376,7 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man8/exportfs.8:94 C/man8/gssd.8:70 C/man8/mount.nfs.8:29 C/man8/svcgssd.8:30 C/man8/umount.nfs.8:39
+#: C/man8/exportfs.8:94 C/man8/gssd.8:81 C/man8/mount.nfs.8:29 C/man8/svcgssd.8:30 C/man8/umount.nfs.8:39
 #, no-wrap
 msgid "B<-r>"
 msgstr ""
@@ -1416,7 +1416,7 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man8/exportfs.8:109 C/man8/gssd.8:67 C/man8/mount.nfs.8:32 C/man8/rpcdebug.8:67 C/man8/svcgssd.8:27 C/man8/umount.nfs.8:29
+#: C/man8/exportfs.8:109 C/man8/gssd.8:78 C/man8/mount.nfs.8:32 C/man8/rpcdebug.8:67 C/man8/svcgssd.8:27 C/man8/umount.nfs.8:29
 #, no-wrap
 msgid "B<-v>"
 msgstr ""
@@ -1656,77 +1656,117 @@ msgid "B<-k keytab>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:56
+#: C/man8/gssd.8:48
 msgid ""
 "Tells B<rpc.gssd> to use the keys found in I<keytab> to obtain \"machine "
-"credentials\".  The default value is \"/etc/krb5.keytab\".  Previous "
-"versions of B<rpc.gssd> used only \"nfs/*\" keys found within the keytab.  "
-"Now, the first keytab entry for each distinct Kerberos realm within the "
-"keytab is used.  This means that an NFS client no longer needs an "
-"\"nfs/hostname\" principal and keytab entry, but can instead use a "
-"\"host/hostname\" (or any other) keytab entry that is available."
+"credentials\".  The default value is \"/etc/krb5.keytab\"."
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:55
+msgid ""
+"Previous versions of B<rpc.gssd> used only \"nfs/*\" keys found within the "
+"keytab.  To be more consistent with other implementations, we now look for "
+"specific keytab entries.  The search order for keytabs to be used for "
+"\"machine credentials\" is now:"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:57
+#, no-wrap
+msgid "  root/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:59
+#, no-wrap
+msgid "  nfs/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:61
+#, no-wrap
+msgid "  host/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:63
+#, no-wrap
+msgid "  root/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:65
+#, no-wrap
+msgid "  nfs/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:67
+#, no-wrap
+msgid "  host/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
 msgstr ""
 
 # type: TP
-#: C/man8/gssd.8:56
+#: C/man8/gssd.8:67
 #, no-wrap
 msgid "B<-p path>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:62
+#: C/man8/gssd.8:73
 msgid ""
 "Tells B<rpc.gssd> where to look for the rpc_pipefs filesystem.  The default "
 "value is \"/var/lib/nfs/rpc_pipefs\"."
 msgstr ""
 
 # type: TP
-#: C/man8/gssd.8:62
+#: C/man8/gssd.8:73
 #, no-wrap
 msgid "B<-d directory>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:67
+#: C/man8/gssd.8:78
 msgid ""
 "Tells B<rpc.gssd> where to look for kerberos credential files.  The default "
 "value is \"/tmp\"."
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:70 C/man8/svcgssd.8:30
+#: C/man8/gssd.8:81 C/man8/svcgssd.8:30
 msgid "Increases the verbosity of the output (can be specified multiple times)."
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:74 C/man8/svcgssd.8:34
+#: C/man8/gssd.8:85 C/man8/svcgssd.8:34
 msgid ""
 "If the rpcsec_gss library supports setting debug level, increases the "
 "verbosity of the output (can be specified multiple times)."
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:76
+#: C/man8/gssd.8:87
 msgid "B<rpc.svcgssd(8)>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:79 C/man8/svcgssd.8:44
+#: C/man8/gssd.8:90 C/man8/svcgssd.8:44
 msgid "Dug Song E<lt>dugsong@umich.eduE<gt>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:81 C/man8/svcgssd.8:46
+#: C/man8/gssd.8:92 C/man8/svcgssd.8:46
 msgid "Andy Adamson E<lt>andros@umich.eduE<gt>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:83 C/man8/svcgssd.8:48
+#: C/man8/gssd.8:94 C/man8/svcgssd.8:48
 msgid "Marius Aamodt Eriksen E<lt>marius@umich.eduE<gt>"
 msgstr ""
 
 # type: Plain text
-#: C/man8/gssd.8:84 C/man8/svcgssd.8:49
+#: C/man8/gssd.8:95 C/man8/svcgssd.8:49
 msgid "J. Bruce Fields E<lt>bfields@umich.eduE<gt>"
 msgstr ""
 

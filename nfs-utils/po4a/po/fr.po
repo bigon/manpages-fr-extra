@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2007-04-15 15:49+0200\n"
+"POT-Creation-Date: 2007-04-28 10:49+0200\n"
 "PO-Revision-Date: 2007-04-25 22:27+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -1024,7 +1024,7 @@ msgstr "/etc/exports"
 
 # type: SH
 #: C/man5/exports.5:418 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198
-#: C/man8/exportfs.8:222 C/man8/gssd.8:74 C/man8/idmapd.8:78
+#: C/man8/exportfs.8:222 C/man8/gssd.8:85 C/man8/idmapd.8:78
 #: C/man8/mount.nfs.8:91 C/man8/mountd.8:184 C/man8/nfsd.8:78
 #: C/man8/nfsstat.8:109 C/man8/rpcdebug.8:76 C/man8/showmount.8:45
 #: C/man8/statd.8:184 C/man8/svcgssd.8:39 C/man8/umount.nfs.8:65
@@ -1159,7 +1159,7 @@ msgid "E<.Xr idmapd 8>"
 msgstr "E<.Xr idmapd 8>"
 
 # type: SH
-#: C/man5/idmapd.conf.5:67 C/man8/exportfs.8:225 C/man8/gssd.8:76
+#: C/man5/idmapd.conf.5:67 C/man8/exportfs.8:225 C/man8/gssd.8:87
 #: C/man8/idmapd.8:85 C/man8/statd.8:187 C/man8/svcgssd.8:41
 #, no-wrap
 msgid "AUTHORS"
@@ -1826,7 +1826,7 @@ msgstr ""
 "par défaut ou celles données sur la ligne de commande soient utilisées."
 
 # type: TP
-#: C/man8/exportfs.8:94 C/man8/gssd.8:70 C/man8/mount.nfs.8:29
+#: C/man8/exportfs.8:94 C/man8/gssd.8:81 C/man8/mount.nfs.8:29
 #: C/man8/svcgssd.8:30 C/man8/umount.nfs.8:39
 #, no-wrap
 msgid "B<-r>"
@@ -1875,7 +1875,7 @@ msgstr ""
 "que celui-ci fera sa prochaine requête."
 
 # type: TP
-#: C/man8/exportfs.8:109 C/man8/gssd.8:67 C/man8/mount.nfs.8:32
+#: C/man8/exportfs.8:109 C/man8/gssd.8:78 C/man8/mount.nfs.8:32
 #: C/man8/rpcdebug.8:67 C/man8/svcgssd.8:27 C/man8/umount.nfs.8:29
 #, no-wrap
 msgid "B<-v>"
@@ -2170,10 +2170,10 @@ msgstr ""
 "les accès de cet utilisateur qui nécessitent l'authentification Kerberos. "
 "Avec l'option -n, les «\\ accréditations de la machine\\ » ne seront pas "
 "employées pour des accès de l'UID 0. Au lieu de cela, elles devront être "
-"obtenues manuellement comme pour tous les autres utilisateurs. "
-"L'utilisation de cette option signifie que «\\ root\\ » doit obtenir "
-"manuellement des accréditations de Kerberos avant de tenter de monter un "
-"système de fichiers NFS exigeant cette authentification."
+"obtenues manuellement comme pour tous les autres utilisateurs. L'utilisation "
+"de cette option signifie que «\\ root\\ » doit obtenir manuellement des "
+"accréditations de Kerberos avant de tenter de monter un système de fichiers "
+"NFS exigeant cette authentification."
 
 # type: TP
 #: C/man8/gssd.8:40
@@ -2182,35 +2182,68 @@ msgid "B<-k keytab>"
 msgstr "B<-k rep_clés>"
 
 # type: Plain text
-#: C/man8/gssd.8:56
+#: C/man8/gssd.8:48
+#, fuzzy
 msgid ""
 "Tells B<rpc.gssd> to use the keys found in I<keytab> to obtain \"machine "
-"credentials\".  The default value is \"/etc/krb5.keytab\".  Previous "
-"versions of B<rpc.gssd> used only \"nfs/*\" keys found within the keytab.  "
-"Now, the first keytab entry for each distinct Kerberos realm within the "
-"keytab is used.  This means that an NFS client no longer needs an \"nfs/"
-"hostname\" principal and keytab entry, but can instead use a \"host/hostname"
-"\" (or any other) keytab entry that is available."
+"credentials\".  The default value is \"/etc/krb5.keytab\"."
 msgstr ""
-"Indiquer à B<rpc.gssd> d'utiliser les clés trouvées dans le fichier "
-"I<rep_clés> afin d'obtenir les «\\ accréditations de la machine\\ ». La "
-"valeur par défaut est «\\ /etc/krb5.keytab\\ ». les versions précédentes de  "
-"B<rpc.gssd> n'utilisaient que les clés «\\ nfs/*\\ » trouvées dans le "
-"fichier de clés I<rep_clés>. C'est maintenant la première entrée pour chaque "
-"domaine distinct de Kerberos du fichier de clés qui est employée. Ceci "
-"signifie qu'un client de NFS n'a plus besoin d'un nom d'hôte «\\ nfs/"
-"hostname\\ » principal et d'une entrée dans le répertoire de clés, mais "
-"peut à la place employer une entrée du fichier de clés de type "
-"«\\ host/hostname\\ » (ou tout autre)."
+"Indiquer à B<rpc.gssd> où chercher le fichier des accréditations kerberos. "
+"Par défaut, il s'agit de «\\ /tmp\\ »."
+
+# type: Plain text
+#: C/man8/gssd.8:55
+msgid ""
+"Previous versions of B<rpc.gssd> used only \"nfs/*\" keys found within the "
+"keytab.  To be more consistent with other implementations, we now look for "
+"specific keytab entries.  The search order for keytabs to be used for "
+"\"machine credentials\" is now:"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:57
+#, no-wrap
+msgid "  root/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:59
+#, no-wrap
+msgid "  nfs/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:61
+#, no-wrap
+msgid "  host/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:63
+#, no-wrap
+msgid "  root/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:65
+#, no-wrap
+msgid "  nfs/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man8/gssd.8:67
+#, no-wrap
+msgid "  host/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
+msgstr ""
 
 # type: TP
-#: C/man8/gssd.8:56
+#: C/man8/gssd.8:67
 #, no-wrap
 msgid "B<-p path>"
 msgstr "B<-p chemin>"
 
 # type: Plain text
-#: C/man8/gssd.8:62
+#: C/man8/gssd.8:73
 msgid ""
 "Tells B<rpc.gssd> where to look for the rpc_pipefs filesystem.  The default "
 "value is \"/var/lib/nfs/rpc_pipefs\"."
@@ -2219,13 +2252,13 @@ msgstr ""
 "défaut, il s'agit de «\\ /var/lib/nfs/rpc_pipefs\\ »."
 
 # type: TP
-#: C/man8/gssd.8:62
+#: C/man8/gssd.8:73
 #, no-wrap
 msgid "B<-d directory>"
 msgstr "B<-d répertoire>"
 
 # type: Plain text
-#: C/man8/gssd.8:67
+#: C/man8/gssd.8:78
 msgid ""
 "Tells B<rpc.gssd> where to look for kerberos credential files.  The default "
 "value is \"/tmp\"."
@@ -2234,7 +2267,7 @@ msgstr ""
 "Par défaut, il s'agit de «\\ /tmp\\ »."
 
 # type: Plain text
-#: C/man8/gssd.8:70 C/man8/svcgssd.8:30
+#: C/man8/gssd.8:81 C/man8/svcgssd.8:30
 msgid ""
 "Increases the verbosity of the output (can be specified multiple times)."
 msgstr ""
@@ -2242,7 +2275,7 @@ msgstr ""
 "fois)."
 
 # type: Plain text
-#: C/man8/gssd.8:74 C/man8/svcgssd.8:34
+#: C/man8/gssd.8:85 C/man8/svcgssd.8:34
 msgid ""
 "If the rpcsec_gss library supports setting debug level, increases the "
 "verbosity of the output (can be specified multiple times)."
@@ -2252,27 +2285,27 @@ msgstr ""
 "débogage."
 
 # type: Plain text
-#: C/man8/gssd.8:76
+#: C/man8/gssd.8:87
 msgid "B<rpc.svcgssd(8)>"
 msgstr "B<rpc.svcgssd(8)>"
 
 # type: Plain text
-#: C/man8/gssd.8:79 C/man8/svcgssd.8:44
+#: C/man8/gssd.8:90 C/man8/svcgssd.8:44
 msgid "Dug Song E<lt>dugsong@umich.eduE<gt>"
 msgstr "Dug Song E<lt>dugsong@umich.eduE<gt>"
 
 # type: Plain text
-#: C/man8/gssd.8:81 C/man8/svcgssd.8:46
+#: C/man8/gssd.8:92 C/man8/svcgssd.8:46
 msgid "Andy Adamson E<lt>andros@umich.eduE<gt>"
 msgstr "Andy Adamson E<lt>andros@umich.eduE<gt>"
 
 # type: Plain text
-#: C/man8/gssd.8:83 C/man8/svcgssd.8:48
+#: C/man8/gssd.8:94 C/man8/svcgssd.8:48
 msgid "Marius Aamodt Eriksen E<lt>marius@umich.eduE<gt>"
 msgstr "Marius Aamodt Eriksen E<lt>marius@umich.eduE<gt>"
 
 # type: Plain text
-#: C/man8/gssd.8:84 C/man8/svcgssd.8:49
+#: C/man8/gssd.8:95 C/man8/svcgssd.8:49
 msgid "J. Bruce Fields E<lt>bfields@umich.eduE<gt>"
 msgstr "J. Bruce Fields E<lt>bfields@umich.eduE<gt>"
 
@@ -4241,8 +4274,8 @@ msgid ""
 msgstr ""
 "Empêcher le lancement de B<sm-notify>. Si B<sm-notify> est lancé par un "
 "autre script lors de l'initialisation de la machine, B<statd> n'a nul besoin "
-"de lancer lui-même sm-notify. Cela peut être approprié si le lancement "
-"de statd doit être retardé jusqu'à un besoin réel. Dans ces cas-ci, B<sm-"
+"de lancer lui-même sm-notify. Cela peut être approprié si le lancement de "
+"statd doit être retardé jusqu'à un besoin réel. Dans ces cas-ci, B<sm-"
 "notify> devrait quand même être lancé au moment du démarrage de la machine."
 
 # type: TP
@@ -4545,3 +4578,24 @@ msgstr ""
 #: C/man8/umount.nfs.8:68
 msgid "B<nfs>(5), B<umount>(8),"
 msgstr "B<nfs>(5), B<umount>(8),"
+
+# type: Plain text
+#~ msgid ""
+#~ "Tells B<rpc.gssd> to use the keys found in I<keytab> to obtain \"machine "
+#~ "credentials\".  The default value is \"/etc/krb5.keytab\".  Previous "
+#~ "versions of B<rpc.gssd> used only \"nfs/*\" keys found within the "
+#~ "keytab.  Now, the first keytab entry for each distinct Kerberos realm "
+#~ "within the keytab is used.  This means that an NFS client no longer needs "
+#~ "an \"nfs/hostname\" principal and keytab entry, but can instead use a "
+#~ "\"host/hostname\" (or any other) keytab entry that is available."
+#~ msgstr ""
+#~ "Indiquer à B<rpc.gssd> d'utiliser les clés trouvées dans le fichier "
+#~ "I<rep_clés> afin d'obtenir les «\\ accréditations de la machine\\ ». La "
+#~ "valeur par défaut est «\\ /etc/krb5.keytab\\ ». les versions précédentes "
+#~ "de  B<rpc.gssd> n'utilisaient que les clés «\\ nfs/*\\ » trouvées dans le "
+#~ "fichier de clés I<rep_clés>. C'est maintenant la première entrée pour "
+#~ "chaque domaine distinct de Kerberos du fichier de clés qui est employée. "
+#~ "Ceci signifie qu'un client de NFS n'a plus besoin d'un nom d'hôte «\\ nfs/"
+#~ "hostname\\ » principal et d'une entrée dans le répertoire de clés, mais "
+#~ "peut à la place employer une entrée du fichier de clés de type «\\ host/"
+#~ "hostname\\ » (ou tout autre)."
