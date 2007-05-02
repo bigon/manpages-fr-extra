@@ -1,4 +1,4 @@
-# translation of fr.po to French
+# translation of nfs-utils.po to French
 # Translation of nfs-utils manpages to French
 # Copyright (C) 2006, 2007 Free Software Foundation, Inc.
 #
@@ -6,9 +6,9 @@
 # Sylvain Cherrier <sylvain.cherrier@free.fr>, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: nfs-utils\n"
 "POT-Creation-Date: 2007-04-28 10:49+0200\n"
-"PO-Revision-Date: 2007-04-25 22:27+0200\n"
+"PO-Revision-Date: 2007-04-30 08:45+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -2183,13 +2183,13 @@ msgstr "B<-k rep_clés>"
 
 # type: Plain text
 #: C/man8/gssd.8:48
-#, fuzzy
 msgid ""
 "Tells B<rpc.gssd> to use the keys found in I<keytab> to obtain \"machine "
 "credentials\".  The default value is \"/etc/krb5.keytab\"."
 msgstr ""
-"Indiquer à B<rpc.gssd> où chercher le fichier des accréditations kerberos. "
-"Par défaut, il s'agit de «\\ /tmp\\ »."
+"Indiquer à B<rpc.gssd> d'utiliser les clés trouvées dans I<rep_clés> afin "
+"d'obtenir les «\\ accréditations de la machine\\ ». La valeur par défaut est "
+"«\\ /etc/krb5.keytab\\ »."
 
 # type: Plain text
 #: C/man8/gssd.8:55
@@ -2199,42 +2199,48 @@ msgid ""
 "specific keytab entries.  The search order for keytabs to be used for "
 "\"machine credentials\" is now:"
 msgstr ""
+"Les versions précédentes de B<rpc.gssd> n'utilisaient que les clés de type "
+"«\\ nfs/*\\ » trouvées dans le fichier de clé rep_clés. Pour une meilleure "
+"conformité avec d'autres implémentations, différentes valeurs spécifiques "
+"d'entrées dans le fichier de clés sont recherchées. L'ordre de recherche des "
+"clés utilisées pour les «\\ accréditations de la machine\\ » est maintenant "
+"le suivant\\ :"
 
 # type: Plain text
 #: C/man8/gssd.8:57
 #, no-wrap
 msgid "  root/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
-msgstr ""
+msgstr "  root/E<lt>nom_d'hôteE<gt>@E<lt>DOMAINEE<gt>\n"
 
 # type: Plain text
 #: C/man8/gssd.8:59
 #, no-wrap
 msgid "  nfs/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
-msgstr ""
+msgstr "  nfs/E<lt>nom_d'hôteE<gt>@E<lt>DOMAINEE<gt>\n"
 
 # type: Plain text
 #: C/man8/gssd.8:61
 #, no-wrap
 msgid "  host/E<lt>hostnameE<gt>@E<lt>REALME<gt>\n"
-msgstr ""
+msgstr "  host/E<lt>nom_d'hôteE<gt>@E<lt>DOMAINEE<gt>\n"
 
 # type: Plain text
 #: C/man8/gssd.8:63
 #, no-wrap
 msgid "  root/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
-msgstr ""
+msgstr "  root/E<lt>n'importe_quel_nomE<gt>@E<lt>DOMAINEE<gt>\n"
 
 # type: Plain text
 #: C/man8/gssd.8:65
 #, no-wrap
 msgid "  nfs/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
-msgstr ""
+msgstr "  nfs/E<lt>n'importe_quel_nomE<gt>@E<lt>DOMAINEE<gt>\n"
 
 # type: Plain text
 #: C/man8/gssd.8:67
 #, no-wrap
 msgid "  host/E<lt>anynameE<gt>@E<lt>REALME<gt>\n"
-msgstr ""
+msgstr "  host/E<lt>n'importe_quel_nomE<gt>@E<lt>DOMAINEE<gt>\n"
 
 # type: TP
 #: C/man8/gssd.8:67
@@ -4578,24 +4584,3 @@ msgstr ""
 #: C/man8/umount.nfs.8:68
 msgid "B<nfs>(5), B<umount>(8),"
 msgstr "B<nfs>(5), B<umount>(8),"
-
-# type: Plain text
-#~ msgid ""
-#~ "Tells B<rpc.gssd> to use the keys found in I<keytab> to obtain \"machine "
-#~ "credentials\".  The default value is \"/etc/krb5.keytab\".  Previous "
-#~ "versions of B<rpc.gssd> used only \"nfs/*\" keys found within the "
-#~ "keytab.  Now, the first keytab entry for each distinct Kerberos realm "
-#~ "within the keytab is used.  This means that an NFS client no longer needs "
-#~ "an \"nfs/hostname\" principal and keytab entry, but can instead use a "
-#~ "\"host/hostname\" (or any other) keytab entry that is available."
-#~ msgstr ""
-#~ "Indiquer à B<rpc.gssd> d'utiliser les clés trouvées dans le fichier "
-#~ "I<rep_clés> afin d'obtenir les «\\ accréditations de la machine\\ ». La "
-#~ "valeur par défaut est «\\ /etc/krb5.keytab\\ ». les versions précédentes "
-#~ "de  B<rpc.gssd> n'utilisaient que les clés «\\ nfs/*\\ » trouvées dans le "
-#~ "fichier de clés I<rep_clés>. C'est maintenant la première entrée pour "
-#~ "chaque domaine distinct de Kerberos du fichier de clés qui est employée. "
-#~ "Ceci signifie qu'un client de NFS n'a plus besoin d'un nom d'hôte «\\ nfs/"
-#~ "hostname\\ » principal et d'une entrée dans le répertoire de clés, mais "
-#~ "peut à la place employer une entrée du fichier de clés de type «\\ host/"
-#~ "hostname\\ » (ou tout autre)."
