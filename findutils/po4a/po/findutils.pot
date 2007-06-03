@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-04-19 22:33+0200\n"
+"POT-Creation-Date: 2007-06-03 11:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,7 +72,7 @@ msgid ""
 msgstr ""
 
 # type: SS
-#: C/man1/find.1:30 C/man1/find.1:133 C/man1/locate.1:51 C/man1/updatedb.1:42 C/man1/xargs.1:45
+#: C/man1/find.1:30 C/man1/find.1:133 C/man1/locate.1:51 C/man1/updatedb.1:35 C/man1/xargs.1:45
 #, no-wrap
 msgid "OPTIONS"
 msgstr ""
@@ -1931,7 +1931,7 @@ msgstr ""
 msgid ""
 "The amount of disk space used for this file in 512-byte blocks. Since disk "
 "space is allocated in multiples of the filesystem block size this is usually "
-"greater than %s/1024, but it can also be smaller if the file is a sparse "
+"greater than %s/512, but it can also be smaller if the file is a sparse "
 "file."
 msgstr ""
 
@@ -3003,7 +3003,7 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1204 C/man1/locate.1:189 C/man1/updatedb.1:103 C/man1/xargs.1:228 C/man5/locatedb.5:104
+#: C/man1/find.1:1204 C/man1/locate.1:189 C/man1/updatedb.1:100 C/man1/xargs.1:228 C/man5/locatedb.5:104
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -3072,7 +3072,7 @@ msgid "B<$ find . -name \\'*.c\\' -print>\n"
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1237 C/man1/locate.1:193 C/man1/updatedb.1:106 C/man1/xargs.1:231 C/man5/locatedb.5:107
+#: C/man1/find.1:1237 C/man1/locate.1:193 C/man1/updatedb.1:103 C/man1/xargs.1:231 C/man5/locatedb.5:107
 #, no-wrap
 msgid "BUGS"
 msgstr ""
@@ -3416,7 +3416,7 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/locate.1:171 C/man1/updatedb.1:98 C/man1/xargs.1:90
+#: C/man1/locate.1:171 C/man1/xargs.1:90
 #, no-wrap
 msgid "I<--help>"
 msgstr ""
@@ -3465,7 +3465,17 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.1:203
+#: C/man1/locate.1:200 C/man1/updatedb.1:110
+msgid ""
+"All versions of GNU locate prior to 4.2.31 fail to correctly handle long "
+"(roughly, over 1024 bytes) filenames in old-format databases.  This can lead "
+"to a heap buffer overrun and it a potential security issue.  Verions 4.3.0 "
+"to 4.3.6 are also affected by the bug.  Databases in the default LOCATE02 "
+"format are correctly handled."
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.1:209
 msgid ""
 "The locate database correctly handles filenames containing newlines, but "
 "only if the system's sort command has a working I<-z> option.  If you "
@@ -3474,7 +3484,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.1:211 C/man5/locatedb.5:116
+#: C/man1/locate.1:217 C/man5/locatedb.5:116
 msgid ""
 "The best way to report a bug is to use the form at "
 "http://savannah.gnu.org/bugs/?group=findutils.  The reason for this is that "
@@ -3525,60 +3535,60 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:42
+#: C/man1/updatedb.1:35
 msgid ""
-"The file name database format changed starting with GNU B<find> and "
-"B<locate> version 4.0 to allow machines with different byte orderings to "
-"share the databases.  The new GNU B<locate> can read both the old and new "
-"database formats.  However, old versions of B<locate> and B<find> produce "
-"incorrect results if given a new-format database."
+"Versions of locate prior to 4.2.31 fail to correctly handle long file names "
+"in the old databse format, but the default database format (called LOCATE02) "
+"is not affected by this problem.  All versions of B<locate> since version "
+"4.0 support the new LOCATE02 format.  The old database format also cannot "
+"correctly represent non-ASCII characters."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:43
+#: C/man1/updatedb.1:36
 #, no-wrap
 msgid "B<--findoptions='>I<-option1 -option2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:48
+#: C/man1/updatedb.1:41
 msgid ""
 "Global options to pass on to B<find>.  The environment variable "
 "B<FINDOPTIONS> also sets this value.  Default is none."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:48
+#: C/man1/updatedb.1:41
 #, no-wrap
 msgid "B<--localpaths='>I<path1 path2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:52
+#: C/man1/updatedb.1:45
 msgid "Non-network directories to put in the database.  Default is /."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:52
+#: C/man1/updatedb.1:45
 #, no-wrap
 msgid "B<--netpaths='>I<path1 path2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:57
+#: C/man1/updatedb.1:50
 msgid ""
 "Network (NFS, AFS, RFS, etc.) directories to put in the database.  The "
 "environment variable B<NETPATHS> also sets this value.  Default is none."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:57
+#: C/man1/updatedb.1:50
 #, no-wrap
 msgid "B<--prunepaths='>I<path1 path2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:66
+#: C/man1/updatedb.1:59
 msgid ""
 "Directories to not put in the database, which would otherwise be.  Remove "
 "any trailing slashes from the path names, otherwise B<updatedb> won\\'t "
@@ -3588,13 +3598,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:66
+#: C/man1/updatedb.1:59
 #, no-wrap
 msgid "B<--prunefs='>I<path...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:75
+#: C/man1/updatedb.1:68
 msgid ""
 "File systems to not put in the database, which would otherwise be.  Note "
 "that files are pruned when a file system is reached; Any file system mounted "
@@ -3603,26 +3613,26 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:75
+#: C/man1/updatedb.1:68
 #, no-wrap
 msgid "B<--output=>I<dbfile>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:80
+#: C/man1/updatedb.1:73
 msgid ""
 "The database file to build.  Default is system-dependent.  In Debian "
 "GNU/Linux, the default is /var/cache/locate/locatedb."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:80
+#: C/man1/updatedb.1:73
 #, no-wrap
 msgid "B<--localuser=>I<user>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:85
+#: C/man1/updatedb.1:78
 msgid ""
 "The user to search non-network directories as, using B<su>(1).  Default is "
 "to search the non-network directories as the current user.  You can also use "
@@ -3630,13 +3640,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:85
+#: C/man1/updatedb.1:78
 #, no-wrap
 msgid "B<--netuser=>I<user>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:90
+#: C/man1/updatedb.1:83
 msgid ""
 "The user to search network directories as, using B<su>(1).  Default is "
 "B<daemon>.  You can also use the environment variable B<NETUSER> to set this "
@@ -3644,41 +3654,51 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:90
+#: C/man1/updatedb.1:83
 #, no-wrap
 msgid "B<--old-format>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:93
-msgid "Create the database in the old format instead of the new one."
+#: C/man1/updatedb.1:90
+msgid ""
+"Create the database in the old format instead of the new one.  Avoid using "
+"this option as older versions of locate are susceptible to a buffer overrun "
+"when reading old-format databases.  The old fatabase format is also "
+"incapable of correctly representing non-ASCII characters."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.1:93
+#: C/man1/updatedb.1:90
 #, no-wrap
 msgid "B<--version>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:98
+#: C/man1/updatedb.1:95
 msgid "Print the version number of B<updatedb> and exit."
 msgstr ""
 
+# type: TP
+#: C/man1/updatedb.1:95
+#, no-wrap
+msgid "B<--help>"
+msgstr ""
+
 # type: Plain text
-#: C/man1/updatedb.1:103
+#: C/man1/updatedb.1:100
 msgid "Print a summary of the options to B<updatedb> and exit."
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:106 C/man5/locatedb.5:107
+#: C/man1/updatedb.1:103 C/man5/locatedb.5:107
 msgid ""
 "B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> "
 "(on-line in Info, or printed)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:118
+#: C/man1/updatedb.1:121
 msgid ""
 "The B<updatedb> program correctly handles filenames containing newlines, but "
 "only if the system's sort command has a working I<-z> option.  If you "
@@ -3687,7 +3707,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.1:126
+#: C/man1/updatedb.1:129
 msgid ""
 "The best way to report a bug is to use the form at "
 "http://savannah.gnu.org/bugs/?group=findutils.  The reason for this is that "
