@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nfs-utils\n"
-"POT-Creation-Date: 2007-07-14 13:00+0200\n"
+"POT-Creation-Date: 2007-08-15 11:53+0200\n"
 "PO-Revision-Date: 2007-04-30 08:45+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -41,7 +41,7 @@ msgid "Linux File Formats Manual"
 msgstr "Manuel des formats de fichiers Linux"
 
 # type: SH
-#: C/man5/exports.5:2 C/man5/idmapd.conf.5:7 C/man7/nfsd.7:8
+#: C/man5/exports.5:2 C/man5/idmapd.conf.5:7 C/man5/nfs.5:5 C/man7/nfsd.7:8
 #: C/man8/exportfs.8:7 C/man8/gssd.8:6 C/man8/idmapd.8:7 C/man8/mount.nfs.8:3
 #: C/man8/mountd.8:7 C/man8/nfsd.8:6 C/man8/nfsstat.8:6 C/man8/rpcdebug.8:9
 #: C/man8/showmount.8:4 C/man8/statd.8:9 C/man8/svcgssd.8:6
@@ -56,9 +56,9 @@ msgid "exports - NFS file systems being exported (for Kernel based NFS)"
 msgstr "exports - Systèmes de fichiers à partager (pour NFS en mode noyau)"
 
 # type: SH
-#: C/man5/exports.5:4 C/man5/idmapd.conf.5:10 C/man8/exportfs.8:9
-#: C/man8/gssd.8:8 C/man8/idmapd.8:10 C/man8/mount.nfs.8:5 C/man8/mountd.8:9
-#: C/man8/nfsd.8:8 C/man8/nfsstat.8:8 C/man8/rpcdebug.8:11
+#: C/man5/exports.5:4 C/man5/idmapd.conf.5:10 C/man5/nfs.5:7
+#: C/man8/exportfs.8:9 C/man8/gssd.8:8 C/man8/idmapd.8:10 C/man8/mount.nfs.8:5
+#: C/man8/mountd.8:9 C/man8/nfsd.8:8 C/man8/nfsstat.8:8 C/man8/rpcdebug.8:11
 #: C/man8/showmount.8:6 C/man8/statd.8:11 C/man8/svcgssd.8:8
 #: C/man8/umount.nfs.8:5
 #, no-wrap
@@ -71,7 +71,7 @@ msgid "B</etc/exports>"
 msgstr "B</etc/exports>"
 
 # type: SH
-#: C/man5/exports.5:6 C/man5/idmapd.conf.5:12 C/man7/nfsd.7:12
+#: C/man5/exports.5:6 C/man5/idmapd.conf.5:12 C/man5/nfs.5:9 C/man7/nfsd.7:12
 #: C/man8/exportfs.8:20 C/man8/gssd.8:10 C/man8/idmapd.8:20
 #: C/man8/mount.nfs.8:7 C/man8/mountd.8:11 C/man8/nfsd.8:10
 #: C/man8/nfsstat.8:11 C/man8/rpcdebug.8:20 C/man8/showmount.8:15
@@ -251,36 +251,56 @@ msgid "RPCSEC_GSS security"
 msgstr "Sécurité RPCSEC_GSS"
 
 # type: Plain text
-#: C/man5/exports.5:93
+#: C/man5/exports.5:94
 msgid ""
-"To restrict access to an export using rpcsec_gss security, use the special "
-"string \"gss/krb5\" as the client.  It is not possible to simultaneously "
-"require rpcsec_gss and to make requirements on the IP address of the client."
+"You may use the special strings \"gss/krb5\", \"gss/krb5i\", or \"gss/krb5p"
+"\" to restrict access to clients using rpcsec_gss security.  However, this "
+"syntax is deprecated; on linux kernels since 2.6.23, you should instead use "
+"the \"sec=\" export option:"
 msgstr ""
-"Pour contrôler les accès à un partage grâce à la sécurité rpcsec_gss, "
-"utilisez la chaîne spécifique «\\ gss/krb5\\ » comme nom de client. Il n'est "
-"pas possible d'utiliser à la fois rpcsec_gss et des restrictions sur "
-"l'adresse IP d'un client."
+
+# type: TP
+#: C/man5/exports.5:94
+#, fuzzy, no-wrap
+msgid "I<sec=>"
+msgstr "I<sec=mode>"
 
 # type: Plain text
-#: C/man5/exports.5:94
+#: C/man5/exports.5:108
+msgid ""
+"The sec= option, followed by a colon-delimited list of security flavors, "
+"restricts the export to clients using those flavors.  Available security "
+"flavors include sys (the default--no cryptographic security), krb5 "
+"(authentication only), krb5i (integrity protection), and krb5p (privacy "
+"protection).  For the purposes of security flavor negotiation, order counts: "
+"preferred flavors should be listed first.  The order of the sec= option with "
+"respect to the other options does not matter, unless you want some options "
+"to be enforced differently depending on flavor.  In that case you may "
+"include multiple sec= options, and following options will be enforced only "
+"for access using flavors listed in the immediately preceding sec= option.  "
+"The only options that are permitted to vary in this way are ro, rw, "
+"no_root_squash, root_squash, and all_squash."
+msgstr ""
+
+# type: Plain text
+#: C/man5/exports.5:109
 #, no-wrap
 msgid "General Options"
 msgstr "Options générales"
 
 # type: Plain text
-#: C/man5/exports.5:97
+#: C/man5/exports.5:112
 msgid "I<exportfs> understands the following export options:"
 msgstr "I<exportfs> accepte les options de partage suivantes\\ :"
 
 # type: TP
-#: C/man5/exports.5:97
+#: C/man5/exports.5:112
 #, no-wrap
 msgid "I<secure>\\*d"
 msgstr "I<secure>\\*d"
 
 # type: Plain text
-#: C/man5/exports.5:103
+#: C/man5/exports.5:118
 msgid ""
 "This option requires that requests originate on an Internet port less than "
 "IPPORT_RESERVED (1024). This option is on by default. To turn it off, "
@@ -291,13 +311,13 @@ msgstr ""
 "par défaut. Pour la désactiver, utilisez I<insecure>."
 
 # type: TP
-#: C/man5/exports.5:103
+#: C/man5/exports.5:118
 #, no-wrap
 msgid "I<rw>"
 msgstr "I<rw>"
 
 # type: Plain text
-#: C/man5/exports.5:110
+#: C/man5/exports.5:125
 msgid ""
 "Allow both read and write requests on this NFS volume. The default is to "
 "disallow any request which changes the filesystem.  This can also be made "
@@ -309,13 +329,13 @@ msgstr ""
 "défaut en utilisant l'option I<ro>."
 
 # type: TP
-#: C/man5/exports.5:110
+#: C/man5/exports.5:125
 #, no-wrap
 msgid "I<async>"
 msgstr "I<async>"
 
 # type: Plain text
-#: C/man5/exports.5:115
+#: C/man5/exports.5:130
 msgid ""
 "This option allows the NFS server to violate the NFS protocol and reply to "
 "requests before any changes made by that request have been committed to "
@@ -326,7 +346,7 @@ msgstr ""
 "n'aient été effectués sur le support réel (par exemple, le disque dur)."
 
 # type: Plain text
-#: C/man5/exports.5:119
+#: C/man5/exports.5:134
 msgid ""
 "Using this option usually improves performance, but at the cost that an "
 "unclean server restart (i.e. a crash) can cause data to be lost or corrupted."
@@ -336,13 +356,13 @@ msgstr ""
 "d'un serveur, suite à un plantage par exemple."
 
 # type: TP
-#: C/man5/exports.5:120
+#: C/man5/exports.5:135
 #, no-wrap
 msgid "I<sync>"
 msgstr "I<sync>"
 
 # type: Plain text
-#: C/man5/exports.5:126
+#: C/man5/exports.5:141
 msgid ""
 "Reply to requests only after the changes have been committed to stable "
 "storage (see I<async> above)."
@@ -351,7 +371,7 @@ msgstr ""
 "support réel (voir I<async> plus haut)."
 
 # type: Plain text
-#: C/man5/exports.5:139
+#: C/man5/exports.5:154
 msgid ""
 "In releases of nfs-utils up to and including 1.0.0, this option was the "
 "default.  In all subsequence releases, I<sync> is the default, and I<async> "
@@ -367,13 +387,13 @@ msgstr ""
 "I<sync> ni I<async> ne sont précisées."
 
 # type: TP
-#: C/man5/exports.5:139
+#: C/man5/exports.5:154
 #, no-wrap
 msgid "I<no_wdelay>"
 msgstr "I<no_wdelay>"
 
 # type: Plain text
-#: C/man5/exports.5:153
+#: C/man5/exports.5:168
 msgid ""
 "This option has no effect if I<async> is also set.  The NFS server will "
 "normally delay committing a write request to disc slightly if it suspects "
@@ -395,13 +415,13 @@ msgstr ""
 "spécifier ce comportement par défaut en utilisant l'option I<wdelay>."
 
 # type: TP
-#: C/man5/exports.5:153
+#: C/man5/exports.5:168
 #, no-wrap
 msgid "I<nohide>"
 msgstr "I<nohide>"
 
 # type: Plain text
-#: C/man5/exports.5:161
+#: C/man5/exports.5:176
 msgid ""
 "This option is based on the option of the same name provided in IRIX NFS.  "
 "Normally, if a server exports two filesystems one of which is mounted on the "
@@ -418,7 +438,7 @@ msgstr ""
 "système de fichiers est «\\ caché\\ »."
 
 # type: Plain text
-#: C/man5/exports.5:167
+#: C/man5/exports.5:182
 msgid ""
 "Setting the I<nohide> option on a filesystem causes it not to be hidden, and "
 "an appropriately authorised client will be able to move from the parent to "
@@ -429,7 +449,7 @@ msgstr ""
 "système de fichiers parent à celui-ci sans s'en apercevoir."
 
 # type: Plain text
-#: C/man5/exports.5:171
+#: C/man5/exports.5:186
 msgid ""
 "However, some NFS clients do not cope well with this situation as, for "
 "instance, it is then possible for two files in the one apparent filesystem "
@@ -440,7 +460,7 @@ msgstr ""
 "apparemment unique aient le même numéro d'inode."
 
 # type: Plain text
-#: C/man5/exports.5:178
+#: C/man5/exports.5:193
 msgid ""
 "The I<nohide> option is currently only effective on I<single host> exports.  "
 "It does not work reliably with netgroup, subnet, or wildcard exports."
@@ -450,7 +470,7 @@ msgstr ""
 "machines, sous-réseaux et ceux utilisant les caractères jokers."
 
 # type: Plain text
-#: C/man5/exports.5:182
+#: C/man5/exports.5:197
 msgid ""
 "This option can be very useful in some situations, but it should be used "
 "with due care, and only after confirming that the client system copes with "
@@ -461,18 +481,18 @@ msgstr ""
 "comportement du système client à gérer cette situation."
 
 # type: Plain text
-#: C/man5/exports.5:185
+#: C/man5/exports.5:200
 msgid "The option can be explicitly disabled with I<hide>."
 msgstr "Cette option peut être désactivée explicitement avec I<hide>."
 
 # type: TP
-#: C/man5/exports.5:185
+#: C/man5/exports.5:200
 #, no-wrap
 msgid "I<crossmnt>"
 msgstr "I<crossmnt>"
 
 # type: Plain text
-#: C/man5/exports.5:193
+#: C/man5/exports.5:208
 msgid ""
 "This option is similar to I<nohide> but it makes it possible for clients to "
 "move from the filesystem marked with crossmnt to exported filesystems "
@@ -486,13 +506,13 @@ msgstr ""
 "sur «\\ A\\ » aura le même effet que d'indiquer «\\ nohide\\ » sur «\\ B\\ »."
 
 # type: TP
-#: C/man5/exports.5:193
+#: C/man5/exports.5:208
 #, no-wrap
 msgid "I<no_subtree_check>"
 msgstr "I<no_subtree_check>"
 
 # type: Plain text
-#: C/man5/exports.5:197
+#: C/man5/exports.5:212
 msgid ""
 "This option disables subtree checking, which has mild security implications, "
 "but can improve reliability in some circumstances."
@@ -502,7 +522,7 @@ msgstr ""
 "fiabilité dans certains cas."
 
 # type: Plain text
-#: C/man5/exports.5:204
+#: C/man5/exports.5:219
 msgid ""
 "If a subdirectory of a filesystem is exported, but the whole filesystem "
 "isn't then whenever a NFS request arrives, the server must check not only "
@@ -518,7 +538,7 @@ msgstr ""
 "vérification s'appelle I<subtree_check>."
 
 # type: Plain text
-#: C/man5/exports.5:210
+#: C/man5/exports.5:225
 msgid ""
 "In order to perform this check, the server must include some information "
 "about the location of the file in the \"filehandle\" that is given to the "
@@ -532,7 +552,7 @@ msgstr ""
 "dans la plupart des cas simples, cela continuera à fonctionner)."
 
 # type: Plain text
-#: C/man5/exports.5:216
+#: C/man5/exports.5:231
 msgid ""
 "subtree checking is also used to make sure that files inside directories to "
 "which only root has access can only be accessed if the filesystem is "
@@ -546,7 +566,7 @@ msgstr ""
 "mêmes offrent un accès plus généreux."
 
 # type: Plain text
-#: C/man5/exports.5:223
+#: C/man5/exports.5:238
 msgid ""
 "As a general guide, a home directory filesystem, which is normally exported "
 "at the root and may see lots of file renames, should be exported with "
@@ -565,7 +585,7 @@ msgstr ""
 "répertoires."
 
 # type: Plain text
-#: C/man5/exports.5:227
+#: C/man5/exports.5:242
 msgid ""
 "The default of having subtree checks enabled, can be explicitly requested "
 "with I<subtree_check>."
@@ -574,7 +594,7 @@ msgstr ""
 "des sous-répertoires en indiquant l'option I<subtree_check>."
 
 # type: Plain text
-#: C/man5/exports.5:237
+#: C/man5/exports.5:252
 msgid ""
 "From release 1.1.0 of nfs-utils onwards, the default will be "
 "I<no_subtree_check> as subtree_checking tends to cause more problems than it "
@@ -591,19 +611,19 @@ msgstr ""
 "cette modification est en suspens."
 
 # type: TP
-#: C/man5/exports.5:238
+#: C/man5/exports.5:253
 #, no-wrap
 msgid "I<insecure_locks>"
 msgstr "I<insecure_locks>"
 
 # type: TP
-#: C/man5/exports.5:240
+#: C/man5/exports.5:255
 #, no-wrap
 msgid "I<no_auth_nlm>"
 msgstr "I<no_auth_nlm>"
 
 # type: Plain text
-#: C/man5/exports.5:247
+#: C/man5/exports.5:262
 msgid ""
 "This option (the two names are synonymous) tells the NFS server not to "
 "require authentication of locking requests (i.e. requests which use the NLM "
@@ -619,7 +639,7 @@ msgstr ""
 "contrôle d'accès ne sera effectué."
 
 # type: Plain text
-#: C/man5/exports.5:252
+#: C/man5/exports.5:267
 msgid ""
 "Early NFS client implementations did not send credentials with lock "
 "requests, and many current NFS clients still exist which are based on the "
@@ -633,7 +653,7 @@ msgstr ""
 "lecture pour tous («\\ world readable\\ »)."
 
 # type: Plain text
-#: C/man5/exports.5:258
+#: C/man5/exports.5:273
 msgid ""
 "The default behaviour of requiring authentication for NLM requests can be "
 "explicitly requested with either of the synonymous I<auth_nlm>, or "
@@ -644,13 +664,13 @@ msgstr ""
 "I<auth_nlm> ou I<secure_locks>."
 
 # type: TP
-#: C/man5/exports.5:258
+#: C/man5/exports.5:273
 #, no-wrap
 msgid "I<no_acl>"
 msgstr "I<no_acl>"
 
 # type: Plain text
-#: C/man5/exports.5:273
+#: C/man5/exports.5:288
 msgid ""
 "On some specially patched kernels, and when exporting filesystems that "
 "support ACLs, this option tells nfsd not to reveal ACLs to clients, so they "
@@ -676,19 +696,19 @@ msgstr ""
 "les ACL (c.-à-d. par défaut, I<no_acl> est désactivée)."
 
 # type: TP
-#: C/man5/exports.5:293
+#: C/man5/exports.5:308
 #, no-wrap
 msgid "I<mountpoint=>path"
 msgstr "I<mountpoint=>chemin"
 
 # type: TP
-#: C/man5/exports.5:295
+#: C/man5/exports.5:310
 #, no-wrap
 msgid "I<mp>"
 msgstr "I<mp>"
 
 # type: Plain text
-#: C/man5/exports.5:305
+#: C/man5/exports.5:320
 msgid ""
 "This option makes it possible to only export a directory if it has "
 "successfully been mounted.  If no path is given (e.g.  I<mountpoint> or "
@@ -706,7 +726,7 @@ msgstr ""
 "disque dur."
 
 # type: Plain text
-#: C/man5/exports.5:310
+#: C/man5/exports.5:325
 msgid ""
 "If a path is given (e.g.  I<mountpoint=>/path or I<mp=>/path)  then the "
 "nominated path must be a mountpoint for the exportpoint to be exported."
@@ -715,13 +735,13 @@ msgstr ""
 "le chemin indiqué doit être un point de montage pour le partage qui est fait."
 
 # type: TP
-#: C/man5/exports.5:311
+#: C/man5/exports.5:326
 #, no-wrap
 msgid "I<fsid=>num|root|uuid"
 msgstr "I<fsid=>num|root|uuid"
 
 # type: Plain text
-#: C/man5/exports.5:317
+#: C/man5/exports.5:332
 msgid ""
 "NFS needs to be able to identify each filesystem that it exports.  Normally "
 "it will use a UUID for the filesystem (if the filesystem has such a thing) "
@@ -735,7 +755,7 @@ msgstr ""
 "est stocké sur un périphérique)."
 
 # type: Plain text
-#: C/man5/exports.5:323
+#: C/man5/exports.5:338
 msgid ""
 "As not all filesystems are stored on devices, and not all filesystems have "
 "UUIDs, it is sometimes necessary to explicitly tell NFS how to identify a "
@@ -747,7 +767,7 @@ msgstr ""
 "C'est le rôle de l'option I<fsid=>."
 
 # type: Plain text
-#: C/man5/exports.5:330
+#: C/man5/exports.5:345
 msgid ""
 "For NFSv4, there is a distinguished filesystem which is the root of all "
 "exported filesystem.  This is specified with I<fsid=root> or I<fsid=0> both "
@@ -758,7 +778,7 @@ msgstr ""
 "qui veulent tous deux dire exactement la même chose."
 
 # type: Plain text
-#: C/man5/exports.5:333
+#: C/man5/exports.5:348
 msgid ""
 "Other filesystems can be identified with a small integer, or a UUID which "
 "should contain 32 hex digits and arbitrary punctuation."
@@ -768,7 +788,7 @@ msgstr ""
 "ponctuation arbitraire."
 
 # type: Plain text
-#: C/man5/exports.5:339
+#: C/man5/exports.5:354
 msgid ""
 "Linux kernels version 2.6.20 and earlier do not understand the UUID setting "
 "so a small integer must be used if an fsid option needs to be set for such "
@@ -782,13 +802,13 @@ msgstr ""
 "l'utilisation avec d'anciens ou de nouveaux noyaux."
 
 # type: TP
-#: C/man5/exports.5:340 C/man5/exports.5:354
+#: C/man5/exports.5:355 C/man5/exports.5:369
 #, no-wrap
 msgid "I<refer=>path@host[+host][:path@host[+host]]"
 msgstr "I<refer=>chemin@serveurNFS[+serveurNFS][:chemin@serveurNFS[+serveurNFS]]"
 
 # type: Plain text
-#: C/man5/exports.5:348 C/man5/exports.5:362
+#: C/man5/exports.5:363 C/man5/exports.5:377
 msgid ""
 "A client referencing the export point will be directed to choose from the "
 "given list an alternative location for the filesystem.  (Note that the "
@@ -802,13 +822,13 @@ msgstr ""
 "de fichiers différent. Ainsi, I<mount --bind> /chemin /chemin suffit)."
 
 # type: TP
-#: C/man5/exports.5:348 C/man5/exports.5:362
+#: C/man5/exports.5:363 C/man5/exports.5:377
 #, no-wrap
 msgid "I<replicas=>path@host[+host][:path@host[+host]]"
 msgstr "I<replicas=>chemin@serveurNFS[+serveurNFS][:chemin@serveurNFS[+serveurNFS]]"
 
 # type: Plain text
-#: C/man5/exports.5:353 C/man5/exports.5:367
+#: C/man5/exports.5:368 C/man5/exports.5:382
 msgid ""
 "If the client asks for alternative locations for the export point, it will "
 "be given this list of alternatives. (Note that actual replication of the "
@@ -819,13 +839,13 @@ msgstr ""
 "réplication du système de fichiers doit être géré ailleurs)."
 
 # type: SS
-#: C/man5/exports.5:368
+#: C/man5/exports.5:383
 #, no-wrap
 msgid "User ID Mapping"
 msgstr "Correspondance d'ID utilisateur («\\ User ID Mapping\\ »)"
 
 # type: Plain text
-#: C/man5/exports.5:377
+#: C/man5/exports.5:392
 msgid ""
 "I<nfsd> bases its access control to files on the server machine on the uid "
 "and gid provided in each NFS RPC request. The normal behavior a user would "
@@ -842,7 +862,7 @@ msgstr ""
 "machine serveur. Ce n'est pas toujours vrai, ni toujours souhaitable."
 
 # type: Plain text
-#: C/man5/exports.5:386
+#: C/man5/exports.5:401
 msgid ""
 "Very often, it is not desirable that the root user on a client machine is "
 "also treated as root when accessing files on the NFS server. To this end, "
@@ -858,12 +878,12 @@ msgstr ""
 "«\\ root squashing\\ »), qui peut être désactivé grâce à I<no_root_squash>."
 
 # type: Plain text
-#: C/man5/exports.5:388
+#: C/man5/exports.5:403
 msgid "By default,"
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:398
+#: C/man5/exports.5:413
 #, fuzzy
 msgid ""
 "I<exportfs> chooses a uid and gid of 65534 for squashed access. These values "
@@ -876,26 +896,26 @@ msgstr ""
 "I<all_squash>."
 
 # type: Plain text
-#: C/man5/exports.5:406
+#: C/man5/exports.5:421
 msgid ""
 "Finally, you can map all user requests to the anonymous uid by specifying "
 "the I<all_squash> option."
 msgstr ""
 
 # type: Plain text
-#: C/man5/exports.5:408
+#: C/man5/exports.5:423
 msgid "Here's the complete list of mapping options:"
 msgstr ""
 "Voici la liste complète des options de correspondance («\\ mapping\\ »)\\ :"
 
 # type: TP
-#: C/man5/exports.5:408
+#: C/man5/exports.5:423
 #, no-wrap
 msgid "I<root_squash>"
 msgstr "I<root_squash>"
 
 # type: Plain text
-#: C/man5/exports.5:416
+#: C/man5/exports.5:431
 msgid ""
 "Map requests from uid/gid 0 to the anonymous uid/gid. Note that this does "
 "not apply to any other uids or gids that might be equally sensitive, such as "
@@ -906,13 +926,13 @@ msgstr ""
 "tel que l'utilisateur I<bin> ou le groupe I<staff> par exemple."
 
 # type: TP
-#: C/man5/exports.5:416
+#: C/man5/exports.5:431
 #, no-wrap
 msgid "I<no_root_squash>"
 msgstr "I<no_root_squash>"
 
 # type: Plain text
-#: C/man5/exports.5:419
+#: C/man5/exports.5:434
 msgid ""
 "Turn off root squashing. This option is mainly useful for diskless clients."
 msgstr ""
@@ -920,13 +940,13 @@ msgstr ""
 "principalement utile pour les clients sans disque dur."
 
 # type: TP
-#: C/man5/exports.5:419
+#: C/man5/exports.5:434
 #, no-wrap
 msgid "I<all_squash>"
 msgstr "I<all_squash>"
 
 # type: Plain text
-#: C/man5/exports.5:426
+#: C/man5/exports.5:441
 msgid ""
 "Map all uids and gids to the anonymous user. Useful for NFS-exported public "
 "FTP directories, news spool directories, etc. The opposite option is "
@@ -937,13 +957,13 @@ msgstr ""
 "etc. L'option inverse est I<no_all_squash>, qui est celle par défaut."
 
 # type: TP
-#: C/man5/exports.5:426
+#: C/man5/exports.5:441
 #, no-wrap
 msgid "I<anonuid> and I<anongid>"
 msgstr "I<anonuid> et I<anongid>"
 
 # type: Plain text
-#: C/man5/exports.5:435
+#: C/man5/exports.5:450
 msgid ""
 "These options explicitly set the uid and gid of the anonymous account.  This "
 "option is primarily useful for PC/NFS clients, where you might want all "
@@ -959,19 +979,19 @@ msgstr ""
 "requêtes à l'utilisateur 150 (qui est censé être celui de l'utilisateur Joe)."
 
 # type: SH
-#: C/man5/exports.5:436
+#: C/man5/exports.5:451
 #, no-wrap
 msgid "EXAMPLE"
 msgstr "EXEMPLES"
 
 # type: ta
-#: C/man5/exports.5:439
+#: C/man5/exports.5:454
 #, no-wrap
 msgid "+3i"
 msgstr "+3i"
 
 # type: Plain text
-#: C/man5/exports.5:447
+#: C/man5/exports.5:462
 #, no-wrap
 msgid ""
 "# sample /etc/exports file\n"
@@ -991,7 +1011,7 @@ msgstr ""
 "/srv/www        -sync,rw server @trusted @external(ro)\n"
 
 # type: Plain text
-#: C/man5/exports.5:463
+#: C/man5/exports.5:478
 msgid ""
 "The first line exports the entire filesystem to machines master and trusty.  "
 "In addition to write access, all uid squashing is turned off for host "
@@ -1021,30 +1041,30 @@ msgstr ""
 "\\ » activée."
 
 # type: SH
-#: C/man5/exports.5:478 C/man8/idmapd.8:76 C/man8/mount.nfs.8:82
-#: C/man8/mountd.8:196 C/man8/nfsstat.8:95 C/man8/rpcdebug.8:71
-#: C/man8/statd.8:178 C/man8/umount.nfs.8:56
+#: C/man5/exports.5:493 C/man5/nfs.5:485 C/man8/idmapd.8:76
+#: C/man8/mount.nfs.8:82 C/man8/mountd.8:196 C/man8/nfsstat.8:105
+#: C/man8/rpcdebug.8:71 C/man8/statd.8:178 C/man8/umount.nfs.8:56
 #, no-wrap
 msgid "FILES"
 msgstr "FICHIERS"
 
 # type: TH
-#: C/man5/exports.5:480
+#: C/man5/exports.5:495
 msgid "/etc/exports"
 msgstr "/etc/exports"
 
 # type: SH
-#: C/man5/exports.5:480 C/man5/idmapd.conf.5:60 C/man7/nfsd.7:198
-#: C/man8/exportfs.8:222 C/man8/gssd.8:85 C/man8/idmapd.8:78
+#: C/man5/exports.5:495 C/man5/idmapd.conf.5:60 C/man5/nfs.5:487
+#: C/man7/nfsd.7:198 C/man8/exportfs.8:222 C/man8/gssd.8:85 C/man8/idmapd.8:78
 #: C/man8/mount.nfs.8:91 C/man8/mountd.8:191 C/man8/nfsd.8:78
-#: C/man8/nfsstat.8:109 C/man8/rpcdebug.8:76 C/man8/showmount.8:47
+#: C/man8/nfsstat.8:119 C/man8/rpcdebug.8:76 C/man8/showmount.8:47
 #: C/man8/statd.8:184 C/man8/svcgssd.8:39 C/man8/umount.nfs.8:65
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 # type: Plain text
-#: C/man5/exports.5:486
+#: C/man5/exports.5:501
 msgid ""
 "B<exportfs>(8), B<netgroup>(5), B<mountd>(8), B<nfsd>(8), B<showmount>(8)."
 msgstr ""
@@ -1115,7 +1135,7 @@ msgstr ""
 
 # type: SH
 #: C/man5/idmapd.conf.5:41 C/man8/exportfs.8:185 C/man8/idmapd.8:61
-#: C/man8/nfsstat.8:74
+#: C/man8/nfsstat.8:84
 #, no-wrap
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
@@ -1184,6 +1204,959 @@ msgid ""
 msgstr ""
 "Le programme idmapd a été développé par Marius Aamodt Eriksen E<.Aq "
 "marius@citi.umich.edu>."
+
+# type: TH
+#: C/man5/nfs.5:4
+#, no-wrap
+msgid "NFS"
+msgstr "NFS"
+
+# type: TH
+#: C/man5/nfs.5:4
+#, no-wrap
+msgid "20 November 1993"
+msgstr "20 novembre 1993"
+
+# type: TH
+#: C/man5/nfs.5:4
+#, no-wrap
+msgid "Linux 0.99"
+msgstr "Linux 0.99"
+
+# type: TH
+#: C/man5/nfs.5:4
+#, no-wrap
+msgid "Linux Programmer's Manual"
+msgstr "Manuel du programmeur Linux"
+
+# type: Plain text
+#: C/man5/nfs.5:7
+msgid "nfs - nfs and nfs4 fstab format and options"
+msgstr ""
+"nfs - Format et options des entrées «\\ nfs\\ » et «\\ nfs4\\ » dans fstab"
+
+# type: Plain text
+#: C/man5/nfs.5:9
+msgid "B</etc/fstab>"
+msgstr "B</etc/fstab>"
+
+# type: Plain text
+#: C/man5/nfs.5:19
+msgid ""
+"The I<fstab> file contains information about which filesystems to mount "
+"where and with what options.  For NFS mounts, it contains the server name "
+"and exported server directory to mount from, the local directory that is the "
+"mount point, and the NFS specific options that control the way the "
+"filesystem is mounted."
+msgstr ""
+"Le fichier I<fstab> contient les informations sur les systèmes de fichiers à "
+"monter en indiquant les points de montage et les options à utiliser. Pour "
+"les montages des systèmes de fichiers NFS, chaque entrée indique le nom du "
+"serveur, celui du répertoire exporté et précise le répertoire local à "
+"utiliser comme point de montage. Chaque entrée contient également des "
+"options spécifiques à NFS, qui gèrent certains paramètres liés au montage."
+
+# type: Plain text
+#: C/man5/nfs.5:45
+#, fuzzy
+msgid ""
+"Three different versions of the NFS protocol are supported by the Linux NFS "
+"client: NFS version 2, NFS version 3, and NFS version 4.  To mount via NFS "
+"version 2, use the B<nfs> file system type and specify B<nfsvers=2>.  To "
+"mount via NFS version 3, use the B<nfs> file system type and specify "
+"B<nfsvers=3>.  Version 3 is the default protocol version for the B<nfs> file "
+"system type when B<nfsvers=> is not specified on the mount command and both "
+"client and server support it.  To mount via NFS version 4, use the B<nfs4> "
+"file system type.  The B<nfsvers=> keyword is not supported for the B<nfs4> "
+"file system type."
+msgstr ""
+"Trois versions différentes de «\\ nfs\\ » sont acceptées par le client NFS "
+"Linux\\ : NFS version 2, 3 et 4. Pour réaliser un montage en NFS version 2, "
+"il faut préciser que le système de fichiers est de type B<nfs> et "
+"éventuellement, car c'est la valeur par défaut, spécifier B<nfsvers=2>. Pour "
+"réaliser un montage en NFS version 3, il faut préciser que le système de "
+"fichiers est de type B<nfs> et spécifier l'option B<nfsvers=3>. Pour "
+"réaliser un montage en NFS version 4, il faut préciser que le système de "
+"fichiers est de type B<nfs4>. Le mot-clé B<nfsvers=> n'est alors pas accepté."
+
+# type: Plain text
+#: C/man5/nfs.5:48
+msgid ""
+"These file system types share similar mount options; the differences are "
+"listed below."
+msgstr ""
+"Ces trois types de système de fichiers partagent les mêmes options. Les "
+"différences sont indiquées ci-après."
+
+# type: Plain text
+#: C/man5/nfs.5:51
+#, fuzzy
+msgid ""
+"Here is an example from an I</etc/fstab> file for an NFSv3 mount over TCP."
+msgstr ""
+"Voici un exemple, issu du fichier I</etc/fstab>, concernant un montage NFSv2 "
+"en UDP."
+
+# type: ta
+#: C/man5/nfs.5:53 C/man5/nfs.5:61
+#, no-wrap
+msgid "2.5i +0.75i +0.75i +1.0i"
+msgstr "2.5i +0.75i +0.75i +1.0i"
+
+# type: Plain text
+#: C/man5/nfs.5:55
+#, fuzzy, no-wrap
+msgid "server:/usr/local/pub\t/pub\tnfs\trsize=32768,wsize=32768,timeo=14,intr\n"
+msgstr "server:/usr/local/pub\t/pub\tnfs\trsize=8192,wsize=8192,timeo=14,intr\n"
+
+# type: Plain text
+#: C/man5/nfs.5:59
+msgid ""
+"Here is an example for an NFSv4 mount over TCP using Kerberos 5 mutual "
+"authentication."
+msgstr ""
+"Voici l'exemple d'un montage NFSv4 en TCP, utilisant l'authentification "
+"mutuelle de Kerberos 5."
+
+# type: Plain text
+#: C/man5/nfs.5:63
+#, no-wrap
+msgid "server:/usr/local/pub\t/pub\tnfs4\tproto=tcp,sec=krb5,hard,intr\n"
+msgstr "server:/usr/local/pub\t/pub\tnfs4\tproto=tcp,sec=krb5,hard,intr\n"
+
+# type: SS
+#: C/man5/nfs.5:65
+#, no-wrap
+msgid "Options for the nfs file system type"
+msgstr "Options pour le système de fichiers nfs"
+
+# type: TP
+#: C/man5/nfs.5:66 C/man5/nfs.5:313
+#, no-wrap
+msgid "I<rsize=n>"
+msgstr "I<rsize=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:75
+msgid ""
+"The number of bytes NFS uses when reading files from an NFS server.  The "
+"rsize is negotiated between the server and client to determine the largest "
+"block size that both can support.  The value specified by this option is the "
+"maximum size that could be used; however, the actual size used may be "
+"smaller.  Note: Setting this size to a value less than the largest supported "
+"block size will adversely affect performance."
+msgstr ""
+
+# type: TP
+#: C/man5/nfs.5:75 C/man5/nfs.5:322
+#, no-wrap
+msgid "I<wsize=n>"
+msgstr "I<wsize=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:84
+msgid ""
+"The number of bytes NFS uses when writing files to an NFS server.  The wsize "
+"is negotiated between the server and client to determine the largest block "
+"size that both can support.  The value specified by this option is the "
+"maximum size that could be used; however, the actual size used may be "
+"smaller.  Note: Setting this size to a value less than the largest supported "
+"block size will adversely affect performance."
+msgstr ""
+
+# type: TP
+#: C/man5/nfs.5:84 C/man5/nfs.5:331
+#, no-wrap
+msgid "I<timeo=n>"
+msgstr "I<timeo=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:98
+msgid ""
+"The value in tenths of a second before sending the first retransmission "
+"after an RPC timeout.  The default value is 7 tenths of a second.  After the "
+"first timeout, the timeout is doubled after each successive timeout until a "
+"maximum timeout of 60 seconds is reached or the enough retransmissions have "
+"occured to cause a major timeout.  Then, if the filesystem is hard mounted, "
+"each new timeout cascade restarts at twice the initial value of the previous "
+"cascade, again doubling at each retransmission.  The maximum timeout is "
+"always 60 seconds.  Better overall performance may be achieved by increasing "
+"the timeout when mounting on a busy network, to a slow server, or through "
+"several routers or gateways."
+msgstr ""
+"Fixer la valeur, en dixièmes de seconde, du délai avant de déclencher une "
+"première retransmission suite à une RPC inaboutie. La valeur par défaut est "
+"7/10\\ de seconde. Après une première «\\ expiration mineure\\ » ce délai "
+"est doublé et le montage à nouveau tenté. Ces tentatives se répètent, en "
+"doublant le délai à chaque nouvelle «\\ expiration mineure\\ », jusqu'à ce "
+"qu'il atteigne la valeur maximale de 60 secondes ou que le nombre maximal de "
+"retransmissions soit atteint. Il se produit alors une «\\ expiration majeure"
+"\\ ». Ensuite, si le système est monté «\\ en dur\\ », une nouvelle série de "
+"retransmissions débutera mais en commençant cette fois avec une valeur "
+"double de la valeur initiale de la série précédente. Le délai maximal reste "
+"de 60 secondes. On peut améliorer les performances en augmentant cette durée "
+"si le réseau est chargé ou si le serveur est lent ou si l'on traverse "
+"plusieurs routeurs ou passerelles."
+
+# type: TP
+#: C/man5/nfs.5:98 C/man5/nfs.5:349
+#, no-wrap
+msgid "I<retrans=n>"
+msgstr "I<retrans=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:104
+msgid ""
+"The number of minor timeouts and retransmissions that must occur before a "
+"major timeout occurs.  The default is 3 timeouts.  When a major timeout "
+"occurs, the file operation is either aborted or a \"server not responding\" "
+"message is printed on the console."
+msgstr ""
+"Fixer le nombre «\\ d'expirations mineures\\ » (et donc de retransmissions) "
+"avant de déclencher une «\\ expiration majeure\\ ». La valeur par défaut est "
+"de 3 «\\ expirations mineures\\ ». Quand une erreur «\\ d'expiration majeure"
+"\\ » se produit, soit l'opération est abandonnée, soit un message «\\ server "
+"not responding\\ » («\\ Le serveur ne répond pas\\ ») est affiché sur la "
+"console."
+
+# type: TP
+#: C/man5/nfs.5:104 C/man5/nfs.5:359
+#, no-wrap
+msgid "I<acregmin=n>"
+msgstr "I<acregmin=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:109 C/man5/nfs.5:364
+msgid ""
+"The minimum time in seconds that attributes of a regular file should be "
+"cached before requesting fresh information from a server.  The default is 3 "
+"seconds."
+msgstr ""
+"Fixer (en secondes ) la durée minimale de conservation, en mémoire cache, "
+"des attributs d'un fichier régulier avant de les rafraîchir depuis le "
+"serveur. La valeur par défaut est de 3 secondes."
+
+# type: TP
+#: C/man5/nfs.5:109 C/man5/nfs.5:364
+#, no-wrap
+msgid "I<acregmax=n>"
+msgstr "I<acregmax=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:114 C/man5/nfs.5:369
+msgid ""
+"The maximum time in seconds that attributes of a regular file can be cached "
+"before requesting fresh information from a server.  The default is 60 "
+"seconds."
+msgstr ""
+"Fixer (en secondes) la durée maximale de conservation, en mémoire cache, des "
+"attributs d'un fichier régulier avant de les rafraîchir depuis le serveur. "
+"La valeur par défaut est de 60 secondes."
+
+# type: TP
+#: C/man5/nfs.5:114 C/man5/nfs.5:369
+#, no-wrap
+msgid "I<acdirmin=n>"
+msgstr "I<acdirmin=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:119 C/man5/nfs.5:374
+msgid ""
+"The minimum time in seconds that attributes of a directory should be cached "
+"before requesting fresh information from a server.  The default is 30 "
+"seconds."
+msgstr ""
+"Fixer (en secondes) la durée minimale de conservation, en mémoire cache, des "
+"attributs d'un fichier régulier avant de les rafraîchir depuis le serveur. "
+"La valeur par défaut est de 30 secondes."
+
+# type: TP
+#: C/man5/nfs.5:119 C/man5/nfs.5:374
+#, no-wrap
+msgid "I<acdirmax=n>"
+msgstr "I<acdirmax=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:124 C/man5/nfs.5:379
+msgid ""
+"The maximum time in seconds that attributes of a directory can be cached "
+"before requesting fresh information from a server.  The default is 60 "
+"seconds."
+msgstr ""
+"Fixer (en secondes) la durée maximale de conservation, en mémoire cache, des "
+"attributs d'un fichier régulier avant de les rafraîchir depuis le serveur. "
+"La valeur par défaut est de 60 secondes."
+
+# type: TP
+#: C/man5/nfs.5:124 C/man5/nfs.5:379
+#, no-wrap
+msgid "I<actimeo=n>"
+msgstr "I<actimeo=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:134 C/man5/nfs.5:389
+msgid ""
+"Using actimeo sets all of I<acregmin,> I<acregmax,> I<acdirmin,> and "
+"I<acdirmax> to the same value.  There is no default value."
+msgstr ""
+"L'utilisation de actimeo fixe toutes les durées I<acregmin,> I<acregmax,> "
+"I<acdirmin,> et I<acdirmax> à la même valeur. Il n'y a pas de valeur par "
+"défaut."
+
+# type: TP
+#: C/man5/nfs.5:134 C/man5/nfs.5:389
+#, no-wrap
+msgid "I<retry=n>"
+msgstr "I<retry=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:141 C/man5/nfs.5:396
+#, fuzzy
+msgid ""
+"The number of minutes to retry an NFS mount operation in the foreground or "
+"background before giving up.  The default value for forground mounts is 2 "
+"minutes.  The default value for background mounts is 10000 minutes, which is "
+"roughly one week."
+msgstr ""
+"Fixer la durée, en minutes, pendant laquelle le montage NFS sera tenté, en "
+"arrière-plan ou en avant-plan, avant d'abandonner. La valeur par défaut est "
+"10\\ 000\\ minutes, soit environ une semaine."
+
+# type: TP
+#: C/man5/nfs.5:141
+#, no-wrap
+msgid "I<namlen=n>"
+msgstr "I<namlen=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:148
+msgid ""
+"When an NFS server does not support version two of the RPC mount protocol, "
+"this option can be used to specify the maximum length of a filename that is "
+"supported on the remote filesystem.  This is used to support the POSIX "
+"pathconf functions.  The default is 255 characters."
+msgstr ""
+"Quand un serveur NFS ne supporte pas la version 2 du protocole de montage "
+"RPC, cette option peut être utilisée pour indiquer la longueur maximale des "
+"noms de fichiers acceptée sur le système distant. Cela permet de prendre en "
+"charge les fonctions «\\ POSIX pathconf\\ ». La valeur par défaut est de 255 "
+"caractères."
+
+# type: TP
+#: C/man5/nfs.5:148 C/man5/nfs.5:396
+#, no-wrap
+msgid "I<port=n>"
+msgstr "I<port=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:156 C/man5/nfs.5:404
+msgid ""
+"The numeric value of the port to connect to the NFS server on.  If the port "
+"number is 0 (the default) then query the remote host's portmapper for the "
+"port number to use.  If the remote host's NFS daemon is not registered with "
+"its portmapper, the standard NFS port number 2049 is used instead."
+msgstr ""
+"Préciser le port utilisé pour la connexion au serveur NFS. Si cette valeur "
+"vaut zéro (valeur par défaut) alors le gestionnaire de ports («\\ portmapper"
+"\\ ») de l'hôte distant est interrogé sur le port à utiliser. Si le démon "
+"NFS de l'hôte distant n'est pas pris en charge par le gestionnaire de ports, "
+"la valeur standard utilisée pour le port NFS sera 2049."
+
+# type: TP
+#: C/man5/nfs.5:156
+#, no-wrap
+msgid "I<mountport=n>"
+msgstr "I<mountport=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:161
+msgid "The numeric value of the B<mountd> port."
+msgstr "Préciser le port de B<mountd>."
+
+# type: TP
+#: C/man5/nfs.5:161
+#, no-wrap
+msgid "I<mounthost=name>"
+msgstr "I<mounthost=nom>"
+
+# type: Plain text
+#: C/man5/nfs.5:165
+msgid "The name of the host running B<mountd .>"
+msgstr "Indiquer le nom de l'hôte où s'exécute B<mountd>."
+
+# type: TP
+#: C/man5/nfs.5:165
+#, no-wrap
+msgid "I<mountprog=n>"
+msgstr "I<mountprog=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:172
+msgid ""
+"Use an alternate RPC program number to contact the mount daemon on the "
+"remote host.  This option is useful for hosts that can run multiple NFS "
+"servers.  The default value is 100005 which is the standard RPC mount daemon "
+"program number."
+msgstr ""
+"Permettre d'utiliser un autre numéro de programme RPC pour contacter le "
+"démon de montage de l'hôte distant. Cette option est utilisée pour les hôtes "
+"qui exécutent simultanément plusieurs serveurs NFS. La valeur par défaut est "
+"100\\ 005, numéro habituel du démon de montage RPC."
+
+# type: TP
+#: C/man5/nfs.5:172
+#, no-wrap
+msgid "I<mountvers=n>"
+msgstr "I<mountvers=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:178
+msgid ""
+"Use an alternate RPC version number to contact the mount daemon on the "
+"remote host.  This option is useful for hosts that can run multiple NFS "
+"servers.  The default value depends on which kernel you are using."
+msgstr ""
+"Permettre d'utiliser un autre numéro de version RPC pour contacter le démon "
+"de montage de l'hôte distant. Cette option est utilisée pour les hôtes qui "
+"exécutent simultanément plusieurs serveurs NFS. La valeur par défaut dépend "
+"du noyau utilisé."
+
+# type: TP
+#: C/man5/nfs.5:178
+#, no-wrap
+msgid "I<nfsprog=n>"
+msgstr "I<nfsprog=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:185
+msgid ""
+"Use an alternate RPC program number to contact the NFS daemon on the remote "
+"host.  This option is useful for hosts that can run multiple NFS servers.  "
+"The default value is 100003 which is the standard RPC NFS daemon program "
+"number."
+msgstr ""
+"Permettre d'utiliser un autre numéro de programme RPC pour contacter le "
+"démon NFS de l'hôte distant. Cette option est utilisée pour les hôtes qui "
+"exécutent simultanément plusieurs serveurs NFS. La valeur par défaut est 100"
+"\\003, numéro habituel du démon NFS de RPC."
+
+# type: TP
+#: C/man5/nfs.5:185
+#, no-wrap
+msgid "I<nfsvers=n>"
+msgstr "I<nfsvers=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:191
+msgid ""
+"Use an alternate RPC version number to contact the NFS daemon on the remote "
+"host.  This option is useful for hosts that can run multiple NFS servers.  "
+"The default value depends on which kernel you are using."
+msgstr ""
+"Permettre d'utiliser un autre numéro de version RPC pour contacter le démon "
+"NFS de l'hôte distant. Cette option est utilisée pour les hôtes qui "
+"exécutent simultanément plusieurs serveurs NFS. La valeur par défaut dépend "
+"du noyau utilisé."
+
+# type: TP
+#: C/man5/nfs.5:191
+#, fuzzy, no-wrap
+msgid "I<vers=n>"
+msgstr "I<nfsvers=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:195
+msgid ""
+"vers is an alternative to nfsvers and is compatible with many other "
+"operating systems."
+msgstr ""
+
+# type: TP
+#: C/man5/nfs.5:195
+#, no-wrap
+msgid "I<nolock>"
+msgstr "I<nolock>"
+
+# type: Plain text
+#: C/man5/nfs.5:206
+msgid ""
+"Disable NFS locking. Do not start lockd.  This is appropriate for mounting "
+"the root filesystem or B</usr> or B</var>.  These filesystems are typically "
+"either read-only or not shared, and in those cases, remote locking is not "
+"needed.  This also needs to be used with some old NFS servers that don't "
+"support locking."
+msgstr ""
+
+# type: Plain text
+#: C/man5/nfs.5:210
+msgid ""
+"Note that applications can still get locks on files, but the locks only "
+"provide exclusion locally.  Other clients mounting the same filesystem will "
+"not be able to detect the locks."
+msgstr ""
+
+# type: TP
+#: C/man5/nfs.5:210 C/man5/nfs.5:422
+#, no-wrap
+msgid "I<bg>"
+msgstr "I<bg>"
+
+# type: Plain text
+#: C/man5/nfs.5:219
+msgid ""
+"If the first NFS mount attempt times out, retry the mount in the "
+"background.  After a mount operation is backgrounded, all subsequent mounts "
+"on the same NFS server will be backgrounded immediately, without first "
+"attempting the mount.  A missing mount point is treated as a timeout, to "
+"allow for nested NFS mounts."
+msgstr ""
+"Si le premier essai de montage échoue, cette option permet de poursuivre la "
+"tentative de montage en arrière-plan. Dès lors qu'une opération de montage "
+"passe en arrière-plan, tous les montages ultérieurs sur ce même serveur NFS "
+"seront mis en arrière-plan immédiatement, sans tenter de montage direct. Un "
+"point de montage inexistant est considéré comme une expiration, ce qui "
+"permet des montages NFS imbriqués."
+
+# type: TP
+#: C/man5/nfs.5:219 C/man5/nfs.5:431
+#, no-wrap
+msgid "I<fg>"
+msgstr "I<fg>"
+
+# type: Plain text
+#: C/man5/nfs.5:226 C/man5/nfs.5:438
+msgid ""
+"If the first NFS mount attempt times out, retry the mount in the "
+"foreground.  This is the complement of the I<bg> option, and also the "
+"default behavior."
+msgstr ""
+"Si le premier essai de montage échoue, cette option permet de poursuivre les "
+"tentatives de montage en avant-plan. C'est l'option inverse de I<bg> et "
+"également le comportement par défaut."
+
+# type: TP
+#: C/man5/nfs.5:226 C/man5/nfs.5:438
+#, no-wrap
+msgid "I<soft>"
+msgstr "I<soft>"
+
+# type: Plain text
+#: C/man5/nfs.5:231 C/man5/nfs.5:443
+msgid ""
+"If an NFS file operation has a major timeout then report an I/O error to the "
+"calling program.  The default is to continue retrying NFS file operations "
+"indefinitely."
+msgstr ""
+"Permettre, si une opération sur un fichier NFS conduit à une «\\ expiration "
+"majeure\\ », de renvoyer une erreur d'entrée/sortie au programme appelant "
+"alors que le comportement par défaut est de réessayer les opérations sur les "
+"fichiers NFS indéfiniment."
+
+# type: TP
+#: C/man5/nfs.5:231 C/man5/nfs.5:443
+#, no-wrap
+msgid "I<hard>"
+msgstr "I<hard>"
+
+# type: Plain text
+#: C/man5/nfs.5:236 C/man5/nfs.5:448
+msgid ""
+"If an NFS file operation has a major timeout then report \"server not "
+"responding\" on the console and continue retrying indefinitely.  This is the "
+"default."
+msgstr ""
+"Permettre, si une opération sur un fichier NFS conduit à une expiration "
+"majeure, d'afficher un message «\\ server not responding\\ » («\\ Le serveur "
+"ne répond pas\\ ») sur la console puis de réessayer indéfiniment. C'est le "
+"comportement par défaut."
+
+# type: TP
+#: C/man5/nfs.5:236 C/man5/nfs.5:448
+#, no-wrap
+msgid "I<intr>"
+msgstr "I<intr>"
+
+# type: Plain text
+#: C/man5/nfs.5:242 C/man5/nfs.5:454
+#, fuzzy
+msgid ""
+"If an NFS file operation has a major timeout and it is hard mounted, then "
+"allow signals to interupt the file operation and cause it to return EINTR to "
+"the calling program.  The default is to not allow file operations to be "
+"interrupted."
+msgstr ""
+"Permettre, si une opération sur un fichier NFS conduit à une «\\ expiration "
+"majeure\\ » et si l'option «\\ soft\\ » n'est pas employée, d'autoriser les "
+"interruptions par signaux et de renvoyer «\\ EINTR\\ » au programme "
+"appelant. Le comportement par défaut est de permettre l'interruption des "
+"opérations sur les fichiers."
+
+# type: TP
+#: C/man5/nfs.5:242
+#, no-wrap
+msgid "I<posix>"
+msgstr "I<posix>"
+
+# type: Plain text
+#: C/man5/nfs.5:250
+msgid ""
+"Mount the NFS filesystem using POSIX semantics.  This allows an NFS "
+"filesystem to properly support the POSIX pathconf command by querying the "
+"mount server for the maximum length of a filename.  To do this, the remote "
+"host must support version two of the RPC mount protocol.  Many NFS servers "
+"support only version one."
+msgstr ""
+"Monter le système de fichiers NFS en utilisant la sémantique POSIX. Cela "
+"permet au système de fichiers NFS de prendre en charge correctement la "
+"commande «\\ POSIX pathconf\\ » en interrogeant le serveur à propos de la "
+"longueur maximale des noms de fichiers. À cette fin, l'hôte distant doit "
+"supporter la version 2 du protocole de montage RPC. Beaucoup de serveurs NFS "
+"ne supportent que la version 1."
+
+# type: TP
+#: C/man5/nfs.5:250 C/man5/nfs.5:454
+#, no-wrap
+msgid "I<nocto>"
+msgstr "I<nocto>"
+
+# type: Plain text
+#: C/man5/nfs.5:253 C/man5/nfs.5:457
+msgid "Suppress the retrieval of new attributes when creating a file."
+msgstr ""
+"Empêcher la récupération des nouveaux attributs lors de la création d'un "
+"fichier."
+
+# type: TP
+#: C/man5/nfs.5:253 C/man5/nfs.5:457
+#, no-wrap
+msgid "I<noac>"
+msgstr "I<noac>"
+
+# type: Plain text
+#: C/man5/nfs.5:259
+msgid ""
+"Disable all forms of attribute caching entirely.  This extracts a "
+"significant performance penalty but it allows two different NFS clients to "
+"get reasonable results when both clients are actively writing to a common "
+"export on the server."
+msgstr ""
+"Désactiver tous les caches mémoire d'attributs. Cela induit une dégradation "
+"des performances du serveur, mais permet à deux clients NFS d'obtenir des "
+"résultats acceptables lors d'écritures simultanées sur une exportation "
+"commune du serveur."
+
+# type: TP
+#: C/man5/nfs.5:259
+#, fuzzy, no-wrap
+msgid "I<noacl>"
+msgstr "I<no_acl>"
+
+# type: Plain text
+#: C/man5/nfs.5:262
+msgid "Disables Access Control List (ACL) processing."
+msgstr ""
+
+# type: TP
+#: C/man5/nfs.5:262 C/man5/nfs.5:419
+#, no-wrap
+msgid "I<sec=mode>"
+msgstr "I<sec=mode>"
+
+# type: Plain text
+#: C/man5/nfs.5:278
+msgid ""
+"Set the security flavor for this mount to \"mode\".  The default setting is "
+"B<sec=sys>, which uses local unix uids and gids to authenticate NFS "
+"operations (AUTH_SYS).  Other currently supported settings are: B<sec=krb5>, "
+"which uses Kerberos V5 instead of local unix uids and gids to authenticate "
+"users; B<sec=krb5i>, which uses Kerberos V5 for user authentication and "
+"performs integrity checking of NFS operations using secure checksums to "
+"prevent data tampering; and B<sec=krb5p>, which uses Kerberos V5 for user "
+"authentication and integrity checking, and encrypts NFS traffic to prevent "
+"traffic sniffing (this is the most secure setting).  Note that there is a "
+"performance penalty when using integrity or privacy."
+msgstr ""
+"Définir le «\\ mode\\ » de sécurité pour le montage NFS. B<sec=sys> utilise "
+"«\\ AUTH_SYS\\ » avec les «\\ uid\\ » et «\\ gid\\ » du client pour "
+"l'authentification des opérations NFS. C'est la valeur par défaut."
+"B<sec=krb5> utilise Kerberos V5 pour l'authentification des utilisateurs au "
+"lieu de «\\ AUTH_SYS\\ » et des «\\ uid\\ » et «\\ gid\\ » du client\\ ; "
+"B<sec=krb5i>, utilise Kerberos V5 pour l'authentification des utilisateurs "
+"et contrôle l'intégrité des données échangées par NFS, en utilisant des "
+"sommes de contrôle sécurisées, empêchant la falsification des données\\ ; "
+"B<sec=krb5p> utilise Kerberos V5 pour l'authentification des utilisateurs, "
+"contrôle l'intégrité des données et chiffre les échanges NFS, empêchant "
+"l'interception des données. C'est le mode le plus sécurisé. Il est à noter "
+"que l'usage du chiffrement et le contrôle de l'intégrité des données obèrent "
+"les performances."
+
+# type: TP
+#: C/man5/nfs.5:278
+#, no-wrap
+msgid "I<tcp>"
+msgstr "I<tcp>"
+
+# type: Plain text
+#: C/man5/nfs.5:283
+#, fuzzy
+msgid ""
+"Mount the NFS filesystem using the TCP protocol.  This is the default if it "
+"is supported by both client and server.  Many NFS servers only support UDP."
+msgstr ""
+"Monter le système de fichiers NFS en utilisant le protocole TCP plutôt que "
+"le protocole UDP (par défaut). Beaucoup de serveurs NFS ne supportent que le "
+"protocole UDP."
+
+# type: TP
+#: C/man5/nfs.5:283
+#, no-wrap
+msgid "I<udp>"
+msgstr "I<udp>"
+
+# type: Plain text
+#: C/man5/nfs.5:286
+#, fuzzy
+msgid "Mount the NFS filesystem using the UDP protocol."
+msgstr ""
+"Monter le système de fichiers en utilisant le protocole UDP. C'est le "
+"comportement par défaut."
+
+# type: TP
+#: C/man5/nfs.5:286
+#, no-wrap
+msgid "I<nordirplus>"
+msgstr ""
+
+# type: Plain text
+#: C/man5/nfs.5:291
+msgid ""
+"Disables NFSv3 READDIRPLUS RPCs. Use this option when mounting servers that "
+"don't support or have broken READDIRPLUS implementations."
+msgstr ""
+
+# type: TP
+#: C/man5/nfs.5:291 C/man5/nfs.5:464
+#, fuzzy, no-wrap
+msgid "I<nosharecache>"
+msgstr "I<no_subtree_check>"
+
+# type: Plain text
+#: C/man5/nfs.5:299 C/man5/nfs.5:472
+msgid ""
+"As of kernel 2.6.18, it is no longer possible to mount the same same "
+"filesystem with different mount options to a new mountpoint.  It was deemed "
+"unsafe to do so, since cached data cannot be shared between the two "
+"mountpoints. In consequence, files or directories that were common to both "
+"mountpoint subtrees could often be seen to be out of sync following an "
+"update."
+msgstr ""
+
+# type: Plain text
+#: C/man5/nfs.5:303 C/man5/nfs.5:476
+msgid ""
+"This option allows administrators to select the pre-2.6.18 behaviour, "
+"permitting the same filesystem to be mounted with different mount options."
+msgstr ""
+
+# type: Plain text
+#: C/man5/nfs.5:308 C/man5/nfs.5:481
+msgid ""
+"B<Beware:> Use of this option is not recommended unless you are certain that "
+"there are no hard links or subtrees of this mountpoint that are mounted "
+"elsewhere."
+msgstr ""
+
+# type: Plain text
+#: C/man5/nfs.5:312 C/man5/nfs.5:485
+msgid ""
+"All of the non-value options have corresponding nooption forms.  For "
+"example, nointr means don't allow file operations to be interrupted."
+msgstr ""
+"Toutes les options qui ne peuvent pas prendre une valeur disposent d'une "
+"option inverse, de la forme «\\ nooption\\ ». Par exemple I<nointr> indique "
+"de ne pas autoriser l'interruption des opérations NFS par les signaux."
+
+# type: SS
+#: C/man5/nfs.5:312
+#, no-wrap
+msgid "Options for the nfs4 file system type"
+msgstr "Options pour le système de fichiers nfs4"
+
+# type: Plain text
+#: C/man5/nfs.5:322
+msgid ""
+"The number of bytes nfs4 uses when reading files from the server.  The rsize "
+"is negotiated between the server and client to determine the largest block "
+"size that both can support.  The value specified by this option is the "
+"maximum size that could be used; however, the actual size used may be "
+"smaller.  Note: Setting this size to a value less than the largest supported "
+"block size will adversely affect performance."
+msgstr ""
+
+# type: Plain text
+#: C/man5/nfs.5:331
+msgid ""
+"The number of bytes nfs4 uses when writing files to the server.  The wsize "
+"is negotiated between the server and client to determine the largest block "
+"size that both can support.  The value specified by this option is the "
+"maximum size that could be used; however, the actual size used may be "
+"smaller.  Note: Setting this size to a value less than the largest supported "
+"block size will adversely affect performance."
+msgstr ""
+
+# type: Plain text
+#: C/man5/nfs.5:349
+msgid ""
+"The value in tenths of a second before sending the first retransmission "
+"after an RPC timeout.  The default value depends on whether I<proto=udp> or "
+"I<proto=tcp> is in effect (see below).  The default value for UDP is 7 "
+"tenths of a second.  The default value for TCP is 60 seconds.  After the "
+"first timeout, the timeout is doubled after each successive timeout until a "
+"maximum timeout of 60 seconds is reached or the enough retransmissions have "
+"occured to cause a major timeout.  Then, if the filesystem is hard mounted, "
+"each new timeout cascade restarts at twice the initial value of the previous "
+"cascade, again doubling at each retransmission.  The maximum timeout is "
+"always 60 seconds."
+msgstr ""
+"Fixer la valeur, en dixièmes de seconde, du délai avant de déclencher une "
+"première retransmission suite à une RPC inaboutie. La valeur par défaut "
+"dépend de protocole utilisé\\ : I<proto=udp> ou I<proto=tcp> (voir ci-"
+"après). La valeur par défaut est de 7/10\\ de seconde en UDP et de 60 "
+"secondes en TCP. Après la première expiration, «\\ expiration mineure\\ », "
+"le délai est doublé et le montage à nouveau tenté. Ces tentatives se "
+"répètent, en doublant le délai à chaque nouvelle «\\ expiration mineure\\ », "
+"jusqu'à ce qu'il atteigne la valeur maximale de 60 secondes ou que le nombre "
+"maximal de retransmissions soit atteint. Il se produit alors une «\\ "
+"expiration majeure\\ ». Ensuite, si le système est monté «\\ en dur\\ », une "
+"nouvelle série de retransmissions débutera mais en commençant, cette fois, "
+"avec une valeur double de la valeur initiale de la série précédente. Le "
+"délai maximal reste de 60 secondes."
+
+# type: Plain text
+#: C/man5/nfs.5:359
+msgid ""
+"The number of minor timeouts and retransmissions that must occur before a "
+"major timeout occurs.  The default is 5 timeouts for I<proto=udp> and 2 "
+"timeouts for I<proto=tcp>.  When a major timeout occurs, the file operation "
+"is either aborted or a \"server not responding\" message is printed on the "
+"console."
+msgstr ""
+"Fixer le nombre «\\ d'expirations mineures\\ » (et donc de retransmissions) "
+"avant de déclencher une «\\ expiration majeure\\ ». La valeur par défaut est "
+"de 5 «\\ expirations mineures\\ » pour I<proto=udp> et de 2 pour "
+"I<proto=tcp>. Quand une erreur «\\ d'expiration majeure\\ » se produit, soit "
+"l'opération est abandonnée, soit un message «\\ server not responding\\ "
+"» («\\ Le serveur ne répond pas\\ ») est affiché sur la console."
+
+# type: TP
+#: C/man5/nfs.5:404
+#, no-wrap
+msgid "I<proto=n>"
+msgstr "I<proto=protocole>"
+
+# type: Plain text
+#: C/man5/nfs.5:413
+msgid ""
+"Mount the NFS filesystem using a specific network protocol instead of the "
+"default UDP protocol.  Many NFS version 4 servers only support TCP.  Valid "
+"protocol types are I<udp> and I<tcp>."
+msgstr ""
+"Monter le système de fichiers NFS en utilisant le protocole réseau spécifié. "
+"Par défaut, il s'agit du protocole UDP. Beaucoup de serveurs NFS version 4 "
+"ne supportent que le protocole TCP. Les types de protocoles utilisables sont "
+"I<udp> et I<tcp>."
+
+# type: TP
+#: C/man5/nfs.5:413
+#, no-wrap
+msgid "I<clientaddr=n>"
+msgstr "I<clientaddr=n>"
+
+# type: Plain text
+#: C/man5/nfs.5:419
+msgid ""
+"On a multi-homed client, this causes the client to use a specific callback "
+"address when communicating with an NFS version 4 server.  This option is "
+"currently ignored."
+msgstr ""
+"Sur un client possédant plusieurs adresses réseau, cette option amène le "
+"client à utiliser une adresse de rappel spécifique pour communiquer avec un "
+"serveur NFS version 4. Cette option est actuellement sans effet."
+
+# type: Plain text
+#: C/man5/nfs.5:422
+msgid "Same as B<sec=mode> for the nfs filesystem type (see above)."
+msgstr ""
+"Identique à B<sec=mode> pour le type de système de fichiers nfs (voir ci-"
+"dessus)."
+
+# type: Plain text
+#: C/man5/nfs.5:431
+msgid ""
+"If an NFS mount attempt times out, retry the mount in the background.  After "
+"a mount operation is backgrounded, all subsequent mounts on the same NFS "
+"server will be backgrounded immediately, without first attempting the "
+"mount.  A missing mount point is treated as a timeout, to allow for nested "
+"NFS mounts."
+msgstr ""
+"Si le premier essai de montage NFS échoue, cette option permet de poursuivre "
+"la tentative de montage en arrière-plan. Dès lors qu'une opération de "
+"montage passe en arrière-plan, tous les montages ultérieurs sur ce même "
+"serveur NFS seront mis en arrière-plan immédiatement, sans tenter de montage "
+"direct. Un point de montage inexistant est considéré comme une expiration, "
+"ce qui permet des montages NFS imbriqués."
+
+# type: Plain text
+#: C/man5/nfs.5:464
+msgid ""
+"Disable attribute caching, and force synchronous writes.  This extracts a "
+"server performance penalty but it allows two different NFS clients to get "
+"reasonable good results when both clients are actively writing to common "
+"filesystem on the server."
+msgstr ""
+"Désactiver tous les caches mémoire d'attributs et obliger les écritures à se "
+"faire de façon synchrone. Cela induit une dégradation des performances du "
+"serveur, mais permet à deux clients NFS d'obtenir des résultats acceptables "
+"lors d'écritures simultanées sur un même système de fichiers sur le serveur."
+
+# type: TP
+#: C/man5/nfs.5:487 C/man8/mount.nfs.8:83 C/man8/umount.nfs.8:57
+#, no-wrap
+msgid "I</etc/fstab>"
+msgstr "I</etc/fstab>"
+
+# type: Plain text
+#: C/man5/nfs.5:489
+msgid "B<fstab>(5), B<mount>(8), B<umount>(8), B<exports>(5)"
+msgstr "B<fstab>(5), B<mount>(8), B<umount>(8), B<exports>(5)"
+
+# type: SH
+#: C/man5/nfs.5:489 C/man7/nfsd.7:205 C/man8/mount.nfs.8:98
+#: C/man8/mountd.8:199 C/man8/nfsd.8:84 C/man8/nfsstat.8:135
+#: C/man8/rpcdebug.8:85 C/man8/showmount.8:59 C/man8/umount.nfs.8:72
+#, no-wrap
+msgid "AUTHOR"
+msgstr "AUTEUR"
+
+# type: Plain text
+#: C/man5/nfs.5:491
+msgid "\"Rick Sladkey\" E<lt>jrs@world.std.comE<gt>"
+msgstr "\"Rick Sladkey\" E<lt>jrs@world.std.comE<gt>"
+
+# type: SH
+#: C/man5/nfs.5:491 C/man8/mount.nfs.8:95 C/man8/nfsstat.8:123
+#: C/man8/rpcdebug.8:81 C/man8/showmount.8:50 C/man8/umount.nfs.8:69
+#, no-wrap
+msgid "BUGS"
+msgstr "BOGUES"
+
+# type: Plain text
+#: C/man5/nfs.5:498
+msgid ""
+"Checking files on NFS filesystem referenced by file descriptors (i.e. the "
+"B<fcntl> and B<ioctl> families of functions) may lead to inconsistent result "
+"due to the lack of consistency check in kernel even if noac is used."
+msgstr ""
 
 # type: TH
 #: C/man7/nfsd.7:7
@@ -1645,14 +2618,6 @@ msgid ""
 "B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8)  B<exportfs>(8)."
 msgstr ""
 "B<rpc.nfsd>(8), B<exports>(5), B<nfsstat>(8), B<mountd>(8), B<exportfs>(8)."
-
-# type: SH
-#: C/man7/nfsd.7:205 C/man8/mount.nfs.8:98 C/man8/mountd.8:199
-#: C/man8/nfsd.8:84 C/man8/nfsstat.8:125 C/man8/rpcdebug.8:85
-#: C/man8/showmount.8:59 C/man8/umount.nfs.8:72
-#, no-wrap
-msgid "AUTHOR"
-msgstr "AUTEUR"
 
 # type: Plain text
 #: C/man7/nfsd.7:206
@@ -2167,13 +3132,14 @@ msgstr "B<-n>"
 
 # type: Plain text
 #: C/man8/gssd.8:40
+#, fuzzy
 msgid ""
 "By default, B<rpc.gssd> treats accesses by the user with UID 0 specially, "
 "and uses \"machine credentials\" for all accesses by that user which require "
 "Kerberos authentication.  With the -n option, \"machine credentials\" will "
 "not be used for accesses by UID 0.  Instead, credentials must be obtained "
 "manually like all other users.  Use of this option means that \"root\" must "
-"manually obtain Kerberos credentials before attemtpting to mount an nfs "
+"manually obtain Kerberos credentials before attempting to mount an nfs "
 "filesystem requiring Kerberos authentication."
 msgstr ""
 "Par défaut, B<rpc.gssd> traite les accès de l'utilisateur UID 0 d'une façon "
@@ -2718,12 +3684,6 @@ msgstr ""
 "Pour plus d'informations, veuillez consulter les pages de manuel de B<nfs>"
 "(5) et de B<mount>(8)."
 
-# type: TP
-#: C/man8/mount.nfs.8:83 C/man8/umount.nfs.8:57
-#, no-wrap
-msgid "I</etc/fstab>"
-msgstr "I</etc/fstab>"
-
 # type: Plain text
 #: C/man8/mount.nfs.8:86 C/man8/umount.nfs.8:60
 msgid "file system table"
@@ -2744,13 +3704,6 @@ msgstr "Table des systèmes de fichiers montés"
 #: C/man8/mount.nfs.8:94
 msgid "B<nfs>(5), B<mount>(8),"
 msgstr "B<nfs>(5), B<mount>(8),"
-
-# type: SH
-#: C/man8/mount.nfs.8:95 C/man8/nfsstat.8:113 C/man8/rpcdebug.8:81
-#: C/man8/showmount.8:50 C/man8/umount.nfs.8:69
-#, no-wrap
-msgid "BUGS"
-msgstr "BOGUES"
 
 # type: Plain text
 #: C/man8/mount.nfs.8:97 C/man8/umount.nfs.8:71
@@ -3383,9 +4336,9 @@ msgstr "nfsstat"
 
 # type: TH
 #: C/man8/nfsstat.8:5
-#, no-wrap
-msgid "11 Apr 2005"
-msgstr "11 avril 2005"
+#, fuzzy, no-wrap
+msgid "7 Aug 2007"
+msgstr "7 août 2006"
 
 # type: Plain text
 #: C/man8/nfsstat.8:8
@@ -3617,75 +4570,90 @@ msgid "This is equivalent to B<-o all>."
 msgstr "Identique à B<-o all>."
 
 # type: TP
-#: C/man8/nfsstat.8:75
+#: C/man8/nfsstat.8:74
+#, fuzzy, no-wrap
+msgid "B<-Z, --sleep>"
+msgstr "B<-s, --server>"
+
+# type: Plain text
+#: C/man8/nfsstat.8:84
+msgid ""
+"Instead of printing statistics and immediately exiting, B<nfsstat> takes a "
+"snapshot of the current statistics and pauses until it receives B<SIGINT> "
+"(typically from B<Ctrl-C>), at which point it takes another snapshot and "
+"displays the difference between the two."
+msgstr ""
+
+# type: TP
+#: C/man8/nfsstat.8:85
 #, no-wrap
 msgid "B<nfsstat -o all -234>"
 msgstr "B<nfsstat -o all -234>"
 
 # type: Plain text
-#: C/man8/nfsstat.8:78
+#: C/man8/nfsstat.8:88
 msgid "Show all information about all versions of B<NFS>."
 msgstr ""
 "Afficher toutes les informations à propos de toutes les versions de B<NFS>."
 
 # type: TP
-#: C/man8/nfsstat.8:78
+#: C/man8/nfsstat.8:88
 #, no-wrap
 msgid "B<nfsstat --verbose -234>"
 msgstr "B<nfsstat --verbose -234>"
 
 # type: Plain text
-#: C/man8/nfsstat.8:81
+#: C/man8/nfsstat.8:91
 msgid "Same as above."
 msgstr "Identique à celle du dessus."
 
 # type: TP
-#: C/man8/nfsstat.8:81
+#: C/man8/nfsstat.8:91
 #, no-wrap
 msgid "B<nfsstat -o all>"
 msgstr "B<nfsstat -o all>"
 
 # type: Plain text
-#: C/man8/nfsstat.8:84
+#: C/man8/nfsstat.8:94
 msgid "Show all information about active versions of B<NFS>."
 msgstr ""
 "Afficher toutes les informations à propos des versions de B<NFS> en cours "
 "d'utilisation."
 
 # type: TP
-#: C/man8/nfsstat.8:84
+#: C/man8/nfsstat.8:94
 #, no-wrap
 msgid "B<nfsstat --nfs --server -3>"
 msgstr "B<nfsstat --nfs --server -3>"
 
 # type: Plain text
-#: C/man8/nfsstat.8:87
+#: C/man8/nfsstat.8:97
 msgid "Show statistics for B<NFS> version 3 server."
 msgstr "Afficher les statistiques pour la version 3 du serveur B<NFS>."
 
 # type: TH
-#: C/man8/nfsstat.8:87
+#: C/man8/nfsstat.8:97
 #, no-wrap
 msgid "B<nfsstat -m>"
 msgstr "B<nfsstat -m>"
 
 # type: Plain text
 #.  --------------------- DISPLAY --------------------------------
-#: C/man8/nfsstat.8:91
+#: C/man8/nfsstat.8:101
 msgid "Show information about mounted B<NFS> filesystems."
 msgstr ""
 "Afficher les informations à propos de tous les systèmes de fichiers B<NFS> "
 "montés."
 
 # type: SH
-#: C/man8/nfsstat.8:91
+#: C/man8/nfsstat.8:101
 #, no-wrap
 msgid "DISPLAY"
 msgstr "AFFICHAGE"
 
 # type: Plain text
 #.  --------------------- FILES ----------------------------------
-#: C/man8/nfsstat.8:95
+#: C/man8/nfsstat.8:105
 msgid ""
 "The B<Flags> output from the B<-m> option is the same as the flags give to "
 "the B<mount> command."
@@ -3694,49 +4662,49 @@ msgstr ""
 "utilisés avec la commande B<mount>."
 
 # type: TP
-#: C/man8/nfsstat.8:96
+#: C/man8/nfsstat.8:106
 #, no-wrap
 msgid "B</proc/net/rpc/nfsd>"
 msgstr "B</proc/net/rpc/nfsd>"
 
 # type: Plain text
-#: C/man8/nfsstat.8:100
+#: C/man8/nfsstat.8:110
 msgid "B<procfs>-based interface to kernel NFS server statistics."
 msgstr ""
 "Interface basée sur B<procfs> pour les statistiques du serveur NFS du noyau."
 
 # type: TP
-#: C/man8/nfsstat.8:100
+#: C/man8/nfsstat.8:110
 #, no-wrap
 msgid "B</proc/net/rpc/nfs>"
 msgstr "B</proc/net/rpc/nfs>"
 
 # type: Plain text
-#: C/man8/nfsstat.8:104
+#: C/man8/nfsstat.8:114
 msgid "B<procfs>-based interface to kernel NFS client statistics."
 msgstr ""
 "Interface basée sur B<procfs> pour les statistiques du client NFS du noyau."
 
 # type: TP
-#: C/man8/nfsstat.8:104
+#: C/man8/nfsstat.8:114
 #, no-wrap
 msgid "B</proc/mounts>"
 msgstr "B</proc/mounts>"
 
 # type: Plain text
 #.  -------------------- SEE ALSO --------------------------------
-#: C/man8/nfsstat.8:109
+#: C/man8/nfsstat.8:119
 msgid "B<procfs>-based interface to the mounted filesystems."
 msgstr "Interface basée sur B<procfs> pour les systèmes de fichiers montés."
 
 # type: Plain text
 #.  ---------------------- BUGS ----------------------------------
-#: C/man8/nfsstat.8:113
+#: C/man8/nfsstat.8:123
 msgid "B<rpc.nfsd>(8).  B<nfs>(5)."
 msgstr "B<rpc.nfsd>(8), B<nfs>(5)."
 
 # type: Plain text
-#: C/man8/nfsstat.8:115
+#: C/man8/nfsstat.8:125
 msgid ""
 "The default output has been changed.  To get the old default output you must "
 "run B<nfsstat --auto -2>."
@@ -3745,7 +4713,7 @@ msgstr ""
 "vous devez utiliser B<nfsstat --auto -2>."
 
 # type: Plain text
-#: C/man8/nfsstat.8:119
+#: C/man8/nfsstat.8:129
 msgid ""
 "The function of the B<-v> and B<-a> options have changed. The B<-a> option "
 "is now reserved for future use. The B<-v> does what the B<-a> option used to "
@@ -3756,19 +4724,19 @@ msgstr ""
 "faisait, et les nouvelles options B<-[234]> remplacent l'option B<-v>."
 
 # type: Plain text
-#: C/man8/nfsstat.8:121
+#: C/man8/nfsstat.8:131
 msgid "The B<Display> section should be more complete."
 msgstr "La section B<Display> devrait être plus complète."
 
 # type: Plain text
 #.  -------------------- AUTHOR ----------------------------------
-#: C/man8/nfsstat.8:125
+#: C/man8/nfsstat.8:135
 msgid "Further bugs can be found or reported at B<http://nfs.sf.net/>."
 msgstr ""
 "D'autres bogues pourront être trouvés ou remontés sur B<http://nfs.sf.net/>."
 
 # type: Plain text
-#: C/man8/nfsstat.8:126
+#: C/man8/nfsstat.8:136
 msgid "Olaf Kirch, E<lt>okir@suse.deE<gt>"
 msgstr "Olaf Kirch, E<lt>okir@suse.deE<gt>"
 
@@ -4612,6 +5580,103 @@ msgstr ""
 #: C/man8/umount.nfs.8:68
 msgid "B<nfs>(5), B<umount>(8),"
 msgstr "B<nfs>(5), B<umount>(8),"
+
+# type: Plain text
+#~ msgid ""
+#~ "To restrict access to an export using rpcsec_gss security, use the "
+#~ "special string \"gss/krb5\" as the client.  It is not possible to "
+#~ "simultaneously require rpcsec_gss and to make requirements on the IP "
+#~ "address of the client."
+#~ msgstr ""
+#~ "Pour contrôler les accès à un partage grâce à la sécurité rpcsec_gss, "
+#~ "utilisez la chaîne spécifique «\\ gss/krb5\\ » comme nom de client. Il "
+#~ "n'est pas possible d'utiliser à la fois rpcsec_gss et des restrictions "
+#~ "sur l'adresse IP d'un client."
+
+# type: TH
+#~ msgid "11 Apr 2005"
+#~ msgstr "11 avril 2005"
+
+# type: Plain text
+#~ msgid ""
+#~ "The number of bytes NFS uses when reading files from an NFS server.  The "
+#~ "default value is dependent on the kernel, currently 1024 bytes.  "
+#~ "(However, throughput is improved greatly by asking for I<rsize=8192>.)"
+#~ msgstr ""
+#~ "Indiquer le nombre d'octets par bloc, utilisés par NFS, lors de la "
+#~ "lecture d'un fichier sur un serveur NFS. La valeur par défaut, "
+#~ "actuellement 1024\\ octets, dépend du noyau. Il est toutefois possible "
+#~ "d'améliorer sensiblement le débit en utilisant I<rsize=8192>."
+
+# type: Plain text
+#~ msgid ""
+#~ "The number of bytes NFS uses when writing files to an NFS server.  The "
+#~ "default value is dependent on the kernel, currently 1024 bytes.  "
+#~ "(However, throughput is improved greatly by asking for I<wsize=8192>.)"
+#~ msgstr ""
+#~ "Indiquer le nombre d'octets par bloc, utilisés par NFS, lors de "
+#~ "l'écriture d'un fichier sur un serveur NFS. La valeur par défaut, "
+#~ "actuellement 1024\\ octets, dépend du noyau. Il est toutefois possible "
+#~ "d'améliorer sensiblement le débit en utilisant I<wsize=8192>."
+
+# type: Plain text
+#~ msgid ""
+#~ "Disable NFS locking. Do not start lockd.  This has to be used with some "
+#~ "old NFS servers that don't support locking."
+#~ msgstr ""
+#~ "Désactiver le verrouillage NFS. Ne pas lancer lockd. Cette option n'est "
+#~ "utile qu'avec les anciens serveurs NFS qui ne supportaient pas le "
+#~ "verrouillage."
+
+# type: Plain text
+#~ msgid ""
+#~ "The number of bytes NFS uses when reading files from an NFS server.  The "
+#~ "default value is dependent on the kernel, currently 4096 bytes.  "
+#~ "(However, throughput is improved greatly by asking for I<rsize=32768>.)  "
+#~ "This value is negotiated with the server."
+#~ msgstr ""
+#~ "Indiquer le nombre d'octets par bloc, utilisés par NFS, lors de la "
+#~ "lecture d'un fichier sur un serveur NFS. La valeur par défaut, "
+#~ "habituellement 4096\\ octets, dépend du noyau utilisé. Il est toutefois "
+#~ "possible d'améliorer sensiblement le débit en utilisant I<rsize=32768>. "
+#~ "Cette valeur est négociée avec le serveur."
+
+# type: Plain text
+#~ msgid ""
+#~ "The number of bytes NFS uses when writing files to an NFS server.  The "
+#~ "default value is dependent on the kernel, currently 4096 bytes.  "
+#~ "(However, throughput is improved greatly by asking for I<wsize=32768>.)  "
+#~ "This value is negotiated with the server."
+#~ msgstr ""
+#~ "Indiquer le nombre d'octets par bloc, utilisés par NFS, lors de "
+#~ "l'écriture d'un fichier sur un serveur NFS. La valeur par défaut, "
+#~ "habituellement 4096\\ octets, dépend du noyau utilisé. Il est toutefois "
+#~ "possible d'améliorer sensiblement le débit en utilisant I<wsize=32768>. "
+#~ "Cette valeur est négociée avec le serveur."
+
+# type: Plain text
+#~ msgid ""
+#~ "The posix, and nocto options are parsed by mount but currently are "
+#~ "silently ignored."
+#~ msgstr ""
+#~ "Les options I<posix> et I<nocto> sont acceptées mais sont ignorées, sans "
+#~ "avertissement, lors du montage."
+
+# type: Plain text
+#~ msgid ""
+#~ "The tcp and namlen options are implemented but are not currently "
+#~ "supported by the Linux kernel."
+#~ msgstr ""
+#~ "Les options I<tcp>, et I<namlen> sont implémentées bien qu'elle ne soient "
+#~ "pas prises en charge par le noyau Linux."
+
+# type: Plain text
+#~ msgid ""
+#~ "The umount command should notify the server when an NFS filesystem is "
+#~ "unmounted."
+#~ msgstr ""
+#~ "La commande B<umount> devrait prévenir le serveur lors du démontage d'un "
+#~ "système de fichiers NFS."
 
 # type: Plain text
 #~ msgid ""

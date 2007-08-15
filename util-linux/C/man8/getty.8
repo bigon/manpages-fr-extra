@@ -3,7 +3,7 @@
 getty \- alternative Linux getty
 
 .SH SYNOPSIS
-.BR "getty " [\-ihLmnw]
+.BR "getty " [\-8ihLmnw]
 .RI "[-f " issue_file ]
 .RI "[-l " login_program ]
 .RI "[-I " init ]
@@ -13,7 +13,7 @@ getty \- alternative Linux getty
 .I baud_rate,...
 .RI [ term ]
 .br
-.BR "getty " [\-ihLmnw]
+.BR "getty " [\-8ihLmnw]
 .RI "[-f " issue_file ]
 .RI "[-l " login_program ]
 .RI "[-I " init ]
@@ -91,6 +91,9 @@ whatever init(8) may have set, and is inherited by login and the shell.
 .nf
 .fi
 .ad
+.TP
+\-8
+Assume that the tty is 8-bit clean, hence disable parity detection.
 .TP
 \-h
 Enable hardware (RTS/CTS) flow control. It is left up to the
@@ -217,7 +220,10 @@ n
 Insert the nodename of the machine, also known as the hostname.
 .TP
 o
-Insert the domainname of the machine.
+Insert the NIS domainname of the machine.
+.TP
+O
+Insert the DNS domainname of the machine.
 .TP
 r
 Insert the release number of the OS, eg. 1.1.9.
@@ -292,11 +298,6 @@ Linux port and more options. Still maintains the code.
 Eric Rasmussen <ear@usfirst.org>
 Added \-f option to display custom login messages on different terminals.
 
-.SH CREATION DATE
-.na
-.nf
-Sat Nov 25 22:51:05 MET 1989
-.SH LAST MODIFICATION
-.na
-.nf
-96/07/20
+.SH AVAILABILITY
+The getty command is part of the util-linux-ng package and is available from
+ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/.

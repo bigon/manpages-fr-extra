@@ -24,15 +24,16 @@ To mount via NFS version 2, use the
 .BR nfs
 file system type and specify
 .BR nfsvers=2 .
-Version 2 is the default protocol version for the
-.BR nfs
-file system type when
-.BR nfsvers=
-is not specified on the mount command.
 To mount via NFS version 3, use the
 .BR nfs
 file system type and specify
 .BR nfsvers=3 .
+Version 3 is the default protocol version for the
+.BR nfs
+file system type when
+.BR nfsvers=
+is not specified on the mount command and both client and server
+support it.
 To mount via NFS version 4, use the
 .BR nfs4
 file system type.
@@ -45,12 +46,12 @@ file system type.
 These file system types share similar mount options;
 the differences are listed below.
 .P
-Here is an example from an \fI/etc/fstab\fP file for an NFSv2 mount
-over UDP.
+Here is an example from an \fI/etc/fstab\fP file for an NFSv3 mount
+over TCP.
 .sp
 .nf
 .ta 2.5i +0.75i +0.75i +1.0i
-server:/usr/local/pub	/pub	nfs	rsize=8192,wsize=8192,timeo=14,intr
+server:/usr/local/pub	/pub	nfs	rsize=32768,wsize=32768,timeo=14,intr
 .fi
 .P
 Here is an example for an NFSv4 mount over TCP using Kerberos
@@ -65,15 +66,21 @@ server:/usr/local/pub	/pub	nfs4	proto=tcp,sec=krb5,hard,intr
 .TP 1.5i
 .I rsize=n
 The number of bytes NFS uses when reading files from an NFS server.
-The default value is dependent on the kernel, currently 1024 bytes.
-(However, throughput is improved greatly by asking for
-.IR rsize=8192 .)
+The rsize is negotiated between the server and client to determine 
+the largest block size that both can support.
+The value specified by this option is the maximum size that could 
+be used; however, the actual size used may be smaller.
+Note: Setting this size to a value less than the largest supported
+block size will adversely affect performance.
 .TP 1.5i
 .I wsize=n
 The number of bytes NFS uses when writing files to an NFS server.
-The default value is dependent on the kernel, currently 1024 bytes.
-(However, throughput is improved greatly by asking for
-.IR wsize=8192 .)
+The wsize is negotiated between the server and client to determine 
+the largest block size that both can support.
+The value specified by this option is the maximum size that could 
+be used; however, the actual size used may be smaller.
+Note: Setting this size to a value less than the largest supported
+block size will adversely affect performance.
 .TP 1.5i
 .I timeo=n
 The value in tenths of a second before sending the
@@ -128,7 +135,9 @@ There is no default value.
 .I retry=n
 The number of minutes to retry an NFS mount operation
 in the foreground or background before giving up.
-The default value is 10000 minutes, which is roughly one week.
+The default value for forground mounts is 2 minutes.  
+The default value for background mounts is 10000 minutes, 
+which is roughly one week.
 .TP 1.5i
 .I namlen=n
 When an NFS server does not support version two of the
@@ -180,10 +189,24 @@ NFS daemon on the remote host.  This option is useful
 for hosts that can run multiple NFS servers.
 The default value depends on which kernel you are using.
 .TP 1.5i
+.I vers=n
+vers is an alternative to nfsvers and is compatible with
+many other operating systems.
+.TP 1.5i
 .I nolock
 Disable NFS locking. Do not start lockd.
-This has to be used with some old NFS servers
+This is appropriate for mounting the root filesystem or
+.B /usr
+or
+.BR /var .
+These filesystems are typically either read-only or not shared, and in
+those cases, remote locking is not needed.
+This also needs to be used with some old NFS servers
 that don't support locking.
+.br
+Note that applications can still get locks on files, but the locks
+only provide exclusion locally.  Other clients mounting the same
+filesystem will not be able to detect the locks.
 .TP 1.5i
 .I bg
 If the first NFS mount attempt times out, retry the mount
@@ -214,7 +237,7 @@ This is the default.
 .I intr
 If an NFS file operation has a major timeout and it is hard mounted,
 then allow signals to interupt the file operation and cause it to
-return EINTR to the calling program.  The default is to
+return EINTR to the calling program.  The default is to not
 allow file operations to be interrupted.
 .TP 1.5i
 .I posix
@@ -234,6 +257,9 @@ significant performance penalty but it allows two different NFS clients
 to get reasonable results when both clients are actively
 writing to a common export on the server.
 .TP 1.5i
+.I noacl
+Disables Access Control List (ACL) processing.
+.TP 1.5i
 .I sec=mode
 Set the security flavor for this mount to "mode".
 The default setting is \f3sec=sys\f1, which uses local
@@ -251,12 +277,34 @@ Note that there is a performance penalty when using integrity
 or privacy.
 .TP 1.5i
 .I tcp
-Mount the NFS filesystem using the TCP protocol instead of the
-default UDP protocol.  Many NFS servers only support UDP.
+Mount the NFS filesystem using the TCP protocol.  This is the default
+if it is supported by both client and server.  Many NFS servers only
+support UDP.
 .TP 1.5i
 .I udp
-Mount the NFS filesystem using the UDP protocol.  This
-is the default.
+Mount the NFS filesystem using the UDP protocol.
+.TP 1.5i
+.I nordirplus
+Disables NFSv3 READDIRPLUS RPCs. Use this option when
+mounting servers that don't support or have broken
+READDIRPLUS implementations.
+.TP 1.5i
+.I nosharecache
+As of kernel 2.6.18, it is no longer possible to mount the same
+same filesystem with different mount options to a new mountpoint.
+It was deemed unsafe to do so, since cached data cannot be shared
+between the two mountpoints. In consequence, files or directories
+that were common to both mountpoint subtrees could often be seen to
+be out of sync following an update.
+.br
+This option allows administrators to select the pre-2.6.18 behaviour,
+permitting the same filesystem to be mounted with different mount
+options.
+.br
+.B Beware:
+Use of this option is not recommended unless you are certain that there
+are no hard links or subtrees of this mountpoint that are mounted
+elsewhere.
 .P
 All of the non-value options have corresponding nooption forms.
 For example, nointr means don't allow file operations to be
@@ -264,18 +312,22 @@ interrupted.
 .SS Options for the nfs4 file system type
 .TP 1.5i
 .I rsize=n
-The number of bytes NFS uses when reading files from an NFS server.
-The default value is dependent on the kernel, currently 4096 bytes.
-(However, throughput is improved greatly by asking for
-.IR rsize=32768 .)
-This value is negotiated with the server.
+The number of bytes nfs4 uses when reading files from the server.
+The rsize is negotiated between the server and client to determine 
+the largest block size that both can support.
+The value specified by this option is the maximum size that could 
+be used; however, the actual size used may be smaller.
+Note: Setting this size to a value less than the largest supported
+block size will adversely affect performance.
 .TP 1.5i
 .I wsize=n
-The number of bytes NFS uses when writing files to an NFS server.
-The default value is dependent on the kernel, currently 4096 bytes.
-(However, throughput is improved greatly by asking for
-.IR wsize=32768 .)
-This value is negotiated with the server.
+The number of bytes nfs4 uses when writing files to the server.
+The wsize is negotiated between the server and client to determine 
+the largest block size that both can support.
+The value specified by this option is the maximum size that could 
+be used; however, the actual size used may be smaller.
+Note: Setting this size to a value less than the largest supported
+block size will adversely affect performance.
 .TP 1.5i
 .I timeo=n
 The value in tenths of a second before sending the
@@ -338,7 +390,9 @@ There is no default value.
 .I retry=n
 The number of minutes to retry an NFS mount operation
 in the foreground or background before giving up.
-The default value is 10000 minutes, which is roughly one week.
+The default value for forground mounts is 2 minutes.  
+The default value for background mounts is 10000 minutes, 
+which is roughly one week.
 .TP 1.5i
 .I port=n
 The numeric value of the port to connect to the NFS server on.
@@ -395,7 +449,7 @@ This is the default.
 .I intr
 If an NFS file operation has a major timeout and it is hard mounted,
 then allow signals to interupt the file operation and cause it to
-return EINTR to the calling program.  The default is to
+return EINTR to the calling program.  The default is to not
 allow file operations to be interrupted.
 .TP 1.5i
 .I nocto
@@ -407,6 +461,23 @@ This extracts a
 server performance penalty but it allows two different NFS clients
 to get reasonable good results when both clients are actively
 writing to common filesystem on the server.
+.TP 1.5i
+.I nosharecache
+As of kernel 2.6.18, it is no longer possible to mount the same
+same filesystem with different mount options to a new mountpoint.
+It was deemed unsafe to do so, since cached data cannot be shared
+between the two mountpoints. In consequence, files or directories
+that were common to both mountpoint subtrees could often be seen to
+be out of sync following an update.
+.br
+This option allows administrators to select the pre-2.6.18 behaviour,
+permitting the same filesystem to be mounted with different mount
+options.
+.br
+.B Beware:
+Use of this option is not recommended unless you are certain that there
+are no hard links or subtrees of this mountpoint that are mounted
+elsewhere.
 .P
 All of the non-value options have corresponding nooption forms.
 For example, nointr means don't allow file operations to be
@@ -418,11 +489,10 @@ interrupted.
 .SH AUTHOR
 "Rick Sladkey" <jrs@world.std.com>
 .SH BUGS
-The posix, and nocto options are parsed by mount
-but currently are silently ignored.
 .P
-The tcp and namlen options are implemented but are not currently
-supported by the Linux kernel.
-.P
-The umount command should notify the server
-when an NFS filesystem is unmounted.
+Checking files on NFS filesystem referenced by file descriptors (i.e. the 
+.BR fcntl 
+and 
+.BR ioctl
+families of functions) may lead to inconsistent result due to the lack of
+consistency check in kernel even if noac is used.
