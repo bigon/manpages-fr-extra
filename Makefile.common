@@ -41,7 +41,7 @@ all: build
 pre-build:
 
 po4a-build:
-	po4a $(PO4ACONFIGFILE)
+	po4a --previous $(PO4ACONFIGFILE)
 
 post-build:
 	@if [ -e links ]; then \
@@ -59,6 +59,6 @@ stats:
 	@msgfmt --statistics -c -o /dev/null $(PODIR)/fr.po;
 
 clean:
-	po4a --rm-translations $(PO4ACONFIGFILE)
+	po4a --previous --rm-translations $(PO4ACONFIGFILE)
 	-rm -rf fr
 	-rm -f $(PODIR)/*~
