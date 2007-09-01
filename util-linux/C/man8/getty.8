@@ -1,9 +1,9 @@
 .TH AGETTY 8 
 .SH NAME
-getty \- alternative Linux getty
+agetty \- alternative Linux getty
 
 .SH SYNOPSIS
-.BR "getty " [\-8ihLmnw]
+.BR "agetty " [\-8ihLmnw]
 .RI "[-f " issue_file ]
 .RI "[-l " login_program ]
 .RI "[-I " init ]
@@ -13,7 +13,7 @@ getty \- alternative Linux getty
 .I baud_rate,...
 .RI [ term ]
 .br
-.BR "getty " [\-8ihLmnw]
+.BR "agetty " [\-8ihLmnw]
 .RI "[-f " issue_file ]
 .RI "[-l " login_program ]
 .RI "[-I " init ]
@@ -26,10 +26,10 @@ getty \- alternative Linux getty
 .SH DESCRIPTION
 .ad
 .fi
-\fBgetty\fP opens a tty port, prompts for a login name and invokes
+\fBagetty\fP opens a tty port, prompts for a login name and invokes
 the /bin/login command. It is normally invoked by \fIinit(8)\fP.
 
-\fBgetty\fP has several \fInon-standard\fP features that are useful
+\fBagetty\fP has several \fInon-standard\fP features that are useful
 for hard-wired and for dial-in lines:
 .IP o
 Adapts the tty settings to parity bits and to erase, kill,
@@ -68,7 +68,7 @@ This program does not use the \fI/etc/gettydefs\fP (System V) or
 .TP
 port
 A path name relative to the \fI/dev\fP directory. If a "-" is
-specified, \fBgetty\fP assumes that its standard input is
+specified, \fBagetty\fP assumes that its standard input is
 already connected to a tty port and that a connection to a
 remote user has already been established.
 .sp
@@ -77,7 +77,7 @@ by a "--".
 .TP
 baud_rate,...
 A comma-separated list of one or more baud rates. Each time
-\fBgetty\fP receives a BREAK character it advances through
+\fBagetty\fP receives a BREAK character it advances through
 the list, which is treated as if it were circular.
 .sp
 Baud rates should be specified in descending order, so that the
@@ -127,7 +127,7 @@ password file).
 .TP
 \-H \fIlogin_host\fP
 Write the specified \fIlogin_host\fP into the utmp file. (Normally,
-no login host is given, since \fBgetty\fP is used for local hardwired
+no login host is given, since \fBagetty\fP is used for local hardwired
 connections and consoles. However, this option can be useful for 
 identifying terminal concentrators and the like.
 .TP
@@ -135,7 +135,7 @@ identifying terminal concentrators and the like.
 Try to extract the baud rate the CONNECT status message
 produced by Hayes(tm)\-compatible modems. These status
 messages are of the form: "<junk><speed><junk>".
-\fBgetty\fP assumes that the modem emits its status message at
+\fBagetty\fP assumes that the modem emits its status message at
 the same speed as specified with (the first) \fIbaud_rate\fP value
 on the command line.
 .sp
@@ -146,11 +146,11 @@ expected baud rates on the command line.
 \-n 
 Do not prompt the user for a login name. This can be used in
 connection with \-l option to invoke a non-standard login process such
-as a BBS system. Note that with the \-n option, \fBgetty\fR gets no input from
+as a BBS system. Note that with the \-n option, \fBagetty\fR gets no input from
 user who logs in and therefore won't be able to figure out parity,
 character size, and newline processing of the connection. It defaults to 
 space parity, 7 bit characters, and ASCII CR (13) end-of-line character.
-Beware that the program that \fBgetty\fR starts (usually /bin/login)
+Beware that the program that \fBagetty\fR starts (usually /bin/login)
 is run as root.
 .TP
 \-t \fItimeout\fP
@@ -175,24 +175,24 @@ for the other fields.  See \fIinittab(5)\fP for more details.
 
 For a hard-wired line or a console tty:
 .ti +5
-/sbin/getty 9600 ttyS1
+/sbin/agetty 9600 ttyS1
 
 For a directly connected terminal without proper carriage detect wiring:
 (try this if your terminal just sleeps instead of giving you a password:
 prompt.)
 .ti +5
-/sbin/getty \-L 9600 ttyS1 vt100
+/sbin/agetty \-L 9600 ttyS1 vt100
 
 For a old style dial-in line with a 9600/2400/1200 baud modem:
 .ti +5
-/sbin/getty \-mt60 ttyS1 9600,2400,1200
+/sbin/agetty \-mt60 ttyS1 9600,2400,1200
 
 For a Hayes modem with a fixed 115200 bps interface to the machine:
 (the example init string turns off modem echo and result codes, makes
 modem/computer DCD track modem/modem DCD, makes a DTR drop cause a 
 dis-connection and turn on auto-answer after 1 ring.)
 .ti +5
-/sbin/getty \-w \-I 'ATE0Q1&D2&C1S0=1\\015' 115200 ttyS1
+/sbin/agetty \-w \-I 'ATE0Q1&D2&C1S0=1\\015' 115200 ttyS1
 
 .SH ISSUE ESCAPES
 The issue-file (\fI/etc/issue\fP or the file set with the \-f option)
@@ -266,7 +266,7 @@ This is thingol.orcan.dk (Linux i386 1.1.9) 18:29:30
 .ad
 .fi
 The baud-rate detection feature (the \fI-m\fP option) requires that
-\fBgetty\fP be scheduled soon enough after completion of a dial-in
+\fBagetty\fP be scheduled soon enough after completion of a dial-in
 call (within 30 ms with modems that talk at 2400 baud). For robustness,
 always use the \fI\-m\fP option in combination with a multiple baud
 rate command-line argument, so that BREAK processing is enabled.
@@ -299,5 +299,5 @@ Eric Rasmussen <ear@usfirst.org>
 Added \-f option to display custom login messages on different terminals.
 
 .SH AVAILABILITY
-The getty command is part of the util-linux-ng package and is available from
+The agetty command is part of the util-linux-ng package and is available from
 ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/.
