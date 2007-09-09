@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "POT-Creation-Date: 2007-06-03 11:22+0200\n"
-"PO-Revision-Date: 2007-04-25 22:21+0200\n"
+"PO-Revision-Date: 2007-09-09 09:01+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -2361,7 +2361,6 @@ msgstr "%b"
 
 # type: Plain text
 #: C/man1/find.1:721
-#, fuzzy
 msgid ""
 "The amount of disk space used for this file in 512-byte blocks. Since disk "
 "space is allocated in multiples of the filesystem block size this is usually "
@@ -2370,7 +2369,7 @@ msgstr ""
 "Taille de l'espace disque consommé par le fichier, en nombre de blocs de 512 "
 "octets. Puisque l'espace disque est alloué par multiple de la taille d'un "
 "bloc du système de fichiers, on obtient souvent un résultat supérieur à %"
-"s/1024. Il peut aussi être inférieur si le fichier est éparpillé."
+"s/512. Il peut aussi être inférieur si le fichier est éparpillé."
 
 # type: IP
 #: C/man1/find.1:721
@@ -4321,6 +4320,13 @@ msgid ""
 "to 4.3.6 are also affected by the bug.  Databases in the default LOCATE02 "
 "format are correctly handled."
 msgstr ""
+"Toutes les versions du locate du GNU antérieures à 4.2.31 ne gérent pas bien "
+"les noms de fichiers longs (en gros dépassant les 1024 octets) à cause de "
+"l'ancien format de base de données. Il y a donc un risque de dépassement de "
+"tampon («\\ heap buffer overrun\\ », et potentiellement un risque pour "
+"la sécurité. Les versions 4.3.0 à 4.3.6 sont également sujettes à ce bogue. "
+"Les bases de données utilisant le format par défaut LOCATE02 sont gérées "
+"correctement."
 
 # type: Plain text
 #: C/man1/locate.1:209
@@ -4420,6 +4426,12 @@ msgid ""
 "4.0 support the new LOCATE02 format.  The old database format also cannot "
 "correctly represent non-ASCII characters."
 msgstr ""
+"Toutes les versions de locate antérieures à 4.2.31 ne gérent pas bien les "
+"noms de fichiers longs dans l'ancien format de base de données. Cependant, "
+"le format par défaut de la base de données (qui s'appelle LOCATE02) n'est "
+"pas touché par ce problème. Toutes les versions de B<locate> depuis la 4.0 "
+"gérent le nouveau format LOCATE02. L'ancien format ne sait pas non plus "
+"répresenter correctement les caractères non-ASCII."
 
 # type: TP
 #: C/man1/updatedb.1:36
@@ -4575,6 +4587,11 @@ msgid ""
 "when reading old-format databases.  The old fatabase format is also "
 "incapable of correctly representing non-ASCII characters."
 msgstr ""
+"Créer la base de données dans l'ancien format plutôt que le nouveau. Evitez "
+"d'utiliser cette option, car les anciennes versions de locate offrent la "
+"possibilité d'un dépassement de tampon lors de la lecture des anciens "
+"formats de base de données. Ceux-ci sont de plus incapables de représenter "
+"correctement les caractères non-ASCII."
 
 # type: TP
 #: C/man1/updatedb.1:90
@@ -4589,9 +4606,9 @@ msgstr "Afficher le numéro de version de B<updatedb> et quitter."
 
 # type: TP
 #: C/man1/updatedb.1:95
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<--help>"
-msgstr "I<--help>"
+msgstr "B<--help>"
 
 # type: Plain text
 #: C/man1/updatedb.1:100
@@ -5498,20 +5515,3 @@ msgstr ""
 #, no-wrap
 msgid "(6 = 14 - 8, and -9 = 5 - 14)\n"
 msgstr "(6 = 14 - 8 et -9 = 5 - 14)\n"
-
-# type: Plain text
-#~ msgid ""
-#~ "The file name database format changed starting with GNU B<find> and "
-#~ "B<locate> version 4.0 to allow machines with different byte orderings to "
-#~ "share the databases.  The new GNU B<locate> can read both the old and new "
-#~ "database formats.  However, old versions of B<locate> and B<find> produce "
-#~ "incorrect results if given a new-format database."
-#~ msgstr ""
-#~ "Le format de la base de noms a changé à partir de la version 4.0 de "
-#~ "B<find> et B<locate> pour permettre aux machines ordonnant leurs octets "
-#~ "différemment de partager les bases de noms. Le nouveau GNU B<locate> peut "
-#~ "lire à la fois les anciens et les nouveaux formats des bases de noms."
-
-# type: Plain text
-#~ msgid "Create the database in the old format instead of the new one."
-#~ msgstr "Créer une base de données avec l'ancien format au lieu du nouveau."
