@@ -39,7 +39,7 @@ my $Web_agent =  LWP::UserAgent -> new;
 my $sources = "";
 foreach my $section ("main","contrib","non-free") {
   print STDERR "Fetching source file of $section...";
-  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.debian.org/debian/dists/unstable/$section/binary-i386/Packages.gz"))
+  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.fr.debian.org/debian/dists/unstable/$section/binary-i386/Packages.gz"))
       or die "Unable to fetch $section source\n";
   $sources .= Compress::Zlib::memGunzip($answer->content) ;
   print STDERR "done\n";
@@ -86,7 +86,7 @@ sub parse_binary {
   my $pkg = $source;
   $pkg =~ s/\/([^\/]+)$/$1/;
   my $tmpdir = mkdtemp("labXXXXXX");
-  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.debian.org/debian/$filename"));
+  my $answer = $Web_agent->request(HTTP::Request->new(GET => "http://ftp.fr.debian.org/debian/$filename"));
   open (PACKAGE,">$tmpdir/$pkg");
   print PACKAGE $answer->content;
   close (PACKAGE);
