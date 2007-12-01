@@ -2132,10 +2132,9 @@ msgstr ""
 
 # type: TP
 #: C/man5/nfs.5:413
-#, fuzzy, no-wrap
-#| msgid "I<clientaddr=n>"
+#, no-wrap
 msgid "I<clientaddr=n.n.n.n>"
-msgstr "I<clientaddr=n>"
+msgstr "I<clientaddr=n.n.n.n>"
 
 # type: Plain text
 #: C/man5/nfs.5:421
@@ -2146,6 +2145,12 @@ msgid ""
 "connections to clients, performance may degrade, or accesses to files may "
 "temporarily hang."
 msgstr ""
+"Indiquer une seule adresse IPv4 en quatre parties séparées par des points. "
+"Le client NFS signalera alors que les serveurs peuvent envoyer des requêtes "
+"NFSv4 de rappel sur les fichiers de ce point de montage. Si le serveur ne "
+"peut pas établir de connexion de rappel sur ces clients, la performance peut "
+"être dégradée ou les accès à ces fichiers peuvent être temporairement "
+"suspendus."
 
 # type: Plain text
 #: C/man5/nfs.5:431
@@ -2157,6 +2162,13 @@ msgid ""
 "topologies, the exact address to use for callbacks may be nontrivial to "
 "determine, and should be explicitly set using this mount option."
 msgstr ""
+"Si cette option n'est pas indiquée, la commande B<mount>(8) essaie de "
+"découvrir automatiquement une adresse de rappel appropriée. La procédure de "
+"découverte automatique n'est cependant pas parfaite. Dans le cas "
+"d'interfaces réseau multiples, de directives de routages spéciales ou de "
+"typologie réseau atypique, l'adresse exacte à utiliser pour les rappels peut "
+"ne pas être triviale à déterminer et devrait être spécifiée explicitement "
+"avec cette option de montage."
 
 # type: Plain text
 #: C/man5/nfs.5:434
@@ -3040,7 +3052,6 @@ msgstr ""
 
 # type: Plain text
 #: C/man8/exportfs.8:177
-#, fuzzy
 #| msgid ""
 #| "To remove individual export entries, one can specify a I<host:/path> "
 #| "pair. This deletes the specified entry from B<xtab> and removes the "
@@ -3051,9 +3062,10 @@ msgid ""
 "(if any).  To remove one or more exports to several hosts, use B<exportfs -"
 "ua>."
 msgstr ""
-"Pour supprimer des entrées de partages particulières, vous pouvez indiquer "
-"un couple I<client:/chemin>. L'entrée indiquée sera supprimée de B<xtab>, "
-"ainsi que celle correspondante dans le noyau (si elle existe)."
+"Pour supprimer une entrée de partage vers un client, vous pouvez indiquer un "
+"couple I<client:/chemin>. L'entrée indiquée sera supprimée de B<xtab>, ainsi "
+"que celle correspondante dans le noyau (si elle existe). Pour supprimer une "
+"ou plusieurs entrées vers plusieurs clients, utilisez B<exportfs -ua>."
 
 # type: SS
 #.  -------------------- Dumping the Export Table -----------------
@@ -3624,14 +3636,9 @@ msgstr "mount.nfs, mount.nfs4 - Monter un système de fichiers réseau (NFS)"
 
 # type: Plain text
 #: C/man8/mount.nfs.8:7
-#, fuzzy
-#| msgid ""
-#| "B<mount.nfs>I< remotetarget dir>B< [-rvVwfnh ] [-t >I<version>B<] [-o "
-#| ">I<options>B<]>"
 msgid "B<mount.nfs>I< remotetarget dir>B< [-rvVwfnsh ] [-o >I<options>B<]>"
 msgstr ""
-"B<mount.nfs>I< cibledistante répertoire>B< [-rvVwfnh ] [-t >I<version>B<] [-"
-"o >I<options>B<]>"
+"B<mount.nfs> I<cibledistante répertoire> B<[-rvVwfnsh]> B<[-o> I<options>B<]>"
 
 # type: Plain text
 #: C/man8/mount.nfs.8:12
@@ -3724,7 +3731,7 @@ msgstr "B<-s>"
 # type: Plain text
 #: C/man8/mount.nfs.8:54
 msgid "Tolerate sloppy mount options rather than fail."
-msgstr ""
+msgstr "Tolérer les options de montage dans le désordre au lieu d'échouer."
 
 # type: TP
 #: C/man8/mount.nfs.8:54 C/man8/rpcdebug.8:39 C/man8/umount.nfs.8:45
@@ -3745,8 +3752,6 @@ msgstr "B<nfsoptions>"
 
 # type: Plain text
 #: C/man8/mount.nfs.8:64
-#, fuzzy
-#| msgid "Refer to B<nfs(5)> or B<mount(8)> manual pages."
 msgid "Refer to B<nfs>(5)  or B<mount>(8)  manual pages."
 msgstr "Consulter les pages de manuel de B<nfs(5)> ou de B<mount(8)>."
 
@@ -3791,6 +3796,8 @@ msgstr "B<nfs>(5), B<mount>(8),"
 msgid ""
 "Please notify nfs@lists.sourceforge.net of any bugs found in this software."
 msgstr ""
+"Veuillez signaler à nfs@lists.sourceforge.net tous les bugs trouvés dans ce "
+"logiciel."
 
 # type: Plain text
 #: C/man8/mount.nfs.8:89 C/man8/umount.nfs.8:73
@@ -4523,10 +4530,9 @@ msgstr "Afficher seulement les statistiques sur NFSv4."
 
 # type: TP
 #: C/man8/nfsstat.8:37
-#, fuzzy, no-wrap
-#| msgid "B<-m, --mounted>"
+#, no-wrap
 msgid "B<-m, --mounts>"
-msgstr "B<-m, --mounted>"
+msgstr "B<-m, --mounts>"
 
 # type: Plain text
 #: C/man8/nfsstat.8:40
