@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-03-08 11:34+0100\n"
+"POT-Creation-Date: 2008-03-16 11:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,12 +42,12 @@ msgstr ""
 
 # type: Plain text
 #: C/man1/find.1:7
-msgid "B<find> [-H] [-L] [-P] [path...] [expression]"
+msgid "B<find> [-H] [-L] [-P] [-D debugopts] [-Olevel] [path...] [expression]"
 msgstr ""
 
 # type: SH
 #: C/man1/find.1:7 C/man1/locate.findutils.1:11 C/man1/updatedb.findutils.1:6
-#: C/man1/xargs.1:14 C/man5/locatedb.5:4
+#: C/man1/xargs.1:36 C/man5/locatedb.5:4
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr ""
@@ -75,43 +75,46 @@ msgid ""
 "information."
 msgstr ""
 
-# type: SS
-#: C/man1/find.1:30 C/man1/find.1:133 C/man1/locate.findutils.1:51
-#: C/man1/updatedb.findutils.1:35 C/man1/xargs.1:45
+# type: SH
+#: C/man1/find.1:30 C/man1/find.1:300 C/man1/locate.findutils.1:51
+#: C/man1/updatedb.findutils.1:42 C/man1/xargs.1:73
 #, no-wrap
 msgid "OPTIONS"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:39
+#: C/man1/find.1:48
 msgid ""
-"The `-H', `-L' and `-P' options control the treatment of symbolic links.  "
+"The B<-H>, B<-L> and B<-P> options control the treatment of symbolic links.  "
 "Command-line arguments following these are taken to be names of files or "
-"directories to be examined, up to the first argument that begins with `-', `"
-"(', `)', `,', or `!'.  That argument and any following arguments are taken "
-"to be the expression describing what is to be searched for.  If no paths are "
-"given, the current directory is used.  If no expression is given, the "
-"expression `-print' is used (but you should probably consider using `-"
-"print0' instead, anyway)."
+"directories to be examined, up to the first argument that begins with `-', "
+"or the argument `(' or `!'.  That argument and any following arguments are "
+"taken to be the expression describing what is to be searched for.  If no "
+"paths are given, the current directory is used.  If no expression is given, "
+"the expression B<-print> is used (but you should probably consider using B<-"
+"print0> instead, anyway)."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:46
+#: C/man1/find.1:67
 msgid ""
 "This manual page talks about `options' within the expression list.  These "
 "options control the behaviour of B<find> but are specified immediately after "
-"the last path name.  The three `real' options `-H', `-L' and `-P' must "
-"appear before the first path name, if at all."
+"the last path name.  The five `real' options B<-H>, B<-L>, B<-P>, B<-D> and "
+"B<-O> must appear before the first path name, if at all.  A double dash B<--"
+"> can also be used to signal that any remaining arguments are not options "
+"(though ensuring that all start points begin with either `./' or `/' is "
+"generally safer if you use wildcards in the list of start points)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:46
+#: C/man1/find.1:67
 #, no-wrap
 msgid "-P"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:52
+#: C/man1/find.1:73
 msgid ""
 "Never follow symbolic links.  This is the default behaviour.  When B<find> "
 "examines or prints information a file, and the file is a symbolic link, the "
@@ -120,41 +123,41 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:53 C/man1/find.1:938
+#: C/man1/find.1:74
 #, no-wrap
 msgid "-L"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:66
+#: C/man1/find.1:94
 msgid ""
 "Follow symbolic links.  When B<find> examines or prints information about "
 "files, the information used shall be taken from the properties of the file "
 "to which the link points, not from the link itself (unless it is a broken "
 "symbolic link or B<find> is unable to examine the file to which the link "
-"points).  Use of this option implies -noleaf.  If you later use the -P "
-"option, -noleaf will still be in effect.  If -L is in effect and B<find> "
-"discovers a symbolic link to a subdirectory during its search, the "
+"points).  Use of this option implies B<-noleaf>.  If you later use the B<-P> "
+"option, B<-noleaf> will still be in effect.  If B<-L> is in effect and "
+"B<find> discovers a symbolic link to a subdirectory during its search, the "
 "subdirectory pointed to by the symbolic link will be searched."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:72
+#: C/man1/find.1:110
 msgid ""
-"When the -L option is in effect, the -type predicate will always match "
+"When the B<-L> option is in effect, the B<-type> predicate will always match "
 "against the type of the file that a symbolic link points to rather than the "
-"link itself (unless the symbolic link is broken).  Using -L causes the -"
-"lname and -ilname predicates always to return false."
+"link itself (unless the symbolic link is broken).  Using B<-L> causes the B<-"
+"lname> and B<-ilname> predicates always to return false."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:73 C/man1/find.1:936
+#: C/man1/find.1:111
 #, no-wrap
 msgid "-H"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:88
+#: C/man1/find.1:128
 msgid ""
 "Do not follow symbolic links, except while processing the command line "
 "arguments.  When B<find> examines or prints information about files, the "
@@ -164,22 +167,22 @@ msgid ""
 "situation, the information used is taken from whatever the link points to "
 "(that is, the link is followed).  The information about the link itself is "
 "used as a fallback if the file pointed to by the symbolic link cannot be "
-"examined.  If -H is in effect and one of the paths specified on the command "
-"line is a symbolic link to a directory, the contents of that directory will "
-"be examined (though of course -maxdepth 0 would prevent this)."
+"examined.  If B<-H> is in effect and one of the paths specified on the "
+"command line is a symbolic link to a directory, the contents of that "
+"directory will be examined (though of course -maxdepth 0 would prevent this)."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:93
+#: C/man1/find.1:144
 msgid ""
-"If more than one of -H, -L and -P is specified, each overrides the others; "
-"the last one appearing on the command line takes effect.  Since it is the "
-"default, the -P option should be considered to be in effect unless either -H "
-"or -L is specified."
+"If more than one of B<-H>, B<-L> and B<-P> is specified, each overrides the "
+"others; the last one appearing on the command line takes effect.  Since it "
+"is the default, the B<-P> option should be considered to be in effect unless "
+"either B<-H> or B<-L> is specified."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:111
+#: C/man1/find.1:167
 msgid ""
 "GNU B<find> frequently stats files during the processing of the command line "
 "itself, before any searching has begun.  These options also affect how those "
@@ -187,147 +190,315 @@ msgid ""
 "compare files listed on the command line against a file we are currently "
 "considering.  In each case, the file specified on the command line will have "
 "been examined and some of its properties will have been saved.  If the named "
-"file is in fact a symbolic link, and the -P option is in effect (or if "
-"neither -H nor -L were specified), the information used for the comparison "
-"will be taken from the properties of the symbolic link.  Otherwise, it will "
-"be taken from the properties of the file the link points to.  If B<find> "
-"cannot follow the link (for example because it has insufficient privileges "
-"or the link points to a nonexistent file) the properties of the link itself "
-"will be used."
+"file is in fact a symbolic link, and the B<-P> option is in effect (or if "
+"neither B<-H> nor B<-L> were specified), the information used for the "
+"comparison will be taken from the properties of the symbolic link.  "
+"Otherwise, it will be taken from the properties of the file the link points "
+"to.  If B<find> cannot follow the link (for example because it has "
+"insufficient privileges or the link points to a nonexistent file) the "
+"properties of the link itself will be used."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:116
+#: C/man1/find.1:181
 msgid ""
-"When the -H or -L options are in effect, any symbolic links listed as the "
-"argument of -newer will be dereferenced, and the timestamp will be taken "
-"from the file to which the symbolic link points.  The same consideration "
-"applies to -anewer and -cnewer."
+"When the B<-H> or B<-L options are in effect, any symbolic links listed> as "
+"the argument of B<-newer> will be dereferenced, and the timestamp will be "
+"taken from the file to which the symbolic link points.  The same "
+"consideration applies to B<-newerXY>, B<-anewer> and B<-cnewer>."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:121
+#: C/man1/find.1:195
 msgid ""
-"The -follow option has a similar effect to -L, though it takes effect at the "
-"point where it appears (that is, if -L is not used but -follow is, any "
-"symbolic links appearing after -follow on the command line will be "
-"dereferenced, and those before it will not)."
+"The B<-follow> option has a similar effect to B<-L>, though it takes effect "
+"at the point where it appears (that is, if B<-L> is not used but B<-follow> "
+"is, any symbolic links appearing after B<-follow> on the command line will "
+"be dereferenced, and those before it will not)."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:196
+#, no-wrap
+msgid "-D debugoptions"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:207
+msgid ""
+"Print diagnostic information; this can be helpful to diagnose problems with "
+"why B<find> is not doing what you want.  The list of debug options should be "
+"comma separated.  Compatibility of the debug options is not guaranteed "
+"between releases of findutils.  For a complete list of valid debug options, "
+"see the output of B<find -D> B<help>.  Valid debug options include"
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:208
+#, no-wrap
+msgid "help"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:210
+msgid "Explain the debugging options"
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:210
+#, no-wrap
+msgid "tree"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:212
+msgid "Show the expression tree in its original and optimised form."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:212
+#, no-wrap
+msgid "stat"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:220
+msgid ""
+"Print messages as files are examined with the B<stat> and B<lstat> system "
+"calls.  The B<find> program tries to minimise such calls."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:220
+#, no-wrap
+msgid "opt"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:223
+msgid ""
+"Prints diagnostic information relating to the optimisation of the expression "
+"tree; see the -O option."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:223
+#, no-wrap
+msgid "rates"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:226
+msgid ""
+"Prints a summary indicating how often each predicate succeeded or failed."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:227
+#, no-wrap
+msgid "-Olevel"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:234
+msgid ""
+"Enables query optimisation.  The B<find> program reorders tests to speed up "
+"execution while preserving the overall effect; that is, predicates with side "
+"effects are not reordered relative to each other.  The optimisations "
+"performed at each optimisation level are as follows."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:235
+#, no-wrap
+msgid "0"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:237
+msgid "Equivalent to optimisation level 1."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:237
+#, no-wrap
+msgid "1"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:245
+msgid ""
+"This is the default optimisation level and corresponds to the traditional "
+"behaviour.  Expressions are reordered so that tests based only on the names "
+"of files (for example B<-name> and B<-regex>)  are performed first."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:245
+#, no-wrap
+msgid "2"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:256
+msgid ""
+"Any B<-type> or B<-xtype> tests are performed after any tests based only on "
+"the names of files, but before any tests that require information from the "
+"inode.  On many modern versions of Unix, file types are returned by B<readdir"
+"()> and so these predicates are faster to evaluate than predicates which "
+"need to stat the file first."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:256
+#, no-wrap
+msgid "3"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:266
+msgid ""
+"At this optimisation level, the full cost-based query optimiser is enabled.  "
+"The order of tests is modified so that cheap (i.e. fast)  tests are "
+"performed first and more expensive ones are performed later, if necessary.  "
+"Within each cost band, predicates are evaluated earlier or later according "
+"to whether they are likely to succeed or not.  For B<-o>, predicates which "
+"are likely to succeed are evaluated earlier, and for B<-a>, predicates which "
+"are likely to fail are evaluated earlier."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:284
+msgid ""
+"The cost-based optimiser has a fixed idea of how likely any given test is to "
+"succeed.  In some cases the probability takes account of the specific nature "
+"of the test (for example, B<-type f> is assumed to be more likely to succeed "
+"than B<-type c>).  The cost-based optimiser is currently being evaluated.  "
+"If it does not actually improve the performance of B<find>, it will be "
+"removed again.  Conversely, optimisations that prove to be reliable, robust "
+"and effective may be enabled at lower optimisation levels over time.  "
+"However, the default behaviour (i.e. optimisation level 1) will not be "
+"changed in the 4.3.x release series.  The findutils test suite runs all the "
+"tests on B<find> at each optimisation level and ensures that the result is "
+"the same."
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:123
+#: C/man1/find.1:285
 #, no-wrap
 msgid "EXPRESSIONS"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:129
+#: C/man1/find.1:293
 msgid ""
 "The expression is made up of options (which affect overall operation rather "
 "than the processing of a specific file, and always return true), tests "
 "(which return a true or false value), and actions (which have side effects "
-"and return a true or false value), all separated by operators.  -and is "
+"and return a true or false value), all separated by operators.  B<-and> is "
 "assumed where the operator is omitted."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:132
+#: C/man1/find.1:299
 msgid ""
-"If the expression contains no actions other than -prune, -print is performed "
-"on all files for which the expression is true."
+"If the expression contains no actions other than B<-prune>, B<-print> is "
+"performed on all files for which the expression is true."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:144
+#: C/man1/find.1:319
 msgid ""
-"All options always return true.  Except for -follow and -daystart, the "
-"options affect all tests, including tests specified before the option.  This "
-"is because the options are processed when the command line is parsed, while "
-"the tests don't do anything until files are examined.  The -follow and -"
-"daystart options are different in this respect, and have an effect only on "
-"tests which appear later in the command line.  Therefore, for clarity, it is "
-"best to place them at the beginning of the expression.  A warning is issued "
-"if you don't do this."
+"All options always return true.  Except for B<-daystart>, B<-follow> and B<-"
+"regextype>, the options affect all tests, including tests specified before "
+"the option.  This is because the options are processed when the command line "
+"is parsed, while the tests don't do anything until files are examined.  The "
+"B<-daystart>, B<-follow> and B<-regextype> options are different in this "
+"respect, and have an effect only on tests which appear later in the command "
+"line.  Therefore, for clarity, it is best to place them at the beginning of "
+"the expression.  A warning is issued if you don't do this."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:144
-#, no-wrap
-msgid "-daystart"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:148
-msgid ""
-"Measure times (for -amin, -atime, -cmin, -ctime, -mmin, and -mtime)  from "
-"the beginning of today rather than from 24 hours ago.  This option only "
-"affects tests which appear later on the command line."
-msgstr ""
-
-# type: IP
-#: C/man1/find.1:148
-#, no-wrap
-msgid "-depth"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:150
-msgid "Process each directory's contents before the directory itself."
-msgstr ""
-
-# type: IP
-#: C/man1/find.1:150
+#: C/man1/find.1:320
 #, no-wrap
 msgid "-d"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:152
+#: C/man1/find.1:322
 msgid ""
 "A synonym for -depth, for compatibility with FreeBSD, NetBSD, MacOS X and "
 "OpenBSD."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:152
+#: C/man1/find.1:323
+#, no-wrap
+msgid "-daystart"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:334
+msgid ""
+"Measure times (for B<-amin>, B<-atime>, B<-cmin>, B<-ctime>, B<-mmin>, and "
+"B<-mtime>)  from the beginning of today rather than from 24 hours ago.  This "
+"option only affects tests which appear later on the command line."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:335
+#, no-wrap
+msgid "-depth"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:339
+msgid ""
+"Process each directory's contents before the directory itself.  The -delete "
+"action also implies B<-depth>."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:340
 #, no-wrap
 msgid "-follow"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:163
+#: C/man1/find.1:376
 msgid ""
-"Deprecated; use the -L option instead.  Dereference symbolic links.  Implies "
-"-noleaf.  The -follow option affects only those tests which appear after it "
-"on the command line.  Unless the -H or -L option has been specified, the "
-"position of the -follow option changes the behaviour of the -newer "
-"predicate; any files listed as the argument of -newer will be dereferenced "
-"if they are symbolic links.  The same consideration applies to -anewer and -"
-"cnewer.  Similarly, the -type predicate will always match against the type "
-"of the file that a symbolic link points to rather than the link itself.  "
-"Using -follow causes the -lname and -ilname predicates always to return "
-"false."
+"Deprecated; use the B<-L> option instead.  Dereference symbolic links.  "
+"Implies B<-noleaf>.  The B<-follow> option affects only those tests which "
+"appear after it on the command line.  Unless the B<-H> or B<-L> option has "
+"been specified, the position of the B<-follow> option changes the behaviour "
+"of the B<-newer> predicate; any files listed as the argument of B<-newer> "
+"will be dereferenced if they are symbolic links.  The same consideration "
+"applies to B<-newerXY>, B<-anewer> and B<-cnewer>.  Similarly, the B<-type> "
+"predicate will always match against the type of the file that a symbolic "
+"link points to rather than the link itself.  Using B<-follow> causes the B<-"
+"lname and> B<-ilname> predicates always to return false."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:163
+#: C/man1/find.1:377
 #, no-wrap
 msgid "-help, --help"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:167
+#: C/man1/find.1:381
 msgid "Print a summary of the command-line usage of B<find> and exit."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:167
+#: C/man1/find.1:382
 #, no-wrap
 msgid "-ignore_readdir_race"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:177
+#: C/man1/find.1:392
 msgid ""
 "Normally, B<find> will emit an error message when it fails to stat a file.  "
 "If you give this option and a file is deleted between the time B<find> reads "
@@ -341,65 +512,67 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:177
+#: C/man1/find.1:393
 #, no-wrap
 msgid "-maxdepth I<levels>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:181
+#: C/man1/find.1:398
+#, no-wrap
 msgid ""
-"Descend at most I<levels> (a non-negative integer) levels of directories "
-"below the command line arguments.  `-maxdepth 0' means only apply the tests "
-"and actions to the command line arguments."
+"Descend at most I<levels> (a non-negative integer) levels of\n"
+"directories below the command line arguments.  \n"
+"B<-maxdepth 0>\n"
+" means only apply the tests and actions to the command line arguments.\n"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:181
+#: C/man1/find.1:399
 #, no-wrap
 msgid "-mindepth I<levels>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:185
+#: C/man1/find.1:404
 msgid ""
 "Do not apply any tests or actions at levels less than I<levels> (a non-"
-"negative integer).  `-mindepth 1' means process all files except the command "
-"line arguments."
+"negative integer).  B<-mindepth 1> means process all files except the "
+"command line arguments."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:185
+#: C/man1/find.1:405
 #, no-wrap
 msgid "-mount"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:189
+#: C/man1/find.1:410
 msgid ""
-"Don't descend directories on other filesystems.  An alternate name for -"
-"xdev, for compatibility with some other versions of B<find>."
+"Don't descend directories on other filesystems.  An alternate name for B<-"
+"xdev>, for compatibility with some other versions of B<find>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:189
+#: C/man1/find.1:411
 #, no-wrap
 msgid "-noignore_readdir_race"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:191
-msgid "Turns off the effect of -ignore_readdir_race."
+#: C/man1/find.1:414
+msgid "Turns off the effect of B<-ignore_readdir_race>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:191
+#: C/man1/find.1:415
 #, no-wrap
 msgid "-noleaf"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:206
+#: C/man1/find.1:430
 msgid ""
 "Do not optimize by assuming that directories contain 2 fewer subdirectories "
 "than their hard link count.  This option is needed when searching "
@@ -416,13 +589,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:206
+#: C/man1/find.1:431
 #, no-wrap
 msgid "-regextype I<type>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:214
+#: C/man1/find.1:439
 msgid ""
 "Changes the regular expression syntax understood by B<-regex> and B<-iregex> "
 "tests which occur later on the command line.  Currently-implemented types "
@@ -431,119 +604,132 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:215
+#: C/man1/find.1:440
 #, no-wrap
 msgid "-version, --version"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:217
+#: C/man1/find.1:442
 msgid "Print the B<find> version number and exit."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:217
+#: C/man1/find.1:443
 #, no-wrap
 msgid "-warn, -nowarn"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:224
+#: C/man1/find.1:453
 msgid ""
 "Turn warning messages on or off.  These warnings apply only to the command "
 "line usage, not to any conditions that B<find> might encounter when it "
-"searches directories.  The default behaviour corresponds to -warn if "
-"standard input is a tty, and to -nowarn otherwise."
+"searches directories.  The default behaviour corresponds to B<-warn> if "
+"standard input is a tty, and to B<-nowarn> otherwise."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:224
+#: C/man1/find.1:454
 #, no-wrap
 msgid "-xdev"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:226
+#: C/man1/find.1:456
 msgid "Don't descend directories on other filesystems."
 msgstr ""
 
 # type: SS
-#: C/man1/find.1:227
+#: C/man1/find.1:457
 #, no-wrap
 msgid "TESTS"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:230
+#: C/man1/find.1:479
+msgid ""
+"Some tests, for example B<-newerXY> and B<-samefile>, allow comparison "
+"between the file currently being examined and some reference file specified "
+"on the command line.  When these tests are used, the interpretation of the "
+"reference file is determined by the options B<-H>, B<-L> and B<-P> and any "
+"previous B<-follow>, but the reference file is only examined once, at the "
+"time the command line is parsed.  If the reference file cannot be examined "
+"(for example, the B<stat>(2)  system call fails for it), an error message is "
+"issued, and B<find> exits with a nonzero status."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:481
 msgid "Numeric arguments can be specified as"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:230
+#: C/man1/find.1:481
 #, no-wrap
 msgid "I<+n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:233
+#: C/man1/find.1:484
 msgid "for greater than I<n>,"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:233
+#: C/man1/find.1:484
 #, no-wrap
 msgid "I<-n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:236
+#: C/man1/find.1:487
 msgid "for less than I<n>,"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:236
+#: C/man1/find.1:487
 #, no-wrap
 msgid "I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:239
+#: C/man1/find.1:490
 msgid "for exactly I<n>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:239
+#: C/man1/find.1:492
 #, no-wrap
 msgid "-amin I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:241
+#: C/man1/find.1:494
 msgid "File was last accessed I<n> minutes ago."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:241
+#: C/man1/find.1:495
 #, no-wrap
 msgid "-anewer I<file>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:246
+#: C/man1/find.1:503
 msgid ""
 "File was last accessed more recently than I<file> was modified.  If I<file> "
-"is a symbolic link and the -H option or the -L option is in effect, the "
-"access time of the file it points to is always used."
+"is a symbolic link and the B<-H> option or the B<-L> option is in effect, "
+"the access time of the file it points to is always used."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:246
+#: C/man1/find.1:504
 #, no-wrap
 msgid "-atime I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:255
+#: C/man1/find.1:513
 msgid ""
 "File was last accessed I<n>*24 hours ago.  When find figures out how many 24-"
 "hour periods ago the file was last accessed, any fractional part is ignored, "
@@ -552,38 +738,38 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:255
+#: C/man1/find.1:514
 #, no-wrap
 msgid "-cmin I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:257
+#: C/man1/find.1:516
 msgid "File's status was last changed I<n> minutes ago."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:257
+#: C/man1/find.1:517
 #, no-wrap
 msgid "-cnewer I<file>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:262
+#: C/man1/find.1:525
 msgid ""
 "File's status was last changed more recently than I<file> was modified.  If "
-"I<file> is a symbolic link and the -H option or the -L option is in effect, "
-"the status-change time of the file it points to is always used."
+"I<file> is a symbolic link and the B<-H> option or the B<-L> option is in "
+"effect, the status-change time of the file it points to is always used."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:263
+#: C/man1/find.1:526
 #, no-wrap
 msgid "-ctime I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:269
+#: C/man1/find.1:532
 msgid ""
 "File's status was last changed I<n>*24 hours ago.  See the comments for B<-"
 "atime> to understand how rounding affects the interpretation of file status "
@@ -591,189 +777,209 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:269
+#: C/man1/find.1:533
 #, no-wrap
 msgid "-empty"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:271
+#: C/man1/find.1:535
 msgid "File is empty and is either a regular file or a directory."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:271
+#: C/man1/find.1:536
+#, no-wrap
+msgid "-executable"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:552
+msgid ""
+"Matches files which are executable and directories which are searchable (in "
+"a file name resolution sense).  This takes into account access control lists "
+"and other permissions artefacts which the B<-perm> test ignores.  This test "
+"makes use of the B<access>(2)  system call, and so can be fooled by NFS "
+"servers which do UID mapping (or root-squashing), since many systems "
+"implement B<access>(2)  in the client's kernel and so cannot make use of the "
+"UID mapping information held on the server.  Because this test is based only "
+"on the result of the B<access>(2)  system call, there is no guarantee that a "
+"file for which this test succeeds can actually be executed."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:553
 #, no-wrap
 msgid "-false"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:273
+#: C/man1/find.1:555
 msgid "Always false."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:273
+#: C/man1/find.1:556
 #, no-wrap
 msgid "-fstype I<type>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:279
+#: C/man1/find.1:563
 msgid ""
 "File is on a filesystem of type I<type>.  The valid filesystem types vary "
 "among different versions of Unix; an incomplete list of filesystem types "
 "that are accepted on some version of Unix or another is: ufs, 4.2, 4.3, nfs, "
-"tmp, mfs, S51K, S52K.  You can use -printf with the %F directive to see the "
-"types of your filesystems."
+"tmp, mfs, S51K, S52K.  You can use B<-printf> with the %F directive to see "
+"the types of your filesystems."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:279
+#: C/man1/find.1:564
 #, no-wrap
 msgid "-gid I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:281
+#: C/man1/find.1:566
 msgid "File's numeric group ID is I<n>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:281
+#: C/man1/find.1:567
 #, no-wrap
 msgid "-group I<gname>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:283
+#: C/man1/find.1:569
 msgid "File belongs to group I<gname> (numeric group ID allowed)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:283
+#: C/man1/find.1:570
 #, no-wrap
 msgid "-ilname I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:287
+#: C/man1/find.1:580
 msgid ""
-"Like -lname, but the match is case insensitive.  If the -L option or the -"
-"follow option is in effect, this test returns false unless the symbolic link "
-"is broken."
+"Like B<-lname>, but the match is case insensitive.  If the B<-L> option or "
+"the B<-follow> option is in effect, this test returns false unless the "
+"symbolic link is broken."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:287
+#: C/man1/find.1:581
 #, no-wrap
 msgid "-iname I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:296
+#: C/man1/find.1:592
 msgid ""
-"Like -name, but the match is case insensitive.  For example, the patterns "
+"Like B<-name>, but the match is case insensitive.  For example, the patterns "
 "`fo*' and `F??' match the file names `Foo', `FOO', `foo', `fOo', etc.  In "
 "these patterns, unlike filename expansion by the shell, an initial '.' can "
-"be matched by '*'.  That is, B<find -name *bar> will match the file `."
+"be matched by `*'.  That is, B<find -name *bar> will match the file `."
 "foobar'.  Please note that you should quote patterns as a matter of course, "
 "otherwise the shell will expand any wildcard characters in them."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:297
+#: C/man1/find.1:593
 #, no-wrap
 msgid "-inum I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:301
+#: C/man1/find.1:597
 msgid ""
 "File has inode number I<n>.  It is normally easier to use the B<-samefile> "
 "test instead."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:301
+#: C/man1/find.1:598
 #, no-wrap
 msgid "-ipath I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:304
+#: C/man1/find.1:602
 msgid ""
-"Behaves in the same way as -iwholename.  This option is deprecated, so "
+"Behaves in the same way as B<-iwholename>.  This option is deprecated, so "
 "please do not use it."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:304
+#: C/man1/find.1:603
 #, no-wrap
 msgid "-iregex I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:306
-msgid "Like -regex, but the match is case insensitive."
+#: C/man1/find.1:607
+msgid "Like B<-regex>, but the match is case insensitive."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:306
+#: C/man1/find.1:608
 #, no-wrap
 msgid "-iwholename I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:308
-msgid "Like -wholename, but the match is case insensitive."
+#: C/man1/find.1:612
+msgid "Like B<-wholename>, but the match is case insensitive."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:308
+#: C/man1/find.1:613
 #, no-wrap
 msgid "-links I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:310
+#: C/man1/find.1:615
 msgid "File has I<n> links."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:310
+#: C/man1/find.1:616
 #, no-wrap
 msgid "-lname I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:315
+#: C/man1/find.1:625
 msgid ""
 "File is a symbolic link whose contents match shell pattern I<pattern>.  The "
-"metacharacters do not treat `/' or `.' specially.  If the -L option or the -"
-"follow option is in effect, this test returns false unless the symbolic link "
-"is broken."
+"metacharacters do not treat `/' or `.' specially.  If the B<-L> option or "
+"the B<-follow> option is in effect, this test returns false unless the "
+"symbolic link is broken."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:315
+#: C/man1/find.1:626
 #, no-wrap
 msgid "-mmin I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:317
+#: C/man1/find.1:628
 msgid "File's data was last modified I<n> minutes ago."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:317
+#: C/man1/find.1:629
 #, no-wrap
 msgid "-mtime I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:323
+#: C/man1/find.1:635
 msgid ""
 "File's data was last modified I<n>*24 hours ago.  See the comments for B<-"
 "atime> to understand how rounding affects the interpretation of file "
@@ -781,19 +987,19 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:323
+#: C/man1/find.1:636
 #, no-wrap
 msgid "-name I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:336
+#: C/man1/find.1:653
 msgid ""
 "Base of file name (the path with the leading directories removed)  matches "
 "shell pattern I<pattern>.  The metacharacters (`*', `?', and `[]') match a "
 "`.' at the start of the base name (this is a change in findutils-4.2.2; see "
 "section STANDARDS CONFORMANCE below).  To ignore a directory and the files "
-"under it, use -prune; see an example in the description of -wholename.  "
+"under it, use B<-prune>; see an example in the description of B<-path>.  "
 "Braces are not recognised as being special, despite the fact that some "
 "shells including Bash imbue braces with a special meaning in shell "
 "patterns.  The filename matching is performed with the use of the B<fnmatch>"
@@ -802,134 +1008,254 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:337
+#: C/man1/find.1:654
 #, no-wrap
 msgid "-newer I<file>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:341
+#: C/man1/find.1:662
 msgid ""
 "File was modified more recently than I<file>.  If I<file> is a symbolic link "
-"and the -H option or the -L option is in effect, the modification time of "
-"the file it points to is always used."
+"and the B<-H> option or the B<-L> option is in effect, the modification time "
+"of the file it points to is always used."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:341
+#: C/man1/find.1:663
 #, no-wrap
-msgid "-nouser"
+msgid "-newerXY I<reference>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:343
-msgid "No user corresponds to file's numeric user ID."
+#: C/man1/find.1:678
+msgid ""
+"Compares the timestamp of the current file with I<reference>.  The "
+"I<reference> argument is normally the name of a file (and one of its "
+"timestamps is used for the comparison) but it may also be a string "
+"describing an absolute time.  I<X> and I<Y> are placeholders for other "
+"letters, and these letters select which time belonging to how I<reference> "
+"is used for the comparison."
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:684
+#, no-wrap
+msgid "a\tThe access time of the file I<reference> \n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:685
+#, no-wrap
+msgid "B\tThe birth time of the file I<reference>\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:686
+#, no-wrap
+msgid "c\tThe inode status change time of I<reference>\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:687
+#, no-wrap
+msgid "m\tThe modification time of the file I<reference>\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:688
+#, no-wrap
+msgid "t\tI<reference> is interpreted directly as a time\n"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:709
+msgid ""
+"Some combinations are invalid; for example, it is invalid for I<X> to be "
+"I<t>.  Some combinations are not implemented on all systems; for example "
+"I<B> is not supported on all systems.  If an invalid or unsupported "
+"combination of I<XY> is specified, a fatal error results.  Time "
+"specifications are interpreted as for the argument to the B<-d> option of "
+"GNU B<date>.  If you try to use the birth time of a reference file, and the "
+"birth time cannot be determined, a fatal error message results.  If you "
+"specify a test which refers to the birth time of files being examined, this "
+"test will fail for any files where the birth time is unknown."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:343
+#: C/man1/find.1:710
 #, no-wrap
 msgid "-nogroup"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:345
+#: C/man1/find.1:712
 msgid "No group corresponds to file's numeric group ID."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:345
+#: C/man1/find.1:713
+#, no-wrap
+msgid "-nouser"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:715
+msgid "No user corresponds to file's numeric user ID."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:716
 #, no-wrap
 msgid "-path I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:348
+#: C/man1/find.1:719
 msgid ""
-"See -wholename.  The predicate -path is also supported by HP-UX B<find>."
+"File name matches shell pattern I<pattern>.  The metacharacters do not treat "
+"`/' or `.' specially; so, for example,"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:722
+msgid "find . -path \"./sr*sc\""
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:731
+msgid ""
+"will print an entry for a directory called `./src/misc' (if one exists).  To "
+"ignore a whole directory tree, use B<-prune> rather than checking every file "
+"in the tree.  For example, to skip the directory `src/emacs' and all files "
+"and directories under it, and print the names of the other files found, do "
+"something like this:"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:734
+msgid "find . -path ./src/emacs -prune -o -print"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:741
+msgid ""
+"Note that the pattern match test applies to the whole file name, starting "
+"from one of the start points named on the command line.  It would only make "
+"sense to use an absolute path name here if the relevant start point is also "
+"an absolute path.  This means that this command will never match anything:"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:744
+msgid "find bar -path /foo/bar/myfile -print"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:751
+msgid ""
+"The predicate B<-path> is also supported by HP-UX B<find> and will be in a "
+"forthcoming version of the POSIX standard."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:348
+#: C/man1/find.1:752
 #, no-wrap
 msgid "-perm I<mode>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:359
+#: C/man1/find.1:766
 msgid ""
 "File's permission bits are exactly I<mode> (octal or symbolic).  Since an "
 "exact match is required, if you want to use this form for symbolic modes, "
-"you may have to specify a rather complex mode string.  For example '-perm "
-"g=w' will only match files which have mode 0020 (that is, ones for which "
+"you may have to specify a rather complex mode string.  For example B<-perm "
+"g=w> will only match files which have mode 0020 (that is, ones for which "
 "group write permission is the only permission set).  It is more likely that "
-"you will want to use the '/' or '-' forms, for example '-perm -g=w', which "
+"you will want to use the `/' or `-' forms, for example B<-perm -g=w>, which "
 "matches any file with group write permission.  See the B<EXAMPLES> section "
 "for some illustrative examples."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:359
+#: C/man1/find.1:767
 #, no-wrap
 msgid "-perm -I<mode>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:366
+#: C/man1/find.1:774
 msgid ""
 "All of the permission bits I<mode> are set for the file.  Symbolic modes are "
 "accepted in this form, and this is usually the way in which would want to "
-"use them.  You must specify 'u', 'g' or 'o' if you use a symbolic mode.  See "
+"use them.  You must specify `u', `g' or `o' if you use a symbolic mode.  See "
 "the B<EXAMPLES> section for some illustrative examples."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:366
+#: C/man1/find.1:775
 #, no-wrap
 msgid "-perm /I<mode>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:378
+#: C/man1/find.1:787
 msgid ""
 "Any of the permission bits I<mode> are set for the file.  Symbolic modes are "
-"accepted in this form.  You must specify 'u', 'g' or 'o' if you use a "
+"accepted in this form.  You must specify `u', `g' or `o' if you use a "
 "symbolic mode.  See the B<EXAMPLES> section for some illustrative examples.  "
 "If no permission bits in I<mode> are set, this test currently matches no "
 "files.  However, it will soon be changed to match any file (the idea is to "
-"be more consistent with the behaviour of B<perm> B<-000>)."
+"be more consistent with the behaviour of B<-perm> B<-000>)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:378
+#: C/man1/find.1:788
 #, no-wrap
 msgid "-perm +I<mode>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:398
+#: C/man1/find.1:808
 msgid ""
 "Deprecated, old way of searching for files with any of the permission bits "
 "in I<mode> set.  You should use B<-perm >I</mode> instead. Trying to use the "
-"'+' syntax with symbolic modes will yield surprising results.  For example, "
-"'+u+x' is a valid symbolic mode (equivalent to +u,+x, i.e. 0111) and will "
+"`+' syntax with symbolic modes will yield surprising results.  For example, `"
+"+u+x' is a valid symbolic mode (equivalent to +u,+x, i.e. 0111) and will "
 "therefore not be evaluated as B<-perm +>I<mode> but instead as the exact "
 "mode specifier B<-perm >I<mode> and so it matches files with exact "
 "permissions 0111 instead of files with any execute bit set.  If you found "
 "this paragraph confusing, you're not alone - just use B<-perm />I<mode>.  "
 "This form of the B<-perm> test is deprecated because the POSIX specification "
-"requires the interpretation of a leading '+' as being part of a symbolic "
-"mode, and so we switched to using '/' instead."
+"requires the interpretation of a leading `+' as being part of a symbolic "
+"mode, and so we switched to using `/' instead."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:399
+#: C/man1/find.1:809
+#, no-wrap
+msgid "-readable"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:820
+msgid ""
+"Matches files which are readable.  This takes into account access control "
+"lists and other permissions artefacts which the B<-perm> test ignores.  This "
+"test makes use of the B<access>(2)  system call, and so can be fooled by NFS "
+"servers which do UID mapping (or root-squashing), since many systems "
+"implement B<access>(2)  in the client's kernel and so cannot make use of the "
+"UID mapping information held on the server."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:821
 #, no-wrap
 msgid "-regex I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:409
+#: C/man1/find.1:831
 msgid ""
 "File name matches regular expression I<pattern>.  This is a match on the "
 "whole path, not a search.  For example, to match a file named `./fubar3', "
@@ -939,328 +1265,336 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:409
+#: C/man1/find.1:832
 #, no-wrap
 msgid "-samefile I<name>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:412
+#: C/man1/find.1:836
 msgid ""
-"File refers to the same inode as I<name>.  When -L is in effect, this can "
+"File refers to the same inode as I<name>.  When B<-L> is in effect, this can "
 "include symbolic links."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:412
+#: C/man1/find.1:837
 #, no-wrap
 msgid "-size I<n>[cwbkMG]"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:415
+#: C/man1/find.1:840
 msgid "File uses I<n> units of space.  The following suffixes can be used:"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:416
+#: C/man1/find.1:841
 #, no-wrap
 msgid "`b'"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:418
+#: C/man1/find.1:843
 msgid "for 512-byte blocks (this is the default if no suffix is used)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:418
+#: C/man1/find.1:843
 #, no-wrap
 msgid "`c'"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:420
+#: C/man1/find.1:845
 msgid "for bytes"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:420
+#: C/man1/find.1:845
 #, no-wrap
 msgid "`w'"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:422
+#: C/man1/find.1:847
 msgid "for two-byte words"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:422
+#: C/man1/find.1:847
 #, no-wrap
 msgid "`k'"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:424
+#: C/man1/find.1:849
 msgid "for Kilobytes (units of 1024 bytes)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:424
+#: C/man1/find.1:849
 #, no-wrap
 msgid "`M'"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:426
+#: C/man1/find.1:851
 msgid "for Megabytes (units of 1048576 bytes)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:426
+#: C/man1/find.1:851
 #, no-wrap
 msgid "`G'"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:428
+#: C/man1/find.1:853
 msgid "for Gigabytes (units of 1073741824 bytes)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:435
+#: C/man1/find.1:863
 msgid ""
 "The size does not count indirect blocks, but it does count blocks in sparse "
 "files that are not actually allocated.  Bear in mind that the `%k' and `%b' "
-"format specifiers of -printf handle sparse files differently.  The `b' "
+"format specifiers of B<-printf> handle sparse files differently.  The `b' "
 "suffix always denotes 512-byte blocks and never 1 Kilobyte blocks, which is "
-"different to the behaviour of -ls."
+"different to the behaviour of B<-ls>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:436
+#: C/man1/find.1:864
 #, no-wrap
 msgid "-true"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:438
+#: C/man1/find.1:866
 msgid "Always true."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:438
+#: C/man1/find.1:867
 #, no-wrap
 msgid "-type I<c>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:440
+#: C/man1/find.1:869
 msgid "File is of type I<c>:"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:441 C/man1/find.1:688
+#: C/man1/find.1:870 C/man1/find.1:1224
 #, no-wrap
 msgid "b"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:443
+#: C/man1/find.1:872
 msgid "block (buffered) special"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:443 C/man1/find.1:692
+#: C/man1/find.1:872 C/man1/find.1:1228
 #, no-wrap
 msgid "c"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:445
+#: C/man1/find.1:874
 msgid "character (unbuffered) special"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:445 C/man1/find.1:694
+#: C/man1/find.1:874 C/man1/find.1:1234
 #, no-wrap
 msgid "d"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:447
+#: C/man1/find.1:876
 msgid "directory"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:447 C/man1/find.1:666
+#: C/man1/find.1:876 C/man1/find.1:1201
 #, no-wrap
 msgid "p"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:449
+#: C/man1/find.1:878
 msgid "named pipe (FIFO)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:449
+#: C/man1/find.1:878
 #, no-wrap
 msgid "f"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:451
+#: C/man1/find.1:880
 msgid "regular file"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:451 C/man1/find.1:662
+#: C/man1/find.1:880 C/man1/find.1:1197
 #, no-wrap
 msgid "l"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:455
+#: C/man1/find.1:890
 msgid ""
-"symbolic link; this is never true if the -L option or the -follow option is "
-"in effect, unless the symbolic link is broken.  If you want to search for "
-"symbolic links when -L is in effect, use -xtype."
+"symbolic link; this is never true if the B<-L> option or the B<-follow> "
+"option is in effect, unless the symbolic link is broken.  If you want to "
+"search for symbolic links when B<-L> is in effect, use B<-xtype>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:455
+#: C/man1/find.1:890
 #, no-wrap
 msgid "s"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:457
+#: C/man1/find.1:892
 msgid "socket"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:457 C/man1/find.1:696
+#: C/man1/find.1:892 C/man1/find.1:1236
 #, no-wrap
 msgid "D"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:459
+#: C/man1/find.1:894
 msgid "door (Solaris)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:460
+#: C/man1/find.1:895
 #, no-wrap
 msgid "-uid I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:462
+#: C/man1/find.1:897
 msgid "File's numeric user ID is I<n>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:462
+#: C/man1/find.1:898
 #, no-wrap
 msgid "-used I<n>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:464
+#: C/man1/find.1:900
 msgid "File was last accessed I<n> days after its status was last changed."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:464
+#: C/man1/find.1:901
 #, no-wrap
 msgid "-user I<uname>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:466
+#: C/man1/find.1:903
 msgid "File is owned by user I<uname> (numeric user ID allowed)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:466
+#: C/man1/find.1:904
 #, no-wrap
 msgid "-wholename I<pattern>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:469
-msgid ""
-"File name matches shell pattern I<pattern>.  The metacharacters do not treat "
-"`/' or `.' specially; so, for example,"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:472
-msgid "find . -wholename './sr*sc'"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:479
-msgid ""
-"will print an entry for a directory called './src/misc' (if one exists).  To "
-"ignore a whole directory tree, use -prune rather than checking every file in "
-"the tree.  For example, to skip the directory `src/emacs' and all files and "
-"directories under it, and print the names of the other files found, do "
-"something like this:"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:482
-msgid "find . -wholename './src/emacs' -prune -o -print"
+#: C/man1/find.1:907
+msgid "See -path.  This alternative is less portable than B<-path>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:484
+#: C/man1/find.1:908
+#, no-wrap
+msgid "-writable"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:919
+msgid ""
+"Matches files which are writable.  This takes into account access control "
+"lists and other permissions artefacts which the B<-perm> test ignores.  This "
+"test makes use of the B<access>(2)  system call, and so can be fooled by NFS "
+"servers which do UID mapping (or root-squashing), since many systems "
+"implement B<access>(2)  in the client's kernel and so cannot make use of the "
+"UID mapping information held on the server."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:920
 #, no-wrap
 msgid "-xtype I<c>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:490
+#: C/man1/find.1:937
 msgid ""
-"The same as -type unless the file is a symbolic link.  For symbolic links: "
-"if the -H or -P option was specified, true if the file is a link to a file "
-"of type I<c>; if the -L option has been given, true if I<c> is `l'.  In "
-"other words, for symbolic links, -xtype checks the type of the file that -"
-"type does not check."
+"The same as B<-type> unless the file is a symbolic link.  For symbolic "
+"links: if the B<-H> or B<-P> option was specified, true if the file is a "
+"link to a file of type I<c>; if the B<-L> option has been given, true if "
+"I<c> is `l'.  In other words, for symbolic links, B<-xtype> checks the type "
+"of the file that B<-type> does not check."
 msgstr ""
 
 # type: SS
-#: C/man1/find.1:491
+#: C/man1/find.1:938
 #, no-wrap
 msgid "ACTIONS"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:492
+#: C/man1/find.1:939
 #, no-wrap
 msgid "-delete"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:496
+#: C/man1/find.1:953
 msgid ""
 "Delete files; true if removal succeeded.  If the removal failed, an error "
-"message is issued.  Use of this action automatically turns on the '-depth' "
-"option."
+"message is issued.  If B<-delete> fails, B<find>'s exit status will be "
+"nonzero (when it eventually exits).  Use of B<-delete> automatically turns "
+"on the B<-depth> option."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:976
+msgid ""
+"B<Warnings>: Don't forget that the find command line is evaluated as an "
+"expression, so putting B<-delete> first will make B<find> try to delete "
+"everything below the starting points you specified.  When testing a B<find> "
+"command line that you later intend to use with B<-delete>, you should "
+"explicitly specify B<-depth> in order to avoid later surprises.  Because B<-"
+"delete> implies B<-depth>, you cannot usefully use B<-prune> and B<-delete> "
+"together."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:497
+#: C/man1/find.1:977
 #, no-wrap
 msgid "-exec I<command> ;"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:515
+#: C/man1/find.1:1001
 msgid ""
 "Execute I<command>; true if 0 status is returned.  All following arguments "
 "to B<find> are taken to be arguments to the command until an argument "
@@ -1269,82 +1603,83 @@ msgid ""
 "the command, not just in arguments where it is alone, as in some versions of "
 "B<find>.  Both of these constructions might need to be escaped (with a `"
 "\\e') or quoted to protect them from expansion by the shell.  See the "
-"B<EXAMPLES> section for examples of the use of the `-exec' option.  The "
+"B<EXAMPLES> section for examples of the use of the B<-exec> option.  The "
 "specified command is run once for each matched file.  The command is "
 "executed in the starting directory.  There are unavoidable security problems "
-"surrounding use of the -exec option; you should use the -execdir option "
-"instead."
+"surrounding use of the B<-exec> action; you should use the B<-execdir> "
+"option instead."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:516
+#: C/man1/find.1:1002
 #, no-wrap
 msgid "-exec I<command> {} +"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:525
+#: C/man1/find.1:1013
 msgid ""
-"This variant of the -exec option runs the specified command on the selected "
-"files, but the command line is built by appending each selected file name at "
-"the end; the total number of invocations of the command will be much less "
-"than the number of matched files.  The command line is built in much the "
-"same way that B<xargs> builds its command lines.  Only one instance of '{}' "
-"is allowed within the command.  The command is executed in the starting "
-"directory."
+"This variant of the B<-exec> action runs the specified command on the "
+"selected files, but the command line is built by appending each selected "
+"file name at the end; the total number of invocations of the command will be "
+"much less than the number of matched files.  The command line is built in "
+"much the same way that B<xargs> builds its command lines.  Only one instance "
+"of `{}' is allowed within the command.  The command is executed in the "
+"starting directory."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:526
+#: C/man1/find.1:1014
 #, no-wrap
 msgid "-execdir I<command> ;"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:527
+#: C/man1/find.1:1015
 #, no-wrap
 msgid "-execdir I<command> {} +"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:545
+#: C/man1/find.1:1042
 msgid ""
-"Like -exec, but the specified command is run from the subdirectory "
+"Like B<-exec>, but the specified command is run from the subdirectory "
 "containing the matched file, which is not normally the directory in which "
 "you started B<find>.  This a much more secure method for invoking commands, "
 "as it avoids race conditions during resolution of the paths to the matched "
-"files.  As with the -exec option, the '+' form of -execdir will build a "
-"command line to process more than one matched file, but any given invocation "
-"of I<command> will only list files that exist in the same subdirectory.  If "
-"you use this option, you must ensure that your B<$PATH> environment variable "
-"does not reference the current directory; otherwise, an attacker can run any "
-"commands they like by leaving an appropriately-named file in a directory in "
-"which you will run -execdir."
+"files.  As with the B<-exec> action, the `+' form of B<-execdir> will build "
+"a command line to process more than one matched file, but any given "
+"invocation of I<command> will only list files that exist in the same "
+"subdirectory.  If you use this option, you must ensure that your B<$PATH> "
+"environment variable does not reference `.'; otherwise, an attacker can run "
+"any commands they like by leaving an appropriately-named file in a directory "
+"in which you will run B<-execdir>.  The same applies to having entries in B<"
+"$PATH> which are empty or which are not absolute directory names."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:546
+#: C/man1/find.1:1043
 #, no-wrap
 msgid "-fls I<file>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:553
+#: C/man1/find.1:1053
 msgid ""
-"True; like -ls but write to I<file> like -fprint.  The output file is always "
-"created, even if the predicate is never matched.  See the B<UNUSUAL "
+"True; like B<-ls> but write to I<file> like B<-fprint>.  The output file is "
+"always created, even if the predicate is never matched.  See the B<UNUSUAL "
 "FILENAMES> section for information about how unusual characters in filenames "
 "are handled."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:554
+#: C/man1/find.1:1054
 #, no-wrap
 msgid "-fprint I<file>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:564
+#: C/man1/find.1:1064
 msgid ""
 "True; print the full file name into file I<file>.  If I<file> does not exist "
 "when B<find> is run, it is created; if it does exist, it is truncated.  The "
@@ -1356,274 +1691,291 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:564
+#: C/man1/find.1:1065
 #, no-wrap
 msgid "-fprint0 I<file>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:570
+#: C/man1/find.1:1074
 msgid ""
-"True; like -print0 but write to I<file> like -fprint.  The output file is "
-"always created, even if the predicate is never matched.  See the B<UNUSUAL "
-"FILENAMES> section for information about how unusual characters in filenames "
-"are handled."
+"True; like B<-print0> but write to I<file> like B<-fprint>.  The output file "
+"is always created, even if the predicate is never matched.  See the "
+"B<UNUSUAL FILENAMES> section for information about how unusual characters in "
+"filenames are handled."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:570
+#: C/man1/find.1:1075
 #, no-wrap
 msgid "-fprintf I<file> I<format>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:576
+#: C/man1/find.1:1084
 msgid ""
-"True; like -printf but write to I<file> like -fprint.  The output file is "
-"always created, even if the predicate is never matched.  See the B<UNUSUAL "
-"FILENAMES> section for information about how unusual characters in filenames "
-"are handled."
+"True; like B<-printf> but write to I<file> like B<-fprint>.  The output file "
+"is always created, even if the predicate is never matched.  See the "
+"B<UNUSUAL FILENAMES> section for information about how unusual characters in "
+"filenames are handled."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:576
+#: C/man1/find.1:1085
+#, no-wrap
+msgid "-ls"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1094
+msgid ""
+"True; list current file in B<ls -dils> format on standard output.  The block "
+"counts are of 1K blocks, unless the environment variable POSIXLY_CORRECT is "
+"set, in which case 512-byte blocks are used.  See the B<UNUSUAL FILENAMES> "
+"section for information about how unusual characters in filenames are "
+"handled."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:1095
 #, no-wrap
 msgid "-ok I<command> ;"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:582
+#: C/man1/find.1:1103
 msgid ""
-"Like -exec but ask the user first (on the standard input); if the response "
-"does not start with `y' or `Y', do not run the command, and return false.  "
-"If the command is run, its standard input is redirected from B</dev/null>."
-msgstr ""
-
-# type: IP
-#: C/man1/find.1:583
-#, no-wrap
-msgid "-print"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:593
-msgid ""
-"True; print the full file name on the standard output, followed by a "
-"newline.  If you are piping the output of B<find> into another program and "
-"there is the faintest possibility that the files which you are searching for "
-"might contain a newline, then you should seriously consider using the `-"
-"print0' option instead of `-print'.  See the B<UNUSUAL FILENAMES> section "
-"for information about how unusual characters in filenames are handled."
-msgstr ""
-
-# type: IP
-#: C/man1/find.1:593
-#, no-wrap
-msgid "-okdir I<command> ;"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:599
-msgid ""
-"Like -execdir but ask the user first (on the standard input); if the "
+"Like B<-exec> but ask the user first (on the standard input); if the "
 "response does not start with `y' or `Y', do not run the command, and return "
 "false.  If the command is run, its standard input is redirected from B</dev/"
 "null>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:599
+#: C/man1/find.1:1104
+#, no-wrap
+msgid "-okdir I<command> ;"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1112
+msgid ""
+"Like B<-execdir> but ask the user first (on the standard input); if the "
+"response does not start with `y' or `Y', do not run the command, and return "
+"false.  If the command is run, its standard input is redirected from B</dev/"
+"null>."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:1113
+#, no-wrap
+msgid "-print"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1126
+msgid ""
+"True; print the full file name on the standard output, followed by a "
+"newline.  If you are piping the output of B<find> into another program and "
+"there is the faintest possibility that the files which you are searching for "
+"might contain a newline, then you should seriously consider using the B<-"
+"print0> option instead of B<-print>.  See the B<UNUSUAL FILENAMES> section "
+"for information about how unusual characters in filenames are handled."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:1127
 #, no-wrap
 msgid "-print0"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:606
+#: C/man1/find.1:1138
 msgid ""
 "True; print the full file name on the standard output, followed by a null "
-"character (instead of the newline character that `-print' uses).  This "
+"character (instead of the newline character that B<-print> uses).  This "
 "allows file names that contain newlines or other types of white space to be "
 "correctly interpreted by programs that process the B<find> output.  This "
-"option corresponds to the `-0' option of B<xargs>."
+"option corresponds to the B<-0> option of B<xargs>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:606
+#: C/man1/find.1:1139
 #, no-wrap
 msgid "-printf I<format>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:615
+#: C/man1/find.1:1150
 msgid ""
 "True; print I<format> on the standard output, interpreting `\\e' escapes and "
 "`%' directives.  Field widths and precisions can be specified as with the "
 "`printf' C function.  Please note that many of the fields are printed as %s "
 "rather than %d, and this may mean that flags don't work as you might "
 "expect.  This also means that the `-' flag does work (it forces fields to be "
-"left-aligned).  Unlike -print, -printf does not add a newline at the end of "
-"the string.  The escapes and directives are:"
+"left-aligned).  Unlike B<-print>, B<-printf> does not add a newline at the "
+"end of the string.  The escapes and directives are:"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:616
+#: C/man1/find.1:1151
 #, no-wrap
 msgid "\\ea"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:618
+#: C/man1/find.1:1153
 msgid "Alarm bell."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:618
+#: C/man1/find.1:1153
 #, no-wrap
 msgid "\\eb"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:620
+#: C/man1/find.1:1155
 msgid "Backspace."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:620
+#: C/man1/find.1:1155
 #, no-wrap
 msgid "\\ec"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:622
+#: C/man1/find.1:1157
 msgid "Stop printing from this format immediately and flush the output."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:622
+#: C/man1/find.1:1157
 #, no-wrap
 msgid "\\ef"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:624
+#: C/man1/find.1:1159
 msgid "Form feed."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:624
+#: C/man1/find.1:1159
 #, no-wrap
 msgid "\\en"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:626
+#: C/man1/find.1:1161
 msgid "Newline."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:626
+#: C/man1/find.1:1161
 #, no-wrap
 msgid "\\er"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:628
+#: C/man1/find.1:1163
 msgid "Carriage return."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:628
+#: C/man1/find.1:1163
 #, no-wrap
 msgid "\\et"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:630
+#: C/man1/find.1:1165
 msgid "Horizontal tab."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:630
+#: C/man1/find.1:1165
 #, no-wrap
 msgid "\\ev"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:632
+#: C/man1/find.1:1167
 msgid "Vertical tab."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:632
+#: C/man1/find.1:1167
 #, no-wrap
 msgid "\\e\\0"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:634
+#: C/man1/find.1:1169
 msgid "ASCII NUL."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:634
+#: C/man1/find.1:1169
 #, no-wrap
 msgid "\\e\\e"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:636
+#: C/man1/find.1:1171
 msgid "A literal backslash (`\\e')."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:636
+#: C/man1/find.1:1171
 #, no-wrap
 msgid "\\eNNN"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:638
+#: C/man1/find.1:1173
 msgid "The character whose ASCII code is NNN (octal)."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:641
+#: C/man1/find.1:1176
 msgid ""
 "A `\\e' character followed by any other character is treated as an ordinary "
 "character, so they both are printed."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:641
+#: C/man1/find.1:1176
 #, no-wrap
 msgid "%%"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:643
+#: C/man1/find.1:1178
 msgid "A literal percent sign."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:643
+#: C/man1/find.1:1178
 #, no-wrap
 msgid "%a"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:645
+#: C/man1/find.1:1180
 msgid ""
 "File's last access time in the format returned by the C `ctime' function."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:645
+#: C/man1/find.1:1180
 #, no-wrap
 msgid "%AI<k>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:651
+#: C/man1/find.1:1186
 msgid ""
 "File's last access time in the format specified by I<k>, which is either `@' "
 "or a directive for the C `strftime' function.  The possible values for I<k> "
@@ -1632,309 +1984,313 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:652
+#: C/man1/find.1:1187
 #, no-wrap
 msgid "@"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:654
-msgid "seconds since Jan. 1, 1970, 00:00 GMT."
+#: C/man1/find.1:1189
+msgid "seconds since Jan. 1, 1970, 00:00 GMT, with fractional part."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:656
+#: C/man1/find.1:1191
 msgid "Time fields:"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:656
+#: C/man1/find.1:1191
 #, no-wrap
 msgid "H"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:658
+#: C/man1/find.1:1193
 msgid "hour (00..23)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:658
+#: C/man1/find.1:1193
 #, no-wrap
 msgid "I"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:660
+#: C/man1/find.1:1195
 msgid "hour (01..12)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:660
+#: C/man1/find.1:1195
 #, no-wrap
 msgid "k"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:662
+#: C/man1/find.1:1197
 msgid "hour ( 0..23)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:664
+#: C/man1/find.1:1199
 msgid "hour ( 1..12)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:664
+#: C/man1/find.1:1199
 #, no-wrap
 msgid "M"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:666
+#: C/man1/find.1:1201
 msgid "minute (00..59)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:668
+#: C/man1/find.1:1203
 msgid "locale's AM or PM"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:668
+#: C/man1/find.1:1203
 #, no-wrap
 msgid "r"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:670
+#: C/man1/find.1:1205
 msgid "time, 12-hour (hh:mm:ss [AP]M)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:670
+#: C/man1/find.1:1205
 #, no-wrap
 msgid "S"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:672
-msgid "second (00..61)"
+#: C/man1/find.1:1207
+msgid "Second (00.00 .. 61.00).  There is a fractional part."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:672
+#: C/man1/find.1:1207
 #, no-wrap
 msgid "T"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:674
+#: C/man1/find.1:1209
 msgid "time, 24-hour (hh:mm:ss)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:674
+#: C/man1/find.1:1209
 #, no-wrap
 msgid "+"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:678
+#: C/man1/find.1:1214
 msgid ""
-"Date and time, separated by '+', for example `2004-04-28+22:22:05'.  The "
-"time is given in the current timezone (which may be affected by setting the "
-"TZ environment variable).  This is a GNU extension."
+"Date and time, separated by `+', for example `2004-04-28+22:22:05.0'.  This "
+"is a GNU extension.  The time is given in the current timezone (which may be "
+"affected by setting the TZ environment variable).  The seconds field "
+"includes a fractional part."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:678
+#: C/man1/find.1:1214
 #, no-wrap
 msgid "X"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:680
+#: C/man1/find.1:1216
 msgid "locale's time representation (H:M:S)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:680
+#: C/man1/find.1:1216
 #, no-wrap
 msgid "Z"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:682
+#: C/man1/find.1:1218
 msgid "time zone (e.g., EDT), or nothing if no time zone is determinable"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:684
+#: C/man1/find.1:1220
 msgid "Date fields:"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:684
+#: C/man1/find.1:1220
 #, no-wrap
 msgid "a"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:686
+#: C/man1/find.1:1222
 msgid "locale's abbreviated weekday name (Sun..Sat)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:686
+#: C/man1/find.1:1222
 #, no-wrap
 msgid "A"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:688
+#: C/man1/find.1:1224
 msgid "locale's full weekday name, variable length (Sunday..Saturday)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:690
+#: C/man1/find.1:1226
 msgid "locale's abbreviated month name (Jan..Dec)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:690
+#: C/man1/find.1:1226
 #, no-wrap
 msgid "B"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:692
+#: C/man1/find.1:1228
 msgid "locale's full month name, variable length (January..December)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:694
-msgid "locale's date and time (Sat Nov 04 12:02:33 EST 1989)"
+#: C/man1/find.1:1234
+msgid ""
+"locale's date and time (Sat Nov 04 12:02:33 EST 1989).  The format is the "
+"same as for B<ctime>(3)  and so to preserve compatibility with that format, "
+"there is no fractional part in the seconds field."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:696
+#: C/man1/find.1:1236
 msgid "day of month (01..31)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:698
+#: C/man1/find.1:1238
 msgid "date (mm/dd/yy)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:698
+#: C/man1/find.1:1238
 #, no-wrap
 msgid "h"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:700
+#: C/man1/find.1:1240
 msgid "same as b"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:700
+#: C/man1/find.1:1240
 #, no-wrap
 msgid "j"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:702
+#: C/man1/find.1:1242
 msgid "day of year (001..366)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:702
+#: C/man1/find.1:1242
 #, no-wrap
 msgid "m"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:704
+#: C/man1/find.1:1244
 msgid "month (01..12)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:704
+#: C/man1/find.1:1244
 #, no-wrap
 msgid "U"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:706
+#: C/man1/find.1:1246
 msgid "week number of year with Sunday as first day of week (00..53)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:706
+#: C/man1/find.1:1246
 #, no-wrap
 msgid "w"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:708
+#: C/man1/find.1:1248
 msgid "day of week (0..6)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:708
+#: C/man1/find.1:1248
 #, no-wrap
 msgid "W"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:710
+#: C/man1/find.1:1250
 msgid "week number of year with Monday as first day of week (00..53)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:710
+#: C/man1/find.1:1250
 #, no-wrap
 msgid "x"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:712
+#: C/man1/find.1:1252
 msgid "locale's date representation (mm/dd/yy)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:712
+#: C/man1/find.1:1252
 #, no-wrap
 msgid "y"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:714
+#: C/man1/find.1:1254
 msgid "last two digits of year (00..99)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:714
+#: C/man1/find.1:1254
 #, no-wrap
 msgid "Y"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:716
+#: C/man1/find.1:1256
 msgid "year (1970...)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:717
+#: C/man1/find.1:1257
 #, no-wrap
 msgid "%b"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:721
+#: C/man1/find.1:1261
 msgid ""
 "The amount of disk space used for this file in 512-byte blocks. Since disk "
 "space is allocated in multiples of the filesystem block size this is usually "
@@ -1942,111 +2298,111 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:721
+#: C/man1/find.1:1261
 #, no-wrap
 msgid "%c"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:724
+#: C/man1/find.1:1264
 msgid ""
 "File's last status change time in the format returned by the C `ctime' "
 "function."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:724
+#: C/man1/find.1:1264
 #, no-wrap
 msgid "%CI<k>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:727
+#: C/man1/find.1:1267
 msgid ""
 "File's last status change time in the format specified by I<k>, which is the "
 "same as for %A."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:727
+#: C/man1/find.1:1267
 #, no-wrap
 msgid "%d"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:730
+#: C/man1/find.1:1270
 msgid ""
 "File's depth in the directory tree; 0 means the file is a command line "
 "argument."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:730
+#: C/man1/find.1:1270
 #, no-wrap
 msgid "%D"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:733
+#: C/man1/find.1:1273
 msgid ""
 "The device number on which the file exists (the st_dev field of struct "
 "stat), in decimal."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:733
+#: C/man1/find.1:1273
 #, no-wrap
 msgid "%f"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:735
+#: C/man1/find.1:1275
 msgid ""
 "File's name with any leading directories removed (only the last element)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:735
+#: C/man1/find.1:1275
 #, no-wrap
 msgid "%F"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:738
+#: C/man1/find.1:1278
 msgid ""
 "Type of the filesystem the file is on; this value can be used for -fstype."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:738
+#: C/man1/find.1:1278
 #, no-wrap
 msgid "%g"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:740
+#: C/man1/find.1:1280
 msgid "File's group name, or numeric group ID if the group has no name."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:740
+#: C/man1/find.1:1280
 #, no-wrap
 msgid "%G"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:742
+#: C/man1/find.1:1282
 msgid "File's numeric group ID."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:742
+#: C/man1/find.1:1282
 #, no-wrap
 msgid "%h"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:746
+#: C/man1/find.1:1286
 msgid ""
 "Leading directories of file's name (all but the last element).  If the file "
 "name contains no slashes (since it is in the current directory) the %h "
@@ -2054,35 +2410,35 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:746
+#: C/man1/find.1:1286
 #, no-wrap
 msgid "%H"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:748
+#: C/man1/find.1:1288
 msgid "Command line argument under which file was found."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:748
+#: C/man1/find.1:1288
 #, no-wrap
 msgid "%i"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:750
+#: C/man1/find.1:1290
 msgid "File's inode number (in decimal)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:750
+#: C/man1/find.1:1290
 #, no-wrap
 msgid "%k"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:754
+#: C/man1/find.1:1294
 msgid ""
 "The amount of disk space used for this file in 1K blocks. Since disk space "
 "is allocated in multiples of the filesystem block size this is usually "
@@ -2091,164 +2447,183 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:754
+#: C/man1/find.1:1294
 #, no-wrap
 msgid "%l"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:756
+#: C/man1/find.1:1296
 msgid "Object of symbolic link (empty string if file is not a symbolic link)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:756
+#: C/man1/find.1:1296
 #, no-wrap
 msgid "%m"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:765
+#: C/man1/find.1:1305
 msgid ""
-"File's permission bits (in octal).  This option uses the 'traditional' "
+"File's permission bits (in octal).  This option uses the `traditional' "
 "numbers which most Unix implementations use, but if your particular "
 "implementation uses an unusual ordering of octal permissions bits, you will "
 "see a difference between the actual value of the file's mode and the output "
 "of %m.  Normally you will want to have a leading zero on this number, and to "
-"do this, you should use the B<#> flag (as in, for example, '%#m')."
+"do this, you should use the B<#> flag (as in, for example, `%#m')."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:765
+#: C/man1/find.1:1305
 #, no-wrap
 msgid "%M"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:769
+#: C/man1/find.1:1309
 msgid ""
 "File's permissions (in symbolic form, as for B<ls>).  This directive is "
 "supported in findutils 4.2.5 and later."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:769
+#: C/man1/find.1:1309
 #, no-wrap
 msgid "%n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:771
+#: C/man1/find.1:1311
 msgid "Number of hard links to file."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:771
+#: C/man1/find.1:1311
 #, no-wrap
 msgid "%p"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:773
+#: C/man1/find.1:1313
 msgid "File's name."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:773
+#: C/man1/find.1:1313
 #, no-wrap
 msgid "%P"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:776
+#: C/man1/find.1:1316
 msgid ""
 "File's name with the name of the command line argument under which it was "
 "found removed."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:776
+#: C/man1/find.1:1316
 #, no-wrap
 msgid "%s"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:778
+#: C/man1/find.1:1318
 msgid "File's size in bytes."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:778
+#: C/man1/find.1:1318
+#, no-wrap
+msgid "%S"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1327
+msgid ""
+"File's sparseness.  This is calculated as (BLOCKSIZE*st_blocks / st_size).  "
+"The exact value you will get for an ordinary file of a certain length is "
+"system-dependent.  However, normally sparse files will have values less than "
+"1.0, and files which use indirect blocks may have a value which is greater "
+"than 1.0.  The value used for BLOCKSIZE is system-dependent, but is usually "
+"512 bytes.  If the file size is zero, the value printed is undefined.  On "
+"systems which lack support for st_blocks, a file's sparseness is assumed to "
+"be 1.0."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:1327
 #, no-wrap
 msgid "%t"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:781
+#: C/man1/find.1:1330
 msgid ""
 "File's last modification time in the format returned by the C `ctime' "
 "function."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:781
+#: C/man1/find.1:1330
 #, no-wrap
 msgid "%TI<k>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:784
+#: C/man1/find.1:1333
 msgid ""
 "File's last modification time in the format specified by I<k>, which is the "
 "same as for %A."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:784
+#: C/man1/find.1:1333
 #, no-wrap
 msgid "%u"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:786
+#: C/man1/find.1:1335
 msgid "File's user name, or numeric user ID if the user has no name."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:786
+#: C/man1/find.1:1335
 #, no-wrap
 msgid "%U"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:788
+#: C/man1/find.1:1337
 msgid "File's numeric user ID."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:788
+#: C/man1/find.1:1337
 #, no-wrap
 msgid "%y"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:790
-msgid "File's type (like in ls -l), U=unknown type (shouldn't happen)"
+#: C/man1/find.1:1341
+msgid "File's type (like in B<ls -l>), U=unknown type (shouldn't happen)"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:790
+#: C/man1/find.1:1341
 #, no-wrap
 msgid "%Y"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:792
+#: C/man1/find.1:1343
 msgid "File's type (like %y), plus follow symlinks: L=loop, N=nonexistent"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:799
+#: C/man1/find.1:1350
 msgid ""
 "A `%' character followed by any other character is discarded, but the other "
 "character is printed (don't rely on this, as further format characters may "
@@ -2259,7 +2634,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:818
+#: C/man1/find.1:1369
 msgid ""
 "The %m and %d directives support the B<#> , B<0> and B<+> flags, but the "
 "other directives do not, even if they print numbers.  Numeric directives "
@@ -2269,38 +2644,34 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:822
+#: C/man1/find.1:1373
 msgid ""
 "See the B<UNUSUAL FILENAMES> section for information about how unusual "
 "characters in filenames are handled."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:825
+#: C/man1/find.1:1376
 #, no-wrap
 msgid "-prune"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:828
+#: C/man1/find.1:1387
 msgid ""
-"If -depth is not given, true; if the file is a directory, do not descend "
-"into it."
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:830
-msgid "If -depth is given, false; no effect."
+"True; if the file is a directory, do not descend into it. If B<-depth> is "
+"given, false; no effect.  Because B<-delete> implies B<-depth>, you cannot "
+"usefully use B<-prune> and B<-delete together.>"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:831
+#: C/man1/find.1:1388
 #, no-wrap
 msgid "-quit"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:843
+#: C/man1/find.1:1400
 msgid ""
 "Exit immediately.  No child processes will be left running, but no more "
 "paths specified on the command line will be processed.  For example, B<find /"
@@ -2310,35 +2681,19 @@ msgid ""
 "whether an error has already occurred."
 msgstr ""
 
-# type: IP
-#: C/man1/find.1:844
-#, no-wrap
-msgid "-ls"
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:851
-msgid ""
-"True; list current file in `ls -dils' format on standard output.  The block "
-"counts are of 1K blocks, unless the environment variable POSIXLY_CORRECT is "
-"set, in which case 512-byte blocks are used.  See the B<UNUSUAL FILENAMES> "
-"section for information about how unusual characters in filenames are "
-"handled."
-msgstr ""
-
 # type: SS
-#: C/man1/find.1:853
+#: C/man1/find.1:1401
 #, no-wrap
 msgid "UNUSUAL FILENAMES"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:864
+#: C/man1/find.1:1412
 msgid ""
 "Many of the actions of B<find> result in the printing of data which is under "
 "the control of other users.  This includes file names, sizes, modification "
 "times and so forth.  File names are a potential problem since they can "
-"contain any character except '\\e0' and '/'.  Unusual characters in file "
+"contain any character except `\\e0' and `/'.  Unusual characters in file "
 "names can do unexpected and often undesirable things to your terminal (for "
 "example, changing the settings of your function keys on some terminals).  "
 "Unusual characters are handled differently by various actions, as described "
@@ -2346,42 +2701,42 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:864
+#: C/man1/find.1:1413
 #, no-wrap
 msgid "-print0, -fprint0"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:867
+#: C/man1/find.1:1416
 msgid ""
 "Always print the exact filename, unchanged, even if the output is going to a "
 "terminal."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:867
+#: C/man1/find.1:1417
 #, no-wrap
 msgid "-ls, -fls"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:873
+#: C/man1/find.1:1426
 msgid ""
 "Unusual characters are always escaped.  White space, backslash, and double "
-"quote characters are printed using C-style escaping (for example '\\ef', '\\e"
+"quote characters are printed using C-style escaping (for example `\\ef', `\\e"
 "\"').  Other unusual characters are printed using an octal escape.  Other "
-"printable characters (for -ls and -fls these are the characters between "
-"octal 041 and 0176) are printed as-is."
+"printable characters (for B<-ls> and B<-fls> these are the characters "
+"between octal 041 and 0176) are printed as-is."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:873
+#: C/man1/find.1:1427
 #, no-wrap
 msgid "-printf, -fprintf"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:891
+#: C/man1/find.1:1447
 msgid ""
 "If the output is not going to a terminal, it is printed as-is.  Otherwise, "
 "the result depends on which directive is in use.  The directives %D, %F, %g, "
@@ -2391,145 +2746,151 @@ msgid ""
 "files' owners but which cannot be used to send arbitrary data to the "
 "terminal, and so these are printed as-is.  The directives %f, %h, %l, %p and "
 "%P are quoted.  This quoting is performed in the same way as for GNU B<ls>.  "
-"This is not the same quoting mechanism as the one used for -ls and -fls.  If "
-"you are able to decide what format to use for the output of B<find> then it "
-"is normally better to use '\\e0' as a terminator than to use newline, as "
-"file names can contain white space and newline characters."
+"This is not the same quoting mechanism as the one used for B<-ls> and B<-"
+"fls>.  If you are able to decide what format to use for the output of "
+"B<find> then it is normally better to use `\\e0' as a terminator than to use "
+"newline, as file names can contain white space and newline characters."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:891
+#: C/man1/find.1:1448
 #, no-wrap
 msgid "-print, -fprint"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:898
+#: C/man1/find.1:1460
 msgid ""
-"Quoting is handled in the same way as for -printf and -fprintf.  If you are "
-"using B<find> in a script or in a situation where the matched files might "
-"have arbitrary names, you should consider using -print0 instead of -print."
+"Quoting is handled in the same way as for B<-printf> and B<-fprintf>.  If "
+"you are using B<find> in a script or in a situation where the matched files "
+"might have arbitrary names, you should consider using B<-print0> instead of "
+"B<-print>."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:901
+#: C/man1/find.1:1466
 msgid ""
-"The -ok and -okdir actions print the current filename as-is.  This may "
+"The B<-ok> and B<-okdir> actions print the current filename as-is.  This may "
 "change in a future release."
 msgstr ""
 
 # type: SS
-#: C/man1/find.1:901
+#: C/man1/find.1:1466
 #, no-wrap
 msgid "OPERATORS"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:904
+#: C/man1/find.1:1469
 msgid "Listed in order of decreasing precedence:"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:904
+#: C/man1/find.1:1470
 #, no-wrap
 msgid "( I<expr> )"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:906
-msgid "Force precedence."
+#: C/man1/find.1:1474
+msgid ""
+"Force precedence.  Since parentheses are special to the shell, you will "
+"normally need to quote them.  Many of the examples in this manual page use "
+"backslashes for this purpose: `\\e(...\\e)' instead of `(...)'."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:906
+#: C/man1/find.1:1475
 #, no-wrap
 msgid "! I<expr>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:908
-msgid "True if I<expr> is false."
+#: C/man1/find.1:1478
+msgid ""
+"True if I<expr> is false.  This character will also usually need protection "
+"from interpretation by the shell."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:908
+#: C/man1/find.1:1479
 #, no-wrap
 msgid "-not I<expr>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:910
+#: C/man1/find.1:1481
 msgid "Same as ! I<expr>, but not POSIX compliant."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:910
+#: C/man1/find.1:1482
 #, no-wrap
 msgid "I<expr1 expr2>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:913
+#: C/man1/find.1:1485
 msgid ""
 "Two expressions in a row are taken to be joined with an implied \"and\"; "
 "I<expr2> is not evaluated if I<expr1> is false."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:913
+#: C/man1/find.1:1486
 #, no-wrap
 msgid "I<expr1> -a I<expr2>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:915
+#: C/man1/find.1:1488
 msgid "Same as I<expr1 expr2>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:915
+#: C/man1/find.1:1489
 #, no-wrap
 msgid "I<expr1> -and I<expr2>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:917
+#: C/man1/find.1:1491
 msgid "Same as I<expr1 expr2>, but not POSIX compliant."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:917
+#: C/man1/find.1:1492
 #, no-wrap
 msgid "I<expr1> -o I<expr2>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:919
+#: C/man1/find.1:1494
 msgid "Or; I<expr2> is not evaluated if I<expr1> is true."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:919
+#: C/man1/find.1:1495
 #, no-wrap
 msgid "I<expr1> -or I<expr2>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:921
-msgid "Same as I<expr1> -o I<expr2>, but not POSIX compliant."
+#: C/man1/find.1:1499
+msgid "Same as I<expr1> B<-o> I<expr2>, but not POSIX compliant."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:921
+#: C/man1/find.1:1500
 #, no-wrap
 msgid "I<expr1> , I<expr2>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:931
+#: C/man1/find.1:1509
 msgid ""
 "List; both I<expr1> and I<expr2> are always evaluated.  The value of "
-"I<expr1> is discarded; the value of the list is the value of I<expr2>.\t The "
+"I<expr1> is discarded; the value of the list is the value of I<expr2>. The "
 "comma operator can be useful for searching for several different types of "
 "thing, but traversing the filesystem hierarchy only once.  The B<-fprintf> "
 "action can be used to list the various matched items into several different "
@@ -2537,73 +2898,86 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:933 C/man1/xargs.1:218
+#: C/man1/find.1:1511 C/man1/xargs.1:380
 #, no-wrap
 msgid "STANDARDS CONFORMANCE"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:936
+#: C/man1/find.1:1515
 msgid ""
-"The following options are specified in the POSIX standard (IEEE Std 1003.1, "
-"2003 Edition):"
+"For closest compliance to the POSIX standard, you should set the "
+"POSIXLY_CORRECT environment variable.  The following options are specified "
+"in the POSIX standard (IEEE Std 1003.1, 2003 Edition):"
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:1516
+#, no-wrap
+msgid "B<-H>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:938 C/man1/find.1:940
+#: C/man1/find.1:1518 C/man1/find.1:1521
 msgid "This option is supported."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:940
+#: C/man1/find.1:1519
 #, no-wrap
-msgid "-name"
+msgid "B<-L>"
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:1522
+#, no-wrap
+msgid "B<-name>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:948
+#: C/man1/find.1:1530
 msgid ""
 "This option is supported, but POSIX conformance depends on the POSIX "
 "conformance of the system's B<fnmatch>(3)  library function.  As of "
-"findutils-4.2.2, shell metacharacters ('*'. '?' or '[]' for example) will "
-"match a leading '.', because IEEE PASC interpretation 126 requires this.  "
+"findutils-4.2.2, shell metacharacters (`*', `?' or `[]' for example) will "
+"match a leading `.', because IEEE PASC interpretation 126 requires this.  "
 "This is a change from previous versions of findutils."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:948
+#: C/man1/find.1:1531
 #, no-wrap
-msgid "-type"
+msgid "B<-type>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:951
+#: C/man1/find.1:1534
 msgid ""
 "Supported.  POSIX specifies `b', `c', `d', `l', `p', `f' and `s'.  GNU find "
 "also supports `D', representing a Door, where the OS provides these."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:952
+#: C/man1/find.1:1535
 #, no-wrap
-msgid "-ok"
+msgid "B<-ok>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:955
+#: C/man1/find.1:1538
 msgid ""
 "Supported.  Interpretation of the response is not locale-dependent (see "
 "ENVIRONMENT VARIABLES)."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:956
+#: C/man1/find.1:1539
 #, no-wrap
-msgid "-newer"
+msgid "B<-newer>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:961
+#: C/man1/find.1:1544
 msgid ""
 "Supported.  If the file specified is a symbolic link, it is always "
 "dereferenced.  This is a change from previous behaviour, which used to take "
@@ -2611,28 +2985,42 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:962
+#: C/man1/find.1:1545
+#, no-wrap
+msgid "B<-perm>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1549
+msgid ""
+"Supported.  If the POSIXLY_CORRECT environment variable is not set, some "
+"mode arguments (for example +a+x) which are not valid in POSIX are supported "
+"for backward-compatibility."
+msgstr ""
+
+# type: IP
+#: C/man1/find.1:1550
 #, no-wrap
 msgid "Other predicates"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:979
+#: C/man1/find.1:1567
 msgid ""
-"The predicates `-atime', `-ctime', `-depth', `-group', `-links', `-mtime', `-"
-"nogroup', `-nouser', `-perm', `-print', `-prune', `-size', `-user' and `-"
-"xdev', are all supported."
+"The predicates B<-atime>, B<-ctime>, B<-depth>, B<-group>, B<-links>, B<-"
+"mtime>, B<-nogroup>, B<-nouser>, B<-print>, B<-prune>, B<-size>, B<-user> "
+"and B<-xdev> are all supported."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:983
+#: C/man1/find.1:1573
 msgid ""
 "The POSIX standard specifies parentheses `(', `)', negation `!' and the "
-"`and' and `or' operators (`-a', `-o')."
+"`and' and `or' operators ( B<-a>, B<-o>)."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:987
+#: C/man1/find.1:1577
 msgid ""
 "All other options, predicates, expressions and so forth are extensions "
 "beyond the POSIX standard.  Many of these extensions are not unique to GNU "
@@ -2640,12 +3028,12 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:989
-msgid "The POSIX standard requires that"
+#: C/man1/find.1:1581
+msgid "The POSIX standard requires that B<find> detects loops:"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:997
+#: C/man1/find.1:1589
 msgid ""
 "The B<find> utility shall detect infinite loops; that is, entering a "
 "previously visited directory that is an ancestor of the last file "
@@ -2655,183 +3043,203 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1022
+#: C/man1/find.1:1619
 msgid ""
-"The link count of directories which contain entries which are hard links to "
-"an ancestor will often be lower than they otherwise should be.  This can "
-"mean that GNU find will sometimes optimise away the visiting of a "
-"subdirectory which is actually a link to an ancestor.  Since B<find> does "
-"not actually enter such a subdirectory, it is allowed to avoid emitting a "
-"diagnostic message.  Although this behaviour may be somewhat confusing, it "
-"is unlikely that anybody actually depends on this behaviour.  If the leaf "
-"optimisation has been turned off with B<-noleaf>, the directory entry will "
-"always be examined and the diagnostic message will be issued where it is "
-"appropriate.  Symbolic links cannot be used to create filesystem cycles as "
-"such, but if the -L option or the -follow option is in use, a diagnostic "
-"message is issued when B<find> encounters a loop of symbolic links.  As with "
-"loops containing hard links, the leaf optimisation will often mean that "
-"B<find> knows that it doesn't need to call I<stat()> or I<chdir()> on the "
-"symbolic link, so this diagnostic is frequently not necessary."
+"GNU B<find> complies with these requirements.  The link count of directories "
+"which contain entries which are hard links to an ancestor will often be "
+"lower than they otherwise should be.  This can mean that GNU find will "
+"sometimes optimise away the visiting of a subdirectory which is actually a "
+"link to an ancestor.  Since B<find> does not actually enter such a "
+"subdirectory, it is allowed to avoid emitting a diagnostic message.  "
+"Although this behaviour may be somewhat confusing, it is unlikely that "
+"anybody actually depends on this behaviour.  If the leaf optimisation has "
+"been turned off with B<-noleaf>, the directory entry will always be examined "
+"and the diagnostic message will be issued where it is appropriate.  Symbolic "
+"links cannot be used to create filesystem cycles as such, but if the B<-L> "
+"option or the B<-follow> option is in use, a diagnostic message is issued "
+"when B<find> encounters a loop of symbolic links.  As with loops containing "
+"hard links, the leaf optimisation will often mean that B<find> knows that it "
+"doesn't need to call I<stat()> or I<chdir()> on the symbolic link, so this "
+"diagnostic is frequently not necessary."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1025
+#: C/man1/find.1:1626
 msgid ""
-"The -d option is supported for compatibility with various BSD systems, but "
-"you should use the POSIX-compliant option -depth instead."
+"The B<-d> option is supported for compatibility with various BSD systems, "
+"but you should use the POSIX-compliant option B<-depth> instead."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1029
+#: C/man1/find.1:1633
 msgid ""
 "The POSIXLY_CORRECT environment variable does not affect the behaviour of "
-"the -regex or -iregex tests because those tests aren't specified in the "
-"POSIX standard."
+"the B<-regex> or B<-iregex> tests because those tests aren't specified in "
+"the POSIX standard."
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1029
+#: C/man1/find.1:1633
 #, no-wrap
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1030
+#: C/man1/find.1:1635
 #, no-wrap
 msgid "LANG"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1033
+#: C/man1/find.1:1638
 msgid ""
 "Provides a default value for the internationalization variables that are "
 "unset or null."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1033
+#: C/man1/find.1:1639
 #, no-wrap
 msgid "LC_ALL"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1036
+#: C/man1/find.1:1642
 msgid ""
 "If set to a non-empty string value, override the values of all the other "
 "internationalization variables."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1036
+#: C/man1/find.1:1643
 #, no-wrap
 msgid "LC_COLLATE"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1042
+#: C/man1/find.1:1651
 msgid ""
 "The POSIX standard specifies that this variable affects the pattern matching "
-"to be used for the `-name' option.  GNU find uses the B<fnmatch>(3)  library "
-"function, and so support for `LC_COLLATE' depends on the system library."
+"to be used for the B<-name> option.  GNU find uses the B<fnmatch>(3)  "
+"library function, and so support for `LC_COLLATE' depends on the system "
+"library."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1046
+#: C/man1/find.1:1658
 msgid ""
 "POSIX also specifies that the `LC_COLLATE' environment variable affects the "
-"interpretation of the user's response to the query issued by `-ok', but this "
-"is not the case for GNU find."
+"interpretation of the user's response to the query issued by B<-ok'>, but "
+"this is not the case for GNU find."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1046
+#: C/man1/find.1:1659
 #, no-wrap
 msgid "LC_CTYPE"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1052
+#: C/man1/find.1:1669
 msgid ""
-"This variable affects the treatment of character classes used with the `-"
-"name' test, if the system's B<fnmatch>(3)  library function supports this.  "
-"It has no effect on the behaviour of the `-ok' expression."
+"This variable affects the treatment of character classes used with the B<-"
+"name> test, if the system's B<fnmatch>(3)  library function supports this.  "
+"It has no effect on the behaviour of the B<-ok> expression."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1052
+#: C/man1/find.1:1670
 #, no-wrap
 msgid "LC_MESSAGES"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1054
+#: C/man1/find.1:1672
 msgid "Determines the locale to be used for internationalised messages."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1054
+#: C/man1/find.1:1673
 #, no-wrap
 msgid "NLSPATH"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1056
+#: C/man1/find.1:1675
 msgid "Determines the location of the internationalisation message catalogues."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1056
+#: C/man1/find.1:1676
 #, no-wrap
 msgid "PATH"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1059
+#: C/man1/find.1:1684
 msgid ""
 "Affects the directories which are searched to find the executables invoked "
-"by `-exec', `-execdir', `-ok' and `-okdir'."
+"by B<-exec>, B<-execdir>, B<-ok> and B<-okdir>."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1059
+#: C/man1/find.1:1685
 #, no-wrap
 msgid "POSIXLY_CORRECT"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1063
+#: C/man1/find.1:1694
 msgid ""
-"Determines the block size used by `-ls' and `-fls'.  If `POSIXLY_CORRECT' is "
-"set, blocks are units of 512 bytes.  Otherwise they are units of 1024 bytes."
+"Determines the block size used by B<-ls> and B<-fls>.  If B<POSIXLY_CORRECT> "
+"is set, blocks are units of 512 bytes.  Otherwise they are units of 1024 "
+"bytes."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1703
+msgid ""
+"Setting this variable also turns off warning messages (that is, implies B<-"
+"nowarn>)  by default, because POSIX requires that apart from the output for "
+"B<-ok>, all messages printed on stderr are diagnositcs and must result in a "
+"non-zero exit status."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1713
+msgid ""
+"When POSIXLY_CORRECT is not set, B<-perm> +zzz is treated just like B<-"
+"perm> /zzz if +zzz is not a valid symbolic mode.  When POSIXLY_CORRECT is "
+"set, such constructs are treated as an error."
 msgstr ""
 
 # type: IP
-#: C/man1/find.1:1063
+#: C/man1/find.1:1714
 #, no-wrap
 msgid "TZ"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1066
+#: C/man1/find.1:1720
 msgid ""
 "Affects the time zone used for some of the time-related format directives of "
-"-printf and -fprintf."
+"B<-printf> and B<-fprintf>."
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1066 C/man1/xargs.1:176
+#: C/man1/find.1:1720 C/man1/xargs.1:303
 #, no-wrap
 msgid "EXAMPLES"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1069 C/man1/xargs.1:179
+#: C/man1/find.1:1723 C/man1/xargs.1:306
 #, no-wrap
 msgid "B<find /tmp -name core -type f -print | xargs /bin/rm -f>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1077
+#: C/man1/find.1:1731
 msgid ""
 "Find files named B<core> in or below the directory B</tmp> and delete them.  "
 "Note that this will work incorrectly if there are any filenames containing "
@@ -2839,12 +3247,12 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1079 C/man1/xargs.1:189
+#: C/man1/find.1:1733 C/man1/xargs.1:316
 msgid "B<find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1094
+#: C/man1/find.1:1748
 msgid ""
 "Find files named B<core> in or below the directory B</tmp> and delete them, "
 "processing filenames in such a way that file or directory names containing "
@@ -2854,44 +3262,45 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1098
+#: C/man1/find.1:1752
 #, no-wrap
-msgid "B<find . -type f -exec file '{}' \\e\\;>\n"
+msgid "B<find . -type f -exec file \\(aq{}\\(aq \\e\\;>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1105
+#: C/man1/find.1:1759
 msgid ""
 "Runs `file' on every file in or below the current directory.  Notice that "
 "the braces are enclosed in single quote marks to protect them from "
 "interpretation as shell script punctuation.  The semicolon is similarly "
-"protected by the use of a backslash, though ';' could have been used in that "
-"case also."
+"protected by the use of a backslash, though single quotes could have been "
+"used in that case also."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1110
+#: C/man1/find.1:1765
 #, no-wrap
 msgid ""
-"B<find / \\t\\e( -perm -4000 -fprintf /root/suid.txt '%#m %u %p\\en' \\e) , \\e>\n"
-"B<\\t\\t\\e( -size +100M -fprintf /root/big.txt '%-10s %p\\en' \\e)>\n"
+"B<find / \\e>\n"
+"B<\\e( -perm -4000 -fprintf /root/suid.txt %#m %u %p\\en \\e) , \\e>\n"
+"B<\\e( -size +100M -fprintf /root/big.txt %-10s %p\\en \\e)>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1117
+#: C/man1/find.1:1772
 msgid ""
 "Traverse the filesystem just once, listing setuid files and directories into "
 "B</root/suid.txt> and large files into B</root/big.txt>."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1121
+#: C/man1/find.1:1776
 #, no-wrap
 msgid "B<find $HOME -mtime 0>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1131
+#: C/man1/find.1:1786
 msgid ""
 "Search for files in your home directory which have been modified in the last "
 "twenty-four hours.  This command works this way because the time since each "
@@ -2901,13 +3310,24 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1136
+#: C/man1/find.1:1790
+#, no-wrap
+msgid "B<find /sbin /usr/sbin -executable \\e! -readable -print>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1793
+msgid "Search for files which are executable but not readable."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1797
 #, no-wrap
 msgid "B<find . -perm 664>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1142
+#: C/man1/find.1:1803
 msgid ""
 "Search for files which have read and write permission for their owner, and "
 "group, but which other users can read but not write to.  Files which meet "
@@ -2916,13 +3336,13 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1146
+#: C/man1/find.1:1807
 #, no-wrap
 msgid "B<find . -perm -664>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1152
+#: C/man1/find.1:1813
 msgid ""
 "Search for files which have read and write permission for their owner and "
 "group, and which other users can read, without regard to the presence of any "
@@ -2931,20 +3351,20 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1156
+#: C/man1/find.1:1817
 #, no-wrap
 msgid "B<find . -perm /222>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1160
+#: C/man1/find.1:1821
 msgid ""
 "Search for files which are writable by somebody (their owner, or their "
 "group, or anybody else)."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1166
+#: C/man1/find.1:1827
 #, no-wrap
 msgid ""
 "B<find . -perm /220>\n"
@@ -2953,7 +3373,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1174
+#: C/man1/find.1:1835
 msgid ""
 "All three of these commands do the same thing, but the first one uses the "
 "octal representation of the file mode, and the other two use the symbolic "
@@ -2963,7 +3383,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1179
+#: C/man1/find.1:1840
 #, no-wrap
 msgid ""
 "B<find . -perm -220>\n"
@@ -2971,14 +3391,14 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1183
+#: C/man1/find.1:1844
 msgid ""
 "Both these commands do the same thing; search for files which are writable "
 "by both their owner and their group."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1188
+#: C/man1/find.1:1849
 #, no-wrap
 msgid ""
 "B<find . -perm -444 -perm /222 ! -perm /111>\n"
@@ -2986,22 +3406,50 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1194
+#: C/man1/find.1:1866
 msgid ""
-"These two commands both search for files that are readable for everybody (-"
-"perm -444 or -perm -a+r), have at least on write bit set (-perm /222 or -"
-"perm /a+w) but are not executable for anybody (! -perm /111 and ! -perm /a+x "
-"respectively)"
+"These two commands both search for files that are readable for everybody "
+"( B<-perm -444> or B<-perm -a+r>), have at least one write bit set ( B<-"
+"perm /222> or B<-perm /a+w>)  but are not executable for anybody ( B<! -"
+"perm /111> and B<! -perm /a+x> respectively)."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1872
+#, no-wrap
+msgid ""
+"B<cd /source-dir>\n"
+"B<find . -name .snapshot -prune -o \\e( \\e! -name *~ -print0 \\e)|>\n"
+"B<cpio -pmd0 /dest-dir>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1905
+msgid ""
+"This command copies the contents of B</source-dir> to B</dest-dir>, but "
+"omits files and directories named B<.snapshot> (and anything in them).  It "
+"also omits files or directories whose name ends in B<~>, but not their "
+"contents.  The construct B<-prune -o \\e( ... -print0 \\e)> is quite "
+"common.  The idea here is that the expression before B<-prune> matches "
+"things which are to be pruned.  However, the B<-prune> action itself returns "
+"true, so the following B<-o> ensures that the right hand side is evaluated "
+"only for those directories which didn't get pruned (the contents of the "
+"pruned directories are not even visited, so their contents are irrelevant).  "
+"The expression on the right hand side of the B<-o> is in parentheses only "
+"for clarity.  It emphasises that the B<-print0> action takes place only for "
+"things that didn't have B<-prune> applied to them.  Because the default "
+"`and' condition between tests binds more tightly than B<-o>, this is the "
+"default anyway, but the parentheses help to show what is going on."
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1195 C/man1/xargs.1:203
+#: C/man1/find.1:1906 C/man1/xargs.1:365
 #, no-wrap
 msgid "EXIT STATUS"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1203
+#: C/man1/find.1:1914
 msgid ""
 "B<find> exits with status 0 if all files are processed successfully, greater "
 "than 0 if errors occur.  This is deliberately a very broad description, but "
@@ -3010,14 +3458,14 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1204 C/man1/locate.findutils.1:189
-#: C/man1/updatedb.findutils.1:100 C/man1/xargs.1:228 C/man5/locatedb.5:104
+#: C/man1/find.1:1915 C/man1/locate.findutils.1:196
+#: C/man1/updatedb.findutils.1:121 C/man1/xargs.1:402 C/man5/locatedb.5:141
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1209
+#: C/man1/find.1:1920
 msgid ""
 "B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<chmod>(1), "
 "B<fnmatch>(3), B<regex>(7), B<stat>(2), B<lstat>(2), B<ls>(1), B<printf>(3), "
@@ -3025,87 +3473,262 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1209
+#: C/man1/find.1:1920 C/man1/locate.findutils.1:200
 #, no-wrap
 msgid "HISTORY"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1213
+#: C/man1/find.1:1924
 msgid ""
-"As of findutils-4.2.2, shell metacharacters ('*'. '?' or '[]' for example) "
-"used in filename patterns will match a leading '.', because IEEE POSIX "
+"As of findutils-4.2.2, shell metacharacters (`*', `?' or `[]' for example) "
+"used in filename patterns will match a leading `.', because IEEE POSIX "
 "interpretation 126 requires this."
 msgstr ""
 
+# type: Plain text
+#: C/man1/find.1:1933
+msgid ""
+"The syntax B<-perm +MODE> was deprecated in findutils-4.2.21, in favour of "
+"B<-perm> B</MODE>.  As of findutils-4.3.3, B<-perm /000> now matches all "
+"files instead of none."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1936
+msgid "Nanosecond-resolution timestamps were implemented in findutils-4.3.3."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:1948
+msgid ""
+"As of findutils-4.3.11, the B<-delete> action sets B<find>'s exit status to "
+"a nonzero value when it fails.  However, B<find> will not exit immediately.  "
+"Previously, B<find>'s exit status was unaffected by the failure of B<-"
+"delete>."
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1950
+#, no-wrap
+msgid "Feature\tAdded in\tAlso occurs in \n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1951
+#, no-wrap
+msgid "-newerXY\t4.3.3\tBSD\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1952
+#, no-wrap
+msgid "-D\t4.3.1\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1953
+#, no-wrap
+msgid "-O\t4.3.1\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1954
+#, no-wrap
+msgid "-readable\t4.3.0\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1955
+#, no-wrap
+msgid "-writable\t4.3.0\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1956
+#, no-wrap
+msgid "-executable\t4.3.0\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1957
+#, no-wrap
+msgid "-regextype\t4.2.24\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1958
+#, no-wrap
+msgid "-exec ... +\t4.2.12\tPOSIX\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1959
+#, no-wrap
+msgid "-execdir\t4.2.12\tBSD\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1960
+#, no-wrap
+msgid "-okdir\t4.2.12\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1961
+#, no-wrap
+msgid "-samefile\t4.2.11\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1962
+#, no-wrap
+msgid "-H\t4.2.5\tPOSIX\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1963
+#, no-wrap
+msgid "-L\t4.2.5\tPOSIX\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1964
+#, no-wrap
+msgid "-P\t4.2.5\tBSD\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1965
+#, no-wrap
+msgid "-delete\t4.2.3\t\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1966
+#, no-wrap
+msgid "-quit\t4.2.3\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1967
+#, no-wrap
+msgid "-d\t4.2.3\tBSD\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1968
+#, no-wrap
+msgid "-wholename\t4.2.0\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1969
+#, no-wrap
+msgid "-iwholename\t4.2.0\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1970
+#, no-wrap
+msgid "-ignore_readdir_race\t4.2.0\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1971
+#, no-wrap
+msgid "-fls\t4.0\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1972
+#, no-wrap
+msgid "-ilname\t3.8\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1973
+#, no-wrap
+msgid "-iname\t3.8\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1974
+#, no-wrap
+msgid "-ipath\t3.8\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/find.1:1975
+#, no-wrap
+msgid "-iregex\t3.8\n"
+msgstr ""
+
 # type: SH
-#: C/man1/find.1:1213
+#: C/man1/find.1:1977
 #, no-wrap
 msgid "NON-BUGS"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1218
+#: C/man1/find.1:1982
 #, no-wrap
 msgid ""
 "B<$ find . -name *.c -print>\n"
 "find: paths must precede expression\n"
-"Usage: find [-H] [-L] [-P] [path...] [expression]\n"
+"Usage: find [-H] [-L] [-P] [-Olevel] [-D help|tree|search|stat|rates|opt|exec] [path...] [expression]\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1226
+#: C/man1/find.1:1990
 msgid ""
 "This happens because I<*.c> has been expanded by the shell resulting in "
 "B<find> actually receiving a command line like this:"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1229
+#: C/man1/find.1:1993
 #, no-wrap
 msgid "B<find . -name bigram.c code.c frcode.c locate.c -print>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1233
+#: C/man1/find.1:1997
 msgid ""
 "That command is of course not going to work.  Instead of doing things this "
-"way, you should enclose the pattern in quotes:"
+"way, you should enclose the pattern in quotes or escape the wildcard:"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1235
+#: C/man1/find.1:1999
 #, no-wrap
-msgid "B<$ find . -name \\'*.c\\' -print>\n"
+msgid "B<$ find . -name \\e*.c -print>\n"
 msgstr ""
 
 # type: SH
-#: C/man1/find.1:1237 C/man1/locate.findutils.1:193
-#: C/man1/updatedb.findutils.1:103 C/man1/xargs.1:231 C/man5/locatedb.5:107
+#: C/man1/find.1:2001 C/man1/locate.findutils.1:241
+#: C/man1/updatedb.findutils.1:124 C/man1/xargs.1:406 C/man5/locatedb.5:144
 #, no-wrap
 msgid "BUGS"
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1246
-msgid ""
-"The test B<-perm /000> currently matches no files, but for greater "
-"consistency with B<-perm> B<-000>, this will be changed to match all files; "
-"this change will probably be made in early 2006.  Meanwhile, a warning "
-"message is given if you do this."
-msgstr ""
-
-# type: Plain text
-#: C/man1/find.1:1253
+#: C/man1/find.1:2013
 msgid ""
 "There are security problems inherent in the behaviour that the POSIX "
 "standard specifies for B<find>, which therefore cannot be fixed.  For "
-"example, the -exec action is inherently insecure, and -execdir should be "
-"used instead.  Please see B<Finding Files> for more information."
+"example, the B<-exec> action is inherently insecure, and B<-execdir> should "
+"be used instead.  Please see B<Finding Files> for more information."
 msgstr ""
 
 # type: Plain text
-#: C/man1/find.1:1261
+#: C/man1/find.1:2019
+msgid ""
+"The environment variable B<LC_COLLATE> has no effect on the B<-ok> action."
+msgstr ""
+
+# type: Plain text
+#: C/man1/find.1:2027
 msgid ""
 "The best way to report a bug is to use the form at http://savannah.gnu.org/"
 "bugs/?group=findutils.  The reason for this is that you will then be able to "
@@ -3131,9 +3754,9 @@ msgstr ""
 msgid ""
 "B<locate> [-d path | --database=path] [-e | -E | --[non-]existing] [-i | --"
 "ignore-case] [-0 | --null] [-c | --count] [-w | --wholename] |-b | --"
-"basename] [-l N | --limit=N] [-S | --statistics] [-r | --regex ] [-P | -H | "
-"--nofollow] [-L | --follow] [--version] [-A | --all] [-p | --print] [--help] "
-"pattern..."
+"basename] [-l N | --limit=N] [-S | --statistics] [-r | --regex ] [--max-"
+"database-age D] [-P | -H | --nofollow] [-L | --follow] [--version] [-A | --"
+"all] [-p | --print] [--help] pattern..."
 msgstr ""
 
 # type: Plain text
@@ -3183,37 +3806,62 @@ msgstr ""
 # type: TP
 #: C/man1/locate.findutils.1:52
 #, no-wrap
+msgid "I<-0, --null>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:55
+msgid "Use ASCII NUL as a separator, instead of newline."
+msgstr ""
+
+# type: TP
+#: C/man1/locate.findutils.1:55
+#, no-wrap
 msgid "I<-A, --all>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:56
+#: C/man1/locate.findutils.1:59
 msgid ""
 "Print only names which match all non-option arguments, not those matching "
 "one or more non-option arguments."
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:56
+#: C/man1/locate.findutils.1:59
+#, no-wrap
+msgid "I<-b, --basename>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:64
+msgid ""
+"Results are considered to match if the pattern specified matches the final "
+"component of the name of a file as listed in the database.  This final "
+"component is usually referred to as the `base name'."
+msgstr ""
+
+# type: TP
+#: C/man1/locate.findutils.1:64
 #, no-wrap
 msgid "I<-c, --count>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:60
+#: C/man1/locate.findutils.1:68
 msgid ""
 "Instead of printing the matched filenames, just print the total number of "
 "matches we found, unless --I<print> (-p) is also present."
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:60
+#: C/man1/locate.findutils.1:68
 #, no-wrap
 msgid "I<-d path, --database=path>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:73
+#: C/man1/locate.findutils.1:81
 msgid ""
 "Instead of searching the default file name database, search the file name "
 "databases in I<path>, which is a colon-separated list of database file "
@@ -3227,7 +3875,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:90
+#: C/man1/locate.findutils.1:98
 msgid ""
 "The file name database format changed starting with GNU B<find> and "
 "B<locate> version 4.0 to allow machines with different byte orderings to "
@@ -3238,13 +3886,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:90
+#: C/man1/locate.findutils.1:98
 #, no-wrap
 msgid "I<-e, --existing>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:99
+#: C/man1/locate.findutils.1:107
 msgid ""
 "Only print out such names that currently exist (instead of such names that "
 "existed when the database was created).  Note that this may slow down the "
@@ -3255,13 +3903,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:99
+#: C/man1/locate.findutils.1:107
 #, no-wrap
 msgid "I<-E, --non-existing>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:105
+#: C/man1/locate.findutils.1:113
 msgid ""
 "Only print out such names that currently do not exist (instead of such names "
 "that existed when the database was created).  Note that this may slow down "
@@ -3269,26 +3917,87 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:105
+#: C/man1/locate.findutils.1:113
+#, no-wrap
+msgid "I<--help>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:118
+msgid "Print a summary of the options to B<locate> and exit."
+msgstr ""
+
+# type: TP
+#: C/man1/locate.findutils.1:118
+#, no-wrap
+msgid "I<-i, --ignore-case>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:121
+msgid "Ignore case distinctions in both the pattern and the file names."
+msgstr ""
+
+# type: TP
+#: C/man1/locate.findutils.1:121
+#, no-wrap
+msgid "I<-l N, --limit=N>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:126
+msgid ""
+"Limit the number of matches to N.  If a limit is set via this option, the "
+"number of results printed for the -c option will never be larger than this "
+"number."
+msgstr ""
+
+# type: TP
+#: C/man1/locate.findutils.1:126
 #, no-wrap
 msgid "I<-L, --follow>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:109
+#: C/man1/locate.findutils.1:130
 msgid ""
 "If testing for the existence of files (with the -e or -E options), consider "
 "broken symbolic links to be non-existing.  This is the default."
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:109
+#: C/man1/locate.findutils.1:130
+#, no-wrap
+msgid "I<--max-database-age D>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:137
+msgid ""
+"Normally, B<locate> will issue a warning message when it searches a database "
+"which is more than 8 days old.  This option changes that value to something "
+"other than 8.  The effect of specifying a negative value is undefined."
+msgstr ""
+
+# type: TP
+#: C/man1/locate.findutils.1:137
+#, no-wrap
+msgid "I<-m, --mmap>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:141 C/man1/locate.findutils.1:170
+msgid "Accepted but does nothing, for compatibility with BSD B<locate>."
+msgstr ""
+
+# type: TP
+#: C/man1/locate.findutils.1:141
 #, no-wrap
 msgid "I<-P, -H, --nofollow>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:116
+#: C/man1/locate.findutils.1:148
 msgid ""
 "If testing for the existence of files (with the -e or -E options), treat "
 "broken symbolic links as if they were existing files.  The -H form of this "
@@ -3297,100 +4006,26 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:116
-#, no-wrap
-msgid "I<-i, --ignore-case>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/locate.findutils.1:119
-msgid "Ignore case distinctions in both the pattern and the file names."
-msgstr ""
-
-# type: TP
-#: C/man1/locate.findutils.1:119
-#, no-wrap
-msgid "I<-l N, --limit=N>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/locate.findutils.1:124
-msgid ""
-"Limit the number of matches to N.  If a limit is set via this option, the "
-"number of results printed for the -c option will never be larger than this "
-"number."
-msgstr ""
-
-# type: TP
-#: C/man1/locate.findutils.1:124
-#, no-wrap
-msgid "I<-m, --mmap>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/locate.findutils.1:128 C/man1/locate.findutils.1:162
-msgid "Accepted but does nothing, for compatibility with BSD B<locate>."
-msgstr ""
-
-# type: TP
-#: C/man1/locate.findutils.1:128
-#, no-wrap
-msgid "I<-0, --null>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/locate.findutils.1:131
-msgid "Use ASCII NUL as a separator, instead of newline."
-msgstr ""
-
-# type: TP
-#: C/man1/locate.findutils.1:131
+#: C/man1/locate.findutils.1:148
 #, no-wrap
 msgid "I<-p, --print>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:135
+#: C/man1/locate.findutils.1:152
 msgid ""
 "Print search results when they normally would not, because of the presence "
 "of --statistics (-S) or --count (-c)."
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:135
-#, no-wrap
-msgid "I<-w, --wholename>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/locate.findutils.1:139
-msgid ""
-"Match against the whole name of the file as listed in the database.  This is "
-"the default."
-msgstr ""
-
-# type: TP
-#: C/man1/locate.findutils.1:139
-#, no-wrap
-msgid "I<-b, --basename>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/locate.findutils.1:144
-msgid ""
-"Results are considered to match if the pattern specified matches the final "
-"component of the name of a file as listed in the database.  This final "
-"component is usually referred to as the `base name'."
-msgstr ""
-
-# type: TP
-#: C/man1/locate.findutils.1:144
+#: C/man1/locate.findutils.1:152
 #, no-wrap
 msgid "I<-r, --regex >"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:158
+#: C/man1/locate.findutils.1:166
 msgid ""
 "The pattern specified on the command line is understood to be a regular "
 "expression, as opposed to a glob pattern.  The Regular expressions work in "
@@ -3403,19 +4038,19 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:158
+#: C/man1/locate.findutils.1:166
 #, no-wrap
 msgid "I<-s, --stdio>"
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:162
+#: C/man1/locate.findutils.1:170
 #, no-wrap
 msgid "I<-S, --statistics>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:171
+#: C/man1/locate.findutils.1:179
 msgid ""
 "Print various statistics about each locate database and then exit without "
 "performing a search, unless non-option arguments are given.  For "
@@ -3425,41 +4060,43 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:171 C/man1/xargs.1:90
-#, no-wrap
-msgid "I<--help>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/locate.findutils.1:176
-msgid "Print a summary of the options to B<locate> and exit."
-msgstr ""
-
-# type: TP
-#: C/man1/locate.findutils.1:176 C/man1/xargs.1:148
+#: C/man1/locate.findutils.1:179
 #, no-wrap
 msgid "I<--version>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:181
+#: C/man1/locate.findutils.1:184
 msgid "Print the version number of B<locate> and exit."
 msgstr ""
 
+# type: TP
+#: C/man1/locate.findutils.1:184
+#, no-wrap
+msgid "I<-w, --wholename>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:188
+msgid ""
+"Match against the whole name of the file as listed in the database.  This is "
+"the default."
+msgstr ""
+
 # type: SH
-#: C/man1/locate.findutils.1:181
+#: C/man1/locate.findutils.1:188
 #, no-wrap
 msgid "ENVIRONMENT"
 msgstr ""
 
 # type: TP
-#: C/man1/locate.findutils.1:182
+#: C/man1/locate.findutils.1:189
 #, no-wrap
 msgid "B<LOCATE_PATH>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:188
+#: C/man1/locate.findutils.1:195
 msgid ""
 "Colon-separated list of databases to search.  If the value has a leading or "
 "trailing colon, or has two colons in a row, you may get results that vary "
@@ -3467,33 +4104,119 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:193
+#: C/man1/locate.findutils.1:200
 msgid ""
 "B<find>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<glob>(3), "
 "B<Finding Files> (on-line in Info, or printed)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:200 C/man1/updatedb.findutils.1:110
+#: C/man1/locate.findutils.1:220
 msgid ""
-"All versions of GNU locate prior to 4.2.31 fail to correctly handle long "
-"(roughly, over 1024 bytes) filenames in old-format databases.  This can lead "
-"to a heap buffer overrun and it a potential security issue.  Verions 4.3.0 "
-"to 4.3.6 are also affected by the bug.  Databases in the default LOCATE02 "
-"format are correctly handled."
+"The B<locate> program started life as the BSD fast find program, contributed "
+"to BSD by James A. Woods.  This was described by his paper I<Finding Files "
+"Fast> which was published in Usenix I<;login:>, Vol 8, No 1, February/March, "
+"1983, pp. 8-10.  When the B<find> program began to assume a default B<-"
+"print> action if no action was specified, this changed the interpretation of "
+"B<find> B<pattern>.  The BSD developers therefore moved the fast find "
+"functionality into B<locate>.  The GNU implementation of B<locate> appears "
+"to be derived from the same code."
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:209
+#: C/man1/locate.findutils.1:224
+msgid "Significant changes to B<locate> in reverse order:"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:227
+#, no-wrap
+msgid "4.3.7 | Byte-order independent support for old database format\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:228
+#, no-wrap
+msgid "4.3.3 | locate I<-i> supports multi-byte characters correctly\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:229
+#, no-wrap
+msgid "      | Introduced I<--max_db_age> \n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:230
+#, no-wrap
+msgid "4.3.2 | Support for the slocate database format\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:231
+#, no-wrap
+msgid "4.2.22| Introduced the I<--all> option\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:232
+#, no-wrap
+msgid "4.2.15| Introduced the I<--regex> option\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:233
+#, no-wrap
+msgid "4.2.14| Introduced options I<-L, -P, -H>\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:234
+#, no-wrap
+msgid "4.2.12| Empty items in B<LOCATE_PATH> now indicate the default database\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:235
+#, no-wrap
+msgid "4.2.11| Introduced the I<--statistics> option\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:236
+#, no-wrap
+msgid "4.2.4 | Introduced I<--count> and I<--limit>\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:237
+#, no-wrap
+msgid "4.2.0 | Glob characters cause matching against the whole file name\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:238
+#, no-wrap
+msgid "4.0   | Introduced the LOCATE02 database format\n"
+msgstr ""
+
+# type: tbl table
+#: C/man1/locate.findutils.1:239
+#, no-wrap
+msgid "3.7   | Locate can search multiple databases\n"
+msgstr ""
+
+# type: Plain text
+#: C/man1/locate.findutils.1:251
 msgid ""
 "The locate database correctly handles filenames containing newlines, but "
-"only if the system's sort command has a working I<-z> option.  If you "
-"suspect that B<locate> may need to return filenames containing newlines, "
-"consider using its I<--null> option."
+"only if the system's sort command has a working -z option.  If you suspect "
+"that B<locate> may need to return filenames containing newlines, consider "
+"using its I<--null> option."
 msgstr ""
 
 # type: Plain text
-#: C/man1/locate.findutils.1:217 C/man5/locatedb.5:116
+#: C/man1/locate.findutils.1:259 C/man5/locatedb.5:153
 msgid ""
 "The best way to report a bug is to use the form at http://savannah.gnu.org/"
 "bugs/?group=findutils.  The reason for this is that you will then be able to "
@@ -3544,60 +4267,60 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:35
+#: C/man1/updatedb.findutils.1:42
 msgid ""
-"Versions of locate prior to 4.2.31 fail to correctly handle long file names "
-"in the old databse format, but the default database format (called LOCATE02) "
-"is not affected by this problem.  All versions of B<locate> since version "
-"4.0 support the new LOCATE02 format.  The old database format also cannot "
-"correctly represent non-ASCII characters."
+"The file name database format changed starting with GNU B<find> and "
+"B<locate> version 4.0 to allow machines with different byte orderings to "
+"share the databases.  The new GNU B<locate> can read both the old and new "
+"database formats.  However, old versions of B<locate> and B<find> produce "
+"incorrect results if given a new-format database."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:36
+#: C/man1/updatedb.findutils.1:43
 #, no-wrap
 msgid "B<--findoptions='>I<-option1 -option2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:41
+#: C/man1/updatedb.findutils.1:48
 msgid ""
 "Global options to pass on to B<find>.  The environment variable "
 "B<FINDOPTIONS> also sets this value.  Default is none."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:41
+#: C/man1/updatedb.findutils.1:48
 #, no-wrap
 msgid "B<--localpaths='>I<path1 path2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:45
+#: C/man1/updatedb.findutils.1:52
 msgid "Non-network directories to put in the database.  Default is /."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:45
+#: C/man1/updatedb.findutils.1:52
 #, no-wrap
 msgid "B<--netpaths='>I<path1 path2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:50
+#: C/man1/updatedb.findutils.1:57
 msgid ""
 "Network (NFS, AFS, RFS, etc.) directories to put in the database.  The "
 "environment variable B<NETPATHS> also sets this value.  Default is none."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:50
+#: C/man1/updatedb.findutils.1:57
 #, no-wrap
 msgid "B<--prunepaths='>I<path1 path2...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:59
+#: C/man1/updatedb.findutils.1:66
 msgid ""
 "Directories to not put in the database, which would otherwise be.  Remove "
 "any trailing slashes from the path names, otherwise B<updatedb> won\\'t "
@@ -3607,13 +4330,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:59
+#: C/man1/updatedb.findutils.1:66
 #, no-wrap
 msgid "B<--prunefs='>I<path...>B<'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:68
+#: C/man1/updatedb.findutils.1:75
 msgid ""
 "File systems to not put in the database, which would otherwise be.  Note "
 "that files are pruned when a file system is reached; Any file system mounted "
@@ -3622,26 +4345,26 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:68
+#: C/man1/updatedb.findutils.1:75
 #, no-wrap
 msgid "B<--output=>I<dbfile>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:73
+#: C/man1/updatedb.findutils.1:80
 msgid ""
 "The database file to build.  Default is system-dependent.  In Debian GNU/"
 "Linux, the default is /var/cache/locate/locatedb."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:73
+#: C/man1/updatedb.findutils.1:80
 #, no-wrap
 msgid "B<--localuser=>I<user>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:78
+#: C/man1/updatedb.findutils.1:85
 msgid ""
 "The user to search non-network directories as, using B<su>(1).  Default is "
 "to search the non-network directories as the current user.  You can also use "
@@ -3649,13 +4372,13 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:78
+#: C/man1/updatedb.findutils.1:85
 #, no-wrap
 msgid "B<--netuser=>I<user>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:83
+#: C/man1/updatedb.findutils.1:90
 msgid ""
 "The user to search network directories as, using B<su>(1).  Default is "
 "B<daemon>.  You can also use the environment variable B<NETUSER> to set this "
@@ -3663,51 +4386,66 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:83
+#: C/man1/updatedb.findutils.1:90
 #, no-wrap
 msgid "B<--old-format>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:90
+#: C/man1/updatedb.findutils.1:94
 msgid ""
-"Create the database in the old format instead of the new one.  Avoid using "
-"this option as older versions of locate are susceptible to a buffer overrun "
-"when reading old-format databases.  The old fatabase format is also "
-"incapable of correctly representing non-ASCII characters."
+"Create the database in the old format.  This is a synonym for B<--"
+"dbformat=old>."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:90
+#: C/man1/updatedb.findutils.1:94
+#, no-wrap
+msgid "B<--dbformat=F>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/updatedb.findutils.1:111
+msgid ""
+"Create the database in format F.  The default format is called LOCATE02.  F "
+"can be B<old> to select the old database format (this is the same as "
+"specifying B<--old-format>).  Alternatively the B<slocate> format is also "
+"supported.  When the B<slocate> format is in use, the database produced is "
+"marked as having security level 1.  If you want to build a system-wide "
+"B<slocate> database, you may want to run B<updatedb> as root."
+msgstr ""
+
+# type: TP
+#: C/man1/updatedb.findutils.1:111 C/man1/xargs.1:257
 #, no-wrap
 msgid "B<--version>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:95
+#: C/man1/updatedb.findutils.1:116
 msgid "Print the version number of B<updatedb> and exit."
 msgstr ""
 
 # type: TP
-#: C/man1/updatedb.findutils.1:95
+#: C/man1/updatedb.findutils.1:116 C/man1/xargs.1:148
 #, no-wrap
 msgid "B<--help>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:100
+#: C/man1/updatedb.findutils.1:121
 msgid "Print a summary of the options to B<updatedb> and exit."
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:103 C/man5/locatedb.5:107
+#: C/man1/updatedb.findutils.1:124
 msgid ""
 "B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> (on-"
 "line in Info, or printed)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:121
+#: C/man1/updatedb.findutils.1:136
 msgid ""
 "The B<updatedb> program correctly handles filenames containing newlines, but "
 "only if the system's sort command has a working I<-z> option.  If you "
@@ -3716,7 +4454,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/updatedb.findutils.1:129
+#: C/man1/updatedb.findutils.1:144
 msgid ""
 "The best way to report a bug is to use the form at http://savannah.gnu.org/"
 "bugs/?group=findutils.  The reason for this is that you will then be able to "
@@ -3738,42 +4476,49 @@ msgid "xargs - build and execute command lines from standard input"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:14
-msgid ""
-"B<xargs> [-0prtx] [-E eof-str] [-e[eof-str]] [--eof[=eof-str]] [--null] [-d "
-"delimiter] [--delimiter delimiter] [-I replace-str] [-i[replace-str]] [--"
-"replace[=replace-str]] [-l[max-lines]] [-L max-lines] [--max-lines[=max-"
-"lines]] [-n max-args] [--max-args=max-args] [-s max-chars] [--max-chars=max-"
-"chars] [-P max-procs] [--max-procs=max-procs] [--interactive] [--verbose] [--"
-"exit] [--no-run-if-empty] [--arg-file=file] [--show-limits] [--version] [--"
-"help] [command [initial-arguments]]"
+#: C/man1/xargs.1:6
+msgid "B<xargs>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:27
+#: C/man1/xargs.1:35
+msgid ""
+"[B<-0prtx>] [B<-E >I<eof-str>] [B<-e>[I<eof-str>]] [B<--eof>[=I<eof-str>]] "
+"[B<--null>] [B<-d >I<delimiter>] [B<--delimiter >I<delimiter>] [B<-I "
+">I<replace-str>] [B<-i>[I<replace-str>]] [B<--replace>[=I<replace-str>]] [B<-"
+"l>[I<max-lines>]] [B<-L >I<max-lines>] [B<--max-lines>[=I<max-lines>]] [B<-n "
+">I<max-args>] [B<--max-args>=I<max-args>] [B<-s >I<max-chars>] [B<--max-"
+"chars>=I<max-chars>] [B<-P >I<max-procs>] [B<--max-procs>=I<max-procs>] [B<--"
+"interactive>] [B<--verbose>] [B<--exit>] [B<--no-run-if-empty>] [B<--arg-"
+"file>=I<file>] [B<--show-limits>] [B<--version>] [B<--help>] [I<command> "
+"[I<initial-arguments>]]"
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:51
 msgid ""
 "This manual page documents the GNU version of B<xargs>.  B<xargs> reads "
 "items from the standard input, delimited by blanks (which can be protected "
 "with double or single quotes or a backslash) or newlines, and executes the "
-"I<command> (default is /bin/echo) one or more times with any I<initial-"
+"I<command> (default is I</bin/echo>)  one or more times with any I<initial-"
 "arguments> followed by items read from standard input.  Blank lines on the "
 "standard input are ignored."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:40
+#: C/man1/xargs.1:68
 msgid ""
 "Because Unix filenames can contain blanks and newlines, this default "
 "behaviour is often problematic; filenames containing blanks and/or newlines "
 "are incorrectly processed by B<xargs>.  In these situations it is better to "
-"use the `-0' option, which prevents such problems.  When using this option "
+"use the B<-0> option, which prevents such problems.  When using this option "
 "you will need to ensure that the program which produces the input for "
 "B<xargs> also uses a null character as a separator.  If that program is GNU "
-"B<find> for example, the `-print0' option does this for you."
+"B<find> for example, the B<-print0> option does this for you."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:45
+#: C/man1/xargs.1:73
 msgid ""
 "If any invocation of the command exits with a status of 255, B<xargs> will "
 "stop immediately without reading any further input.  An error message is "
@@ -3781,13 +4526,19 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:46
+#: C/man1/xargs.1:74
 #, no-wrap
-msgid "I<--arg-file=file, -a file>"
+msgid "B<--arg-file=>I<file>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:77
+#, no-wrap
+msgid "B<-a >I<file>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:54
+#: C/man1/xargs.1:86
 msgid ""
 "Read items from I<file> instead of standard input.  If you use this option, "
 "stdin remains unchanged when commands are run.  Otherwise, stdin is "
@@ -3795,13 +4546,19 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:55
+#: C/man1/xargs.1:87
 #, no-wrap
-msgid "I<--null, -0>"
+msgid "B<--null>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:90
+#, no-wrap
+msgid "B<-0>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:63
+#: C/man1/xargs.1:99
 msgid ""
 "Input items are terminated by a null character instead of by whitespace, and "
 "the quotes and backslash are not special (every character is taken "
@@ -3812,152 +4569,194 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:63
+#: C/man1/xargs.1:100
 #, no-wrap
-msgid "I<--delimiter=delim, -d delim>"
+msgid "B<--delimiter=>I<delim>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:103
+#, no-wrap
+msgid "B<-d>I< delim>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:78
+#: C/man1/xargs.1:121
 msgid ""
 "Input items are terminated by the specified character.  Quotes and backslash "
 "are not special; every character in the input is taken literally.  Disables "
 "the end-of-file string, which is treated like any other argument.  This can "
 "be used when the input consists of simply newline-separated items, although "
-"it is almost always better to design your program to use `--null' where this "
-"is possible.  The specified delimiter may be a single character, a C-style "
-"character escape such as B<\\en>, or an octal or hexadecimal escape code.  "
-"Octal and hexadecimal escape codes are understood as for the B<printf> "
-"command.  Multibyte characters are not supported."
+"it is almost always better to design your program to use B<--null> where "
+"this is possible.  The specified delimiter may be a single character, a C-"
+"style character escape such as B<\\en>, or an octal or hexadecimal escape "
+"code.  Octal and hexadecimal escape codes are understood as for the "
+"B<printf> command.  Multibyte characters are not supported."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:79
+#: C/man1/xargs.1:122
 #, no-wrap
-msgid "I<-Eeof-str>"
+msgid "B<-E>I< eof-str>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:84
+#: C/man1/xargs.1:131
 msgid ""
 "Set the end of file string to I<eof-str>.  If the end of file string occurs "
-"as a line of input, the rest of the input is ignored.  If neither -E nor -e "
-"is used, no end of file string is used."
+"as a line of input, the rest of the input is ignored.  If neither B<-E> nor "
+"B<-e> is used, no end of file string is used."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:84
+#: C/man1/xargs.1:131
 #, no-wrap
-msgid "I<--eof[=eof-str], -e[eof-str]>"
+msgid "B<--eof>[I<=eof-str>]"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:134
+#, no-wrap
+msgid "B<-e>[I<eof-str>]"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:90
+#: C/man1/xargs.1:148
 msgid ""
-"This option is a synonym for the `-E' option.  Use `-E' instead, because it "
-"is POSIX compliant while this option is not.  If I<eof-str> is omitted, "
-"there is no end of file string.  If neither -E nor -e is used, no end of "
-"file string is used."
+"This option is a synonym for the B<-E> option.  Use B<-E> instead, because "
+"it is POSIX compliant while this option is not.  If I<eof-str> is omitted, "
+"there is no end of file string.  If neither B<-E> nor B<-e> is used, no end "
+"of file string is used."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:95
+#: C/man1/xargs.1:153
 msgid "Print a summary of the options to B<xargs> and exit."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:95
+#: C/man1/xargs.1:153
 #, no-wrap
-msgid "I<-I replace-str>"
+msgid "B<-I>I< replace-str>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:101
+#: C/man1/xargs.1:163
 msgid ""
 "Replace occurrences of I<replace-str> in the initial-arguments with names "
 "read from standard input.  Also, unquoted blanks do not terminate input "
-"items; instead the separator is the newline character.  Implies I<-x> and I<-"
-"L 1>."
+"items; instead the separator is the newline character.  Implies B<-x> and B<-"
+"L> 1."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:101
+#: C/man1/xargs.1:163
 #, no-wrap
-msgid "I<--replace[=replace-str], -i[replace-str]>"
+msgid "B<--replace>[I<=replace-str>]"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:166
+#, no-wrap
+msgid "B<-i>[I<replace-str>]"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:106
+#: C/man1/xargs.1:178
 msgid ""
-"This option is a synonym for -II<replace-str> if I<replace-str> is "
-"specified, and for -I{} otherwise.  This option is deprecated; use -I "
+"This option is a synonym for B<-I>I<replace-str> if I<replace-str> is "
+"specified, and for B<-I>{} otherwise.  This option is deprecated; use B<-I> "
 "instead."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:106
+#: C/man1/xargs.1:178
 #, no-wrap
-msgid "I<-L max-lines>"
+msgid "B<-L>I< max-lines>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:111
+#: C/man1/xargs.1:184
 msgid ""
 "Use at most I<max-lines> nonblank input lines per command line.  Trailing "
 "blanks cause an input line to be logically continued on the next input "
-"line.  Implies I<-x>."
+"line.  Implies B<-x>."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:111
+#: C/man1/xargs.1:184
 #, no-wrap
-msgid "I<--max-lines[=max-lines], -l[max-lines]>"
+msgid "B<--max-lines>[=I<max-lines>]"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:187
+#, no-wrap
+msgid "B<-l>[I<max-lines>]"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:117
+#: C/man1/xargs.1:203
 msgid ""
-"Synonym for the -L option.  Unlike -L, the I<max-lines> argument is "
-"optional.  If I<max-args> is not specified, it defaults to one.  The -l "
-"option is deprecated since the POSIX standard specifies -L instead."
+"Synonym for the B<-L> option.  Unlike B<-L>, the I<max-lines> argument is "
+"optional.  If I<max-lines> is not specified, it defaults to one.  The B<-l> "
+"option is deprecated since the POSIX standard specifies B<-L> instead."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:117
+#: C/man1/xargs.1:203
 #, no-wrap
-msgid "I<--max-args=max-args, -n max-args>"
+msgid "B<--max-args>=I<max-args>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:206
+#, no-wrap
+msgid "B<-n>I< max-args>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:123
+#: C/man1/xargs.1:217
 msgid ""
 "Use at most I<max-args> arguments per command line.  Fewer than I<max-args> "
-"arguments will be used if the size (see the -s option)  is exceeded, unless "
-"the -x option is given, in which case B<xargs> will exit."
+"arguments will be used if the size (see the B<-s> option) is exceeded, "
+"unless the B<-x> option is given, in which case B<xargs will exit.>"
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:123
+#: C/man1/xargs.1:217
 #, no-wrap
-msgid "I<--interactive, -p>"
+msgid "B<--interactive>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:220
+#, no-wrap
+msgid "B<-p>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:128
+#: C/man1/xargs.1:227
 msgid ""
 "Prompt the user about whether to run each command line and read a line from "
 "the terminal.  Only run the command line if the response starts with `y' or "
-"`Y'.  Implies I<-t>."
+"`Y'.  Implies B<-t>."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:128
+#: C/man1/xargs.1:227
 #, no-wrap
-msgid "I<--no-run-if-empty, -r>"
+msgid "B<--no-run-if-empty>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:230
+#, no-wrap
+msgid "B<-r>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:133
+#: C/man1/xargs.1:236
 msgid ""
 "If the standard input does not contain any nonblanks, do not run the "
 "command.  Normally, the command is run once even if there is no input.  This "
@@ -3965,84 +4764,107 @@ msgid ""
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:133
+#: C/man1/xargs.1:236
 #, no-wrap
-msgid "I<--max-chars=max-chars, -s max-chars>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/xargs.1:144
-msgid ""
-"Use at most I<max-chars> characters per command line, including the command "
-"and initial-arguments and the terminating nulls at the ends of the argument "
-"strings.  The default is 131072 characters, not including the size of the "
-"environment variables (which are provided for separately so that it doesn't "
-"matter if your environment variables take up more than 131072 bytes).  The "
-"operating system places limits on the values that you can usefully specify, "
-"and if you exceed these a warning message is printed and the value actually "
-"used is set to the appropriate upper or lower limit."
+msgid "B<--max-chars>=I<max-chars>"
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:144
+#: C/man1/xargs.1:239
 #, no-wrap
-msgid "I<--verbose, -t>"
+msgid "B<-s>I< max-chars>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:148
+#: C/man1/xargs.1:249
+msgid ""
+"Use at most I<max-chars> characters per command line, including the command "
+"and initial-arguments and the terminating nulls at the ends of the argument "
+"strings.  The largest allowed value is system-dependent, and is calculated "
+"as the argument length limit for exec, less the size of your environment, "
+"less 2048 bytes of headroom.  If this value is more than 128KiB, 128Kib is "
+"used as the default value; otherwise, the default value is the maximum.  "
+"1KiB is 1024 bytes."
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:249
+#, no-wrap
+msgid "B<--verbose>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:252
+#, no-wrap
+msgid "B<-t>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:257
 msgid ""
 "Print the command line on the standard error output before executing it."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:153
+#: C/man1/xargs.1:262
 msgid "Print the version number of B<xargs> and exit."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:153
+#: C/man1/xargs.1:262
 #, no-wrap
-msgid "I<--show-limits>"
+msgid "B<--show-limits>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:167
+#: C/man1/xargs.1:276
 msgid ""
 "Display the limits on the command-line length which are imposed by the "
-"operating system, B<xargs>' choice of buffer size and the I<-s> option.  "
-"Pipe the input from B</dev/null> (and perhaps specify B<--no-run-if-empty>)  "
+"operating system, B<xargs>' choice of buffer size and the B<-s> option.  "
+"Pipe the input from I</dev/null> (and perhaps specify B<--no-run-if-empty>)  "
 "if you don't want B<xargs> to do anything."
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:167
+#: C/man1/xargs.1:276
 #, no-wrap
-msgid "I<--exit, -x>"
-msgstr ""
-
-# type: Plain text
-#: C/man1/xargs.1:170
-msgid "Exit if the size (see the I<-s> option) is exceeded."
+msgid "B<--exit>"
 msgstr ""
 
 # type: TP
-#: C/man1/xargs.1:170
+#: C/man1/xargs.1:279
 #, no-wrap
-msgid "I<--max-procs=max-procs, -P max-procs>"
+msgid "B<-x>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:176
+#: C/man1/xargs.1:285
+msgid "Exit if the size (see the B<-s> option) is exceeded."
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:285
+#, no-wrap
+msgid "B<--max-procs>=I<max-procs>"
+msgstr ""
+
+# type: TP
+#: C/man1/xargs.1:288
+#, no-wrap
+msgid "B<-P>I< max-procs>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:303
 msgid ""
 "Run up to I<max-procs> processes at a time; the default is 1.  If I<max-"
 "procs> is 0, B<xargs> will run as many processes as possible at a time.  Use "
-"the I<-n> option with I<-P>; otherwise chances are that only one exec will "
+"the B<-n> option with B<-P>; otherwise chances are that only one exec will "
 "be done."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:187
+#: C/man1/xargs.1:314
 msgid ""
 "Find files named B<core> in or below the directory B</tmp> and delete them.  "
 "Note that this will work incorrectly if there are any filenames containing "
@@ -4050,7 +4872,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:197
+#: C/man1/xargs.1:324
 msgid ""
 "Find files named B<core> in or below the directory B</tmp> and delete them, "
 "processing filenames in such a way that file or directory names containing "
@@ -4058,23 +4880,52 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:200
+#: C/man1/xargs.1:327
+msgid "B<find /tmp -depth -name core -type f -delete>"
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:343
+msgid ""
+"Find files named B<core> in or below the directory B</tmp> and delete them, "
+"but more efficiently than in the previous example (because we avoid the need "
+"to use B<fork>(2)  and B<exec>(2)  to launch B<rm> and we don't need the "
+"extra B<xargs> process)."
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:347
 #, no-wrap
 msgid "B<cut -d: -f1 E<lt> /etc/passwd | sort | xargs echo>\n"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:203
+#: C/man1/xargs.1:350
 msgid "Generates a compact listing of all the users on the system."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:206
+#: C/man1/xargs.1:354
+#, no-wrap
+msgid "B<xargs sh -c 'emacs \"$@\" E<lt> /dev/tty' emacs>\n"
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:362
+msgid ""
+"Launches the minimum number of copies of Emacs needed, one after the other, "
+"to edit the files listed on B<xargs>' standard input.  This example achieves "
+"the same effect as BSD's B<-o> option, but in a more flexible and portable "
+"way."
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:368
 msgid "B<xargs> exits with the following status:"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:214
+#: C/man1/xargs.1:376
 #, no-wrap
 msgid ""
 "0 if it succeeds\n"
@@ -4087,14 +4938,14 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:218
+#: C/man1/xargs.1:380
 msgid ""
 "Exit codes greater than 128 are used by the shell to indicate that a program "
 "died due to a fatal signal."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:223
+#: C/man1/xargs.1:385
 msgid ""
 "As of GNU xargs version 4.2.9, the default behaviour of B<xargs> is not to "
 "have a logical end-of-file marker.  POSIX (IEEE Std 1003.1, 2004 Edition) "
@@ -4102,7 +4953,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:227
+#: C/man1/xargs.1:389
 msgid ""
 "The -l and -i options appear in the 1997 version of the POSIX standard, but "
 "do not appear in the 2004 version of the standard.  Therefore you should use "
@@ -4110,20 +4961,32 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:231
+#: C/man1/xargs.1:400
 msgid ""
-"B<find>(1), B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<Finding Files> "
-"(on-line in Info, or printed)"
+"The POSIX stadard allows implementations to have a limit on the size of "
+"arguments to the B<exec> functions.  This limit could be as low as 4096 "
+"bytes including the size of the environment.  For scripts to be portable, "
+"they must not rely on a larger value.  However, I know of no implementation "
+"whose actual limit is that small.  The B<--show-limits> option can be used "
+"to discover the actual limits in force on the current system."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:233
+#: C/man1/xargs.1:406
 msgid ""
-"The -L option is incompatible with the -I option, but perhaps should not be."
+"B<find>(1), B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<fork>(2), "
+"B<execvp>(3), B<Finding Files> (on-line in Info, or printed)"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:250
+#: C/man1/xargs.1:412
+msgid ""
+"The B<-L> option is incompatible with the B<-I> option, but perhaps should "
+"not be."
+msgstr ""
+
+# type: Plain text
+#: C/man1/xargs.1:431
 msgid ""
 "It is not possible for B<xargs> to be used securely, since there will always "
 "be a time gap between the production of the list of input files and their "
@@ -4132,40 +4995,40 @@ msgid ""
 "the action of the commands B<xargs> runs to apply to files that you didn't "
 "intend.  For a more detailed discussion of this and related problems, please "
 "refer to the ``Security Considerations'' chapter in the findutils Texinfo "
-"documentation.  The -execdir option of B<find> can often be used as a more "
-"secure alternative."
+"documentation.  The B<-execdir> option of B<find> can often be used as a "
+"more secure alternative."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:263
+#: C/man1/xargs.1:450
 msgid ""
-"When you use the -I option, each line read from the input is buffered "
+"When you use the B<-I> option, each line read from the input is buffered "
 "internally.  This means that there is an upper limit on the length of input "
-"line that B<xargs> will accept when used with the -I option.  To work around "
-"this limitation, you can use the -s option to increase the amount of buffer "
-"space that B<xargs> uses, and you can also use an extra invocation of "
-"B<xargs> to ensure that very long lines do not occur.  For example:"
+"line that B<xargs> will accept when used with the B<-I> option.  To work "
+"around this limitation, you can use the B<-s> option to increase the amount "
+"of buffer space that B<xargs> uses, and you can also use an extra invocation "
+"of B<xargs> to ensure that very long lines do not occur.  For example:"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:265
+#: C/man1/xargs.1:452
 msgid "B<somecommand | xargs -s 50000 echo | xargs -I '{}' -s 100000 rm '{}'>"
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:278
+#: C/man1/xargs.1:469
 msgid ""
 "Here, the first invocation of B<xargs> has no input line length limit "
-"because it doesn't use the -i option.  The second invocation of B<xargs> "
+"because it doesn't use the B<-i> option.  The second invocation of B<xargs> "
 "does have such a limit, but we have ensured that the it never encounters a "
 "line which is longer than it can handle.  This is not an ideal solution.  "
-"Instead, the -i option should not impose a line length limit, which is why "
-"this discussion appears in the BUGS section.  The problem doesn't occur with "
-"the output of B<find>(1)  because it emits just one filename per line."
+"Instead, the B<-i> option should not impose a line length limit, which is "
+"why this discussion appears in the BUGS section.  The problem doesn't occur "
+"with the output of B<find>(1)  because it emits just one filename per line."
 msgstr ""
 
 # type: Plain text
-#: C/man1/xargs.1:286
+#: C/man1/xargs.1:477
 msgid ""
 "The best way to report a bug is to use the form at http://savannah.gnu.org/"
 "bugs/?group=findutils.  The reason for this is that you will then be able to "
@@ -4206,38 +5069,46 @@ msgid ""
 "nightly; see B<updatedb>(1)."
 msgstr ""
 
-# type: Plain text
-#: C/man5/locatedb.5:24
-msgid ""
-"B<updatedb> runs a program called B<frcode> to compress the list of file "
-"names using front-compression, which reduces the database size by a factor "
-"of 4 to 5.  Front-compression (also known as incremental encoding) works as "
-"follows."
+# type: SH
+#: C/man5/locatedb.5:20
+#, no-wrap
+msgid "GNU LOCATE02 database format"
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:34
+#: C/man5/locatedb.5:30
+msgid ""
+"This is the default format of databases produced by B<updatedb>.  The "
+"B<updatedb> program runs B<frcode> to compress the list of file names using "
+"front-compression, which reduces the database size by a factor of 4 to 5.  "
+"Front-compression (also known as incremental encoding) works as follows."
+msgstr ""
+
+# type: Plain text
+#: C/man5/locatedb.5:40
 msgid ""
 "The database entries are a sorted list (case-insensitively, for users' "
 "convenience).  Since the list is sorted, each entry is likely to share a "
 "prefix (initial string) with the previous entry.  Each database entry begins "
-"with an offset-differential count byte, which is the additional number of "
-"characters of prefix of the preceding entry to use beyond the number that "
-"the preceding entry is using of its predecessor.  (The counts can be "
-"negative.)  Following the count is a null-terminated ASCII remainder \\(em "
-"the part of the name that follows the shared prefix."
+"with an signed offset-differential count byte, which is the additional "
+"number of characters of prefix of the preceding entry to use beyond the "
+"number that the preceding entry is using of its predecessor.  (The counts "
+"can be negative.)  Following the count is a null-terminated ASCII remainder "
+"\\(em the part of the name that follows the shared prefix."
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:38
+#: C/man5/locatedb.5:46
 msgid ""
-"If the offset-differential count is larger than can be stored in a byte (+/-"
-"127), the byte has the value 0x80 and the count follows in a 2-byte word, "
-"with the high byte first (network byte order)."
+"If the offset-differential count is larger than can be stored in a signed "
+"byte (+/-127), the byte has the value 0x80 (binary 10000000)  and the actual "
+"count follows in a 2-byte word, with the high byte first (network byte "
+"order).  This count can also be negative (the sign bit being in the first of "
+"the two bytes)."
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:42
+#: C/man5/locatedb.5:50
 msgid ""
 "Every database begins with a dummy entry for a file called `LOCATE02', which "
 "B<locate> checks for to ensure that the database file has the correct "
@@ -4245,7 +5116,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:47
+#: C/man5/locatedb.5:55
 msgid ""
 "Databases can not be concatenated together, even if the first (dummy) entry "
 "is trimmed from all but the first database.  This is because the offset-"
@@ -4254,7 +5125,49 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:65
+#: C/man5/locatedb.5:61
+msgid ""
+"In the future, the data within the locate database may not be sorted in any "
+"particular order.  To obtain sorted results, pipe the output of B<locate> "
+"through B<sort -f>."
+msgstr ""
+
+# type: SH
+#: C/man5/locatedb.5:61
+#, no-wrap
+msgid "slocate database format"
+msgstr ""
+
+# type: Plain text
+#: C/man5/locatedb.5:80
+msgid ""
+"The B<slocate> program uses a database format similar to, but not quite the "
+"same as, GNU B<locate>.  The first byte of the database specifies its "
+"I<security> I<level>.  If the security level is 0, B<slocate> will read, "
+"match and print filenames on the basis of the information in the database "
+"only.  However, if the security level byte is 1, B<slocate> omits entries "
+"from its output if the invoking user is unable to access them.  The second "
+"byte of the database is zero.  The second byte is followed by the first "
+"database entry.  The first entry in the database is not preceded by any "
+"differential count or dummy entry.  Instead the differential count for the "
+"first item is assumed to be zero."
+msgstr ""
+
+# type: Plain text
+#: C/man5/locatedb.5:83
+msgid ""
+"Starting with the second entry (if any) in the database, data is interpreted "
+"as for the GNU LOCATE02 format."
+msgstr ""
+
+# type: SH
+#: C/man5/locatedb.5:84
+#, no-wrap
+msgid "Old Locate Database format"
+msgstr ""
+
+# type: Plain text
+#: C/man5/locatedb.5:102
 msgid ""
 "There is also an old database format, used by Unix B<locate> and B<find> "
 "programs and earlier releases of the GNU ones.  B<updatedb> runs programs "
@@ -4271,7 +5184,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:76
+#: C/man5/locatedb.5:113
 msgid ""
 "In addition, instead of starting with a dummy entry, the old database format "
 "starts with a 256 byte table containing the 128 most common bigrams in the "
@@ -4285,14 +5198,14 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: C/man5/locatedb.5:76
+#: C/man5/locatedb.5:113
 #, no-wrap
 msgid "EXAMPLE"
 msgstr ""
 
 # type: Plain text
 #.  with nulls changed to newlines:
-#: C/man5/locatedb.5:85
+#: C/man5/locatedb.5:122
 #, no-wrap
 msgid ""
 "Input to B<frcode>:\n"
@@ -4303,7 +5216,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:91
+#: C/man5/locatedb.5:128
 #, no-wrap
 msgid ""
 "Length of the longest prefix of the preceding entry to share:\n"
@@ -4314,14 +5227,14 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:95
+#: C/man5/locatedb.5:132
 msgid ""
 "Output from B<frcode>, with trailing nulls changed to newlines and count "
 "bytes made printable:"
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:101
+#: C/man5/locatedb.5:138
 #, no-wrap
 msgid ""
 "0 LOCATE02\n"
@@ -4332,7 +5245,14 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: C/man5/locatedb.5:103
+#: C/man5/locatedb.5:140
 #, no-wrap
 msgid "(6 = 14 - 8, and -9 = 5 - 14)\n"
+msgstr ""
+
+# type: Plain text
+#: C/man5/locatedb.5:144
+msgid ""
+"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1), B<Finding Files> (on-"
+"line in Info, or printed)"
 msgstr ""
