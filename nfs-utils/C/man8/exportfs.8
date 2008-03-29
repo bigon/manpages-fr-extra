@@ -188,7 +188,7 @@ option, the list of flags pertaining to each export are shown in addition.
 The following adds all directories listed in
 .B /etc/exports
 to
-.B /var/lib/nfs/xtab
+.B /var/lib/nfs/etab
 and pushes the resulting export entries into the kernel:
 .P
 .nf
@@ -203,6 +203,21 @@ allowing asynchronous writes, one would do this:
 .P
 .nf
 .B "# exportfs -o async django:/usr/tmp
+.fi
+.P
+To unexport the
+.B /usr/tmp
+directory:
+.P
+.nf
+.B "# exportfs -u django:/usr/tmp
+.fi
+.P
+To unexport all the directories listed in
+.B /etc/exports:
+.P
+.nf
+.B "# exportfs -au
 .fi
 .\" -------------------- DEPENDENCIES -----------------------------
 .SH DEPENDENCIES
