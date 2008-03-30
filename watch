@@ -115,7 +115,8 @@ sub process_section {
     next if (-l "$curdir/$man");
     my $dest_man = $man;
     $dest_man =~ s/\.gz$//;
-    open(MAN,">$source/C/$section/$dest_man");
+    open(MAN,">$source/C/$section/$dest_man")
+       or die "Failed to write in $source/C/$section/$dest_man";
     my $buffer;
     my $gz = gzopen("$curdir/$man", "rb");
     print MAN $buffer while $gz->gzread($buffer) > 0;
