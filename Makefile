@@ -1,5 +1,5 @@
 SUBDIRS=at bash coreutils cron diffutils findutils glibc grep lilo most \
-	nfs-utils procps tar util-linux
+	nfs-utils procps tar util-linux e2fsprogs
 
 #  Must be an absolute path!
 INSTDIR = $(CURDIR)/man
