@@ -117,17 +117,24 @@ and
 .B Default-Stop
 fields in that header are used instead.
 By default all the links will have sequence number 20, but
-this can be overridden by supplying one 
-.I NN
-or two
-.I SS
-and
-.I KK
-arguments;
-a single argument overrides the sequence number
-for both start and stop links
-whereas a pair of arguments overrides the sequence numbers
-for start and stop links, respectively.
+this should be overridden if there are dependencies. For example if
+daemon B depends on A, then A must be started before B and B must be
+killed before A. You accomplish this by supplying two NN arguments. In
+general, core daemons should start early and be killed late, whilst
+applications can start late and be killed early. See EXAMPLES below.
+.P
+The first NN argument supplies the start sequence number and
+the second NN argument supplies the kill sequence number.
+Kill scripts are called first, passing a stop argument. Then
+start scripts are called passing a start argument. In either
+case, calls happen in ascending sequence number order.
+.P
+Supplying a single NN argument will use the same number for
+both start and kill links. This is supported for backward
+compatibility but is discouraged, as it may lead to inconsistent
+settings. As a rule of thumb, if you increase the start sequence
+number you should also decrease the stop sequence number, and
+vice-versa.
 .P
 As a rule of thumb, the sequence number of the stop link 
 should be 100 minus the sequence number of the start link;
@@ -220,6 +227,21 @@ More typical command using explicit argument sets:
 .nf
 .B "   update-rc.d foobar start 30 2 3 4 5 . stop 70 0 1 6 ."
 .fi
+Insert links at default runlevels when B requires A
+.nf
+.B "   update-rc.d script_for_A defaults 80 20"
+.B "   update-rc.d script_for_B defaults 90 10"
+.fi
+Insert a link to a service that (presumably) will not be
+needed by any other daemon
+.nf
+.B "   update-rc.d top_level_app defaults 98 02"
+.fi
+Insert links for a script that requires services that
+start/stop at sequence number 20
+.nf
+.B "   update-rc.d script_depends_on_svc20 defaults 21 19"
+.fi
 Remove all links for a script (assuming foobar has been deleted
 already):
 .nf
@@ -232,7 +254,7 @@ Example of disabling a service:
 .fi
 Example of a command for installing a system initialization-and-shutdown script:
 .nf
-.B "   update-rc.d foobar start 45 S . start 31 0 6 ."
+.B "   update-rc.d foobar start 45 S . stop 31 0 6 ."
 .fi
 Example of a command for disabling a system initialization-and-shutdown script:
 .nf

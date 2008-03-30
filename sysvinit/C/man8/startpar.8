@@ -11,52 +11,63 @@ startpar \- start runlevel scripts in parallel
 
 .SH SYNOPSIS
 .B startpar
-.RB [ -p
+.RB [ \-p
 .IR par ]
-.RB [ -t
+.RB [ \-i
+.IR iorate ]
+.RB [ \-t
 .IR timeout ]
-.RB [ -T
+.RB [ \-T
 .IR global_timeout ]
-.RB [ -a
+.RB [ \-a
 .IR arg ]
 .B prg1
 .B prg2
 .B ...
 .br
 .B startpar
-.RB [ -p
+.RB [ \-p
 .IR par ]
-.RB [ -t
+.RB [ \-i
+.IR iorate ]
+.RB [ \-t
 .IR timeout ]
-.RB [ -T
+.RB [ \-T
 .IR global_timeout ]
-.B -M [
+.B \-M [
 .IR boot | start | stop ]
 
 .SH DESCRIPTION
-startpar is used to run multiple run-level scripts in parallel.
+startpar is used to run multiple run\-level scripts in parallel.
 The degree of parallelism on one
 .B CPU
 can be set with the
-.B -p
+.B \-p
 option, the default is full parallelism. An argument to all of
 the scripts can be provided with the
-.B -a
+.B \-a
 option.
+Processes block by pending
+.B I/O
+will weighting by the factor
+.IR 800 .
+To change this factor the option
+.B \-i
+can be used to specify an other value.
 
 The output of each script is buffered and written when the script
 exits, so output lines of different scripts won't mix. You can
 modify this behaviour by setting a timeout.
 
 The timeout set with the
-.B -t
+.B \-t
 option is used as buffer timeout. If the output buffer of a
 script is not empty and the last output was
 .I timeout
 seconds ago, startpar will flush the buffer.
 
 The
-.B -T
+.B \-T
 option timeout works more globally. If no output is printed for
 more than
 .I global_timeout
@@ -65,7 +76,7 @@ the oldest output. Afterwards it will only print output of this
 script until it is finished.
 
 The
-.B -M
+.B \-M
 option switches
 .B startpar
 into a
@@ -94,6 +105,8 @@ it then executes the appropriate scripts in parallel.
 
 .SH COPYRIGHT
 2003,2004 SuSE Linux AG, Nuernberg, Germany.
+.br
+2007 SuSE LINUX Products GmbH, Nuernberg, Germany.
 
 .SH AUTHOR
 Michael Schroeder <mls@suse.de>
