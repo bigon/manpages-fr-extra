@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH MKE2FS 8 "November 2006" "E2fsprogs version 1.40-WIP"
+.TH MKE2FS 8 "March 2008" "E2fsprogs version 1.40.8"
 .SH NAME
 mke2fs \- create an ext2/ext3 filesystem
 .SH SYNOPSIS
@@ -179,14 +179,31 @@ option is still accepted for backwards compatibility.   The
 following extended options are supported:
 .RS 1.2i
 .TP
-.BI stride= stripe-size
+.BI stride= stride-size
 Configure the filesystem for a RAID array with
-.I stripe-size
-filesystem blocks per stripe.
+.I stride-size
+filesystem blocks. This is the number of blocks read or written to disk
+before moving to next disk. This mostly affects placement of filesystem
+metadata like bitmaps at
+.BR mke2fs (2)
+time to avoid placing them on a single disk, which can hurt the performanace.
+It may also be used by block allocator.
+.TP
+.BI stripe-width= stripe-width
+Configure the filesystem for a RAID array with
+.I stripe-width
+filesystem blocks per stripe. This is typically be stride-size * N, where
+N is the number of data disks in the RAID (e.g. RAID 5 N+1, RAID 6 N+2).
+This allows the block allocator to prevent read-modify-write of the
+parity in a RAID stripe if possible when the data is written.
 .TP
 .BI resize= max-online-resize
 Reserve enough space so that the block group descriptor table can grow
 to support a filesystem that has max-online-resize blocks.
+.TP
+.B test_fs
+Set a flag in the filesystem superblock indicating that it may be
+mounted using experimental kernel code, such as the ext4dev filesystem.
 .RE
 .TP
 .BI \-f " fragment-size"
@@ -231,16 +248,16 @@ correct value for this parameter.
 .BI \-I " inode-size"
 Specify the size of each inode in bytes. 
 .B mke2fs
-creates 128-byte inodes by default.  In kernels after 2.6.10 and some
-earlier vendor kernels it is possible to utilize larger inodes to store
+creates 256-byte inodes by default.  In kernels after 2.6.10 and some
+earlier vendor kernels it is possible to utilize inodes larger than
+128-bytes to store
 extended attributes for improved performance.  The 
 .I inode-size
 value must be a power of two larger or equal to 128.  The larger the 
 .I inode-size
 the more space the inode table will consume, and this reduces the usable
-space in the filesystem and can also negatively impact performance.  Using
-the default value is always safe, though it may be desirable to use 256-byte
-inodes if full backward compatibility is not a concern.  Extended attributes
+space in the filesystem and can also negatively impact performance.  
+Extended attributes
 stored in large inodes are not visible with older kernels, and such
 filesystems will not be mountable with 2.4 kernels at all.  It is not
 possible to change this value after the filesystem is created.
@@ -397,6 +414,10 @@ by commas, that are to be enabled.  To disable a feature, simply
 prefix the feature name with a  caret ('^') character.  The 
 pseudo-filesystem feature "none" will clear all filesystem features.
 .RS 1.2i
+.TP
+.B large_file
+Filesystem can contain files that are greater than 2GB.  (Modern kernels
+set this feature automatically when a file > 2GB is created.)
 .TP
 .B dir_index
 Use hashed b-trees to speed up lookups in large directories.

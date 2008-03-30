@@ -2,7 +2,7 @@
 .\" Copyright 2006 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH e2fsck.conf 5 "November 2006" "E2fsprogs version 1.40-WIP"
+.TH e2fsck.conf 5 "March 2008" "E2fsprogs version 1.40.8"
 .SH NAME
 e2fsck.conf \- Configuration file for e2fsck
 .SH DESCRIPTION
@@ -68,9 +68,14 @@ document.
 This stanza contains general configuration parameters for 
 .BR e2fsck 's
 behavior.
+.TP
 .I [problems]
 This stanza allows the administrator to reconfigure how e2fsck handles
 various filesystem inconsistencies.
+.TP
+.I [scratch_files]
+This stanza controls when e2fsck will attempt to use scratch files to
+reduce the need for memory.
 .SH THE [options] STANZA
 The following relations are defined in the 
 .I [options]
@@ -81,6 +86,20 @@ If this relation is set to a boolean value of true, then if the user
 interrupts e2fsck using ^C, and the filesystem is not explicitly flagged
 as containing errors, e2fsck will exit with an exit status of 0 instead
 of 32.  This setting defaults to false.
+.TP
+.I buggy_init_scripts
+Some buggy distributions (such as Ubuntu) have init scripts and/or
+installers which fail to correctly set the system clock before running
+e2fsck and/or formatting the filesystem initially.  Normally this
+happens because the hardware clock is ticking localtime, instead of the
+more proper and less error-prone UTC time.  So while the kernel is
+booting, the system time (which in Linux systems always ticks in UTC
+time) is set from the hardware clock, but since the hardware clock is
+ticking localtime, the system time is incorrect.  Unfortunately, some
+buggy distributions do not correct this before running e2fsck.  If this
+option is set to a boolean value of true, we attempt to work around this
+situation by allowing the superblock last write time, last mount time,
+and last check time to be in the future by up to 24 hours.
 .TP 
 .I defer_check_on_battery
 This boolean relation controls whether or not the interval between 
@@ -137,6 +156,29 @@ be suppressed when
 is run with the
 .B -n
 option.
+.SH THE [scratch_files] STANZA
+The following relations are defined in the 
+.I [scratch_files]
+stanza.
+.TP
+.I directory
+If the directory named by this relation exists and is writeable, then
+e2fsck will attempt to use this directory to store scratch files instead
+of using in-memory data structures.
+.TP
+.I numdirs_threshold
+If this relation is set, then in-memory data structures be used if the
+number of directories in the filesystem are fewer than amount specified.
+.TP
+.I dirinfo
+This relation controls whether or not the scratch file directory is used
+instead of an in-memory data structure for directory information.  It
+defaults to true.
+.TP
+.I icount
+This relation controls whether or not the scratch file directory is used
+instead of an in-memory data structure when tracking inode counts.  It
+defaults to true.
 .SH EXAMPLES
 The following recipe will prevent e2fsck from aborting during the boot
 process when a filesystem contains orphaned files.  (Of course, this is

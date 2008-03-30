@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH E2FSCK 8 "November 2006" "E2fsprogs version 1.40-WIP"
+.TH E2FSCK 8 "March 2008" "E2fsprogs version 1.40.8"
 .SH NAME
 e2fsck \- check a Linux ext2/ext3 file system
 .SH SYNOPSIS
@@ -154,6 +154,24 @@ try to optimize all directories, either by reindexing them if the
 filesystem supports directory indexing,  or by sorting and compressing
 directories for smaller directories, or for filesystems using
 traditional linear directories.
+.IP
+Even without the
+.B \-D
+option,
+.B e2fsck
+may sometimes optimize a few directories --- for example, if
+directory indexing is enabled and a directory is not indexed and would
+benefit from being indexed, or if the index structures are corrupted
+and need to be rebuilt.  The
+.B \-D
+option forces all directories in the filesystem to be optimized.  This can
+sometimes make them a little smaller and slightly faster to search, but
+in practice, you should rarely need to use this option.
+.IP
+The
+.B \-D
+option will detect directory entries with duplicate names in a single
+directory, which e2fsck normally does not enforce for performance reasons.
 .TP
 .BI \-E " extended_options"
 Set e2fsck extended options.  Extended options are comma
