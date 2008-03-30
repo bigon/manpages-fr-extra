@@ -1,27 +1,18 @@
 .\"
-.\" "$Id: cups-driverd.man.in 5099 2006-02-13 02:46:10Z mike $"
+.\" "$Id: cups-driverd.man.in 6649 2007-07-11 21:46:42Z mike $"
 .\"
 .\"   cups-driverd man page for the Common UNIX Printing System (CUPS).
 .\"
+.\"   Copyright 2007 by Apple Inc.
 .\"   Copyright 1997-2006 by Easy Software Products.
 .\"
 .\"   These coded instructions, statements, and computer programs are the
-.\"   property of Easy Software Products and are protected by Federal
-.\"   copyright law.  Distribution and use rights are outlined in the file
-.\"   "LICENSE.txt" which should have been included with this file.  If this
-.\"   file is missing or damaged please contact Easy Software Products
-.\"   at:
+.\"   property of Apple Inc. and are protected by Federal copyright
+.\"   law.  Distribution and use rights are outlined in the file "LICENSE.txt"
+.\"   which should have been included with this file.  If this file is
+.\"   file is missing or damaged, see the license at "http://www.cups.org/".
 .\"
-.\"       Attn: CUPS Licensing Information
-.\"       Easy Software Products
-.\"       44141 Airport View Drive, Suite 204
-.\"       Hollywood, Maryland 20636 USA
-.\"
-.\"       Voice: (301) 373-9600
-.\"       EMail: cups-info@cups.org
-.\"         WWW: http://www.cups.org
-.\"
-.TH cups-driverd 8 "Common UNIX Printing System" "12 February 2006" "Easy Software Products"
+.TH cups-driverd 8 "Common UNIX Printing System" "12 February 2006" "Apple Inc."
 .SH NAME
 cups-driverd \- cups driver daemon
 .SH SYNOPSIS
@@ -45,7 +36,7 @@ is the request ID from the original IPP request, typically 1. The
 \Ilimit\fR argument is the limit value from the original IPP
 request - 0 means no limit. Finally, the \fIoptions\fR argument
 is a space-delimited list of attributes ("name=value name=value
-\&...") that were passed in with the request. Currently
+\...") that were passed in with the request. Currently
 \fIcups-driverd\fR looks for the \fIppd-make\fR and
 \fIrequested-attributes\fR attributes and tailors the output
 accordingly.
@@ -57,7 +48,7 @@ conform to the Adobe PPD File Format Specification version 4.3
 and may be compressed using the \fIgzip(1)\fR program. Driver
 programs must implement the command-line interface shown in the
 next section.
-.SS DRIVER PROGRAMS
+.Sh DRIVER PROGRAMS
 Driver programs provide an interface to dynamically-generated PPD
 files. The following arguments are currently defined:
 .TP 5
@@ -68,7 +59,7 @@ Lists the supported PPD files to stdout.
 drivername cat ppdname
 .br
 Writes the named PPD file to stdout.
-.SS LISTING FILES (drivername list)
+.Sh LISTING FILES (drivername list)
 When run with the single argument "list", the program must list
 the available PPD files it can generate to stdout using the
 following format:
@@ -83,12 +74,12 @@ typically "en". \fIMake\fR is the Manufacturer name from the PPD
 file. \fIMake and model\fR is the NickName name from the PPD
 file. \fI1284 device id\fR is the 1284DeviceId from the PPD file,
 if any.
-.SS WRITING FILES (drivername cat ppdname)
+.Sh WRITING FILES (drivername cat ppdname)
 When the driver program is run with the "cat ppdname" arguments,
 it must write the named PPD file to stdout, uncompressed. If the
 named PPD file does not exist, the driver program must not write
 any output to stdout and report the error to stderr instead.
-.SS DRIVER ERROR MESSAGES
+.Sh DRIVER ERROR MESSAGES
 Error messages can be relayed back to \fIcupsd\fR by writing them
 to stderr. The following prefixes are recognized:
 .TP 5
@@ -108,7 +99,7 @@ cupsd(8), cupsd.conf(5), cupstestppd(1),
 .br
 http://localhost:631/help
 .SH COPYRIGHT
-Copyright 1997-2006 by Easy Software Products, All Rights Reserved.
+Copyright 2007 by Apple Inc.
 .\"
-.\" End of "$Id: cups-driverd.man.in 5099 2006-02-13 02:46:10Z mike $".
+.\" End of "$Id: cups-driverd.man.in 6649 2007-07-11 21:46:42Z mike $".
 .\"

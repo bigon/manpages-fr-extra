@@ -1,27 +1,18 @@
 .\"
-.\" "$Id: cupsaddsmb.man.in 6049 2006-10-20 15:07:21Z mike $"
+.\" "$Id: cupsaddsmb.man.in 6729 2007-07-26 00:30:52Z mike $"
 .\"
 .\"   cupsaddsmb man page for the Common UNIX Printing System (CUPS).
 .\"
+.\"   Copyright 2007 by Apple Inc.
 .\"   Copyright 1997-2006 by Easy Software Products.
 .\"
 .\"   These coded instructions, statements, and computer programs are the
-.\"   property of Easy Software Products and are protected by Federal
-.\"   copyright law.  Distribution and use rights are outlined in the file
-.\"   "LICENSE.txt" which should have been included with this file.  If this
-.\"   file is missing or damaged please contact Easy Software Products
-.\"   at:
+.\"   property of Apple Inc. and are protected by Federal copyright
+.\"   law.  Distribution and use rights are outlined in the file "LICENSE.txt"
+.\"   which should have been included with this file.  If this file is
+.\"   file is missing or damaged, see the license at "http://www.cups.org/".
 .\"
-.\"       Attn: CUPS Licensing Information
-.\"       Easy Software Products
-.\"       44141 Airport View Drive, Suite 204
-.\"       Hollywood, Maryland 20636 USA
-.\"
-.\"       Voice: (301) 373-9600
-.\"       EMail: cups-info@cups.org
-.\"         WWW: http://www.cups.org
-.\"
-.TH cupsaddsmb 8 "Common UNIX Printing System" "20 October 2006" "Easy Software Products"
+.TH cupsaddsmb 8 "Common UNIX Printing System" "25 July 2007" "Apple Inc."
 .SH NAME
 cupsaddsmb \- export printers to samba for windows clients
 
@@ -101,7 +92,6 @@ share, as follows:
 	guest ok = yes
 	writable = no
 	printable = yes
-	printer admin = root
 
     [print$]
 	comment = Printer Drivers
@@ -120,7 +110,10 @@ accordingly on your system as needed.
 The base driver for Windows 2000 and higher is the Microsoft
 PostScript driver, which is available on any system running
 Windows 2000 or higher in the
-%WINDIR%\\SYSTEM32\\SPOOL\\DRIVERS\\W32X86\\3 folder.
+%WINDIR%\\SYSTEM32\\SPOOL\\DRIVERS\\W32X86\\3 folder for 32-bit
+drivers and
+%WINDIR%\\SYSTEM32\\SPOOL\\DRIVERS\\X64\\3 folder for 64-bit
+drivers.
 .LP
 The CUPS printer driver is preferred over the Microsoft driver
 since it supports the page-label, job-billing, and
@@ -130,8 +123,10 @@ driver, so you will also need to get the Adobe driver to support
 Windows 95, 98, and Me clients. The Adobe and Microsoft drivers
 for Windows 2000 are identical.
 .LP
-Once you have extracted the driver files, copy them to the
-\fI/usr/share/cups/drivers\fR directory exactly as named below:
+Once you have extracted the driver files, copy the 32-bit drivers
+to the \fI/usr/share/cups/drivers\fR directory and the 64-bit
+drivers to the \fI/usr/share/cups/drivers/x64\fR directory exactly
+as named below:
 .nf
 
     [Windows 2000 and higher]
@@ -157,8 +152,10 @@ currently only Windows 2000 and higher is supported by the CUPS
 driver, so you will also need to get the Adobe driver to support
 Windows 95, 98, and Me clients.
 .LP
-Once you have extracted the driver files, copy them to the
-\fI/usr/share/cups/drivers\fR directory exactly as named below:
+Once you have extracted the driver files, copy the 32-bit drivers
+to the \fI/usr/share/cups/drivers\fR directory and the 64-bit
+drivers to the \fI/usr/share/cups/drivers/x64\fR directory exactly
+as named below:
 .nf
 
     [Windows 2000 and higher]
@@ -202,9 +199,7 @@ you use the UPPERCASE filenames shown above, otherwise
 \fIcupsaddsmb\fR will fail to export the drivers.
 
 .SH KNOWN ISSUES
-\fIcupsaddsmb\fR currently only supports 32-bit x86 drivers on
-Windows 2000 and higher. Support for 64-bit x86 drivers will be
-added in a future release.
+Getting the full set of Windows driver files should be easier.
 
 .SH SEE ALSO
 \fIsmbd(8)\fR, \fIsmb.conf(5)\fR,
@@ -213,7 +208,7 @@ http://localhost:631/help
 http://www.cups.org/windows/
 
 .SH COPYRIGHT
-Copyright 1997-2006 by Easy Software Products, All Rights Reserved.
+Copyright 2007 by Apple Inc.
 .\"
-.\" End of "$Id: cupsaddsmb.man.in 6049 2006-10-20 15:07:21Z mike $".
+.\" End of "$Id: cupsaddsmb.man.in 6729 2007-07-26 00:30:52Z mike $".
 .\"

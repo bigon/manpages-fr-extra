@@ -1,27 +1,18 @@
 .\"
-.\" "$Id: cupsd.conf.man.in 5638 2006-06-06 20:08:13Z mike $"
+.\" "$Id: cupsd.conf.man.in 7163 2008-01-02 23:08:19Z mike $"
 .\"
 .\"   cupsd.conf man page for the Common UNIX Printing System (CUPS).
 .\"
+.\"   Copyright 2007-2008 by Apple Inc.
 .\"   Copyright 1997-2006 by Easy Software Products.
 .\"
 .\"   These coded instructions, statements, and computer programs are the
-.\"   property of Easy Software Products and are protected by Federal
-.\"   copyright law.  Distribution and use rights are outlined in the file
-.\"   "LICENSE.txt" which should have been included with this file.  If this
-.\"   file is missing or damaged please contact Easy Software Products
-.\"   at:
+.\"   property of Apple Inc. and are protected by Federal copyright
+.\"   law.  Distribution and use rights are outlined in the file "LICENSE.txt"
+.\"   which should have been included with this file.  If this file is
+.\"   file is missing or damaged, see the license at "http://www.cups.org/".
 .\"
-.\"       Attn: CUPS Licensing Information
-.\"       Easy Software Products
-.\"       44141 Airport View Drive, Suite 204
-.\"       Hollywood, Maryland 20636 USA
-.\"
-.\"       Voice: (301) 373-9600
-.\"       EMail: cups-info@cups.org
-.\"         WWW: http://www.cups.org
-.\"
-.TH cupsd.conf 5 "Common UNIX Printing System" "6 June 2006" "Easy Software Products"
+.TH cupsd.conf 5 "Common UNIX Printing System" "2 January 2008" "Apple Inc."
 .SH NAME
 cupsd.conf \- server configuration file for cups
 .SH DESCRIPTION
@@ -83,8 +74,10 @@ AuthType Basic
 AuthType BasicDigest
 .TP 5
 AuthType Digest
+.TP 5
+AuthType Negotiate
 .br
-Specifies the authentication type (None, Basic, BasicDigest, Digest)
+Specifies the authentication type (None, Basic, BasicDigest, Digest, Negotiate)
 .TP 5
 AutoPurgeJobs Yes
 .TP 5
@@ -220,6 +213,8 @@ DefaultAuthType Basic
 DefaultAuthType BasicDigest
 .TP 5
 DefaultAuthType Digest
+.TP 5
+DefaultAuthType Negotiate
 .br
 Specifies the default type of authentication to use.
 .TP 5
@@ -234,6 +229,12 @@ Specifies the default language to use for text and web content.
 DefaultPolicy policy-name
 .br
 Specifies the default access policy to use.
+.TP 5
+DefaultShared Yes
+.TP 5
+DefaultShared No
+.br
+Specifies whether local printers are shared by default.
 .TP 5
 Deny all
 .TP 5
@@ -349,6 +350,10 @@ Specifies whether to support HTTP keep-alive connections.
 KeepAliveTimeout seconds
 .br
 Specifies the amount of time that connections are kept alive.
+.TP 5
+Krb5Keytab filename
+.br
+Overrides the Kerberos key tab location.
 .TP 5
 <Limit operations> ... </Limit>
 .br
@@ -607,7 +612,7 @@ Specifies the user name or ID that is used when running external programs.
 .br
 http://localhost:631/help
 .SH COPYRIGHT
-Copyright 1997-2006 by Easy Software Products, All Rights Reserved.
+Copyright 2007-2008 by Apple Inc.
 .\"
-.\" End of "$Id: cupsd.conf.man.in 5638 2006-06-06 20:08:13Z mike $".
+.\" End of "$Id: cupsd.conf.man.in 7163 2008-01-02 23:08:19Z mike $".
 .\"
