@@ -8,13 +8,15 @@ all: build stats
 
 build: build-stamp
 build-stamp:
-	@for dir in $(SUBDIRS); do \
+	@set -e; \
+	for dir in $(SUBDIRS); do \
 	  $(MAKE) -C $$dir; \
 	done
 	touch $@
 
 clean:
-	@for dir in $(SUBDIRS); do \
+	@set -e; \
+	for dir in $(SUBDIRS); do \
 	  $(MAKE) clean -C $$dir; \
 	done
 	@rm -rf $(INSTDIR)
@@ -28,7 +30,8 @@ stats:
 install: build
 	@echo "Note: This is not a 'real' install target."
 	[ -d $(INSTDIR) ] || mkdir -p $(INSTDIR)
-	@for dir in $(SUBDIRS); do \
+	@set -e; \
+	for dir in $(SUBDIRS); do \
 	  [ -d $$dir/fr ] || continue; \
 	  cd $$dir/fr; \
 	  for f in man*/*; do \
