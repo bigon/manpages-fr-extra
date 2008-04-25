@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2008-03-31 00:01+0200\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
+"PO-Revision-Date: 2008-04-06 16:51+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -146,7 +146,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:3 C/ssl/SSL_state_string.pod:3 C/ssl/SSL_want.pod:3
 #: C/ssl/SSL_write.pod:3 C/ssl/d2i_SSL_SESSION.pod:3 C/ssl/ssl.pod:4
 msgid "NAME"
-msgstr ""
+msgstr "NOM"
 
 # type: =head1
 #: C/apps/CA.pl.pod:8 C/apps/asn1parse.pod:7 C/apps/ca.pod:8
@@ -277,7 +277,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:7 C/ssl/SSL_state_string.pod:7 C/ssl/SSL_want.pod:7
 #: C/ssl/SSL_write.pod:7 C/ssl/d2i_SSL_SESSION.pod:7 C/ssl/ssl.pod:8
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNOPSIS"
 
 # type: =head1
 #: C/apps/CA.pl.pod:25 C/apps/asn1parse.pod:22 C/apps/ca.pod:51
@@ -418,7 +418,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:17 C/ssl/SSL_write.pod:13 C/ssl/d2i_SSL_SESSION.pod:14
 #: C/ssl/ssl.pod:10
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPTION"
 
 # type: =head1
 #: C/apps/CA.pl.pod:174 C/apps/ca.pod:666 C/apps/ciphers.pod:425
@@ -553,7 +553,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:73 C/ssl/SSL_write.pod:101 C/ssl/d2i_SSL_SESSION.pod:61
 #: C/ssl/ssl.pod:655
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VOIR AUSSI"
 
 # type: verbatim
 #: C/crypto/BN_BLINDING_new.pod:13 C/crypto/BN_CTX_new.pod:9
@@ -570,6 +570,8 @@ msgid ""
 " #include <openssl/bn.h>\n"
 "\n"
 msgstr ""
+" #include <openssl/bn.h>\n"
+"\n"
 
 # type: textblock
 #: C/crypto/bn.pod:5
@@ -587,6 +589,12 @@ msgid ""
 " void BN_clear_free(BIGNUM *a);\n"
 "\n"
 msgstr ""
+" BIGNUM *BN_new(void);\n"
+" void BN_free(BIGNUM *a);\n"
+" void BN_init(BIGNUM *);\n"
+" void BN_clear(BIGNUM *a);\n"
+" void BN_clear_free(BIGNUM *a);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:17
@@ -597,6 +605,10 @@ msgid ""
 " void BN_CTX_free(BN_CTX *c);\n"
 "\n"
 msgstr ""
+" BN_CTX *BN_CTX_new(void);\n"
+" void BN_CTX_init(BN_CTX *c);\n"
+" void BN_CTX_free(BN_CTX *c);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:21
@@ -606,6 +618,9 @@ msgid ""
 " BIGNUM *BN_dup(const BIGNUM *a);\n"
 "\n"
 msgstr ""
+" BIGNUM *BN_copy(BIGNUM *a, const BIGNUM *b);\n"
+" BIGNUM *BN_dup(const BIGNUM *a);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:24
@@ -614,6 +629,8 @@ msgid ""
 " BIGNUM *BN_swap(BIGNUM *a, BIGNUM *b);\n"
 "\n"
 msgstr ""
+" BIGNUM *BN_swap(BIGNUM *a, BIGNUM *b);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:26
@@ -624,6 +641,10 @@ msgid ""
 " int BN_num_bits_word(BN_ULONG w);\n"
 "\n"
 msgstr ""
+" int BN_num_bytes(const BIGNUM *a);\n"
+" int BN_num_bits(const BIGNUM *a);\n"
+" int BN_num_bits_word(BN_ULONG w);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:30
@@ -633,6 +654,9 @@ msgid ""
 " int  BN_is_negative(const BIGNUM *a);\n"
 "\n"
 msgstr ""
+" void BN_set_negative(BIGNUM *a, int n);\n"
+" int  BN_is_negative(const BIGNUM *a);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:33
@@ -659,6 +683,26 @@ msgid ""
 " int BN_gcd(BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);\n"
 "\n"
 msgstr ""
+" int BN_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);\n"
+" int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);\n"
+" int BN_mul(BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);\n"
+" int BN_sqr(BIGNUM *r, BIGNUM *a, BN_CTX *ctx);\n"
+" int BN_div(BIGNUM *dv, BIGNUM *rem, const BIGNUM *a, const BIGNUM *d,\n"
+"         BN_CTX *ctx);\n"
+" int BN_mod(BIGNUM *rem, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);\n"
+" int BN_nnmod(BIGNUM *rem, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);\n"
+" int BN_mod_add(BIGNUM *ret, BIGNUM *a, BIGNUM *b, const BIGNUM *m,\n"
+"         BN_CTX *ctx);\n"
+" int BN_mod_sub(BIGNUM *ret, BIGNUM *a, BIGNUM *b, const BIGNUM *m,\n"
+"         BN_CTX *ctx);\n"
+" int BN_mod_mul(BIGNUM *ret, BIGNUM *a, BIGNUM *b, const BIGNUM *m,\n"
+"         BN_CTX *ctx);\n"
+" int BN_mod_sqr(BIGNUM *ret, BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);\n"
+" int BN_exp(BIGNUM *r, BIGNUM *a, BIGNUM *p, BN_CTX *ctx);\n"
+" int BN_mod_exp(BIGNUM *r, BIGNUM *a, const BIGNUM *p,\n"
+"         const BIGNUM *m, BN_CTX *ctx);\n"
+" int BN_gcd(BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:53
@@ -671,6 +715,12 @@ msgid ""
 " BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);\n"
 "\n"
 msgstr ""
+" int BN_add_word(BIGNUM *a, BN_ULONG w);\n"
+" int BN_sub_word(BIGNUM *a, BN_ULONG w);\n"
+" int BN_mul_word(BIGNUM *a, BN_ULONG w);\n"
+" BN_ULONG BN_div_word(BIGNUM *a, BN_ULONG w);\n"
+" BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:59
@@ -684,6 +734,13 @@ msgid ""
 " int BN_is_odd(BIGNUM *a);\n"
 "\n"
 msgstr ""
+" int BN_cmp(BIGNUM *a, BIGNUM *b);\n"
+" int BN_ucmp(BIGNUM *a, BIGNUM *b);\n"
+" int BN_is_zero(BIGNUM *a);\n"
+" int BN_is_one(BIGNUM *a);\n"
+" int BN_is_word(BIGNUM *a, BN_ULONG w);\n"
+" int BN_is_odd(BIGNUM *a);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:66
@@ -696,6 +753,12 @@ msgid ""
 " unsigned long BN_get_word(BIGNUM *a);\n"
 "\n"
 msgstr ""
+" int BN_zero(BIGNUM *a);\n"
+" int BN_one(BIGNUM *a);\n"
+" const BIGNUM *BN_value_one(void);\n"
+" int BN_set_word(BIGNUM *a, unsigned long w);\n"
+" unsigned long BN_get_word(BIGNUM *a);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:72
@@ -707,6 +770,11 @@ msgid ""
 " int BN_pseudo_rand_range(BIGNUM *rnd, BIGNUM *range);\n"
 "\n"
 msgstr ""
+" int BN_rand(BIGNUM *rnd, int bits, int top, int bottom);\n"
+" int BN_pseudo_rand(BIGNUM *rnd, int bits, int top, int bottom);\n"
+" int BN_rand_range(BIGNUM *rnd, BIGNUM *range);\n"
+" int BN_pseudo_rand_range(BIGNUM *rnd, BIGNUM *range);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:77
@@ -718,6 +786,11 @@ msgid ""
 "         void (*callback)(int, int, void *), BN_CTX *ctx, void *cb_arg);\n"
 "\n"
 msgstr ""
+" BIGNUM *BN_generate_prime(BIGNUM *ret, int bits,int safe, BIGNUM *add,\n"
+"         BIGNUM *rem, void (*callback)(int, int, void *), void *cb_arg);\n"
+" int BN_is_prime(const BIGNUM *p, int nchecks,\n"
+"         void (*callback)(int, int, void *), BN_CTX *ctx, void *cb_arg);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:82
@@ -733,6 +806,15 @@ msgid ""
 " int BN_rshift1(BIGNUM *r, BIGNUM *a);\n"
 "\n"
 msgstr ""
+" int BN_set_bit(BIGNUM *a, int n);\n"
+" int BN_clear_bit(BIGNUM *a, int n);\n"
+" int BN_is_bit_set(const BIGNUM *a, int n);\n"
+" int BN_mask_bits(BIGNUM *a, int n);\n"
+" int BN_lshift(BIGNUM *r, const BIGNUM *a, int n);\n"
+" int BN_lshift1(BIGNUM *r, BIGNUM *a);\n"
+" int BN_rshift(BIGNUM *r, BIGNUM *a, int n);\n"
+" int BN_rshift1(BIGNUM *r, BIGNUM *a);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:91
@@ -750,6 +832,17 @@ msgid ""
 " BIGNUM *BN_mpi2bn(unsigned char *s, int len, BIGNUM *ret);\n"
 "\n"
 msgstr ""
+" int BN_bn2bin(const BIGNUM *a, unsigned char *to);\n"
+" BIGNUM *BN_bin2bn(const unsigned char *s, int len, BIGNUM *ret);\n"
+" char *BN_bn2hex(const BIGNUM *a);\n"
+" char *BN_bn2dec(const BIGNUM *a);\n"
+" int BN_hex2bn(BIGNUM **a, const char *str);\n"
+" int BN_dec2bn(BIGNUM **a, const char *str);\n"
+" int BN_print(BIO *fp, const BIGNUM *a);\n"
+" int BN_print_fp(FILE *fp, const BIGNUM *a);\n"
+" int BN_bn2mpi(const BIGNUM *a, unsigned char *to);\n"
+" BIGNUM *BN_mpi2bn(unsigned char *s, int len, BIGNUM *ret);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:102
@@ -759,6 +852,9 @@ msgid ""
 "     BN_CTX *ctx);\n"
 "\n"
 msgstr ""
+" BIGNUM *BN_mod_inverse(BIGNUM *r, BIGNUM *a, const BIGNUM *n,\n"
+"     BN_CTX *ctx);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:105
@@ -772,6 +868,13 @@ msgid ""
 "        BN_RECP_CTX *recp, BN_CTX *ctx);\n"
 "\n"
 msgstr ""
+" BN_RECP_CTX *BN_RECP_CTX_new(void);\n"
+" void BN_RECP_CTX_init(BN_RECP_CTX *recp);\n"
+" void BN_RECP_CTX_free(BN_RECP_CTX *recp);\n"
+" int BN_RECP_CTX_set(BN_RECP_CTX *recp, const BIGNUM *m, BN_CTX *ctx);\n"
+" int BN_mod_mul_reciprocal(BIGNUM *r, BIGNUM *a, BIGNUM *b,\n"
+"        BN_RECP_CTX *recp, BN_CTX *ctx);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:112
@@ -790,6 +893,18 @@ msgid ""
 "         BN_CTX *ctx);\n"
 "\n"
 msgstr ""
+" BN_MONT_CTX *BN_MONT_CTX_new(void);\n"
+" void BN_MONT_CTX_init(BN_MONT_CTX *ctx);\n"
+" void BN_MONT_CTX_free(BN_MONT_CTX *mont);\n"
+" int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *m, BN_CTX *ctx);\n"
+" BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);\n"
+" int BN_mod_mul_montgomery(BIGNUM *r, BIGNUM *a, BIGNUM *b,\n"
+"         BN_MONT_CTX *mont, BN_CTX *ctx);\n"
+" int BN_from_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,\n"
+"         BN_CTX *ctx);\n"
+" int BN_to_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,\n"
+"         BN_CTX *ctx);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/bn.pod:124
@@ -816,6 +931,26 @@ msgid ""
 "\tBN_MONT_CTX *m_ctx);\n"
 "\n"
 msgstr ""
+" BN_BLINDING *BN_BLINDING_new(const BIGNUM *A, const BIGNUM *Ai,\n"
+"\tBIGNUM *mod);\n"
+" void BN_BLINDING_free(BN_BLINDING *b);\n"
+" int BN_BLINDING_update(BN_BLINDING *b,BN_CTX *ctx);\n"
+" int BN_BLINDING_convert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);\n"
+" int BN_BLINDING_invert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);\n"
+" int BN_BLINDING_convert_ex(BIGNUM *n, BIGNUM *r, BN_BLINDING *b,\n"
+"\tBN_CTX *ctx);\n"
+" int BN_BLINDING_invert_ex(BIGNUM *n,const BIGNUM *r,BN_BLINDING *b,\n"
+"\tBN_CTX *ctx);\n"
+" unsigned long BN_BLINDING_get_thread_id(const BN_BLINDING *);\n"
+" void BN_BLINDING_set_thread_id(BN_BLINDING *, unsigned long);\n"
+" unsigned long BN_BLINDING_get_flags(const BN_BLINDING *);\n"
+" void BN_BLINDING_set_flags(BN_BLINDING *, unsigned long);\n"
+" BN_BLINDING *BN_BLINDING_create_param(BN_BLINDING *b,\n"
+"\tconst BIGNUM *e, BIGNUM *m, BN_CTX *ctx,\n"
+"\tint (*bn_mod_exp)(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,\n"
+"\t\t\t  const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx),\n"
+"\tBN_MONT_CTX *m_ctx);\n"
+"\n"
 
 # type: textblock
 #: C/crypto/bn.pod:146
@@ -869,3 +1004,13 @@ msgid ""
 "L<BN_mod_mul_montgomery(3)|BN_mod_mul_montgomery(3)>, L<BN_BLINDING_new(3)|"
 "BN_BLINDING_new(3)>"
 msgstr ""
+"L<bn_internal(3)|bn_internal(3)>, L<dh(3)|dh(3)>, L<err(3)|err(3)>, L<rand"
+"(3)|rand(3)>, L<rsa(3)|rsa(3)>, L<BN_new(3)|BN_new(3)>, L<BN_CTX_new(3)|"
+"BN_CTX_new(3)>, L<BN_copy(3)|BN_copy(3)>, L<BN_swap(3)|BN_swap(3)>, "
+"L<BN_num_bytes(3)|BN_num_bytes(3)>, L<BN_add(3)|BN_add(3)>, L<BN_add_word(3)|"
+"BN_add_word(3)>, L<BN_cmp(3)|BN_cmp(3)>, L<BN_zero(3)|BN_zero(3)>, L<BN_rand"
+"(3)|BN_rand(3)>, L<BN_generate_prime(3)|BN_generate_prime(3)>, L<BN_set_bit"
+"(3)|BN_set_bit(3)>, L<BN_bn2bin(3)|BN_bn2bin(3)>, L<BN_mod_inverse(3)|"
+"BN_mod_inverse(3)>, L<BN_mod_mul_reciprocal(3)|BN_mod_mul_reciprocal(3)>, "
+"L<BN_mod_mul_montgomery(3)|BN_mod_mul_montgomery(3)>, L<BN_BLINDING_new(3)|"
+"BN_BLINDING_new(3)>"

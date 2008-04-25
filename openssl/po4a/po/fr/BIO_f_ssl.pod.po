@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2008-03-31 00:01+0200\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
+"PO-Revision-Date: 2008-04-06 16:47+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -146,7 +146,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:3 C/ssl/SSL_state_string.pod:3 C/ssl/SSL_want.pod:3
 #: C/ssl/SSL_write.pod:3 C/ssl/d2i_SSL_SESSION.pod:3 C/ssl/ssl.pod:4
 msgid "NAME"
-msgstr ""
+msgstr "NOM"
 
 # type: =head1
 #: C/apps/CA.pl.pod:8 C/apps/asn1parse.pod:7 C/apps/ca.pod:8
@@ -277,7 +277,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:7 C/ssl/SSL_state_string.pod:7 C/ssl/SSL_want.pod:7
 #: C/ssl/SSL_write.pod:7 C/ssl/d2i_SSL_SESSION.pod:7 C/ssl/ssl.pod:8
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNOPSIS"
 
 # type: =head1
 #: C/apps/CA.pl.pod:25 C/apps/asn1parse.pod:22 C/apps/ca.pod:51
@@ -418,7 +418,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:17 C/ssl/SSL_write.pod:13 C/ssl/d2i_SSL_SESSION.pod:14
 #: C/ssl/ssl.pod:10
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPTION"
 
 # type: =head1
 #: C/apps/CA.pl.pod:146 C/apps/asn1parse.pod:122 C/apps/ciphers.pod:393
@@ -508,7 +508,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:18 C/ssl/SSL_state_string.pod:22
 #: C/ssl/SSL_want.pod:24 C/ssl/SSL_write.pod:18 C/ssl/d2i_SSL_SESSION.pod:25
 msgid "NOTES"
-msgstr ""
+msgstr "NOTES"
 
 # type: =head1
 #: C/apps/CA.pl.pod:174 C/apps/ca.pod:666 C/apps/ciphers.pod:425
@@ -643,7 +643,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:73 C/ssl/SSL_write.pod:101 C/ssl/d2i_SSL_SESSION.pod:61
 #: C/ssl/ssl.pod:655
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VOIR AUSSI"
 
 # type: =head1
 #: C/apps/errstr.pod:18 C/crypto/BIO_f_ssl.pod:131
@@ -653,7 +653,7 @@ msgstr ""
 #: C/crypto/BIO_s_mem.pod:92 C/crypto/BIO_set_callback.pod:101
 #: C/crypto/EVP_DigestInit.pod:188
 msgid "EXAMPLE"
-msgstr ""
+msgstr "EXEMPLE"
 
 # type: =head1
 #: C/crypto/ASN1_OBJECT_new.pod:27 C/crypto/ASN1_STRING_length.pod:73
@@ -748,7 +748,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:89 C/ssl/SSL_state_string.pod:37
 #: C/ssl/SSL_want.pod:37 C/ssl/SSL_write.pod:71 C/ssl/d2i_SSL_SESSION.pod:52
 msgid "RETURN VALUES"
-msgstr ""
+msgstr "VALEURS DE RETOUR"
 
 # type: textblock
 #: C/crypto/ASN1_STRING_new.pod:42 C/crypto/ASN1_STRING_print_ex.pod:94
@@ -772,7 +772,7 @@ msgstr ""
 #: C/crypto/d2i_X509_NAME.pod:29 C/crypto/d2i_X509_REQ.pod:34
 #: C/crypto/d2i_X509_SIG.pod:28
 msgid "TBA"
-msgstr ""
+msgstr "TBA"
 
 # type: textblock
 #: C/crypto/BIO_f_ssl.pod:5
@@ -792,6 +792,9 @@ msgid ""
 " #include <openssl/ssl.h>\n"
 "\n"
 msgstr ""
+" #include <openssl/bio.h>\n"
+" #include <openssl/ssl.h>\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:15
@@ -800,6 +803,8 @@ msgid ""
 " BIO_METHOD *BIO_f_ssl(void);\n"
 "\n"
 msgstr ""
+" BIO_METHOD *BIO_f_ssl(void);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:17
@@ -816,6 +821,16 @@ msgid ""
 "\tBIO_ctrl(b,BIO_C_SET_SSL_NUM_RENEGOTIATES,0,NULL);\n"
 "\n"
 msgstr ""
+" #define BIO_set_ssl(b,ssl,c)\tBIO_ctrl(b,BIO_C_SET_SSL,c,(char *)ssl)\n"
+" #define BIO_get_ssl(b,sslp)\tBIO_ctrl(b,BIO_C_GET_SSL,0,(char *)sslp)\n"
+" #define BIO_set_ssl_mode(b,client)\tBIO_ctrl(b,BIO_C_SSL_MODE,client,NULL)\n"
+" #define BIO_set_ssl_renegotiate_bytes(b,num) \\\n"
+"\tBIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_BYTES,num,NULL);\n"
+" #define BIO_set_ssl_renegotiate_timeout(b,seconds) \\\n"
+"\tBIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT,seconds,NULL);\n"
+" #define BIO_get_num_renegotiates(b) \\\n"
+"\tBIO_ctrl(b,BIO_C_SET_SSL_NUM_RENEGOTIATES,0,NULL);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:27
@@ -828,6 +843,12 @@ msgid ""
 " void BIO_ssl_shutdown(BIO *bio);\n"
 "\n"
 msgstr ""
+" BIO *BIO_new_ssl(SSL_CTX *ctx,int client);\n"
+" BIO *BIO_new_ssl_connect(SSL_CTX *ctx);\n"
+" BIO *BIO_new_buffer_ssl_connect(SSL_CTX *ctx);\n"
+" int BIO_ssl_copy_session_id(BIO *to,BIO *from);\n"
+" void BIO_ssl_shutdown(BIO *bio);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:33
@@ -836,6 +857,8 @@ msgid ""
 " #define BIO_do_handshake(b)\tBIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)\n"
 "\n"
 msgstr ""
+" #define BIO_do_handshake(b)\tBIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)\n"
+"\n"
 
 # type: textblock
 #: C/crypto/BIO_f_ssl.pod:37
@@ -1019,6 +1042,12 @@ msgid ""
 " SSL *ssl;\n"
 "\n"
 msgstr ""
+" BIO *sbio, *out;\n"
+" int len;\n"
+" char tmpbuf[1024];\n"
+" SSL_CTX *ctx;\n"
+" SSL *ssl;\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:143 C/crypto/BIO_f_ssl.pod:209
@@ -1029,6 +1058,10 @@ msgid ""
 " OpenSSL_add_all_algorithms();\n"
 "\n"
 msgstr ""
+" ERR_load_crypto_strings();\n"
+" ERR_load_SSL_strings();\n"
+" OpenSSL_add_all_algorithms();\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:147
@@ -1039,6 +1072,10 @@ msgid ""
 "  */\n"
 "\n"
 msgstr ""
+" /* We would seed the PRNG here if the platform didn't\n"
+"  * do it automatically\n"
+"  */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:151
@@ -1047,6 +1084,8 @@ msgid ""
 " ctx = SSL_CTX_new(SSLv23_client_method());\n"
 "\n"
 msgstr ""
+" ctx = SSL_CTX_new(SSLv23_client_method());\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:153
@@ -1058,6 +1097,11 @@ msgid ""
 "  */\n"
 "\n"
 msgstr ""
+" /* We'd normally set some stuff like the verify paths and\n"
+"  * mode here because as things stand this will connect to\n"
+"  * any server whose certificate is signed by any CA.\n"
+"  */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:158
@@ -1066,6 +1110,8 @@ msgid ""
 " sbio = BIO_new_ssl_connect(ctx);\n"
 "\n"
 msgstr ""
+" sbio = BIO_new_ssl_connect(ctx);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:160 C/crypto/BIO_f_ssl.pod:233
@@ -1074,6 +1120,8 @@ msgid ""
 " BIO_get_ssl(sbio, &ssl);\n"
 "\n"
 msgstr ""
+" BIO_get_ssl(sbio, &ssl);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:162 C/crypto/BIO_f_ssl.pod:235
@@ -1085,6 +1133,11 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" if(!ssl) {\n"
+"   fprintf(stderr, \"Can't locate SSL pointer\\n\");\n"
+"   /* whatever ... */\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:167 C/crypto/BIO_f_ssl.pod:240
@@ -1094,6 +1147,9 @@ msgid ""
 " SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);\n"
 "\n"
 msgstr ""
+" /* Don't want any retries */\n"
+" SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:170
@@ -1102,6 +1158,8 @@ msgid ""
 " /* We might want to do other things with ssl here */\n"
 "\n"
 msgstr ""
+" /* We might want to do other things with ssl here */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:172
@@ -1110,6 +1168,8 @@ msgid ""
 " BIO_set_conn_hostname(sbio, \"localhost:https\");\n"
 "\n"
 msgstr ""
+" BIO_set_conn_hostname(sbio, \"localhost:https\");\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:174
@@ -1123,6 +1183,13 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+" if(BIO_do_connect(sbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error connecting to server\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\t/* whatever ... */\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:181
@@ -1135,6 +1202,12 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" if(BIO_do_handshake(sbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error establishing SSL connection\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\t/* whatever ... */\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:187
@@ -1143,6 +1216,8 @@ msgid ""
 " /* Could examine ssl here to get connection info */\n"
 "\n"
 msgstr ""
+" /* Could examine ssl here to get connection info */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:189
@@ -1158,6 +1233,15 @@ msgid ""
 " BIO_free(out);\n"
 "\n"
 msgstr ""
+" BIO_puts(sbio, \"GET / HTTP/1.0\\n\\n\");\n"
+" for(;;) {\t\n"
+"\tlen = BIO_read(sbio, tmpbuf, 1024);\n"
+"\tif(len <= 0) break;\n"
+"\tBIO_write(out, tmpbuf, len);\n"
+" }\n"
+" BIO_free_all(sbio);\n"
+" BIO_free(out);\n"
+"\n"
 
 # type: textblock
 #: C/crypto/BIO_f_ssl.pod:198
@@ -1179,6 +1263,12 @@ msgid ""
 " SSL *ssl;\n"
 "\n"
 msgstr ""
+" BIO *sbio, *bbio, *acpt, *out;\n"
+" int len;\n"
+" char tmpbuf[1024];\n"
+" SSL_CTX *ctx;\n"
+" SSL *ssl;\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:213
@@ -1187,6 +1277,8 @@ msgid ""
 " /* Might seed PRNG here */\n"
 "\n"
 msgstr ""
+" /* Might seed PRNG here */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:215
@@ -1195,6 +1287,8 @@ msgid ""
 " ctx = SSL_CTX_new(SSLv23_server_method());\n"
 "\n"
 msgstr ""
+" ctx = SSL_CTX_new(SSLv23_server_method());\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:217
@@ -1205,6 +1299,10 @@ msgid ""
 "\t|| !SSL_CTX_check_private_key(ctx)) {\n"
 "\n"
 msgstr ""
+" if (!SSL_CTX_use_certificate_file(ctx,\"server.pem\",SSL_FILETYPE_PEM)\n"
+"\t|| !SSL_CTX_use_PrivateKey_file(ctx,\"server.pem\",SSL_FILETYPE_PEM)\n"
+"\t|| !SSL_CTX_check_private_key(ctx)) {\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:221
@@ -1216,6 +1314,11 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+"\tfprintf(stderr, \"Error setting up SSL_CTX\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:226
@@ -1226,6 +1329,10 @@ msgid ""
 "  */\n"
 "\n"
 msgstr ""
+" /* Might do other things here like setting verify locations and\n"
+"  * DH and/or RSA temporary key callbacks\n"
+"  */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:230
@@ -1235,6 +1342,9 @@ msgid ""
 " sbio=BIO_new_ssl(ctx,0);\n"
 "\n"
 msgstr ""
+" /* New SSL BIO setup as server */\n"
+" sbio=BIO_new_ssl(ctx,0);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:243
@@ -1243,6 +1353,8 @@ msgid ""
 " /* Create the buffering BIO */\n"
 "\n"
 msgstr ""
+" /* Create the buffering BIO */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:245
@@ -1251,6 +1363,8 @@ msgid ""
 " bbio = BIO_new(BIO_f_buffer());\n"
 "\n"
 msgstr ""
+" bbio = BIO_new(BIO_f_buffer());\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:247
@@ -1260,6 +1374,9 @@ msgid ""
 " sbio = BIO_push(bbio, sbio);\n"
 "\n"
 msgstr ""
+" /* Add to chain */\n"
+" sbio = BIO_push(bbio, sbio);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:250
@@ -1268,6 +1385,8 @@ msgid ""
 " acpt=BIO_new_accept(\"4433\");\n"
 "\n"
 msgstr ""
+" acpt=BIO_new_accept(\"4433\");\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:252
@@ -1280,6 +1399,12 @@ msgid ""
 "  */\n"
 " \n"
 msgstr ""
+" /* By doing this when a new connection is established\n"
+"  * we automatically have sbio inserted into it. The\n"
+"  * BIO chain is now 'swallowed' by the accept BIO and\n"
+"  * will be freed when the accept BIO is freed. \n"
+"  */\n"
+" \n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:258
@@ -1288,6 +1413,8 @@ msgid ""
 " BIO_set_accept_bios(acpt,sbio);\n"
 "\n"
 msgstr ""
+" BIO_set_accept_bios(acpt,sbio);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:260
@@ -1296,6 +1423,8 @@ msgid ""
 " out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
 "\n"
 msgstr ""
+" out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:262
@@ -1309,6 +1438,13 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" /* Setup accept BIO */\n"
+" if(BIO_do_accept(acpt) <= 0) {\n"
+"\tfprintf(stderr, \"Error setting up accept BIO\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:269
@@ -1322,6 +1458,13 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" /* Now wait for incoming connection */\n"
+" if(BIO_do_accept(acpt) <= 0) {\n"
+"\tfprintf(stderr, \"Error in connection\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:276
@@ -1332,6 +1475,10 @@ msgid ""
 "  */\n"
 "\n"
 msgstr ""
+" /* We only want one connection so remove and free\n"
+"  * accept BIO\n"
+"  */\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:280
@@ -1340,6 +1487,8 @@ msgid ""
 " sbio = BIO_pop(acpt);\n"
 "\n"
 msgstr ""
+" sbio = BIO_pop(acpt);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:282
@@ -1348,6 +1497,8 @@ msgid ""
 " BIO_free_all(acpt);\n"
 "\n"
 msgstr ""
+" BIO_free_all(acpt);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:284
@@ -1360,6 +1511,12 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" if(BIO_do_handshake(sbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error in SSL handshake\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:290
@@ -1370,6 +1527,10 @@ msgid ""
 " BIO_puts(sbio, \"--------------------------------------------------\\r\\n\");\n"
 "\n"
 msgstr ""
+" BIO_puts(sbio, \"HTTP/1.0 200 OK\\r\\nContent-type: text/plain\\r\\n\\r\\n\");\n"
+" BIO_puts(sbio, \"\\r\\nConnection Established\\r\\nRequest headers:\\r\\n\");\n"
+" BIO_puts(sbio, \"--------------------------------------------------\\r\\n\");\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:294
@@ -1385,6 +1546,15 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" for(;;) {\n"
+" \tlen = BIO_gets(sbio, tmpbuf, 1024);\n"
+"        if(len <= 0) break;\n"
+"\tBIO_write(sbio, tmpbuf, len);\n"
+"\tBIO_write(out, tmpbuf, len);\n"
+"\t/* Look for blank line signifying end of headers*/\n"
+"\tif((tmpbuf[0] == '\\r') || (tmpbuf[0] == '\\n')) break;\n"
+" }\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:303
@@ -1394,6 +1564,9 @@ msgid ""
 " BIO_puts(sbio, \"\\r\\n\");\n"
 "\n"
 msgstr ""
+" BIO_puts(sbio, \"--------------------------------------------------\\r\\n\");\n"
+" BIO_puts(sbio, \"\\r\\n\");\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:306
@@ -1403,6 +1576,9 @@ msgid ""
 " BIO_flush(sbio);\n"
 "\n"
 msgstr ""
+" /* Since there is a buffering BIO present we had better flush it */\n"
+" BIO_flush(sbio);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/BIO_f_ssl.pod:309
@@ -1411,3 +1587,5 @@ msgid ""
 " BIO_free_all(sbio);\n"
 "\n"
 msgstr ""
+" BIO_free_all(sbio);\n"
+"\n"

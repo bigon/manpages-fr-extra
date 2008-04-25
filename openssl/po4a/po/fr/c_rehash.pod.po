@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2008-03-31 00:01+0200\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
+"PO-Revision-Date: 2008-04-06 21:58+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -146,7 +146,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:3 C/ssl/SSL_state_string.pod:3 C/ssl/SSL_want.pod:3
 #: C/ssl/SSL_write.pod:3 C/ssl/d2i_SSL_SESSION.pod:3 C/ssl/ssl.pod:4
 msgid "NAME"
-msgstr ""
+msgstr "NOM"
 
 # type: =head1
 #: C/apps/CA.pl.pod:8 C/apps/asn1parse.pod:7 C/apps/ca.pod:8
@@ -277,7 +277,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:7 C/ssl/SSL_state_string.pod:7 C/ssl/SSL_want.pod:7
 #: C/ssl/SSL_write.pod:7 C/ssl/d2i_SSL_SESSION.pod:7 C/ssl/ssl.pod:8
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNOPSIS"
 
 # type: =head1
 #: C/apps/CA.pl.pod:25 C/apps/asn1parse.pod:22 C/apps/ca.pod:51
@@ -418,7 +418,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:17 C/ssl/SSL_write.pod:13 C/ssl/d2i_SSL_SESSION.pod:14
 #: C/ssl/ssl.pod:10
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPTION"
 
 # type: =head1
 #: C/apps/CA.pl.pod:174 C/apps/ca.pod:666 C/apps/ciphers.pod:425
@@ -553,7 +553,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:73 C/ssl/SSL_write.pod:101 C/ssl/d2i_SSL_SESSION.pod:61
 #: C/ssl/ssl.pod:655
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VOIR AUSSI"
 
 # type: =head1
 #: C/apps/asn1parse.pod:27 C/apps/dgst.pod:33 C/apps/dhparam.pod:28
@@ -563,7 +563,7 @@ msgstr ""
 #: C/apps/s_time.pod:35 C/apps/speed.pod:41 C/apps/version.pod:21
 #: C/apps/x509.pod:67 C/apps/c_rehash.pod:29
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPTIONS"
 
 # type: =head1
 #: C/apps/asn1parse.pod:166 C/apps/ca.pod:611 C/apps/config.pod:262
@@ -594,17 +594,19 @@ msgstr ""
 #: C/ssl/SSL_CTX_set_client_cert_cb.pod:63 C/ssl/SSL_CTX_set_verify.pod:149
 #: C/ssl/SSL_get_verify_result.pod:28 C/ssl/SSL_pending.pod:28
 msgid "BUGS"
-msgstr ""
+msgstr "BOGUES"
 
 # type: textblock
 #: C/apps/c_rehash.pod:6
 msgid "c_rehash - Create symbolic links to files named by the hash values"
 msgstr ""
+"c_rehash - Créer des liens symboliques vers les fichiers en utilisant une "
+"valeur de hachage"
 
 # type: textblock
 #: C/apps/c_rehash.pod:10
 msgid "B<c_rehash> [directory] ..."
-msgstr ""
+msgstr "B<c_rehash> [répertoire] ..."
 
 # type: textblock
 #: C/apps/c_rehash.pod:15
@@ -614,6 +616,12 @@ msgid ""
 "by the hash value. This is useful as many programs require directories to be "
 "set up like this in order to find the certificates they require."
 msgstr ""
+"c_rehash parcourt les répertoires et prend une valeur de hachage de chaque "
+"fichier .pem et .crt dans le répertoire. Il crée ensuite des liens "
+"symboliques pour chacun de ces fichiers en les nommant par la valeur du "
+"haché. C'est utile parce que beaucoup de programmes imposent à des "
+"répertoires d'être configurés de la sorte pour trouver les certificats "
+"qu'ils recherchent."
 
 # type: textblock
 #: C/apps/c_rehash.pod:17
@@ -624,7 +632,15 @@ msgid ""
 "separated list of directories, all of which will be processed. If neither of "
 "these conditions are true then /usr/lib/ssl/certs is processed."
 msgstr ""
+"Si des répertoires sont indiqués sur la ligne de commande, alors ces "
+"répertoires sont traités chacun à son tour. Sinon, et si la variable "
+"d'environnement SSL_CERT_DIR est définies, les répertoires spécifiées dans "
+"celle-ci sont traités. Cette variable doit être une liste de répertoires "
+"séparés par des deux-points (« : »), chacun étant à traiter. Si aucun "
+"répertoire n'est précisé d'une de ces façon, c'est le répertoire /usr/lib/"
+"ssl/certs qui sera traité."
 
+# NOTE: he -> the
 # type: textblock
 #: C/apps/c_rehash.pod:19
 msgid ""
@@ -632,6 +648,9 @@ msgid ""
 "permissions on the directory, if they do not then nothing will be printed "
 "for that directory."
 msgstr ""
+"Pour chaque répertoire à traiter, l'utilisateur doit avoir les droits en "
+"écriture sur le répertoire. Si ce n'est pas le cas, rien ne sera afficher "
+"pour ce répertoire."
 
 # type: textblock
 #: C/apps/c_rehash.pod:21
@@ -642,6 +661,11 @@ msgid ""
 "are named in the same format as those created by this program they will be "
 "lost."
 msgstr ""
+"Notez que ce programme détruit tous les liens symboliques qui ressemblerait "
+"à un lien créé auparavant. Faites donc attention si vous exécutez ce "
+"programme pour un répertoire qui contient des liens symboliques pour "
+"d'autres raisons et qu'ils sont nommés avec le même format que ceux créé par "
+"ce programme, puisqu'ils seront perdus."
 
 # type: textblock
 #: C/apps/c_rehash.pod:23
@@ -652,6 +676,12 @@ msgid ""
 "the certificate. A warning will be printed if a duplicate is detected. The "
 "hashes for CRL files are of the form <hash>.r<n> and have the same behavior."
 msgstr ""
+"Les hachés des fichiers de certificats sont de la forme <haché>.<n> où n est "
+"un entier. Si la valeur du haché existe, alors n est incrémenté, à moins que "
+"le fichier soit identique. Les doublons sont détectés en utilisant "
+"l'empreinte du certificat. Un avertissement sera affiché si un doublon est "
+"détecté. Les hachés des fichiers de CRL sont de la forme <haché>.r<n> et à "
+"le même comportement."
 
 # type: textblock
 #: C/apps/c_rehash.pod:25
@@ -659,6 +689,8 @@ msgid ""
 "The program will also warn if there are files with extension .pem which are "
 "not certificate or CRL files."
 msgstr ""
+"Le programme avertira également s'il y a des fichiers avec l'extension .pem "
+"qui ne sont ni des certificats ni des CRL."
 
 # type: textblock
 #: C/apps/c_rehash.pod:27
@@ -672,21 +704,30 @@ msgid ""
 "fingerprint on the second line, optionally prefixed with some text and an "
 "equals sign (=)."
 msgstr ""
+"Le programme utilise le programme openssl pour calculer le haché et "
+"l'empreinte. Il nécessite que l'exécutable soit nommé openssl et qu'il soit "
+"accessible depuis les chemins de recherche PATH, ou dans le répertoire /usr/"
+"lib/ssl/bin. Si la variable d'environnement OPENSSL est définie, alors "
+"l'exécutable précisée dans celle-ci est utilisée à la place comme exécutable "
+"fournissant les hachés et les empreintes. Quand elle est appelée avec "
+"$OPENSSL x509 -hash -fingerprint -noout -in $fichier, elle doit produire le "
+"haché de $fichier sur la première ligne suivit par l'empreinte sur la "
+"seconde ligne, précédés éventuellement de texte suivi d'un signe égal (« = »)."
 
 # type: textblock
 #: C/apps/c_rehash.pod:31
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 # type: =head1
 #: C/apps/c_rehash.pod:33
 msgid "ENVIRONMENT"
-msgstr ""
+msgstr "ENVIRONNEMENT"
 
 # type: =item
 #: C/apps/c_rehash.pod:37
 msgid "B<OPENSSL>"
-msgstr ""
+msgstr "B<OPENSSL>"
 
 # type: textblock
 #: C/apps/c_rehash.pod:39
@@ -694,11 +735,13 @@ msgid ""
 "The name (and path) of an executable to use to generate hashes and "
 "fingerprints (see above)."
 msgstr ""
+"Le nom (et le chemin) d'un exécutable à utiliser pour générer des hachés et "
+"des empreintes (voir ci-dessus)."
 
 # type: =item
 #: C/apps/c_rehash.pod:41
 msgid "B<SSL_CERT_DIR>"
-msgstr ""
+msgstr "B<SSL_CERT_DIR>"
 
 # type: textblock
 #: C/apps/c_rehash.pod:43
@@ -706,13 +749,15 @@ msgid ""
 "Colon separated list of directories to operate on. Ignored if directories "
 "are listed on the command line."
 msgstr ""
+"Liste de répertoires séparés par des deux-points sur lesquels opérer. La "
+"liste est ignorée si des répertoires sont fournis sur la ligne de commande."
 
 # type: textblock
 #: C/apps/c_rehash.pod:47
 msgid "L<openssl(1)|openssl(1)>, L<x509(1)|x509(1)>"
-msgstr ""
+msgstr "L<openssl(1)|openssl(1)>, L<x509(1)|x509(1)>"
 
 # type: textblock
 #: C/apps/c_rehash.pod:53
 msgid "No known bugs"
-msgstr ""
+msgstr "Aucun bogue connu"
