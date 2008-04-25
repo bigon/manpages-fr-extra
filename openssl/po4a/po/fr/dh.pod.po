@@ -1,17 +1,18 @@
-# French translations for PACKAGE package
+# French translations for the openssl package
 # Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# This file is distributed under the same license as the openssl package.
+#
+# Copyright (C) 2008 Nicolas François <nicolas.francois@centraliens.net>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl 0.9.8g-8\n"
 "POT-Creation-Date: 2008-03-31 00:01+0200\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2008-04-26 00:35+0200\n"
+"Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -146,7 +147,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:3 C/ssl/SSL_state_string.pod:3 C/ssl/SSL_want.pod:3
 #: C/ssl/SSL_write.pod:3 C/ssl/d2i_SSL_SESSION.pod:3 C/ssl/ssl.pod:4
 msgid "NAME"
-msgstr ""
+msgstr "NOM"
 
 # type: =head1
 #: C/apps/CA.pl.pod:8 C/apps/asn1parse.pod:7 C/apps/ca.pod:8
@@ -277,7 +278,7 @@ msgstr ""
 #: C/ssl/SSL_shutdown.pod:7 C/ssl/SSL_state_string.pod:7 C/ssl/SSL_want.pod:7
 #: C/ssl/SSL_write.pod:7 C/ssl/d2i_SSL_SESSION.pod:7 C/ssl/ssl.pod:8
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNOPSIS"
 
 # type: =head1
 #: C/apps/CA.pl.pod:25 C/apps/asn1parse.pod:22 C/apps/ca.pod:51
@@ -418,7 +419,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:17 C/ssl/SSL_write.pod:13 C/ssl/d2i_SSL_SESSION.pod:14
 #: C/ssl/ssl.pod:10
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPTION"
 
 # type: =head1
 #: C/apps/CA.pl.pod:174 C/apps/ca.pod:666 C/apps/ciphers.pod:425
@@ -553,7 +554,7 @@ msgstr ""
 #: C/ssl/SSL_want.pod:73 C/ssl/SSL_write.pod:101 C/ssl/d2i_SSL_SESSION.pod:61
 #: C/ssl/ssl.pod:655
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VOIR AUSSI"
 
 # type: verbatim
 #: C/crypto/DH_set_method.pod:10 C/crypto/dh.pod:9
@@ -563,11 +564,14 @@ msgid ""
 " #include <openssl/engine.h>\n"
 "\n"
 msgstr ""
+" #include <openssl/dh.h>\n"
+" #include <openssl/engine.h>\n"
+"\n"
 
 # type: textblock
 #: C/crypto/dh.pod:5
 msgid "dh - Diffie-Hellman key agreement"
-msgstr ""
+msgstr "dh - Échange de clés Diffie-Hellman"
 
 # type: verbatim
 #: C/crypto/dh.pod:12
@@ -577,6 +581,9 @@ msgid ""
 " void\tDH_free(DH *dh);\n"
 "\n"
 msgstr ""
+" DH *\tDH_new(void);\n"
+" void\tDH_free(DH *dh);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/dh.pod:15
@@ -585,6 +592,8 @@ msgid ""
 " int\tDH_size(const DH *dh);\n"
 "\n"
 msgstr ""
+" int\tDH_size(const DH *dh);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/dh.pod:17
@@ -595,6 +604,10 @@ msgid ""
 " int\tDH_check(const DH *dh, int *codes);\n"
 "\n"
 msgstr ""
+" DH *\tDH_generate_parameters(int prime_len, int generator,\n"
+"\t\tvoid (*callback)(int, int, void *), void *cb_arg);\n"
+" int\tDH_check(const DH *dh, int *codes);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/dh.pod:21
@@ -604,6 +617,9 @@ msgid ""
 " int\tDH_compute_key(unsigned char *key, BIGNUM *pub_key, DH *dh);\n"
 "\n"
 msgstr ""
+" int\tDH_generate_key(DH *dh);\n"
+" int\tDH_compute_key(unsigned char *key, BIGNUM *pub_key, DH *dh);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/dh.pod:24
@@ -616,6 +632,12 @@ msgid ""
 " const DH_METHOD *DH_OpenSSL(void);\n"
 "\n"
 msgstr ""
+" void DH_set_default_method(const DH_METHOD *meth);\n"
+" const DH_METHOD *DH_get_default_method(void);\n"
+" int DH_set_method(DH *dh, const DH_METHOD *meth);\n"
+" DH *DH_new_method(ENGINE *engine);\n"
+" const DH_METHOD *DH_OpenSSL(void);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/dh.pod:30
@@ -627,6 +649,11 @@ msgid ""
 " char *DH_get_ex_data(DH *d, int idx);\n"
 "\n"
 msgstr ""
+" int DH_get_ex_new_index(long argl, char *argp, int (*new_func)(),\n"
+"\t     int (*dup_func)(), void (*free_func)());\n"
+" int DH_set_ex_data(DH *d, int idx, char *arg);\n"
+" char *DH_get_ex_data(DH *d, int idx);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/dh.pod:35
@@ -636,6 +663,9 @@ msgid ""
 " int\ti2d_DHparams(const DH *a, unsigned char **pp);\n"
 "\n"
 msgstr ""
+" DH *\td2i_DHparams(DH **a, unsigned char **pp, long length);\n"
+" int\ti2d_DHparams(const DH *a, unsigned char **pp);\n"
+"\n"
 
 # type: verbatim
 #: C/crypto/dh.pod:38
@@ -645,6 +675,9 @@ msgid ""
 " int\tDHparams_print(BIO *bp, const DH *x);\n"
 "\n"
 msgstr ""
+" int\tDHparams_print_fp(FILE *fp, const DH *x);\n"
+" int\tDHparams_print(BIO *bp, const DH *x);\n"
+"\n"
 
 # type: textblock
 #: C/crypto/dh.pod:43
@@ -654,11 +687,15 @@ msgid ""
 "(3)|DH_generate_parameters(3)>; L<DH_generate_key(3)|DH_generate_key(3)> "
 "describes how to perform a key agreement."
 msgstr ""
+"Ces fonctions implémentent le protocol d'échange de clés Diffie-Hellman. La "
+"génération de paramètres DH partagés est décrite dans "
+"L<DH_generate_parameters(3)|DH_generate_parameters(3)> ; L<DH_generate_key"
+"(3)|DH_generate_key(3)> décrit comment effectuer l'échange des clés."
 
 # type: textblock
 #: C/crypto/dh.pod:48
 msgid "The B<DH> structure consists of several BIGNUM components."
-msgstr ""
+msgstr "La structure B<DH> consiste en plusieurs composants BIGNUM."
 
 # type: verbatim
 #: C/crypto/dh.pod:50
@@ -675,6 +712,16 @@ msgid ""
 " DH\n"
 "\n"
 msgstr ""
+" struct\n"
+"        {\n"
+"        BIGNUM *p;\t\t// nombre premier (partagé)\n"
+"        BIGNUM *g;\t\t// générateur de Z_p (partagé)\n"
+"        BIGNUM *priv_key;\t// valeur DH privée x\n"
+"        BIGNUM *pub_key;\t// valeur DH publique g^x\n"
+"        // ...\n"
+"        };\n"
+" DH\n"
+"\n"
 
 # type: textblock
 #: C/crypto/dh.pod:60
@@ -686,6 +733,14 @@ msgid ""
 "For this reason, applications should generally avoid using DH structure "
 "elements directly and instead use API functions to query or modify keys."
 msgstr ""
+"Notez que les clés DH peuvent utiliser des implémentation B<DH_METHOD> non "
+"standard, soit directement, soit en utilisant des modules B<ENGINE>. Dans "
+"certains cas (par exemple un ENGINE fournissant la gestion de clés "
+"matérielle embarquées), ces valeurs BIGNUM ne seront pas utilisées par "
+"l'implémentation ou peuvent être utilisées pour le stockage de d'autres "
+"données. Pour cette raison, les applications devraient généralement éviter "
+"d'utiliser les éléments de la structure DH directement et devraient à la "
+"place utiliser les fonctions de l'API pour demander ou modifier les clés."
 
 # type: textblock
 #: C/crypto/dh.pod:70
@@ -697,3 +752,9 @@ msgid ""
 "(3)|DH_generate_parameters(3)>, L<DH_compute_key(3)|DH_compute_key(3)>, "
 "L<d2i_DHparams(3)|d2i_DHparams(3)>, L<RSA_print(3)|RSA_print(3)>"
 msgstr ""
+"L<dhparam(1)|dhparam(1)>, L<bn(3)|bn(3)>, L<dsa(3)|dsa(3)>, L<err(3)|err(3)"
+">, L<rand(3)|rand(3)>, L<rsa(3)|rsa(3)>, L<engine(3)|engine(3)>, "
+"L<DH_set_method(3)|DH_set_method(3)>, L<DH_new(3)|DH_new(3)>, "
+"L<DH_get_ex_new_index(3)|DH_get_ex_new_index(3)>, L<DH_generate_parameters"
+"(3)|DH_generate_parameters(3)>, L<DH_compute_key(3)|DH_compute_key(3)>, "
+"L<d2i_DHparams(3)|d2i_DHparams(3)>, L<RSA_print(3)|RSA_print(3)>"
