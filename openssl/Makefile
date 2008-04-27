@@ -1,5 +1,5 @@
 PACKAGE=openssl
-VERSION=$(shell cat VERSION | sed -e 's/-[0-9]*$//')
+VERSION=$(shell cat VERSION | sed -e 's/-[0-9]*$$//')
 
 PO4ADIR=po4a
 PODIR=$(PO4ADIR)/po
