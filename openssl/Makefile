@@ -41,7 +41,7 @@ clean:
 	-rm -rf fr
 	-rm -f $(PODIR)/*/*~
 
-stats:
+stats-all:
 	@echo -n "$(PACKAGE): "
 	@set -e; \
 	for f in $(PODIR)/fr/*.pod.po; do \
@@ -49,3 +49,6 @@ stats:
 		msgfmt --statistics -c -o /dev/null $$f; \
 	done
 
+stats:
+	@echo -n "$(PACKAGE): "
+	@msgcat --use-first $(PODIR)/fr/*.pod.po | msgfmt --statistics -c -o /dev/null -
