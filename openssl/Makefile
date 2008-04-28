@@ -22,7 +22,7 @@ man1:
 	for m in fr/apps/*.pod; do \
 		man=$$(basename $$m); \
 		man=$${man%.pod}; \
-		$(P2M) --section=1 $$m > fr/man1/$$man.1; \
+		$(P2M) --section=1ssl $$m > fr/man1/$$man.1ssl; \
 	done
 
 man3:
@@ -31,7 +31,7 @@ man3:
 	for m in fr/crypto/*.pod fr/ssl/*.pod; do \
 		man=$$(basename $$m); \
 		man=$${man%.pod}; \
-		$(P2M) --section=3 $$m > fr/man3/$$man.3; \
+		$(P2M) --section=3ssl $$m > fr/man3/$$man.3ssl; \
 	done
 
 build: pre-build po4a-build post-build
