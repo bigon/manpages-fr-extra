@@ -1,19 +1,21 @@
-# French translations for PACKAGE package
+# French translations for the openssl package
 # Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# This file is distributed under the same license as the openssl package.
+#
+# Copyright (C) 2008 Nicolas François <nicolas.francois@centraliens.net>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl 0.9.8g-8\n"
 "POT-Creation-Date: 2008-03-31 00:01+0200\n"
-"PO-Revision-Date: 2008-04-05 16:02+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2008-05-14 23:23+0200\n"
+"Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: VirTaal 0.1\n"
 
 # type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -794,7 +796,7 @@ msgstr ""
 # type: textblock
 #: C/ssl/SSL_SESSION_free.pod:5
 msgid "SSL_SESSION_free - free an allocated SSL_SESSION structure"
-msgstr ""
+msgstr "SSL_SESSION_free - Libérer une structure SSL_SESSION allouée"
 
 # type: verbatim
 #: C/ssl/SSL_SESSION_free.pod:11
@@ -813,6 +815,9 @@ msgid ""
 "the B<SSL_SESSION> structure pointed to by B<session> and frees up the "
 "allocated memory, if the the reference count has reached 0."
 msgstr ""
+"SSL_SESSION_free() décrémente le décompte de références de B<session> et "
+"retire la structure B<SSL_SESSION> pointée par B<session> et libère la "
+"mémoire allouée, si le décompte de références atteint 0."
 
 # type: textblock
 #: C/ssl/SSL_SESSION_free.pod:21
@@ -832,6 +837,21 @@ msgid ""
 "processed during a L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> "
 "operation."
 msgstr ""
+"Les objets SSL_SESSION sont allouées quand une poignée de main TLS/SSL se "
+"termine avec succès. En fonction de la configuration, consultez "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>, les "
+"objets SSL_SESSION sont référencés en interne par le SSL_CTX et attachés son "
+"cache de sessions. Les objets SSL peuvent utiliser l'objet SSL_SESSION ; "
+"comme une session peut être réutilisée, plusieurs objets SSL peuvent "
+"utiliser le même objet SSL_SESSION en même temps. Il est donc important de "
+"garder un compte des références (informations sur l'utilisation) correct et "
+"de ne pas supprimer un objet SSL_SESSION qui est encore utilisé, ce qui "
+"pourrait conduire à des erreurs du programme du fait de pointeurs pointant "
+"en l'air. Ces échecs peuvent aussi apparaître à retardement, par exemple "
+"quand un objet SSL_SESSION a été libéré parce son décompte de références est "
+"passé à zéro de façon erronée, mais est toujours référencé dans le cache de "
+"sessions interne et que la liste du cache est analysée lors d'une opération "
+"L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)>."
 
 # type: textblock
 #: C/ssl/SSL_SESSION_free.pod:36
@@ -844,11 +864,19 @@ msgid ""
 "other SSL_SESSION objects, as this would cause incorrect reference counts "
 "and therefore program failures."
 msgstr ""
+"SSL_SESSION_free() doit uniquement être appelée pour des objets SSL_SESSION, "
+"pour lesquels le décompte de référence a été incrémenté explicitement (par "
+"exemple en appelant SSL_get1_session(), consultez "
+"L<SSL_get_session(3)|SSL_get_session(3)>) ou si l'objet SSL_SESSION a été "
+"généré en dehors de l'opération de poignée de main TLS, par exemple en "
+"utilisant L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>. Elle ne doit pas être "
+"appelée avec les autres objets SSL_SESSION, puisque ça résultera en des "
+"décompte de référence erronés, et donc en des erreurs du programme."
 
 # type: textblock
 #: C/ssl/SSL_SESSION_free.pod:46
 msgid "SSL_SESSION_free() does not provide diagnostic information."
-msgstr ""
+msgstr "SSL_SESSION_free() ne fournit pas d'information de diagnostic."
 
 # type: verbatim
 #: C/ssl/SSL_SESSION_free.pod:50

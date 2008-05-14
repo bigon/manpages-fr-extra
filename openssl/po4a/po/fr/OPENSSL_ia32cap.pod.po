@@ -1,15 +1,16 @@
-# French translations for PACKAGE package
+# French translations for the openssl package
 # Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# This file is distributed under the same license as the openssl package.
+#
+# Copyright (C) 2008 Nicolas François <nicolas.francois@centraliens.net>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl 0.9.8g-8\n"
 "POT-Creation-Date: 2008-03-31 00:01+0200\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2008-05-14 23:26+0200\n"
+"Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -423,7 +424,7 @@ msgstr "DESCRIPTION"
 # type: textblock
 #: C/crypto/OPENSSL_ia32cap.pod:5
 msgid "OPENSSL_ia32cap - finding the IA-32 processor capabilities"
-msgstr ""
+msgstr "OPENSSL_ia32cap - Trouver les capacités des processeurs IA-32"
 
 # type: verbatim
 #: C/crypto/OPENSSL_ia32cap.pod:9
@@ -433,6 +434,9 @@ msgid ""
 " #define OPENSSL_ia32cap (*(OPENSSL_ia32cap_loc()))\n"
 "\n"
 msgstr ""
+" unsigned long *OPENSSL_ia32cap_loc(void);\n"
+" #define OPENSSL_ia32cap (*(OPENSSL_ia32cap_loc()))\n"
+"\n"
 
 # type: textblock
 #: C/crypto/OPENSSL_ia32cap.pod:14
@@ -456,3 +460,25 @@ msgid ""
 "modifying the application source code.  Alternatively you can reconfigure "
 "the toolkit with no-sse2 option and recompile."
 msgstr ""
+"La valeur renvoyée par OPENSSL_ia32cap_loc() est l'adresse d'une variable "
+"qui contient les capacité d'un processeur IA-32 sous la forme d'un vecteur "
+"de bits comme elles apparaissent dans le registre EDX après avoir exécuté "
+"l'instruction CPUID avec la valeur d'entrée EAX=1 (consultez la note "
+"applicative d'Intel #241618). Naturellement, ceci n'a de sens que pour les "
+"plates-formes IA-32[E]. La variable est normalement définie "
+"automatiquement lors de l'initialisation de la boîte à outils, mais peut "
+"être manipulée plus tard pour changer le comportement de la bibliothèque "
+"cryptographique. À ce jour, trois bits sont significatifs, à savoir le bit "
+"#28 qui indique l'Hyperthreading, utilisé pour distinguer les coeurs Intel "
+"P4, le bit #26 qui indique la gestion SSE2, et le bit #4 qui indique la "
+"présence d'un compteur d'horodatage. Par exemple, la suppression du bit #26 à "
+"l'exécution désactivera l'utilisation du code optimisé pour SSE2 dans la "
+"bibliothèque cryptographique. Vous pouvez avoir besoin de faire ceci si la "
+"cible est un CPU SSE2, mais que le système d'exploitation ne gère pas les "
+"extensions SSE2. Même s'il est possible de modifier la valeur par "
+"programmation, il sera sûrement plus simple de définir une variable "
+"d'environnement du même nom avant d'exécuter l'application, par exemple "
+"« env OPENSSL_ia32cap=0x10 apps/openssl », pour obtenir le même résultat "
+"sans avoir à modifier le code source de l'application. Vous pouvez "
+"également reconfigurer la boîte à outils avec l'option no-sse2 et "
+"recompiler."
