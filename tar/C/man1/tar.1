@@ -7,7 +7,7 @@ tar \- The GNU version of the tar archiving utility
 [
 .B \-
 ]
-.B A \-\-catenate \-\-concatenate \||\| c \-\-create \||\| d \-\-diff \-\-compare \||\| \-\-delete \||\| r \-\-append \||\| t \-\-list \||\| u \-\-update \||\| x \-\-extract \-\-get
+.B A \-\-catenate \-\-concatenate \||\| c \-\-create \||\| d \-\-diff \-\-compare \||\| \-\-delete \||\| r \-\-append \||\| t \-\-list \||\| u \-\-update \||\| x \-\-extract \-\-get 
 .I [ options ]
 .I pathname [ pathname ... ] 
 .SH DESCRIPTION
@@ -81,6 +81,10 @@ force exclusion patterns to match initial subsequences
 .B \-\-atime\-preserve	
 don't change access times on dumped files
 .TP
+.B \-a, \-\-auto\-compress
+with \-\-create, selects compression algorithm basing on the suffix
+of the archive file name
+.TP
 .B \-b, \-\-blocking\-factor N
 use record size of Nx512 bytes (default N=20)
 .TP
@@ -95,6 +99,22 @@ change to directory DIR
 .TP 
 .B \-\-checkpoint		
 print periodic checkpoints
+.TP
+.B \-\-checkpoint\-action
+this action allows to specify an action to be executed upon hitting a
+checkpoint.  Recognized actions are: dot, echo (the default),
+echo\=string, ttyout\=string, exec\=cmdline, and sleep\=value.  Any number
+of `\-\-checkpoint\-action' options can be specified, the actions will be
+executed in order of their appearance in the command line.
+.TP
+.B \-\-check\-device
+enables comparing device numbers.  This is the default.
+.TP
+.B \-\-no\-check\-device
+disables comparing device numbers during preparatory stage of an 
+incremental dump.  
+This allows to avoid creating full dumps if the device numbers change 
+(e.g. when using an LVM snapshot)
 .TP
 .B \-\-exclude=PATTERN
 exclude files matching PATTERN
@@ -119,6 +139,10 @@ set group to G while adding files
 .TP 
 .B \-h, \-\-dereference	
 don't dump symlinks; dump the files they point to
+.TP
+.B \-\-hard\-dereference
+during archive creation, dereferences hard links and stores the files
+they refer to, instead of creating usual hard link members (type '1')
 .TP
 .B \-\-help
 print help message
@@ -145,6 +169,9 @@ keep existing files; don't overwrite them from archive
 .B \-K, \-\-starting\-file F	
 begin at file F in the archive
 .TP
+.B \-\-lzma
+selects LZMA compression algorithm
+.TP
 .B \-l, \-\-check\-links
 print a message if not all links are dumped
 .TP
@@ -153,6 +180,15 @@ change tapes after writing N*1024 bytes
 .TP
 .B \-m, \-\-touch
 don't extract file modified time
+.TP
+.BI \-\-transform " expr"
+applies filename transformations.  
+The argument to this option can be a list of replace expressions, separated
+by semicolon (as in `sed').
+Filename transformations are applied to symbolic link targets during both
+creation and extraction.
+This option may be specified any number of
+times, the specified transofrmations will be applied in turn.
 .TP
 .B \-M, \-\-multi\-volume	
 create/list/extract multi-volume archive
@@ -274,9 +310,6 @@ get names to extract or archive from file F
 .B \-\-totals
 display total bytes written after creating an archive
 .TP
-.BI \-\-transform " expr"
-Transform filenames with the given sed expression
-.TP
 .B \-U, \-\-unlink\-first
 unlink & recreate files instead of overwriting
 .TP
@@ -330,6 +363,10 @@ If this environment variable is unset, use stdin or stdout instead.
 Options to prepend to those specified on the command line, separated by
 whitespace.  Embedded backslashes may be used to escape whitespace or
 backslashes within an option.
+.LP
+In addition, the value of the blocking factor is made available to info
+and checkpoint scripts via environment variable 
+.B TAR_BLOCKING_FACTOR.
 .SH BUGS
 .LP
 The GNU folks, in general, abhor man pages, and create info documents instead.
