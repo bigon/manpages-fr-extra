@@ -1,4 +1,4 @@
-\"
+.\"
 .\" MAN PAGE COMMENTS to
 .\"
 .\"	Chet Ramey
@@ -6,12 +6,12 @@
 .\"	Case Western Reserve University
 .\"	chet@po.cwru.edu
 .\"
-.\"	Last Change: Wed Dec 28 19:58:45 EST 2005
+.\"	Last Change: Thu Sep 28 10:25:59 EDT 2006
 .\"
 .\" bash_builtins, strip all but Built-Ins section
 .if \n(zZ=1 .ig zZ
 .if \n(zY=1 .ig zY
-.TH BASH 1 "2005 Dec 28" "GNU Bash-3.1"
+.TH BASH 1 "2006 September 28" "GNU Bash-3.2"
 .\"
 .\" There's some problem with having a `@'
 .\" in a tagged paragraph with the BSD man macros.
@@ -62,8 +62,9 @@ also incorporates useful features from the \fIKorn\fP and \fIC\fP
 shells (\fBksh\fP and \fBcsh\fP).
 .PP
 .B Bash
-is intended to be a conformant implementation of the IEEE
-POSIX Shell and Tools specification (IEEE Working Group 1003\.2).
+is intended to be a conformant implementation of the
+Shell and Utilities portion of the IEEE POSIX specification
+(IEEE Standard 1003.1).
 .B Bash
 can be configured to be POSIX-conformant by default.
 .SH OPTIONS
@@ -227,7 +228,7 @@ This option is on by default if the shell is invoked as
 .TP
 .B \-\-posix
 Change the behavior of \fBbash\fP where the default operation differs
-from the POSIX 1003.2 standard to match the standard (\fIposix mode\fP).
+from the POSIX standard to match the standard (\fIposix mode\fP).
 .TP
 .B \-\-restricted
 The shell becomes restricted (see
@@ -584,7 +585,7 @@ and
 have equal precedence, followed by
 .B ;
 and
-.BR &,
+.BR & ,
 which have equal precedence.
 .PP
 A sequence of one or more newlines may appear in a \fIlist\fP instead
@@ -948,19 +949,19 @@ between single quotes, even when preceded by a backslash.
 Enclosing characters in double quotes preserves the literal value
 of all characters within the quotes, with the exception of
 .BR $ ,
-.BR \` ,
+.BR ` ,
 .BR \e ,
 and, when history expansion is enabled,
 .BR ! .
 The characters
 .B $
 and
-.B \`
+.B `
 retain their special meaning within double quotes.  The backslash
 retains its special meaning only when followed by one of the following
 characters:
 .BR $ ,
-.BR \` ,
+.BR ` ,
 \^\fB"\fP\^,
 .BR \e ,
 or
@@ -1381,6 +1382,8 @@ subsequently reset.
 .B COMP_WORDS
 An array variable (see \fBArrays\fP below) consisting of the individual
 words in the current command line.
+The words are split on shell metacharacters as the shell parser would
+separate them.
 This variable is available only in shell functions invoked by the
 programmable completion facilities (see \fBProgrammable Completion\fP
 below).
@@ -1701,7 +1704,8 @@ command history is not saved when an interactive shell exits.
 .B HISTFILESIZE
 The maximum number of lines contained in the history file.  When this
 variable is assigned a value, the history file is truncated, if
-necessary, to contain no more than that number of lines.  The default
+necessary, by removing the oldest entries,
+to contain no more than that number of lines.  The default
 value is 500.  The history file is also truncated to this size after
 writing it when an interactive shell exits.
 .TP
@@ -1768,7 +1772,7 @@ for word splitting after expansion and to
 split lines into words with the
 .B read
 builtin command.  The default value is
-\(lq<space><tab><newline>\(rq.
+``<space><tab><newline>''.
 .TP
 .B IGNOREEOF
 Controls the
@@ -1891,7 +1895,7 @@ and is set by the administrator who installs
 .BR bash .
 A common value is
 .if t \f(CW/usr/gnu/bin:/usr/local/bin:/usr/ucb:/bin:/usr/bin\fP.
-.if n \(lq/usr/gnu/bin:/usr/local/bin:/usr/ucb:/bin:/usr/bin\(rq.
+.if n ``/usr/gnu/bin:/usr/local/bin:/usr/ucb:/bin:/usr/bin''.
 .TP
 .B POSIXLY_CORRECT
 If this variable is in the environment when \fBbash\fP starts, the shell
@@ -1912,13 +1916,13 @@ The value of this parameter is expanded (see
 .SM
 .B PROMPTING
 below) and used as the primary prompt string.  The default value is
-\(lq\fB\es\-\ev\e$ \fP\(rq.
+``\fB\es\-\ev\e$ \fP''.
 .TP
 .B PS2
 The value of this parameter is expanded as with
 .B PS1
 and used as the secondary prompt string.  The default is
-\(lq\fB> \fP\(rq.
+``\fB> \fP''.
 .TP
 .B PS3
 The value of this parameter is used as the prompt for the
@@ -1937,7 +1941,7 @@ displays during an execution trace.  The first character of
 .SM
 .B PS4
 is replicated multiple times, as necessary, to indicate multiple
-levels of indirection.  The default is \(lq\fB+ \fP\(rq.
+levels of indirection.  The default is ``\fB+ \fP''.
 .TP
 .B SHELL
 The full pathname to the shell is kept in this environment variable.
@@ -2500,8 +2504,8 @@ the value of
 .IR parameter ,
 then the result of the expansion is the expanded value of
 .I parameter
-with the shortest matching pattern (the \(lq\fB#\fP\(rq case) or the
-longest matching pattern (the \(lq\fB##\fP\(rq case) deleted.
+with the shortest matching pattern (the ``\fB#\fP'' case) or the
+longest matching pattern (the ``\fB##\fP'' case) deleted.
 If
 .I parameter
 is
@@ -2530,8 +2534,8 @@ If the pattern matches a trailing portion of the expanded value of
 .IR parameter ,
 then the result of the expansion is the expanded value of
 .I parameter
-with the shortest matching pattern (the \(lq\fB%\fP\(rq case) or the
-longest matching pattern (the \(lq\fB%%\fP\(rq case) deleted.
+with the shortest matching pattern (the ``\fB%\fP'' case) or the
+longest matching pattern (the ``\fB%%\fP'' case) deleted.
 If
 .I parameter
 is
@@ -2550,17 +2554,12 @@ the pattern removal operation is applied to each member of the
 array in turn, and the expansion is the resultant list.
 .TP
 ${\fIparameter\fP\fB/\fP\fIpattern\fP\fB/\fP\fIstring\fP}
-.PD 0
-.TP
-${\fIparameter\fP\fB//\fP\fIpattern\fP\fB/\fP\fIstring\fP}
-.PD
 The \fIpattern\fP is expanded to produce a pattern just as in
 pathname expansion.
 \fIParameter\fP is expanded and the longest match of \fIpattern\fP
 against its value is replaced with \fIstring\fP.
-In the first form, only the first match is replaced.
-The second form causes all matches of \fIpattern\fP to be
-replaced with \fIstring\fP.
+If \Ipattern\fP begins with \fB/\fP, all matches of \fIpattern\fP are
+replaced with \fIstring\fP.  Normally only the first match is replaced.
 If \fIpattern\fP begins with \fB#\fP, it must match at the beginning
 of the expanded value of \fIparameter\fP.
 If \fIpattern\fP begins with \fB%\fP, it must match at the end
@@ -2594,7 +2593,7 @@ the command name.  There are two forms:
 .RE
 or
 .RS
-\fB\`\fP\fIcommand\fP\fB\`\fP
+\fB`\fP\fIcommand\fP\fB`\fP
 .RE
 .PP
 .B Bash
@@ -2609,7 +2608,7 @@ the equivalent but faster \fB$(< \fIfile\fP)\fR.
 When the old-style backquote form of substitution is used,
 backslash retains its literal meaning except when followed by
 .BR $ ,
-.BR \` ,
+.BR ` ,
 or
 .BR \e .
 The first backquote not preceded by a backslash terminates the
@@ -2777,7 +2776,7 @@ depending on the setting of
 .B LC_COLLATE.
 When a pattern is used for pathname expansion,
 the character
-.B \(lq.\(rq
+.B ``.''
 at the start of a name or immediately following a slash
 must be matched explicitly, unless the shell option
 .B dotglob
@@ -2785,7 +2784,7 @@ is set.
 When matching a pathname, the slash character must always be
 matched explicitly.
 In other cases, the
-.B \(lq.\(rq
+.B ``.''
 character is not treated specially.
 See the description of
 .B shopt
@@ -2813,9 +2812,9 @@ is set, each matching file name that also matches one of the patterns in
 .B GLOBIGNORE
 is removed from the list of matches.
 The file names
-.B \(lq.\(rq
+.B ``.''
 and
-.B \(lq..\(rq
+.B ``..''
 are always ignored when
 .SM
 .B GLOBIGNORE
@@ -2825,12 +2824,12 @@ is set and not null.  However, setting
 to a non-null value has the effect of enabling the
 .B dotglob
 shell option, so all other file names beginning with a
-.B \(lq.\(rq
+.B ``.''
 will match.
 To get the old behavior of ignoring file names beginning with a
-.BR \(lq.\(rq ,
+.BR ``.'' ,
 make
-.B \(lq.*\(rq
+.B ``.*''
 one of the patterns in
 .SM
 .BR GLOBIGNORE .
@@ -2893,7 +2892,7 @@ and
 .BR ] ,
 \fIcharacter classes\fP can be specified using the syntax
 \fB[:\fP\fIclass\fP\fB:]\fP, where \fIclass\fP is one of the
-following classes defined in the POSIX.2 standard:
+following classes defined in the POSIX standard:
 .PP
 .RS
 .B
@@ -3049,6 +3048,10 @@ A failure to open or create a file causes the redirection to fail.
 Redirections using file descriptors greater than 9 should be used with
 care, as they may conflict with file descriptors the shell uses
 internally.
+.PP
+Note that the
+.B exec
+builtin command can make redirections take effect in the current shell.
 .SS Redirecting Input
 .PP
 Redirection of input causes the file whose name results from
@@ -3189,7 +3192,7 @@ must be used to quote the characters
 .BR \e ,
 .BR $ ,
 and
-.BR \` .
+.BR ` .
 .PP
 If the redirection operator is
 .BR <<\- ,
@@ -3303,7 +3306,7 @@ below).
 The first word of each simple command, if unquoted,
 is checked to see if it has an
 alias.  If so, that word is replaced by the text of the alias.
-The characters \fB/\fP, \fB$\fP, \fB\`\fP, and \fB=\fP and
+The characters \fB/\fP, \fB$\fP, \fB`\fP, and \fB=\fP and
 any of the shell \fImetacharacters\fP or quoting characters
 listed above may not appear in an alias name.
 The replacement text may contain any valid shell input,
@@ -3451,6 +3454,10 @@ automatically have them defined with the
 .B \-f
 option to the 
 .B export
+builtin.
+A function definition may be deleted using the \fB\-f\fP option to
+the
+.B unset
 builtin.
 Note that shell functions and variables with the same name may result
 in multiple identically-named entries in the environment passed to the
@@ -3601,7 +3608,7 @@ True if \fIfile\fP exists and is set-group-id.
 True if \fIfile\fP exists and is a symbolic link.
 .TP
 .B \-k \fIfile\fP
-True if \fIfile\fP exists and its \(lqsticky\(rq bit is set.
+True if \fIfile\fP exists and its ``sticky'' bit is set.
 .TP
 .B \-p \fIfile\fP
 True if \fIfile\fP exists and is a named pipe (FIFO).
@@ -4175,12 +4182,12 @@ Simply naming a job can be used to bring it into the
 foreground:
 .B %1
 is a synonym for
-\fB\(lqfg %1\(rq\fP,
+\fB``fg %1''\fP,
 bringing job 1 from the background into the foreground.
 Similarly,
-.B \(lq%1 &\(rq
+.B ``%1 &''
 resumes job 1 in the background, equivalent to
-\fB\(lqbg %1\(rq\fP.
+\fB``bg %1''\fP.
 .PP
 The shell learns immediately whenever a job changes state.
 Normally,
@@ -4475,7 +4482,7 @@ and
 is bound to run the macro
 expressed on the right hand side (that is, to insert the text
 .if t \f(CW> output\fP
-.if n \(lq> output\(rq
+.if n ``> output''
 into the line).
 .PP
 In the second form, \fB"keyseq"\fP:\^\fIfunction\-name\fP or \fImacro\fP,
@@ -4507,7 +4514,7 @@ and
 .I "ESC [ 1 1 ~"
 is bound to insert the text
 .if t \f(CWFunction Key 1\fP.
-.if n \(lqFunction Key 1\(rq.
+.if n ``Function Key 1''.
 .PP
 The full set of GNU Emacs style escape sequences is
 .RS
@@ -4627,7 +4634,7 @@ If set to \fBOn\fP, readline attempts to bind the control characters
 treated specially by the kernel's terminal driver to their readline
 equivalents.
 .TP
-.B comment\-begin (\(lq#\(rq)
+.B comment\-begin (``#'')
 The string that is inserted when the readline
 .B insert\-comment
 command is executed.
@@ -4697,7 +4704,7 @@ regardless of what the terminal claims it can support.  The name
 .B meta\-flag
 is a synonym for this variable.
 .TP
-.B isearch\-terminators (\(lqC\-[C\-J\(rq)
+.B isearch\-terminators (``C\-[C\-J'')
 The string of characters that should terminate an incremental
 search without subsequently executing the character as a command.
 If this variable has not been given a value, the characters
@@ -5792,7 +5799,7 @@ Quick substitution.  Repeat the last command, replacing
 with
 .IR string2 .
 Equivalent to
-\(lq!!:s/\fIstring1\fP/\fIstring2\fP/\(rq
+``!!:s/\fIstring1\fP/\fIstring2\fP/''
 (see \fBModifiers\fP below).
 .TP
 .B !#
@@ -6040,7 +6047,7 @@ variable.
 Each non-option argument is a command as it would appear in
 .IR .inputrc ,
 but each binding or command must be passed as a separate argument;
-e.g., `"\eC\-x\eC\-r": re\-read\-init\-file'.
+e.g., '"\eC\-x\eC\-r": re\-read\-init\-file'.
 Options, if supplied, have the following meanings:
 .RS
 .PD 0
@@ -6151,7 +6158,7 @@ Alternative directory names in
 are separated by a colon (:).  A null directory name in
 .SM
 .B CDPATH
-is the same as the current directory, i.e., \(lq\fB.\fP\(rq.  If
+is the same as the current directory, i.e., ``\fB.\fP''.  If
 .I dir
 begins with a slash (/),
 then
@@ -6459,7 +6466,7 @@ is specified, resume at the \fIn\fPth enclosing loop.
 must be \(>= 1.  If
 .I n
 is greater than the number of enclosing loops, the last enclosing loop
-(the \(lqtop-level\(rq loop) is resumed.  The return value is 0 unless the
+(the ``top-level'' loop) is resumed.  The return value is 0 unless the
 shell is not executing a loop when
 .B continue
 is executed.
@@ -6533,7 +6540,7 @@ If a variable name is followed by =\fIvalue\fP, the value of
 the variable is set to \fIvalue\fP.
 The return value is 0 unless an invalid option is encountered,
 an attempt is made to define a function using
-.if n \(lq\-f foo=bar\(rq,
+.if n ``\-f foo=bar'',
 .if t \f(CW\-f foo=bar\fP,
 an attempt is made to assign a value to a readonly variable,
 an attempt is made to assign a value to an array variable without
@@ -6674,10 +6681,6 @@ backslash
 the eight-bit character whose value is the octal value \fInnn\fP
 (zero to three octal digits)
 .TP
-.B \e\fInnn\fP
-the eight-bit character whose value is the octal value \fInnn\fP
-(one to three octal digits)
-.TP
 .B \ex\fIHH\fP
 the eight-bit character whose value is the hexadecimal value \fIHH\fP
 (one or two hex digits)
@@ -6698,7 +6701,7 @@ binary found via the
 .B PATH
 instead of the shell builtin version, run
 .if t \f(CWenable -n test\fP.
-.if n \(lqenable -n test\(rq.
+.if n ``enable -n test''.
 The
 .B \-f
 option means to load the new builtin command
@@ -6836,7 +6839,7 @@ command number).  If
 .I last
 is not specified it is set to
 the current command for listing (so that
-.if n \(lqfc \-l \-10\(rq
+.if n ``fc \-l \-10''
 .if t \f(CWfc \-l \-10\fP
 prints the last 10 commands) and to
 .I first
@@ -6880,16 +6883,16 @@ echoed and executed.
 In the second form, \fIcommand\fP is re-executed after each instance
 of \fIpat\fP is replaced by \fIrep\fP.
 A useful alias to use with this is
-.if n \(lqr="fc -s"\(rq,
-.if t \f(CWr=\(aqfc \-s\(aq\fP,
+.if n ``r="fc -s"'',
+.if t \f(CWr='fc \-s'\fP,
 so that typing
-.if n \(lqr cc\(rq
+.if n ``r cc''
 .if t \f(CWr cc\fP
 runs the last command beginning with
-.if n \(lqcc\(rq
+.if n ``cc''
 .if t \f(CWcc\fP
 and typing
-.if n \(lqr\(rq
+.if n ``r''
 .if t \f(CWr\fP
 re-executes the last command.
 .sp 1
@@ -7117,7 +7120,7 @@ Clear the history list by deleting all the entries.
 Delete the history entry at position \fIoffset\fP.
 .TP
 .B \-a
-Append the \(lqnew\(rq history lines (history lines entered since the
+Append the ``new'' history lines (history lines entered since the
 beginning of the current \fBbash\fP session) to the history file.
 .TP
 .B \-n
@@ -7307,10 +7310,10 @@ Removes the \fIn\fPth entry counting from the left of the list
 shown by
 .BR dirs ,
 starting with zero.  For example:
-.if n \(lqpopd +0\(rq
+.if n ``popd +0''
 .if t \f(CWpopd +0\fP
 removes the first directory,
-.if n \(lqpopd +1\(rq
+.if n ``popd +1''
 .if t \f(CWpopd +1\fP
 the second.
 .TP
@@ -7319,10 +7322,10 @@ Removes the \fIn\fPth entry counting from the right of the list
 shown by
 .BR dirs ,
 starting with zero.  For example:
-.if n \(lqpopd -0\(rq
+.if n ``popd -0''
 .if t \f(CWpopd -0\fP
 removes the last directory,
-.if n \(lqpopd -1\(rq
+.if n ``popd -1''
 .if t \f(CWpopd -1\fP
 the next to last.
 .TP
@@ -7697,7 +7700,7 @@ This option is on by default in interactive shells.
 .B ignoreeof
 The effect is as if the shell command
 .if t \f(CWIGNOREEOF=10\fP
-.if n \(lqIGNOREEOF=10\(rq
+.if n ``IGNOREEOF=10''
 had been executed
 (see
 .B Shell Variables
@@ -7751,7 +7754,7 @@ This option is disabled by default.
 Change the behavior of
 .B bash
 where the default operation differs
-from the POSIX 1003.2 standard to match the standard (\fIposix mode\fP).
+from the POSIX standard to match the standard (\fIposix mode\fP).
 .TP 8
 .B privileged
 Same as
@@ -8011,6 +8014,12 @@ attempts to save all lines of a multiple-line
 command in the same history entry.  This allows
 easy re-editing of multi-line commands.
 .TP 8
+.B compat31
+If set,
+.B bash
+changes its behavior to that of version 3.1 with respect to quoted
+arguments to the conditional command's =~ operator.
+.TP 8
 .B dotglob
 If set, 
 .B bash
@@ -8153,8 +8162,8 @@ The value may not be changed.
 .TP 8
 .B mailwarn
 If set, and a file that \fBbash\fP is checking for mail has been  
-accessed since the last time it was checked, the message \(lqThe mail in
-\fImailfile\fP has been read\(rq is displayed.
+accessed since the last time it was checked, the message ``The mail in
+\fImailfile\fP has been read'' is displayed.
 .TP 8
 .B no_empty_cmd_completion
 If set, and
@@ -8439,8 +8448,8 @@ the command
 is executed each time a shell function or a script executed with the
 \fB.\fP or \fBsource\fP builtins finishes executing.
 Signals ignored upon entry to the shell cannot be trapped or reset.
-Trapped signals are reset to their original values in a child
-process when it is created.
+Trapped signals that are not being ignored are reset to their original
+values in a child process when it is created.
 The return status is false if any
 .I sigspec
 is invalid; otherwise
@@ -8481,7 +8490,7 @@ that would be executed if
 were specified as a command name,
 or nothing if
 .if t \f(CWtype -t name\fP
-.if n \(lqtype -t name\(rq
+.if n ``type -t name''
 would not return
 .IR file .
 The
@@ -8491,7 +8500,7 @@ option forces a
 .B PATH
 search for each \fIname\fP, even if
 .if t \f(CWtype -t name\fP
-.if n \(lqtype -t name\(rq
+.if n ``type -t name''
 would not return
 .IR file .
 If a command is hashed,
@@ -8560,10 +8569,10 @@ The maximum size of core files created
 The maximum size of a process's data segment
 .TP
 .B \-e
-The maximum scheduling priority (`nice')
+The maximum scheduling priority ("nice")
 .TP
 .B \-f
-The maximum size of files created by the shell
+The maximum size of files written by the shell and its children
 .TP
 .B \-i
 The maximum number of pending signals
@@ -8585,7 +8594,7 @@ The pipe size in 512-byte blocks (this may not be set)
 The maximum number of bytes in POSIX message queues
 .TP
 .B \-r
-The maximum rt priority
+The maximum real-time scheduling priority
 .TP
 .B \-s
 The maximum stack size
