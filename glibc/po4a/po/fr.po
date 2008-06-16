@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: glibc\n"
-"POT-Creation-Date: 2008-06-11 18:40+0200\n"
-"PO-Revision-Date: 2008-06-16 23:37+0200\n"
+"POT-Creation-Date: 2008-06-17 00:08+0200\n"
+"PO-Revision-Date: 2008-06-17 00:15+0200\n"
 "Last-Translator: Florentin Duneau <fduneau@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -547,7 +547,7 @@ msgstr "I<getconf> a été écrit par Roland McGrath pour la bibliothèque GNU C
 #: C/man3/pthread_mutex_init.3:178 C/man3/pthread_mutexattr_init.3:81
 #: C/man3/pthread_mutexattr_setkind_np.3:37 C/man3/pthread_self.3:17
 #: C/man3/pthread_setschedparam.3:74 C/man3/pthread_sigmask.3:88
-#: C/man5/gai.conf.5:90 C/man5/locale.gen.5:38 C/man5/nscd.conf.5:203
+#: C/man5/gai.conf.5:90 C/man5/locale.gen.5:38 C/man5/nscd.conf.5:230
 #: C/man8/ldconfig.8:156 C/man8/zic.8:411 C/man8/ld.so.8:185
 #: C/man8/validlocale.8:47 C/man8/locale-gen.8:89 C/man8/update-locale.8:47
 #: C/man8/nscd.8:84
@@ -3619,7 +3619,7 @@ msgstr "B<pthread_exit>(3), B<pthread_cancel>(3), B<pthread_setcanceltype>(3)"
 # type: SH
 #: C/man3/pthread_cleanup_push.3:120 C/man3/pthread_cond_init.3:149
 #: C/man3/pthread_key_create.3:109 C/man3/pthread_mutex_init.3:183
-#: C/man5/gai.conf.5:66 C/man5/nscd.conf.5:175 C/man8/update-locale.8:33
+#: C/man5/gai.conf.5:66 C/man5/nscd.conf.5:202 C/man8/update-locale.8:33
 #, no-wrap
 msgid "EXAMPLE"
 msgstr "EXEMPLE"
@@ -6558,11 +6558,22 @@ msgstr ""
 # type: TP
 #: C/man5/nscd.conf.5:74
 #, no-wrap
+msgid "B<max-threads>I<\\ #threads>"
+msgstr "B<max-threads> I<#fils>"
+
+# type: Plain text
+#: C/man5/nscd.conf.5:77
+msgid "Specifies the maximum number of threads to be started."
+msgstr "Indiquer le nombre maximum de fils à démarrer."
+
+# type: TP
+#: C/man5/nscd.conf.5:77
+#, no-wrap
 msgid "B<server-user>I<\\ user>"
 msgstr "B<server-user> I<utilisateur>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:88
+#: C/man5/nscd.conf.5:91
 msgid ""
 "By default, B<nscd>(8)  is run as user root. This option can be set to force "
 "B<nscd>(8)  to drop root privileges after startup. It cannot be used when "
@@ -6577,14 +6588,56 @@ msgstr ""
 "nécessitent que nscd fonctionne en tant que root, donc cette option peut "
 "casser ces services de recherche."
 
+# type: TP
+#: C/man5/nscd.conf.5:91
+#, no-wrap
+msgid "B<stat-user>I<\\ user>"
+msgstr "B<stat-user> I<utilisateur>"
+
+# type: Plain text
+#: C/man5/nscd.conf.5:94
+msgid "Specifies the user who is allowed to request statistics."
+msgstr "Indiquer l'utilisateur qui est autorisé à demander les statistiques."
+
+# type: TP
+#: C/man5/nscd.conf.5:94
+#, no-wrap
+msgid "B<paranoia>I<\\ bool>"
+msgstr "B<paranoia> I<bool>"
+
+# type: Plain text
+#: C/man5/nscd.conf.5:104
+msgid ""
+"I<bool> must be one of B<yes> or B<no>.  Enabling paranoia mode causes "
+"B<nscd>(8)  to restart itself periodically."
+msgstr ""
+"I<bool> doit être B<yes> ou B<no>. L'activation du mode paranoia imposera "
+"à B<nscd>(8) de se redémarre périodiquement."
+
+# type: TP
+#: C/man5/nscd.conf.5:104
+#, no-wrap
+msgid "B<restart-interval>I<\\ time>"
+msgstr "B<restart-interval> I<temps>"
+
+# type: Plain text
+#: C/man5/nscd.conf.5:108
+msgid ""
+"Sets the restart interval to time seconds if periodic restart is enabled by "
+"enabling paranoia mode. The default value is 3600."
+msgstr ""
+"Définir la durée entre deux redémarrage en secondes si le redémarrage "
+"automatique est activé en sélectionnant le mode paranoia. La valeur par "
+"défaut est 3600."
+
 # type: SH
-#: C/man5/nscd.conf.5:88
+#: C/man5/nscd.conf.5:108
 #, no-wrap
 msgid "CACHE OPTIONS"
 msgstr "OPTIONS DE CACHE"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:97
+#: C/man5/nscd.conf.5:117
 msgid ""
 "All cache options take two arguments. The first one denotes the service or "
 "cache the option should affect. Currently I<service> can be one of "
@@ -6595,13 +6648,13 @@ msgstr ""
 "prendre l'une des valeurs B<passwd>, B<group> ou B<hosts>."
 
 # type: TP
-#: C/man5/nscd.conf.5:97
+#: C/man5/nscd.conf.5:117
 #, no-wrap
 msgid "B<enable-cache>I<\\ service\\ bool>"
 msgstr "B<enable-cache> I<service booléen>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:107
+#: C/man5/nscd.conf.5:127
 msgid ""
 "I<bool> must be one of B<yes> or B<no>.  Each cache is disabled by default "
 "and must be enabled explicitly by setting this options to B<yes>."
@@ -6611,13 +6664,13 @@ msgstr ""
 "B<yes>."
 
 # type: TP
-#: C/man5/nscd.conf.5:107
+#: C/man5/nscd.conf.5:127
 #, no-wrap
 msgid "B<positive-time-to-live>I<\\ service\\ secs>"
 msgstr "B<positive-time-to-live> I<service secondes>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:112
+#: C/man5/nscd.conf.5:132
 msgid ""
 "This is the number of seconds after which a cached entry is removed from the "
 "cache. This defaults to 3600 seconds (i. e.  one hour)."
@@ -6626,13 +6679,13 @@ msgstr ""
 "cache. La valeur par défaut est 3600 secondes (c'est-à-dire une heure)."
 
 # type: TP
-#: C/man5/nscd.conf.5:112
+#: C/man5/nscd.conf.5:132
 #, no-wrap
 msgid "B<negative-time-to-live>I<\\ service\\ secs>"
 msgstr "B<negative-time-to-live> I<service secondes>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:124
+#: C/man5/nscd.conf.5:144
 msgid ""
 "If an entry is not found by the Name Service, it is added to the cache and "
 "marked as \"not existent\". This option sets the number of seconds after "
@@ -6647,13 +6700,13 @@ msgstr ""
 "et de 60 secondes pour le cache B<group>."
 
 # type: TP
-#: C/man5/nscd.conf.5:124
+#: C/man5/nscd.conf.5:144
 #, no-wrap
 msgid "B<suggested-size>I<\\ service\\ prime-number>"
 msgstr "B<suggested-size> I<service nombre-premier>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:131
+#: C/man5/nscd.conf.5:151
 msgid ""
 "This option sets the size of the hash that is used to store the cache "
 "entries. As this is a hash, it should be reasonably larger than the maximum "
@@ -6667,13 +6720,13 @@ msgstr ""
 "nombre premier. La taille par défaut est de 211 entrées."
 
 # type: TP
-#: C/man5/nscd.conf.5:131
+#: C/man5/nscd.conf.5:151
 #, no-wrap
 msgid "B<check-files>I<\\ service\\ bool>"
 msgstr "B<check-files> I<service booléen>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:153
+#: C/man5/nscd.conf.5:173
 msgid ""
 "I<bool> must be one of B<yes> (default) or B<no>.  If file checking is "
 "enabled, B<nscd>(8)  periodically checks the modification time of I</etc/"
@@ -6688,13 +6741,13 @@ msgstr ""
 "modifié depuis la dernière vérification."
 
 # type: TP
-#: C/man5/nscd.conf.5:153
+#: C/man5/nscd.conf.5:173
 #, no-wrap
 msgid "B<persistent>I<\\ service\\ bool>"
 msgstr "B<persistent>I<service booléen>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:163
+#: C/man5/nscd.conf.5:183
 msgid ""
 "I<bool> must be one of B<yes> (default) or B<no>.  Keep the content of the "
 "cache for service over B<nscd>(8)  restarts. Useful when paranoia mode is "
@@ -6705,13 +6758,13 @@ msgstr ""
 "utile lorsque le mode paranoïa est actif."
 
 # type: TP
-#: C/man5/nscd.conf.5:163
+#: C/man5/nscd.conf.5:183
 #, no-wrap
 msgid "B<shared>I<\\ service\\ bool>"
 msgstr "B<shared>I<service booléen>"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:175
+#: C/man5/nscd.conf.5:195
 msgid ""
 "I<bool> must be one of B<yes> (default) or B<no>.  The memory mapping of the "
 "B<nscd>(8)  databases for service is shared with the clients so that they "
@@ -6724,14 +6777,29 @@ msgstr ""
 "lieu d'interroger le démon à travers une socket à chaque requête de "
 "recherche."
 
+# type: TP
+#: C/man5/nscd.conf.5:195
+#, no-wrap
+msgid "B<reload-count>I<\\ #number>"
+msgstr "B<reload-count> I<#nombre>"
+
 # type: Plain text
-#: C/man5/nscd.conf.5:179
+#: C/man5/nscd.conf.5:202
+msgid ""
+"Sets the number of times a cached record is reloaded before it is pruned "
+"from the cache. Each cache record has a timeout, when that timeout expires, "
+"B<nscd>(8)  will either reload it (query the NSS service again if the data "
+"hasn't changed), or drop it."
+msgstr ""
+
+# type: Plain text
+#: C/man5/nscd.conf.5:206
 #, no-wrap
 msgid "# This is a comment.\n"
 msgstr "# Voici un commentaire.\n"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:184
+#: C/man5/nscd.conf.5:211
 #, no-wrap
 msgid ""
 "    logfile                 /var/log/nscd.log\n"
@@ -6745,7 +6813,7 @@ msgstr ""
 "    debug-level             0\n"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:190
+#: C/man5/nscd.conf.5:217
 #, no-wrap
 msgid ""
 "    enable-cache            passwd          yes\n"
@@ -6761,7 +6829,7 @@ msgstr ""
 "    check-files             passwd          yes\n"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:196
+#: C/man5/nscd.conf.5:223
 #, no-wrap
 msgid ""
 "    enable-cache            group           yes\n"
@@ -6777,7 +6845,7 @@ msgstr ""
 "    check-files             group           yes\n"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:202
+#: C/man5/nscd.conf.5:229
 #, no-wrap
 msgid ""
 "    enable-cache            hosts           yes\n"
@@ -6793,7 +6861,7 @@ msgstr ""
 "    check-files             hosts           yes\n"
 
 # type: Plain text
-#: C/man5/nscd.conf.5:204
+#: C/man5/nscd.conf.5:231
 msgid "nscd(8), nsswitch.conf(5)"
 msgstr "nscd(8), nsswitch.conf(5)"
 
@@ -8007,8 +8075,8 @@ msgstr ""
 
 # type: Plain text
 #: C/man8/ld.so.8:34
-msgid "In the default path B</usr/lib>, and then B</lib>."
-msgstr "Dans les répertoires par défaut I</usr/lib>, puis I</lib>."
+msgid "In the default path B</lib>, and then B</usr/lib>."
+msgstr "Dans les répertoires par défaut I</lib>, puis I</usr/lib>."
 
 # type: SH
 #: C/man8/ld.so.8:34
