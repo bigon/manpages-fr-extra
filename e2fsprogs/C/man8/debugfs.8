@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH DEBUGFS 8 "March 2008" "E2fsprogs version 1.40.8"
+.TH DEBUGFS 8 "July 2008" "E2fsprogs version 1.41.0"
 .SH NAME
 debugfs \- ext2/ext3 file system debugger
 .SH SYNOPSIS
@@ -90,10 +90,11 @@ Forces the use of the given block size for the file system, rather than
 detecting the correct block size as normal.
 .TP
 .I -s superblock
-Causes the file system superblock to be read from the given block number,
-rather than the default (1).  If you give a
+Causes the file system superblock to be read from the given block
+number, instead of using the primary superblock (located at an offset of
+1024 bytes from the beginning of the filesystem).  If you specify the
 .I -s
-option, you must also give a
+option, you must also provide the blocksize of the filesystem via the
 .I -b
 option.
 .TP
@@ -306,7 +307,7 @@ and
 .I \-b
 options.
 .TP
-.I ls [-l] [-d] filespec
+.I ls [-l] [-d] [-p] filespec
 Print a listing of the files in the directory
 .IR filespec .
 The 
@@ -315,6 +316,11 @@ flag will list files using a more verbose format.
 The
 .I \-d
 flag will list deleted entries in the directory.
+The 
+.I \-p
+flag will list the files in a format which is more easily parsable by
+scripts, as well as making it more clear when there are spaces or other
+non-prinitng characters at the end of filenames.
 .TP
 .I modify_inode filespec
 Modify the contents of the inode structure in the inode

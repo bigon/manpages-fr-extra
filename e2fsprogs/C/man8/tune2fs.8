@@ -2,7 +2,7 @@
 .\" Initial revision
 .\"
 .\"
-.TH TUNE2FS 8 "March 2008" "E2fsprogs version 1.40.8"
+.TH TUNE2FS 8 "July 2008" "E2fsprogs version 1.41.0"
 .SH NAME
 tune2fs \- adjust tunable filesystem parameters on ext2/ext3 filesystems
 .SH SYNOPSIS
@@ -439,10 +439,19 @@ Reserve space so the block group descriptor table may grow in the
 future.
 .B Tune2fs 
 only supports clearing this filesystem feature.
+.TP
+.B uninit_bg
+Allow the kernel to initialize bitmaps and inode tables and keep a high
+watermark for the unused inodes in a filesystem, to reduce
+.BR e2fsck (8)
+time.  This first e2fsck run after enabling this feature will take the
+full time, but subsequent e2fsck runs will take only a fraction of the
+original time, depending on how full the file system is.
 .RE
 .IP
 After setting or clearing 
 .BR sparse_super ,
+.BR uninit_bg ,
 .BR filetype ,
 or
 .B resize_inode
@@ -457,6 +466,12 @@ if necessary.  After setting the
 feature, 
 .B e2fsck -D
 can be run to convert existing directories to the hashed B-tree format.
+Enabling certain filesystem features may prevent the filesystem from being
+mounted by kernels which do not support those features.  In particular the
+.BR uninit_bg
+and
+.BR flex_bg
+features are only supported by the ext4 filesystem.
 .TP
 .BI \-r " reserved-blocks-count"
 Set the number of reserved filesystem blocks.
@@ -464,6 +479,7 @@ Set the number of reserved filesystem blocks.
 .BI \-T " time-last-checked"
 Set the time the filesystem was last checked using
 .BR  e2fsck .
+The time is interpreted using the current (local) timezone.
 This can be useful in scripts which use a Logical Volume Manager to make
 a consistent snapshot of a filesystem, and then check the filesystem 
 during off hours to make sure it hasn't been corrupted due to 

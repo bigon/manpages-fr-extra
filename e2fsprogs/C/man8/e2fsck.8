@@ -2,13 +2,13 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH E2FSCK 8 "March 2008" "E2fsprogs version 1.40.8"
+.TH E2FSCK 8 "July 2008" "E2fsprogs version 1.41.0"
 .SH NAME
 e2fsck \- check a Linux ext2/ext3 file system
 .SH SYNOPSIS
 .B e2fsck
 [
-.B \-pacnyrdfkvstDFSV
+.B \-pacnyrdfkvtDFV
 ]
 [
 .B \-b
@@ -139,6 +139,11 @@ so that the progress of the filesystem
 check can be monitored.  This option is typically used by programs 
 which are running
 .BR e2fsck .
+If the file descriptor number is negative, then absolute value of
+the file descriptor will be used, and the progress information will be
+suppressed initially.  It can later be enabled by sending the
+.B e2fsck
+process a SIGUSR1 signal.
 If the file descriptor specified is 0, 
 .B e2fsck
 will print a completion bar as it goes about its business.  This requires
@@ -274,17 +279,6 @@ options.
 .B \-r
 This option does nothing at all; it is provided only for backwards
 compatibility.
-.TP 
-.B \-s
-This option will byte-swap the filesystem so that it is using the normalized, 
-standard byte-order (which is i386 or little endian).  If the filesystem is
-already in the standard byte-order, 
-.B e2fsck 
-will take no action.
-.TP
-.B \-S
-This option will byte-swap the filesystem, regardless of its current 
-byte-order.
 .TP
 .B \-t
 Print timing statistics for
@@ -337,14 +331,15 @@ The following signals have the following effect when sent to
 .B SIGUSR1
 This signal causes
 .B e2fsck
-to start displaying a completion bar.  (See discussion of the 
+to start displaying a completion bar or emitting progress information.  
+(See discussion of the 
 .B \-C
 option.)
 .TP
 .B SIGUSR2
 This signal causes
 .B e2fsck 
-to stop displaying a completion bar.
+to stop displaying a completion bar or emitting progress information.
 .SH REPORTING BUGS
 Almost any piece of software will have bugs.  If you manage to find a
 filesystem which causes 
@@ -403,6 +398,7 @@ This version of
 .B e2fsck
 was written by Theodore Ts'o <tytso@mit.edu>.
 .SH SEE ALSO
+.BR e2fsck.conf (5),
 .BR badblocks (8),
 .BR dumpe2fs (8),
 .BR debugfs (8),

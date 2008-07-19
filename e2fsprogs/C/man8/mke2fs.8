@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH MKE2FS 8 "March 2008" "E2fsprogs version 1.40.8"
+.TH MKE2FS 8 "July 2008" "E2fsprogs version 1.41.0"
 .SH NAME
 mke2fs \- create an ext2/ext3 filesystem
 .SH SYNOPSIS
@@ -24,6 +24,10 @@ mke2fs \- create an ext2/ext3 filesystem
 [
 .B \-g
 .I blocks-per-group
+]
+[
+.B \-G
+.I number-of-groups
 ]
 [
 .B \-i
@@ -88,8 +92,12 @@ mke2fs \- create an ext2/ext3 filesystem
 .B \-S
 ]
 [
+.B \-t
+.I fs-type
+]
+[
 .B \-T
-.I filesystem-type
+.I usage-type
 ]
 [
 .B \-V
@@ -183,9 +191,10 @@ following extended options are supported:
 Configure the filesystem for a RAID array with
 .I stride-size
 filesystem blocks. This is the number of blocks read or written to disk
-before moving to next disk. This mostly affects placement of filesystem
-metadata like bitmaps at
-.BR mke2fs (2)
+before moving to next disk, which is sometimes referred to as the 
+.I chunk size.
+This mostly affects placement of filesystem metadata like bitmaps at
+.B mke2fs
 time to avoid placing them on a single disk, which can hurt the performanace.
 It may also be used by block allocator.
 .TP
@@ -193,13 +202,24 @@ It may also be used by block allocator.
 Configure the filesystem for a RAID array with
 .I stripe-width
 filesystem blocks per stripe. This is typically be stride-size * N, where
-N is the number of data disks in the RAID (e.g. RAID 5 N+1, RAID 6 N+2).
+N is the number of data-bearing disks in the RAID (e.g. for RAID 5 there is one
+parity disk so N will be the number of disks in the array minus 1).
 This allows the block allocator to prevent read-modify-write of the
 parity in a RAID stripe if possible when the data is written.
 .TP
 .BI resize= max-online-resize
 Reserve enough space so that the block group descriptor table can grow
 to support a filesystem that has max-online-resize blocks.
+.TP
+.B lazy_itable_init\fR[\fb= \fI<0 to disable, 1 to enable>\fR]
+If enabled and the uninit_bg feature is enabled, the inode table will
+not fully initialized by 
+.BR mke2fs .
+This speeds up filesystem
+initialization noitceably, but it requires the kernel to finish
+initializing the filesystem in the background when the filesystem is
+first mounted.  If the option value is omitted, it defaults to 1 to
+enable lazy inode table initialization.
 .TP
 .B test_fs
 Set a flag in the filesystem superblock indicating that it may be
@@ -227,10 +247,17 @@ for the filesystem.  (For administrators who are creating
 filesystems on RAID arrays, it is preferable to use the
 .I stride
 RAID parameter as part of the
-.B \-R
+.B \-E
 option rather than manipulating the number of blocks per group.)  
 This option is generally used by developers who
 are developing test cases.  
+.TP
+.BI \-G " number-of-groups"
+Specify the number of block goups that will be packed together to
+create one large virtual block group on an ext4 filesystem.  This
+improves meta-data locality and performance on meta-data heavy
+workloads.  The number of goups must be a power of 2 and may only be
+specified if the flex_bg filesystem feature is enabled.
 .TP
 .BI \-i " bytes-per-inode"
 Specify the bytes/inode ratio. 
@@ -384,19 +411,26 @@ executable.
 .TP
 .B "\-O \fIfeature\fR[,...]"
 Create filesystem with given features (filesystem options), overriding 
-the default filesystem options.  The default features which are 
+the default filesystem options.  The default features which are
 enabled by default are specified by the
 .I base_features
 relation, either in the
 .I [libdefaults]
 section in the
 .B /etc/mke2fs.conf
-configuration file, or in the subsection of the 
+configuration file,
+or in the subsection of the
 .I [fs_types]
-section for the filesystem type as specified by the
+section for the usage types as specified by the
 .B -T
-option.  The filesystem type-specific configuration setting found in
-the 
+option, further modified by the
+.I features
+relation found in the
+.I [fs_types] section
+based on the filesystem and usage types.  See the
+.BR mke2fs.conf (5)
+manual page for more details.
+The filesystem type-specific configuration setting found in the
 .I [fs_types]
 section will override the global default found in
 .IR [libdefaults] .
@@ -425,6 +459,11 @@ Use hashed b-trees to speed up lookups in large directories.
 .B filetype
 Store file type information in directory entries.
 .TP
+.B flex_bg
+Allow bitmaps and inode tables for a block group to be placed anywhere
+on the storage media (use with -G option to group meta-data in order
+to create a large virtual block group).
+.TP
 .B has_journal
 Create an ext3 journal (as if using the
 .B \-j
@@ -437,6 +476,22 @@ Note that
 .I external-journal
 must be created with the same
 block size as the filesystems that will be using it.
+.TP
+.B extent
+Instead of using the indirect block scheme for storing the location of
+data blocks in an inode, use extents instead.  This is a much more
+efficient encoding which speeds up filesystem access, especially for
+large files.
+.TP
+.B uninit_bg
+Create a filesystem without initializing all of the block groups.  This 
+feature also enables checksums and highest-inode-used statistics in each
+blockgroup.  This feature can
+speed up filesystem creation time noticably (if lazy_itable_init is
+enabled), and can also reduce
+.BR e2fsck time
+dramatically.  It is only supported by the ext4 filesystem in
+recent Linux kernels.
 .TP
 .B resize_inode
 Reserve space so the block group descriptor table may grow in the future.
@@ -483,14 +538,40 @@ or there is no chance of recovery.
 .\" Check the device for bad blocks before creating the file system
 .\" using the specified test.
 .TP
-.BI \-T " fs-type"
+.BI
+.BI \-t " fs-type"
+Specify the filesystem (i.e., ext2, ext3, ext4, etc., is to be created.
+If this option is not specified mke2fs will pick a default either how
+the command was run (if it was run using a name of the form mkfs.ext2,
+mkfs.ext3, etc.) or via a default as defined by the
+.BR /etc/mke2fs.conf (5)
+file.
+.TP
+.BI \-T " usage-type[,...]"
 Specify how the filesystem is going to be used, so that 
 .B mke2fs 
-can choose optimal filesystem parameters for that use.  The filesystem
-types that are can be supported are defined in the configuration file 
+can choose optimal filesystem parameters for that use.  The usage
+types that are supported are defined in the configuration file
 .BR /etc/mke2fs.conf (5).
-The default configuration file contains definitions for the filesystem
-types: small, floppy, news, largefile, and largefile4.  
+The user may specify one or more usage types
+using a comma separated list.
+.sp
+If this option is is not specified,
+.B mke2fs
+will pick a single default usage type based on the size of the filesystem to
+be created.  If the filesystem size is less than or equal to 3 megabytes,
+.B mke2fs
+will use the filesystem type
+.IR floppy .
+If the filesystem size is greater than 3 but less than or equal to
+512 megabytes,
+.BR mke2fs (8)
+will use the filesystem
+.IR small .
+Otherwise,
+.BR mke2fs (8)
+will use the default filesystem type
+.IR default .
 .TP
 .B \-v
 Verbose execution.
