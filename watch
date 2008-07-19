@@ -101,10 +101,10 @@ sub process_mandir {
   return unless (-d $curdir);
   opendir DIR, $curdir or die "Cannot open directory $curdir";
   my @allfiles = grep !/^\.\.?$/, readdir DIR;
+  closedir DIR;
   foreach my $section (@allfiles) {
     process_section($curdir, $section, $source);
   }
-  closedir DIR;
 }
 
 sub process_section {
