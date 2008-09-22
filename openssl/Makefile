@@ -22,8 +22,7 @@ man1:
 	for m in fr/apps/*.pod; do \
 		man=$$(basename $$m); \
 		man=$${man%.pod}; \
-		NAME=$$(echo $$man | awk '{print toupper($$1)}'); \
-		iconv -f utf8 -t latin1 $$m | $(P2M) --section=1SSL --name $$NAME | iconv -t utf8 -f latin1 > fr/man1/$$man.1ssl; \
+		$(P2M) --section=1SSL $$m > fr/man1/$$man.1ssl; \
 	done
 
 man3:
@@ -32,8 +31,7 @@ man3:
 	for m in fr/crypto/*.pod fr/ssl/*.pod; do \
 		man=$$(basename $$m); \
 		man=$${man%.pod}; \
-		NAME=$$(echo $$man | awk '{print toupper($$1)}'); \
-		iconv -f utf8 -t latin1 $$m | $(P2M) --section=3SSL --name $$NAME | iconv -t utf8 -f latin1 > fr/man3/$$man.3ssl; \
+		$(P2M) --section=3SSL $$m > fr/man3/$$man.3ssl; \
 	done
 
 build: pre-build po4a-build post-build
