@@ -2,7 +2,7 @@
 .\" Initial revision
 .\"
 .\"
-.TH TUNE2FS 8 "July 2008" "E2fsprogs version 1.41.0"
+.TH TUNE2FS 8 "October 2008" "E2fsprogs version 1.41.3"
 .SH NAME
 tune2fs \- adjust tunable filesystem parameters on ext2/ext3 filesystems
 .SH SYNOPSIS
@@ -161,16 +161,24 @@ filesystem blocks. This is the number of blocks read or written to disk
 before moving to next disk. This mostly affects placement of filesystem
 metadata like bitmaps at
 .BR mke2fs (2)
-time to avoid placing them on a single disk, which can hurt the performanace.
+time to avoid placing them on a single disk, which can hurt the performance.
 It may also be used by block allocator.
 .TP
-.BI stripe-width= stripe-width
+.BI stripe_width= stripe-width
 Configure the filesystem for a RAID array with
 .I stripe-width
 filesystem blocks per stripe. This is typically be stride-size * N, where
 N is the number of data disks in the RAID (e.g. RAID 5 N+1, RAID 6 N+2).
 This allows the block allocator to prevent read-modify-write of the
 parity in a RAID stripe if possible when the data is written.
+.TP
+.BI hash_alg= hash-alg
+Set the default hash algorithm used for filesystems with hashed b-tree
+directories.  Valid algorithms accepted are:
+.IR legacy ,
+.IR half_md4 ,
+and
+.IR tea .
 .TP
 .B test_fs
 Set a flag in the filesystem superblock indicating that it may be

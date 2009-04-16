@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH E2FSCK 8 "July 2008" "E2fsprogs version 1.41.0"
+.TH E2FSCK 8 "October 2008" "E2fsprogs version 1.41.3"
 .SH NAME
 e2fsck \- check a Linux ext2/ext3 file system
 .SH SYNOPSIS
@@ -185,9 +185,14 @@ following options are supported:
 .RS 1.2i
 .TP
 .BI ea_ver= extended_attribute_version
-Assume the format of the extended attribute blocks in the filesystem is
-the specified version number.  The version number may be 1 or 2.  The
-default extended attribute version format is 2.
+Set the version of the extended attribute blocks which
+.B e2fsck
+will require while checking the filesystem.  The version number may 
+be 1 or 2.  The default extended attribute version format is 2.
+.TP
+.BI fragcheck
+During pass 1, print a detailed report of any discontiguous blocks for
+files in the filesystem.
 .RE
 .TP
 .B \-f
@@ -258,7 +263,7 @@ or
 options.
 .TP
 .B \-p
-Automatically repair ("preen") the file system.  This option will case
+Automatically repair ("preen") the file system.  This option will cause
 .B e2fsck
 to automatically
 fix any filesystem problems that can be safely fixed without human
