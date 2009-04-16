@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2009-04-16 00:29+0300\n"
-"PO-Revision-Date: 2009-04-16 01:37+0200\n"
+"POT-Creation-Date: 2009-04-16 20:26+0300\n"
+"PO-Revision-Date: 2009-04-16 20:27+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -400,11 +400,11 @@ msgid ""
 "I<async> is specified."
 msgstr ""
 "Dans toutes les versions de nfs-utils jusqu'à la 1.0.0 (incluse), c'était "
-"l'option par défaut. Dans toutes les versions postérieures à 1.0.0, le comportement par "
-"défaut est I<sync>, et I<async> doit être explicitement indiquée si vous en "
-"avez besoin. Afin d'aider les administrateurs systèmes à prêter attention à "
-"cette modification, exportfs affichera un message d'avertissement si ni "
-"I<sync> ni I<async> ne sont précisées."
+"l'option par défaut. Dans toutes les versions postérieures à 1.0.0, le "
+"comportement par défaut est I<sync>, et I<async> doit être explicitement "
+"indiquée si vous en avez besoin. Afin d'aider les administrateurs systèmes à "
+"prêter attention à cette modification, exportfs affichera un message "
+"d'avertissement si ni I<sync> ni I<async> ne sont précisées."
 
 #. type: TP
 #: C/man5/exports.5:153
@@ -1018,7 +1018,7 @@ msgid ""
 "/projects       proj*.local.domain(rw)\n"
 "/usr            *.local.domain(ro) @trusted(rw)\n"
 "/home/joe       pc001(rw,all_squash,anonuid=150,anongid=100)\n"
-"/pub            (ro,insecure,all_squash)\n"
+"/pub            *(ro,insecure,all_squash)\n"
 "/srv/www        -sync,rw server @trusted @external(ro)\n"
 msgstr ""
 "# exemple de fichier /etc/exports\n"
@@ -1026,7 +1026,7 @@ msgstr ""
 "/projects       proj*.local.domain(rw)\n"
 "/usr            *.local.domain(ro) @trusted(rw)\n"
 "/home/joe       pc001(rw,all_squash,anonuid=150,anongid=100)\n"
-"/pub            (ro,insecure,all_squash)\n"
+"/pub            *(ro,insecure,all_squash)\n"
 "/srv/www        -sync,rw server @trusted @external(ro)\n"
 
 #. type: Plain text
@@ -1060,8 +1060,8 @@ msgstr ""
 "» activée."
 
 #. type: SH
-#: C/man5/exports.5:478 C/man5/nfs.5:1265 C/man8/idmapd.8:76
-#: C/man8/mount.nfs.8:72 C/man8/mountd.8:196 C/man8/nfsstat.8:125
+#: C/man5/exports.5:478 C/man5/nfs.5:1345 C/man8/idmapd.8:76
+#: C/man8/mount.nfs.8:72 C/man8/mountd.8:198 C/man8/nfsstat.8:125
 #: C/man8/rpcdebug.8:71 C/man8/sm-notify.8:153 C/man8/statd.8:178
 #: C/man8/umount.nfs.8:56
 #, no-wrap
@@ -1074,9 +1074,9 @@ msgid "/etc/exports"
 msgstr "/etc/exports"
 
 #. type: SH
-#: C/man5/exports.5:480 C/man5/idmapd.conf.5:60 C/man5/nfs.5:1312
+#: C/man5/exports.5:480 C/man5/idmapd.conf.5:60 C/man5/nfs.5:1392
 #: C/man7/nfsd.7:198 C/man8/exportfs.8:239 C/man8/gssd.8:104
-#: C/man8/idmapd.8:78 C/man8/mount.nfs.8:81 C/man8/mountd.8:191
+#: C/man8/idmapd.8:78 C/man8/mount.nfs.8:81 C/man8/mountd.8:193
 #: C/man8/nfsd.8:78 C/man8/nfsstat.8:139 C/man8/rpcdebug.8:76
 #: C/man8/showmount.8:47 C/man8/sm-notify.8:161 C/man8/statd.8:184
 #: C/man8/svcgssd.8:39 C/man8/umount.nfs.8:65
@@ -1155,7 +1155,7 @@ msgstr ""
 "ligne de commande E<.Fl U> et E<.Fl G>."
 
 #. type: SH
-#: C/man5/idmapd.conf.5:41 C/man5/nfs.5:724 C/man8/exportfs.8:187
+#: C/man5/idmapd.conf.5:41 C/man5/nfs.5:755 C/man8/exportfs.8:187
 #: C/man8/idmapd.8:61 C/man8/nfsstat.8:104
 #, no-wrap
 msgid "EXAMPLES"
@@ -1247,7 +1247,7 @@ msgstr ""
 "B<nfs4>"
 
 #. type: TP
-#: C/man5/nfs.5:11 C/man5/nfs.5:1266 C/man8/mount.nfs.8:73
+#: C/man5/nfs.5:11 C/man5/nfs.5:1346 C/man8/mount.nfs.8:73
 #: C/man8/umount.nfs.8:57
 #, no-wrap
 msgid "I</etc/fstab>"
@@ -1896,14 +1896,44 @@ msgstr ""
 "même fichier sur le même client peuvent se désynchroniser suite à une mise à "
 "jour locale d'une des copies."
 
-#. type: SS
+#. type: TP
 #: C/man5/nfs.5:408
+#, no-wrap
+msgid "B<resvport> / B<noresvport>"
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:419
+msgid ""
+"Specifies whether the NFS client should use a privileged source port when "
+"communicating with an NFS server for this mount point.  If this option is "
+"not specified, or the B<resvport> option is specified, the NFS client uses a "
+"privileged source port.  If the B<noresvport> option is specified, the NFS "
+"client uses a non-privileged source port.  This option is supported in "
+"kernels 2.6.28 and later."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:423
+msgid ""
+"Using non-privileged source ports helps increase the maximum number of NFS "
+"mount points allowed on a client, but NFS servers must be configured to "
+"allow clients to connect via non-privileged source ports."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:425
+msgid "Refer to the SECURITY CONSIDERATIONS section for important details."
+msgstr ""
+
+#. type: SS
+#: C/man5/nfs.5:425
 #, no-wrap
 msgid "Valid options for the nfs file system type"
 msgstr "Options valides pour le système de fichiers nfs"
 
 #. type: Plain text
-#: C/man5/nfs.5:413
+#: C/man5/nfs.5:430
 msgid ""
 "Use these options, along with the options in the above subsection, for "
 "mounting the B<nfs> file system type."
@@ -1912,13 +1942,13 @@ msgstr ""
 "pour monter des systèmes de fichiers de type B<nfs>."
 
 #. type: TP
-#: C/man5/nfs.5:413 C/man5/nfs.5:645
+#: C/man5/nfs.5:430 C/man5/nfs.5:669
 #, no-wrap
 msgid "B<proto=>I<transport>"
 msgstr "B<proto=>I<transport>"
 
 #. type: Plain text
-#: C/man5/nfs.5:427
+#: C/man5/nfs.5:444
 msgid ""
 "The transport the NFS client uses to transmit requests to the NFS server for "
 "this mount point.  I<transport> can be either B<udp> or B<tcp>.  Each "
@@ -1926,13 +1956,13 @@ msgid ""
 "the description of these two mount options for details."
 msgstr ""
 "Protocole de transport utilisé par le client NFS pour transmettre les "
-"requêtes aux serveur NFS pour ce point de montage. I<transport> peut être soit "
-"B<udp> soit B<tcp>. Chacun utilise "
-"différentes valeurs par défaut pour B<retrans> et B<timeo>, consultez la "
-"description de ces deux options de mount pour plus de détails."
+"requêtes aux serveur NFS pour ce point de montage. I<transport> peut être "
+"soit B<udp> soit B<tcp>. Chacun utilise différentes valeurs par défaut pour "
+"B<retrans> et B<timeo>, consultez la description de ces deux options de "
+"mount pour plus de détails."
 
 #. type: Plain text
-#: C/man5/nfs.5:440
+#: C/man5/nfs.5:457
 msgid ""
 "In addition to controlling how the NFS client transmits requests to the "
 "server, this mount option also controls how the B<mount>(8)  command "
@@ -1949,7 +1979,7 @@ msgstr ""
 "l'utilisation d'UDP pour tous ces trafics."
 
 #. type: Plain text
-#: C/man5/nfs.5:448
+#: C/man5/nfs.5:465
 msgid ""
 "If the B<proto> mount option is not specified, the B<mount>(8)  command "
 "discovers which protocols the server supports and chooses an appropriate "
@@ -1962,13 +1992,13 @@ msgstr ""
 "TRANSPORT pour plus détails."
 
 #. type: TP
-#: C/man5/nfs.5:448
+#: C/man5/nfs.5:465
 #, no-wrap
 msgid "B<udp>"
 msgstr "B<udp>"
 
 #. type: Plain text
-#: C/man5/nfs.5:455
+#: C/man5/nfs.5:472
 msgid ""
 "The B<udp> option is an alternative to specifying B<proto=udp.> It is "
 "included for compatibility with other operating systems."
@@ -1977,13 +2007,13 @@ msgstr ""
 "systèmes d'exploitation."
 
 #. type: TP
-#: C/man5/nfs.5:455
+#: C/man5/nfs.5:472
 #, no-wrap
 msgid "B<tcp>"
 msgstr "B<tcp>"
 
 #. type: Plain text
-#: C/man5/nfs.5:462
+#: C/man5/nfs.5:479
 msgid ""
 "The B<tcp> option is an alternative to specifying B<proto=tcp.> It is "
 "included for compatibility with other operating systems."
@@ -1992,13 +2022,13 @@ msgstr ""
 "systèmes d'exploitation."
 
 #. type: TP
-#: C/man5/nfs.5:462 C/man5/nfs.5:658
+#: C/man5/nfs.5:479 C/man5/nfs.5:682
 #, no-wrap
 msgid "B<port=>I<n>"
 msgstr "B<port=>I<n>"
 
 #. type: Plain text
-#: C/man5/nfs.5:467 C/man5/nfs.5:663
+#: C/man5/nfs.5:484 C/man5/nfs.5:687
 msgid ""
 "The numeric value of the server's NFS service port.  If the server's NFS "
 "service is not available on the specified port, the mount request fails."
@@ -2008,7 +2038,7 @@ msgstr ""
 "échoue."
 
 #. type: Plain text
-#: C/man5/nfs.5:474
+#: C/man5/nfs.5:491
 msgid ""
 "If this option is not specified, or if the specified port value is 0, then "
 "the NFS client uses the NFS service port number advertised by the server's "
@@ -2024,13 +2054,13 @@ msgstr ""
 "sur le port publié."
 
 #. type: TP
-#: C/man5/nfs.5:474
+#: C/man5/nfs.5:491
 #, no-wrap
 msgid "B<mountport=>I<n>"
 msgstr "B<mountport=>I<n>"
 
 #. type: Plain text
-#: C/man5/nfs.5:479
+#: C/man5/nfs.5:496
 msgid ""
 "The numeric value of the server's mountd port.  If the server's mountd "
 "service is not available on the specified port, the mount request fails."
@@ -2039,7 +2069,7 @@ msgstr ""
 "serveur n'est pas présent sur le port indiqué, la requête de montage échoue."
 
 #. type: Plain text
-#: C/man5/nfs.5:488
+#: C/man5/nfs.5:505
 msgid ""
 "If this option is not specified, or if the specified port value is 0, then "
 "the B<mount>(8)  command uses the mountd service port number advertised by "
@@ -2056,7 +2086,7 @@ msgstr ""
 "serveur n'est pas accessible sur le port publié."
 
 #. type: Plain text
-#: C/man5/nfs.5:491
+#: C/man5/nfs.5:508
 msgid ""
 "This option can be used when mounting an NFS server through a firewall that "
 "blocks the rpcbind protocol."
@@ -2065,13 +2095,13 @@ msgstr ""
 "travers un pare-feu qui bloque le protocole rpcbind."
 
 #. type: TP
-#: C/man5/nfs.5:491
+#: C/man5/nfs.5:508
 #, no-wrap
 msgid "B<mountproto=>I<transport>"
 msgstr "B<mountproto=>I<transport>"
 
 #. type: Plain text
-#: C/man5/nfs.5:501
+#: C/man5/nfs.5:518
 msgid ""
 "The transport the NFS client uses to transmit requests to the NFS server's "
 "mountd service when performing this mount request, and when later unmounting "
@@ -2079,7 +2109,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:515
+#: C/man5/nfs.5:532
 msgid ""
 "This option can be used when mounting an NFS server through a firewall that "
 "blocks a particular transport.  When used in combination with the B<proto> "
@@ -2091,13 +2121,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/nfs.5:515
+#: C/man5/nfs.5:532
 #, no-wrap
 msgid "B<mounthost=>I<name>"
 msgstr "B<mounthost=>I<name>"
 
 #. type: Plain text
-#: C/man5/nfs.5:522
+#: C/man5/nfs.5:539
 msgid ""
 "The hostname of the host running mountd.  If this option is not specified, "
 "the B<mount>(8)  command assumes that the mountd service runs on the same "
@@ -2108,13 +2138,13 @@ msgstr ""
 "par la machine qui offre le service NFS."
 
 #. type: TP
-#: C/man5/nfs.5:522
+#: C/man5/nfs.5:539
 #, no-wrap
 msgid "B<mountvers=>I<n>"
 msgstr "B<mountvers=>I<n>"
 
 #. type: Plain text
-#: C/man5/nfs.5:529
+#: C/man5/nfs.5:546
 msgid ""
 "The RPC version number used to contact the server's mountd.  If this option "
 "is not specified, the client uses a version number appropriate to the "
@@ -2127,13 +2157,13 @@ msgstr ""
 "nombreux services NFS sont offerts par un seul et même serveur."
 
 #. type: TP
-#: C/man5/nfs.5:529
+#: C/man5/nfs.5:546
 #, no-wrap
 msgid "B<namlen=>I<n>"
 msgstr "B<namlen=>I<n>"
 
 #. type: Plain text
-#: C/man5/nfs.5:534
+#: C/man5/nfs.5:551
 msgid ""
 "The maximum length of a pathname component on this mount.  If this option is "
 "not specified, the maximum length is negotiated with the server. In most "
@@ -2144,7 +2174,7 @@ msgstr ""
 "plupart des cas, cette taille maximum est 255 caractères."
 
 #. type: Plain text
-#: C/man5/nfs.5:540
+#: C/man5/nfs.5:557
 msgid ""
 "Some early versions of NFS did not support this negotiation.  Using this "
 "option ensures that B<pathconf>(3)  reports the proper maximum component "
@@ -2155,13 +2185,13 @@ msgstr ""
 "longueur maximum aux applications pour ces versions."
 
 #. type: TP
-#: C/man5/nfs.5:540
+#: C/man5/nfs.5:557
 #, no-wrap
 msgid "B<nfsvers=>I<n>"
 msgstr "B<nfsvers=>I<n>"
 
 #. type: Plain text
-#: C/man5/nfs.5:551
+#: C/man5/nfs.5:568
 msgid ""
 "The NFS protocol version number used to contact the server's NFS service.  "
 "The Linux client supports version 2 and version 3 of the NFS protocol when "
@@ -2179,13 +2209,13 @@ msgstr ""
 "pas disponible."
 
 #. type: TP
-#: C/man5/nfs.5:551
+#: C/man5/nfs.5:568
 #, no-wrap
 msgid "B<vers=>I<n>"
 msgstr "B<vers=>I<n>"
 
 #. type: Plain text
-#: C/man5/nfs.5:557
+#: C/man5/nfs.5:574
 msgid ""
 "This option is an alternative to the B<nfsvers> option.  It is included for "
 "compatibility with other operating systems."
@@ -2194,13 +2224,13 @@ msgstr ""
 "d'autres systèmes d'exploitation."
 
 #. type: TP
-#: C/man5/nfs.5:557
+#: C/man5/nfs.5:574
 #, no-wrap
 msgid "B<lock> / B<nolock>"
 msgstr "B<lock> / B<nolock>"
 
 #. type: Plain text
-#: C/man5/nfs.5:569
+#: C/man5/nfs.5:586
 msgid ""
 "Selects whether to use the NLM sideband protocol to lock files on the "
 "server.  If neither option is specified (or if B<lock> is specified), NLM "
@@ -2218,7 +2248,7 @@ msgstr ""
 "sont pas informées de ces verrous."
 
 #. type: Plain text
-#: C/man5/nfs.5:581
+#: C/man5/nfs.5:598
 msgid ""
 "NLM locking must be disabled with the B<nolock> option when using NFS to "
 "mount I</var> because I</var> contains files used by the NLM implementation "
@@ -2232,13 +2262,13 @@ msgstr ""
 "gérant pas le protocole NLM."
 
 #. type: TP
-#: C/man5/nfs.5:581 C/man5/nfs.5:676
+#: C/man5/nfs.5:598 C/man5/nfs.5:700
 #, no-wrap
 msgid "B<intr> / B<nointr>"
 msgstr "B<intr> / B<nointr>"
 
 #. type: Plain text
-#: C/man5/nfs.5:592
+#: C/man5/nfs.5:609
 msgid ""
 "Selects whether to allow signals to interrupt file operations on this mount "
 "point. If neither option is specified (or if B<nointr> is specified), "
@@ -2253,7 +2283,7 @@ msgstr ""
 "opération NFS en cours est interrompue par un signal."
 
 #. type: Plain text
-#: C/man5/nfs.5:598 C/man5/nfs.5:692
+#: C/man5/nfs.5:615 C/man5/nfs.5:716
 msgid ""
 "Using the B<intr> option is preferred to using the B<soft> option because it "
 "is significantly less likely to result in data corruption."
@@ -2261,14 +2291,23 @@ msgstr ""
 "L'utilisation de l'option B<intr> est préférable à celle de l'option B<soft> "
 "car le risque de corruption des données est moins important."
 
+#. type: Plain text
+#: C/man5/nfs.5:622 C/man5/nfs.5:723
+msgid ""
+"The B<intr> / B<nointr> mount option is deprecated after kernel 2.6.25.  "
+"Only SIGKILL can interrupt a pending NFS operation on these kernels, and if "
+"specified, this mount option is ignored to provide backwards compatibility "
+"with older kernels."
+msgstr ""
+
 #. type: TP
-#: C/man5/nfs.5:598 C/man5/nfs.5:692
+#: C/man5/nfs.5:622 C/man5/nfs.5:723
 #, no-wrap
 msgid "B<cto> / B<nocto>"
 msgstr "B<cto> / B<nocto>"
 
 #. type: Plain text
-#: C/man5/nfs.5:608
+#: C/man5/nfs.5:632
 msgid ""
 "Selects whether to use close-to-open cache coherence semantics.  If neither "
 "option is specified (or if B<cto> is specified), the client uses close-to-"
@@ -2283,7 +2322,7 @@ msgstr ""
 "non standard pour savoir quand les fichiers ont changé sur le serveur."
 
 #. type: Plain text
-#: C/man5/nfs.5:615
+#: C/man5/nfs.5:639
 msgid ""
 "Using the B<nocto> option may improve performance for read-only mounts, but "
 "should be used only if the data on the server changes only occasionally.  "
@@ -2297,13 +2336,13 @@ msgstr ""
 "détails."
 
 #. type: TP
-#: C/man5/nfs.5:615
+#: C/man5/nfs.5:639
 #, no-wrap
 msgid "B<acl> / B<noacl>"
 msgstr "B<acl> / B<noacl>"
 
 #. type: Plain text
-#: C/man5/nfs.5:621
+#: C/man5/nfs.5:645
 msgid ""
 "Selects whether to use the NFSACL sideband protocol on this mount point.  "
 "The NFSACL sideband protocol is a proprietary protocol implemented in "
@@ -2317,7 +2356,7 @@ msgstr ""
 "protocole NFS."
 
 #. type: Plain text
-#: C/man5/nfs.5:633
+#: C/man5/nfs.5:657
 msgid ""
 "If neither B<acl> nor B<noacl> option is specified, the NFS client "
 "negotiates with the server to see if the NFSACL protocol is supported, and "
@@ -2333,13 +2372,13 @@ msgstr ""
 "détails."
 
 #. type: TP
-#: C/man5/nfs.5:633
+#: C/man5/nfs.5:657
 #, no-wrap
 msgid "B<rdirplus> / B<nordirplus>"
 msgstr "B<rdirplus> / B<nordirplus>"
 
 #. type: Plain text
-#: C/man5/nfs.5:640
+#: C/man5/nfs.5:664
 msgid ""
 "Selects whether to use NFS version 3 READDIRPLUS requests.  If this option "
 "is not specified, the NFS client uses READDIRPLUS requests on NFS version 3 "
@@ -2353,13 +2392,13 @@ msgstr ""
 "n'utilise que des requêtes READDIR pour tous les répertoires."
 
 #. type: SS
-#: C/man5/nfs.5:640
+#: C/man5/nfs.5:664
 #, no-wrap
 msgid "Valid options for the nfs4 file system type"
 msgstr "Options valides pour le système de fichiers nfs4"
 
 #. type: Plain text
-#: C/man5/nfs.5:645
+#: C/man5/nfs.5:669
 msgid ""
 "Use these options, along with the options in the first subsection above, for "
 "mounting the B<nfs4> file system type."
@@ -2368,7 +2407,7 @@ msgstr ""
 "dessus pour monter des systèmes de fichiers de type B<nfs4>."
 
 #. type: Plain text
-#: C/man5/nfs.5:658
+#: C/man5/nfs.5:682
 msgid ""
 "The transport the NFS client uses to transmit requests to the NFS server for "
 "this mount point.  I<transport> can be either B<udp> or B<tcp>.  All NFS "
@@ -2377,14 +2416,14 @@ msgid ""
 "Refer to the TRANSPORT METHODS section for more details."
 msgstr ""
 "Protocole de transport utilisé par le client NFS pour la transmission des "
-"requêtes au serveur NFS pour ce point de montage. I<transport> peut valoir soit "
-"B<udp> soit B<tcp>. Tous les serveurs NFS version 4 doivent implémenter TCP, "
-"donc si cette option de montage n'est pas définie, le client NFS version 4 "
-"utilisera le protocole de transport TCP. Consultez la section MÉTHODES DE "
-"TRANSPORT pour plus de détails."
+"requêtes au serveur NFS pour ce point de montage. I<transport> peut valoir "
+"soit B<udp> soit B<tcp>. Tous les serveurs NFS version 4 doivent implémenter "
+"TCP, donc si cette option de montage n'est pas définie, le client NFS "
+"version 4 utilisera le protocole de transport TCP. Consultez la section "
+"MÉTHODES DE TRANSPORT pour plus de détails."
 
 #. type: Plain text
-#: C/man5/nfs.5:669
+#: C/man5/nfs.5:693
 msgid ""
 "If this mount option is not specified, the NFS client uses the standard NFS "
 "port number of 2049 without first checking the server's rpcbind service.  "
@@ -2398,7 +2437,7 @@ msgstr ""
 "requêtes rpcbind."
 
 #. type: Plain text
-#: C/man5/nfs.5:676
+#: C/man5/nfs.5:700
 msgid ""
 "If the specified port value is 0, then the NFS client uses the NFS service "
 "port number advertised by the server's rpcbind service.  The mount request "
@@ -2413,7 +2452,7 @@ msgstr ""
 "si le service NFS du serveur n'est pas accessible sur le port publié."
 
 #. type: Plain text
-#: C/man5/nfs.5:686
+#: C/man5/nfs.5:710
 msgid ""
 "Selects whether to allow signals to interrupt file operations on this mount "
 "point. If neither option is specified (or if B<intr> is specified), system "
@@ -2427,7 +2466,7 @@ msgstr ""
 "n'interrompent pas les opérations NFS."
 
 #. type: Plain text
-#: C/man5/nfs.5:703
+#: C/man5/nfs.5:734
 msgid ""
 "Selects whether to use close-to-open cache coherence semantics for NFS "
 "directories on this mount point.  If neither B<cto> nor B<nocto> is "
@@ -2440,7 +2479,7 @@ msgstr ""
 "open sera utilisé par défaut pour les répertoires."
 
 #. type: Plain text
-#: C/man5/nfs.5:707
+#: C/man5/nfs.5:738
 msgid ""
 "File data caching behavior is not affected by this option.  The DATA AND "
 "METADATA COHERENCE section discusses the behavior of this option in more "
@@ -2451,13 +2490,13 @@ msgstr ""
 "décrit le comportement de cette option en détails."
 
 #. type: TP
-#: C/man5/nfs.5:707
+#: C/man5/nfs.5:738
 #, no-wrap
 msgid "B<clientaddr=>I<n.n.n.n>"
 msgstr "B<clientaddr=>I<n.n.n.n>"
 
 #. type: Plain text
-#: C/man5/nfs.5:715
+#: C/man5/nfs.5:746
 msgid ""
 "Specifies a single IPv4 address (in dotted-quad form)  that the NFS client "
 "advertises to allow servers to perform NFS version 4 callback requests "
@@ -2473,7 +2512,7 @@ msgstr ""
 "temporairement suspendus."
 
 #. type: Plain text
-#: C/man5/nfs.5:724
+#: C/man5/nfs.5:755
 msgid ""
 "If this option is not specified, the B<mount>(8)  command attempts to "
 "discover an appropriate callback address automatically.  The automatic "
@@ -2491,7 +2530,7 @@ msgstr ""
 "cette option de montage."
 
 #. type: Plain text
-#: C/man5/nfs.5:746
+#: C/man5/nfs.5:777
 msgid ""
 "To mount an export using NFS version 2, use the B<nfs> file system type and "
 "specify the B<nfsvers=2> mount option.  To mount using NFS version 3, use "
@@ -2508,7 +2547,7 @@ msgstr ""
 "B<nfsvers> n'est alors pas accepté."
 
 #. type: Plain text
-#: C/man5/nfs.5:751
+#: C/man5/nfs.5:782
 msgid ""
 "The following example from an I</etc/fstab> file causes the mount command to "
 "negotiate reasonable defaults for NFS behavior."
@@ -2517,13 +2556,13 @@ msgstr ""
 "négocier des valeurs par défaut convenables pour le comportement NFS."
 
 #. type: Plain text
-#: C/man5/nfs.5:755
+#: C/man5/nfs.5:786
 #, no-wrap
 msgid "\tserver:/export\t/mnt\tnfs\tdefaults\t0 0\n"
 msgstr "\tserver:/export\t/mnt\tnfs\tdefaults\t0 0\n"
 
 #. type: Plain text
-#: C/man5/nfs.5:758
+#: C/man5/nfs.5:789
 msgid ""
 "Here is an example from an /etc/fstab file for an NFS version 2 mount over "
 "UDP."
@@ -2532,13 +2571,13 @@ msgstr ""
 "version 2 en UDP."
 
 #. type: Plain text
-#: C/man5/nfs.5:762
+#: C/man5/nfs.5:793
 #, no-wrap
 msgid "\tserver:/export\t/mnt\tnfs\tnfsvers=2,proto=udp\t0 0\n"
 msgstr "\tserver:/export\t/mnt\tnfs\tnfsvers=2,proto=udp\t0 0\n"
 
 #. type: Plain text
-#: C/man5/nfs.5:766
+#: C/man5/nfs.5:797
 msgid ""
 "Try this example to mount using NFS version 4 over TCP with Kerberos 5 "
 "mutual authentication."
@@ -2547,30 +2586,30 @@ msgstr ""
 "utilisant l'authentification réciproque de Kerberos 5."
 
 #. type: Plain text
-#: C/man5/nfs.5:770
+#: C/man5/nfs.5:801
 #, no-wrap
 msgid "\tserver:/export\t/mnt\tnfs4\tsec=krb5\t0 0\n"
 msgstr "\tserver:/export\t/mnt\tnfs4\tsec=krb5\t0 0\n"
 
 #. type: Plain text
-#: C/man5/nfs.5:773
+#: C/man5/nfs.5:804
 msgid "This example can be used to mount /usr over NFS."
 msgstr "Cet exemple peut servir à réaliser le montage de /usr grâce à NFS."
 
 #. type: Plain text
-#: C/man5/nfs.5:777
+#: C/man5/nfs.5:808
 #, no-wrap
 msgid "\tserver:/export\t/usr\tnfs\tro,nolock,nocto,actimeo=3600\t0 0\n"
 msgstr "\tserver:/export\t/usr\tnfs\tro,nolock,nocto,actimeo=3600\t0 0\n"
 
 #. type: SH
-#: C/man5/nfs.5:778
+#: C/man5/nfs.5:809
 #, no-wrap
 msgid "TRANSPORT METHODS"
 msgstr "MÉTHODES DE TRANSPORT."
 
 #. type: Plain text
-#: C/man5/nfs.5:787
+#: C/man5/nfs.5:818
 msgid ""
 "NFS clients send requests to NFS servers via Remote Procedure Calls, or "
 "I<RPCs>.  The RPC client discovers remote service endpoints automatically, "
@@ -2589,7 +2628,7 @@ msgstr ""
 "sur un protocole de transport réseau. "
 
 #. type: Plain text
-#: C/man5/nfs.5:795
+#: C/man5/nfs.5:826
 msgid ""
 "In most cases, the B<mount>(8)  command, NFS client, and NFS server can "
 "automatically negotiate proper transport and data transfer size settings for "
@@ -2603,7 +2642,7 @@ msgstr ""
 "ces valeurs grâce aux options de montage."
 
 #. type: Plain text
-#: C/man5/nfs.5:805
+#: C/man5/nfs.5:836
 msgid ""
 "Traditionally, NFS clients used the UDP transport exclusively for "
 "transmitting requests to servers.  Though its implementation is simple, NFS "
@@ -2626,7 +2665,7 @@ msgstr ""
 "serveur."
 
 #. type: Plain text
-#: C/man5/nfs.5:818
+#: C/man5/nfs.5:849
 msgid ""
 "However, UDP can be quite effective in specialized settings where the "
 "network's MTU is large relative to NFS's data transfer size (such as network "
@@ -2647,7 +2686,7 @@ msgstr ""
 "en lecture ou écriture."
 
 #. type: Plain text
-#: C/man5/nfs.5:824
+#: C/man5/nfs.5:855
 msgid ""
 "TCP is the default transport protocol used for all modern NFS "
 "implementations.  It performs well in almost every conceivable network "
@@ -2662,7 +2701,7 @@ msgstr ""
 "souvent requis pour accéder à un serveur à travers un pare-feu."
 
 #. type: Plain text
-#: C/man5/nfs.5:839
+#: C/man5/nfs.5:870
 msgid ""
 "Under normal circumstances, networks drop packets much more frequently than "
 "NFS servers drop requests.  As such, an aggressive retransmit timeout "
@@ -2687,20 +2726,20 @@ msgstr ""
 "par le serveur, indépendemment de la taille du MTU du réseau."
 
 #. type: SS
-#: C/man5/nfs.5:839
+#: C/man5/nfs.5:870
 #, no-wrap
 msgid "Using the mountproto mount option"
 msgstr "Utilisation de l'option de montage mountproto"
 
 #. type: Plain text
-#: C/man5/nfs.5:843
+#: C/man5/nfs.5:874
 msgid ""
 "This section applies only to NFS version 2 and version 3 mounts since NFS "
 "version 4 does not use a separate protocol for mount requests."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:853
+#: C/man5/nfs.5:884
 msgid ""
 "The Linux NFS client can use a different transport for contacting an NFS "
 "server's rpcbind service, its mountd service, its Network Lock Manager (NLM) "
@@ -2710,7 +2749,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:859
+#: C/man5/nfs.5:890
 msgid ""
 "The client sends Network Status Manager (NSM) notifications via UDP no "
 "matter what transport options are specified, but listens for server NSM "
@@ -2719,7 +2758,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:863
+#: C/man5/nfs.5:894
 msgid ""
 "If no transport options are specified, the Linux NFS client uses UDP to "
 "contact the server's mountd service, and TCP to contact its NLM and NFS "
@@ -2727,7 +2766,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:874
+#: C/man5/nfs.5:905
 msgid ""
 "If the server does not support these transports for these services, the "
 "B<mount>(8)  command attempts to discover what the server supports, and then "
@@ -2739,7 +2778,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:885
+#: C/man5/nfs.5:916
 msgid ""
 "When the B<proto> option, the B<udp> option, or the B<tcp> option is "
 "specified but the B<mountproto> option is not, the specified transport is "
@@ -2748,7 +2787,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:894
+#: C/man5/nfs.5:925
 msgid ""
 "If the B<mountproto> option is specified but none of the B<proto>, B<udp> or "
 "B<tcp> options are specified, then the specified transport is used for the "
@@ -2758,7 +2797,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:909
+#: C/man5/nfs.5:940
 msgid ""
 "If both the B<mountproto> and B<proto> (or B<udp> or B<tcp>)  options are "
 "specified, then the transport specified by the B<mountproto> option is used "
@@ -2769,7 +2808,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/nfs.5:917
+#: C/man5/nfs.5:948
 msgid ""
 "If any of the B<proto>, B<udp>, B<tcp>, or B<mountproto> options are "
 "specified more than once on the same mount command line, then the value of "
@@ -2777,13 +2816,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man5/nfs.5:917
+#: C/man5/nfs.5:948
 #, no-wrap
 msgid "DATA AND METADATA COHERENCE"
 msgstr "COHÉRENCE DES DONNÉES ET DES MÉTA-DONNÉES"
 
 #. type: Plain text
-#: C/man5/nfs.5:927
+#: C/man5/nfs.5:958
 msgid ""
 "Some modern cluster file systems provide perfect cache coherence among their "
 "clients.  Perfect cache coherence among disparate NFS clients is expensive "
@@ -2804,13 +2843,13 @@ msgstr ""
 "fichier, puis lit les modifications."
 
 #. type: SS
-#: C/man5/nfs.5:928
+#: C/man5/nfs.5:959
 #, no-wrap
 msgid "Close-to-open cache consistency"
 msgstr "Cohérence de cache close-to-open"
 
 #. type: Plain text
-#: C/man5/nfs.5:941
+#: C/man5/nfs.5:972
 msgid ""
 "When an application opens a file stored on an NFS server, the NFS client "
 "checks that it still exists on the server and is permitted to the opener by "
@@ -2833,13 +2872,13 @@ msgstr ""
 "(close-to-open cache consistency)."
 
 #. type: SS
-#: C/man5/nfs.5:941
+#: C/man5/nfs.5:972
 #, no-wrap
 msgid "Weak cache consistency"
 msgstr "Faible cohérence de cache"
 
 #. type: Plain text
-#: C/man5/nfs.5:949
+#: C/man5/nfs.5:980
 msgid ""
 "There are still opportunities for a client's data cache to contain stale "
 "data.  The NFS version 3 protocol introduced \"weak cache consistency"
@@ -2855,7 +2894,7 @@ msgstr ""
 "modifications qui ont pu être réalisées par les autres clients."
 
 #. type: Plain text
-#: C/man5/nfs.5:956
+#: C/man5/nfs.5:987
 msgid ""
 "When a client is using many concurrent operations that update the same file "
 "at the same time (for example, during asynchronous write behind), it is "
@@ -2868,13 +2907,13 @@ msgstr ""
 "ce client ou par un autre."
 
 #. type: SS
-#: C/man5/nfs.5:956
+#: C/man5/nfs.5:987
 #, no-wrap
 msgid "Attribute caching"
 msgstr "Mémorisation (cache) des attributs"
 
 #. type: Plain text
-#: C/man5/nfs.5:972
+#: C/man5/nfs.5:1003
 msgid ""
 "Use the B<noac> mount option to achieve attribute cache coherence among "
 "multiple clients.  Almost every file system operation checks file attribute "
@@ -2897,7 +2936,7 @@ msgstr ""
 "contrepartie d'une augmentation importante des opérations réseaux."
 
 #. type: Plain text
-#: C/man5/nfs.5:981
+#: C/man5/nfs.5:1012
 msgid ""
 "Be careful not to confuse the B<noac> option with \"no data caching.\" The "
 "B<noac> mount option prevents the client from caching file metadata, but "
@@ -2911,7 +2950,7 @@ msgstr ""
 "peuvent survenir entre le client et le serveur."
 
 #. type: Plain text
-#: C/man5/nfs.5:989
+#: C/man5/nfs.5:1020
 msgid ""
 "The NFS protocol is not designed to support true cluster file system cache "
 "coherence without some type of application serialization.  If absolute cache "
@@ -2929,13 +2968,13 @@ msgstr ""
 "cache des données."
 
 #. type: SS
-#: C/man5/nfs.5:989
+#: C/man5/nfs.5:1020
 #, no-wrap
 msgid "The sync mount option"
 msgstr "L'option de montage sync"
 
 #. type: Plain text
-#: C/man5/nfs.5:1010
+#: C/man5/nfs.5:1041
 msgid ""
 "The NFS client treats the B<sync> mount option differently than some other "
 "file systems (refer to B<mount>(8)  for a description of the generic B<sync> "
@@ -2951,14 +2990,14 @@ msgstr ""
 "l'un de ces événements surviennent\\ : "
 
 #. type: Plain text
-#: C/man5/nfs.5:1012
+#: C/man5/nfs.5:1043
 msgid "Memory pressure forces reclamation of system memory resources."
 msgstr ""
 "La saturation en mémoire entraîne une demande de ressources mémoire au "
 "système."
 
 #. type: Plain text
-#: C/man5/nfs.5:1018
+#: C/man5/nfs.5:1049
 msgid ""
 "An application flushes file data explicitly with B<sync>(2), B<msync>(2), or "
 "B<fsync>(3)."
@@ -2967,17 +3006,17 @@ msgstr ""
 "explicite avec B<sync>(2), B<msync>(2) ou B<fsync>(3)."
 
 #. type: Plain text
-#: C/man5/nfs.5:1021
+#: C/man5/nfs.5:1052
 msgid "An application closes a file with B<close>(2)."
 msgstr "Une application ferme un fichier avec B<close>(2)."
 
 #. type: Plain text
-#: C/man5/nfs.5:1024
+#: C/man5/nfs.5:1055
 msgid "The file is locked/unlocked via B<fcntl>(2)."
 msgstr "Le fichier est verrouillé/déverrouillé grâce à B<fcntl>(2)."
 
 #. type: Plain text
-#: C/man5/nfs.5:1028
+#: C/man5/nfs.5:1059
 msgid ""
 "In other words, under normal circumstances, data written by an application "
 "may not immediately appear on the server that hosts the file."
@@ -2987,7 +3026,7 @@ msgstr ""
 "serveur qui héberge le fichier."
 
 #. type: Plain text
-#: C/man5/nfs.5:1037
+#: C/man5/nfs.5:1068
 msgid ""
 "If the B<sync> option is specified on a mount point, any system call that "
 "writes data to files on that mount point causes that data to be flushed to "
@@ -3002,7 +3041,7 @@ msgstr ""
 "données, mais a un impact certain sur les performances."
 
 #. type: Plain text
-#: C/man5/nfs.5:1043
+#: C/man5/nfs.5:1074
 msgid ""
 "Applications can use the O_SYNC open flag to force application writes to "
 "individual files to go to the server immediately without the use of the "
@@ -3013,13 +3052,13 @@ msgstr ""
 "serveur, et ce sans l'utilisation de l'option B<sync> de mount."
 
 #. type: SS
-#: C/man5/nfs.5:1043
+#: C/man5/nfs.5:1074
 #, no-wrap
 msgid "Using file locks with NFS"
 msgstr "Utilisation des verrous de fichiers avec NFS"
 
 #. type: Plain text
-#: C/man5/nfs.5:1053
+#: C/man5/nfs.5:1084
 msgid ""
 "The Network Lock Manager protocol is a separate sideband protocol used to "
 "manage file locks in NFS version 2 and version 3.  To support lock recovery "
@@ -3037,7 +3076,7 @@ msgstr ""
 "le protocole NFS, et les protocoles NLM et NSM ne sont plus utilisés."
 
 #. type: Plain text
-#: C/man5/nfs.5:1058
+#: C/man5/nfs.5:1089
 msgid ""
 "In most cases, NLM and NSM services are started automatically, and no extra "
 "configuration is required.  Configure all NFS clients with fully-qualified "
@@ -3051,7 +3090,7 @@ msgstr ""
 "leurs clients, afin de les prévenir en cas de redémarrage."
 
 #. type: Plain text
-#: C/man5/nfs.5:1066
+#: C/man5/nfs.5:1097
 msgid ""
 "NLM supports advisory file locks only.  To lock NFS files, use B<fcntl>(2)  "
 "with the F_GETLK and F_SETLK commands.  The NFS client converts file locks "
@@ -3063,7 +3102,7 @@ msgstr ""
 "B<flock>(2) en annonces de verrouillage."
 
 #. type: Plain text
-#: C/man5/nfs.5:1079
+#: C/man5/nfs.5:1110
 msgid ""
 "When mounting servers that do not support the NLM protocol, or when mounting "
 "an NFS server through a firewall that blocks the NLM service port, specify "
@@ -3079,7 +3118,7 @@ msgstr ""
 "implémentation sous Linux."
 
 #. type: Plain text
-#: C/man5/nfs.5:1085
+#: C/man5/nfs.5:1116
 msgid ""
 "Specifying the B<nolock> option may also be advised to improve the "
 "performance of a proprietary application which runs on a single client and "
@@ -3090,13 +3129,13 @@ msgstr ""
 "seul client mais qui utilise intensément les verrous de fichiers."
 
 #. type: SS
-#: C/man5/nfs.5:1085
+#: C/man5/nfs.5:1116
 #, no-wrap
 msgid "NFS version 4 caching features"
 msgstr "Les caractéristiques du cache de la version 4 de NFS."
 
 #. type: Plain text
-#: C/man5/nfs.5:1093
+#: C/man5/nfs.5:1124
 msgid ""
 "The data and metadata caching behavior of NFS version 4 clients is similar "
 "to that of earlier versions.  However, NFS version 4 adds two features that "
@@ -3109,7 +3148,7 @@ msgstr ""
 "fichier>."
 
 #. type: Plain text
-#: C/man5/nfs.5:1104
+#: C/man5/nfs.5:1135
 msgid ""
 "The I<change attribute> is a new part of NFS file and directory metadata "
 "which tracks data changes.  It replaces the use of a file's modification and "
@@ -3125,7 +3164,7 @@ msgstr ""
 "gestion de l'horodatage ni sur le client ni sur le serveur."
 
 #. type: Plain text
-#: C/man5/nfs.5:1115
+#: C/man5/nfs.5:1146
 msgid ""
 "A I<file delegation> is a contract between an NFS version 4 client and "
 "server that allows the client to treat a file temporarily as if no other "
@@ -3143,7 +3182,7 @@ msgstr ""
 "ce fichier de façon agressive sans avoir à contacter le serveur."
 
 #. type: Plain text
-#: C/man5/nfs.5:1128
+#: C/man5/nfs.5:1159
 msgid ""
 "File delegations come in two flavors: I<read> and I<write>.  A I<read> "
 "delegation means that the server notifies the client about any other clients "
@@ -3157,7 +3196,7 @@ msgstr ""
 "d'écriture."
 
 #. type: Plain text
-#: C/man5/nfs.5:1134
+#: C/man5/nfs.5:1165
 msgid ""
 "Servers grant file delegations when a file is opened, and can recall "
 "delegations at any time when another client wants access to the file that "
@@ -3171,7 +3210,7 @@ msgstr ""
 "pas gérées."
 
 #. type: Plain text
-#: C/man5/nfs.5:1141
+#: C/man5/nfs.5:1172
 msgid ""
 "In order to support delegation callback, the server checks the network "
 "return path to the client during the client's initial contact with the "
@@ -3184,13 +3223,13 @@ msgstr ""
 "n'attribue purement et simplement aucune délégation à ce client."
 
 #. type: SH
-#: C/man5/nfs.5:1141
+#: C/man5/nfs.5:1172
 #, no-wrap
 msgid "SECURITY CONSIDERATIONS"
 msgstr "CONSIDÉRATIONS DE SÉCURITÉ."
 
 #. type: Plain text
-#: C/man5/nfs.5:1153
+#: C/man5/nfs.5:1184
 msgid ""
 "NFS servers control access to file data, but they depend on their RPC "
 "implementation to provide authentication of NFS requests.  Traditional NFS "
@@ -3212,7 +3251,7 @@ msgstr ""
 "appartenir."
 
 #. type: Plain text
-#: C/man5/nfs.5:1161
+#: C/man5/nfs.5:1192
 msgid ""
 "Typically, file data and user ID values appear unencrypted (i.e. \"in the "
 "clear\") on the network.  Moreover, NFS versions 2 and 3 use separate "
@@ -3228,7 +3267,7 @@ msgstr ""
 "n'utilisent pas d'authentification."
 
 #. type: Plain text
-#: C/man5/nfs.5:1174
+#: C/man5/nfs.5:1205
 msgid ""
 "In addition to combining these sideband protocols with the main NFS "
 "protocol, NFS version 4 introduces more advanced forms of access control, "
@@ -3254,7 +3293,7 @@ msgstr ""
 "versions 2 et 3 de NFS, mais ne protège pas les protocoles associés."
 
 #. type: Plain text
-#: C/man5/nfs.5:1189
+#: C/man5/nfs.5:1220
 msgid ""
 "The B<sec> mount option specifies the RPCGSS security mode that is in effect "
 "on a given NFS mount point.  Specifying B<sec=krb5> provides cryptographic "
@@ -3274,7 +3313,7 @@ msgstr ""
 "pour plus de détails. "
 
 #. type: Plain text
-#: C/man5/nfs.5:1206
+#: C/man5/nfs.5:1237
 msgid ""
 "Two additional flavors of Kerberos security are supported: B<krb5i> and "
 "B<krb5p>.  The B<krb5i> security flavor provides a cryptographically strong "
@@ -3294,7 +3333,7 @@ msgstr ""
 "par cryptage (telles que lipkey ou SPKM3) sont aussi disponibles. "
 
 #. type: Plain text
-#: C/man5/nfs.5:1215
+#: C/man5/nfs.5:1246
 msgid ""
 "The NFS version 4 protocol allows clients and servers to negotiate among "
 "multiple security flavors during mount processing.  However, Linux does not "
@@ -3311,13 +3350,86 @@ msgstr ""
 "pas ce dispositif, la requête de montage initiale est refusée par le serveur."
 
 #. type: SS
-#: C/man5/nfs.5:1215
+#: C/man5/nfs.5:1246
+#, no-wrap
+msgid "Using non-privileged source ports"
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:1254
+msgid ""
+"NFS clients usually communicate with NFS servers via network sockets.  Each "
+"end of a socket is assigned a port value, which is simply a number between 1 "
+"and 65535 that distinguishes socket endpoints at the same IP address.  A "
+"socket is uniquely defined by a tuple that includes the transport protocol "
+"(TCP or UDP) and the port values and IP addresses of both endpoints."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:1262
+msgid ""
+"The NFS client can choose any source port value for its sockets, but usually "
+"chooses a I<privileged> port.  A privileged port is a port value less than "
+"1024.  Only a process with root privileges may create a socket with a "
+"privileged source port."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:1270
+msgid ""
+"The exact range of privileged source ports that can be chosen is set by a "
+"pair of sysctls to avoid choosing a well-known port, such as the port used "
+"by ssh.  This means the number of source ports available for the NFS client, "
+"and therefore the number of socket connections that can be used at the same "
+"time, is practically limited to only a few hundred."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:1279
+msgid ""
+"As described above, the traditional default NFS authentication scheme, known "
+"as AUTH_SYS, relies on sending local UID and GID numbers to identify users "
+"making NFS requests.  An NFS server assumes that if a connection comes from "
+"a privileged port, the UID and GID numbers in the NFS requests on this "
+"connection have been verified by the client's kernel or some other local "
+"authority.  This is an easy system to spoof, but on a trusted physical "
+"network between trusted hosts, it is entirely adequate."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:1285
+msgid ""
+"Roughly speaking, one socket is used for each NFS mount point.  If a client "
+"could use non-privileged source ports as well, the number of sockets "
+"allowed, and thus the maximum number of concurrent mount points, would be "
+"much larger."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:1291
+msgid ""
+"Using non-privileged source ports may compromise server security somewhat, "
+"since any user on AUTH_SYS mount points can now pretend to be any other when "
+"making NFS requests.  Thus NFS servers do not support this by default.  They "
+"explicitly allow it usually via an export option."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/nfs.5:1295
+msgid ""
+"To retain good security while allowing as many mount points as possible, it "
+"is best to allow non-privileged client connections only if the server and "
+"client both require strong authentication, such as Kerberos."
+msgstr ""
+
+#. type: SS
+#: C/man5/nfs.5:1295
 #, no-wrap
 msgid "Mounting through a firewall"
 msgstr "Montage à travers d'un pare-feu"
 
 #. type: Plain text
-#: C/man5/nfs.5:1224
+#: C/man5/nfs.5:1304
 msgid ""
 "A firewall may reside between an NFS client and server, or the client or "
 "server may block some of its own ports via IP filter rules.  It is still "
@@ -3335,7 +3447,7 @@ msgstr ""
 "terminaisons d'accès (endpoints) grâce aux options de mount."
 
 #. type: Plain text
-#: C/man5/nfs.5:1227
+#: C/man5/nfs.5:1307
 msgid ""
 "NFS servers normally run a portmapper or rpcbind daemon to advertise their "
 "service endpoints to clients. Clients use the rpcbind daemon to determine:"
@@ -3345,17 +3457,17 @@ msgstr ""
 "Les clients se servent du démon rpcbind pour déterminer\\ :"
 
 #. type: Plain text
-#: C/man5/nfs.5:1229
+#: C/man5/nfs.5:1309
 msgid "What network port each RPC-based service is using"
 msgstr "Le port réseau utilisé par chaque service basé sur les RPCs"
 
 #. type: Plain text
-#: C/man5/nfs.5:1231
+#: C/man5/nfs.5:1311
 msgid "What transport protocols each RPC-based service supports"
 msgstr "Le protocole de transport utilisé par chaque service basé sur les RPCs"
 
 #. type: Plain text
-#: C/man5/nfs.5:1236
+#: C/man5/nfs.5:1316
 msgid ""
 "The rpcbind daemon uses a well-known port number (111) to help clients find "
 "a service endpoint.  Although NFS often uses a standard port number (2049), "
@@ -3368,7 +3480,7 @@ msgstr ""
 "peuvent choisir au hasard des numéros de port inutilisés."
 
 #. type: Plain text
-#: C/man5/nfs.5:1250
+#: C/man5/nfs.5:1330
 msgid ""
 "Common firewall configurations block the well-known rpcbind port.  In the "
 "absense of an rpcbind service, the server administrator fixes the port "
@@ -3388,13 +3500,13 @@ msgstr ""
 "bloque l'un de ces transports."
 
 #. type: SS
-#: C/man5/nfs.5:1250
+#: C/man5/nfs.5:1330
 #, no-wrap
 msgid "NFS Access Control Lists"
 msgstr "Désactiver le traitement des ACL (Access Control List)."
 
 #. type: Plain text
-#: C/man5/nfs.5:1259
+#: C/man5/nfs.5:1339
 msgid ""
 "Solaris allows NFS version 3 clients direct access to POSIX Access Control "
 "Lists stored in its local file systems.  This proprietary sideband protocol, "
@@ -3412,7 +3524,7 @@ msgstr ""
 "NFS version 3."
 
 #. type: Plain text
-#: C/man5/nfs.5:1265
+#: C/man5/nfs.5:1345
 msgid ""
 "The NFS version 4 specification mandates a new version of Access Control "
 "Lists that are semantically richer than POSIX ACLs.  NFS version 4 ACLs are "
@@ -3426,19 +3538,19 @@ msgstr ""
 "environnement qui mélange à la fois les ACLs POSIX et NFS version 4."
 
 #. type: Plain text
-#: C/man5/nfs.5:1269 C/man8/mount.nfs.8:76 C/man8/umount.nfs.8:60
+#: C/man5/nfs.5:1349 C/man8/mount.nfs.8:76 C/man8/umount.nfs.8:60
 msgid "file system table"
 msgstr "Table des systèmes de fichiers"
 
 #. type: SH
-#: C/man5/nfs.5:1269 C/man8/nfsstat.8:143 C/man8/rpcdebug.8:81
+#: C/man5/nfs.5:1349 C/man8/nfsstat.8:143 C/man8/rpcdebug.8:81
 #: C/man8/showmount.8:50
 #, no-wrap
 msgid "BUGS"
 msgstr "BOGUES"
 
 #. type: Plain text
-#: C/man5/nfs.5:1290
+#: C/man5/nfs.5:1370
 msgid ""
 "The generic B<remount> option is not fully supported.  Generic options, such "
 "as B<rw> and B<ro> can be modified using the B<remount> option, but NFS-"
@@ -3458,12 +3570,12 @@ msgstr ""
 "l'option B<actimeo=0> spécifique à NFS."
 
 #. type: Plain text
-#: C/man5/nfs.5:1292
+#: C/man5/nfs.5:1372
 msgid "Before 2.4.7, the Linux NFS client did not support NFS over TCP."
 msgstr "Le client NFS antérieur à 2.4.7 ne gérait pas NFS sur TCP."
 
 #. type: Plain text
-#: C/man5/nfs.5:1297
+#: C/man5/nfs.5:1377
 msgid ""
 "Before 2.4.20, the Linux NFS client used a heuristic to determine whether "
 "cached file data was still valid rather than using the standard close-to-"
@@ -3475,7 +3587,7 @@ msgstr ""
 "décrite ci-dessus."
 
 #. type: Plain text
-#: C/man5/nfs.5:1301
+#: C/man5/nfs.5:1381
 msgid ""
 "Starting with 2.4.22, the Linux NFS client employs a Van Jacobsen-based RTT "
 "estimator to determine retransmit timeout values when using NFS over UDP."
@@ -3485,12 +3597,12 @@ msgstr ""
 "lorsqu'il utilise NFS sur UDP."
 
 #. type: Plain text
-#: C/man5/nfs.5:1303
+#: C/man5/nfs.5:1383
 msgid "Before 2.6.0, the Linux NFS client did not support NFS version 4."
 msgstr "Le client NFS Linux antérieur à 2.6.0 ne gérait pas NFS version 4."
 
 #. type: Plain text
-#: C/man5/nfs.5:1308
+#: C/man5/nfs.5:1388
 msgid ""
 "Before 2.6.8, the Linux NFS client used only synchronous reads and writes "
 "when the B<rsize> and B<wsize> settings were smaller than the system's page "
@@ -3501,7 +3613,7 @@ msgstr ""
 "inférieurs à la taille des pages du système."
 
 #. type: Plain text
-#: C/man5/nfs.5:1312
+#: C/man5/nfs.5:1392
 msgid ""
 "The Linux NFS client does not yet support certain optional features of the "
 "NFS version 4 protocol, such as security negotiation, server referrals, and "
@@ -3512,7 +3624,7 @@ msgstr ""
 "les soumissions de serveurs et les attributs nommés."
 
 #. type: Plain text
-#: C/man5/nfs.5:1326
+#: C/man5/nfs.5:1406
 msgid ""
 "B<fstab>(5), B<mount>(8), B<umount>(8), B<mount.nfs>(5), B<umount.nfs>(5), "
 "B<exports>(5), B<nfsd>(8), B<sm-notify>(8), B<rpc.statd>(8), B<rpc.idmapd>"
@@ -3523,42 +3635,42 @@ msgstr ""
 "(8), B<rpc.gssd>(8), B<rpc.svcgssd>(8), B<kerberos>(1)"
 
 #. type: Plain text
-#: C/man5/nfs.5:1328
+#: C/man5/nfs.5:1408
 msgid "RFC 768 for the UDP specification."
 msgstr "RFC 768 concernant la spécification UDP."
 
 #. type: Plain text
-#: C/man5/nfs.5:1330
+#: C/man5/nfs.5:1410
 msgid "RFC 793 for the TCP specification."
 msgstr "RFC 793 concernant la spécification TCP."
 
 #. type: Plain text
-#: C/man5/nfs.5:1332
+#: C/man5/nfs.5:1412
 msgid "RFC 1094 for the NFS version 2 specification."
 msgstr "RFC 1094 concernant la spécification de NFS version 2."
 
 #. type: Plain text
-#: C/man5/nfs.5:1334
+#: C/man5/nfs.5:1414
 msgid "RFC 1813 for the NFS version 3 specification."
 msgstr "RFC 1813 concernant la spécification de NFS version 3."
 
 #. type: Plain text
-#: C/man5/nfs.5:1336
+#: C/man5/nfs.5:1416
 msgid "RFC 1832 for the XDR specification."
 msgstr "RFC 1832 concernant la spécification XDR."
 
 #. type: Plain text
-#: C/man5/nfs.5:1338
+#: C/man5/nfs.5:1418
 msgid "RFC 1833 for the RPC bind specification."
 msgstr "RFC 1833 concernant la spécification RPC bind."
 
 #. type: Plain text
-#: C/man5/nfs.5:1340
+#: C/man5/nfs.5:1420
 msgid "RFC 2203 for the RPCSEC GSS API protocol specification."
 msgstr "RFC 2203 concernant la spécification du protocole de l'API GSS RPCSEC."
 
 #. type: Plain text
-#: C/man5/nfs.5:1341
+#: C/man5/nfs.5:1421
 msgid "RFC 3530 for the NFS version 4 specification."
 msgstr "RFC 3530 concernant la spécification de NFS version 4."
 
@@ -4026,7 +4138,7 @@ msgstr ""
 "B<exportfs>(8)."
 
 #. type: SH
-#: C/man7/nfsd.7:206 C/man8/mount.nfs.8:85 C/man8/mountd.8:199
+#: C/man7/nfsd.7:206 C/man8/mount.nfs.8:85 C/man8/mountd.8:201
 #: C/man8/nfsd.8:85 C/man8/nfsstat.8:155 C/man8/rpcdebug.8:85
 #: C/man8/showmount.8:59 C/man8/umount.nfs.8:69
 #, no-wrap
@@ -5573,10 +5685,15 @@ msgid "mountd: .bar.com"
 msgstr "mountd:\\ 192.168.1."
 
 #. type: Plain text
-#: C/man8/mountd.8:184
+#: C/man8/mountd.8:187
+#, fuzzy
+#| msgid ""
+#| "You have to use the daemon name B<mountd> for the daemon name (even if "
+#| "the binary has a different name)."
 msgid ""
 "You have to use the daemon name B<mountd> for the daemon name (even if the "
-"binary has a different name)."
+"binary has a different name).  B<Note:> hostnames used in either access file "
+"will be ignored when they can not be resolved into IP addresses."
 msgstr ""
 "On doit utiliser le nom du démon B<mountd> bien que le fichier binaire ait "
 "un nom différent (en l'occurrence rpc.mountd). Pour indiquer les clients, on "
@@ -5585,7 +5702,7 @@ msgstr ""
 "(Voir hosts.allow.)"
 
 #. type: Plain text
-#: C/man8/mountd.8:190 C/man8/statd.8:168
+#: C/man8/mountd.8:193 C/man8/statd.8:168
 msgid ""
 "For further information please have a look at the B<tcpd>(8)  and "
 "B<hosts_access>(5)  manual pages."
@@ -5594,17 +5711,17 @@ msgstr ""
 "B<tcpd>(8) et B<hosts_access>(5)."
 
 #. type: Plain text
-#: C/man8/mountd.8:196
+#: C/man8/mountd.8:198
 msgid "B<rpc.nfsd>(8), B<exportfs>(8), B<exports>(5), B<rpc.rquotad>(8)."
 msgstr "B<rpc.nfsd>(8), B<exportfs>(8), B<exports>(5), B<rpc.rquotad>(8)."
 
 #. type: Plain text
-#: C/man8/mountd.8:199
+#: C/man8/mountd.8:201
 msgid "B</etc/exports>, B</var/lib/nfs/xtab>."
 msgstr "B</etc/exports>, B</var/lib/nfs/xtab>."
 
 #. type: Plain text
-#: C/man8/mountd.8:200
+#: C/man8/mountd.8:202
 msgid "Olaf Kirch, H. J. Lu, G. Allan Morris III, and a host of others."
 msgstr "Olaf Kirch, H. J. Lu, G. Allan Morris III et plein d'autres."
 
@@ -5638,10 +5755,10 @@ msgid ""
 "space program merely starts the specified number of kernel threads."
 msgstr ""
 "Le programme B<rpc.nfsd> implémente la partie utilisateur du service NFS. Le "
-"service NFS est pris en charge par le module du noyau B<nfsd>. Le "
-"programme B<rpc.nfsd> s'exécute dans l'espace utilisateur (et non dans "
-"l'espace noyau). Il se contente de lancer le nombre spécifié de processus "
-"(«\\ threads\\ ») systèmes."
+"service NFS est pris en charge par le module du noyau B<nfsd>. Le programme "
+"B<rpc.nfsd> s'exécute dans l'espace utilisateur (et non dans l'espace "
+"noyau). Il se contente de lancer le nombre spécifié de processus («\\ threads"
+"\\ ») systèmes."
 
 #. type: Plain text
 #: C/man8/nfsd.8:23
