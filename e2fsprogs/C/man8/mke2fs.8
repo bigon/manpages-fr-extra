@@ -2,9 +2,9 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\"
-.TH MKE2FS 8 "October 2008" "E2fsprogs version 1.41.3"
+.TH MKE2FS 8 "July 2009" "E2fsprogs version 1.41.8"
 .SH NAME
-mke2fs \- create an ext2/ext3 filesystem
+mke2fs \- create an ext2/ext3/ext4 filesystem
 .SH SYNOPSIS
 .B mke2fs
 [
@@ -100,6 +100,10 @@ mke2fs \- create an ext2/ext3 filesystem
 .I usage-type
 ]
 [
+.B \-U
+.I UUID
+]
+[
 .B \-V
 ]
 .I device
@@ -136,7 +140,8 @@ mke2fs \- create an ext2/ext3 filesystem
 ]
 .SH DESCRIPTION
 .B mke2fs
-is used to create an ext2/ext3 filesystem (usually in a disk partition).
+is used to create an ext2, ext3, or ext4 filesystem, usually in a disk
+partition.
 .I device
 is the special file corresponding to the device (e.g
 .IR /dev/hdXX ).
@@ -148,6 +153,13 @@ automagically figures the file system size.  If called as
 a journal is created as if the
 .B \-j
 option was specified.
+.PP
+The defaults of the parameters for the newly created filesystem, if not
+overridden by the options listed below, are controlled by the
+.B /etc/mke2fs.conf
+configuration file.  See the
+.BR mke2fs.conf (5)
+manual page for more details.
 .SH OPTIONS
 .TP
 .BI \-b " block-size"
@@ -565,9 +577,9 @@ option is used to explicitly add or remove filesystem options that
 should be set in the newly created filesystem, the
 resulting filesystem may not be supported by the requested
 .IR fs-type .
-(e.g., "\fBmke2fs -t ext3 -O extents /dev/sdXX\fR" will create a
+(e.g., "\fBmke2fs \-t ext3 \-O extents /dev/sdXX\fR" will create a
 filesystem that is not supported by the ext3 implementation as found in
-the Linux kernel; and "\fBmke2fs -t ext3 -O ^has_journal /dev/hdXX\fR"
+the Linux kernel; and "\fBmke2fs \-t ext3 \-O ^has_journal /dev/hdXX\fR"
 will create a filesystem that does not have a journal and hence will not
 be supported by the ext3 filesystem code in the Linux kernel.)
 .TP
@@ -596,6 +608,9 @@ Otherwise,
 .BR mke2fs (8)
 will use the default filesystem type
 .IR default .
+.TP
+.BI \-U " UUID"
+Create the filesystem with the specified UUID.
 .TP
 .B \-v
 Verbose execution.

@@ -2,9 +2,9 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH DEBUGFS 8 "October 2008" "E2fsprogs version 1.41.3"
+.TH DEBUGFS 8 "July 2009" "E2fsprogs version 1.41.8"
 .SH NAME
-debugfs \- ext2/ext3 file system debugger
+debugfs \- ext2/ext3/ext4 file system debugger
 .SH SYNOPSIS
 .B debugfs
 [
@@ -37,10 +37,10 @@ device
 The 
 .B debugfs 
 program is an interactive file system debugger. It can be used to
-examine and change the state of an ext2 file system.
+examine and change the state of an ext2, ext3, or ext4 file system.
 .br
 .I device
-is the special file corresponding to the device containing the ext2
+is the special file corresponding to the device containing the
 file system (e.g /dev/hdXX).
 .SH OPTIONS
 .TP
@@ -169,8 +169,12 @@ Change the current working directory to
 Change the root directory to be the directory 
 .IR filespec .
 .TP
-.I close
-Close the currently open file system.
+.I close [-a]
+Close the currently open file system.  If the 
+.I -a
+option is specified, write out any changes to the superblock and block
+group descriptors to all of the backup superblocks, not just to the
+master superblock.
 .TP
 .I clri file
 Clear the contents of the inode 
