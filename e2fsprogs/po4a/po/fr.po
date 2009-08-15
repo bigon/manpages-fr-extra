@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e2fsprogs\n"
 "POT-Creation-Date: 2009-02-23 21:39+0100\n"
-"PO-Revision-Date: 2008-08-10 09:37-0300\n"
+"PO-Revision-Date: 2009-08-15 01:57+0200\n"
 "Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,10 +34,9 @@ msgstr "CHATTR"
 #: C/man8/e2undo.8:5 C/man8/filefrag.8:2 C/man8/findfs.8:5 C/man8/fsck.8:5
 #: C/man8/logsave.8:5 C/man8/mke2fs.8:5 C/man8/mklost+found.8:5
 #: C/man8/resize2fs.8:5 C/man8/tune2fs.8:5
-#, fuzzy, no-wrap
-#| msgid "November 2006"
+#, no-wrap
 msgid "October 2008"
-msgstr "novembre 2006"
+msgstr "octobre 2008"
 
 # type: TH
 #: C/man1/chattr.1:2 C/man1/lsattr.1:2 C/man3/libblkid.3:8
@@ -47,10 +46,9 @@ msgstr "novembre 2006"
 #: C/man8/e2undo.8:5 C/man8/filefrag.8:2 C/man8/findfs.8:5 C/man8/fsck.8:5
 #: C/man8/logsave.8:5 C/man8/mke2fs.8:5 C/man8/mklost+found.8:5
 #: C/man8/resize2fs.8:5 C/man8/tune2fs.8:5
-#, fuzzy, no-wrap
-#| msgid "E2fsprogs version 1.41.0"
+#, no-wrap
 msgid "E2fsprogs version 1.41.3"
-msgstr "E2fsprogs version 1.41.0"
+msgstr "E2fsprogs version 1.41.3"
 
 # type: SH
 #: C/man1/chattr.1:3 C/man1/compile_et.1:7 C/man1/lsattr.1:3
@@ -1583,6 +1581,12 @@ msgid ""
 "ethernet MAC address (if available), and random data generated using a "
 "pseudo-random generator."
 msgstr ""
+"La fonction B<uuid_generate> crée un nouvel identifiant unique et universel "
+"(UUID). Le uuid sera généré en se basant sur la haute qualité aléatoire de "
+"I</dev/urandom>, s'il est disponible. S'il ne l'est pas, alors "
+"B<uuid_generate> utilisera un autre algorithme qui utilise l'heure "
+"courante, l'adresse MAC ethernet locale (si disponible), et une donnée "
+"aléatoire générée par un générateur pseudo-aléatoire."
 
 # type: Plain text
 #: C/man3/uuid_generate.3:64 C/man3/uuid_generate_random.3:64
@@ -1594,6 +1598,11 @@ msgid ""
 "subsituted.  Note that the use of a pseudo-random generator may compromise "
 "the uniqueness of UUID's generated in this fashion."
 msgstr ""
+"La fonction B<uuid_generate_random> impose l'utilisation des UUID totalement "
+"aléatoires, même si le générateur haute qualité de nombres aléatoires (c'est-à-dire, "
+"I</dev/urandom>) n'est pas disponible, auquel cas un générateur pseudo-"
+"aléatoire lui sera substitué. A noter que l'utilisation du générateur pseudo-"
+"aléatoire peut compromettre l'unicité des UUID générés de cette façon."
 
 # type: Plain text
 #: C/man3/uuid_generate.3:76 C/man3/uuid_generate_random.3:76
@@ -1607,6 +1616,14 @@ msgid ""
 "privacy problems in some applications, so the B<uuid_generate> function only "
 "uses this algorithm if a high-quality source of randomness is not available."
 msgstr ""
+"La fonction B<uuid_generate_time> impose l'utilisation de l'algorithme "
+"alternatif qui utilise l'heure courante et l'adresse MAC ethernet locale (si "
+"disponible). Cet algorithme était celui utilisé par défaut pour générer les "
+"UUID, mais à cause de l'utilisation de l'adresse MAC ethernet, il peut "
+"divulguer des informations sur quand et où le UUID a été créé. Celà peut "
+"poser des problèmes de confidentialité dans certaines applications, donc la "
+"fonction B<uuid_generate> utilise cet algorithme seulement si aucune source "
+"de génération aléatoire haute qualité n'est disponible."
 
 # NOTE: elemntary => elementary
 # type: Plain text
@@ -1623,7 +1640,8 @@ msgstr ""
 "valeurs uniques (il y a environ 10^80 particules élémentaires dans l'univers "
 "d'après le I<Cosmos> de Carl Sagan). Le nouvel UUID peut être "
 "raisonnablement considéré comme unique parmi tous les UUID créés localement "
-"sur le système ou qui le seront par tous les systèmes passés ou futurs."
+"sur le système, ainsi que parmi les UUID créés sur d'autres systèmes par le "
+"passé et dans le futur."
 
 # type: Plain text
 #: C/man3/uuid_generate.3:87 C/man3/uuid_generate_random.3:87
@@ -1813,6 +1831,13 @@ msgid ""
 "by B<uuid_unparse> may be upper or lower case, and is dependent on the "
 "system-dependent local default."
 msgstr ""
+"La fonction B<uuid_unparse> convertit le UUID I<uu> fourni à partir de sa "
+"représentation binaire en une chaîne de caractères de 36 bits (plus le "
+"suffixe '\\e0')  de la forme 1b4e28ba-2fa1-11d2-883f-0016d3cca427 et "
+"enregistre cette valeur dans une chaîne de caractères pointée par I<out>. "
+"La casse des caractères hexadécimaux retournés par B<uuid_unparse> peut être "
+"en majuscule ou minuscule, et dépend des réglages par défaut du système "
+"local."
 
 # type: Plain text
 #: C/man3/uuid_unparse.3:63
@@ -5624,6 +5649,8 @@ msgstr "E2UNDO"
 #: C/man8/e2undo.8:8
 msgid "e2undo - Replay an undo log for an ext2/ext3/ext4 filesystem"
 msgstr ""
+"e2undo - Rejouer un journal d'annulation pour un système de fichiers ext2/"
+"ext3/ext4"
 
 # type: Plain text
 #: C/man8/e2undo.8:14
@@ -5637,6 +5664,9 @@ msgid ""
 "filesystem found on I<device>.  This can be used to undo a failed operation "
 "by an e2fsprogs program."
 msgstr ""
+"B<e2undo> rejouera le journal d'annulations I<undo_log> pour un système de "
+"fichiers ext2/ext3/ext4 trouvé sur I<device>. Il peut être utilisé pour "
+"annuler une opération échouée par un programme e2fsprogs."
 
 # type: Plain text
 #: C/man8/e2undo.8:34
@@ -5646,6 +5676,11 @@ msgid ""
 "do not match, B<e2undo> will refuse to apply the undo log as a safety "
 "mechanism.  The B<-f> option disables this safety mechanism."
 msgstr ""
+"Normalement, B<e2undo> vérifiera le UUID du système de fichiers et la date "
+"de sa dernière modification pour s'assurer que le journal d'annulations "
+"correspond bien au système de fichiers sur le périphérique. S'il ne "
+"correspond pas, B<e2undo> refusera d'appliquer le journal d'annulations par "
+"mesure de sécurité. L'option B<-f> désactive cette mesure de protection."
 
 # type: Plain text
 #: C/man8/e2undo.8:37
