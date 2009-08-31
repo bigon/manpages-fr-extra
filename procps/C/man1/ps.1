@@ -170,7 +170,7 @@ Select all processes associated with this terminal.  Identical to the
 \fBt\fR option without any argument.
 
 .opt \-a
-Select all processes except session leaders (see \fIgetsid\fR(2)) and
+Select all processes except both session leaders (see \fIgetsid\fR(2)) and
 processes not associated with a terminal.
 
 .opt a
@@ -493,7 +493,7 @@ parent process repeatedly forks off short\-lived children to do work.
 .opt c
 Show the true command name. This is derived from the name of the
 executable file, rather than from the argv value. Command arguments
-and any modifications to them (see\ \fIsetproctitle\fR(3)) are
+and any modifications to them  are
 thus not shown. This option
 effectively turns the \fBargs\fR format keyword into the \fBcomm\fR
 format keyword; it is useful with the \fB\-f\fR format option and with
@@ -879,6 +879,7 @@ time the command started.  If the process was started less
 than 24 hours ago, the output format is "\ HH:MM",
 else it is "mmm\ dd"
 (where mmm is the three letters of the month).
+See also \fBlstart\fR, \fBstart\fR, \fBstart_time\fR, and \fBstime\fR.
 T}
 
 bsdtime	TIME	T{
@@ -910,6 +911,12 @@ FF	SCHED_FIFO
 .br
 RR	SCHED_RR
 .br
+B	SCHED_BATCH
+.br
+ISO	SCHED_ISO
+.br
+IDL	SCHED_IDLE
+.br
 ?	unknown value
 T}
 
@@ -924,6 +931,12 @@ TS	SCHED_OTHER
 FF	SCHED_FIFO
 .br
 RR	SCHED_RR
+.br
+B	SCHED_BATCH
+.br
+ISO	SCHED_ISO
+.br
+IDL	SCHED_IDLE
 .br
 ?	unknown value
 T}
@@ -1060,6 +1073,7 @@ T}
 
 lstart	STARTED	T{
 time the command started.
+See also \fBbsdstart\fR, \fBstart\fR, \fBstart_time\fR, and \fBstime\fR.
 T}
 
 lwp	LWP	T{
@@ -1127,6 +1141,12 @@ FF	SCHED_FIFO
 .br
 RR	SCHED_RR
 .br
+B	SCHED_BATCH
+.br
+ISO	SCHED_ISO
+.br
+IDL	SCHED_IDLE
+.br
 ?	unknown value
 T}
 
@@ -1188,8 +1208,9 @@ information displayed.  (alias\ \fBstate\fR).
 T}
 
 sched	SCH	T{
-scheduling policy of the process.  The policies sched_other, sched_fifo,
-and sched_rr are respectively displayed as 0,\ 1,\ and\ 2.
+scheduling policy of the process.  The policies SCHED_OTHER (SCHED_NORMAL),
+SCHED_FIFO, SCHED_RR, SCHED_BATCH, SCHED_ISO, and SCHED_IDLE are respectively
+displayed as 0,\ 1,\ 2,\ 3,\ 4,\ and\ 5.
 T}
 
 sess	SESS	T{
@@ -1254,6 +1275,7 @@ If the process was started less than 24 hours ago,
 the output format is "HH:MM:SS",
 else it is "\ \ mmm\ dd"
 (where mmm is a three\-letter month\ name).
+See also \fBlstart\fR, \fBbsdstart\fR, \fBstart_time\fR, and \fBstime\fR.
 T}
 
 start_time	START	T{
@@ -1262,6 +1284,7 @@ Only the year will be displayed if the process was not
 started the same year \fBps\fR was invoked,
 or\ "mmmdd" if\ it was not started the same day,
 or\ "HH:MM" otherwise.
+See also \fBbsdstart\fR, \fBstart\fR, \fBlstart\fR, and \fBstime\fR.
 T}
 
 stat	STAT	T{
