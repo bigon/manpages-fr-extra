@@ -7,16 +7,23 @@ Get info:
 .sp
 .in +5
 .B losetup
-.I loop_device
+.I loopdev
 .sp
 .B losetup -a
+.sp
+.B losetup -j
+.I file
+.RB [ \-o
+.IR offset ]
 .sp
 .in -5
 Delete loop:
 .sp
 .in +5
 .B "losetup \-d"
-.I loop_device
+.I loopdev
+.RB [ \fIloopdev\fP
+.RB ...]
 .sp
 .in -5
 Print name of first unused loop device:
@@ -33,19 +40,28 @@ Setup loop device:
 .IR encryption ]
 .RB [ \-o
 .IR offset ]
+.RB [ \-\-sizelimit
+.IR limit ]
+.in +8
 .RB [ \-p
 .IR pfd ]
 .RB [ \-r ]
-.in +8
-.RB { \-f [ \-s ] | \fIloop_device\fP }
+.RB { \-f [ \-\-show ] | \fIloopdev\fP }
 .I file
+.sp
 .in -13
+Resize loop device:
+.sp
+.in +5
+.B "losetup \-c"
+.I loopdev
+.in -5
 .ad b
 .SH DESCRIPTION
 .B losetup
 is used to associate loop devices with regular files or block devices,
 to detach loop devices and to query the status of a loop device. If only the
-\fIloop_device\fP argument is given, the status of the corresponding loop
+\fIloopdev\fP argument is given, the status of the corresponding loop
 device is shown.
 
 .SS "Encryption"
@@ -66,36 +82,47 @@ and finds the module that knows how to perform that encryption.
 .SH OPTIONS
 .IP "\fB\-a, \-\-all\fP"
 show status of all loop devices
-.IP "\fB\-d, \-\-detach\fP"
-detach the file or device associated with the specified loop device
+.IP "\fB\-c, \-\-set-capacity\fP \fIloopdev\fP
+force loop driver to reread size of the file associated with the specified loop device
+.IP "\fB\-d, \-\-detach\fP \fIloopdev\fP [\fIloopdev\fP ...]" 
+detach the file or device associated with the specified loop device(s)
 .IP "\fB\-e, \-E, \-\-encryption \fIencryption_type\fP"
 enable data encryption with specified name or number
 .IP "\fB\-f, \-\-find\fP"
 find the first unused loop device. If a
 .I file
-argument is present, use this device. Otherwise, print its name.
+argument is present, use this device. Otherwise, print its name
 .IP "\fB\-h, \-\-help\fP"
 print help
+.IP "\fB\-j, \-\-associated \fIfile\fP"
+show status of all loop devices associated with given
+.I file
 .IP "\fB\-k, \-\-keybits \fInum\fP"
 set the number of bits to use in key to \fInum\fP.
 .IP "\fB\-N, \-\-nohashpass\fP"
 Do not hash the password.  By default, Debian systems run the password through a
 hash function, non-Debian systems tend not to.
 .IP "\fB\-o, \-\-offset \fIoffset\fP"
-The data start is moved \fIoffset\fP bytes into the specified file or
-device.
+the data start is moved \fIoffset\fP bytes into the specified file or
+device
+.IP "\fB\-\-sizelimit \fIlimit\fP"
+the data end is set to no more than \fIsizelimit\fP bytes after the data start
 .IP "\fB\-p, \-\-pass-fd \fInum\fP"
-Read the passphrase from file descriptor with number
+read the passphrase from file descriptor with number
 .I num
 instead of from the terminal
 .IP "\fB\-r, \-\-read-only\fP"
 setup read-only loop device
-.IP "\fB\-s, \-\-show\fP"
+.IP "\fB\-\-show\fP"
 print device name if the
 .I -f
 option and a
 .I file
-argument are present
+argument are present.
+
+The short form of this option (\fB\-s\fP) is deprecated.  This short form could
+be in collision with Loop-AES implementation where the same option is used for
+\fB\-\-sizelimit\fP.
 .IP "\fB\-v, \-\-verbose\fP"
 verbose mode
 
@@ -116,12 +143,12 @@ from determining the status of the device.
 If you are using the loadable module you must have the module loaded
 first with the command
 .IP
-# insmod loop.o
+# modprobe loop
 .LP
 Maybe also encryption modules are needed.
 .IP
-# insmod des.o
-# insmod cryptoloop.o
+# modprobe des
+# modprobe cryptoloop
 .LP
 The following commands can be used as an example of using the loop device.
 .nf
