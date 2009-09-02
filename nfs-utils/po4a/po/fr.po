@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2009-04-16 20:26+0300\n"
+"POT-Creation-Date: 2009-09-02 22:47+0300\n"
 "PO-Revision-Date: 2009-04-16 20:27+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -1061,7 +1061,7 @@ msgstr ""
 
 #. type: SH
 #: C/man5/exports.5:478 C/man5/nfs.5:1345 C/man8/idmapd.8:76
-#: C/man8/mount.nfs.8:72 C/man8/mountd.8:198 C/man8/nfsstat.8:125
+#: C/man8/mount.nfs.8:72 C/man8/mountd.8:198 C/man8/nfsstat.8:132
 #: C/man8/rpcdebug.8:71 C/man8/sm-notify.8:153 C/man8/statd.8:178
 #: C/man8/umount.nfs.8:56
 #, no-wrap
@@ -1077,7 +1077,7 @@ msgstr "/etc/exports"
 #: C/man5/exports.5:480 C/man5/idmapd.conf.5:60 C/man5/nfs.5:1392
 #: C/man7/nfsd.7:198 C/man8/exportfs.8:239 C/man8/gssd.8:104
 #: C/man8/idmapd.8:78 C/man8/mount.nfs.8:81 C/man8/mountd.8:193
-#: C/man8/nfsd.8:78 C/man8/nfsstat.8:139 C/man8/rpcdebug.8:76
+#: C/man8/nfsd.8:78 C/man8/nfsstat.8:146 C/man8/rpcdebug.8:76
 #: C/man8/showmount.8:47 C/man8/sm-notify.8:161 C/man8/statd.8:184
 #: C/man8/svcgssd.8:39 C/man8/umount.nfs.8:65
 #, no-wrap
@@ -1156,7 +1156,7 @@ msgstr ""
 
 #. type: SH
 #: C/man5/idmapd.conf.5:41 C/man5/nfs.5:755 C/man8/exportfs.8:187
-#: C/man8/idmapd.8:61 C/man8/nfsstat.8:104
+#: C/man8/idmapd.8:61 C/man8/nfsstat.8:111
 #, no-wrap
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
@@ -3543,7 +3543,7 @@ msgid "file system table"
 msgstr "Table des systèmes de fichiers"
 
 #. type: SH
-#: C/man5/nfs.5:1349 C/man8/nfsstat.8:143 C/man8/rpcdebug.8:81
+#: C/man5/nfs.5:1349 C/man8/nfsstat.8:150 C/man8/rpcdebug.8:81
 #: C/man8/showmount.8:50
 #, no-wrap
 msgid "BUGS"
@@ -4139,7 +4139,7 @@ msgstr ""
 
 #. type: SH
 #: C/man7/nfsd.7:206 C/man8/mount.nfs.8:85 C/man8/mountd.8:201
-#: C/man8/nfsd.8:85 C/man8/nfsstat.8:155 C/man8/rpcdebug.8:85
+#: C/man8/nfsd.8:85 C/man8/nfsstat.8:162 C/man8/rpcdebug.8:85
 #: C/man8/showmount.8:59 C/man8/umount.nfs.8:69
 #, no-wrap
 msgid "AUTHOR"
@@ -6144,12 +6144,24 @@ msgstr "Identique à B<-o all>."
 
 #. type: TP
 #: C/man8/nfsstat.8:74
+#, fuzzy, no-wrap
+#| msgid "B<-c, --client>"
+msgid "B<-l, --list>"
+msgstr "B<-c, --client>"
+
+#. type: Plain text
+#: C/man8/nfsstat.8:77
+msgid "Print information in list form."
+msgstr ""
+
+#. type: TP
+#: C/man8/nfsstat.8:77
 #, no-wrap
 msgid "B<-S, --since >I<file>"
 msgstr "B<-S, --since >I<fichier>"
 
 #. type: Plain text
-#: C/man8/nfsstat.8:93
+#: C/man8/nfsstat.8:96
 msgid ""
 "Instead of printing current statistics, B<nfsstat> imports statistics from "
 "I<file> and displays the difference between those and the current "
@@ -6168,19 +6180,27 @@ msgstr ""
 "considérée comme un zéro."
 
 #. type: TP
-#: C/man8/nfsstat.8:93
+#: C/man8/nfsstat.8:96
 #, no-wrap
-msgid "B<-Z, --sleep>"
-msgstr "B<-Z, --sleep>"
+msgid "B<-Z[interval], --sleep=[interval]>"
+msgstr ""
 
 #.  --------------------- EXAMPLES -------------------------------
 #. type: Plain text
-#: C/man8/nfsstat.8:104
+#: C/man8/nfsstat.8:111
+#, fuzzy
+#| msgid ""
+#| "Instead of printing current statistics and immediately exiting, "
+#| "B<nfsstat> takes a snapshot of the current statistics and pauses until it "
+#| "receives B<SIGINT> (typically from B<Ctrl-C>), at which point it takes "
+#| "another snapshot and displays the difference between the two."
 msgid ""
 "Instead of printing current statistics and immediately exiting, B<nfsstat> "
 "takes a snapshot of the current statistics and pauses until it receives "
 "B<SIGINT> (typically from B<Ctrl-C>), at which point it takes another "
-"snapshot and displays the difference between the two."
+"snapshot and displays the difference between the two.  If I<interval> is "
+"specified, B<nfsstat> will print the number of B<NFS> calls made since the "
+"previous report.  Stats will be printed repeatedly every I<interval> seconds."
 msgstr ""
 "Au lieu d'afficher les statistiques actuelles puis de s'arrêter "
 "immédiatement, B<nfsstat> mémorise l'état des statistiques du moment, puis "
@@ -6189,75 +6209,75 @@ msgstr ""
 "les deux résultats."
 
 #. type: TP
-#: C/man8/nfsstat.8:105
+#: C/man8/nfsstat.8:112
 #, no-wrap
 msgid "B<nfsstat -o all -234>"
 msgstr "B<nfsstat -o all -234>"
 
 #. type: Plain text
-#: C/man8/nfsstat.8:108
+#: C/man8/nfsstat.8:115
 msgid "Show all information about all versions of B<NFS>."
 msgstr ""
 "Afficher toutes les informations à propos de toutes les versions de B<NFS>."
 
 #. type: TP
-#: C/man8/nfsstat.8:108
+#: C/man8/nfsstat.8:115
 #, no-wrap
 msgid "B<nfsstat --verbose -234>"
 msgstr "B<nfsstat --verbose -234>"
 
 #. type: Plain text
-#: C/man8/nfsstat.8:111
+#: C/man8/nfsstat.8:118
 msgid "Same as above."
 msgstr "Identique à celle du dessus."
 
 #. type: TP
-#: C/man8/nfsstat.8:111
+#: C/man8/nfsstat.8:118
 #, no-wrap
 msgid "B<nfsstat -o all>"
 msgstr "B<nfsstat -o all>"
 
 #. type: Plain text
-#: C/man8/nfsstat.8:114
+#: C/man8/nfsstat.8:121
 msgid "Show all information about active versions of B<NFS>."
 msgstr ""
 "Afficher toutes les informations à propos des versions de B<NFS> en cours "
 "d'utilisation."
 
 #. type: TP
-#: C/man8/nfsstat.8:114
+#: C/man8/nfsstat.8:121
 #, no-wrap
 msgid "B<nfsstat --nfs --server -3>"
 msgstr "B<nfsstat --nfs --server -3>"
 
 #. type: Plain text
-#: C/man8/nfsstat.8:117
+#: C/man8/nfsstat.8:124
 msgid "Show statistics for B<NFS> version 3 server."
 msgstr "Afficher les statistiques pour la version 3 du serveur B<NFS>."
 
 #. type: TP
-#: C/man8/nfsstat.8:117
+#: C/man8/nfsstat.8:124
 #, no-wrap
 msgid "B<nfsstat -m>"
 msgstr "B<nfsstat -m>"
 
 #.  --------------------- DISPLAY --------------------------------
 #. type: Plain text
-#: C/man8/nfsstat.8:121
+#: C/man8/nfsstat.8:128
 msgid "Show information about mounted B<NFS> filesystems."
 msgstr ""
 "Afficher les informations à propos de tous les systèmes de fichiers B<NFS> "
 "montés."
 
 #. type: SH
-#: C/man8/nfsstat.8:121
+#: C/man8/nfsstat.8:128
 #, no-wrap
 msgid "DISPLAY"
 msgstr "AFFICHAGE"
 
 #.  --------------------- FILES ----------------------------------
 #. type: Plain text
-#: C/man8/nfsstat.8:125
+#: C/man8/nfsstat.8:132
 msgid ""
 "The B<Flags> output from the B<-m> option is the same as the flags give to "
 "the B<mount> command."
@@ -6266,49 +6286,49 @@ msgstr ""
 "utilisés avec la commande B<mount>."
 
 #. type: TP
-#: C/man8/nfsstat.8:126
+#: C/man8/nfsstat.8:133
 #, no-wrap
 msgid "B</proc/net/rpc/nfsd>"
 msgstr "B</proc/net/rpc/nfsd>"
 
 #. type: Plain text
-#: C/man8/nfsstat.8:130
+#: C/man8/nfsstat.8:137
 msgid "B<procfs>-based interface to kernel NFS server statistics."
 msgstr ""
 "Interface basée sur B<procfs> pour les statistiques du serveur NFS du noyau."
 
 #. type: TP
-#: C/man8/nfsstat.8:130
+#: C/man8/nfsstat.8:137
 #, no-wrap
 msgid "B</proc/net/rpc/nfs>"
 msgstr "B</proc/net/rpc/nfs>"
 
 #. type: Plain text
-#: C/man8/nfsstat.8:134
+#: C/man8/nfsstat.8:141
 msgid "B<procfs>-based interface to kernel NFS client statistics."
 msgstr ""
 "Interface basée sur B<procfs> pour les statistiques du client NFS du noyau."
 
 #. type: TP
-#: C/man8/nfsstat.8:134
+#: C/man8/nfsstat.8:141
 #, no-wrap
 msgid "B</proc/mounts>"
 msgstr "B</proc/mounts>"
 
 #.  -------------------- SEE ALSO --------------------------------
 #. type: Plain text
-#: C/man8/nfsstat.8:139
+#: C/man8/nfsstat.8:146
 msgid "B<procfs>-based interface to the mounted filesystems."
 msgstr "Interface basée sur B<procfs> pour les systèmes de fichiers montés."
 
 #.  ---------------------- BUGS ----------------------------------
 #. type: Plain text
-#: C/man8/nfsstat.8:143
+#: C/man8/nfsstat.8:150
 msgid "B<rpc.nfsd>(8).  B<nfs>(5)."
 msgstr "B<rpc.nfsd>(8), B<nfs>(5)."
 
 #. type: Plain text
-#: C/man8/nfsstat.8:145
+#: C/man8/nfsstat.8:152
 msgid ""
 "The default output has been changed.  To get the old default output you must "
 "run B<nfsstat --auto -2>."
@@ -6317,7 +6337,7 @@ msgstr ""
 "vous devez utiliser B<nfsstat --auto -2>."
 
 #. type: Plain text
-#: C/man8/nfsstat.8:149
+#: C/man8/nfsstat.8:156
 msgid ""
 "The function of the B<-v> and B<-a> options have changed. The B<-a> option "
 "is now reserved for future use. The B<-v> does what the B<-a> option used to "
@@ -6328,19 +6348,19 @@ msgstr ""
 "faisait, et les nouvelles options B<-[234]> remplacent l'option B<-v>."
 
 #. type: Plain text
-#: C/man8/nfsstat.8:151
+#: C/man8/nfsstat.8:158
 msgid "The B<Display> section should be more complete."
 msgstr "La section B<Display> devrait être plus complète."
 
 #.  -------------------- AUTHOR ----------------------------------
 #. type: Plain text
-#: C/man8/nfsstat.8:155
+#: C/man8/nfsstat.8:162
 msgid "Further bugs can be found or reported at B<http://nfs.sf.net/>."
 msgstr ""
 "D'autres bogues pourront être trouvés ou remontés sur B<http://nfs.sf.net/>."
 
 #. type: Plain text
-#: C/man8/nfsstat.8:156
+#: C/man8/nfsstat.8:163
 msgid "Olaf Kirch, E<lt>okir@suse.deE<gt>"
 msgstr "Olaf Kirch, E<lt>okir@suse.deE<gt>"
 
@@ -7398,6 +7418,9 @@ msgstr ""
 #: C/man8/umount.nfs.8:68
 msgid "B<nfs>(5), B<umount>(8),"
 msgstr "B<nfs>(5), B<umount>(8),"
+
+#~ msgid "B<-Z, --sleep>"
+#~ msgstr "B<-Z, --sleep>"
 
 #~ msgid ""
 #~ "Tells B<rpc.gssd> where to look for kerberos credential files.  The "
