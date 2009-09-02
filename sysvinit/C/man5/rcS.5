@@ -101,13 +101,15 @@ without asking for permission.
 Make /var/run/ available as a ram file system (tmpfs).  Will also disable
 cleaning of /var/run/ during boot.  Set to 'yes' to enable, to 'no' to disable.
 The size of the tmpfs can be controlled using TMPFS_SIZE and RUN_SIZE in
-/etc/defaults/tmpfs.
+/etc/default/tmpfs.  Because of this, packages can not expect directories in /var/run
+to exist after boot.  Packages expecting this are buggy and need to be fixed.
 
 .IP \fBRAMLOCK\fP
 Make /var/lock/ available as a ram file system (tmpfs).  Will also disable
 cleaning of /var/lock/ during boot.  Set to 'yes' to enable, to 'no' to disable.
 The size of the tmpfs can be controlled using TMPFS_SIZE and LOCK_SIZE in
-/etc/defaults/tmpfs.
+/etc/default/tmpfs.  Because of this, packages can not expect directories in /var/lock
+to exist after boot.  Packages expecting this are buggy and need to be fixed.
 
 .IP \fBASYNCMOUNTNFS\fP
 Set this to 'no' to disable asynchronous mounting of network drives

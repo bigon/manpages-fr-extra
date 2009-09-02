@@ -23,6 +23,11 @@ update\-rc.d \- install and remove System-V style init script links
 .BR start | stop
 .IR "NN runlevel" " [" runlevel "]..."
 .BR . " ..."
+.HP
+.B update-rc.d
+.RI [ -n ]
+.IB name " disable|enable "
+.RI [ " S|2|3|4|5 " ]
 .SH DESCRIPTION
 .B update-rc.d
 updates the System V style init script links
@@ -48,19 +53,7 @@ see
 .BR init (8)
 and the
 .IR "Debian Policy Manual" .
-.P
-Please note that this program was designed for use
-in package maintainer scripts and, accordingly,
-has only the very limited functionality required by such scripts.
-System administrators are not encouraged to use
-.BR update-rc.d
-to manage runlevels.
-They should edit the links directly or
-use runlevel editors such as
-.B sysv-rc-conf
-and
-.B bum
-instead.
+
 .SH INSTALLING INIT SCRIPT LINKS
 When run with either the
 .BR defaults ", " start ", or " stop
@@ -197,6 +190,30 @@ Any files in the
 directories that are not symbolic links to the script
 .BI /etc/init.d/ name
 will be left untouched.
+.SH DISABLING INIT SCRIPT START LINKS
+When run with the
+.BR disable " [ " S|2|3|4|5 " ] "
+options,
+.B update-rc.d
+modifies existing runlevel links for the script
+.BR /etc/init.d/ \fIname\fR
+by renaming start links to stop links with a sequence number equal
+to the difference of 100 minus the original sequence number.
+.P
+When run with the
+.BR enable " [ " S|2|3|4|5 " ] "
+options,
+.B update-rc.d
+modifies existing runlevel links for the script
+.BR /etc/init.d/ \fIname\fR
+by renaming stop links to start links with a sequence number equal
+to the positive difference of current sequence number minus 100, thus
+returning to the original sequence number that the script had been
+installed with before disabling it.
+.P
+Both of these options only operate on start runlevel links of S, 2,
+3, 4 or 5. If no start runlevel is specified after the disable or enable
+keywords, the script will attempt to modify links in all start runlevels.
 
 .SH OPTIONS
 .TP

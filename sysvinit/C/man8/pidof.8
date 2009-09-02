@@ -4,6 +4,7 @@ pidof -- find the process ID of a running program.
 .SH SYNOPSIS
 .B pidof
 .RB [ \-s ]
+.RB [ \-c ]
 .RB [ \-x ]
 .RB [ \-o
 .IR omitpid ]
@@ -24,6 +25,10 @@ a
 .SH OPTIONS
 .IP -s
 Single shot - this instructs the program to only return one \fIpid\fP.
+.IP -c
+Only return process ids that are running with the same root directory.
+This option is ignored for non-root users, as they will be unable to check
+the current root directory of processes they do not own.
 .IP -x
 Scripts too - this causes the program to also return process id's of
 shells running the named scripts.
@@ -45,7 +50,11 @@ the program behaves according to the name under which it is called.
 When \fIpidof\fP is invoked with a full pathname to the program it
 should find the pid of, it is reasonably safe. Otherwise it is possible
 that it returns pids of running programs that happen to have the same name
-as the program you're after but are actually other programs.
+as the program you're after but are actually other programs. Note that
+that the executable name of running processes is calculated with
+.BR readlink (2),
+so symbolic links to executables will also match.
+
 .SH SEE ALSO
 .BR shutdown (8),
 .BR init (8),
