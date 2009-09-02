@@ -30,7 +30,7 @@ use File::Copy;
 
 #TODO: unhardcode this list
 my @packages = ("at","bash","coreutils","cron","diffutils","e2fsprogs","findutils",
-                "glibc","grep","lilo","most","nfs-utils","procps","tar",
+                "glibc","grep","lilo","most","nfs-utils","procps","sysvinit","tar",
                 "util-linux");
 
 my $new_versions = {};
@@ -109,6 +109,10 @@ sub process_mandir {
 
 sub process_section {
   my ($curdir, $section, $source) = (shift, shift, shift);
+  if ($section !~ m/^man/) {
+    warn "Ignoring manpage from section $section";
+    return;
+  }
   $curdir = "$curdir/$section";
   opendir DIR, $curdir or die "Cannot open directory $curdir";
   foreach my $man (grep !/^\.\.?$/, readdir DIR) {
