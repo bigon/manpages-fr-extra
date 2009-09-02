@@ -1,17 +1,15 @@
-# translation of fr.po to French
-# translation of fr.po to
-#
 # Translation of nfs-utils manpages to French
-# Copyright (C) 2006, 2007, 2008 Free Software Foundation, Inc.
 #
-# Valery Perrin <valery.perrin.debian@free.fr>, 2006.
-# Sylvain Cherrier <sylvain.cherrier@free.fr>, 2006, 2007, 2008.
-# Thomas Huriaux <thomas.huriaux@gmail.com>, 2007.
+# Valery Perrin <valery.perrin.debian@free.fr>, 2006
+# Sylvain Cherrier <sylvain.cherrier@free.fr>, 2006, 2007, 2008
+# Thomas Huriaux <thomas.huriaux@gmail.com>, 2007
+# Dominique SIMEN <dominiquesimen@hotmail.com>, 2009
+# Nicolas Sauzède <nsauzede@free.fr>, 2009
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "POT-Creation-Date: 2009-09-02 22:47+0300\n"
-"PO-Revision-Date: 2009-04-16 20:27+0200\n"
+"PO-Revision-Date: 2009-09-02 23:23+0200\n"
 "Last-Translator: Sylvain Cherrier <sylvain.cherrier@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -6721,7 +6719,7 @@ msgstr "19 mars 2007"
 #. type: Plain text
 #: C/man8/sm-notify.8:8
 msgid "sm-notify - Send out NSM reboot notifications"
-msgstr ""
+msgstr "sm-notify - Emettre des notifications de redémarrage NSM"
 
 #. type: Plain text
 #: C/man8/sm-notify.8:10
@@ -6729,6 +6727,8 @@ msgid ""
 "B</sbin/sm-notify [-dfq] [-m >I<time>B<] [-p >I<port>B<] [-P >I<path>B<] [-v "
 ">I<my_name>B< ]>"
 msgstr ""
+"B</sbin/sm-notify [-dfq] [-m >I<duree>B<] [-p >I<port>B<] [-P >I<chemin>B<] "
+"[-v >I<nom>B< ]>"
 
 #. type: Plain text
 #: C/man8/sm-notify.8:15
@@ -6737,6 +6737,10 @@ msgid ""
 "case of a reboot, so that clients can reclaim locks after a server crash, "
 "and/or servers can release locks held by the rebooted client."
 msgstr ""
+"Verrouiller un fichier sur NFS (v2 et v3) nécessite un outil pour informer "
+"les pairs en cas de redémarrage, afin que les clients puissent reprendre "
+"leur verrou après une panne de serveur, et/ou que les serveurs libèrent les "
+"verrous tenus par le client qui a redémarré."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:22
@@ -6746,6 +6750,11 @@ msgid ""
 "of course, notifications need to be sent out during reboot.  The protocol "
 "used for this is called NSM, for I<Network Status Monitor>."
 msgstr ""
+"C'est un processus en deux étapes : pendant le fonctionnement normal, un "
+"mécanisme est nécessaire pour connaître les hôtes qui doivent être informés "
+"d'un redémarrage. Et bien-sûr, les notifications doivent être émises pendant "
+"le redémarrage. Le protocole que l'on utilise pour cela s'appelle NSM, pour "
+"I<Network Status Monitor> (ou moniteur d'état du réseau)."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:32
@@ -6755,6 +6764,10 @@ msgid ""
 "notification.  When B<rpc.statd> is started it will typically started B<sm-"
 "notify> but this is configurable."
 msgstr ""
+"Cette implémentation sépare cela en différents programmes. B<rpc.statd> suit "
+"les hôtes qui doivent être notifiés et B<sm-notify> effectue la "
+"notification. Quand B<rpc.statd> est lancé, il démarre généralement B<sm-"
+"notify> mais cela est configurable."
 
 #. type: SS
 #: C/man8/sm-notify.8:32 C/man8/statd.8:23
@@ -6770,8 +6783,8 @@ msgid ""
 "longer required."
 msgstr ""
 "Pour chaque serveur ou client NFS à surveiller, B<rpc.statd> crée un fichier "
-"dans I</var/lib/nfs/sm>, et supprime le fichier si la surveillance n'est "
-"plus nécessaire."
+"dans B</var/lib/nfs/sm> et supprime le fichier si la surveillance n'est plus "
+"nécessaire."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:44
@@ -6780,7 +6793,7 @@ msgid ""
 "notifies the peer B<statd> server on those machines."
 msgstr ""
 "Quand la machine est redémarrée, B<sm-notify> parcourt ces fichiers et "
-"notifie le démon partenaire B<rpc.statd> de ces machines."
+"notifie le démon partenaire B<statd> de ces machines."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:53
@@ -6789,12 +6802,15 @@ msgid ""
 "that is incremented each time the machine reboots. This counter is stored in "
 "B</var/lib/nfs/state>, and updated by B<sm-notify>."
 msgstr ""
+"Chaque machine a un I<état NSM>, un entier qui est incrémenté à chaque "
+"redémarrage de la machine. Ce compteur est stocké dans B</var/lib/nfs/"
+"state>, et mis à jour par B<sm-notify>."
 
 #. type: SS
 #: C/man8/sm-notify.8:53
 #, no-wrap
 msgid "Security"
-msgstr ""
+msgstr "Sécurité"
 
 #. type: Plain text
 #: C/man8/sm-notify.8:69
@@ -6808,13 +6824,21 @@ msgid ""
 "it processes any reply (which is the most likely source of possible "
 "privilege abuse)."
 msgstr ""
+"B<sm-notify> n'a pas constamment besoin des droits administrateur, il les "
+"libère donc dès que possible. Il a néanmoins besoin d'effectuer des "
+"changements dans les répertoires B<sm> et B<sm.bak> avant de pouvoir "
+"abandonner les droits ; ceux-ci doivent être autorisés en écriture pour un "
+"utilisateur non-privilégié. Si ces répertoires appartiennent à un "
+"utilisateur autre que root, B<sm-notify> abaisse ses droits à ceux de cet "
+"utilisateur après avoir créé des sockets pour émettre des requêtes (pour "
+"lesquelles il a besoin de droits root) mais avant d'envoyer la moindre "
+"réponse (qui est la cause la plus probable de violation de droit)."
 
 #. type: TP
 #: C/man8/sm-notify.8:70
-#, fuzzy, no-wrap
-#| msgid "B<-o>I< facility>"
+#, no-wrap
 msgid "B<-m>I< failtime>"
-msgstr "B<-o>I< service>"
+msgstr "B<-m>I< duree>"
 
 #. type: Plain text
 #: C/man8/sm-notify.8:77
@@ -6822,6 +6846,8 @@ msgid ""
 "When notifying hosts, B<sm-notify> will try to contact each host for up to "
 "15 minutes, and will give up if unable to reach it within this time frame."
 msgstr ""
+"Pour notifier les hôtes, B<sm-notify> essaye de contacter chaque hôte "
+"pendant 15 minutes, et abandonne s'il n'y arrive pas dans ce laps de temps."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:83
@@ -6830,13 +6856,16 @@ msgid ""
 "to retry indefinitely; any other value is interpreted as the maximum retry "
 "time in minutes."
 msgstr ""
+"En utilisant l'option B<-m>, vous pouvez outrepasser cela. La valeur 0 "
+"indique à sm-notify de réessayer indéfiniment; toute autre valeur est "
+"interprétée comme le nombre de minutes maximum pendant lesquelles sm-notify "
+"doit réessayer."
 
 #. type: TP
 #: C/man8/sm-notify.8:83
-#, fuzzy, no-wrap
-#| msgid "B<-H  or  --host hostname>"
+#, no-wrap
 msgid "B<-v>I< ipaddr-or-hostname>"
-msgstr "B<-v> I<addr-IP_ou_nom-hote>"
+msgstr "B<-v>I< addresse_ip-ou-nom_hote>"
 
 #. type: Plain text
 #: C/man8/sm-notify.8:95
@@ -6846,6 +6875,11 @@ msgid ""
 "from this address.  This is useful for NFS failover.  The given name is also "
 "used as the I<name> of this host in the NSM request."
 msgstr ""
+"Cette option indique à B<sm-notify> de se lier à l'adresse IP "
+"I<addresse_ip>, (ou à l'adresse IP de l'hôte I<nom_hote>) afin que tous les "
+"paquets de notification aient cette adresse pour origine. Cela est utile "
+"pour le basculement en cas d'échecs de NFS. Le nom donné est aussi utilisé "
+"en tant que I<nom> de cet hôte dans la requête NSM."
 
 #. type: TP
 #: C/man8/sm-notify.8:95
@@ -6860,6 +6894,9 @@ msgid ""
 "option is not given, it will try to bind to a randomly chosen privileged "
 "port below 1024."
 msgstr ""
+"ordonne à B<sm-notify> de se lier au numéro de I<port> IP. Si cette option "
+"n'est pas indiquée, il essayera de se lier à un port privilégié inférieur à "
+"1024, choisi au hasard."
 
 #. type: TP
 #: C/man8/sm-notify.8:103
@@ -6873,12 +6910,14 @@ msgid ""
 "Be quiet. This suppresses all messages except error messages while "
 "collecting the list of hosts."
 msgstr ""
+"Cela supprime tous les messages sauf les messages d'erreur durant la "
+"collecte de la liste d'hôtes."
 
 #. type: TP
 #: C/man8/sm-notify.8:107
 #, no-wrap
 msgid "B<-P>I< /path/to/state/directory>"
-msgstr ""
+msgstr "B<-P>I< /chemin/vers/repertoire/etat>"
 
 #. type: Plain text
 #: C/man8/sm-notify.8:119
@@ -6887,6 +6926,10 @@ msgid ""
 "can be given here.  The directories B<sm> and B<sm.bak> and the file "
 "B<state> must exist in that directory with the standard names."
 msgstr ""
+"Si B<sm-notify> doit regarder dans un fichier d'état placé à un endroit non "
+"standard, le chemin peut être donné ici. Les répertoires B<sm> et B<sm.bak> "
+"et le fichier B<state> doivent exister dans ce répertoire avec les noms "
+"standards."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:140
@@ -6897,6 +6940,12 @@ msgid ""
 "only needed once per reboot).  If B<-f> (for B<force>)  is given, B<sm-"
 "notify> will run even if the file in B</var/run> is present."
 msgstr ""
+"Si le chemin d'état n'a pas été réinitialisé avec B<-P>, B<sm-notify> va "
+"normalement créer un fichier dans B</var/run> pour indiquer qu'il a été "
+"lancé. Si ce fichier est trouvé quand B<sm-notify> démarre, il ne sera pas "
+"relancé (car ce n'est normalement nécessaire qu'une fois par démarrage). Si  "
+"B<-f> (pour B<force>) est donné, B<sm-notify> se lancera même si le fichier "
+"dans B</var/run> est présent."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:145
@@ -6904,6 +6953,8 @@ msgid ""
 "Do not update the NSM state. This is for testing only.  Setting this flag "
 "implies B<-f>."
 msgstr ""
+"Ne pas mettre à jour l'état NSM. Ceci est uniquement pour tester. Utiliser "
+"cette option implique B<-f>."
 
 #. type: TP
 #: C/man8/sm-notify.8:145 C/man8/statd.8:43
@@ -6917,6 +6968,8 @@ msgid ""
 "Enables debugging.  By default, B<sm-notify> forks and puts itself in the "
 "background after obtaining the list of hosts from B</var/lib/nfs/sm>."
 msgstr ""
+"Permet le débogage. Par défaut, B<sm-notify> fait un fork et se met en "
+"arrière-plan après avoir obtenu la liste des hôtes depuis B</var/lib/nfs/sm>."
 
 #. type: Plain text
 #: C/man8/sm-notify.8:155 C/man8/statd.8:180
