@@ -1,7 +1,7 @@
 .rn '' }`
-.\" $RCSfile: mtrace.1,v $$Revision: 1.1 $$Date: 2009-02-15 21:22:52 +0100 (dim 15 fév 2009) $
+.\" $RCSfile: gencat.1,v $$Revision: 1.1 $$Date: 2009-05-05 09:54:05 +0200 (mar. 05 mai 2009) $
 .\"
-.\" $Log: mtrace.1,v $
+.\" $Log: gencat.1,v $
 .\" Revision 1.1  2003/11/03 17:37:27  jbailey
 .\"     - debian/local/manpages/gencat.1: New file.
 .\"     - debian/local/manpages/trace.1: New file.
@@ -108,7 +108,7 @@
 .nr % 0
 .rr F
 .\}
-.TH MTRACE 1 "November 2003" "mtrace (glibc)" "Debian"
+.TH GENCAT 1 "November 2003" "gencat (glibc)" "Debian"
 .UC
 .if n .hy 0
 .if n .na
@@ -203,20 +203,32 @@
 .\}
 .rm #[ #] #H #V #F C
 .SH "NAME"
-mtrace \- Interpret output from MALLOC_TRACE
+gencat \- Generate message catalog
 .SH "SYNOPSIS"
-mtrace [OPTION]... [Binary] MtraceData
+gencat [OPTION...] -o OUTPUT-FILE [INPUT-FILE]...
 .SH "DESCRIPTION"
-The \fBmtrace\fR interprets the output from when the MALLOC_TRACE
-environment variable is set.  
+The \fBgencat\fR program is specified in the X/Open standard and the
+GNU implementation follows this specification and so processes all
+correctly formed input files. Additionally some extension are implemented
+which help to work in a more reasonable way with the \fBcatgets\fR(3) functions.
+.PP
+.TP
+\fB-H\fR, \fB--header\fR \fINAME\fR
+Create C header file NAME containing symbol definitions
+.TP
+\fB--new\fR
+Do not use existing catalog, force new output file
+.TP
+\fB-o\fR, \fB--output\fR \fINAME\fR
+Write output to file NAME
 .SH "AUTHOR"
-\fImtrace\fR was written by Ulrich Drepper as part of the GNU C Library.
+\fIgencat\fR was written by Ulrich Drepper as part of the GNU C Library.
 .PP
 This man page was written by Jeff Bailey <jbailey@debian.org>.
 
 .rn }` ''
-.IX Title "MTRACE 1"
-.IX Name "mtrace \- Interpret output from MALLOC_TRACE"
+.IX Title "GENCAT 1"
+.IX Name "gencat - Generate message catalog"
 
 .IX Header "NAME"
 
