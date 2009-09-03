@@ -1,4 +1,4 @@
-SUBDIRS=at bash coreutils cron diffutils e2fsprogs eglibc findutils grep lilo most \
+SUBDIRS=at bash coreutils cron diffutils dosfstools e2fsprogs eglibc findutils grep lilo most \
 	nfs-utils openssl procps sysvinit tar util-linux
 
 #  Must be an absolute path!
