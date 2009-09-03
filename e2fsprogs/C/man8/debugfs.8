@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH DEBUGFS 8 "July 2009" "E2fsprogs version 1.41.8"
+.TH DEBUGFS 8 "August 2009" "E2fsprogs version 1.41.9"
 .SH NAME
 debugfs \- ext2/ext3/ext4 file system debugger
 .SH SYNOPSIS
@@ -191,6 +191,25 @@ option is given set the owner, group and permissions information on
 .I out_file 
 to match 
 .IR filespec .
+.TP
+.I dump_extents [-n] [-l] filespec
+Dump the the extent tree of the inode
+.IR filespec .
+The 
+.I -n
+flag will cause
+.I dump_extents
+to only display the interior nodes in the extent tree.   The
+.I  -l
+flag cause
+.I dump_extents
+to only display the leaf nodes in the extent tree.
+.IP
+(Please note that the length and range of blocks for the last extent in
+an interior node is an estimate by the extents library functions, and is
+not stored in file esystem data structures.   Hence, the values displayed
+may not necessarily by accurate and does not indicate a problem or 
+corruption in the file system.)
 .TP
 .I expand_dir filespec
 Expand the directory
