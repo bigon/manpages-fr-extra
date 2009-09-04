@@ -89,6 +89,10 @@ foreach my $pkg (sort keys %$new_versions) {
   close VERSION;
 }
 
+if ($clean{"e2fsprogs"}) {
+    system("make -C e2fsprogs check-links");
+}
+
 sub parse_binary {
   my ($source, $filename) = (shift, shift, shift, shift);
   my $pkg = $source;
