@@ -12,7 +12,7 @@ pre-build:
 po4a-build:
 	po4a --previous $(PO4ACONFIGFILE)
 
-P2M = pod2man --center="OpenSSL" --release="$(VERSION)"
+P2M = pod2man --utf8 --center="OpenSSL" --release="$(VERSION)"
 
 post-build: man1 man3
 
