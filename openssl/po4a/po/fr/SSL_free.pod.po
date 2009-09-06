@@ -1,15 +1,16 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for openssl package
+# Copyright (C) 2008,2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the openssl package.
+#
+# Copyright (C) 2008,2009 Nicolas François <nicolas.francois@centraliens.net>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl 0.9.8k-4\n"
 "POT-Creation-Date: 2009-09-06 16:40+0300\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2009-09-06 20:59+0200\n"
+"Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -655,7 +656,7 @@ msgstr ""
 #. type: textblock
 #: C/ssl/SSL_free.pod:5
 msgid "SSL_free - free an allocated SSL structure"
-msgstr ""
+msgstr "SSL_free - Libérer une structure SSL allouée"
 
 #. type: verbatim
 #: C/ssl/SSL_free.pod:11
@@ -664,22 +665,19 @@ msgid ""
 " void SSL_free(SSL *ssl);\n"
 "\n"
 msgstr ""
+" void SSL_free(SSL *ssl);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_free.pod:15
-#, fuzzy
-#| msgid ""
-#| "SSL_SESSION_free() decrements the reference count of B<session> and "
-#| "removes the B<SSL_SESSION> structure pointed to by B<session> and frees "
-#| "up the allocated memory, if the the reference count has reached 0."
 msgid ""
 "SSL_free() decrements the reference count of B<ssl>, and removes the SSL "
 "structure pointed to by B<ssl> and frees up the allocated memory if the "
 "reference count has reached 0."
 msgstr ""
-"SSL_SESSION_free() décrémente le décompte de références de B<session> et "
-"retire la structure B<SSL_SESSION> pointée par B<session> et libère la "
-"mémoire allouée, si le décompte de références atteint 0."
+"SSL_free() décrémente le décompte de références de B<ssl> et retire la "
+"structure SSL pointée par B<ssl> et libère la mémoire allouée, si le "
+"décompte de références atteint 0."
 
 #. type: textblock
 #: C/ssl/SSL_free.pod:21
@@ -690,6 +688,12 @@ msgid ""
 "explicitly free these indirectly freed up items before or after calling "
 "SSL_free(), as trying to free things twice may lead to program failure."
 msgstr ""
+"SSL_free() appelle également les procédures free() pour les éléments "
+"alloués indirectement, qui peuvent être : les BIO tampons, les BIO de "
+"lecture ou écriture, les listes d'algorithmes de chiffrement spécialement "
+"créées pour la structure B<ssl>, la session B<SSL_SESSION>. Ne libérer pas "
+"ces éléments directement avant ou après l'appel à SSL_free() (essayer de "
+"libérer un objet deux fois peut conduire à des échecs du programme)."
 
 #. type: textblock
 #: C/ssl/SSL_free.pod:28
@@ -701,11 +705,19 @@ msgid ""
 "SSL_set_shutdown(3)> was not used to set the SSL_SENT_SHUTDOWN state, the "
 "session will also be removed from the session cache as required by RFC2246."
 msgstr ""
+"La session ssl a des compteurs de références pour deux utilisation : pour "
+"l'objet SSL (son compteur de références est supprimé par SSL_free()) et le "
+"cache de sessions internes. Si la session est considérée comme une "
+"mauvaise session, parce que L<SSL_shutdown(3)|SSL_shutdown(3)> n'a pas été "
+"appelée pour la connexion et L<SSL_set_shutdown(3)|SSL_set_shutdown(3)> n'a "
+"pas été utilisée pour positionner l'état SSL_SENT_SHUTDOWN, la session "
+"sera également supprimée du cache de sessions comme décrit dans la "
+"RFC 2246."
 
 #. type: textblock
 #: C/ssl/SSL_free.pod:38
 msgid "SSL_free() does not provide diagnostic information."
-msgstr ""
+msgstr "SSL_free() ne fournit pas d'information de diagnostique."
 
 #. type: textblock
 #: C/ssl/SSL_free.pod:40
@@ -714,3 +726,6 @@ msgid ""
 "SSL_shutdown(3)>, L<SSL_set_shutdown(3)|SSL_set_shutdown(3)>, L<ssl(3)|ssl(3)"
 ">"
 msgstr ""
+"L<SSL_new(3)|SSL_new(3)>, L<SSL_clear(3)|SSL_clear(3)>, L<SSL_shutdown(3)|"
+"SSL_shutdown(3)>, L<SSL_set_shutdown(3)|SSL_set_shutdown(3)>, L<ssl(3)|ssl(3)"
+">"
