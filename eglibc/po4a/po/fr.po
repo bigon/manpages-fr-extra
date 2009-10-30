@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: glibc\n"
-"POT-Creation-Date: 2009-09-06 16:19+0300\n"
+"POT-Creation-Date: 2009-10-30 23:54+0100\n"
 "PO-Revision-Date: 2009-09-06 16:24+0200\n"
 "Last-Translator: Florentin Duneau <fduneau@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -590,7 +590,7 @@ msgstr "I<getconf> a été écrit par Roland McGrath pour la bibliothèque GNU C
 #: C/man3/pthread_kill_other_threads_np.3:27 C/man3/pthread_mutex_init.3:176
 #: C/man3/pthread_mutexattr_init.3:78 C/man3/pthread_mutexattr_setkind_np.3:36
 #: C/man3/pthread_sigmask.3:86 C/man5/gai.conf.5:90 C/man5/locale.gen.5:38
-#: C/man5/nscd.conf.5:230 C/man8/ldconfig.8:156 C/man8/zic.8:411
+#: C/man5/nscd.conf.5:242 C/man8/ldconfig.8:156 C/man8/zic.8:411
 #: C/man8/ld.so.8:185 C/man8/validlocale.8:47 C/man8/locale-gen.8:89
 #: C/man8/update-locale.8:47 C/man8/nscd.8:84
 #, no-wrap
@@ -3251,7 +3251,7 @@ msgstr ""
 # type: SH
 #. type: SH
 #: C/man3/pthread_cond_init.3:144 C/man3/pthread_key_create.3:109
-#: C/man3/pthread_mutex_init.3:181 C/man5/gai.conf.5:66 C/man5/nscd.conf.5:202
+#: C/man3/pthread_mutex_init.3:181 C/man5/gai.conf.5:66 C/man5/nscd.conf.5:214
 #: C/man8/update-locale.8:33
 #, no-wrap
 msgid "EXAMPLE"
@@ -5710,67 +5710,96 @@ msgstr ""
 "d'expiration\\ ; lorsqu'il est atteint, B<nscd>(8) le rechargera (il demande "
 "au service NSS si les données ont changé) ou le supprimera."
 
+# type: TP
+#. type: TP
+#: C/man5/nscd.conf.5:202
+#, fuzzy, no-wrap
+#| msgid "B<suggested-size>I<\\ service\\ prime-number>"
+msgid "B<max-db-size>I<\\ service\\ number-of-bytes>"
+msgstr "B<suggested-size> I<service nombre-premier>"
+
+#. type: Plain text
+#: C/man5/nscd.conf.5:205
+msgid "Sets the maximum allowable size for the service."
+msgstr ""
+
+# type: TP
+#. type: TP
+#: C/man5/nscd.conf.5:205
+#, fuzzy, no-wrap
+#| msgid "B<shared>I<\\ service\\ bool>"
+msgid "B<auto-propagate>I<\\ service\\ bool>"
+msgstr "B<shared>I<service booléen>"
+
+#. type: Plain text
+#: C/man5/nscd.conf.5:214
+msgid ""
+"When set to no for passwd or group service, then the I<.byname> requests are "
+"not added to I<passwd.byuid> or I<group.bygid> cache. This may help for "
+"tables containing multiple records for the same id."
+msgstr ""
+
 # type: Plain text
 #. type: Plain text
-#: C/man5/nscd.conf.5:206
+#: C/man5/nscd.conf.5:218
 #, no-wrap
 msgid "# This is a comment.\n"
 msgstr "# Voici un commentaire.\n"
 
 # type: Plain text
 #. type: Plain text
-#: C/man5/nscd.conf.5:211
-#, no-wrap
-msgid ""
-"    logfile                 /var/log/nscd.log\n"
-"    threads                 6\n"
-"    server-user             nobody\n"
-"    debug-level             0\n"
-msgstr ""
-"    logfile                 /var/log/nscd.log\n"
-"    threads                 6\n"
-"    server-user             nobody\n"
-"    debug-level             0\n"
-
-# type: Plain text
-#. type: Plain text
-#: C/man5/nscd.conf.5:217
-#, no-wrap
-msgid ""
-"    enable-cache            passwd          yes\n"
-"    positive-time-to-live   passwd          600\n"
-"    negative-time-to-live   passwd          20\n"
-"    suggested-size          passwd          211\n"
-"    check-files             passwd          yes\n"
-msgstr ""
-"    enable-cache            passwd          yes\n"
-"    positive-time-to-live   passwd          600\n"
-"    negative-time-to-live   passwd          20\n"
-"    suggested-size          passwd          211\n"
-"    check-files             passwd          yes\n"
-
-# type: Plain text
-#. type: Plain text
 #: C/man5/nscd.conf.5:223
 #, no-wrap
 msgid ""
-"    enable-cache            group           yes\n"
-"    positive-time-to-live   group           3600\n"
-"    negative-time-to-live   group           60\n"
-"    suggested-size          group           211\n"
-"    check-files             group           yes\n"
+"    logfile                 /var/log/nscd.log\n"
+"    threads                 6\n"
+"    server-user             nobody\n"
+"    debug-level             0\n"
 msgstr ""
-"    enable-cache            group           yes\n"
-"    positive-time-to-live   group           3600\n"
-"    negative-time-to-live   group           60\n"
-"    suggested-size          group           211\n"
-"    check-files             group           yes\n"
+"    logfile                 /var/log/nscd.log\n"
+"    threads                 6\n"
+"    server-user             nobody\n"
+"    debug-level             0\n"
 
 # type: Plain text
 #. type: Plain text
 #: C/man5/nscd.conf.5:229
 #, no-wrap
 msgid ""
+"    enable-cache            passwd          yes\n"
+"    positive-time-to-live   passwd          600\n"
+"    negative-time-to-live   passwd          20\n"
+"    suggested-size          passwd          211\n"
+"    check-files             passwd          yes\n"
+msgstr ""
+"    enable-cache            passwd          yes\n"
+"    positive-time-to-live   passwd          600\n"
+"    negative-time-to-live   passwd          20\n"
+"    suggested-size          passwd          211\n"
+"    check-files             passwd          yes\n"
+
+# type: Plain text
+#. type: Plain text
+#: C/man5/nscd.conf.5:235
+#, no-wrap
+msgid ""
+"    enable-cache            group           yes\n"
+"    positive-time-to-live   group           3600\n"
+"    negative-time-to-live   group           60\n"
+"    suggested-size          group           211\n"
+"    check-files             group           yes\n"
+msgstr ""
+"    enable-cache            group           yes\n"
+"    positive-time-to-live   group           3600\n"
+"    negative-time-to-live   group           60\n"
+"    suggested-size          group           211\n"
+"    check-files             group           yes\n"
+
+# type: Plain text
+#. type: Plain text
+#: C/man5/nscd.conf.5:241
+#, no-wrap
+msgid ""
 "    enable-cache            hosts           yes\n"
 "    positive-time-to-live   hosts           3600\n"
 "    negative-time-to-live   hosts           20\n"
@@ -5785,7 +5814,7 @@ msgstr ""
 
 # type: Plain text
 #. type: Plain text
-#: C/man5/nscd.conf.5:231
+#: C/man5/nscd.conf.5:243
 msgid "nscd(8), nsswitch.conf(5)"
 msgstr "nscd(8), nsswitch.conf(5)"
 
