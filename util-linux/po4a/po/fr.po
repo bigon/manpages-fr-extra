@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra-util-linux\n"
 "POT-Creation-Date: 2009-10-31 13:12+0100\n"
-"PO-Revision-Date: 2009-12-21 16:53+0100\n"
+"PO-Revision-Date: 2009-12-22 21:42+0100\n"
 "Last-Translator: Florentin Duneau <fduneau@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Report-Msgid-Bugs-To: \n"
 
 #. type: TH
 #: C/man1/chkdupexe.1:27
@@ -8058,6 +8059,8 @@ msgid ""
 "Upon successfully parsing the input string, 0 is returned, and the UUID is "
 "stored in the location pointed to by I<uu>, otherwise -1 is returned."
 msgstr ""
+"En cas de succès, O est renvoyé et l'UUID est sauvegardé à l'emplacement "
+"pointé par I<uu>, sinon -1 est renvoyé."
 
 #. type: Plain text
 #: C/man3/uuid_parse.3:72
@@ -8077,7 +8080,7 @@ msgstr "UUID_TIME"
 #. type: Plain text
 #: C/man3/uuid_time.3:35
 msgid "uuid_time - extract the time at which the UUID was created"
-msgstr "uuid_time - Extraire la date de création de l'UUID"
+msgstr "uuid_time - Extraire la date de création d'un UUID"
 
 #. type: Plain text
 #: C/man3/uuid_time.3:40
@@ -8095,6 +8098,12 @@ msgid ""
 "(3)  function.  It may or may not work with UUIDs created by other "
 "mechanisms."
 msgstr ""
+"La fonction B<uuid_time> extrait le temps auquel l'UUID basé sur un temps "
+"passé en paramètre a été créé. Notez que le temps de création d'un UUID "
+"n'est seulement encoder que dans certains types d'UUID. Cette fonction "
+"s'attend à extraire le temps de création d'un UUID généré avec la fonction "
+"B<uuid_generate_time>(3). Elle pourrait fonctionner ou non avec des UUID "
+"créer avec d'autres fonctions."
 
 #. type: SH
 #: C/man3/uuid_time.3:51
@@ -8110,6 +8119,10 @@ msgid ""
 "created, in seconds and microseconds since the epoch, is also stored in the "
 "location pointed to by I<ret_tv> (see B<gettimeofday>(2))."
 msgstr ""
+"Le temps est renvoyé en nombre de secondes depuis EPOCH (1er janvier 1970), "
+"consultez B<time>(2). Le temps en secondes et microsecondes auquel l'UUID a "
+"été créé est aussi disponible à l'emplacement pointé par I<ret_tv> "
+"(consultez B<gettimeofday>(2))."
 
 #. type: Plain text
 #: C/man3/uuid_time.3:75
@@ -8287,7 +8300,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man5/fstab.5:148
-#, fuzzy
 #| msgid ""
 #| "The third field, (I<fs_vfstype>), describes the type of the filesystem.  "
 #| "Linux supports lots of filesystem types, such as I<adfs>, I<affs>, "
@@ -8321,11 +8333,13 @@ msgstr ""
 "I<ext3>, I<hfs>, I<hpfs>, I<iso9660>, I<jfs>, I<minix>, I<msdos>, I<ncpfs>, "
 "I<nfs>, I<ntfs>, I<proc>, I<qnx4>, I<reiserfs>, I<romfs>, I<smbfs>, I<sysv>, "
 "I<tmpfs>, I<udf>, I<ufs>, I<umsdos>, I<vfat>, I<xenix>, I<xfs>, et "
-"probablement d'autres. Pour plus de détails, voyez B<mount>(8). Pour les "
-"systèmes reconnus par le noyau en cours, voyez I</proc/filesystems>. Une "
-"entrée I<swap> indique une partition ou un fichier à utiliser pour les "
-"échanges, voyez B<swapon>(8). Si l'entrée vaut I<ignore>, la ligne est "
-"ignorée. Ceci permet de visualiser aisément les partitions non utilisées."
+"probablement d'autres. Pour plus de détails, consultez  B<mount>(8). Pour "
+"les systèmes reconnus par le noyau en cours d'exécution, consultez I</proc/"
+"filesystems>. Une entrée I<swap> indique une partition ou un fichier à "
+"utiliser pour les échanges, consultez B<swapon>(8). Si l'entrée vaut "
+"I<ignore>, la ligne est ignorée. Ceci permet de visualiser aisément les "
+"partitions non utilisées. Une entrée I<none> est utile pour les points de "
+"montage mouvant ou remonté."
 
 #. type: Plain text
 #: C/man5/fstab.5:152
@@ -8503,10 +8517,9 @@ msgstr "I<début>"
 
 #. type: Plain text
 #: C/man8/addpart.8:28
-#, fuzzy
 #| msgid "Specify the begin of the partition (in bytes)."
 msgid "Specify the begin of the partition (in 512-byte sectors)."
-msgstr "Spécifie le début de la partition (en octets)."
+msgstr "Spécifie le début de la partition (en secteur de 512 octets)."
 
 #. type: TP
 #: C/man8/addpart.8:28
@@ -8516,10 +8529,9 @@ msgstr "I<longueur>"
 
 #. type: Plain text
 #: C/man8/addpart.8:31
-#, fuzzy
 #| msgid "Specify the length of the partition (in bytes)."
 msgid "Specify the length of the partition (in 512-byte sectors)."
-msgstr "Spécifie la longueur de la partition (en octets)."
+msgstr "Spécifie la longueur de la partition (en secteur de 512 octets)."
 
 #. type: Plain text
 #: C/man8/addpart.8:38
@@ -8642,6 +8654,8 @@ msgid ""
 "Perform a garbage collection pass on the blkid cache to remove devices which "
 "no longer exist."
 msgstr ""
+"Lancer le « ramasse miette » sur le tampon blkid pour supprimer les "
+"périphériques qui n'existent plus."
 
 #. type: Plain text
 #: C/man8/blkid.8:78
@@ -8683,6 +8697,13 @@ msgid ""
 "verification.  The B<-L> option is portable and works on systems with and "
 "without udev."
 msgstr ""
+"Rechercher une péripérique qui utilise l'étiquette (identique à : -l -o "
+"péripérique -t LABEL=E<lt>étiquetteE<gt>). Cette méthode de recherche est "
+"capable d'utiliser les liens symboliques  udev du type /dev/disk/by-label "
+"(selon la configuration définie dans /etc/blkid.conf). Évitez d'utiliser "
+"directement les liens symboliques car il n'est pas sûr de les utiliser sans "
+"vérification. L'option B<-L> est portable et fonctionne sur des systèmes "
+"avec ou sans udev."
 
 #. type: TP
 #: C/man8/blkid.8:97
@@ -8698,6 +8719,11 @@ msgid ""
 "list can be prefixed with \"no\" to specify the usage types which should be "
 "ignored. For example:"
 msgstr ""
+"Restreindre les fonctions de détection à la liste de type "
+"d'« utilisation » (séparée par une virgule). Les types d'utilisation gérés "
+"sont : « filesystem », « raid », « crypto » et « other ».Les types d'utilisation "
+"peuvent être préfixés dans la liste par « no » pour signifier qu'ils doivent "
+"être ignorés. Par exemple :"
 
 #. type: Plain text
 #: C/man8/blkid.8:104
@@ -8709,6 +8735,7 @@ msgstr "  blkid -p -u filesystem,other /dev/sda1\n"
 #: C/man8/blkid.8:106
 msgid "probes for all filesystems and others (e.g. swap) formats, and"
 msgstr ""
+"détecte tous les systèmes de fichiers et autre (partition de swap p. ex.) et "
 
 #. type: Plain text
 #: C/man8/blkid.8:108
@@ -8722,6 +8749,8 @@ msgid ""
 "probes for all supported formats exclude RAIDs. This option is useful with "
 "B<-p> only."
 msgstr ""
+"détecte tous les formats gérés excepté les RAIDs. Cette option est seulement "
+"utile avec l'option B<-p>."
 
 #. type: TP
 #: C/man8/blkid.8:111
@@ -8734,6 +8763,8 @@ msgstr "B<-U  uuid >"
 msgid ""
 "Look up one device that uses the uuid. For more details see the B<-L> option."
 msgstr ""
+"Rechercher un péripérique dont l'UUID est B<uuid>. Pour plus de détails, "
+"consultez l'option B<-L>."
 
 #. type: TP
 #: C/man8/blkid.8:114
@@ -8747,6 +8778,8 @@ msgid ""
 "Display B<blkid>'s output using the specified format.  The I<format> "
 "parameter may be:"
 msgstr ""
+"Afficher la sortie de B<blkid> selon le format spécifié. Les formats gérés "
+"sont :"
 
 #. type: TP
 #: C/man8/blkid.8:122
@@ -8756,10 +8789,9 @@ msgstr "B<full>"
 
 #. type: Plain text
 #: C/man8/blkid.8:125
-#, fuzzy
 #| msgid "all (this is the default)"
 msgid "print all tags (the default)"
-msgstr "tout (option par défaut)"
+msgstr "afficher toutes les balises (option par défaut)"
 
 #. type: TP
 #: C/man8/blkid.8:125
@@ -8770,7 +8802,7 @@ msgstr "B<value>"
 #. type: Plain text
 #: C/man8/blkid.8:128
 msgid "print the value of the tags"
-msgstr ""
+msgstr "Afficher la valeur des balises"
 
 #. type: TP
 #: C/man8/blkid.8:128
@@ -8781,7 +8813,7 @@ msgstr "B<list>"
 #. type: Plain text
 #: C/man8/blkid.8:131
 msgid "print the devices in a user-friendly format"
-msgstr ""
+msgstr "Afficher les périphériques sans un format agréable"
 
 #. type: TP
 #: C/man8/blkid.8:131
@@ -8792,7 +8824,7 @@ msgstr "B<périphérique>"
 #. type: Plain text
 #: C/man8/blkid.8:134
 msgid "print the device name only"
-msgstr ""
+msgstr "Afficher seulement le nom de péripérique"
 
 #. type: TP
 #: C/man8/blkid.8:134
@@ -8803,7 +8835,7 @@ msgstr "B<udev>"
 #. type: Plain text
 #: C/man8/blkid.8:137
 msgid "vol_id compatible mode; usable in udev rules"
-msgstr ""
+msgstr "Mode de compatibilité vol_id ; utilisable dans les règles udev"
 
 #. type: TP
 #: C/man8/blkid.8:138
@@ -8814,12 +8846,12 @@ msgstr "B<-O>I< octets>"
 #. type: Plain text
 #: C/man8/blkid.8:141
 msgid "Probe at the given offset (only useful with B<-p>)."
-msgstr ""
+msgstr "Détecter au décalage donné (seulement utile avec B<-p>)."
 
 #. type: Plain text
 #: C/man8/blkid.8:144
 msgid "Switch to low-level probing mode (bypass cache)\""
-msgstr ""
+msgstr "Passer en mode de détection bas-niveau (n'utilise pas le tampon)"
 
 #. type: TP
 #: C/man8/blkid.8:144
@@ -8851,6 +8883,7 @@ msgstr "B<-S>I< octets>"
 #: C/man8/blkid.8:158
 msgid "Overwrite device/file size (only useful with B<-p>)."
 msgstr ""
+"Surcharge la taille du péripérique/fichier (seulement utile avec B<-p>)."
 
 #. type: TP
 #: C/man8/blkid.8:158
@@ -8938,10 +8971,11 @@ msgid ""
 "B<blkid> was written by Andreas Dilger for libblkid and improved by Theodore "
 "Ts'o and Karel Zak."
 msgstr ""
+"B<blkid> a été écrit par Andreas Dilger pour libblkid et amélioré par "
+"Theodore Ts'o et Karel Zak."
 
 #. type: Plain text
 #: C/man8/blkid.8:209 C/man8/fsck.8:343
-#, fuzzy
 #| msgid ""
 #| "The blockdev command is part of the util-linux-ng package and is "
 #| "available from ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/."
@@ -8949,8 +8983,8 @@ msgid ""
 "The blkid command is part of the util-linux-ng package and is available from "
 "ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/."
 msgstr ""
-"La commande blockdev fait partie du paquet util-linux-ng, elle est "
-"disponible sur ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/."
+"La commande blkid fait partie du paquet util-linux-ng, elle est disponible "
+"sur ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/."
 
 #. type: Plain text
 #: C/man8/blkid.8:211
@@ -8983,10 +9017,9 @@ msgstr "B<blockdev> [I<options>] I<commandes périphériques>"
 
 #. type: Plain text
 #: C/man8/blockdev.8:17
-#, fuzzy
 #| msgid "B<blockdev> --report [I<devices>]"
 msgid "B<blockdev> B<--report> [I<devices>]"
-msgstr "B<blockdev> --report [I<périphériques>]"
+msgstr "B<blockdev> B<--report> [I<périphériques>]"
 
 #. type: Plain text
 #: C/man8/blockdev.8:21
@@ -9019,6 +9052,8 @@ msgid ""
 "Print a report for I<devices>.  Note that the partition StartSec is in 512-"
 "byte sectors."
 msgstr ""
+"Afficher un rapport sur les périphériques. Notez que la partition "
+"« StartSec » est en secteur de 512 octets."
 
 #. type: TP
 #: C/man8/blockdev.8:37
@@ -9234,7 +9269,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/cfdisk.8:29
-#, fuzzy
 #| msgid ""
 #| "B<cfdisk [ -agvz ] [ -c >I<cylinders>B< ] [ -h >I<heads>B< ]> B<[ -s "
 #| ">I<sectors-per-track>B< ] [ -P >I<opt>B< ] [ >I<device>B< ]>"
@@ -9242,8 +9276,8 @@ msgid ""
 "B<cfdisk> [B<-agvz>] [B<-c> I<cylinders>] [B<-h> I<heads>] [B<-s> I<sectors-"
 "per-track>] [B<-P> I<opt>] [I<device>]"
 msgstr ""
-"B<cfdisk [ -agvz ] [ -c >I<cylindres>B< ] [ -h >I<têtes>B< ]> B<[ -s "
-">I<secteurs-par-piste>B< ] [ -P >I<opt>B< ] [ >I<périph>B< ]>"
+"B<cfdisk> [B<-agvz>] [B<-c> I<cylindre>] [B<-h> I<têtes>] [B<-s> I<secteurs-"
+"par-piste>] [B<-P> I<opt>] [I<périphérique>]"
 
 #. type: Plain text
 #: C/man8/cfdisk.8:35
@@ -9870,7 +9904,6 @@ msgstr "B<W>"
 
 #. type: Plain text
 #: C/man8/cfdisk.8:369
-#, fuzzy
 #| msgid ""
 #| "Write partition table to disk (must enter an upper case W).  Since this "
 #| "might destroy data on the disk, you must either confirm or deny the write "
@@ -9895,10 +9928,11 @@ msgstr ""
 "votre disque, vous devez confirmer ou annuler l'ordre d'écriture en entrant "
 "« yes » ou « no ». Si vous entrez « yes », B<cfdisk> écrira la table de "
 "partition sur le disque et enverra l'ordre au noyau de relire la table de "
-"partitions à partir du disque. La relecture de la table fonctionne dans la "
-"plupart des cas, mais elle échoue parfois. Ne paniquez pas. Tout rentrera "
-"dans l'ordre dès que vous redémarrerez le système. Dans tous les cas, il est "
-"recommandé de redémarrer le système - juste pour être sûr."
+"partitions à partir du disque. La relecture de la table ne fonctionne pas "
+"dans certains cas comme les péripérique gérés par device-mapper. Dans des "
+"cas particuliers, vous aurez besoin d'informer le noyau vous-mêmes d'une "
+"nouvelle partition avec B<partprobe>(8), B<kpartx>(8) ou de redémarrer le "
+"système."
 
 #. type: TP
 #: C/man8/cfdisk.8:369
@@ -10123,7 +10157,6 @@ msgstr "B<ctrlaltdel hard>|B<soft>"
 
 #. type: Plain text
 #: C/man8/ctrlaltdel.8:27
-#, fuzzy
 #| msgid ""
 #| "Based on examination of the I<linux/kernel/sys.c> code, it is clear that "
 #| "there are two supported functions that the Ctrl-Alt-Del sequence can "
@@ -10145,16 +10178,16 @@ msgid ""
 "programs in the Linux community, please consult the documentation for the "
 "version that you are currently using."
 msgstr ""
-"Basé sur le code source de I<linux/kernel/sys.c>, il est évident que "
-"seulement deux comportements peuvent être exécutés par la combinaison Ctrl-"
-"Alt-Del : un redémarrage I<hard>, qui consiste à redémarrer immédiatement "
-"l'ordinateur sans faire appel à B<sync>(2), ni aucune préparation ; et un "
-"redémarrage I<soft> , qui consiste à l'envoi d'un signal SIGINT (interrupt) "
-"au processus B<init> (dont le PID est toujours égal à 1). Si cette option "
-"est utilisée, le programme B<init>(8) doit gérer cette fonctionnalité. "
-"Puisqu'il y a actuellement plusieurs programmes B<init>(8) dans la "
-"communauté Linux, veuillez consulter la documentation de la version que vous "
-"utilisez actuellement."
+"Basé sur l'examen du code source de I<linux/kernel/sys.c>, il est évident "
+"que seulement deux comportements peuvent être exécutés par la combinaison "
+"Ctrl-Alt-Del : un redémarrage I<hard>, qui consiste à redémarrer "
+"immédiatement l'ordinateur sans faire appel à B<sync>(2) sans aucune "
+"préparation ; et un redémarrage I<soft>, qui consiste à envoyer un signal "
+"SIGINT (interrupt) au processus B<init> (dont le PID est toujours égal à 1). "
+"Si cette option est utilisée, le programme B<init>(8) doit gérer cette "
+"fonctionnalité. Puisqu'il y a actuellement plusieurs programmes B<init>(8) "
+"dans la communauté Linux, veuillez consulter la documentation de la version "
+"que vous utilisez actuellement."
 
 #. type: Plain text
 #: C/man8/ctrlaltdel.8:32
@@ -10207,7 +10240,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/cytune.8:41
-#, fuzzy
 #| msgid ""
 #| "B<cytune [-q [-i >I<interval>B<]] ([-s >I<value>B<]|[-S >I<value>B<]) [-g|"
 #| "G] > B<([-t>I< timeout>B<]|[-T>I< timeout>B<])>I< tty>B< [>I<tty>B< ...]>"
@@ -10215,8 +10247,8 @@ msgid ""
 "B<cytune> [B<-q> [B<-i> I<interval>]] [{B<-s>|B<-S>} I<value>] [B<-g>|B<-G>] "
 "[{B<-t>|B<-T>} I<timeout>] I<tty>..."
 msgstr ""
-"B<cytune [-q [-i >I<intervalle>B<]] ([-s >I<valeur>B<]|[-S >I<valeur>B<]) [-"
-"g|G] > B<([-t>I< timeout>B<]|[-T>I< timeout>B<])>I< tty>B< [>I<tty>B< ...]>"
+"B<cytune> [B<-q> [B<-i> I<intervalle>]] [{B<-s>|B<-S>} I<valeur>] [B<-g>|B<-"
+"G>] [{B<-t>|B<-T>} I<timeout>] I<tty>..."
 
 #. type: Plain text
 #: C/man8/cytune.8:49
@@ -10438,7 +10470,6 @@ msgstr "B<-S>I< valeur>"
 
 #. type: Plain text
 #: C/man8/cytune.8:159
-#, fuzzy
 #| msgid ""
 #| "Set the current threshold to I<value> characters.  Note that if the "
 #| "I<tty> is not being held open by another process, the threshold will be "
@@ -10449,10 +10480,9 @@ msgid ""
 "opened, this value will be used instead of the default.  Only values between "
 "1 and 12, inclusive, are permitted."
 msgstr ""
-"Fixer le seuil courant à I<valeur> caractères. Notez que si le I<tty> n'est "
-"pas maintenu ouvert par un autre processus, le seuil sera remis à zéro à la "
-"prochaine ouverture. Seules les valeurs entre 1 et 12, incluses, sont "
-"autorisées."
+"Fixer le seuil courant à I<valeur> caractères. Notez que si le I<tty> est de "
+"nouveau ouvert, cette valeur sera utilisée à la place de la valeur par "
+"défaut. Seules les valeurs entre 1 et 12, incluses, sont autorisées."
 
 #. type: TP
 #: C/man8/cytune.8:159
@@ -10733,7 +10763,6 @@ msgstr "fdisk - Gestionnaire de tables de partitions pour Linux"
 
 #. type: Plain text
 #: C/man8/fdisk.8:19
-#, fuzzy
 #| msgid ""
 #| "B<fdisk [-u] [-b >I<sectorsize>B<]> B<[-C >I<cyls>B<] [-H >I<heads>B<] [-"
 #| "S >I<sects>B<] >I<device>"
@@ -10741,8 +10770,8 @@ msgid ""
 "B<fdisk> [B<-u>] [B<-b> I<sectorsize>] [B<-C> I<cyls>] [B<-H> I<heads>] [B<-"
 "S> I<sects>] I<device>"
 msgstr ""
-"B<fdisk [-u] [-b >I<taille_du_secteur>B<]> B<[-C >I<cylindres>B<] [-H "
-">I<têtes>B<] [-S >I<secteurs>B<] >I<périphérique>"
+"B<fdisk> [B<-u>] [B<-b> I<taille_du_secteur>] [B<-C> I<cyls>] [B<-H> "
+"I<têtes>] [B<-S> I<sects>] I<péripérique>"
 
 #. type: Plain text
 #: C/man8/fdisk.8:23
@@ -10751,10 +10780,9 @@ msgstr "B<fdisk -l> [B<-u>] [I<périphérique>...]"
 
 #. type: Plain text
 #: C/man8/fdisk.8:26
-#, fuzzy
 #| msgid "B<fdisk -s >I<partition ...>"
 msgid "B<fdisk -s> I<partition>..."
-msgstr "B<fdisk -s >I<partition ...>"
+msgstr "B<fdisk -s> I<partition>..."
 
 #. type: Plain text
 #: C/man8/fdisk.8:28
@@ -10821,7 +10849,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/fdisk.8:61
-#, fuzzy
 #| msgid ""
 #| "B<fdisk> doesn't understand GUID Partition Table (GPT) and it is not "
 #| "designed for large partitions. In particular case use more advanced GNU "
@@ -10832,8 +10859,8 @@ msgid ""
 "B<parted>(8)."
 msgstr ""
 "B<fdisk> ne comprend pas les tables de partitions GUID (GPT: « GUID Partition "
-"Table ») et n'est pas conçu pour les grosses partitions. Pour ces cas "
-"particuliers, utilisez GNU B<parted>(8), qui est plus avancé."
+"Table ») et n'est pas conçu pour les partitions de grandes tailles. Pour ces "
+"cas particuliers, utilisez GNU B<parted>(8), qui est plus avancé."
 
 #. type: Plain text
 #: C/man8/fdisk.8:69
