@@ -1,15 +1,16 @@
-# French translations for PACKAGE package
+# French translations for openssl package
 # Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# This file is distributed under the same license as the openssl package.
+#
+# Copyright (C) 2008 Nicolas François <nicolas.francois@centraliens.net>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl 0.9.8g-8\n"
 "POT-Creation-Date: 2009-09-06 16:40+0300\n"
-"PO-Revision-Date: 2009-09-06 18:46+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2009-12-24 16:55-0500\n"
+"Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -757,7 +758,7 @@ msgstr "L<ERR_get_error(3)|ERR_get_error(3)>"
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:5
 msgid "ASN1_generate_nconf, ASN1_generate_v3 - ASN1 generation functions"
-msgstr ""
+msgstr "ASN1_generate_nconf, ASN1_generate_v3 - Fonction de génération ASN1"
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:9
@@ -777,6 +778,8 @@ msgid ""
 "These functions generate the ASN1 encoding of a string in an B<ASN1_TYPE> "
 "structure."
 msgstr ""
+"Ces fonctions génèrent l'encodage ASN1 d'une chaîne dans une structure "
+"B<ASN1_TYPE>."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:17
@@ -788,11 +791,18 @@ msgid ""
 "X509 v3 certificate extension functions. B<cnf> or B<nconf> can be set to "
 "B<NULL> if no additional configuration will be used."
 msgstr ""
+"B<str> contient la chaîne à encoder. B<nconf> ou B<cnf> contient les "
+"informations optionnelles de configuration dans lesquelles d'autres "
+"chaînes seront lues. B<nconf> proviendra typiquement d'un fichier de "
+"configuration tandis que B<cnf> est obtenu dans une structure "
+"B<X509V3_CTX> qui sera typiquement utilisée par les fonctions d'extension "
+"de certificats X509 v3. B<cnf> ou B<nconf> peuvent valoir B<NULL> si "
+"aucune configuration additionnelle ne sera utilisée."
 
 #. type: =head1
 #: C/crypto/ASN1_generate_nconf.pod:25
 msgid "GENERATION STRING FORMAT"
-msgstr ""
+msgstr "FORMAT DES CHAÎNES DE GÉNÉRATION"
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:27
@@ -800,11 +810,13 @@ msgid ""
 "The actual data encoded is determined by the string B<str> and the "
 "configuration information. The general format of the string is:"
 msgstr ""
+"Les données effectivement encodées sont déterminées par la chaîne B<str> "
+"et les informations de configuration. Le format général de la chaîne est :"
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:33
 msgid "B<[modifier,]type[:value]>"
-msgstr ""
+msgstr "B<[modificateur,]type[:valeur]>"
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:37
@@ -813,6 +825,11 @@ msgid ""
 "by an optional colon and a value. The formats of B<type>, B<value> and "
 "B<modifier> are explained below."
 msgstr ""
+"CV'est-à-dire zéro modificateur ou plus séparés par des virgules suivit "
+"d'un type, lui-même suivit de façon optionnelle par un signe deux-point et "
+"une valeur. Les formats de B<type>, B<valeur> et B<modificateur> sont "
+"décrits ci-dessous."
+
 
 #. type: =head2
 #: C/crypto/ASN1_generate_nconf.pod:41
@@ -825,6 +842,8 @@ msgid ""
 "The supported types are listed below. Unless otherwise specified only the "
 "B<ASCII> format is permissible."
 msgstr ""
+"Les types pris en charge sont listés ci-dessous. À moinsque ce ne soit "
+"spécifié explicitement, seul le format B<ASCII> est autorisé."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:48
@@ -838,6 +857,10 @@ msgid ""
 "B<TRUE> or B<FALSE>. Additionally B<TRUE>, B<true>, B<Y>, B<y>, B<YES>, "
 "B<yes>, B<FALSE>, B<false>, B<N>, B<n>, B<NO> and B<no> are acceptable."
 msgstr ""
+"Encoder un type booléen. La chaîne B<valeur> est obligatoire et devrait "
+"valoir soit B<TRUE> soit B<FALSE>. Les valeurs B<TRUE>, B<true>, B<Y>, "
+"B<y>, B<YES>, B<yes>, B<FALSE>, B<false>, B<N>, B<n>, B<NO> et B<no> sont "
+"acceptées."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:55
@@ -847,7 +870,7 @@ msgstr "B<NULL>"
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:57
 msgid "Encode the B<NULL> type, the B<value> string must not be present."
-msgstr ""
+msgstr "Encoder le type B<NULL>, la chaîne B<valeur> ne doit pas être présente."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:59
@@ -861,6 +884,10 @@ msgid ""
 "the integer, it can be preceeded by a minus sign and is normally interpreted "
 "as a decimal value unless the prefix B<0x> is included."
 msgstr ""
+"Encoder un type ASN1 B<INTEGER>. La chaîne B<valeur> représente la valeur de "
+"l'entier. Elle peut être précédée d'un signe moins et est normalement "
+"interprétée comme une valeur décimale à moins que le préfixe B<0x> soit "
+"inclus."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:66
@@ -872,6 +899,7 @@ msgstr "B<ENUMERATED>, B<ENUM>"
 msgid ""
 "Encodes the ASN1 B<ENUMERATED> type, it is otherwise identical to B<INTEGER>."
 msgstr ""
+"Encoder un type ASN1 B<ENUMERATED>, par ailleur identique à B<INTEGER>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:71
@@ -884,6 +912,8 @@ msgid ""
 "Encodes an ASN1 B<OBJECT IDENTIFIER>, the B<value> string can be a short "
 "name, a long name or numerical format."
 msgstr ""
+"Encoder untype ASN1 B<OBJECT IDENTIFIER>, la chaîne B<valeur> peut être "
+"un nom court, un nom long ou un format numérique."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:76
@@ -896,6 +926,8 @@ msgid ""
 "Encodes an ASN1 B<UTCTime> structure, the value should be in the format "
 "B<YYMMDDHHMMSSZ>."
 msgstr ""
+"Encoder une structure ASN1 B<UTCTime>. La B<valeur> doit être au format "
+"B<AAMMDDHHMMSSZ>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:81
@@ -908,6 +940,8 @@ msgid ""
 "Encodes an ASN1 B<GeneralizedTime> structure, the value should be in the "
 "format B<YYYYMMDDHHMMSSZ>."
 msgstr ""
+"Encoder une structure ASN1 B<GeneralizedTime>. La B<valeur> doit être au "
+"format B<AAAAMMDDHHMMSSZ>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:86
@@ -921,6 +955,9 @@ msgid ""
 "structure, the format strings B<ASCII> and B<HEX> can be used to specify the "
 "format of B<value>."
 msgstr ""
+"Encoder un type ASN1 B<OCTET STRING>. La B<valeur> représente le contenu "
+"de cette structure. Les chaînes de format B<ASCII> et B<HEX> peuvent être "
+"utilisées pour indiquer le format de B<valeur>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:92
@@ -934,6 +971,9 @@ msgid ""
 "structure, the format strings B<ASCII>, B<HEX> and B<BITLIST> can be used to "
 "specify the format of B<value>."
 msgstr ""
+"Encoder un type ASN1 B<BIT STRING>. La B<valeur> représente le contenu de "
+"cette structure. Les chaînes de format B<ASCII>, B<HEX> et B<BITLIST> "
+"peuvent être utilisées pour indiquer le format de B<valeur>."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:98
@@ -941,6 +981,8 @@ msgid ""
 "If the format is anything other than B<BITLIST> the number of unused bits is "
 "set to zero."
 msgstr ""
+"Si le format diffère de B<BITLIST>, le nombre de bits non utilisés est "
+"mis à zéro."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:101
@@ -959,6 +1001,8 @@ msgid ""
 "These encode the corresponding string types. B<value> represents the "
 "contents of this structure. The format can be B<ASCII> or B<UTF8>."
 msgstr ""
+"Encoder les types de chaîne correspondant. La B<valeur> représente le "
+"contenu de cette structure.Le format peut être B<ASCII> ou B<UTF8>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:109
@@ -973,11 +1017,16 @@ msgid ""
 "section are ignored and the values are in the generated string format. If "
 "B<value> is absent then an empty SEQUENCE will be encoded."
 msgstr ""
+"Formater le résultat en tant que type ASN1 B<SEQUENCE> ou B<SET>. La "
+"B<valeur> devrait être un nom de section qui contiendra le contenu. Les "
+"noms des champs de la section sont ignorés et les valeurs sont au format "
+"de la chaîne générée. Si B<valeur> est absent, alors une SEQUENCE vide "
+"sera encodée."
 
 #. type: =head2
 #: C/crypto/ASN1_generate_nconf.pod:119
 msgid "MODIFIERS"
-msgstr ""
+msgstr "MODIFICATEURS"
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:121
@@ -986,6 +1035,10 @@ msgid ""
 "or IMPLICIT tagging, add wrappers or to change the string format of the "
 "final type and value. The supported formats are documented below."
 msgstr ""
+"Les modificateurs affectent les structures suivantes. Ils peuvent être "
+"utilisés pour ajouter des étiquettes EXPLICIT ou IMPLICIT, ajouter des "
+"enveloppes ou changer le format de chaîne du type et de la valeur finale. "
+"Les formats pris en charge sont documentés ci-dessous."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:128
@@ -998,6 +1051,9 @@ msgid ""
 "Add an explicit tag to the following structure. This string should be "
 "followed by a colon and the tag value to use as a decimal value."
 msgstr ""
+"Ajouter une étiquette explicite à la structure suivante. Cette chaîne "
+"devrait être suivie par un deux-points et la valeur de l'étiquette à "
+"utiliser sous forme numérique décimale."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:134
@@ -1006,6 +1062,9 @@ msgid ""
 "APPLICATION, PRIVATE or CONTEXT SPECIFIC tagging can be used, the default is "
 "CONTEXT SPECIFIC."
 msgstr ""
+"En faisant suivre le nombre d'un B<U>, B<A>, B<P> ou B<C>, une étiquette "
+"de type UNIVERSAL, APPLICATION, PRIVATE ou CONTEXT SPECIFIC peut être "
+"utilisée (CONTEXT SPECIFIC par défaut)."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:138
@@ -1017,6 +1076,7 @@ msgstr "B<IMPLICIT>, B<IMP>"
 msgid ""
 "This is the same as B<EXPLICIT> except IMPLICIT tagging is used instead."
 msgstr ""
+"Identique à B<EXPLICIT> sauf qu'un étiquetage IMPLICIT est utilisé à la place."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:143
@@ -1030,6 +1090,9 @@ msgid ""
 "or a BIT STRING respectively. For a BIT STRING the number of unused bits is "
 "set to zero."
 msgstr ""
+"La structure suivante est entourée par une OCTET STRING, une SEQUENCE, "
+"un SET ou une BIT STRING respectivement. Pour une BIT STRING, le nombre de "
+"bits non utilisés est mis à zéro."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:149
@@ -1042,6 +1105,9 @@ msgid ""
 "This specifies the format of the ultimate value. It should be followed by a "
 "colon and one of the strings B<ASCII>, B<UTF8>, B<HEX> or B<BITLIST>."
 msgstr ""
+"Ceci spécifie le format de la valeur finale. Il devrait être suivi par un "
+"signe deux-points et une des chaînes B<ASCII>, B<UTF8>, B<HEX> ou "
+"B<BITLIST>."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:154
@@ -1052,11 +1118,17 @@ msgid ""
 "a BIT STRING) is a comma separated list of the indices of the set bits, all "
 "other bits are zero."
 msgstr ""
+"Si aucune chaîne de format n'est inclue alors B<ASCII> est utilisée. Si "
+"B<UTF8> est spécifiée alors la chaîne B<valeur> doit être une chaîne "
+"B<UTF8> correcte. Pour le format B<HEX> la sortie doit être un ensemble de "
+"chiffres hexadécimaux. B<BITLIST> (qui n'est correct que pour une BIT "
+"STRING) est la liste des index des bits positionnés séparés par des "
+"virgules, tous les autres bits valent zéro."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:164
 msgid "A simple IA5String:"
-msgstr ""
+msgstr "Une IA5String simple :"
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:166
@@ -1071,7 +1143,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:168
 msgid "An IA5String explicitly tagged:"
-msgstr ""
+msgstr "Une IA5String étiquettée explicitement :"
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:170
@@ -1086,7 +1158,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:172
 msgid "An IA5String explicitly tagged using APPLICATION tagging:"
-msgstr ""
+msgstr "Une IA5String étiquettée explicitement et utilisant une étiquette APPLICATION :"
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:174
@@ -1101,7 +1173,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:176
 msgid "A BITSTRING with bits 1 and 5 set and all others zero:"
-msgstr ""
+msgstr "Une BITSTRING avec les bits 1 et 5activés et tous les autres à zéro :"
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:178
@@ -1119,6 +1191,9 @@ msgid ""
 "A more complex example using a config file to produce a SEQUENCE consiting "
 "of a BOOL an OID and a UTF8String:"
 msgstr ""
+"Un exemple plus complexe utilisant un fichier de configuration pour "
+"produire une SEQUENCE constituée d'un BOOL, d'un OID et d'une "
+"UTF8String :"
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:183
@@ -1161,6 +1236,10 @@ msgid ""
 "in the file client.pem in all OpenSSL distributions (note: the field names "
 "such as 'coeff' are ignored and are present just for clarity):"
 msgstr ""
+"Cet exemple produit une structure RSAPrivateKey. Il s'agit de la clé "
+"contenue dans le fichier client.pem de toute distribution OpenSSL (note : "
+"les noms des champs comme « coeff » sont ignorés et ne sont présent que "
+"pour des raisons de clarté."
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:196
@@ -1276,6 +1355,8 @@ msgid ""
 "This example is the corresponding public key in a SubjectPublicKeyInfo "
 "structure:"
 msgstr ""
+"Cet exemple est la clé publique correspondante dan,s une structure "
+"SubjectPublicKeyInfo :"
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:226
@@ -1345,6 +1426,9 @@ msgid ""
 "ASN1_generate_nconf() and ASN1_generate_v3() return the encoded data as an "
 "B<ASN1_TYPE> structure or B<NULL> if an error occurred."
 msgstr ""
+"ASN1_generate_nconf() et ASN1_generate_v3() renvoient les données "
+"encodées sous la forme d'une structure B<ASN1_TYPE> ou B<NULL> si une "
+"erreur est survenue."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:252

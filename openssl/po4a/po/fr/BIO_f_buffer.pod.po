@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2009-09-06 16:40+0300\n"
-"PO-Revision-Date: 2009-09-06 17:06+0200\n"
+"PO-Revision-Date: 2009-12-24 17:24-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -780,7 +780,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:5
 msgid "BIO_f_buffer - buffering BIO"
-msgstr ""
+msgstr "BIO_f_buffer - buffering BIO avec miseen tampon"
 
 #. type: verbatim
 #: C/crypto/BIO_f_buffer.pod:11
@@ -789,6 +789,8 @@ msgid ""
 " BIO_METHOD * BIO_f_buffer(void);\n"
 "\n"
 msgstr ""
+" BIO_METHOD * BIO_f_buffer(void);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/BIO_f_buffer.pod:13
@@ -801,11 +803,17 @@ msgid ""
 " #define BIO_set_buffer_read_data(b,buf,num) BIO_ctrl(b,BIO_C_SET_BUFF_READ_DATA,num,buf)\n"
 "\n"
 msgstr ""
+" #define BIO_get_buffer_num_lines(b)\tBIO_ctrl(b,BIO_C_GET_BUFF_NUM_LINES,0,NULL)\n"
+" #define BIO_set_read_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,0)\n"
+" #define BIO_set_write_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,1)\n"
+" #define BIO_set_buffer_size(b,size)\tBIO_ctrl(b,BIO_C_SET_BUFF_SIZE,size,NULL)\n"
+" #define BIO_set_buffer_read_data(b,buf,num) BIO_ctrl(b,BIO_C_SET_BUFF_READ_DATA,num,buf)\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:21 C/crypto/BIO_f_buffer.pod:57
 msgid "BIO_f_buffer() returns the buffering BIO method."
-msgstr ""
+msgstr "BIO_f_buffer() renvoie la méthode BIO de mise en tampon."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:23
@@ -826,6 +834,8 @@ msgstr ""
 msgid ""
 "BIO_get_buffer_num_lines() returns the number of lines currently buffered."
 msgstr ""
+"BIO_get_buffer_num_lines() renvoie le nombre de lignes actuellement dans "
+"le tampon."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:32
@@ -869,6 +879,8 @@ msgstr ""
 msgid ""
 "BIO_get_buffer_num_lines() returns the number of lines buffered (may be 0)."
 msgstr ""
+"BIO_get_buffer_num_lines() renvoie le nombre de lignes en tampon (peut "
+"être 0)."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:61
@@ -877,6 +889,9 @@ msgid ""
 "BIO_set_buffer_size()  return 1 if the buffer was successfully resized or 0 "
 "for failure."
 msgstr ""
+"BIO_set_read_buffer_size(), BIO_set_write_buffer_size() et "
+"BIO_set_buffer_size() renvoient 1 si la taille du tampon a pu être "
+"modifiée ou 0 en cas d'échec."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:64
@@ -884,3 +899,5 @@ msgid ""
 "BIO_set_buffer_read_data() returns 1 if the data was set correctly or 0 if "
 "there was an error."
 msgstr ""
+"BIO_set_buffer_read_data() renvoie 1 si les données ont pu être "
+"positionnées correctement ou 0 s'il y a eu une erreur."

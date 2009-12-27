@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2009-09-06 16:40+0300\n"
-"PO-Revision-Date: 2009-09-06 17:09+0200\n"
+"PO-Revision-Date: 2009-12-24 17:31-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -795,6 +795,10 @@ msgid ""
 "BIO_get_conn_ip, BIO_get_conn_int_port, BIO_set_nbio, BIO_do_connect - "
 "connect BIO"
 msgstr ""
+"BIO_s_connect, BIO_set_conn_hostname, BIO_set_conn_port, BIO_set_conn_ip, "
+"BIO_set_conn_int_port, BIO_get_conn_hostname, BIO_get_conn_port, "
+"BIO_get_conn_ip, BIO_get_conn_int_port, BIO_set_nbio, BIO_do_connect - "
+"Connecter un BIO"
 
 #. type: verbatim
 #: C/crypto/BIO_s_connect.pod:14
@@ -803,6 +807,8 @@ msgid ""
 " BIO_METHOD * BIO_s_connect(void);\n"
 "\n"
 msgstr ""
+" BIO_METHOD * BIO_s_connect(void);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/BIO_s_connect.pod:16
@@ -811,6 +817,8 @@ msgid ""
 " BIO *BIO_new_connect(char *name);\n"
 "\n"
 msgstr ""
+" BIO *BIO_new_connect(char *name);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/BIO_s_connect.pod:18
@@ -826,6 +834,15 @@ msgid ""
 " long BIO_get_conn_int_port(BIO *b, int port);\n"
 "\n"
 msgstr ""
+" long BIO_set_conn_hostname(BIO *b, char *name);\n"
+" long BIO_set_conn_port(BIO *b, char *port);\n"
+" long BIO_set_conn_ip(BIO *b, char *ip);\n"
+" long BIO_set_conn_int_port(BIO *b, char *port);\n"
+" char *BIO_get_conn_hostname(BIO *b);\n"
+" char *BIO_get_conn_port(BIO *b);\n"
+" char *BIO_get_conn_ip(BIO *b, dummy);\n"
+" long BIO_get_conn_int_port(BIO *b, int port);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/BIO_s_connect.pod:27
@@ -834,6 +851,8 @@ msgid ""
 " long BIO_set_nbio(BIO *b, long n);\n"
 "\n"
 msgstr ""
+" long BIO_set_nbio(BIO *b, long n);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/BIO_s_connect.pod:29
@@ -842,6 +861,8 @@ msgid ""
 " int BIO_do_connect(BIO *b);\n"
 "\n"
 msgstr ""
+" int BIO_do_connect(BIO *b);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:33
@@ -1036,6 +1057,10 @@ msgid ""
 "BIO_get_conn_ip(), BIO_get_conn_int_port(), BIO_set_nbio() and BIO_do_connect"
 "() are macros."
 msgstr ""
+"BIO_set_conn_hostname(), BIO_set_conn_port(), BIO_set_conn_ip(), "
+"BIO_set_conn_int_port(), BIO_get_conn_hostname(), BIO_get_conn_port(), "
+"BIO_get_conn_ip(), BIO_get_conn_int_port(), BIO_set_nbio() et BIO_do_connect"
+"() sont des macros."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:138
@@ -1047,6 +1072,7 @@ msgstr ""
 msgid ""
 "BIO_get_fd() returns the socket or -1 if the BIO has not been initialized."
 msgstr ""
+"BIO_get_fd() renvoie la socket ou -1 si le BIO n'a pas été initialisé."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:143
@@ -1054,6 +1080,8 @@ msgid ""
 "BIO_set_conn_hostname(), BIO_set_conn_port(), BIO_set_conn_ip() and "
 "BIO_set_conn_int_port() always return 1."
 msgstr ""
+"BIO_set_conn_hostname(), BIO_set_conn_port(), BIO_set_conn_ip() et "
+"BIO_set_conn_int_port() renvoient toujours 1."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:146
@@ -1061,6 +1089,8 @@ msgid ""
 "BIO_get_conn_hostname() returns the connected hostname or NULL is none was "
 "set."
 msgstr ""
+"BIO_get_conn_hostname() renvoie le nom de l'hôte connecté ou NULL s'il "
+"n'y en a pas."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:149
@@ -1068,6 +1098,8 @@ msgid ""
 "BIO_get_conn_port() returns a string representing the connected port or NULL "
 "if not set."
 msgstr ""
+"BIO_get_conn_port() renvoie une chaîne représentant le port connecté ou "
+"NULL s'il n'y en a pas."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:152
@@ -1075,12 +1107,15 @@ msgid ""
 "BIO_get_conn_ip() returns a pointer to the connected IP address in binary "
 "form or all zeros if not set."
 msgstr ""
+"BIO_get_conn_ip() renvoie un pointeur vers l'adresse IP connectée sous "
+"forme binaire ou que des zéro s'il n'y en a pas."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:155
 msgid ""
 "BIO_get_conn_int_port() returns the connected port or 0 if none was set."
 msgstr ""
+"BIO_get_conn_int_port() renvoie le port connecté ou 0 s'il n'y en a pas."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:158
@@ -1093,6 +1128,8 @@ msgid ""
 "BIO_do_connect() returns 1 if the connection was successfully established "
 "and 0 or -1 if the connection failed."
 msgstr ""
+"BIO_do_connect() renvoie 1 si la connexion a été établie avec succès et 0 "
+"ou -1 si la connexion a échoué."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:165
@@ -1100,6 +1137,9 @@ msgid ""
 "This is example connects to a webserver on the local host and attempts to "
 "retrieve a page and copy the result to standard output."
 msgstr ""
+"Voici un exemple qui se connecte à un serveur web sur l'hôte local, "
+"tente de récupérer une page, puis copie le résultat sur la sortie "
+"standard."
 
 #. type: verbatim
 #: C/crypto/BIO_s_connect.pod:169
@@ -1126,3 +1166,23 @@ msgid ""
 " BIO_free(out);\n"
 "\n"
 msgstr ""
+" BIO *cbio, *out;\n"
+" int len;\n"
+" char tmpbuf[1024];\n"
+" ERR_load_crypto_strings();\n"
+" cbio = BIO_new_connect(\"localhost:http\");\n"
+" out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+" if(BIO_do_connect(cbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error connecting to server\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\t/* whatever ... */\n"
+"\t}\n"
+" BIO_puts(cbio, \"GET / HTTP/1.0\\n\\n\");\n"
+" for(;;) {\t\n"
+"\tlen = BIO_read(cbio, tmpbuf, 1024);\n"
+"\tif(len <= 0) break;\n"
+"\tBIO_write(out, tmpbuf, len);\n"
+" }\n"
+" BIO_free(cbio);\n"
+" BIO_free(out);\n"
+"\n"
