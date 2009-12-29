@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra-util-linux\n"
 "POT-Creation-Date: 2009-10-31 13:12+0100\n"
-"PO-Revision-Date: 2009-12-22 21:42+0100\n"
+"PO-Revision-Date: 2009-12-26 23:43+0100\n"
 "Last-Translator: Florentin Duneau <fduneau@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -10871,10 +10871,14 @@ msgid ""
 "between IDE and SCSI disks. In such a case the device name will be /dev/hd* "
 "(IDE) or /dev/sd* (SCSI)."
 msgstr ""
+"Le I<@DEV> est habituellement /dev/sda, /dev/sdB ou équivalent. Un nom de "
+"@DEV fait référence au disque entier. Les vieux systèmes sans libata (une "
+"@LIB utilisé dans le noyau Linux pour gérer les contrôleur et les @DEVS ATA) "
+"font une différence entre les disques IDE et SCSI. Dans un tel cas, le nom "
+"de @DEV sera /dev/hd* (IDE) ou /dev/sda (SCSI)."
 
 #. type: Plain text
 #: C/man8/fdisk.8:78
-#, fuzzy
 #| msgid ""
 #| "The I<partition> is a I<device> name followed by a partition number.  For "
 #| "example, B</dev/hda1> is the first partition on the first IDE hard disk "
@@ -10887,10 +10891,8 @@ msgid ""
 "file)."
 msgstr ""
 "La I<partition> est un nom de I<périphérique> suivi d'un numéro de "
-"partition. Par exemple, B</dev/hda1> est la première partition du premier "
-"disque dur IDE du système. Les disques IDE peuvent contenir jusqu'à 63 "
-"partitions, 15 pour les disques SCSI. Voyez également I</usr/src/linux/"
-"Documentation/devices.txt>."
+"partition. Par exemple, B</dev/sda1> est la première partition du premier "
+"disque dur du système. Consultez également Documentation/devices.txt."
 
 #. type: Plain text
 #: C/man8/fdisk.8:84
@@ -11057,7 +11059,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/fdisk.8:168
-#, fuzzy
 #| msgid ""
 #| "The bottom line is that if you use cfdisk or fdisk to change the size of "
 #| "a DOS partition table entry, then you must also use B<dd> to zero the "
@@ -11077,15 +11078,16 @@ msgid ""
 "command \"dd if=/dev/zero of=/dev/sda1 bs=512 count=1\" to zero the first "
 "512 bytes of the partition."
 msgstr ""
-"Si vous utilisez cfdisk ou fdisk pour modifier la taille d'une entrée DOS de "
-"la table des partitions, alors vous devrez également utiliser B<dd> pour "
-"mettre à zéro les 512 premiers octets de cette partition avant d'utiliser le "
-"FORMAT DOS pour formater cette partition. Par exemple, si vous avez utilisé "
-"cfdisk pour créer une entrée DOS dans la table des partitions pour /dev/"
-"hda1, alors (après la sortie de fdisk ou de cfdisk et après avoir redémarré "
-"Linux afin que les informations sur la table des partitions soient valides) "
-"vous devriez utiliser la commande «\\ dd if=/dev/zero of=/dev/hda1 bs=512 "
-"count=1\\ » pour mettre à zéro les 512 premiers octets de la partition."
+"La ligne du bas signifie que si vous utilisez cfdisk ou fdisk pour modifier "
+"la taille d'une entrée DOS de la table des partitions, alors vous devrez "
+"également utiliser B<dd> pour mettre à zéro les 512 premiers octets de cette "
+"partition avant d'utiliser le FORMAT DOS pour formater cette partition. Par "
+"exemple, si vous avez utilisé cfdisk pour créer une entrée DOS dans la table "
+"des partitions pour /dev/sda1, alors (après la sortie de fdisk ou de cfdisk "
+"et après avoir redémarré Linux afin que les informations sur la table des "
+"partitions soient valables) vous devriez utiliser la commande «\\ dd if=/dev/"
+"zero of=/dev/sda1 bs=512 count=1\\ » pour mettre à zéro les 512 premiers "
+"octets de la partition."
 
 #. type: TP
 #: C/man8/fdisk.8:179
@@ -11095,7 +11097,6 @@ msgstr "B<-b >I<taille_du_secteur>"
 
 #. type: Plain text
 #: C/man8/fdisk.8:184
-#, fuzzy
 #| msgid ""
 #| "Specify the sector size of the disk. Valid values are 512, 1024, or "
 #| "2048.  (Recent kernels know the sector size. Use this only on old kernels "
@@ -11105,10 +11106,10 @@ msgid ""
 "4096.  (Recent kernels know the sector size. Use this only on old kernels or "
 "to override the kernel's ideas.)"
 msgstr ""
-"Spécifier la taille des secteurs du disque. Les valeurs valides sont 512, "
-"1024 et 2048. (Les noyaux récents connaissent la taille de secteur. "
+"Spécifier la taille des secteurs du disque. Les valeurs valables sont 512, "
+"1024, 2048 et 4096 (les noyaux récents connaissent la taille de secteur. "
 "N'utilisez cette option que sur des noyaux anciens ou pour passer outre "
-"l'avis du noyau.)"
+"l'avis du noyau)."
 
 #. type: TP
 #: C/man8/fdisk.8:184
@@ -11316,10 +11317,11 @@ msgid ""
 "B<findfs> was originally written by Theodore Ts'o (tytso@mit.edu) and re-"
 "written for util-linux-ng package by Karel Zak (kzak@redhat.com)."
 msgstr ""
+"B<findfs> a été écrit par Theodore Ts'o (tytso@mit.edu) et ré-écrit par "
+"Karel Zak (kzak@redhat.com) pour le paquet util-linux-ng."
 
 #. type: Plain text
 #: C/man8/findfs.8:32
-#, fuzzy
 #| msgid ""
 #| "The blockdev command is part of the util-linux-ng package and is "
 #| "available from ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/."
@@ -11327,7 +11329,7 @@ msgid ""
 "B<findfs> The blkid command is part of the util-linux-ng package and is "
 "available from ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/."
 msgstr ""
-"La commande blockdev fait partie du paquet util-linux-ng, elle est "
+"La commande B<findfs> fait partie du paquet util-linux-ng, elle est "
 "disponible sur ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/."
 
 #. type: Plain text
@@ -11348,7 +11350,6 @@ msgstr "fsck - Vérifier et réparer un système de fichiers Linux."
 
 #. type: Plain text
 #: C/man8/fsck.8:18
-#, fuzzy
 #| msgid ""
 #| "B<fsck> [ B<-sAVRTMNP> ] [ B<-C> [ I<fd> ] ] [ B<-t> I<fstype> ] I<"
 #| "[filesys ... ]> [--] [ B<fs-specific-options> ]"
@@ -11356,8 +11357,8 @@ msgid ""
 "B<fsck> [B<-sAVRTMNP>] [B<-C> [I<fd>]] [B<-t> I<fstype>] [I<filesys>...] "
 "[B<-->] [I<fs-specific-options>]"
 msgstr ""
-"B<fsck> [ B<-sAVRTMNP> ] [ B<-C> [ I<descripteur> ] ] [ B<-t> I<type_sf> ] "
-"I<système_fichiers [ ... ]> [--] [ B<fsck_options_spécifiques> ]"
+"B<fsck> [B<-sAVRTMNP>] [B<-C> [I<fd>]] [B<-t> I<type_de_fs>] "
+"[I<système_de_fichiers>...] [B<-->] [I<fsck-options-spécifiques>]"
 
 #. type: Plain text
 #: C/man8/fsck.8:33
@@ -11664,6 +11665,8 @@ msgid ""
 "Do not check mounted filesystems and return an exit code of 0 for mounted "
 "filesystems."
 msgstr ""
+"Ne pas vérifier les systèmes de fichiers montés et renvoyer un code de "
+"retour égal à 0 pour les systèmes de fichiers montés"
 
 #. type: TP
 #: C/man8/fsck.8:230
@@ -12000,10 +12003,9 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/fsck.minix.8:11
-#, fuzzy
 #| msgid "B<fsck.minix [ -larvsmf ]> device"
 msgid "B<fsck.minix> [B<-larvsmf>] I<device>"
-msgstr "B<fsck.minix [ -larvsmf ]> périphérique"
+msgstr "B<fsck.minix> [B<-larvsmf>] I<périphérique>"
 
 #. type: Plain text
 #: C/man8/fsck.minix.8:15
@@ -12303,10 +12305,9 @@ msgstr "AGETTY"
 
 #. type: Plain text
 #: C/man8/getty.8:4
-#, fuzzy
 #| msgid "agetty - alternative Linux getty"
 msgid "getty - alternative Linux getty"
-msgstr "agetty - getty alternatif pour Linux."
+msgstr "getty - getty alternatif pour Linux."
 
 #. type: Plain text
 #: C/man8/getty.8:15
@@ -12320,7 +12321,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/getty.8:25
-#, fuzzy
 #| msgid ""
 #| "B<agetty >[-8ihLmnw] [-f I<issue_file>] [-l I<login_program>] [-I "
 #| "I<init>] [-t I<timeout>] [-H I<login_host>] I<baud_rate,...> I<port> "
@@ -12329,13 +12329,12 @@ msgid ""
 "B<getty >[-8ihLmnw] [-f I<issue_file>] [-l I<login_program>] [-I I<init>] [-"
 "t I<timeout>] [-H I<login_host>] I<baud_rate,...> I<port> [I<term>]"
 msgstr ""
-"B<agetty >[-8ihLmnw] [-f I<fichier_issue>] [-l I<programme_login>] [-I "
+"B<getty >[-8ihLmnw] [-f I<fichier_issue>] [-l I<programme_login>] [-I "
 "I<chaîne_initiale>] [-t I<temporisation>] [-H I<hôte_connexion>] "
 "I<vitesse_baud,...> I<port> [I<term>]"
 
 #. type: Plain text
 #: C/man8/getty.8:31
-#, fuzzy
 #| msgid ""
 #| "B<agetty> opens a tty port, prompts for a login name and invokes the /bin/"
 #| "login command. It is normally invoked by I<init(8)>."
@@ -12343,12 +12342,11 @@ msgid ""
 "B<getty> opens a tty port, prompts for a login name and invokes the /bin/"
 "login command. It is normally invoked by I<init(8)>."
 msgstr ""
-"B<agetty> ouvre un port de terminal, demande un nom de d'utilisateur, puis "
+"B<getty> ouvre un port de terminal, demande un nom de d'utilisateur, puis "
 "appelle la commande /bin/login. Il est normalement appellé par B<init>(8)."
 
 #. type: Plain text
 #: C/man8/getty.8:34
-#, fuzzy
 #| msgid ""
 #| "B<agetty> has several I<non-standard> features that are useful for hard-"
 #| "wired and for dial-in lines:"
@@ -12356,7 +12354,7 @@ msgid ""
 "B<getty> has several I<non-standard> features that are useful for hard-wired "
 "and for dial-in lines:"
 msgstr ""
-"B<agetty> a plusieurs fonctionnalités I<non standard> qui sont utiles pour "
+"B<getty> a plusieurs fonctionnalités I<non standard> qui sont utiles pour "
 "les lignes série et modem :"
 
 #. type: TP
@@ -12460,7 +12458,6 @@ msgstr "port"
 
 #. type: Plain text
 #: C/man8/getty.8:74
-#, fuzzy
 #| msgid ""
 #| "A path name relative to the I</dev> directory. If a \"-\" is specified, "
 #| "B<agetty> assumes that its standard input is already connected to a tty "
@@ -12471,8 +12468,8 @@ msgid ""
 "and that a connection to a remote user has already been established."
 msgstr ""
 "Un nom de chemin relatif au répertoire I</dev>. Si un « - » est utilisé, "
-"B<agetty> suppose que son entrée standard est déjà connectée à un port de "
-"terminal et que la connection à un utilisateur distant est déjà établie."
+"B<getty> suppose que son entrée standard est déjà connectée à un port de "
+"terminal et que la connexion à un utilisateur distant est déjà établie."
 
 #. type: Plain text
 #: C/man8/getty.8:77
@@ -12490,7 +12487,6 @@ msgstr "vitesse_baud,..."
 
 #. type: Plain text
 #: C/man8/getty.8:82
-#, fuzzy
 #| msgid ""
 #| "A comma-separated list of one or more baud rates. Each time B<agetty> "
 #| "receives a BREAK character it advances through the list, which is treated "
@@ -12501,7 +12497,7 @@ msgid ""
 "if it were circular."
 msgstr ""
 "Une liste de vitesses en baud séparées par des virgules. Chaque fois que "
-"B<agetty> reçoit un caractère BREAK, il avance dans la liste, qui sera "
+"B<getty> reçoit un caractère BREAK, il avance dans la liste, qui sera "
 "considérée comme une liste circulaire."
 
 #. type: Plain text
@@ -12644,7 +12640,6 @@ msgstr "-H I<hôte_connexion>"
 # NOTE: End bracket forgotten
 #. type: Plain text
 #: C/man8/getty.8:133
-#, fuzzy
 #| msgid ""
 #| "Write the specified I<login_host> into the utmp file. (Normally, no login "
 #| "host is given, since B<agetty> is used for local hardwired connections "
@@ -12657,7 +12652,7 @@ msgid ""
 "concentrators and the like."
 msgstr ""
 "Écrire l'hôte de connexion I<login_host> spécifié dans le fichier utmp. "
-"Normalement, aucun hôte de connexion n'est fourni, puisque B<agetty> est "
+"Normalement, aucun hôte de connexion n'est fourni, puisque B<getty> est "
 "utilisé pour les connexions matériels locales et les terminaux du système. "
 "Cependant, cette option peut être utile pour identifier les concentrateurs "
 "de terminaux et équivalent."
@@ -12670,7 +12665,6 @@ msgstr "-m"
 
 #. type: Plain text
 #: C/man8/getty.8:141
-#, fuzzy
 #| msgid ""
 #| "Try to extract the baud rate the CONNECT status message produced by Hayes"
 #| "(tm)-compatible modems. These status messages are of the form: "
@@ -12686,7 +12680,7 @@ msgid ""
 msgstr ""
 "Essayer d'extraire la vitesse depuis le message de statut CONNECT produit "
 "par les modems compatibles Hayes (tm). Ces messages de statut sont de la "
-"forme suivante : « E<lt>junkE<gt>E<lt>speedE<gt>E<lt>junkE<gt> ». B<agetty> "
+"forme suivante : « E<lt>junkE<gt>E<lt>speedE<gt>E<lt>junkE<gt> ». B<getty> "
 "suppose que le modem envoie les messages de statut à la même vitesse que "
 "celle spécifiée (la première) par I<baud_rate> dans la ligne de commande."
 
@@ -12709,7 +12703,6 @@ msgstr "-n "
 
 #. type: Plain text
 #: C/man8/getty.8:155
-#, fuzzy
 #| msgid ""
 #| "Do not prompt the user for a login name. This can be used in connection "
 #| "with -l option to invoke a non-standard login process such as a BBS "
@@ -12730,12 +12723,12 @@ msgid ""
 msgstr ""
 "Ne pas demander d'identifiant de connexion à l'utilisateur. Cela peut être "
 "utilisé avec l'option -l lors d'une connexion à un système non standard "
-"comme les systèmes BBS. Notez qu'avec l'option -n, B<agetty> ne traite pas "
+"comme les systèmes BBS. Notez qu'avec l'option -n, B<getty> ne traite pas "
 "les caractères de l'utilisateur qui se connecte et ainsi n'est pas capable "
 "de détecter la parité, la taille des caractères et le processus de nouvelle "
 "ligne de la connexion. La configuration par défaut est : parité espace, 7 "
 "bits de caractères et le caractère fin de ligne est ASCII CR (13). Notez "
-"bien que le programme que lance B<agetty> (en général, /bin/login) est "
+"bien que le programme que lance B<getty> (en général, /bin/login) est "
 "exécuté avec les droits du superutilisateur."
 
 #. type: TP
@@ -13077,7 +13070,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/getty.8:279
-#, fuzzy
 #| msgid ""
 #| "The baud-rate detection feature (the I<-m> option) requires that "
 #| "B<agetty> be scheduled soon enough after completion of a dial-in call "
@@ -13091,8 +13083,8 @@ msgid ""
 "in combination with a multiple baud rate command-line argument, so that "
 "BREAK processing is enabled."
 msgstr ""
-"La détection de la vitesse de connexion (l'option I<-m>) néccessite que "
-"B<agetty> soit exécuté dès la fin de la numérotation (dans les 30 ms pour un "
+"La détection de la vitesse de connexion (l'option I<-m>) nécessite que "
+"B<getty> soit exécuté dès la fin de la numérotation (dans les 30 ms pour un "
 "modem communiquant à 2400 bauds). Pour être robuste, utilisez toujours "
 "l'option I<-m> avec différentes vitesses de connexion, ainsi le traitement "
 "du BREAK est activé."
@@ -13319,10 +13311,9 @@ msgstr "B<--systz>"
 
 #. type: Plain text
 #: C/man8/hwclock.8:61
-#, fuzzy
 #| msgid "Insert the baudrate of the current line."
 msgid "Reset the System Time based on the current timezone."
-msgstr "Insérer la vitesse en bauds de la ligne actuelle."
+msgstr "Restaurer l'heure système au fuseau horaire actuel"
 
 #. type: Plain text
 #: C/man8/hwclock.8:77
@@ -13331,6 +13322,9 @@ msgid ""
 "clock, and may be used in system startup scripts for recent 2.6 kernels "
 "where you know the System Time contains the Hardware Clock time."
 msgstr ""
+"C'est un option alternative à B<--hctosys> qui ne lit pas l'heure matériel "
+"et qui peut être utilisée dans les scripts d'initialisation avec des noyaux "
+"2.6 récents ou l'on sait que l'heure système contient l'heure matériel."
 
 #. type: TP
 #: C/man8/hwclock.8:77
@@ -13510,7 +13504,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/hwclock.8:166
-#, fuzzy
 #| msgid ""
 #| "If you specify neither B<--utc> nor B<--localtime> , the default is "
 #| "whichever was specified the last time B<hwclock> was used to set the "
@@ -13526,10 +13519,10 @@ msgid ""
 msgstr ""
 "Si vous ne spécifiez ni B<--utc> ni B<--localtime>, la valeur par défaut est "
 "la valeur utilisée la dernière fois qu'B<hwclock> a mis l'horloge à l'heure "
-"(i.e. l'exécution de hwclock avec l'option B<--set>, B<--systohc>, ou B<--"
+"(p. ex. l'exécution de hwclock avec l'option B<--set>, B<--systohc>, ou B<--"
 "adjust> qui s'est terminée avec succès), comme sauvegardé dans le fichier "
-"d'ajustement (/etc/adjtime). Si le fichier d'ajustement n'existe pas, "
-"l'option locale est choisie."
+"d'ajustement. Si le fichier d'ajustement n'existe pas, le temps local est "
+"choisi."
 
 #. type: TP
 #: C/man8/hwclock.8:167
@@ -13557,7 +13550,7 @@ msgstr "B<--adjfile=>I<fichier>"
 #. type: Plain text
 #: C/man8/hwclock.8:181
 msgid "overrides the default /etc/adjtime."
-msgstr ""
+msgstr "Surcharge le fichier par défaut /etc/adjtime."
 
 #. type: TP
 #: C/man8/hwclock.8:182
@@ -13770,7 +13763,6 @@ msgstr "B<--test>"
 
 #. type: Plain text
 #: C/man8/hwclock.8:293
-#, fuzzy
 #| msgid ""
 #| "Do everything except actually updating the Hardware Clock or anything "
 #| "else.  This is useful, especially in conjunction with B<--debug,> in "
@@ -13780,9 +13772,9 @@ msgid ""
 "This is useful, especially in conjunction with B<--debug>, in learning about "
 "B<hwclock>."
 msgstr ""
-"Fait tout ce qui est supposé faire à l'exception de mettre l'horloge machine "
-"réellement à jour. C'est utile lorsqu'on l'utilise avec l'option B<--debug> "
-"pour connaître le fonctionnement de B<hwclock>."
+"Fait tout ce qui est supposé faire à l'exception de mettre l'horloge "
+"matériel réellement à jour. C'est utile lorsqu'on l'utilise avec l'option "
+"B<--debug> pour connaître le fonctionnement de B<hwclock>."
 
 #. type: TP
 #: C/man8/hwclock.8:293
@@ -13981,7 +13973,6 @@ msgstr "Comment hwclock accède à l'horloge machine"
 
 #. type: Plain text
 #: C/man8/hwclock.8:404
-#, fuzzy
 #| msgid ""
 #| "B<hwclock> Uses many different ways to get and set Hardware Clock "
 #| "values.  The most normal way is to do I/O to the device special file /dev/"
@@ -14006,7 +13997,7 @@ msgid ""
 "for RTCs, even systems that have more than one, so you might need to "
 "override the default by specifying I</dev/rtc0> or I</dev/rtc1> instead."
 msgstr ""
-"B<hwclock> utilise de nombreuses manières pour lire et modifier l'Horloge "
+"B<hwclock> utilise différentes méthodes pour lire et modifier l'Horloge "
 "Machine. La manière la plus classique consiste en une opération d'entrée/"
 "sortie sur le fichier spécial /dev/rtc, qui est supposé être contrôlé par le "
 "pilote rtc. Cependant cette méthode n'est pas toujours possible parce que le "
@@ -14074,7 +14065,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/hwclock.8:445
-#, fuzzy
 #| msgid ""
 #| "B<hwclock> tries to use /dev/rtc.  If it is compiled for a kernel that "
 #| "doesn't have that function or it is unable to open /dev/rtc (or the "
@@ -14095,9 +14085,10 @@ msgstr ""
 "B<hwclock> essaye d'utiliser /dev/rtc. Si le noyau n'est pas compilé avec ce "
 "support, ou qu'il est incapable d'ouvrir /dev/rtc (ou un autre fichier "
 "spécial fourni sur la ligne de commande), B<hwclock> utilisera une autre "
-"méthode disponible. Sur une machine ISA ou Alpha, vous pouvez forcer "
-"B<hwclock> à utiliser la manipulation direct des registres du CMOS, sans "
-"même essayer d'utiliser I</dev/rtc/>, en spécifiant l'option --directisa."
+"méthode disponible si possible. Sur une machine ISA ou Alpha, vous pouvez "
+"forcer B<hwclock> à utiliser la manipulation direct des registres du CMOS, "
+"sans même essayer d'utiliser I</dev/rtc/>, en spécifiant l'option B<--"
+"directisa>."
 
 #. type: SH
 #: C/man8/hwclock.8:447
@@ -14122,7 +14113,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/hwclock.8:461
-#, fuzzy
 #| msgid ""
 #| "It works like this: B<hwclock> keeps a file, I</etc/adjtime,> that keeps "
 #| "some historical information.  This is called the adjtime file."
@@ -14130,13 +14120,12 @@ msgid ""
 "It works like this: B<hwclock> keeps a file, I</etc/adjtime>, that keeps "
 "some historical information.  This is called the adjtime file."
 msgstr ""
-"Cela fonctionne comme ceci : B<hwclock> garde un fichier, I</etc/adjtime>, "
+"Cela fonctionne comme ceci : B<hwclock> utilise un fichier, I</etc/adjtime>, "
 "qui conserve des informations historiques. Il s'agit du fichier d'ajustement "
 "(« adjtime »)."
 
 #. type: Plain text
 #: C/man8/hwclock.8:487
-#, fuzzy
 #| msgid ""
 #| "Suppose you start with no adjtime file.  You issue a I<hwclock --set> "
 #| "command to set the Hardware Clock to the true current time.  B<Hwclock> "
@@ -14174,17 +14163,17 @@ msgid ""
 msgstr ""
 "Supposons que vous démarrez sans fichier d'ajustement. Vous exécutez "
 "I<hwclock --set> afin de régler l'horloge machine à la bonne heure. "
-"B<Hwclock> crée le fichier d'ajustement et y sauvegarde l'heure actuelle en "
+"B<hwclock> crée le fichier d'ajustement et y sauvegarde l'heure actuelle en "
 "tant que dernière calibration. Cinq jours plus tard, l'horloge a gagné 10 "
-"secondes, vous réexécutez donc I<hwclock --set> pour la réajuster. "
-"B<Hwclock> met à jour le fichier d'ajustement afin que l'heure actuelle y "
+"secondes, vous ré-exécutez donc I<hwclock --set> pour la réajuster. "
+"B<hwclock> met à jour le fichier d'ajustement afin que l'heure actuelle y "
 "soit connue comme dernière calibration, et enregistre une dérive "
 "systématique de 2 secondes par jour. 24 heures passent, vous exécutez "
 "I<hwclock --adjust>. B<Hwclock> consulte le fichier d'ajustement et remarque "
 "que l'horloge gagne deux secondes par jour lorsque rien n'est fait et que "
 "rien n'a été fait pendant un jour. Par conséquent, 2 secondes sont enlevées "
 "de l'horloge machine. Il sauvegarde ensuite l'heure actuelle en tant que "
-"dernière heure de calibration. 24 heures après, vous réexécutez I<hwclock --"
+"dernière heure de calibration. 24 heures après, vous ré-exécutez I<hwclock --"
 "adjust> qui effectue exactement la même opération."
 
 #. type: Plain text
@@ -14290,7 +14279,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/hwclock.8:542
-#, fuzzy
 #| msgid ""
 #| "You can use an adjtime file that was previously used with the B<clock>"
 #| "(8)  program with B<hwclock.>"
@@ -14298,8 +14286,8 @@ msgid ""
 "You can use an adjtime file that was previously used with the B<clock>(8)  "
 "program with B<hwclock>."
 msgstr ""
-"Vous pouvez utiliser un fichier d'ajustement (« adjtime ») précédemment "
-"utilisé avec le programme B<clock>(8) avec B<hwclock>."
+"Vous pouvez utiliser un fichier d'ajustement précédemment utilisé avec le "
+"programme B<clock>(8) avec B<hwclock>."
 
 #. type: SH
 #: C/man8/hwclock.8:544
@@ -14481,7 +14469,6 @@ msgstr "SG_UTILS"
 
 #. type: Plain text
 #: C/man8/isosize.8:4
-#, fuzzy
 #| msgid "isosize - outputs the length of a iso9660 file system"
 msgid "isosize - outputs the length of an iso9660 file system"
 msgstr "isosize - Afficher la taille d'un système de fichiers iso9660"
@@ -14496,7 +14483,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/isosize.8:18
-#, fuzzy
 #| msgid ""
 #| "This command outputs the length of an iso9660 file system that is "
 #| "contained in given file. That file may be a normal file or a block device "
@@ -14512,9 +14498,9 @@ msgid ""
 msgstr ""
 "Cette commande affiche la taille d'un système de fichiers iso9660 contenu "
 "dans un fichier. Ce fichier peut être un fichier normal ou un périphérique "
-"en mode bloc (p.\\ ex\\ : /dev/hdd ou /dev/sr0). Sans option (ou lors d'une "
+"en mode bloc (p. ex. : /dev/hdd ou /dev/sr0). Sans option (ou lors d'une "
 "erreur), elle affiche la taille en octets. Elle supporte maintenant les "
-"fichiers larges (E<gt> E<gt> 4 GB)."
+"fichiers larges (E<gt> E<gt> 4 Go)."
 
 #. type: TP
 #: C/man8/isosize.8:18
@@ -14539,7 +14525,6 @@ msgstr "B<-d\\ >I<E<lt>numE<gt>>"
 
 #. type: Plain text
 #: C/man8/isosize.8:32
-#, fuzzy
 #| msgid ""
 #| "only has affect when \"-x\" is not given. The number output (if no "
 #| "errors)  is the iso9660 file size in bytes divided by E<lt>numE<gt>. So "
@@ -14551,7 +14536,7 @@ msgid ""
 "I<E<lt>numE<gt>> is the block size then the output number will be the block "
 "count."
 msgstr ""
-"Cette option n'a d'effet que si -x n'est pas spécifiée. Le nombre affiché "
+"Cette option n'a d'effet que si B<-x> n'est pas spécifiée. Le nombre affiché "
 "(s'il n'y a pas d'erreurs) est la taille du fichier iso9660 en octets "
 "divisée par E<lt>numE<gt>. Donc si E<lt>numE<gt> est la taille du bloc, "
 "alors le nombre affiché sera le nombre de blocs."
@@ -14590,7 +14575,7 @@ msgstr "Linux 2.6"
 #. type: Plain text
 #: C/man8/ldattach.8:6
 msgid "ldattach - attach a line discipline to a serial line"
-msgstr ""
+msgstr "ldattach - Attacher une ligne virtuelle à une ligne série."
 
 #. type: Plain text
 #: C/man8/ldattach.8:12
@@ -14605,29 +14590,36 @@ msgid ""
 "for processing of the sent and/or received data.  It then goes into the "
 "background keeping the device open so that the line discipline stays loaded."
 msgstr ""
+"Le démon B<ldattach> ouvre le fichier de I<@DEV> spécifié (qui doit faire "
+"référence à un @DEV série) et lui attache la ligne virtuelle I<ldisc> pour "
+"gérer l'envoi et la réception de données. Ensuite, il passe en fond de "
+"tâches tout en gardant le @DEV ouvert afin que la ligne ldisc reste "
+"opérationnelle."
 
 #. type: Plain text
 #: C/man8/ldattach.8:29
 msgid ""
 "The line discipline I<ldisc> may be specified either by name or by number."
-msgstr ""
+msgstr "La ligne I<ldisc> peut être spécifiée par nom ou par numéro."
 
 #. type: Plain text
 #: C/man8/ldattach.8:35
 msgid ""
 "In order to detach the line discipline, B<kill>(1)  the B<ldattach> process."
 msgstr ""
+"Afin d'attacher la ligne ldisc, tuer (avec B<kill>(1)) le processus "
+"B<ldattach>."
 
 #. type: Plain text
 #: C/man8/ldattach.8:39
 msgid "With no arguments, B<ldattach> prints usage information."
-msgstr ""
+msgstr "Sans paramètre, B<ldattach> affiche un message d'utilisation."
 
 #. type: SH
 #: C/man8/ldattach.8:39
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "LINE DISCIPLINES"
-msgstr ""
+msgstr "LINE DISCIPLINES"
 
 #. type: Plain text
 #: C/man8/ldattach.8:41
@@ -14635,6 +14627,7 @@ msgid ""
 "Depending on the kernel release, the following line disciplines are "
 "supported:"
 msgstr ""
+"Selon la version du noyau, les lignes spéciales suivantes sont gérées :"
 
 #. type: TP
 #: C/man8/ldattach.8:41
@@ -14644,10 +14637,13 @@ msgstr "B<TTY>(B<0>)"
 
 #. type: Plain text
 #: C/man8/ldattach.8:46
+#, fuzzy
 msgid ""
 "The default line discipline, providing transparent operation (raw mode)  as "
 "well as the habitual terminal line editing capabilities (cooked mode)."
 msgstr ""
+"La ligne spéciale par défaut fournissant un mode d'opération transparent "
+"(mode brute) ainsi les capacités d'édition de ligne habituel d'une console "
 
 #. type: TP
 #: C/man8/ldattach.8:46
