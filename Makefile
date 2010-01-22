@@ -1,5 +1,20 @@
-SUBDIRS=at bash coreutils cron diffutils dosfstools e2fsprogs eglibc findutils grep lilo most \
-	nfs-utils openssl procps reiser4progs reiserfsprogs sysvinit tar util-linux
+SUBDIRS=at \
+	bash \
+	coreutils cron \
+	diffutils dosfstools \
+	e2fsprogs eglibc \
+	findutils \
+	grep \
+	lilo \
+	most \
+	nfs-utils \
+	openssl \
+	procps \
+	reiser4progs reiserfsprogs \
+	sysvinit \
+	tar \
+	util-linux \
+	x11-xserver-utils
 
 #  Must be an absolute path!
 INSTDIR = $(CURDIR)/man
