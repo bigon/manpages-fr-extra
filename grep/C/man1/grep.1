@@ -21,8 +21,7 @@
 . \" ISO 8601 date, complete format, extended representation
 . ds Dt \\*(Yr-\\*(Mn-\\*(Dy
 ..
-.Id $Id: grep.1,v 1.39 2008/02/07 03:43:27 taa Exp $
-.TH GREP 1 \*(Dt "GNU grep 2.5.1-cvs" "User Commands"
+.TH GREP 1 \*(Dt "GNU grep 2.6.3" "User Commands"
 .hy 0
 .
 .SH NAME
@@ -317,11 +316,14 @@ This is the default when there is only one file
 .TP
 .BI \-\^\-label= LABEL
 Display input actually coming from standard input as input coming from file
-.I LABEL.
-This is especially useful for tools like
+.IR LABEL .
+This is especially useful when implementing tools like
 .BR zgrep ,
 e.g.,
-.B "gzip -cd foo.gz | grep --label=foo something"
+.BR "gzip -cd foo.gz | grep --label=foo -H something" .
+See also the
+.B \-H
+option.
 .TP
 .BR \-n ", " \-\^\-line\-number
 Prefix each line of output with the 1-based line number
@@ -599,13 +601,17 @@ Regular expressions are constructed analogously to arithmetic
 expressions, by using various operators to combine smaller expressions.
 .PP
 .B grep
-understands two different versions of regular expression syntax:
-\*(lqbasic\*(rq and \*(lqextended.\*(rq  In
+understands three different versions of regular expression syntax:
+\*(lqbasic,\*(rq \*(lqextended\*(rq and \*(lqperl.\*(rq In
 .RB "\s-1GNU\s0\ " grep ,
-there is no difference in available functionality using either syntax.
+there is no difference in available functionality between basic and
+extended syntaxes.
 In other implementations, basic regular expressions are less powerful.
 The following description applies to extended regular expressions;
 differences for basic regular expressions are summarized afterwards.
+Perl regular expressions give additional functionality, and are
+documented in pcresyntax(3) and pcrepattern(3), but may not be
+available on every system.
 .PP
 The fundamental building blocks are the regular expressions
 that match a single character.
@@ -1158,28 +1164,12 @@ when
 is not set.
 .
 .SH "EXIT STATUS"
-Normally, the exit status is 0 if selected lines are found and 1 otherwise.
-But the exit status is 2 if an error occurred, unless the
-.B \-q
-or
-.B \-\^\-quiet
-or
-.B \-\^\-silent
-option is used and a selected line is found.
-Note, however, that \s-1POSIX\s0 only mandates, for programs such as
-.BR grep ,
-.BR cmp ,
-and
-.BR diff ,
-that the exit status in case of error be greater than 1;
-it is therefore advisable, for the sake of portability,
-to use logic that tests for this general condition
-instead of strict equality with\ 2.
+The exit status is 0 if selected lines are found, and 1 if not found.          
+If an error occurred the exit status is 2.  (Note: POSIX error 
+handling code should check for '2' or greater.)
 .
 .SH COPYRIGHT
-Copyright \(co
-1998, 1999, 2000, 2002, 2005
-Free Software Foundation, Inc.
+Copyright 1998-2000, 2002, 2005-2010 Free Software Foundation, Inc.
 .PP
 This is free software;
 see the source for copying conditions.
@@ -1214,7 +1204,7 @@ Back-references are very slow, and may require exponential time.
 awk(1), cmp(1), diff(1), find(1), gzip(1),
 perl(1), sed(1), sort(1), xargs(1), zgrep(1),
 mmap(2), read(2),
-pcre(3), pcrepattern(3),
+pcre(3), pcresyntax(3), pcrepattern(3),
 terminfo(5),
 glob(7), regex(7).
 .SS "\s-1POSIX\s0 Programmer's Manual Page"
