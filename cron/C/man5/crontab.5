@@ -17,7 +17,7 @@
 .\"
 .\" $Id: crontab.5,v 2.4 1994/01/15 20:43:43 vixie Exp $
 .\" 
-.TH CRONTAB 5 "24 January 1994"
+.TH CRONTAB 5 "16 March 2010"
 .UC 4
 .SH NAME
 crontab \- tables for driving cron
@@ -56,14 +56,29 @@ leading or trailing blanks. The
 .I value
 string is 
 .B not
-parsed for environmental substitutions, thus lines like
+parsed for environmental substitutions or replacement of variables, thus lines
+like
 .PP
     PATH = $HOME/bin:$PATH
 .PP
-will not work as you might expect.
+will not work as you might expect. And neither will this work
 .PP
-Several environment variables are set up
-automatically by the
+    A=1
+    B=2
+    C=$A $B
+.PP
+There will not be any subsitution for the defined variables in the
+last value.
+.PP
+An alternative for setting up the commands path is using the fact that
+many shells will treat the tilde(~) as substitution of $HOME, so if you use 
+.I bash
+for your tasks you can use this:
+.PP
+     SHELL=/bin/bash
+     PATH=~/bin:/usr/bin/:/bin
+.PP
+Several environment variables are set up automatically by the
 .IR cron (8)
 daemon.
 SHELL is set to /bin/sh, and LOGNAME and HOME are set from the /etc/passwd 
@@ -106,7 +121,7 @@ variables are set, or the locale specified by the LC_* environment variables
 .IR locale (7) ).
 You can use different character encodings for mailed cron job output by
 setting the CONTENT_TYPE and CONTENT_TRANSFER_ENCODING variables in crontabs,
-to the correct values of the mail headers of those names
+to the correct values of the mail headers of those names.
 .PP
 The format of a cron command is very much the V7 standard, with a number of
 upward-compatible extensions.  Each line has five time and date fields,
@@ -269,6 +284,17 @@ either).
 .PP
 All of the `@' commands that can appear in place of the first five fields
 are extensions.
+.SH LIMITATIONS
+The
+.I cron
+daemon runs with a defined timezone. It currently does not support 
+per-user timezones. All the tasks: system's and user's will be run based on the
+configured timezone. Even if a user specifies the 
+.I TZ
+environment variable in his
+.I crontab
+this will affect only the commands executed in the crontab, not the execution
+of the crontab tasks themselves.
 .SH AUTHOR
 .nf
 Paul Vixie <paul@vix.com>
