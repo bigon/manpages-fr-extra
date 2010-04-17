@@ -1,4 +1,4 @@
-.TH WATCH 1 "2009 May 11" " " "Linux User's Manual"
+.TH WATCH 1 "2010 Mar 01" " " "Linux User's Manual"
 .SH NAME
 watch \- execute a program periodically, showing output fullscreen
 .SH SYNOPSIS
@@ -8,6 +8,7 @@ watch \- execute a program periodically, showing output fullscreen
 .RB [ \-n
 .IR seconds ]
 .RB [ \-\-beep ]
+.RB [ \-\-color ]
 .RB [ \-\-differences[=\fIcumulative\fP]]
 .RB [ \-\-errexit ]
 .RB [ \-\-exec ]
@@ -21,7 +22,7 @@ watch \- execute a program periodically, showing output fullscreen
 .B watch
 runs
 .I command
-repeatedly, displaying its output and errors (the first screenfull).  This 
+repeatedly, displaying its output and errors (the first screenfull).  This
 allows you to
 watch the program output change over time.  By default, the program is run
 every 2 seconds; use 
@@ -61,7 +62,7 @@ or
 option turns off the header showing the interval, command, and current
 time at the top of the display, as well as the following blank line.  The
 .I \-b
-or 
+or
 .I \-\-beep
 option causes the command to beep if it has a non-zero exit.
 .PP
@@ -72,18 +73,22 @@ to exit on an error from the program running use the
 .I \-e
 or
 .I \-\-errexit
-options, which will cause 
+options, which will cause
 .B watch
 to exit if the return value from the program is non-zero.
+.PP
+By default \fBwatch\fR will normally not pass escape characters, however
+if you use the \fI\-\-c\fR or \fI\-\-color\fR option, then
+\fBwatch\fR will interpret ANSI color sequences for the foreground.
 
 .SH NOTE
 Note that
 .I command
 is given to "sh \-c"
 which means that you may need to use extra quoting to get the desired effect.
-You can disable this with the 
+You can disable this with the
 .I -x
-or 
+or
 .I --exec
 option, which passes the command to exec(2) instead.
 .PP
@@ -115,7 +120,7 @@ watch echo '$$'
 .br
 watch echo "'"'$$'"'"
 .PP
-To see the effect of precision time keeping, try adding 
+To see the effect of precision time keeping, try adding
 .I \-p
 to
 .IP
@@ -139,6 +144,17 @@ highlighting is lost on that update as well.
 Non-printing characters are stripped from program output.  Use "cat -v" as
 part of the command pipeline if you want to see them.
 .PP
+Combining Characters that are supposed to display on the character at the
+last column on the screen may display one column early, or they may not
+display at all.
+.PP
+Combining Characters never count as different in
+.I \-\-differences
+mode. Only the base character counts.
+.PP
+Blank lines directly after a line which ends in the last column do not
+display.
+.PP
 .I \-\-precise
 mode doesn't yet have advanced temporal distortion technology to
 compensate for a
@@ -159,9 +175,10 @@ The original
 .B watch
 was written by Tony Rems <rembo@unisoft.com> in 1991, with mods and
 corrections by Francois Pinard.  It was reworked and new features added by
-Mike Coleman <mkc@acm.org> in 1999.  The beep, exec, and error handling 
+Mike Coleman <mkc@acm.org> in 1999.  The beep, exec, and error handling
 features were added by Morty Abzug <morty@frakir.org> in 2008.
 On a not so dark and stormy morning
 in March of 2003, Anthony DeRobertis <asd@suespammers.org> got sick of
 his watches that should update every minute eventually updating many
 seconds after the minute started, and added microsecond precision.
+Unicode support was added in 2009 by Jarrod Lowe <procps@rrod.net>.
