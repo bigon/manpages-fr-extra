@@ -215,6 +215,7 @@ mounts under a given mountpoint.
 .fi
 .RE
 .RE
+.RE
 
 .B The device indication.
 .RS
@@ -719,10 +720,12 @@ All I/O to the filesystem should be done asynchronously. (See also the
 option.)
 .TP
 .B atime
-Update inode access time for each access. This is the default.
+Update inode access time for each access. See also the
+.B strictatime
+mount option.
 .TP
 .B noatime
-Do not update inode access times on this filesystem (e.g., for faster
+Do not update inode access times on this filesystem (e.g, for faster
 access on the news spool to speed up news servers).
 .TP
 .B auto
@@ -865,12 +868,18 @@ since the last time it was modified.)
 .B norelatime
 Do not use
 .B relatime
-feature (e.g., for systems where the feature is enabled by default, for
-more details see mount options in /proc/mounts).
+feature. See also the
+.B strictatime
+mount option.
 .TP
 .B strictatime
-Update inode access times whenever a file is accessed. Disables noatime and
-.B relatime.
+Allows to explicitly requesting full atime updates. This makes it
+possible for kernel to defaults to
+.B relatime
+or
+.B noatime
+but still allow userspace to override it. For more details about the default
+system mount options see /proc/mounts.
 .TP
 .B nostrictatime
 Use the kernel's default behaviour for inode access time updates.
@@ -1312,8 +1321,8 @@ compatible change and will be ignored by older kernels.
 .TP
 .BR journal_async_commit
 Commit block can be written to disk without waiting for descriptor blocks. If
-enabled older kernels cannot mount the device. This will
-enable 'journal_checksum' internally.
+enabled older kernels cannot mount the device. This will enable
+'journal_checksum' internally.
 .TP
 .BR journal=update
 Update the ext4 filesystem's journal to the current format.
@@ -1962,7 +1971,7 @@ None.
 .TP
 .BI size= nbytes
 Override default maximum size of the filesystem.
-The size is given in bytes, and rounded down to entire pages.
+The size is given in bytes, and rounded up to entire pages.
 The default is half of the memory. The size parameter also accepts a suffix %
 to limit this tmpfs instance to that percentage of your physical RAM:
 the default, when neither size nor nr_blocks is specified, is size=50%
@@ -2031,7 +2040,7 @@ NUMA capability (perhaps a safe recovery kernel), or with fewer nodes
 online, then it is advisable to omit the mpol option from automatic
 mount options.  It can be added later, when the tmpfs is already mounted
 on MountPoint, by 'mount -o remount,mpol=Policy:NodeList MountPoint'.
-.RE
+.PE
 
 .SH "Mount options for udf"
 udf is the "Universal Disk Format" filesystem defined by the Optical
