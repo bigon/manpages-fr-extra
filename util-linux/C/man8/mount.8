@@ -232,21 +232,6 @@ or
 .B UUID
 (see the \-L and \-U options below).
 
-.B The device indication.
-.RS
-Most devices are indicated by a file name (of a block special device), like
-.IR /dev/sda1 ,
-but there are other possibilities. For example, in the case of an NFS mount,
-.I device
-may look like
-.IR knuth.cwi.nl:/dir .
-It is possible to indicate a block special device using its
-volume
-.B LABEL
-or
-.B UUID
-(see the \-L and \-U options below).
-
 The
 .I proc
 filesystem is not associated with a special device, and when
@@ -1321,8 +1306,8 @@ compatible change and will be ignored by older kernels.
 .TP
 .BR journal_async_commit
 Commit block can be written to disk without waiting for descriptor blocks. If
-enabled older kernels cannot mount the device. This will enable
-'journal_checksum' internally.
+enabled older kernels cannot mount the device. This will
+enable 'journal_checksum' internally.
 .TP
 .BR journal=update
 Update the ext4 filesystem's journal to the current format.
@@ -2040,7 +2025,7 @@ NUMA capability (perhaps a safe recovery kernel), or with fewer nodes
 online, then it is advisable to omit the mpol option from automatic
 mount options.  It can be added later, when the tmpfs is already mounted
 on MountPoint, by 'mount -o remount,mpol=Policy:NodeList MountPoint'.
-.PE
+.RE
 
 .SH "Mount options for udf"
 udf is the "Universal Disk Format" filesystem defined by the Optical
