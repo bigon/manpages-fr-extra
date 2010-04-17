@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-09-04 18:18+0300\n"
+"POT-Creation-Date: 2010-04-17 15:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man8/dosfsck.8:12 C/man8/dosfslabel.8:12 C/man8/mkdosfs.8:73
+#: C/man8/dosfsck.8:12 C/man8/dosfslabel.8:12 C/man8/mkdosfs.8:76
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr ""
@@ -209,13 +209,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man8/dosfsck.8:74 C/man8/dosfslabel.8:30 C/man8/mkdosfs.8:83
+#: C/man8/dosfsck.8:74 C/man8/dosfslabel.8:30 C/man8/mkdosfs.8:86
 #, no-wrap
 msgid "OPTIONS"
 msgstr ""
 
-#. type: IP
-#: C/man8/dosfsck.8:75
+#. type: TP
+#: C/man8/dosfsck.8:75 C/man8/mkdosfs.8:87
 #, no-wrap
 msgid "B<-a>"
 msgstr ""
@@ -229,7 +229,7 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/dosfsck.8:79 C/man8/mkdosfs.8:84
+#: C/man8/dosfsck.8:79 C/man8/mkdosfs.8:96
 #, no-wrap
 msgid "B<-A>"
 msgstr ""
@@ -337,7 +337,7 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/dosfsck.8:110 C/man8/mkdosfs.8:188
+#: C/man8/dosfsck.8:110 C/man8/mkdosfs.8:200
 #, no-wrap
 msgid "B<-v>"
 msgstr ""
@@ -456,7 +456,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man8/dosfsck.8:138 C/man8/mkdosfs.8:191
+#: C/man8/dosfsck.8:138 C/man8/mkdosfs.8:203
 #, no-wrap
 msgid "BUGS"
 msgstr ""
@@ -548,7 +548,7 @@ msgid "Shows version."
 msgstr ""
 
 #. type: SH
-#: C/man8/dosfslabel.8:38 C/man8/mkdosfs.8:209
+#: C/man8/dosfslabel.8:38 C/man8/mkdosfs.8:221
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -605,19 +605,19 @@ msgid "B<mkdosfs> - create an MS-DOS file system under Linux"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:73
+#: C/man8/mkdosfs.8:76
 msgid ""
-"B<mkdosfs|mkfs.msdos|mkfs.vfat> [ B<-A> ] [ B<-b> I<sector-of-backup> ] [ "
-"B<-c> ] [ B<-l> I<filename> ] [ B<-C> ] [ B<-f> I<number-of-FATs> ] [ B<-F> "
-"I<FAT-size> ] [ B<-h> I<number-of-hidden-sectors> ] [ B<-i> I<volume-id> ] "
-"[B< -I >] [ B<-m> I<message-file> ] [ B<-n> I<volume-name> ] [ B<-r> "
-"I<root-dir-entries> ] [ B<-R> I<number-of-reserved-sectors> ] [ B<-s> "
-"I<sectors-per-cluster> ] [ B<-S> I<logical-sector-size> ] [ B<-v> ] "
-"I<device> [ I<block-count> ]"
+"B<mkdosfs|mkfs.msdos|mkfs.vfat> [ B<-a> ] [ B<-A> ] [ B<-b> "
+"I<sector-of-backup> ] [ B<-c> ] [ B<-l> I<filename> ] [ B<-C> ] [ B<-f> "
+"I<number-of-FATs> ] [ B<-F> I<FAT-size> ] [ B<-h> "
+"I<number-of-hidden-sectors> ] [ B<-i> I<volume-id> ] [B< -I >] [ B<-m> "
+"I<message-file> ] [ B<-n> I<volume-name> ] [ B<-r> I<root-dir-entries> ] [ "
+"B<-R> I<number-of-reserved-sectors> ] [ B<-s> I<sectors-per-cluster> ] [ "
+"B<-S> I<logical-sector-size> ] [ B<-v> ] I<device> [ I<block-count> ]"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:83
+#: C/man8/mkdosfs.8:86
 msgid ""
 "B<mkdosfs> is used to create an MS-DOS file system under Linux on a device "
 "(usually a disk partition).  I<device> is the special file corresponding to "
@@ -627,7 +627,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:99
+#: C/man8/mkdosfs.8:96
+msgid ""
+"Normally, for any filesystem except very small ones, B<mkdosfs> will align "
+"all the data structures to cluster size, to make sure that as long as the "
+"partition is properly aligned, so will all the data structures in the "
+"filesystem.  This option disables alignment; this may provide a handful of "
+"additional clusters of storage at the expense of a significant performance "
+"degradation on RAIDs, flash media or large-sector hard disks."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/mkdosfs.8:111
 msgid ""
 "Use Atari variation of the MS-DOS file system. This is default if B<mkdosfs> "
 "is run on an Atari, then this option turns off Atari format. There are some "
@@ -644,13 +655,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:99
+#: C/man8/mkdosfs.8:111
 #, no-wrap
 msgid "B<-b>I< sector-of-backup >"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:104
+#: C/man8/mkdosfs.8:116
 msgid ""
 "Selects the location of the backup boot sector for FAT32. Default depends on "
 "number of reserved sectors, but usually is sector 6. The backup must be "
@@ -658,24 +669,24 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:104
+#: C/man8/mkdosfs.8:116
 #, no-wrap
 msgid "B<-c>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:107
+#: C/man8/mkdosfs.8:119
 msgid "Check the device for bad blocks before creating the file system."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:107
+#: C/man8/mkdosfs.8:119
 #, no-wrap
 msgid "B<-C>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:120
+#: C/man8/mkdosfs.8:132
 msgid ""
 "Create the file given as I<device> on the command line, and write the "
 "to-be-created file system to it. This can be used to create the new file "
@@ -690,13 +701,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:120
+#: C/man8/mkdosfs.8:132
 #, no-wrap
 msgid "B<-f>I< number-of-FATs>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:125
+#: C/man8/mkdosfs.8:137
 msgid ""
 "Specify the number of file allocation tables in the file system.  The "
 "default is 2.  Currently the Linux MS-DOS file system does not support more "
@@ -704,13 +715,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:125
+#: C/man8/mkdosfs.8:137
 #, no-wrap
 msgid "B<-F>I< FAT-size>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:130
+#: C/man8/mkdosfs.8:142
 msgid ""
 "Specifies the type of file allocation tables used (12, 16 or 32 bit).  If "
 "nothing is specified, B<mkdosfs> will automatically select between 12, 16 "
@@ -718,13 +729,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:130
+#: C/man8/mkdosfs.8:142
 #, no-wrap
 msgid "B<-h>I< number-of-hidden-sectors >"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:136
+#: C/man8/mkdosfs.8:148
 msgid ""
 "Select the number of hidden sectors in the volume. Apparently some digital "
 "cameras get indigestion if you feed them a CF card without such hidden "
@@ -733,13 +744,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:136
+#: C/man8/mkdosfs.8:148
 #, no-wrap
 msgid "I<-i  volume-id>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:142
+#: C/man8/mkdosfs.8:154
 msgid ""
 "Sets the volume ID of the newly created file system; I<volume-id> is a "
 "32-bit hexadecimal number (for example, 2e24ec82).  The default is a number "
@@ -747,13 +758,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:142
+#: C/man8/mkdosfs.8:154
 #, no-wrap
 msgid "B<-I>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:151
+#: C/man8/mkdosfs.8:163
 msgid ""
 "It is typical for fixed disk devices to be partitioned so, by default, you "
 "are not permitted to create a filesystem across the entire device.  "
@@ -764,29 +775,29 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:155
+#: C/man8/mkdosfs.8:167
 msgid "This switch will force B<mkdosfs> to work properly."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:155
+#: C/man8/mkdosfs.8:167
 #, no-wrap
 msgid "B<-l>I< filename>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:159
+#: C/man8/mkdosfs.8:171
 msgid "Read the bad blocks list from I<filename>."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:159
+#: C/man8/mkdosfs.8:171
 #, no-wrap
 msgid "B<-m>I< message-file>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:166
+#: C/man8/mkdosfs.8:178
 msgid ""
 "Sets the message the user receives on attempts to boot this file system "
 "without having properly installed an operating system.  The message file "
@@ -796,39 +807,39 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:166
+#: C/man8/mkdosfs.8:178
 #, no-wrap
 msgid "B<-n>I< volume-name>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:170
+#: C/man8/mkdosfs.8:182
 msgid ""
 "Sets the volume name (label) of the file system.  The volume name can be up "
 "to 11 characters long.  The default is no label."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:170
+#: C/man8/mkdosfs.8:182
 #, no-wrap
 msgid "B<-r>I< root-dir-entries>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:174
+#: C/man8/mkdosfs.8:186
 msgid ""
 "Select the number of entries available in the root directory.  The default "
 "is 112 or 224 for floppies and 512 for hard disks."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:174
+#: C/man8/mkdosfs.8:186
 #, no-wrap
 msgid "B<-R>I< number-of-reserved-sectors >"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:179
+#: C/man8/mkdosfs.8:191
 msgid ""
 "Select the number of reserved sectors. With FAT32 format at least 2 reserved "
 "sectors are needed, the default is 32. Otherwise the default is 1 (only the "
@@ -836,26 +847,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:179
+#: C/man8/mkdosfs.8:191
 #, no-wrap
 msgid "B<-s>I< sectors-per-cluster>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:183
+#: C/man8/mkdosfs.8:195
 msgid ""
 "Specify the number of disk sectors per cluster.  Must be a power of 2, "
 "i.e. 1, 2, 4, 8, ... 128."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkdosfs.8:183
+#: C/man8/mkdosfs.8:195
 #, no-wrap
 msgid "B<-S>I< logical-sector-size>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:188
+#: C/man8/mkdosfs.8:200
 msgid ""
 "Specify the number of bytes per logical sector.  Must be a power of 2 and "
 "greater than or equal to 512, i.e. 512, 1024, 2048, 4096, 8192, 16384, or "
@@ -863,12 +874,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:191
+#: C/man8/mkdosfs.8:203
 msgid "Verbose execution."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:198
+#: C/man8/mkdosfs.8:210
 msgid ""
 "B<mkdosfs> can not create boot-able file systems. This isn't as easy as you "
 "might think at first glance for various reasons and has been discussed a lot "
@@ -876,13 +887,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man8/mkdosfs.8:198
+#: C/man8/mkdosfs.8:210
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:202
+#: C/man8/mkdosfs.8:214
 msgid ""
 "Dave Hudson - E<lt>dave@humbug.demon.co.ukE<gt>; modified by Peter Anvin "
 "E<lt>hpa@yggdrasil.comE<gt>. Fixes and additions by Roman Hodek "
@@ -890,13 +901,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man8/mkdosfs.8:202
+#: C/man8/mkdosfs.8:214
 #, no-wrap
 msgid "ACKNOWLEDGMENTS"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:209
+#: C/man8/mkdosfs.8:221
 msgid ""
 "B<mkdosfs> is based on code from B<mke2fs> (written by Remy Card - "
 "E<lt>card@masi.ibp.frE<gt>) which is itself based on B<mkfs> (written by "
@@ -904,6 +915,6 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkdosfs.8:211
-msgid "B<dosfsck>(8), B<mkfs>(8)"
+#: C/man8/mkdosfs.8:224
+msgid "B<dosfsck>(8), B<dosfslabel>(8), B<mkfs>(8)"
 msgstr ""

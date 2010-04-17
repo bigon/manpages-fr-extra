@@ -6,6 +6,9 @@
 .SH SYNOPSIS
 .B mkdosfs|mkfs.msdos|mkfs.vfat
 [
+.B \-a
+]
+[
 .B \-A
 ]
 [
@@ -81,6 +84,15 @@ is the number of blocks on the device.  If omitted,
 .B mkdosfs
 automatically determines the file system size.
 .SH OPTIONS
+.TP
+.B \-a
+Normally, for any filesystem except very small ones, \fBmkdosfs\fP
+will align all the data structures to cluster size, to make sure that
+as long as the partition is properly aligned, so will all the data
+structures in the filesystem.  This option disables alignment; this
+may provide a handful of additional clusters of storage at the expense
+of a significant performance degradation on RAIDs, flash media or
+large-sector hard disks.
 .TP
 .B \-A
 Use Atari variation of the MS-DOS file system. This is default if
@@ -208,4 +220,5 @@ is based on code from
 (written by Linus Torvalds - <torvalds@cs.helsinki.fi>).
 .SH SEE ALSO
 .BR dosfsck (8),
+.BR dosfslabel (8),
 .BR mkfs (8)
