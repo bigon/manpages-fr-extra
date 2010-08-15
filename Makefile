@@ -53,7 +53,6 @@ install: build
 	    [ -f $$f ] || continue; \
 	    d=$(INSTDIR)/`dirname $$f`; \
 	    [ -d $$d ] || mkdir $$d; \
-	    iconv -f utf8 -t latin1 $$f > /dev/null || exit 1; \
 	    cp $$f $(INSTDIR)/$$f; \
 	  done; \
 	  cd ../..; \
