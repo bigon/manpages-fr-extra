@@ -13,10 +13,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: e2fsprogs\n"
-"POT-Creation-Date: 2010-04-17 15:30+0300\n"
+"POT-Creation-Date: 2010-09-12 18:15-0400\n"
 "PO-Revision-Date: 2010-08-01 16:47+0200\n"
 "Last-Translator: Romain DOUMENC <rd6137@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,8 +36,8 @@ msgstr "CHATTR"
 #: C/man8/logsave.8:5 C/man8/mke2fs.8:5 C/man8/mklost+found.8:5
 #: C/man8/resize2fs.8:5 C/man8/tune2fs.8:5
 #, no-wrap
-msgid "March 2010"
-msgstr "Mars 2010"
+msgid "May 2010"
+msgstr "Mai 2010"
 
 #. type: TH
 #: C/man1/chattr.1:2 C/man1/lsattr.1:2 C/man5/e2fsck.conf.5:5
@@ -46,8 +47,8 @@ msgstr "Mars 2010"
 #: C/man8/logsave.8:5 C/man8/mke2fs.8:5 C/man8/mklost+found.8:5
 #: C/man8/resize2fs.8:5 C/man8/tune2fs.8:5
 #, no-wrap
-msgid "E2fsprogs version 1.41.11"
-msgstr "E2fsprogs version 1.41.11"
+msgid "E2fsprogs version 1.41.12"
+msgstr "E2fsprogs version 1.41.12"
 
 #. type: SH
 #: C/man1/chattr.1:3 C/man1/compile_et.1:7 C/man1/lsattr.1:3
@@ -526,7 +527,7 @@ msgstr ""
 
 #. type: SH
 #: C/man1/chattr.1:172 C/man1/compile_et.1:79 C/man1/lsattr.1:44
-#: C/man1/mk_cmds.1:57 C/man3/com_err.3:84 C/man5/e2fsck.conf.5:243
+#: C/man1/mk_cmds.1:57 C/man3/com_err.3:84 C/man5/e2fsck.conf.5:244
 #: C/man5/mke2fs.conf.5:360 C/man8/badblocks.8:228 C/man8/debugfs.8:543
 #: C/man8/dumpe2fs.8:83 C/man8/e2fsck.8:392 C/man8/e2image.8:139
 #: C/man8/e2label.8:50 C/man8/e2undo.8:41 C/man8/e2freefrag.8:93
@@ -1121,7 +1122,7 @@ msgid "  subtag2 = subtag_value_c"
 msgstr "  sousvar2 = sousvar_valeur_c"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:45 C/man5/e2fsck.conf.5:51 C/man5/e2fsck.conf.5:238
+#: C/man5/e2fsck.conf.5:45 C/man5/e2fsck.conf.5:51 C/man5/e2fsck.conf.5:239
 #: C/man5/mke2fs.conf.5:45 C/man5/mke2fs.conf.5:51 C/man5/mke2fs.conf.5:213
 #: C/man5/mke2fs.conf.5:221 C/man5/mke2fs.conf.5:229 C/man5/mke2fs.conf.5:239
 msgid "  }"
@@ -1296,7 +1297,18 @@ msgid "I<broken_system_clock>"
 msgstr "I<broken_system_clock>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:124
+#: C/man5/e2fsck.conf.5:125
+#, fuzzy
+#| msgid ""
+#| "The B<e2fsck>(8)  program has some hueristics that assume that the system "
+#| "clock is correct.  In addition, many system programs make similar "
+#| "assumptions.  For example, the UUID library depends on time not going "
+#| "backwards in order for it to be able to make its guarantees about issuing "
+#| "universally unique ID's.  Systems with broken system clocks, are well, "
+#| "broken.  However, broken system clocks, particularly in embedded systems, "
+#| "do exist.  If true, e2fsck will not abort a preen check if it detects a "
+#| "last mounted or last write time in the superblock in the future.  This "
+#| "setting defaults to false."
 msgid ""
 "The B<e2fsck>(8)  program has some hueristics that assume that the system "
 "clock is correct.  In addition, many system programs make similar "
@@ -1304,9 +1316,10 @@ msgid ""
 "backwards in order for it to be able to make its guarantees about issuing "
 "universally unique ID's.  Systems with broken system clocks, are well, "
 "broken.  However, broken system clocks, particularly in embedded systems, do "
-"exist.  If true, e2fsck will not abort a preen check if it detects a last "
-"mounted or last write time in the superblock in the future.  This setting "
-"defaults to false."
+"exist.  E2fsck will attempt to use hueristics to determine if the time can "
+"no tbe trusted; and to skip time-based checks if this is true.  If this "
+"boolean is set to true, then e2fsck will always assume that the system clock "
+"can not be trusted."
 msgstr ""
 "Le programme B<e2fsck>(8) utilise des algorithmes qui supposent que "
 "l'horloge du système est correcte. De plus, de nombreux autres programmes "
@@ -1319,13 +1332,13 @@ msgstr ""
 "valeur est à faux."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:124
+#: C/man5/e2fsck.conf.5:125
 #, no-wrap
 msgid "I<clear_test_fs_flag>"
 msgstr "I<clear_test_fs_flag>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:131
+#: C/man5/e2fsck.conf.5:132
 msgid ""
 "This boolean relation controls whether or not B<e2fsck>(8)  will offer to "
 "clear the test_fs flag if the ext4 filesystem is available on the system.  "
@@ -1336,13 +1349,13 @@ msgstr ""
 "système. Ceci est le cas par défaut."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:131
+#: C/man5/e2fsck.conf.5:132
 #, no-wrap
 msgid "I<defer_check_on_battery>"
 msgstr "I<defer_check_on_battery>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:137
+#: C/man5/e2fsck.conf.5:138
 msgid ""
 "This boolean relation controls whether or not the interval between "
 "filesystem checks (either based on time or number of mounts) should be "
@@ -1353,13 +1366,13 @@ msgstr ""
 "le système fonctionne sur batterie. La valeur par défaut est true."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:137
+#: C/man5/e2fsck.conf.5:138
 #, no-wrap
 msgid "I<indexed_dir_slack_percentage>"
 msgstr "I<indexed_dir_slack_percentage>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:147
+#: C/man5/e2fsck.conf.5:148
 msgid ""
 "When B<e2fsck>(8)  repacks a indexed directory, reserve the specified "
 "percentage of empty space in each leaf nodes so that a few new entries can "
@@ -1375,13 +1388,13 @@ msgstr ""
 "efficace. La valeur par défaut est de 20 pour-cents."
 
 #. type: SH
-#: C/man5/e2fsck.conf.5:147
+#: C/man5/e2fsck.conf.5:148
 #, no-wrap
 msgid "THE [problems] STANZA"
 msgstr "SECTION [problems]"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:155
+#: C/man5/e2fsck.conf.5:156
 msgid ""
 "Each tag in the I<[problems]> stanza names a problem code specified with a "
 "leading \"0x\" followed by six hex digits.  The value of the tag is a "
@@ -1394,7 +1407,7 @@ msgstr ""
 "remplace le traitement par défaut pour ce code d'erreur particulier."
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:160
+#: C/man5/e2fsck.conf.5:161
 msgid ""
 "Note that inappropriate settings in this stanza may cause B<e2fsck> to "
 "behave incorrectly, or even crash.  Most system administrators should not be "
@@ -1406,20 +1419,20 @@ msgstr ""
 "sans se référer au code source."
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:162
+#: C/man5/e2fsck.conf.5:163
 msgid "Within each problem code's subsection, the following tags may be used:"
 msgstr ""
 "Pour chacune des sous-sections de code d'erreur, les variables suivantes "
 "peuvent être utilisées."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:162
+#: C/man5/e2fsck.conf.5:163
 #, no-wrap
 msgid "I<description>"
 msgstr "I<description>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:166
+#: C/man5/e2fsck.conf.5:167
 msgid ""
 "This relation allows the message which is printed when this filesystem "
 "inconsistency is detected to be overridden."
@@ -1428,13 +1441,13 @@ msgstr ""
 "incohérence est détectée."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:166
+#: C/man5/e2fsck.conf.5:167
 #, no-wrap
 msgid "I<preen_ok>"
 msgstr "I<preen_ok>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:172
+#: C/man5/e2fsck.conf.5:173
 msgid ""
 "This boolean relation overrides the default behavior controlling whether "
 "this filesystem problem should be automatically fixed when B<e2fsck> is "
@@ -1445,13 +1458,13 @@ msgstr ""
 "sur un système de fichiers."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:172
+#: C/man5/e2fsck.conf.5:173
 #, no-wrap
 msgid "I<no_ok>"
 msgstr "I<no_ok>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:177
+#: C/man5/e2fsck.conf.5:178
 msgid ""
 "This boolean relation overrides the default behavior determining whether or "
 "not the filesystem will be marked as inconsistent if the user declines to "
@@ -1461,13 +1474,13 @@ msgstr ""
 "comme incohérent si l'utilisateur refuse de corriger le problème indiqué."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:177
+#: C/man5/e2fsck.conf.5:178
 #, no-wrap
 msgid "I<no_default>"
 msgstr "I<no_default>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:181
+#: C/man5/e2fsck.conf.5:182
 msgid ""
 "This boolean relation overrides whether the default answer for this problem "
 "(or question) should be \"no\"."
@@ -1476,13 +1489,13 @@ msgstr ""
 "(ou cette question) doit être « no »."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:181
+#: C/man5/e2fsck.conf.5:182
 #, no-wrap
 msgid "I<preen_nomessage>"
 msgstr "I<preen_nomessage>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:188
+#: C/man5/e2fsck.conf.5:189
 msgid ""
 "This boolean relation overrides the default behavior controlling whether or "
 "not the description for this filesystem problem should be suppressed when "
@@ -1493,13 +1506,13 @@ msgstr ""
 "mode « preen »."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:188
+#: C/man5/e2fsck.conf.5:189
 #, no-wrap
 msgid "I<no_nomsg>"
 msgstr "I<no_nomsg>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:197
+#: C/man5/e2fsck.conf.5:198
 msgid ""
 "This boolean relation overrides the default behavior controlling whether or "
 "not the description for this filesystem problem should be suppressed when "
@@ -1510,25 +1523,25 @@ msgstr ""
 "l'option B<-n>."
 
 #. type: SH
-#: C/man5/e2fsck.conf.5:197
+#: C/man5/e2fsck.conf.5:198
 #, no-wrap
 msgid "THE [scratch_files] STANZA"
 msgstr "SECTION [scratch_files]"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:201
+#: C/man5/e2fsck.conf.5:202
 msgid "The following relations are defined in the I<[scratch_files]> stanza."
 msgstr ""
 "Les variables suivantes sont définies dans la section I<[scratch_files]>."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:201
+#: C/man5/e2fsck.conf.5:202
 #, no-wrap
 msgid "I<directory>"
 msgstr "I<directory>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:206
+#: C/man5/e2fsck.conf.5:207
 msgid ""
 "If the directory named by this relation exists and is writeable, then e2fsck "
 "will attempt to use this directory to store scratch files instead of using "
@@ -1539,13 +1552,13 @@ msgstr ""
 "lieu d'utiliser des structures de données en mémoire."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:206
+#: C/man5/e2fsck.conf.5:207
 #, no-wrap
 msgid "I<numdirs_threshold>"
 msgstr "I<numdirs_threshold>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:210
+#: C/man5/e2fsck.conf.5:211
 msgid ""
 "If this relation is set, then in-memory data structures be used if the "
 "number of directories in the filesystem are fewer than amount specified."
@@ -1555,13 +1568,13 @@ msgstr ""
 "inférieur à la quantité indiquée."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:210
+#: C/man5/e2fsck.conf.5:211
 #, no-wrap
 msgid "I<dirinfo>"
 msgstr "I<dirinfo>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:215
+#: C/man5/e2fsck.conf.5:216
 msgid ""
 "This relation controls whether or not the scratch file directory is used "
 "instead of an in-memory data structure for directory information.  It "
@@ -1572,13 +1585,13 @@ msgstr ""
 "informations sur les répertoires. La valeur par défaut est true."
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:215
+#: C/man5/e2fsck.conf.5:216
 #, no-wrap
 msgid "I<icount>"
 msgstr "I<icount>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:220
+#: C/man5/e2fsck.conf.5:221
 msgid ""
 "This relation controls whether or not the scratch file directory is used "
 "instead of an in-memory data structure when tracking inode counts.  It "
@@ -1589,13 +1602,13 @@ msgstr ""
 "suivi du décompte des inœuds. La valeur par défaut est true."
 
 #. type: SH
-#: C/man5/e2fsck.conf.5:220
+#: C/man5/e2fsck.conf.5:221
 #, no-wrap
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:227
+#: C/man5/e2fsck.conf.5:228
 msgid ""
 "The following recipe will prevent e2fsck from aborting during the boot "
 "process when a filesystem contains orphaned files.  (Of course, this is not "
@@ -1612,44 +1625,44 @@ msgstr ""
 "peut être dangereux)."
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:230
+#: C/man5/e2fsck.conf.5:231
 msgid "  [problems]"
 msgstr "  [problems]"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:232
+#: C/man5/e2fsck.conf.5:233
 msgid "  0x040002 = {"
 msgstr "  0x040002 = {"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:234
+#: C/man5/e2fsck.conf.5:235
 msgid "  preen_ok = true"
 msgstr "  preen_ok = true"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:236
+#: C/man5/e2fsck.conf.5:237
 msgid "  description = \"@u @i %i.  \""
 msgstr "  description = \"@u @i %i.  \""
 
 #. type: SH
-#: C/man5/e2fsck.conf.5:238 C/man5/mke2fs.conf.5:355
+#: C/man5/e2fsck.conf.5:239 C/man5/mke2fs.conf.5:355
 #, no-wrap
 msgid "FILES"
 msgstr "FICHIERS"
 
 #. type: TP
-#: C/man5/e2fsck.conf.5:239
+#: C/man5/e2fsck.conf.5:240
 #, no-wrap
 msgid "I</etc/e2fsck.conf>"
 msgstr "I</etc/e2fsck.conf>"
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:243
+#: C/man5/e2fsck.conf.5:244
 msgid "The configuration file for B<e2fsck>(8)."
 msgstr "Le fichier de configuration pour B<e2fsck>(8)."
 
 #. type: Plain text
-#: C/man5/e2fsck.conf.5:244
+#: C/man5/e2fsck.conf.5:245
 msgid "B<e2fsck>(8)"
 msgstr "B<e2fsck>(8)"
 
