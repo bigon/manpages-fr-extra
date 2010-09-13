@@ -17,7 +17,7 @@
 .\"
 .\" $Id: crontab.5,v 2.4 1994/01/15 20:43:43 vixie Exp $
 .\" 
-.TH CRONTAB 5 "16 March 2010"
+.TH CRONTAB 5 "19 April 2010"
 .UC 4
 .SH NAME
 crontab \- tables for driving cron
@@ -52,7 +52,9 @@ will be part of the value assigned to
 The
 .I value
 string may be placed in quotes (single or double, but matching) to preserve
-leading or trailing blanks. The  
+leading or trailing blanks. To define an empty variable, quotes
+.B must
+be used. The  
 .I value
 string is 
 .B not
@@ -104,7 +106,9 @@ module, and loads the environment specified by
 .IR /etc/environment
 and
 .IR /etc/security/pam_env.conf .
-However, the PAM setting do
+It also reads locale information from
+.IR /etc/default/locale .
+However, the PAM settings do
 .B NOT
 override the settings described above nor any settings in the 
 .I crontab
@@ -199,7 +203,9 @@ field matches the current time.  For example,
 .br
 ``30 4 1,15 * 5''
 would cause a command to be run at 4:30 am on the 1st and 15th of each
-month, plus every Friday.
+month, plus every Friday. One can, however, achieve the desired result
+by adding a test to the command (see the last example in EXAMPLE CRON FILE
+below).
 .PP
 Instead of the first five fields, one of eight special strings may appear:
 .IP
@@ -237,9 +243,11 @@ MAILTO=paul
 # run at 2:15pm on the first of every month -- output mailed to paul
 15 14 1 * *     $HOME/bin/monthly
 # run at 10 pm on weekdays, annoy Joe
-0 22 * * 1-5    mail -s "It's 10pm" joe%Joe,%%Where are your kids?%
+0 22 * * 1-5    mail \-s "It's 10pm" joe%Joe,%%Where are your kids?%
 23 0-23/2 * * * echo "run 23 minutes after midn, 2am, 4am ..., everyday"
 5 4 * * sun     echo "run at 5 after 4 every sunday"
+# Run on every second Saturday of the month
+0 4 8-15 * *    test $(date +\%u) -eq 6 && echo "2nd Saturday"
 .fi
 .SH EXAMPLE SYSTEM CRON FILE
 This has the username field, as used by /etc/crontab.
@@ -254,9 +262,9 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user    command
-42 6 * * *        root    run-parts --report /etc/cron.daily
-47 6 * * 7        root    run-parts --report /etc/cron.weekly
-52 6 1 * *        root    run-parts --report /etc/cron.monthly
+42 6 * * *        root    run-parts \-\-report /etc/cron.daily
+47 6 * * 7        root    run-parts \-\-report /etc/cron.weekly
+52 6 1 * *        root    run-parts \-\-report /etc/cron.monthly
 #
 # Removed invocation of anacron, as this is now handled by a 
 # /etc/cron.d file
@@ -295,6 +303,13 @@ environment variable in his
 .I crontab
 this will affect only the commands executed in the crontab, not the execution
 of the crontab tasks themselves.
+
+.SH DIAGNOSTICS
+cron requires that each entry in a crontab end in a newline character. If the
+last entry in a crontab is missing a newline (ie, terminated by EOF), cron will
+consider the crontab (at least partially) broken. A warning will be written to
+syslog.
+
 .SH AUTHOR
 .nf
 Paul Vixie <paul@vix.com>

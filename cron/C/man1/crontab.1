@@ -17,14 +17,14 @@
 .\"
 .\" $Id: crontab.1,v 2.4 1993/12/31 10:47:33 vixie Exp $
 .\"
-.TH CRONTAB 1 "16 March 2010"
+.TH CRONTAB 1 "19 April 2010"
 .UC 4
 .SH NAME
 crontab \- maintain crontab files for individual users (Vixie Cron)
 .SH SYNOPSIS
-crontab [ -u user ] file
+crontab [ \-u user ] file
 .br
-crontab [ -u user ] [ -i ] { -e | -l | -r }
+crontab [ \-u user ] [ \-i ] { \-e | \-l | \-r }
 .SH DESCRIPTION
 .I crontab
 is the program used to install, deinstall or list the tables
@@ -51,7 +51,7 @@ command, or all users will be able to use this command.
 .PP
 If both files exist then 
 .I /etc/cron.allow
-takes precendence. Which means that 
+takes precedence. Which means that 
 .I /etc/cron.deny
 is not considered and your user must be listed in 
 .I /etc/cron.allow
@@ -102,7 +102,7 @@ default editor /usr/bin/editor is used.
 .PP
 The
 .I -i
-option modifies the -r option to prompt the user for a 'y/Y' response
+option modifies the \-r option to prompt the user for a 'y/Y' response
 before actually removing the crontab.
 .SH DEBIAN SPECIFIC
 The "out-of-the-box" behaviour for
@@ -112,7 +112,7 @@ that is placed at the
 beginning of the crontab when it is installed. The problem is that
 it makes the sequence
 .PP
-crontab -l | crontab -
+crontab \-l | crontab \-
 .PP
 non-idempotent -- you keep adding copies of the header. This causes
 pain to scripts that use sed to edit a crontab. Therefore, the default
@@ -153,12 +153,9 @@ SVR3 syntax.
 A fairly informative usage message appears if you run it with a bad command
 line.
 
-.SH BUGS
-Although cron requires that each entry in a crontab end in a newline
-character, neither the crontab command nor the cron daemon will
-detect this error. Instead, the crontab will appear to load
-normally. However, the command will never run. The best choice is to
-ensure that your crontab has a blank line at the end.
+cron requires that each entry in a crontab end in a newline character. If the
+last entry in a crontab is missing the newline, cron will consider the crontab
+(at least partially) broken and refuse to install it.
 
 .SH AUTHOR
 .nf
