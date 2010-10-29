@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: manpages-fr-extra-util-linux\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-12 19:58-0400\n"
-"PO-Revision-Date: 2010-10-05 11:25-0400\n"
+"PO-Revision-Date: 2010-10-28 22:18-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -7392,7 +7392,7 @@ msgstr "util-linux-ng"
 #. type: Plain text
 #: C/man3/libblkid.3:11
 msgid "libblkid - block device identification library"
-msgstr "libblkid - Bibliothèque d'identification de périphériques de type bloc"
+msgstr "libblkid - Bibliothèque d'identification de périphériques blocs"
 
 #. type: Plain text
 #: C/man3/libblkid.3:13
@@ -7413,13 +7413,13 @@ msgid ""
 "serial numbers, etc.  A common use is to allow use of LABEL= and UUID= tags "
 "instead of hard-coding specific block device names into configuration files."
 msgstr ""
-"La bibliothèque B<libblkid>est utilisée pour identifier les périphériques "
+"La bibliothèque B<libblkid> est utilisée pour identifier les périphériques "
 "blocs à leur contenu (p. ex. un type de système de fichiers), pour extraire "
 "des informations additionnelles comme les noms de volumes, les étiquettes, "
 "les identifiants uniques, les numéros de série d'un système de fichiers. Une "
-"utilisation courante est de permettre d'identifier une périphérique blocs "
-"par une étiquette (« LABEL= ») ou son identifiant unique (« UUID= ») en lieu "
-"et place d'un lien direct dans des fichiers de configuration.  "
+"utilisation courante est de permettre d'identifier un périphérique bloc par "
+"une étiquette (« LABEL= ») ou son identifiant unique (« UUID= ») en lieu et "
+"place d'un lien direct dans des fichiers de configuration."
 
 #. type: Plain text
 #: C/man3/libblkid.3:34
@@ -7432,14 +7432,14 @@ msgid ""
 "standard location of the cache file can be overridden by the environment "
 "variable BLKID_FILE."
 msgstr ""
-"Les informations des périphériques blocs sont normalement sauvegarder dans "
-"un fichier tampon I</etc/blkid.tab> vérifier valable avant d'être renvoyé à "
-"l'utilisateur (si l'utilisateur a les permissions de lecture sur le "
-"périphérique bloc raw, sinon, non). Le fichier tampon permet aux "
-"utilisateurs non privilégiés (tous les utilisateurs n'appartenant pas au "
+"Les informations des périphériques blocs sont normalement sauvegardées dans "
+"un fichier tampon I</etc/blkid.tab> dont la validité est vérifiée avant "
+"d'être renvoyé à l'utilisateur (si l'utilisateur a les permissions de "
+"lecture sur le périphérique bloc brut, sinon, non). Le fichier tampon permet "
+"aux utilisateurs non privilégiés (tous les utilisateurs n'appartenant pas au "
 "groupe « disk » et autres que root) de chercher des périphériques par "
-"étiquette/identifiant. L'emplacement standard du fichier tampon peut être "
-"surcharger par la variable d'environnement BLKID_FILE.  "
+"étiquette ou identifiant. L'emplacement standard du fichier tampon peut être "
+"surchargé par la variable d'environnement BLKID_FILE."
 
 #. type: Plain text
 #: C/man3/libblkid.3:41
@@ -7451,13 +7451,14 @@ msgid ""
 "devices will be scanned at most one time and the on-disk cache will be "
 "updated if possible.  There is rarely a reason not to use the cache."
 msgstr ""
-"Dans le cas où l'on est en train de récupérer des informations à propos d'un "
-"périphérique connu, cela n'a pas d'impact sur les performances que le "
-"fichier tampon soit utilisé ou non. Si on travaille avec plusieurs "
-"périphériques, l'utilisation du fichier tampon est hautement recommandée "
-"(même s'il est vide) car les périphériques seront parcourus au plus une fois "
-"et le tampon sur le disque sera mis à jour si possible. Il y a rarement de "
-"raison de ne pas utiliser le fichier de tampon."
+"Dans le cas d'une récupération d'informations à propos d'un seul "
+"périphérique connu, que le fichier tampon soit utilisé ou non n'a pas "
+"d'impact sur les performances (à moins de pouvoir lire le périphérique bloc "
+"directement). Si plusieurs périphériques sont concernés, l'utilisation du "
+"fichier tampon est hautement recommandée (même s'il est vide) car les "
+"périphériques seront parcourus au plus une fois et le tampon sur le disque "
+"sera mis à jour si possible. Il est rarement utile de ne pas utiliser le "
+"fichier tampon."
 
 #. type: Plain text
 #: C/man3/libblkid.3:48
@@ -7471,7 +7472,7 @@ msgstr ""
 "toujours visible tant qu'ils n'ont pas été accéder une première fois. Il est "
 "donc critique qu'il existe une façon de trouver ces périphériques sans "
 "énumérer seulement les périphériques visibles. Ainsi, l'utilisation du "
-"fichier tampon est B<requise> dans ce cas.  "
+"fichier tampon est B<nécessaire> dans ce cas.  "
 
 #. type: SH
 #: C/man3/libblkid.3:48
@@ -7538,7 +7539,7 @@ msgid ""
 "method uses udev I</dev/disk/by-*> symlinks and the \"scan\" method scans "
 "all block devices from the I</proc/partitions> file."
 msgstr ""
-"Définir la/les méthode(s) d'évaluation des LABEL et UUID. Actuellement, "
+"Définir la ou les méthodes d'évaluation des LABEL et UUID. Actuellement, "
 "libblkid gère les méthodes « udev » et « scan ». Plus d'une méthode peut "
 "être indiquée dans une liste séparée par des virgules. La valeur par défaut "
 "est « udev, scan ». La méthode « udev » utilise les liens symboliques I</dev/"
@@ -9003,8 +9004,7 @@ msgstr "juin 2007"
 #: C/man8/blockdev.8:9
 msgid "blockdev - call block device ioctls from the command line"
 msgstr ""
-"blockdev - Appeler les ioctls pour périphériques en mode bloc en ligne de "
-"commande"
+"blockdev - Appeler les ioctls pour périphériques blocs en ligne de commande"
 
 #. type: Plain text
 #: C/man8/blockdev.8:13
