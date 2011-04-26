@@ -11,7 +11,7 @@ SUBDIRS=at \
 	openssl \
 	procps \
 	reiser4progs reiserfsprogs \
-	sysvinit \
+	sudo sysvinit \
 	tar \
 	util-linux \
 	x11-xserver-utils

@@ -1,0 +1,6484 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-04-20 23:39+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: =head1
+#: C/sudoers.ldap.pod:19 C/sudoers.pod:23 C/sudo.pod:23 C/sudoreplay.pod:18 C/visudo.pod:23
+msgid "NAME"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:21
+msgid "sudoers.ldap - sudo LDAP configuration"
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:23 C/sudoers.pod:27 C/sudo.pod:57 C/sudoreplay.pod:28 C/visudo.pod:31
+msgid "DESCRIPTION"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:25
+msgid ""
+"In addition to the standard I<sudoers> file, B<sudo> may be configured via "
+"LDAP.  This can be especially useful for synchronizing I<sudoers> in a "
+"large, distributed environment."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:29
+msgid "Using LDAP for I<sudoers> has several benefits:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:33 C/sudoers.ldap.pod:40 C/sudoers.ldap.pod:48 C/sudoers.ldap.pod:56 C/sudoers.pod:137 C/sudoers.pod:141 C/sudoers.pod:145
+msgid "*"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:35
+msgid ""
+"B<sudo> no longer needs to read I<sudoers> in its entirety.  When LDAP is "
+"used, there are only two or three LDAP queries per invocation.  This makes "
+"it especially fast and particularly usable in LDAP environments."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:42
+msgid ""
+"B<sudo> no longer exits if there is a typo in I<sudoers>.  It is not "
+"possible to load LDAP data into the server that does not conform to the "
+"sudoers schema, so proper syntax is guaranteed.  It is still possible to "
+"have typos in a user or host name, but this will not prevent B<sudo> from "
+"running."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:50
+msgid ""
+"It is possible to specify per-entry options that override the global default "
+"options.  F<@sysconfdir@/sudoers> only supports default options and limited "
+"options associated with user/host/commands/aliases.  The syntax is "
+"complicated and can be difficult for users to understand.  Placing the "
+"options directly in the entry is more natural."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:58
+msgid ""
+"The B<visudo> program is no longer needed.  B<visudo> provides locking and "
+"syntax checking of the F<@sysconfdir@/sudoers> file.  Since LDAP updates are "
+"atomic, locking is no longer necessary.  Because syntax is checked when the "
+"data is inserted into LDAP, there is no need for a specialized tool to check "
+"syntax."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:66
+msgid ""
+"Another major difference between LDAP and file-based I<sudoers> is that in "
+"LDAP, B<sudo>-specific Aliases are not supported."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:69
+msgid ""
+"For the most part, there is really no need for B<sudo>-specific Aliases.  "
+"Unix groups or user netgroups can be used in place of User_Aliases and "
+"RunasAliases.  Host netgroups can be used in place of HostAliases.  Since "
+"Unix groups and netgroups can also be stored in LDAP there is no real need "
+"for B<sudo>-specific aliases."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:75
+msgid ""
+"Cmnd_Aliases are not really required either since it is possible to have "
+"multiple users listed in a sudoRole.  Instead of defining a Cmnd_Alias that "
+"is referenced by multiple users, one can create a sudoRole that contains the "
+"commands and assign multiple users to it."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:81
+msgid "SUDOers LDAP container"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:83
+msgid ""
+"The I<sudoers> configuration is contained in the C<ou=SUDOers> LDAP "
+"container."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:86
+msgid ""
+"Sudo first looks for the C<cn=default> entry in the SUDOers container.  If "
+"found, the multi-valued C<sudoOption> attribute is parsed in the same manner "
+"as a global C<Defaults> line in F<@sysconfdir@/sudoers>.  In the following "
+"example, the C<SSH_AUTH_SOCK> variable will be preserved in the environment "
+"for all users."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:92
+#, no-wrap
+msgid ""
+"    dn: cn=defaults,ou=SUDOers,dc=example,dc=com\n"
+"    objectClass: top\n"
+"    objectClass: sudoRole\n"
+"    cn: defaults\n"
+"    description: Default sudoOption's go here\n"
+"    sudoOption: env_keep+=SSH_AUTH_SOCK\n"
+" \n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:99
+msgid ""
+"The equivalent of a sudoer in LDAP is a C<sudoRole>.  It consists of the "
+"following components:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:104
+msgid "B<sudoUser>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:106
+msgid ""
+"A user name, uid (prefixed with C<'#'>), Unix group (prefixed with a C<'%'>) "
+"or user netgroup (prefixed with a C<'+'>)."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:109
+msgid "B<sudoHost>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:111
+msgid ""
+"A host name, IP address, IP network, or host netgroup (prefixed with a "
+"C<'+'>).  The special value C<ALL> will match any host."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:115
+msgid "B<sudoCommand>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:117
+msgid ""
+"A Unix command with optional command line arguments, potentially including "
+"globbing characters (aka wild cards).  The special value C<ALL> will match "
+"any command.  If a command is prefixed with an exclamation point C<'!'>, the "
+"user will be prohibited from running that command."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:123
+msgid "B<sudoOption>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:125
+msgid ""
+"Identical in function to the global options described above, but specific to "
+"the C<sudoRole> in which it resides."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:128
+msgid "B<sudoRunAsUser>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:130
+msgid ""
+"A user name or uid (prefixed with C<'#'>) that commands may be run as or a "
+"Unix group (prefixed with a C<'%'>) or user netgroup (prefixed with a "
+"C<'+'>) that contains a list of users that commands may be run as.  The "
+"special value C<ALL> will match any user."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:136
+msgid "B<sudoRunAsGroup>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:138
+msgid ""
+"A Unix group or gid (prefixed with C<'#'>) that commands may be run as.  The "
+"special value C<ALL> will match any group."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:143
+msgid ""
+"Each component listed above should contain a single value, but there may be "
+"multiple instances of each component type.  A sudoRole must contain at least "
+"one C<sudoUser>, C<sudoHost> and C<sudoCommand>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:147
+msgid ""
+"The following example allows users in group wheel to run any command on any "
+"host via B<sudo>:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:150
+#, no-wrap
+msgid ""
+"    dn: cn=%wheel,ou=SUDOers,dc=example,dc=com\n"
+"    objectClass: top\n"
+"    objectClass: sudoRole\n"
+"    cn: %wheel\n"
+"    sudoUser: %wheel\n"
+"    sudoHost: ALL\n"
+"    sudoCommand: ALL\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:158
+msgid "Anatomy of LDAP sudoers lookup"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:160
+msgid ""
+"When looking up a sudoer using LDAP there are only two or three LDAP queries "
+"per invocation.  The first query is to parse the global options.  The second "
+"is to match against the user's name and the groups that the user belongs "
+"to.  (The special ALL tag is matched in this query too.)  If no match is "
+"returned for the user's name and groups, a third query returns all entries "
+"containing user netgroups and checks to see if the user belongs to any of "
+"them."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:168
+msgid "Differences between LDAP and non-LDAP sudoers"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:170
+msgid ""
+"There are some subtle differences in the way sudoers is handled once in "
+"LDAP.  Probably the biggest is that according to the RFC, LDAP ordering is "
+"arbitrary and you cannot expect that Attributes and Entries are returned in "
+"any specific order.  If there are conflicting command rules on an entry, the "
+"negative takes precedence.  This is called paranoid behavior (not "
+"necessarily the most specific match)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:178
+msgid "Here is an example:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:180
+#, no-wrap
+msgid ""
+"    # /etc/sudoers:\n"
+"    # Allow all commands except shell\n"
+"    johnny  ALL=(root) ALL,!/bin/sh\n"
+"    # Always allows all commands because ALL is matched last\n"
+"    puddles ALL=(root) !/bin/sh,ALL\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:186
+#, no-wrap
+msgid ""
+"    # LDAP equivalent of johnny\n"
+"    # Allows all commands except shell\n"
+"    dn: cn=role1,ou=Sudoers,dc=my-domain,dc=com\n"
+"    objectClass: sudoRole\n"
+"    objectClass: top\n"
+"    cn: role1\n"
+"    sudoUser: johnny\n"
+"    sudoHost: ALL\n"
+"    sudoCommand: ALL\n"
+"    sudoCommand: !/bin/sh\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:197
+#, no-wrap
+msgid ""
+"    # LDAP equivalent of puddles\n"
+"    # Notice that even though ALL comes last, it still behaves like\n"
+"    # role1 since the LDAP code assumes the more paranoid configuration\n"
+"    dn: cn=role2,ou=Sudoers,dc=my-domain,dc=com\n"
+"    objectClass: sudoRole\n"
+"    objectClass: top\n"
+"    cn: role2\n"
+"    sudoUser: puddles\n"
+"    sudoHost: ALL\n"
+"    sudoCommand: !/bin/sh\n"
+"    sudoCommand: ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:209
+msgid ""
+"Another difference is that negations on the Host, User or Runas are "
+"currently ignorred.  For example, the following attributes do not behave the "
+"way one might expect."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:213
+#, no-wrap
+msgid ""
+"    # does not match all but joe\n"
+"    # rather, does not match anyone\n"
+"    sudoUser: !joe\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:217
+#, no-wrap
+msgid ""
+"    # does not match all but joe\n"
+"    # rather, matches everyone including Joe\n"
+"    sudoUser: ALL\n"
+"    sudoUser: !joe\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:222
+#, no-wrap
+msgid ""
+"    # does not match all but web01\n"
+"    # rather, matches all hosts including web01\n"
+"    sudoHost: ALL\n"
+"    sudoHost: !web01\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:227
+msgid "Sudoers Schema"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:229
+msgid ""
+"In order to use B<sudo>'s LDAP support, the B<sudo> schema must be installed "
+"on your LDAP server.  In addition, be sure to index the 'sudoUser' "
+"attribute."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:233
+msgid ""
+"Three versions of the schema: one for OpenLDAP servers (F<schema.OpenLDAP>), "
+"one for Netscape-derived servers (F<schema.iPlanet>), and one for Microsoft "
+"Active Directory (F<schema.ActiveDirectory>) may be found in the B<sudo> "
+"distribution."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:238
+msgid ""
+"The schema for B<sudo> in OpenLDAP form is included in the L<EXAMPLES> "
+"section."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:241
+msgid "Configuring ldap.conf"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:243
+msgid ""
+"Sudo reads the F<@ldap_conf@> file for LDAP-specific configuration.  "
+"Typically, this file is shared amongst different LDAP-aware clients.  As "
+"such, most of the settings are not B<sudo>-specific.  Note that B<sudo> "
+"parses F<@ldap_conf@> itself and may support options that differ from those "
+"described in the L<ldap.conf(5)> manual."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:249
+msgid ""
+"Also note that on systems using the OpenLDAP libraries, default values "
+"specified in F</etc/openldap/ldap.conf> or the user's F<.ldaprc> files are "
+"not used."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:253
+msgid ""
+"Only those options explicitly listed in F<@ldap_conf@> that are supported by "
+"B<sudo> are honored.  Configuration options are listed below in upper case "
+"but are parsed in a case-independent manner."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:259
+msgid "B<URI> ldap[s]://[hostname[:port]] ..."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:261
+msgid ""
+"Specifies a whitespace-delimited list of one or more URIs describing the "
+"LDAP server(s) to connect to.  The I<protocol> may be either B<ldap> or "
+"B<ldaps>, the latter being for servers that support TLS (SSL) encryption.  "
+"If no I<port> is specified, the default is port 389 for C<ldap://> or port "
+"636 for C<ldaps://>.  If no I<hostname> is specified, B<sudo> will connect "
+"to B<localhost>.  Multiple B<URI> lines are treated identically to a B<URI> "
+"line containing multiple entries.  Only systems using the OpenSSL libraries "
+"support the mixing of C<ldap://> and C<ldaps://> URIs.  The Netscape-derived "
+"libraries used on most commercial versions of Unix are only capable of "
+"supporting one or the other."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:273
+msgid "B<HOST> name[:port] ..."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:275
+msgid ""
+"If no B<URI> is specified, the B<HOST> parameter specifies a "
+"whitespace-delimited list of LDAP servers to connect to.  Each host may "
+"include an optional I<port> separated by a colon (':').  The B<HOST> "
+"parameter is deprecated in favor of the B<URI> specification and is included "
+"for backwards compatibility."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:281
+msgid "B<PORT> port_number"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:283
+msgid ""
+"If no B<URI> is specified, the B<PORT> parameter specifies the default port "
+"to connect to on the LDAP server if a B<HOST> parameter does not specify the "
+"port itself.  If no B<PORT> parameter is used, the default is port 389 for "
+"LDAP and port 636 for LDAP over TLS (SSL).  The B<PORT> parameter is "
+"deprecated in favor of the B<URI> specification and is included for "
+"backwards compatibility."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:290
+msgid "B<BIND_TIMELIMIT> seconds"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:292
+msgid ""
+"The B<BIND_TIMELIMIT> parameter specifies the amount of time, in seconds, to "
+"wait while trying to connect to an LDAP server.  If multiple B<URI>s or "
+"B<HOST>s are specified, this is the amount of time to wait before trying the "
+"next one in the list."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:297
+msgid "B<TIMELIMIT> seconds"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:299
+msgid ""
+"The B<TIMELIMIT> parameter specifies the amount of time, in seconds, to wait "
+"for a response to an LDAP query."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:302
+msgid "B<SUDOERS_BASE> base"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:304
+msgid ""
+"The base DN to use when performing B<sudo> LDAP queries.  Typically this is "
+"of the form C<ou=SUDOers,dc=example,dc=com> for the domain C<example.com>.  "
+"Multiple B<SUDOERS_BASE> lines may be specified, in which case they are "
+"queried in the order specified."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:309
+msgid "B<SUDOERS_DEBUG> debug_level"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:311
+msgid ""
+"This sets the debug level for B<sudo> LDAP queries.  Debugging information "
+"is printed to the standard error.  A value of 1 results in a moderate amount "
+"of debugging information.  A value of 2 shows the results of the matches "
+"themselves.  This parameter should not be set in a production environment as "
+"the extra information is likely to confuse users."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:318
+msgid "B<BINDDN> DN"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:320
+msgid ""
+"The B<BINDDN> parameter specifies the identity, in the form of a "
+"Distinguished Name (DN), to use when performing LDAP operations.  If not "
+"specified, LDAP operations are performed with an anonymous identity.  By "
+"default, most LDAP servers will allow anonymous access."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:325
+msgid "B<BINDPW> secret"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:327
+msgid ""
+"The B<BINDPW> parameter specifies the password to use when performing LDAP "
+"operations.  This is typically used in conjunction with the B<BINDDN> "
+"parameter."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:331
+msgid "B<ROOTBINDDN> DN"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:333
+msgid ""
+"The B<ROOTBINDDN> parameter specifies the identity, in the form of a "
+"Distinguished Name (DN), to use when performing privileged LDAP operations, "
+"such as I<sudoers> queries.  The password corresponding to the identity "
+"should be stored in F<@ldap_secret@>.  If not specified, the B<BINDDN> "
+"identity is used (if any)."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:339
+msgid "B<LDAP_VERSION> number"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:341
+msgid ""
+"The version of the LDAP protocol to use when connecting to the server.  The "
+"default value is protocol version 3."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:344
+msgid "B<SSL> on/true/yes/off/false/no"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:346
+msgid ""
+"If the B<SSL> parameter is set to C<on>, C<true> or C<yes>, TLS (SSL) "
+"encryption is always used when communicating with the LDAP server.  "
+"Typically, this involves connecting to the server on port 636 (ldaps)."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:351
+msgid "B<SSL> start_tls"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:353
+msgid ""
+"If the B<SSL> parameter is set to C<start_tls>, the LDAP server connection "
+"is initiated normally and TLS encryption is begun before the bind "
+"credentials are sent.  This has the advantage of not requiring a dedicated "
+"port for encrypted communications.  This parameter is only supported by LDAP "
+"servers that honor the C<start_tls> extension, such as the OpenLDAP server."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:360
+msgid "B<TLS_CHECKPEER> on/true/yes/off/false/no"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:362
+msgid ""
+"If enabled, B<TLS_CHECKPEER> will cause the LDAP server's TLS certificated "
+"to be verified.  If the server's TLS certificate cannot be verified (usually "
+"because it is signed by an unknown certificate authority), B<sudo> will be "
+"unable to connect to it.  If B<TLS_CHECKPEER> is disabled, no check is "
+"made.  Note that disabling the check creates an opportunity for "
+"man-in-the-middle attacks since the server's identity will not be "
+"authenticated.  If possible, the CA's certificate should be installed "
+"locally so it can be verified."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:371
+msgid "B<TLS_CACERT> file name"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:373
+msgid "An alias for B<TLS_CACERTFILE>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:375
+msgid "B<TLS_CACERTFILE> file name"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:377
+msgid ""
+"The path to a certificate authority bundle which contains the certificates "
+"for all the Certificate Authorities the client knows to be valid, "
+"e.g. F</etc/ssl/ca-bundle.pem>.  This option is only supported by the "
+"OpenLDAP libraries.  Netscape-derived LDAP libraries use the same "
+"certificate database for CA and client certificates (see B<TLS_CERT>)."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:384
+msgid "B<TLS_CACERTDIR> directory"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:386
+msgid ""
+"Similar to B<TLS_CACERTFILE> but instead of a file, it is a directory "
+"containing individual Certificate Authority certificates, "
+"e.g. F</etc/ssl/certs>.  The directory specified by B<TLS_CACERTDIR> is "
+"checked after B<TLS_CACERTFILE>.  This option is only supported by the "
+"OpenLDAP libraries."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:393
+msgid "B<TLS_CERT> file name"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:395
+msgid ""
+"The path to a file containing the client certificate which can be used to "
+"authenticate the client to the LDAP server.  The certificate type depends on "
+"the LDAP libraries used."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:399
+#, no-wrap
+msgid ""
+"OpenLDAP:\n"
+"    C<tls_cert /etc/ssl/client_cert.pem>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:402
+#, no-wrap
+msgid ""
+"Netscape-derived:\n"
+"    C<tls_cert /var/ldap/cert7.db>\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:405
+msgid ""
+"When using Netscape-derived libraries, this file may also contain "
+"Certificate Authority certificates."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:408
+msgid "B<TLS_KEY> file name"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:410
+msgid ""
+"The path to a file containing the private key which matches the certificate "
+"specified by B<TLS_CERT>.  The private key must not be password-protected.  "
+"The key type depends on the LDAP libraries used."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:415
+#, no-wrap
+msgid ""
+"OpenLDAP:\n"
+"    C<tls_key /etc/ssl/client_key.pem>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:418
+#, no-wrap
+msgid ""
+"Netscape-derived:\n"
+"    C<tls_key /var/ldap/key3.db>\n"
+"\n"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:421
+msgid "B<TLS_RANDFILE> file name"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:423
+msgid ""
+"The B<TLS_RANDFILE> parameter specifies the path to an entropy source for "
+"systems that lack a random device.  It is generally used in conjunction with "
+"I<prngd> or I<egd>.  This option is only supported by the OpenLDAP "
+"libraries."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:428
+msgid "B<TLS_CIPHERS> cipher list"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:430
+msgid ""
+"The B<TLS_CIPHERS> parameter allows the administer to restrict which "
+"encryption algorithms may be used for TLS (SSL) connections.  See the "
+"OpenSSL manual for a list of valid ciphers.  This option is only supported "
+"by the OpenLDAP libraries."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:435
+msgid "B<USE_SASL> on/true/yes/off/false/no"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:437
+msgid "Enable B<USE_SASL> for LDAP servers that support SASL authentication."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:439
+msgid "B<SASL_AUTH_ID> identity"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:441
+msgid ""
+"The SASL user name to use when connecting to the LDAP server.  By default, "
+"B<sudo> will use an anonymous connection."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:444
+msgid "B<ROOTUSE_SASL> on/true/yes/off/false/no"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:446
+msgid ""
+"Enable B<ROOTUSE_SASL> to enable SASL authentication when connecting to an "
+"LDAP server from a privileged process, such as B<sudo>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:449
+msgid "B<ROOTSASL_AUTH_ID> identity"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:451
+msgid "The SASL user name to use when B<ROOTUSE_SASL> is enabled."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:453
+msgid "B<SASL_SECPROPS> none/properties"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:455
+msgid ""
+"SASL security properties or I<none> for no properties.  See the SASL "
+"programmer's manual for details."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:458
+msgid "B<KRB5_CCNAME> file name"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:460
+msgid ""
+"The path to the Kerberos 5 credential cache to use when authenticating with "
+"the remote server."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:465
+msgid "See the C<ldap.conf> entry in the L<EXAMPLES> section."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:467
+msgid "Configuring nsswitch.conf"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:469
+msgid ""
+"Unless it is disabled at build time, B<sudo> consults the Name Service "
+"Switch file, F<@nsswitch_conf@>, to specify the I<sudoers> search order.  "
+"Sudo looks for a line beginning with C<sudoers>: and uses this to determine "
+"the search order.  Note that B<sudo> does not stop searching after the first "
+"match and later matches take precedence over earlier ones."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:476
+msgid "The following sources are recognized:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:478
+#, no-wrap
+msgid ""
+"    files\tread sudoers from F<@sysconfdir@/sudoers>\n"
+"    ldap\tread sudoers from LDAP\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:481
+msgid ""
+"In addition, the entry C<[NOTFOUND=return]> will short-circuit the search if "
+"the user was not found in the preceding source."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:484 C/sudoers.ldap.pod:508
+msgid ""
+"To consult LDAP first followed by the local sudoers file (if it exists), "
+"use:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:487
+#, no-wrap
+msgid ""
+"    sudoers: ldap files\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:489 C/sudoers.ldap.pod:513
+msgid "The local I<sudoers> file can be ignored completely by using:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:491
+#, no-wrap
+msgid ""
+"    sudoers: ldap\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:493
+msgid ""
+"If the F<@nsswitch_conf@> file is not present or there is no sudoers line, "
+"the following default is assumed:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:496
+#, no-wrap
+msgid ""
+"    sudoers: files\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:498
+msgid ""
+"Note that F<@nsswitch_conf@> is supported even when the underlying operating "
+"system does not use an nsswitch.conf file."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:501
+msgid "Configuring netsvc.conf"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:503
+msgid ""
+"On AIX systems, the F<@netsvc_conf@> file is consulted instead of "
+"F<@nsswitch_conf@>.  B<sudo> simply treats I<netsvc.conf> as a variant of "
+"I<nsswitch.conf>; information in the previous section unrelated to the file "
+"format itself still applies."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:511
+#, no-wrap
+msgid ""
+"    sudoers = ldap, files\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:515
+#, no-wrap
+msgid ""
+"    sudoers = ldap\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:517
+msgid ""
+"To treat LDAP as authoratative and only use the local sudoers file if the "
+"user is not present in LDAP, use:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:520
+#, no-wrap
+msgid ""
+"    sudoers = ldap = auth, files\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:522
+msgid ""
+"Note that in the above example, the C<auth> qualfier only affects user "
+"lookups; both LDAP and I<sudoers> will be queried for C<Defaults> entries."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:526
+msgid ""
+"If the F<@netsvc_conf@> file is not present or there is no sudoers line, the "
+"following default is assumed:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:529
+#, no-wrap
+msgid ""
+"    sudoers = files\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:531 C/sudoers.pod:1347 C/sudo.pod:589 C/sudoreplay.pod:256 C/visudo.pod:124
+msgid "FILES"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:535
+msgid "F<@ldap_conf@>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:537
+msgid "LDAP configuration file"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:539
+msgid "F<@nsswitch_conf@>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:541
+msgid "determines sudoers source order"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.ldap.pod:543
+msgid "F<@netsvc_conf@>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:545
+msgid "determines sudoers source order on AIX"
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:549 C/sudoers.pod:1369 C/sudo.pod:607 C/sudoreplay.pod:298
+msgid "EXAMPLES"
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:551
+msgid "Example ldap.conf"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:553
+#, no-wrap
+msgid ""
+"  # Either specify one or more URIs or one or more host:port pairs.\n"
+"  # If neither is specified sudo will default to localhost, port 389.\n"
+"  #\n"
+"  #host          ldapserver\n"
+"  #host          ldapserver1 ldapserver2:390\n"
+"  #\n"
+"  # Default port if host is specified without one, defaults to 389.\n"
+"  #port          389\n"
+"  #\n"
+"  # URI will override the host and port settings.\n"
+"  uri            ldap://ldapserver\n"
+"  #uri            ldaps://secureldapserver\n"
+"  #uri            ldaps://secureldapserver ldap://ldapserver\n"
+"  #\n"
+"  # The amount of time, in seconds, to wait while trying to connect to\n"
+"  # an LDAP server.\n"
+"  bind_timelimit 30\n"
+"  #\n"
+"  # The amount of time, in seconds, to wait while performing an LDAP "
+"query.\n"
+"  timelimit 30\n"
+"  #\n"
+"  # Must be set or sudo will ignore LDAP; may be specified multiple times.\n"
+"  sudoers_base   ou=SUDOers,dc=example,dc=com\n"
+"  #\n"
+"  # verbose sudoers matching from ldap\n"
+"  #sudoers_debug 2\n"
+"  #\n"
+"  # optional proxy credentials\n"
+"  #binddn        <who to search as>\n"
+"  #bindpw        <password>\n"
+"  #rootbinddn    <who to search as, uses /etc/ldap.secret for bindpw>\n"
+"  #\n"
+"  # LDAP protocol version, defaults to 3\n"
+"  #ldap_version 3\n"
+"  #\n"
+"  # Define if you want to use an encrypted LDAP connection.\n"
+"  # Typically, you must also set the port to 636 (ldaps).\n"
+"  #ssl on\n"
+"  #\n"
+"  # Define if you want to use port 389 and switch to\n"
+"  # encryption before the bind credentials are sent.\n"
+"  # Only supported by LDAP servers that support the start_tls\n"
+"  # extension such as OpenLDAP.\n"
+"  #ssl start_tls\n"
+"  #\n"
+"  # Additional TLS options follow that allow tweaking of the\n"
+"  # SSL/TLS connection.\n"
+"  #\n"
+"  #tls_checkpeer yes # verify server SSL certificate\n"
+"  #tls_checkpeer no  # ignore server SSL certificate\n"
+"  #\n"
+"  # If you enable tls_checkpeer, specify either tls_cacertfile\n"
+"  # or tls_cacertdir.  Only supported when using OpenLDAP.\n"
+"  #\n"
+"  #tls_cacertfile /etc/certs/trusted_signers.pem\n"
+"  #tls_cacertdir  /etc/certs\n"
+"  #\n"
+"  # For systems that don't have /dev/random\n"
+"  # use this along with PRNGD or EGD.pl to seed the\n"
+"  # random number pool to generate cryptographic session keys.\n"
+"  # Only supported when using OpenLDAP.\n"
+"  #\n"
+"  #tls_randfile /etc/egd-pool\n"
+"  #\n"
+"  # You may restrict which ciphers are used.  Consult your SSL\n"
+"  # documentation for which options go here.\n"
+"  # Only supported when using OpenLDAP.\n"
+"  #\n"
+"  #tls_ciphers <cipher-list>\n"
+"  #\n"
+"  # Sudo can provide a client certificate when communicating to\n"
+"  # the LDAP server.\n"
+"  # Tips:\n"
+"  #   * Enable both lines at the same time.\n"
+"  #   * Do not password protect the key file.\n"
+"  #   * Ensure the keyfile is only readable by root.\n"
+"  #\n"
+"  # For OpenLDAP:\n"
+"  #tls_cert /etc/certs/client_cert.pem\n"
+"  #tls_key  /etc/certs/client_key.pem\n"
+"  #\n"
+"  # For SunONE or iPlanet LDAP, tls_cert and tls_key may specify either\n"
+"  # a directory, in which case the files in the directory must have the\n"
+"  # default names (e.g. cert8.db and key4.db), or the path to the cert\n"
+"  # and key files themselves.  However, a bug in version 5.0 of the LDAP\n"
+"  # SDK will prevent specific file names from working.  For this reason\n"
+"  # it is suggested that tls_cert and tls_key be set to a directory,\n"
+"  # not a file name.\n"
+"  #\n"
+"  # The certificate database specified by tls_cert may contain CA certs\n"
+"  # and/or the client's cert.  If the client's cert is included, tls_key\n"
+"  # should be specified as well.\n"
+"  # For backward compatibility, \"sslpath\" may be used in place of "
+"tls_cert.\n"
+"  #tls_cert /var/ldap\n"
+"  #tls_key /var/ldap\n"
+"  #\n"
+"  # If using SASL authentication for LDAP (OpenSSL)\n"
+"  # use_sasl yes\n"
+"  # sasl_auth_id <SASL user name>\n"
+"  # rootuse_sasl yes\n"
+"  # rootsasl_auth_id <SASL user name for root access>\n"
+"  # sasl_secprops none\n"
+"  # krb5_ccname /etc/.ldapcache\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.ldap.pod:657
+msgid "Sudo schema for OpenLDAP"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:659
+msgid ""
+"The following schema is in OpenLDAP format.  Simply copy it to the schema "
+"directory (e.g. F</etc/openldap/schema>), add the proper C<include> line in "
+"C<slapd.conf> and restart B<slapd>."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:663
+#, no-wrap
+msgid ""
+" attributetype ( 1.3.6.1.4.1.15953.9.1.1\n"
+"    NAME 'sudoUser'\n"
+"    DESC 'User(s) who may  run sudo'\n"
+"    EQUALITY caseExactIA5Match\n"
+"    SUBSTR caseExactIA5SubstringsMatch\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:670
+#, no-wrap
+msgid ""
+" attributetype ( 1.3.6.1.4.1.15953.9.1.2\n"
+"    NAME 'sudoHost'\n"
+"    DESC 'Host(s) who may run sudo'\n"
+"    EQUALITY caseExactIA5Match\n"
+"    SUBSTR caseExactIA5SubstringsMatch\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:677
+#, no-wrap
+msgid ""
+" attributetype ( 1.3.6.1.4.1.15953.9.1.3\n"
+"    NAME 'sudoCommand'\n"
+"    DESC 'Command(s) to be executed by sudo'\n"
+"    EQUALITY caseExactIA5Match\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:683
+#, no-wrap
+msgid ""
+" attributetype ( 1.3.6.1.4.1.15953.9.1.4\n"
+"    NAME 'sudoRunAs'\n"
+"    DESC 'User(s) impersonated by sudo'\n"
+"    EQUALITY caseExactIA5Match\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:689
+#, no-wrap
+msgid ""
+" attributetype ( 1.3.6.1.4.1.15953.9.1.5\n"
+"    NAME 'sudoOption'\n"
+"    DESC 'Options(s) followed by sudo'\n"
+"    EQUALITY caseExactIA5Match\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:695
+#, no-wrap
+msgid ""
+" attributetype ( 1.3.6.1.4.1.15953.9.1.6\n"
+"    NAME 'sudoRunAsUser'\n"
+"    DESC 'User(s) impersonated by sudo'\n"
+"    EQUALITY caseExactIA5Match\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:701
+#, no-wrap
+msgid ""
+" attributetype ( 1.3.6.1.4.1.15953.9.1.7\n"
+"    NAME 'sudoRunAsGroup'\n"
+"    DESC 'Group(s) impersonated by sudo'\n"
+"    EQUALITY caseExactIA5Match\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.ldap.pod:707
+#, no-wrap
+msgid ""
+" objectclass ( 1.3.6.1.4.1.15953.9.2.1 NAME 'sudoRole' SUP top STRUCTURAL\n"
+"    DESC 'Sudoer Entries'\n"
+"    MUST ( cn )\n"
+"    MAY ( sudoUser $ sudoHost $ sudoCommand $ sudoRunAs $ sudoRunAsUser $\n"
+"\t  sudoRunAsGroup $ sudoOption $ description )\n"
+"    )\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:714 C/sudoers.pod:1657 C/sudo.pod:642 C/sudoreplay.pod:316 C/visudo.pod:170
+msgid "SEE ALSO"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:716
+msgid "L<ldap.conf(5)>, L<sudoers(5)>"
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:718 C/sudoers.pod:1661 C/sudo.pod:659 C/visudo.pod:184
+msgid "CAVEATS"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:720
+msgid ""
+"The way that I<sudoers> is parsed differs between Note that there are "
+"differences in the way that LDAP-based I<sudoers> is parsed compared to "
+"file-based I<sudoers>.  See the L<Differences between LDAP and non-LDAP "
+"sudoers> section for more information."
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:725 C/sudoers.pod:1674 C/sudo.pod:684 C/sudoreplay.pod:324 C/visudo.pod:189
+msgid "BUGS"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:727 C/sudoers.pod:1676 C/sudo.pod:686
+msgid ""
+"If you feel you have found a bug in B<sudo>, please submit a bug report at "
+"http://www.sudo.ws/sudo/bugs/"
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:730 C/sudoers.pod:1679 C/sudo.pod:689 C/sudoreplay.pod:329 C/visudo.pod:194
+msgid "SUPPORT"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:732 C/sudoers.pod:1681 C/sudo.pod:691 C/sudoreplay.pod:331 C/visudo.pod:196
+msgid ""
+"Limited free support is available via the sudo-users mailing list, see "
+"http://www.sudo.ws/mailman/listinfo/sudo-users to subscribe or search the "
+"archives."
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.ldap.pod:736 C/sudoers.pod:1685 C/sudo.pod:695 C/sudoreplay.pod:335 C/visudo.pod:200
+msgid "DISCLAIMER"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.ldap.pod:738 C/sudoers.pod:1687 C/sudo.pod:697
+msgid ""
+"B<sudo> is provided ``AS IS'' and any express or implied warranties, "
+"including, but not limited to, the implied warranties of merchantability and "
+"fitness for a particular purpose are disclaimed.  See the LICENSE file "
+"distributed with B<sudo> or http://www.sudo.ws/sudo/license.html for "
+"complete details."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:25
+msgid "sudoers - list of which users may execute what"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:29
+msgid ""
+"The I<sudoers> file is composed of two types of entries: aliases (basically "
+"variables) and user specifications (which specify who may run what)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:33
+msgid ""
+"When multiple entries match for a user, they are applied in order.  Where "
+"there are multiple matches, the last match is used (which is not necessarily "
+"the most specific match)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:37
+msgid ""
+"The I<sudoers> grammar will be described below in Extended Backus-Naur Form "
+"(EBNF).  Don't despair if you don't know what EBNF is; it is fairly simple, "
+"and the definitions below are annotated."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:41
+msgid "Quick guide to EBNF"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:43
+msgid ""
+"EBNF is a concise and exact way of describing the grammar of a language.  "
+"Each EBNF definition is made up of I<production rules>.  E.g.,"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:46
+#, no-wrap
+msgid ""
+" symbol ::= definition | alternate1 | alternate2 ...\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:48
+msgid ""
+"Each I<production rule> references others and thus makes up a grammar for "
+"the language.  EBNF also contains the following operators, which many "
+"readers will recognize from regular expressions.  Do not, however, confuse "
+"them with \"wildcard\" characters, which have different meanings."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:56 C/sudoers.pod:445
+msgid "C<?>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:58
+msgid ""
+"Means that the preceding symbol (or group of symbols) is optional.  That is, "
+"it may appear once or not at all."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:61 C/sudoers.pod:441
+msgid "C<*>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:63
+msgid ""
+"Means that the preceding symbol (or group of symbols) may appear zero or "
+"more times."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:66
+msgid "C<+>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:68
+msgid ""
+"Means that the preceding symbol (or group of symbols) may appear one or more "
+"times."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:73
+msgid ""
+"Parentheses may be used to group symbols together.  For clarity, we will use "
+"single quotes ('') to designate what is a verbatim character string (as "
+"opposed to a symbol name)."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:77
+msgid "Aliases"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:79
+msgid ""
+"There are four kinds of aliases: C<User_Alias>, C<Runas_Alias>, "
+"C<Host_Alias> and C<Cmnd_Alias>."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:82
+#, no-wrap
+msgid ""
+" Alias ::= 'User_Alias'  User_Alias (':' User_Alias)* |\n"
+"\t   'Runas_Alias' Runas_Alias (':' Runas_Alias)* |\n"
+"\t   'Host_Alias'  Host_Alias (':' Host_Alias)* |\n"
+"\t   'Cmnd_Alias'  Cmnd_Alias (':' Cmnd_Alias)*\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:87
+#, no-wrap
+msgid ""
+" User_Alias ::= NAME '=' User_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:89
+#, no-wrap
+msgid ""
+" Runas_Alias ::= NAME '=' Runas_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:91
+#, no-wrap
+msgid ""
+" Host_Alias ::= NAME '=' Host_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:93
+#, no-wrap
+msgid ""
+" Cmnd_Alias ::= NAME '=' Cmnd_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:95
+#, no-wrap
+msgid ""
+" NAME ::= [A-Z]([A-Z][0-9]_)*\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:97
+msgid "Each I<alias> definition is of the form"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:99
+#, no-wrap
+msgid ""
+" Alias_Type NAME = item1, item2, ...\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:101
+msgid ""
+"where I<Alias_Type> is one of C<User_Alias>, C<Runas_Alias>, C<Host_Alias>, "
+"or C<Cmnd_Alias>.  A C<NAME> is a string of uppercase letters, numbers, and "
+"underscore characters ('_').  A C<NAME> B<must> start with an uppercase "
+"letter.  It is possible to put several alias definitions of the same type on "
+"a single line, joined by a colon (':').  E.g.,"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:107
+#, no-wrap
+msgid ""
+" Alias_Type NAME = item1, item2, item3 : NAME = item4, item5\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:109
+msgid "The definitions of what constitutes a valid I<alias> member follow."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:111
+#, no-wrap
+msgid ""
+" User_List ::= User |\n"
+"\t       User ',' User_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:114
+#, no-wrap
+msgid ""
+" User ::= '!'* user name |\n"
+"\t  '!'* '#'uid |\n"
+"\t  '!'* '%'group |\n"
+"\t  '!'* '+'netgroup |\n"
+"\t  '!'* '%:'nonunix_group |\n"
+"\t  '!'* User_Alias\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:121
+msgid ""
+"A C<User_List> is made up of one or more user names, uids (prefixed with "
+"'#'), system groups (prefixed with '%'), netgroups (prefixed with '+') and "
+"C<User_Alias>es.  Each list item may be prefixed with zero or more '!' "
+"operators.  An odd number of '!' operators negate the value of the item; an "
+"even number just cancel each other out."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:127
+msgid ""
+"A C<user name>, C<group>, C<netgroup> or C<nonunix_group> may be enclosed in "
+"double quotes to avoid the need for escaping special characters.  "
+"Alternately, special characters may be specified in escaped hex mode, "
+"e.g. \\x20 for space."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:132
+msgid ""
+"The C<nonunix_group> syntax depends on the underlying implementation.  For "
+"instance, the QAS AD backend supports the following formats:"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:139
+msgid "Group in the same domain: \"Group Name\""
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:143
+msgid "Group in any domain: \"Group Name@FULLY.QUALIFIED.DOMAIN\""
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:147
+msgid "Group SID: \"S-1-2-34-5678901234-5678901234-5678901234-567\""
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:151
+msgid ""
+"Note that quotes around group names are optional.  Unquoted strings must use "
+"a backslash (\\) to escape spaces and the '@' symbol."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:154
+#, no-wrap
+msgid ""
+" Runas_List ::= Runas_Member |\n"
+"\t\tRunas_Member ',' Runas_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:157
+#, no-wrap
+msgid ""
+" Runas_Member ::= '!'* user name |\n"
+"\t          '!'* '#'uid |\n"
+"\t          '!'* '%'group |\n"
+"\t          '!'* +netgroup |\n"
+"\t          '!'* Runas_Alias\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:163
+msgid ""
+"A C<Runas_List> is similar to a C<User_List> except that instead of "
+"C<User_Alias>es it can contain C<Runas_Alias>es.  Note that user names and "
+"groups are matched as strings.  In other words, two users (groups) with the "
+"same uid (gid) are considered to be distinct.  If you wish to match all user "
+"names with the same uid (e.g.E<nbsp>root and toor), you can use a uid "
+"instead (#0 in the example given)."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:170
+#, no-wrap
+msgid ""
+" Host_List ::= Host |\n"
+"\t       Host ',' Host_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:173
+#, no-wrap
+msgid ""
+" Host ::= '!'* host name |\n"
+"\t  '!'* ip_addr |\n"
+"\t  '!'* network(/netmask)? |\n"
+"\t  '!'* '+'netgroup |\n"
+"\t  '!'* Host_Alias\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:179
+msgid ""
+"A C<Host_List> is made up of one or more host names, IP addresses, network "
+"numbers, netgroups (prefixed with '+') and other aliases.  Again, the value "
+"of an item may be negated with the '!' operator.  If you do not specify a "
+"netmask along with the network number, B<sudo> will query each of the local "
+"host's network interfaces and, if the network number corresponds to one of "
+"the hosts's network interfaces, the corresponding netmask will be used.  The "
+"netmask may be specified either in standard IP address notation "
+"(e.g.E<nbsp>255.255.255.0 or ffff:ffff:ffff:ffff::), or CIDR notation "
+"(number of bits, e.g.E<nbsp>24 or 64).  A host name may include shell-style "
+"wildcards (see the L<Wildcards> section below), but unless the C<host name> "
+"command on your machine returns the fully qualified host name, you'll need "
+"to use the I<fqdn> option for wildcards to be useful.  Note B<sudo> only "
+"inspects actual network interfaces; this means that IP address 127.0.0.1 "
+"(localhost) will never match.  Also, the host name \"localhost\" will only "
+"match if that is the actual host name, which is usually only the case for "
+"non-networked systems."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:198
+#, no-wrap
+msgid ""
+" Cmnd_List ::= Cmnd |\n"
+"\t       Cmnd ',' Cmnd_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:201
+#, no-wrap
+msgid ""
+" commandname ::= file name |\n"
+"\t         file name args |\n"
+"\t         file name '\"\"'\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:205
+#, no-wrap
+msgid ""
+" Cmnd ::= '!'* commandname |\n"
+"\t  '!'* directory |\n"
+"\t  '!'* \"sudoedit\" |\n"
+"\t  '!'* Cmnd_Alias\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:210
+msgid ""
+"A C<Cmnd_List> is a list of one or more commandnames, directories, and other "
+"aliases.  A commandname is a fully qualified file name which may include "
+"shell-style wildcards (see the L<Wildcards> section below).  A simple file "
+"name allows the user to run the command with any arguments he/she wishes.  "
+"However, you may also specify command line arguments (including wildcards).  "
+"Alternately, you can specify C<\"\"> to indicate that the command may only "
+"be run B<without> command line arguments.  A directory is a fully qualified "
+"path name ending in a '/'.  When you specify a directory in a C<Cmnd_List>, "
+"the user will be able to run any file within that directory (but not in any "
+"subdirectories therein)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:221
+msgid ""
+"If a C<Cmnd> has associated command line arguments, then the arguments in "
+"the C<Cmnd> must match exactly those given by the user on the command line "
+"(or match the wildcards if there are any).  Note that the following "
+"characters must be escaped with a '\\' if they are used in command "
+"arguments: ',', ':', '=', '\\'.  The special command C<\"sudoedit\"> is used "
+"to permit a user to run B<sudo> with the B<-e> option (or as B<sudoedit>).  "
+"It may take command line arguments just as a normal command does."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:230
+msgid "Defaults"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:232
+msgid ""
+"Certain configuration options may be changed from their default values at "
+"runtime via one or more C<Default_Entry> lines.  These may affect all users "
+"on any host, all users on a specific host, a specific user, a specific "
+"command, or commands being run as a specific user.  Note that per-command "
+"entries may not include command line arguments.  If you need to specify "
+"arguments, define a C<Cmnd_Alias> and reference that instead."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:240
+#, no-wrap
+msgid ""
+" Default_Type ::= 'Defaults' |\n"
+"\t\t  'Defaults' '@' Host_List |\n"
+"\t\t  'Defaults' ':' User_List |\n"
+"\t\t  'Defaults' '!' Cmnd_List |\n"
+"\t\t  'Defaults' '>' Runas_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:246
+#, no-wrap
+msgid ""
+" Default_Entry ::= Default_Type Parameter_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:248
+#, no-wrap
+msgid ""
+" Parameter_List ::= Parameter |\n"
+"\t\t    Parameter ',' Parameter_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:251
+#, no-wrap
+msgid ""
+" Parameter ::= Parameter '=' Value |\n"
+"\t       Parameter '+=' Value |\n"
+"\t       Parameter '-=' Value |\n"
+"\t       '!'* Parameter\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:256
+msgid ""
+"Parameters may be B<flags>, B<integer> values, B<strings>, or B<lists>.  "
+"Flags are implicitly boolean and can be turned off via the '!' operator.  "
+"Some integer, string and list parameters may also be used in a boolean "
+"context to disable them.  Values may be enclosed in double quotes (C<\">) "
+"when they contain multiple words.  Special characters may be escaped with a "
+"backslash (C<\\>)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:263
+msgid ""
+"Lists have two additional assignment operators, C<+=> and C<-=>.  These "
+"operators are used to add to and delete from a list respectively.  It is not "
+"an error to use the C<-=> operator to remove an element that does not exist "
+"in a list."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:268
+msgid ""
+"Defaults entries are parsed in the following order: generic, host and user "
+"Defaults first, then runas Defaults and finally command defaults."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:272
+msgid "See L<\"SUDOERS OPTIONS\"> for a list of supported Defaults parameters."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:274
+msgid "User Specification"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:276
+#, no-wrap
+msgid ""
+" User_Spec ::= User_List Host_List '=' Cmnd_Spec_List \\\n"
+"\t       (':' Host_List '=' Cmnd_Spec_List)*\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:279
+#, no-wrap
+msgid ""
+" Cmnd_Spec_List ::= Cmnd_Spec |\n"
+"\t\t    Cmnd_Spec ',' Cmnd_Spec_List\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:282
+#, no-wrap
+msgid ""
+" Cmnd_Spec ::= Runas_Spec? SELinux_Spec? Tag_Spec* Cmnd\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:284
+#, no-wrap
+msgid ""
+" Runas_Spec ::= '(' Runas_List? (':' Runas_List)? ')'\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:286
+#, no-wrap
+msgid ""
+" SELinux_Spec ::= ('ROLE=role' | 'TYPE=type')\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:288
+#, no-wrap
+msgid ""
+" Tag_Spec ::= ('NOPASSWD:' | 'PASSWD:' | 'NOEXEC:' | 'EXEC:' |\n"
+"\t       'SETENV:' | 'NOSETENV:' | 'LOG_INPUT:' | 'NOLOG_INPUT:' |\n"
+"               'LOG_OUTPUT:' | 'NOLOG_OUTPUT:')\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:292
+msgid ""
+"A B<user specification> determines which commands a user may run (and as "
+"what user) on specified hosts.  By default, commands are run as B<root>, but "
+"this can be changed on a per-command basis."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:296
+msgid ""
+"The basic structure of a user specification is `who = where (as_whom)  "
+"what'.  Let's break that down into its constituent parts:"
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:299
+msgid "Runas_Spec"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:301
+msgid ""
+"A C<Runas_Spec> determines the user and/or the group that a command may be "
+"run as.  A fully-specified C<Runas_Spec> consists of two C<Runas_List>s (as "
+"defined above) separated by a colon (':') and enclosed in a set of "
+"parentheses.  The first C<Runas_List> indicates which users the command may "
+"be run as via B<sudo>'s B<-u> option.  The second defines a list of groups "
+"that can be specified via B<sudo>'s B<-g> option.  If both C<Runas_List>s "
+"are specified, the command may be run with any combination of users and "
+"groups listed in their respective C<Runas_List>s.  If only the first is "
+"specified, the command may be run as any user in the list but no B<-g> "
+"option may be specified.  If the first C<Runas_List> is empty but the second "
+"is specified, the command may be run as the invoking user with the group set "
+"to any listed in the C<Runas_List>.  If no C<Runas_Spec> is specified the "
+"command may be run as B<root> and no group may be specified."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:317
+msgid ""
+"A C<Runas_Spec> sets the default for the commands that follow it.  What this "
+"means is that for the entry:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:320
+#, no-wrap
+msgid ""
+" dgb\tboulder = (operator) /bin/ls, /bin/kill, /usr/bin/lprm\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:322
+msgid ""
+"The user B<dgb> may run F</bin/ls>, F</bin/kill>, and F</usr/bin/lprm> -- "
+"but only as B<operator>.  E.g.,"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:325
+#, no-wrap
+msgid ""
+" $ sudo -u operator /bin/ls.\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:327
+msgid ""
+"It is also possible to override a C<Runas_Spec> later on in an entry.  If we "
+"modify the entry like so:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:330
+#, no-wrap
+msgid ""
+" dgb\tboulder = (operator) /bin/ls, (root) /bin/kill, /usr/bin/lprm\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:332
+msgid ""
+"Then user B<dgb> is now allowed to run F</bin/ls> as B<operator>, but "
+"F</bin/kill> and F</usr/bin/lprm> as B<root>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:335
+msgid ""
+"We can extend this to allow B<dgb> to run C</bin/ls> with either the user or "
+"group set to B<operator>:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:338
+#, no-wrap
+msgid ""
+" dgb\tboulder = (operator : operator) /bin/ls, (root) /bin/kill, \\\n"
+"\t/usr/bin/lprm\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:341
+msgid ""
+"In the following example, user B<tcm> may run commands that access a modem "
+"device file with the dialer group.  Note that in this example only the group "
+"will be set, the command still runs as user B<tcm>."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:345
+#, no-wrap
+msgid ""
+" tcm\tboulder = (:dialer) /usr/bin/tip, /usr/bin/cu, \\\n"
+"\t/usr/local/bin/minicom\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:348
+msgid "SELinux_Spec"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:350
+msgid ""
+"On systems with SELinux support, I<sudoers> entries may optionally have an "
+"SELinux role and/or type associated with a command.  If a role or type is "
+"specified with the command it will override any default values specified in "
+"I<sudoers>.  A role or type specified on the command line, however, will "
+"supercede the values in I<sudoers>."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:356
+msgid "Tag_Spec"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:358
+msgid ""
+"A command may have zero or more tags associated with it.  There are eight "
+"possible tag values, C<NOPASSWD>, C<PASSWD>, C<NOEXEC>, C<EXEC>, C<SETENV>, "
+"C<NOSETENV>, C<LOG_INPUT>, C<NOLOG_INPUT>, C<LOG_OUTPUT> and "
+"C<NOLOG_OUTPUT>.  Once a tag is set on a C<Cmnd>, subsequent C<Cmnd>s in the "
+"C<Cmnd_Spec_List>, inherit the tag unless it is overridden by the opposite "
+"tag (i.e.: C<PASSWD> overrides C<NOPASSWD> and C<NOEXEC> overrides C<EXEC>)."
+msgstr ""
+
+#. type: =head3
+#: C/sudoers.pod:366
+msgid "NOPASSWD and PASSWD"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:368
+msgid ""
+"By default, B<sudo> requires that a user authenticate him or herself before "
+"running a command.  This behavior can be modified via the C<NOPASSWD> tag.  "
+"Like a C<Runas_Spec>, the C<NOPASSWD> tag sets a default for the commands "
+"that follow it in the C<Cmnd_Spec_List>.  Conversely, the C<PASSWD> tag can "
+"be used to reverse things.  For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:375
+#, no-wrap
+msgid ""
+" ray\trushmore = NOPASSWD: /bin/kill, /bin/ls, /usr/bin/lprm\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:377
+msgid ""
+"would allow the user B<ray> to run F</bin/kill>, F</bin/ls>, and "
+"F</usr/bin/lprm> as B<root> on the machine rushmore without authenticating "
+"himself.  If we only want B<ray> to be able to run F</bin/kill> without a "
+"password the entry would be:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:382
+#, no-wrap
+msgid ""
+" ray\trushmore = NOPASSWD: /bin/kill, PASSWD: /bin/ls, /usr/bin/lprm\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:384
+msgid ""
+"Note, however, that the C<PASSWD> tag has no effect on users who are in the "
+"group specified by the I<exempt_group> option."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:387
+msgid ""
+"By default, if the C<NOPASSWD> tag is applied to any of the entries for a "
+"user on the current host, he or she will be able to run C<sudo -l> without a "
+"password.  Additionally, a user may only run C<sudo -v> without a password "
+"if the C<NOPASSWD> tag is present for all a user's entries that pertain to "
+"the current host.  This behavior may be overridden via the verifypw and "
+"listpw options."
+msgstr ""
+
+#. type: =head3
+#: C/sudoers.pod:394
+msgid "NOEXEC and EXEC"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:396
+msgid ""
+"If B<sudo> has been compiled with I<noexec> support and the underlying "
+"operating system supports it, the C<NOEXEC> tag can be used to prevent a "
+"dynamically-linked executable from running further commands itself."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:400
+msgid ""
+"In the following example, user B<aaron> may run F</usr/bin/more> and "
+"F</usr/bin/vi> but shell escapes will be disabled."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:403 C/sudoers.pod:1640
+#, no-wrap
+msgid ""
+" aaron\tshanty = NOEXEC: /usr/bin/more, /usr/bin/vi\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:405
+msgid ""
+"See the L<PREVENTING SHELL ESCAPES> section below for more details on how "
+"C<NOEXEC> works and whether or not it will work on your system."
+msgstr ""
+
+#. type: =head3
+#: C/sudoers.pod:408
+msgid "SETENV and NOSETENV"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:410
+msgid ""
+"These tags override the value of the I<setenv> option on a per-command "
+"basis.  Note that if C<SETENV> has been set for a command, any environment "
+"variables set on the command line way are not subject to the restrictions "
+"imposed by I<env_check>, I<env_delete>, or I<env_keep>.  As such, only "
+"trusted users should be allowed to set variables in this manner.  If the "
+"command matched is B<ALL>, the C<SETENV> tag is implied for that command; "
+"this default may be overridden by use of the C<NOSETENV> tag."
+msgstr ""
+
+#. type: =head3
+#: C/sudoers.pod:419
+msgid "LOG_INPUT and NOLOG_INPUT"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:421
+msgid ""
+"These tags override the value of the I<log_input> option on a per-command "
+"basis.  For more information, see the description of I<log_input> in the "
+"L<\"SUDOERS OPTIONS\"> section below."
+msgstr ""
+
+#. type: =head3
+#: C/sudoers.pod:425
+msgid "LOG_OUTPUT and NOLOG_OUTPUT"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:427
+msgid ""
+"These tags override the value of the I<log_output> option on a per-command "
+"basis.  For more information, see the description of I<log_output> in the "
+"L<\"SUDOERS OPTIONS\"> section below."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:431
+msgid "Wildcards"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:433
+msgid ""
+"B<sudo> allows shell-style I<wildcards> (aka meta or glob characters)  to be "
+"used in host names, path names and command line arguments in the I<sudoers> "
+"file.  Wildcard matching is done via the B<POSIX> L<glob(3)> and "
+"L<fnmatch(3)> routines.  Note that these are I<not> regular expressions."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:443
+msgid "Matches any set of zero or more characters."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:447
+msgid "Matches any single character."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:449
+msgid "C<[...]>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:451
+msgid "Matches any character in the specified range."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:453
+msgid "C<[!...]>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:455
+msgid "Matches any character B<not> in the specified range."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:457
+msgid "C<\\x>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:459
+msgid ""
+"For any character \"x\", evaluates to \"x\".  This is used to escape special "
+"characters such as: \"*\", \"?\", \"[\", and \"}\"."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:464
+msgid ""
+"POSIX character classes may also be used if your system's L<glob(3)> and "
+"L<fnmatch(3)> functions support them.  However, because the C<':'> character "
+"has special meaning in I<sudoers>, it must be escaped.  For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:469
+#, no-wrap
+msgid ""
+"    /bin/ls [[\\:alpha\\:]]*\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:471
+msgid "Would match any file name beginning with a letter."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:473
+msgid ""
+"Note that a forward slash ('/') will B<not> be matched by wildcards used in "
+"the path name.  When matching the command line arguments, however, a slash "
+"B<does> get matched by wildcards.  This is to make a path like:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:478
+#, no-wrap
+msgid ""
+"    /usr/bin/*\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:480
+msgid "match F</usr/bin/who> but not F</usr/bin/X11/xterm>."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:482
+msgid "Exceptions to wildcard rules"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:484
+msgid "The following exceptions apply to the above rules:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:488
+msgid "C<\"\">"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:490
+msgid ""
+"If the empty string C<\"\"> is the only command line argument in the "
+"I<sudoers> entry it means that command is not allowed to be run with B<any> "
+"arguments."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:496
+msgid "Including other files from within sudoers"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:498
+msgid ""
+"It is possible to include other I<sudoers> files from within the I<sudoers> "
+"file currently being parsed using the C<#include> and C<#includedir> "
+"directives."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:502
+msgid ""
+"This can be used, for example, to keep a site-wide I<sudoers> file in "
+"addition to a local, per-machine file.  For the sake of this example the "
+"site-wide I<sudoers> will be F</etc/sudoers> and the per-machine one will be "
+"F</etc/sudoers.local>.  To include F</etc/sudoers.local> from within "
+"F</etc/sudoers> we would use the following line in F</etc/sudoers>:"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:511
+msgid "C<#include /etc/sudoers.local>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:515
+msgid ""
+"When B<sudo> reaches this line it will suspend processing of the current "
+"file (F</etc/sudoers>) and switch to F</etc/sudoers.local>.  Upon reaching "
+"the end of F</etc/sudoers.local>, the rest of F</etc/sudoers> will be "
+"processed.  Files that are included may themselves include other files.  A "
+"hard limit of 128 nested include files is enforced to prevent include file "
+"loops."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:522
+msgid ""
+"The file name may include the C<%h> escape, signifying the short form of the "
+"host name.  I.e., if the machine's host name is \"xerxes\", then"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:525
+msgid "C<#include /etc/sudoers.%h>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:527
+msgid "will cause B<sudo> to include the file F</etc/sudoers.xerxes>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:529
+msgid ""
+"The C<#includedir> directive can be used to create a F<sudo.d> directory "
+"that the system package manager can drop I<sudoers> rules into as part of "
+"package installation.  For example, given:"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:533
+msgid "C<#includedir /etc/sudoers.d>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:535
+msgid ""
+"B<sudo> will read each file in F</etc/sudoers.d>, skipping file names that "
+"end in C<~> or contain a C<.> character to avoid causing problems with "
+"package manager or editor temporary/backup files.  Files are parsed in "
+"sorted lexical order.  That is, F</etc/sudoers.d/01_first> will be parsed "
+"before F</etc/sudoers.d/10_second>.  Be aware that because the sorting is "
+"lexical, not numeric, F</etc/sudoers.d/1_whoops> would be loaded B<after> "
+"F</etc/sudoers.d/10_second>.  Using a consistent number of leading zeroes in "
+"the file names can be used to avoid such problems."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:546
+msgid ""
+"Note that unlike files included via C<#include>, B<visudo> will not edit the "
+"files in a C<#includedir> directory unless one of them contains a syntax "
+"error.  It is still possible to run B<visudo> with the C<-f> flag to edit "
+"the files directly."
+msgstr ""
+
+#. type: =head2
+#: C/sudoers.pod:551
+msgid "Other special characters and reserved words"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:553
+msgid ""
+"The pound sign ('#') is used to indicate a comment (unless it is part of a "
+"#include directive or unless it occurs in the context of a user name and is "
+"followed by one or more digits, in which case it is treated as a uid).  Both "
+"the comment character and any text after it, up to the end of the line, are "
+"ignored."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:559
+msgid ""
+"The reserved word B<ALL> is a built-in I<alias> that always causes a match "
+"to succeed.  It can be used wherever one might otherwise use a "
+"C<Cmnd_Alias>, C<User_Alias>, C<Runas_Alias>, or C<Host_Alias>.  You should "
+"not try to define your own I<alias> called B<ALL> as the built-in alias will "
+"be used in preference to your own.  Please note that using B<ALL> can be "
+"dangerous since in a command context, it allows the user to run B<any> "
+"command on the system."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:567
+msgid ""
+"An exclamation point ('!') can be used as a logical I<not> operator both in "
+"an I<alias> and in front of a C<Cmnd>.  This allows one to exclude certain "
+"values.  Note, however, that using a C<!> in conjunction with the built-in "
+"C<ALL> alias to allow a user to run \"all but a few\" commands rarely works "
+"as intended (see SECURITY NOTES below)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:574
+msgid ""
+"Long lines can be continued with a backslash ('\\') as the last character on "
+"the line."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:577
+msgid ""
+"Whitespace between elements in a list as well as special syntactic "
+"characters in a I<User Specification> ('=', ':', '(', ')') is optional."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:580
+msgid ""
+"The following characters must be escaped with a backslash ('\\') when used "
+"as part of a word (e.g.E<nbsp>a user name or host name): '@', '!', '=', ':', "
+"',', '(', ')', '\\'."
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.pod:584
+msgid "SUDOERS OPTIONS"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:586
+msgid ""
+"B<sudo>'s behavior can be modified by C<Default_Entry> lines, as explained "
+"earlier.  A list of all supported Defaults parameters, grouped by type, are "
+"listed below."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:590
+msgid "B<Boolean Flags>:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:594
+msgid "always_set_home"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:596
+msgid ""
+"If enabled, B<sudo> will set the C<HOME> environment variable to the home "
+"directory of the target user (which is root unless the B<-u> option is "
+"used).  This effectively means that the B<-H> option is always implied.  "
+"Note that C<HOME> is already set when the the I<env_reset> option is "
+"enabled, so I<always_set_home> is only effective for configurations where "
+"I<env_reset> is disabled.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:604
+msgid "authenticate"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:606
+msgid ""
+"If set, users must authenticate themselves via a password (or other means of "
+"authentication) before they may run commands.  This default may be "
+"overridden via the C<PASSWD> and C<NOPASSWD> tags.  This flag is I<on> by "
+"default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:611
+msgid "closefrom_override"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:613
+msgid ""
+"If set, the user may use B<sudo>'s B<-C> option which overrides the default "
+"starting point at which B<sudo> begins closing open file descriptors.  This "
+"flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:617
+msgid "compress_io"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:619
+msgid ""
+"If set, and B<sudo> is configured to log a command's input or output, the "
+"I/O logs will be compressed using B<zlib>.  This flag is I<on> by default "
+"when B<sudo> is compiled with B<zlib> support."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:623
+msgid "env_editor"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:625
+msgid ""
+"If set, B<visudo> will use the value of the EDITOR or VISUAL environment "
+"variables before falling back on the default editor list.  Note that this "
+"may create a security hole as it allows the user to run any arbitrary "
+"command as root without logging.  A safer alternative is to place a "
+"colon-separated list of editors in the C<editor> variable.  B<visudo> will "
+"then only use the EDITOR or VISUAL if they match a value specified in "
+"C<editor>.  This flag is I<@env_editor@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:634
+msgid "env_reset"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:636
+msgid ""
+"If set, B<sudo> will reset the environment to only contain the LOGNAME, "
+"MAIL, SHELL, USER, USERNAME and the C<SUDO_*> variables.  Any variables in "
+"the caller's environment that match the C<env_keep> and C<env_check> lists "
+"are then added.  The default contents of the C<env_keep> and C<env_check> "
+"lists are displayed when B<sudo> is run by root with the I<-V> option.  If "
+"the I<secure_path> option is set, its value will be used for the C<PATH> "
+"environment variable.  This flag is I<on> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:645
+msgid "fast_glob"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:647
+msgid ""
+"Normally, B<sudo> uses the L<glob(3)> function to do shell-style globbing "
+"when matching path names.  However, since it accesses the file system, "
+"L<glob(3)> can take a long time to complete for some patterns, especially "
+"when the pattern references a network file system that is mounted on demand "
+"(automounted).  The I<fast_glob> option causes B<sudo> to use the "
+"L<fnmatch(3)> function, which does not access the file system to do its "
+"matching.  The disadvantage of I<fast_glob> is that it is unable to match "
+"relative path names such as F<./ls> or F<../bin/ls>.  This has security "
+"implications when path names that include globbing characters are used with "
+"the negation operator, C<'!'>, as such rules can be trivially bypassed.  As "
+"such, this option should not be used when I<sudoers> contains rules that "
+"contain negated path names which include globbing characters.  This flag is "
+"I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:662
+msgid "fqdn"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:664
+msgid ""
+"Set this flag if you want to put fully qualified host names in the "
+"I<sudoers> file.  I.e., instead of myhost you would use "
+"myhost.mydomain.edu.  You may still use the short form if you wish (and even "
+"mix the two).  Beware that turning on I<fqdn> requires B<sudo> to make DNS "
+"lookups which may make B<sudo> unusable if DNS stops working (for example if "
+"the machine is not plugged into the network).  Also note that you must use "
+"the host's official name as DNS knows it.  That is, you may not use a host "
+"alias (C<CNAME> entry) due to performance issues and the fact that there is "
+"no way to get all aliases from DNS.  If your machine's host name (as "
+"returned by the C<hostname> command) is already fully qualified you "
+"shouldn't need to set I<fqdn>.  This flag is I<@fqdn@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:677
+msgid "ignore_dot"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:679
+msgid ""
+"If set, B<sudo> will ignore '.' or '' (current dir) in the C<PATH> "
+"environment variable; the C<PATH> itself is not modified.  This flag is "
+"I<@ignore_dot@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:683
+msgid "ignore_local_sudoers"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:685
+msgid ""
+"If set via LDAP, parsing of F<@sysconfdir@/sudoers> will be skipped.  This "
+"is intended for Enterprises that wish to prevent the usage of local sudoers "
+"files so that only LDAP is used.  This thwarts the efforts of rogue "
+"operators who would attempt to add roles to F<@sysconfdir@/sudoers>.  When "
+"this option is present, F<@sysconfdir@/sudoers> does not even need to "
+"exist. Since this option tells B<sudo> how to behave when no specific LDAP "
+"entries have been matched, this sudoOption is only meaningful for the "
+"C<cn=defaults> section.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:694
+msgid "insults"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:696
+msgid ""
+"If set, B<sudo> will insult users when they enter an incorrect password.  "
+"This flag is I<@insults@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:699
+msgid "log_host"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:701
+msgid ""
+"If set, the host name will be logged in the (non-syslog) B<sudo> log file.  "
+"This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:704
+msgid "log_year"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:706
+msgid ""
+"If set, the four-digit year will be logged in the (non-syslog) B<sudo> log "
+"file.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:709
+msgid "long_otp_prompt"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:711
+msgid ""
+"When validating with a One Time Password (OPT) scheme such as B<S/Key> or "
+"B<OPIE>, a two-line prompt is used to make it easier to cut and paste the "
+"challenge to a local window.  It's not as pretty as the default but some "
+"people find it more convenient.  This flag is I<@long_otp_prompt@> by "
+"default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:717
+msgid "mail_always"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:719
+msgid ""
+"Send mail to the I<mailto> user every time a users runs B<sudo>.  This flag "
+"is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:722
+msgid "mail_badpass"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:724
+msgid ""
+"Send mail to the I<mailto> user if the user running B<sudo> does not enter "
+"the correct password.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:727
+msgid "mail_no_host"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:729
+msgid ""
+"If set, mail will be sent to the I<mailto> user if the invoking user exists "
+"in the I<sudoers> file, but is not allowed to run commands on the current "
+"host.  This flag is I<@mail_no_host@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:733
+msgid "mail_no_perms"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:735
+msgid ""
+"If set, mail will be sent to the I<mailto> user if the invoking user is "
+"allowed to use B<sudo> but the command they are trying is not listed in "
+"their I<sudoers> file entry or is explicitly denied.  This flag is "
+"I<@mail_no_perms@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:740
+msgid "mail_no_user"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:742
+msgid ""
+"If set, mail will be sent to the I<mailto> user if the invoking user is not "
+"in the I<sudoers> file.  This flag is I<@mail_no_user@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:746 C/sudoers.pod:1606
+msgid "noexec"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:748
+msgid ""
+"If set, all commands run via B<sudo> will behave as if the C<NOEXEC> tag has "
+"been set, unless overridden by a C<EXEC> tag.  See the description of "
+"I<NOEXEC and EXEC> below as well as the L<PREVENTING SHELL ESCAPES> section "
+"at the end of this manual.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:753
+msgid "path_info"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:755
+msgid ""
+"Normally, B<sudo> will tell the user when a command could not be found in "
+"their C<PATH> environment variable.  Some sites may wish to disable this as "
+"it could be used to gather information on the location of executables that "
+"the normal user does not have access to.  The disadvantage is that if the "
+"executable is simply not in the user's C<PATH>, B<sudo> will tell the user "
+"that they are not allowed to run it, which can be confusing.  This flag is "
+"I<@path_info@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:764
+msgid "passprompt_override"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:766
+msgid ""
+"The password prompt specified by I<passprompt> will normally only be used if "
+"the password prompt provided by systems such as PAM matches the string "
+"\"Password:\".  If I<passprompt_override> is set, I<passprompt> will always "
+"be used.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:771
+msgid "preserve_groups"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:773
+msgid ""
+"By default, B<sudo> will initialize the group vector to the list of groups "
+"the target user is in.  When I<preserve_groups> is set, the user's existing "
+"group vector is left unaltered.  The real and effective group IDs, however, "
+"are still set to match the target user.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:779
+msgid "pwfeedback"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:781
+msgid ""
+"By default, B<sudo> reads the password like most other Unix programs, by "
+"turning off echo until the user hits the return (or enter) key.  Some users "
+"become confused by this as it appears to them that B<sudo> has hung at this "
+"point.  When I<pwfeedback> is set, B<sudo> will provide visual feedback when "
+"the user presses a key.  Note that this does have a security impact as an "
+"onlooker may be able to determine the length of the password being entered.  "
+"This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:790
+msgid "requiretty"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:792
+msgid ""
+"If set, B<sudo> will only run when the user is logged in to a real tty.  "
+"When this flag is set, B<sudo> can only be run from a login session and not "
+"via other means such as L<cron(8)> or cgi-bin scripts.  This flag is I<off> "
+"by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:797
+msgid "root_sudo"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:799
+msgid ""
+"If set, root is allowed to run B<sudo> too.  Disabling this prevents users "
+"from \"chaining\" B<sudo> commands to get a root shell by doing something "
+"like C<\"sudo sudo /bin/sh\">.  Note, however, that turning off I<root_sudo> "
+"will also prevent root from running B<sudoedit>.  Disabling I<root_sudo> "
+"provides no real additional security; it exists purely for historical "
+"reasons.  This flag is I<@root_sudo@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:807
+msgid "rootpw"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:809
+msgid ""
+"If set, B<sudo> will prompt for the root password instead of the password of "
+"the invoking user.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:812
+msgid "runaspw"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:814
+msgid ""
+"If set, B<sudo> will prompt for the password of the user defined by the "
+"I<runas_default> option (defaults to C<@runas_default@>) instead of the "
+"password of the invoking user.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:818
+msgid "set_home"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:820
+msgid ""
+"If enabled and B<sudo> is invoked with the B<-s> option the C<HOME> "
+"environment variable will be set to the home directory of the target user "
+"(which is root unless the B<-u> option is used).  This effectively makes the "
+"B<-s> option imply B<-H>.  Note that C<HOME> is already set when the the "
+"I<env_reset> option is enabled, so I<set_home> is only effective for "
+"configurations where I<env_reset> is disabled.  This flag is I<off> by "
+"default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:828
+msgid "set_logname"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:830
+msgid ""
+"Normally, B<sudo> will set the C<LOGNAME>, C<USER> and C<USERNAME> "
+"environment variables to the name of the target user (usually root unless "
+"the B<-u> option is given).  However, since some programs (including the RCS "
+"revision control system) use C<LOGNAME> to determine the real identity of "
+"the user, it may be desirable to change this behavior.  This can be done by "
+"negating the set_logname option.  Note that if the I<env_reset> option has "
+"not been disabled, entries in the I<env_keep> list will override the value "
+"of I<set_logname>.  This flag is I<on> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:840
+msgid "setenv"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:842
+msgid ""
+"Allow the user to disable the I<env_reset> option from the command line.  "
+"Additionally, environment variables set via the command line are not subject "
+"to the restrictions imposed by I<env_check>, I<env_delete>, or I<env_keep>.  "
+"As such, only trusted users should be allowed to set variables in this "
+"manner.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:849
+msgid "shell_noargs"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:851
+msgid ""
+"If set and B<sudo> is invoked with no arguments it acts as if the B<-s> "
+"option had been given.  That is, it runs a shell as root (the shell is "
+"determined by the C<SHELL> environment variable if it is set, falling back "
+"on the shell listed in the invoking user's /etc/passwd entry if not).  This "
+"flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:857
+msgid "stay_setuid"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:859
+msgid ""
+"Normally, when B<sudo> executes a command the real and effective UIDs are "
+"set to the target user (root by default).  This option changes that behavior "
+"such that the real UID is left as the invoking user's UID.  In other words, "
+"this makes B<sudo> act as a setuid wrapper.  This can be useful on systems "
+"that disable some potentially dangerous functionality when a program is run "
+"setuid.  This option is only effective on systems with either the setreuid() "
+"or setresuid()  function.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:868
+msgid "targetpw"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:870
+msgid ""
+"If set, B<sudo> will prompt for the password of the user specified by the "
+"B<-u> option (defaults to C<root>) instead of the password of the invoking "
+"user.  In addition, the timestamp file name will include the target user's "
+"name.  Note that this flag precludes the use of a uid not listed in the "
+"passwd database as an argument to the B<-u> option.  This flag is I<off> by "
+"default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:877
+msgid "log_input"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:879
+msgid ""
+"If set, B<sudo> will run the command in a I<pseudo tty> and log all user "
+"input.  If the standard input is not connected to the user's tty, due to I/O "
+"redirection or because the command is part of a pipeline, that input is also "
+"captured and stored in a separate log file."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:885
+msgid ""
+"Input is logged to the F</var/log/sudo-io> directory using a unique session "
+"ID that is included in the normal B<sudo> log line, prefixed with I<TSID=>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:889
+msgid "log_output"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:891
+msgid ""
+"If set, B<sudo> will run the command in a I<pseudo tty> and log all output "
+"that is sent to the screen, similar to the script(1) command.  If the "
+"standard output or standard error is not connected to the user's tty, due to "
+"I/O redirection or because the command is part of a pipeline, that output is "
+"also captured and stored in separate log files."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:898
+msgid ""
+"Output is logged to the F</var/log/sudo-io> directory using a unique session "
+"ID that is included in the normal B<sudo> log line, prefixed with I<TSID=>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:902
+msgid ""
+"Output logs may be viewed with the L<sudoreplay(8)> utility, which can also "
+"be used to list or search the available logs."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:905
+msgid "tty_tickets"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:907
+msgid ""
+"If set, users must authenticate on a per-tty basis.  With this flag enabled, "
+"B<sudo> will use a file named for the tty the user is logged in on in the "
+"user's time stamp directory.  If disabled, the time stamp of the directory "
+"is used instead.  This flag is I<@tty_tickets@> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:913
+msgid "umask_override"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:915
+msgid ""
+"If set, B<sudo> will set the umask as specified by I<sudoers> without "
+"modification.  This makes it possible to specify a more permissive umask in "
+"I<sudoers> than the user's own umask and matches historical behavior.  If "
+"I<umask_override> is not set, B<sudo> will set the umask to be the union of "
+"the user's umask and what is specified in I<sudoers>.  This flag is I<off> "
+"by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:922
+msgid "use_loginclass"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:924
+msgid ""
+"If set, B<sudo> will apply the defaults specified for the target user's "
+"login class if one exists.  Only available if B<sudo> is configured with the "
+"--with-logincap option.  This flag is I<off> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:928
+msgid "use_pty"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:930
+msgid ""
+"If set, B<sudo> will run the command in a pseudo-pty even if no I/O logging "
+"is being gone.  A malicious program run under B<sudo> could conceivably fork "
+"a background process that retains to the user's terminal device after the "
+"main program has finished executing.  Use of this option will make that "
+"impossible."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:936
+msgid "visiblepw"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:938
+msgid ""
+"By default, B<sudo> will refuse to run if the user must enter a password but "
+"it is not possible to disable echo on the terminal.  If the I<visiblepw> "
+"flag is set, B<sudo> will prompt for a password even when it would be "
+"visible on the screen.  This makes it possible to run things like C<\"rsh "
+"somehost sudo ls\"> since L<rsh(1)> does not allocate a tty.  This flag is "
+"I<off> by default."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:947
+msgid "B<Integers>:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:951
+msgid "closefrom"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:953
+msgid ""
+"Before it executes a command, B<sudo> will close all open file descriptors "
+"other than standard input, standard output and standard error (ie: file "
+"descriptors 0-2).  The I<closefrom> option can be used to specify a "
+"different file descriptor at which to start closing.  The default is C<3>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:959
+msgid "passwd_tries"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:961
+msgid ""
+"The number of tries a user gets to enter his/her password before B<sudo> "
+"logs the failure and exits.  The default is C<@passwd_tries@>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:966
+msgid "B<Integers that can be used in a boolean context>:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:970
+msgid "loglinelen"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:972
+msgid ""
+"Number of characters per line for the file log.  This value is used to "
+"decide when to wrap lines for nicer log files.  This has no effect on the "
+"syslog log file, only the file log.  The default is C<@loglen@> (use 0 or "
+"negate the option to disable word wrap)."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:977
+msgid "passwd_timeout"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:979
+msgid ""
+"Number of minutes before the B<sudo> password prompt times out, or C<0> for "
+"no timeout.  The timeout may include a fractional component if minute "
+"granularity is insufficient, for example C<2.5>.  The default is "
+"C<@password_timeout@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:984
+msgid "timestamp_timeout"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:986
+msgid ""
+"Number of minutes that can elapse before B<sudo> will ask for a passwd "
+"again.  The timeout may include a fractional component if minute granularity "
+"is insufficient, for example C<2.5>.  The default is C<@timeout@>.  Set this "
+"to C<0> to always prompt for a password.  If set to a value less than C<0> "
+"the user's timestamp will never expire.  This can be used to allow users to "
+"create or delete their own timestamps via C<sudo -v> and C<sudo -k> "
+"respectively."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:994
+msgid "umask"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:996
+msgid ""
+"Umask to use when running the command.  Negate this option or set it to 0777 "
+"to preserve the user's umask.  The actual umask that is used will be the "
+"union of the user's umask and C<@sudo_umask@>.  This guarantees that B<sudo> "
+"never lowers the umask when running a command.  Note on systems that use "
+"PAM, the default PAM configuration may specify its own umask which will "
+"override the value set in I<sudoers>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1006
+msgid "B<Strings>:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1010
+msgid "badpass_message"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1012
+msgid ""
+"Message that is displayed if a user enters an incorrect password.  The "
+"default is C<@badpass_message@> unless insults are enabled."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1015
+msgid "editor"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1017
+msgid ""
+"A colon (':') separated list of editors allowed to be used with B<visudo>.  "
+"B<visudo> will choose the editor that matches the user's EDITOR environment "
+"variable if possible, or the first editor in the list that exists and is "
+"executable.  The default is C<\"@editor@\">."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1022
+msgid "mailsub"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1024
+msgid ""
+"Subject of the mail sent to the I<mailto> user. The escape C<%h> will expand "
+"to the host name of the machine.  Default is C<@mailsub@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1028
+msgid "noexec_file"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1030
+msgid ""
+"Path to a shared library containing dummy versions of the execv(), execve() "
+"and fexecve() library functions that just return an error.  This is used to "
+"implement the I<noexec> functionality on systems that support C<LD_PRELOAD> "
+"or its equivalent.  Defaults to F<@noexec_file@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1035
+msgid "passprompt"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1037
+msgid ""
+"The default prompt to use when asking for a password; can be overridden via "
+"the B<-p> option or the C<SUDO_PROMPT> environment variable.  The following "
+"percent (`C<%>') escapes are supported:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1043 C/sudo.pod:301
+msgid "C<%H>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1045
+msgid ""
+"expanded to the local host name including the domain name (on if the "
+"machine's host name is fully qualified or the I<fqdn> option is set)"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1049 C/sudo.pod:307
+msgid "C<%h>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1051 C/sudo.pod:309
+msgid "expanded to the local host name without the domain name"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1053 C/sudo.pod:311
+msgid "C<%p>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1055 C/sudo.pod:313
+msgid ""
+"expanded to the user whose password is being asked for (respects the "
+"I<rootpw>, I<targetpw> and I<runaspw> flags in I<sudoers>)"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1058 C/sudo.pod:316
+msgid "C<%U>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1060 C/sudo.pod:318
+msgid ""
+"expanded to the login name of the user the command will be run as (defaults "
+"to root)"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1063 C/sudo.pod:321
+msgid "C<%u>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1065 C/sudo.pod:323
+msgid "expanded to the invoking user's login name"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1067 C/sudo.pod:325
+msgid "C<%%>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1069 C/sudo.pod:327
+msgid "two consecutive C<%> characters are collapsed into a single C<%> character"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1073
+msgid "The default value is C<@passprompt@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1075
+msgid "role"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1077
+msgid ""
+"The default SELinux role to use when constructing a new security context to "
+"run the command.  The default role may be overridden on a per-command basis "
+"in I<sudoers> or via command line options.  This option is only available "
+"whe B<sudo> is built with SELinux support."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1082
+msgid "runas_default"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1084
+msgid ""
+"The default user to run commands as if the B<-u> option is not specified on "
+"the command line.  This defaults to C<@runas_default@>.  Note that if "
+"I<runas_default> is set it B<must> occur before any C<Runas_Alias> "
+"specifications."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1089
+msgid "syslog_badpri"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1091
+msgid ""
+"Syslog priority to use when user authenticates unsuccessfully.  Defaults to "
+"C<@badpri@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1094
+msgid "syslog_goodpri"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1096
+msgid ""
+"Syslog priority to use when user authenticates successfully.  Defaults to "
+"C<@goodpri@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1099
+msgid "sudoers_locale"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1101
+msgid ""
+"Locale to use when parsing the sudoers file.  Note that changing the locale "
+"may affect how sudoers is interpreted.  Defaults to C<\"C\">."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1105
+msgid "timestampdir"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1107
+msgid ""
+"The directory in which B<sudo> stores its timestamp files.  The default is "
+"F<@timedir@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1110
+msgid "timestampowner"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1112
+msgid ""
+"The owner of the timestamp directory and the timestamps stored therein.  The "
+"default is C<root>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1115
+msgid "type"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1117
+msgid ""
+"The default SELinux type to use when constructing a new security context to "
+"run the command.  The default type may be overridden on a per-command basis "
+"in I<sudoers> or via command line options.  This option is only available "
+"whe B<sudo> is built with SELinux support."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1124
+msgid "B<Strings that can be used in a boolean context>:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1128
+msgid "askpass"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1130
+msgid ""
+"The I<askpass> option specifies the fully qualified path to a helper program "
+"used to read the user's password when no terminal is available.  This may be "
+"the case when B<sudo> is executed from a graphical (as opposed to "
+"text-based) application.  The program specified by I<askpass> should display "
+"the argument passed to it as the prompt and write the user's password to the "
+"standard output.  The value of I<askpass> may be overridden by the "
+"C<SUDO_ASKPASS> environment variable."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1139
+msgid "env_file"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1141
+msgid ""
+"The I<env_file> options specifies the fully qualified path to a file "
+"containing variables to be set in the environment of the program being run.  "
+"Entries in this file should either be of the form C<VARIABLE=value> or "
+"C<export VARIABLE=value>.  The value may optionally be surrounded by single "
+"or double quotes.  Variables in this file are subject to other B<sudo> "
+"environment settings such as I<env_keep> and I<env_check>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1149
+msgid "exempt_group"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1151
+msgid ""
+"Users in this group are exempt from password and PATH requirements.  This is "
+"not set by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1154
+msgid "lecture"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1156
+msgid ""
+"This option controls when a short lecture will be printed along with the "
+"password prompt.  It has the following possible values:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1161 C/sudoers.pod:1197 C/sudoers.pod:1270
+msgid "always"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1163
+msgid "Always lecture the user."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1165 C/sudoers.pod:1206 C/sudoers.pod:1279
+msgid "never"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1167
+msgid "Never lecture the user."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1169
+msgid "once"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1171
+msgid "Only lecture the user the first time they run B<sudo>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1175
+msgid ""
+"If no value is specified, a value of I<once> is implied.  Negating the "
+"option results in a value of I<never> being used.  The default value is "
+"I<@lecture@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1179
+msgid "lecture_file"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1181
+msgid ""
+"Path to a file containing an alternate B<sudo> lecture that will be used in "
+"place of the standard lecture if the named file exists.  By default, B<sudo> "
+"uses a built-in lecture."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1185
+msgid "listpw"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1187
+msgid ""
+"This option controls when a password will be required when a user runs "
+"B<sudo> with the B<-l> option.  It has the following possible values:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1192 C/sudoers.pod:1265
+msgid "all"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1194 C/sudoers.pod:1267
+msgid ""
+"All the user's I<sudoers> entries for the current host must have the "
+"C<NOPASSWD> flag set to avoid entering a password."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1199
+msgid "The user must always enter a password to use the B<-l> option."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1201 C/sudoers.pod:1274
+msgid "any"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1203 C/sudoers.pod:1276
+msgid ""
+"At least one of the user's I<sudoers> entries for the current host must have "
+"the C<NOPASSWD> flag set to avoid entering a password."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1208
+msgid "The user need never enter a password to use the B<-l> option."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1212
+msgid ""
+"If no value is specified, a value of I<any> is implied.  Negating the option "
+"results in a value of I<never> being used.  The default value is I<any>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1216
+msgid "logfile"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1218
+msgid ""
+"Path to the B<sudo> log file (not the syslog log file).  Setting a path "
+"turns on logging to a file; negating this option turns it off.  By default, "
+"B<sudo> logs via syslog."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1222
+msgid "mailerflags"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1224
+msgid "Flags to use when invoking mailer. Defaults to B<-t>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1226
+msgid "mailerpath"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1228
+msgid ""
+"Path to mail program used to send warning mail.  Defaults to the path to "
+"sendmail found at configure time."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1231
+msgid "mailfrom"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1233
+msgid ""
+"Address to use for the \"from\" address when sending warning and error "
+"mail.  The address should be enclosed in double quotes (C<\">) to protect "
+"against B<sudo> interpreting the C<@> sign.  Defaults to the name of the "
+"user running B<sudo>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1238
+msgid "mailto"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1240
+msgid ""
+"Address to send warning and error mail to.  The address should be enclosed "
+"in double quotes (C<\">) to protect against B<sudo> interpreting the C<@> "
+"sign.  Defaults to C<@mailto@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1244
+msgid "secure_path"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1246
+msgid ""
+"Path used for every command run from B<sudo>.  If you don't trust the people "
+"running B<sudo> to have a sane C<PATH> environment variable you may want to "
+"use this.  Another use is if you want to have the \"root path\" be separate "
+"from the \"user path.\" Users in the group specified by the I<exempt_group> "
+"option are not affected by I<secure_path>.  This option is @secure_path@ by "
+"default."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1253
+msgid "syslog"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1255
+msgid ""
+"Syslog facility if syslog is being used for logging (negate to disable "
+"syslog logging).  Defaults to C<@logfac@>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1258
+msgid "verifypw"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1260
+msgid ""
+"This option controls when a password will be required when a user runs "
+"B<sudo> with the B<-v> option.  It has the following possible values:"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1272
+msgid "The user must always enter a password to use the B<-v> option."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1281
+msgid "The user need never enter a password to use the B<-v> option."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1285
+msgid ""
+"If no value is specified, a value of I<all> is implied.  Negating the option "
+"results in a value of I<never> being used.  The default value is I<all>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1291
+msgid "B<Lists that can be used in a boolean context>:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1295
+msgid "env_check"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1297
+msgid ""
+"Environment variables to be removed from the user's environment if the "
+"variable's value contains C<%> or C</> characters.  This can be used to "
+"guard against printf-style format vulnerabilities in poorly-written "
+"programs.  The argument may be a double-quoted, space-separated list or a "
+"single value without double-quotes.  The list can be replaced, added to, "
+"deleted from, or disabled by using the C<=>, C<+=>, C<-=>, and C<!> "
+"operators respectively.  Regardless of whether the C<env_reset> option is "
+"enabled or disabled, variables specified by C<env_check> will be preserved "
+"in the environment if they pass the aforementioned check.  The default list "
+"of environment variables to check is displayed when B<sudo> is run by root "
+"with the I<-V> option."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1310
+msgid "env_delete"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1312
+msgid ""
+"Not effective due to security issues: only variables listed in I<env_keep> "
+"or I<env_check> can be passed through B<sudo>!"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1315
+msgid ""
+"Environment variables to be removed from the user's environment when the "
+"I<env_reset> option is not in effect.  The argument may be a double-quoted, "
+"space-separated list or a single value without double-quotes.  The list can "
+"be replaced, added to, deleted from, or disabled by using the C<=>, C<+=>, "
+"C<-=>, and C<!> operators respectively.  The default list of environment "
+"variables to remove is displayed when B<sudo> is run by root with the I<-V> "
+"option.  Note that many operating systems will remove potentially dangerous "
+"variables from the environment of any setuid process (such as B<sudo>)."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1326
+msgid "env_keep"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1328
+msgid ""
+"Environment variables to be preserved in the user's environment.  This "
+"allows fine-grained control over the environment B<sudo>-spawned processes "
+"will receive.  The argument may be a double-quoted, space-separated list or "
+"a single value without double-quotes.  The list can be replaced, added to, "
+"deleted from, or disabled by using the C<=>, C<+=>, C<-=>, and C<!> "
+"operators respectively.  The default list of variables to keep is displayed "
+"when B<sudo> is run by root with the I<-V> option."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1339
+msgid ""
+"When logging via L<syslog(3)>, B<sudo> accepts the following values for the "
+"syslog facility (the value of the B<syslog> Parameter): B<authpriv> (if your "
+"OS supports it), B<auth>, B<daemon>, B<user>, B<local0>, B<local1>, "
+"B<local2>, B<local3>, B<local4>, B<local5>, B<local6>, and B<local7>.  The "
+"following syslog priorities are supported: B<alert>, B<crit>, B<debug>, "
+"B<emerg>, B<err>, B<info>, B<notice>, and B<warning>."
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1351 C/sudo.pod:593 C/visudo.pod:128
+msgid "F<@sysconfdir@/sudoers>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1353 C/sudo.pod:595 C/visudo.pod:130
+msgid "List of who can run what"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1355
+msgid "F</etc/group>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1357
+msgid "Local groups file"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1359
+msgid "F</etc/netgroup>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1361
+msgid "List of network groups"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1363 C/sudoreplay.pod:260
+msgid "F</var/log/sudo-io>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1365
+msgid "I/O log files"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1371
+msgid ""
+"Below are example I<sudoers> entries.  Admittedly, some of these are a bit "
+"contrived.  First, we allow a few environment variables to pass and then "
+"define our I<aliases>:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1375
+#, no-wrap
+msgid ""
+" # Run X applications through sudo; HOME is used to find the\n"
+" # .Xauthority file.  Note that other programs use HOME to find\n"
+" # configuration files and this may lead to privilege escalation!\n"
+" Defaults env_keep += \"DISPLAY HOME\"\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1380
+#, no-wrap
+msgid ""
+" # User alias specification\n"
+" User_Alias\tFULLTIMERS = millert, mikef, dowdy\n"
+" User_Alias\tPARTTIMERS = bostley, jwfox, crawl\n"
+" User_Alias\tWEBMASTERS = will, wendy, wim\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1385
+#, no-wrap
+msgid ""
+" # Runas alias specification\n"
+" Runas_Alias\tOP = root, operator\n"
+" Runas_Alias\tDB = oracle, sybase\n"
+" Runas_Alias\tADMINGRP = adm, oper\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1390
+#, no-wrap
+msgid ""
+" # Host alias specification\n"
+" Host_Alias\tSPARC = bigtime, eclipse, moet, anchor :\\\n"
+"\t\tSGI = grolsch, dandelion, black :\\\n"
+"\t\tALPHA = widget, thalamus, foobar :\\\n"
+"\t\tHPPA = boa, nag, python\n"
+" Host_Alias\tCUNETS = 128.138.0.0/255.255.0.0\n"
+" Host_Alias\tCSNETS = 128.138.243.0, 128.138.204.0/24, 128.138.242.0\n"
+" Host_Alias\tSERVERS = master, mail, www, ns\n"
+" Host_Alias\tCDROM = orion, perseus, hercules\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1400
+#, no-wrap
+msgid ""
+" # Cmnd alias specification\n"
+" Cmnd_Alias\tDUMPS = /usr/bin/mt, /usr/sbin/dump, /usr/sbin/rdump,\\\n"
+"\t\t\t/usr/sbin/restore, /usr/sbin/rrestore\n"
+" Cmnd_Alias\tKILL = /usr/bin/kill\n"
+" Cmnd_Alias\tPRINTING = /usr/sbin/lpc, /usr/bin/lprm\n"
+" Cmnd_Alias\tSHUTDOWN = /usr/sbin/shutdown\n"
+" Cmnd_Alias\tHALT = /usr/sbin/halt\n"
+" Cmnd_Alias\tREBOOT = /usr/sbin/reboot\n"
+" Cmnd_Alias\tSHELLS = /usr/bin/sh, /usr/bin/csh, /usr/bin/ksh, \\\n"
+"\t\t\t /usr/local/bin/tcsh, /usr/bin/rsh, \\\n"
+"\t\t\t /usr/local/bin/zsh\n"
+" Cmnd_Alias\tSU = /usr/bin/su\n"
+" Cmnd_Alias\tPAGERS = /usr/bin/more, /usr/bin/pg, /usr/bin/less\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1414
+msgid ""
+"Here we override some of the compiled in default values.  We want B<sudo> to "
+"log via L<syslog(3)> using the I<auth> facility in all cases.  We don't want "
+"to subject the full time staff to the B<sudo> lecture, user B<millert> need "
+"not give a password, and we don't want to reset the C<LOGNAME>, C<USER> or "
+"C<USERNAME> environment variables when running commands as root.  "
+"Additionally, on the machines in the I<SERVERS> C<Host_Alias>, we keep an "
+"additional local log file and make sure we log the year in each log line "
+"since the log entries will be kept around for several years.  Lastly, we "
+"disable shell escapes for the commands in the PAGERS C<Cmnd_Alias> "
+"(F</usr/bin/more>, F</usr/bin/pg> and F</usr/bin/less>)."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1426
+#, no-wrap
+msgid ""
+" # Override built-in defaults\n"
+" Defaults\t\tsyslog=auth\n"
+" Defaults>root\t\t!set_logname\n"
+" Defaults:FULLTIMERS\t!lecture\n"
+" Defaults:millert\t!authenticate\n"
+" Defaults@SERVERS\tlog_year, logfile=/var/log/sudo.log\n"
+" Defaults!PAGERS\tnoexec\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1434
+msgid ""
+"The I<User specification> is the part that actually determines who may run "
+"what."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1437
+#, no-wrap
+msgid ""
+" root\t\tALL = (ALL) ALL\n"
+" %wheel\t\tALL = (ALL) ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1440
+msgid ""
+"We let B<root> and any user in group B<wheel> run any command on any host as "
+"any user."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1443
+#, no-wrap
+msgid ""
+" FULLTIMERS\tALL = NOPASSWD: ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1445
+msgid ""
+"Full time sysadmins (B<millert>, B<mikef>, and B<dowdy>) may run any command "
+"on any host without authenticating themselves."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1448
+#, no-wrap
+msgid ""
+" PARTTIMERS\tALL = ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1450
+msgid ""
+"Part time sysadmins (B<bostley>, B<jwfox>, and B<crawl>) may run any command "
+"on any host but they must authenticate themselves first (since the entry "
+"lacks the C<NOPASSWD> tag)."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1454
+#, no-wrap
+msgid ""
+" jack\t\tCSNETS = ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1456
+msgid ""
+"The user B<jack> may run any command on the machines in the I<CSNETS> alias "
+"(the networks C<128.138.243.0>, C<128.138.204.0>, and C<128.138.242.0>).  Of "
+"those networks, only C<128.138.204.0> has an explicit netmask (in CIDR "
+"notation) indicating it is a class C network.  For the other networks in "
+"I<CSNETS>, the local machine's netmask will be used during matching."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1463
+#, no-wrap
+msgid ""
+" lisa\t\tCUNETS = ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1465
+msgid ""
+"The user B<lisa> may run any command on any host in the I<CUNETS> alias (the "
+"class B network C<128.138.0.0>)."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1468
+#, no-wrap
+msgid ""
+" operator\tALL = DUMPS, KILL, SHUTDOWN, HALT, REBOOT, PRINTING,\\\n"
+"\t\tsudoedit /etc/printcap, /usr/oper/bin/\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1471
+msgid ""
+"The B<operator> user may run commands limited to simple maintenance.  Here, "
+"those are commands related to backups, killing processes, the printing "
+"system, shutting down the system, and any commands in the directory "
+"F</usr/oper/bin/>."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1476
+#, no-wrap
+msgid ""
+" joe\t\tALL = /usr/bin/su operator\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1478
+msgid "The user B<joe> may only L<su(1)> to operator."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1480
+#, no-wrap
+msgid ""
+" pete\t\tHPPA = /usr/bin/passwd [A-Za-z]*, !/usr/bin/passwd root\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1482
+#, no-wrap
+msgid ""
+" %opers\t\tALL = (: ADMINGRP) /usr/sbin/\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1484
+msgid ""
+"Users in the B<opers> group may run commands in F</usr/sbin/> as themselves "
+"with any group in the I<ADMINGRP> C<Runas_Alias> (the B<adm> and B<oper> "
+"groups)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1488
+msgid ""
+"The user B<pete> is allowed to change anyone's password except for root on "
+"the I<HPPA> machines.  Note that this assumes L<passwd(1)> does not take "
+"multiple user names on the command line."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1492
+#, no-wrap
+msgid ""
+" bob\t\tSPARC = (OP) ALL : SGI = (OP) ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1494
+msgid ""
+"The user B<bob> may run anything on the I<SPARC> and I<SGI> machines as any "
+"user listed in the I<OP> C<Runas_Alias> (B<root> and B<operator>)."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1497
+#, no-wrap
+msgid ""
+" jim\t\t+biglab = ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1499
+msgid ""
+"The user B<jim> may run any command on machines in the I<biglab> netgroup.  "
+"B<sudo> knows that \"biglab\" is a netgroup due to the '+' prefix."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1502
+#, no-wrap
+msgid ""
+" +secretaries\tALL = PRINTING, /usr/bin/adduser, /usr/bin/rmuser\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1504
+msgid ""
+"Users in the B<secretaries> netgroup need to help manage the printers as "
+"well as add and remove users, so they are allowed to run those commands on "
+"all machines."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1508
+#, no-wrap
+msgid ""
+" fred\t\tALL = (DB) NOPASSWD: ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1510
+msgid ""
+"The user B<fred> can run commands as any user in the I<DB> C<Runas_Alias> "
+"(B<oracle> or B<sybase>) without giving a password."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1513
+#, no-wrap
+msgid ""
+" john\t\tALPHA = /usr/bin/su [!-]*, !/usr/bin/su *root*\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1515
+msgid ""
+"On the I<ALPHA> machines, user B<john> may su to anyone except root but he "
+"is not allowed to specify any options to the L<su(1)> command."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1518
+#, no-wrap
+msgid ""
+" jen\t\tALL, !SERVERS = ALL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1520
+msgid ""
+"The user B<jen> may run any command on any machine except for those in the "
+"I<SERVERS> C<Host_Alias> (master, mail, www and ns)."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1523
+#, no-wrap
+msgid ""
+" jill\t\tSERVERS = /usr/bin/, !SU, !SHELLS\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1525
+msgid ""
+"For any machine in the I<SERVERS> C<Host_Alias>, B<jill> may run any "
+"commands in the directory F</usr/bin/> except for those commands belonging "
+"to the I<SU> and I<SHELLS> C<Cmnd_Aliases>."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1529
+#, no-wrap
+msgid ""
+" steve\t\tCSNETS = (operator) /usr/local/op_commands/\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1531
+msgid ""
+"The user B<steve> may run any command in the directory "
+"/usr/local/op_commands/ but only as user operator."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1534
+#, no-wrap
+msgid ""
+" matt\t\tvalkyrie = KILL\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1536
+msgid ""
+"On his personal workstation, valkyrie, B<matt> needs to be able to kill hung "
+"processes."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1539
+#, no-wrap
+msgid ""
+" WEBMASTERS\twww = (www) ALL, (root) /usr/bin/su www\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1541
+msgid ""
+"On the host www, any user in the I<WEBMASTERS> C<User_Alias> (will, wendy, "
+"and wim), may run any command as user www (which owns the web pages) or "
+"simply L<su(1)> to www."
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1545
+#, no-wrap
+msgid ""
+" ALL\t\tCDROM = NOPASSWD: /sbin/umount /CDROM,\\\n"
+"\t\t/sbin/mount -o nosuid\\,nodev /dev/cd0a /CDROM\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1548
+msgid ""
+"Any user may mount or unmount a CD-ROM on the machines in the CDROM "
+"C<Host_Alias> (orion, perseus, hercules) without entering a password.  This "
+"is a bit tedious for users to type, so it is a prime candidate for "
+"encapsulating in a shell script."
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.pod:1553 C/sudo.pod:424
+msgid "SECURITY NOTES"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1555
+msgid ""
+"It is generally not effective to \"subtract\" commands from C<ALL> using the "
+"'!' operator.  A user can trivially circumvent this by copying the desired "
+"command to a different name and then executing that.  For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1560
+#, no-wrap
+msgid ""
+"    bill\tALL = ALL, !SU, !SHELLS\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1562
+msgid ""
+"Doesn't really prevent B<bill> from running the commands listed in I<SU> or "
+"I<SHELLS> since he can simply copy those commands to a different name, or "
+"use a shell escape from an editor or other program.  Therefore, these kind "
+"of restrictions should be considered advisory at best (and reinforced by "
+"policy)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1568
+msgid ""
+"Furthermore, if the I<fast_glob> option is in use, it is not possible to "
+"reliably negate commands where the path name includes globbing (aka "
+"wildcard) characters.  This is because the C library's L<fnmatch(3)> "
+"function cannot resolve relative paths.  While this is typically only an "
+"inconvenience for rules that grant privileges, it can result in a security "
+"issue for rules that subtract or revoke privileges."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1576
+msgid "For example, given the following I<sudoers> entry:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1578
+#, no-wrap
+msgid ""
+" john\tALL = /usr/bin/passwd [a-zA-Z0-9]*, /usr/bin/chsh [a-zA-Z0-9]*,\n"
+"      /usr/bin/chfn [a-zA-Z0-9]*, !/usr/bin/* root\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1581
+msgid ""
+"User B<john> can still run C</usr/bin/passwd root> if I<fast_glob> is "
+"enabled by changing to F</usr/bin> and running C<./passwd root> instead."
+msgstr ""
+
+#. type: =head1
+#: C/sudoers.pod:1584
+msgid "PREVENTING SHELL ESCAPES"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1586
+msgid ""
+"Once B<sudo> executes a program, that program is free to do whatever it "
+"pleases, including run other programs.  This can be a security issue since "
+"it is not uncommon for a program to allow shell escapes, which lets a user "
+"bypass B<sudo>'s access control and logging.  Common programs that permit "
+"shell escapes include shells (obviously), editors, paginators, mail and "
+"terminal programs."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1593
+msgid "There are two basic approaches to this problem:"
+msgstr ""
+
+#. type: =item
+#: C/sudoers.pod:1597
+msgid "restrict"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1599
+msgid ""
+"Avoid giving users access to commands that allow the user to run arbitrary "
+"commands.  Many editors have a restricted mode where shell escapes are "
+"disabled, though B<sudoedit> is a better solution to running editors via "
+"B<sudo>.  Due to the large number of programs that offer shell escapes, "
+"restricting users to the set of programs that do not if often unworkable."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1608
+msgid ""
+"Many systems that support shared libraries have the ability to override "
+"default library functions by pointing an environment variable (usually "
+"C<LD_PRELOAD>) to an alternate shared library.  On such systems, B<sudo>'s "
+"I<noexec> functionality can be used to prevent a program run by B<sudo> from "
+"executing any other programs.  Note, however, that this applies only to "
+"native dynamically-linked executables.  Statically-linked executables and "
+"foreign executables running under binary emulation are not affected."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1617
+msgid ""
+"To tell whether or not B<sudo> supports I<noexec>, you can run the following "
+"as root:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1620
+#, no-wrap
+msgid ""
+"    sudo -V | grep \"dummy exec\"\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1622
+msgid "If the resulting output contains a line that begins with:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoers.pod:1624
+#, no-wrap
+msgid ""
+"    File containing dummy exec functions:\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1626
+msgid ""
+"then B<sudo> may be able to replace the exec family of functions in the "
+"standard library with its own that simply return an error.  Unfortunately, "
+"there is no foolproof way to know whether or not I<noexec> will work at "
+"compile-time.  I<noexec> should work on SunOS, Solaris, *BSD, Linux, IRIX, "
+"Tru64 UNIX, MacOS X, and HP-UX 11.x.  It is known B<not> to work on AIX and "
+"UnixWare.  I<noexec> is expected to work on most operating systems that "
+"support the C<LD_PRELOAD> environment variable.  Check your operating "
+"system's manual pages for the dynamic linker (usually ld.so, ld.so.1, dyld, "
+"dld.sl, rld, or loader) to see if C<LD_PRELOAD> is supported."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1637
+msgid ""
+"To enable I<noexec> for a command, use the C<NOEXEC> tag as documented in "
+"the User Specification section above.  Here is that example again:"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1642
+msgid ""
+"This allows user B<aaron> to run F</usr/bin/more> and F</usr/bin/vi> with "
+"I<noexec> enabled.  This will prevent those two commands from executing "
+"other commands (such as a shell).  If you are unsure whether or not your "
+"system is capable of supporting I<noexec> you can always just try it out and "
+"see if it works."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1650
+msgid ""
+"Note that restricting shell escapes is not a panacea.  Programs running as "
+"root are still capable of many potentially hazardous operations (such as "
+"changing or overwriting files) that could lead to unintended privilege "
+"escalation.  In the specific case of an editor, a safer approach is to give "
+"the user permission to run B<sudoedit>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1659
+msgid "L<rsh(1)>, L<su(1)>, L<fnmatch(3)>, L<glob(3)>, L<sudo(8)>, L<visudo(8)>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1663
+msgid ""
+"The I<sudoers> file should B<always> be edited by the B<visudo> command "
+"which locks the file and does grammatical checking. It is imperative that "
+"I<sudoers> be free of syntax errors since B<sudo> will not run with a "
+"syntactically incorrect I<sudoers> file."
+msgstr ""
+
+#. type: textblock
+#: C/sudoers.pod:1668
+msgid ""
+"When using netgroups of machines (as opposed to users), if you store fully "
+"qualified host name in the netgroup (as is usually the case), you either "
+"need to have the machine's host name be fully qualified as returned by the "
+"C<hostname> command or use the I<fqdn> option in I<sudoers>."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:25
+msgid "sudo, sudoedit - execute a command as another user"
+msgstr ""
+
+#. type: =head1
+#: C/sudo.pod:27 C/sudoreplay.pod:22 C/visudo.pod:27
+msgid "SYNOPSIS"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:29
+msgid "B<sudo> B<-h> | B<-K> | B<-k> | B<-L> | B<-V>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:31
+msgid ""
+"B<sudo> B<-v> [B<-AknS>] S<[B<-a> I<auth_type>]> S<[B<-g> I<group "
+"name>|I<#gid>]> S<[B<-p> I<prompt>]> S<[B<-u> I<username>|I<#uid>]>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:36
+msgid ""
+"B<sudo> B<-l[l]> [B<-AknS>] S<[B<-a> I<auth_type>]> S<[B<-g> I<group "
+"name>|I<#gid>]> S<[B<-p> I<prompt>]> S<[B<-U> I<user name>]> S<[B<-u> I<user "
+"name>|I<#uid>]> [I<command>]"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:41
+msgid ""
+"B<sudo> [B<-AbEHnPS>] S<[B<-a> I<auth_type>]> S<[B<-C> I<fd>]> S<[B<-c> "
+"I<class>|I<->]> S<[B<-g> I<group name>|I<#gid>]> S<[B<-p> I<prompt>]> "
+"S<[B<-r> I<role>]> S<[B<-t> I<type>]> S<[B<-u> I<user name>|I<#uid>]> "
+"S<[B<VAR>=I<value>]> S<[B<-i> | B<-s>]> [I<command>]"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:50
+msgid ""
+"B<sudoedit> [B<-AnS>] S<[B<-a> I<auth_type>]> S<[B<-C> I<fd>]> S<[B<-c> "
+"I<class>|I<->]> S<[B<-g> I<group name>|I<#gid>]> S<[B<-p> I<prompt>]> "
+"S<[B<-u> I<user name>|I<#uid>]> file ..."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:59
+msgid ""
+"B<sudo> allows a permitted user to execute a I<command> as the superuser or "
+"another user, as specified in the I<sudoers> file.  The real and effective "
+"uid and gid are set to match those of the target user as specified in the "
+"passwd file and the group vector is initialized based on the group file "
+"(unless the B<-P> option was specified).  If the invoking user is root or if "
+"the target user is the same as the invoking user, no password is required.  "
+"Otherwise, B<sudo> requires that users authenticate themselves with a "
+"password by default (NOTE: in the default configuration this is the user's "
+"password, not the root password).  Once a user has been authenticated, a "
+"time stamp is updated and the user may then use sudo without a password for "
+"a short period of time (C<@timeout@> minutes unless overridden in "
+"I<sudoers>)."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:73
+msgid "When invoked as B<sudoedit>, the B<-e> option (described below), is implied."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:76
+msgid ""
+"B<sudo> determines who is an authorized user by consulting the file "
+"F<@sysconfdir@/sudoers>.  By running B<sudo> with the B<-v> option, a user "
+"can update the time stamp without running a I<command>.  If a password is "
+"required, B<sudo> will exit if the user's password is not entered within a "
+"configurable time limit.  The default password prompt timeout is "
+"C<@password_timeout@> minutes."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:83
+msgid ""
+"If a user who is not listed in the I<sudoers> file tries to run a command "
+"via B<sudo>, mail is sent to the proper authorities, as defined at configure "
+"time or in the I<sudoers> file (defaults to C<@mailto@>).  Note that the "
+"mail will not be sent if an unauthorized user tries to run sudo with the "
+"B<-l> or B<-v> option.  This allows users to determine for themselves "
+"whether or not they are allowed to use B<sudo>."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:91
+msgid ""
+"If B<sudo> is run by root and the C<SUDO_USER> environment variable is set, "
+"B<sudo> will use this value to determine who the actual user is.  This can "
+"be used by a user to log commands through sudo even when a root shell has "
+"been invoked.  It also allows the B<-e> option to remain useful even when "
+"being run via a sudo-run script or program.  Note however, that the sudoers "
+"lookup is still done for root, not the user specified by C<SUDO_USER>."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:99
+msgid ""
+"B<sudo> can log both successful and unsuccessful attempts (as well as "
+"errors) to syslog(3), a log file, or both.  By default B<sudo> will log via "
+"syslog(3) but this is changeable at configure time or via the I<sudoers> "
+"file."
+msgstr ""
+
+#. type: =head1
+#: C/sudo.pod:104 C/sudoreplay.pod:60 C/visudo.pod:64
+msgid "OPTIONS"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:106
+msgid "B<sudo> accepts the following command line options:"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:110
+msgid "-A"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:112
+msgid ""
+"Normally, if B<sudo> requires a password, it will read it from the current "
+"terminal.  If the B<-A> (I<askpass>) option is specified, a (possibly "
+"graphical) helper program is executed to read the user's password and output "
+"the password to the standard output.  If the C<SUDO_ASKPASS> environment "
+"variable is set, it specifies the path to the helper program.  Otherwise, "
+"the value specified by the I<askpass> option in L<sudoers(5)> is used."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:120
+msgid "-a I<type>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:122
+msgid ""
+"The B<-a> (I<authentication type>) option causes B<sudo> to use the "
+"specified authentication type when validating the user, as allowed by "
+"F</etc/login.conf>.  The system administrator may specify a list of "
+"sudo-specific authentication methods by adding an \"auth-sudo\" entry in "
+"F</etc/login.conf>.  This option is only available on systems that support "
+"BSD authentication."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:129
+msgid "-b"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:131
+msgid ""
+"The B<-b> (I<background>) option tells B<sudo> to run the given command in "
+"the background.  Note that if you use the B<-b> option you cannot use shell "
+"job control to manipulate the process."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:135
+msgid "-C I<fd>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:137
+msgid ""
+"Normally, B<sudo> will close all open file descriptors other than standard "
+"input, standard output and standard error.  The B<-C> (I<close from>) option "
+"allows the user to specify a starting point above the standard error (file "
+"descriptor three).  Values less than three are not permitted.  This option "
+"is only available if the administrator has enabled the I<closefrom_override> "
+"option in L<sudoers(5)>."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:145
+msgid "-c I<class>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:147
+msgid ""
+"The B<-c> (I<class>) option causes B<sudo> to run the specified command with "
+"resources limited by the specified login class.  The I<class> argument can "
+"be either a class name as defined in F</etc/login.conf>, or a single '-' "
+"character.  Specifying a I<class> of C<-> indicates that the command should "
+"be run restricted by the default login capabilities for the user the command "
+"is run as.  If the I<class> argument specifies an existing user class, the "
+"command must be run as root, or the B<sudo> command must be run from a shell "
+"that is already root.  This option is only available on systems with BSD "
+"login classes."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:157
+msgid "-E"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:159
+msgid ""
+"The B<-E> (I<preserve> I<environment>) option will override the I<env_reset> "
+"option in L<sudoers(5)>).  It is only available when either the matching "
+"command has the C<SETENV> tag or the I<setenv> option is set in "
+"L<sudoers(5)>."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:164
+msgid "-e"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:166
+msgid ""
+"The B<-e> (I<edit>) option indicates that, instead of running a command, the "
+"user wishes to edit one or more files.  In lieu of a command, the string "
+"\"sudoedit\" is used when consulting the I<sudoers> file.  If the user is "
+"authorized by I<sudoers> the following steps are taken:"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:174
+msgid "1."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:176
+msgid ""
+"Temporary copies are made of the files to be edited with the owner set to "
+"the invoking user."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:179
+msgid "2."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:181
+msgid ""
+"The editor specified by the C<SUDO_EDITOR>, C<VISUAL> or C<EDITOR> "
+"environment variables is run to edit the temporary files.  If none of "
+"C<SUDO_EDITOR>, C<VISUAL> or C<EDITOR> are set, the first program listed in "
+"the I<editor> I<sudoers> variable is used."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:186
+msgid "3."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:188
+msgid ""
+"If they have been modified, the temporary files are copied back to their "
+"original location and the temporary versions are removed."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:193
+msgid ""
+"If the specified file does not exist, it will be created.  Note that unlike "
+"most commands run by B<sudo>, the editor is run with the invoking user's "
+"environment unmodified.  If, for some reason, B<sudo> is unable to update a "
+"file with its edited version, the user will receive a warning and the edited "
+"copy will remain in a temporary file."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:200
+msgid "-g I<group>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:202
+msgid ""
+"Normally, B<sudo> sets the primary group to the one specified by the passwd "
+"database for the user the command is being run as (by default, root).  The "
+"B<-g> (I<group>) option causes B<sudo> to run the specified command with the "
+"primary group set to I<group>.  To specify a I<gid> instead of a I<group "
+"name>, use I<#gid>.  When running commands as a I<gid>, many shells require "
+"that the '#' be escaped with a backslash ('\\').  If no B<-u> option is "
+"specified, the command will be run as the invoking user (not root).  In "
+"either case, the primary group will be set to I<group>."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:212
+msgid "-H"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:214
+msgid ""
+"The B<-H> (I<HOME>) option sets the C<HOME> environment variable to the "
+"homedir of the target user (root by default) as specified in passwd(5).  The "
+"default handling of the C<HOME> environment variable depends on "
+"L<sudoers(5)> settings.  By default, B<sudo> will set C<HOME> if "
+"I<env_reset> or I<always_set_home> are set, or if I<set_home> is set and the "
+"B<-s> option is specified on the command line."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:222
+msgid "-h"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:224
+msgid "The B<-h> (I<help>) option causes B<sudo> to print a usage message and exit."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:226
+msgid "-i [command]"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:228
+msgid ""
+"The B<-i> (I<simulate initial login>) option runs the shell specified in the "
+"L<passwd(5)> entry of the target user as a login shell.  This means that "
+"login-specific resource files such as C<.profile> or C<.login> will be read "
+"by the shell.  If a command is specified, it is passed to the shell for "
+"execution.  Otherwise, an interactive shell is executed.  B<sudo> attempts "
+"to change to that user's home directory before running the shell.  It also "
+"initializes the environment, leaving I<DISPLAY> and I<TERM> unchanged, "
+"setting I<HOME>, I<MAIL>, I<SHELL>, I<USER>, I<LOGNAME>, and I<PATH>, as "
+"well as the contents of F</etc/environment> on Linux and AIX systems.  All "
+"other environment variables are removed."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:240
+msgid "-K"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:242
+msgid ""
+"The B<-K> (sure I<kill>) option is like B<-k> except that it removes the "
+"user's time stamp entirely and may not be used in conjunction with a command "
+"or other option.  This option does not require a password."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:247
+msgid "-k"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:249
+msgid ""
+"When used by itself, the B<-k> (I<kill>) option to B<sudo> invalidates the "
+"user's time stamp by setting the time on it to the Epoch.  The next time "
+"B<sudo> is run a password will be required.  This option does not require a "
+"password and was added to allow a user to revoke B<sudo> permissions from a "
+".logout file."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:255
+msgid ""
+"When used in conjunction with a command or an option that may require a "
+"password, the B<-k> option will cause B<sudo> to ignore the user's time "
+"stamp file.  As a result, B<sudo> will prompt for a password (if one is "
+"required by I<sudoers>) and will not update the user's time stamp file."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:261
+msgid "-L"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:263
+msgid ""
+"The B<-L> (I<list> defaults) option will list the parameters that may be set "
+"in a I<Defaults> line along with a short description for each.  This option "
+"will be removed from a future version of B<sudo>."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:267
+msgid "-l[l] [I<command>]"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:269
+msgid ""
+"If no I<command> is specified, the B<-l> (I<list>) option will list the "
+"allowed (and forbidden) commands for the invoking user (or the user "
+"specified by the B<-U> option) on the current host.  If a I<command> is "
+"specified and is permitted by I<sudoers>, the fully-qualified path to the "
+"command is displayed along with any command line arguments.  If I<command> "
+"is specified but not allowed, B<sudo> will exit with a status value of 1.  "
+"If the B<-l> option is specified with an B<l> argument (i.e. B<-ll>), or if "
+"B<-l> is specified multiple times, a longer list format is used."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:279
+msgid "-n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:281
+msgid ""
+"The B<-n> (I<non-interactive>) option prevents B<sudo> from prompting the "
+"user for a password.  If a password is required for the command to run, "
+"B<sudo> will display an error messages and exit."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:285
+msgid "-P"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:287
+msgid ""
+"The B<-P> (I<preserve> I<group vector>) option causes B<sudo> to preserve "
+"the invoking user's group vector unaltered.  By default, B<sudo> will "
+"initialize the group vector to the list of groups the target user is in.  "
+"The real and effective group IDs, however, are still set to match the target "
+"user."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:293
+msgid "-p I<prompt>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:295
+msgid ""
+"The B<-p> (I<prompt>) option allows you to override the default password "
+"prompt and use a custom one.  The following percent (`C<%>')  escapes are "
+"supported:"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:303
+msgid ""
+"expanded to the local host name including the domain name (on if the "
+"machine's host name is fully qualified or the I<fqdn> I<sudoers> option is "
+"set)"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:331
+msgid ""
+"The prompt specified by the B<-p> option will override the system password "
+"prompt on systems that support PAM unless the I<passprompt_override> flag is "
+"disabled in I<sudoers>."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:335
+msgid "-r I<role>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:337
+msgid ""
+"The B<-r> (I<role>) option causes the new (SELinux) security context to have "
+"the role specified by I<role>."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:340
+msgid "-S"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:342
+msgid ""
+"The B<-S> (I<stdin>) option causes B<sudo> to read the password from the "
+"standard input instead of the terminal device.  The password must be "
+"followed by a newline character."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:346
+msgid "-s [command]"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:348
+msgid ""
+"The B<-s> (I<shell>) option runs the shell specified by the I<SHELL> "
+"environment variable if it is set or the shell as specified in "
+"L<passwd(5)>.  If a command is specified, it is passed to the shell for "
+"execution.  Otherwise, an interactive shell is executed."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:353
+msgid "-t I<type>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:355
+msgid ""
+"The B<-t> (I<type>) option causes the new (SELinux) security context to have "
+"the type specified by I<type>.  If no type is specified, the default type is "
+"derived from the specified role."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:359
+msgid "-U I<user>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:361
+msgid ""
+"The B<-U> (I<other user>) option is used in conjunction with the B<-l> "
+"option to specify the user whose privileges should be listed.  Only root or "
+"a user with B<sudo> C<ALL> on the current host may use this option."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:366
+msgid "-u I<user>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:368
+msgid ""
+"The B<-u> (I<user>) option causes B<sudo> to run the specified command as a "
+"user other than I<root>.  To specify a I<uid> instead of a I<user name>, use "
+"I<#uid>.  When running commands as a I<uid>, many shells require that the "
+"'#' be escaped with a backslash ('\\').  Note that if the I<targetpw> "
+"Defaults option is set (see L<sudoers(5)>)  it is not possible to run "
+"commands with a uid not listed in the password database."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:376 C/sudoreplay.pod:162 C/visudo.pod:100
+msgid "-V"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:378
+msgid ""
+"The B<-V> (I<version>) option causes B<sudo> to print the version number and "
+"exit.  If the invoking user is already root the B<-V> option will print out "
+"a list of the defaults B<sudo> was compiled with as well as the machine's "
+"local network addresses."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:383
+msgid "-v"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:385
+msgid ""
+"If given the B<-v> (I<validate>) option, B<sudo> will update the user's time "
+"stamp, prompting for the user's password if necessary.  This extends the "
+"B<sudo> timeout for another C<@timeout@> minutes (or whatever the timeout is "
+"set to in I<sudoers>) but does not run a command."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:391
+msgid "--"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:393
+msgid ""
+"The B<--> option indicates that B<sudo> should stop processing command line "
+"arguments."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:398
+msgid ""
+"Environment variables to be set for the command may also be passed on the "
+"command line in the form of B<VAR>=I<value>, e.g.  "
+"B<LD_LIBRARY_PATH>=I</usr/local/pkg/lib>.  Variables passed on the command "
+"line are subject to the same restrictions as normal environment variables "
+"with one important exception.  If the I<setenv> option is set in I<sudoers>, "
+"the command to be run has the C<SETENV> tag set or the command matched is "
+"C<ALL>, the user may set variables that would overwise be forbidden.  See "
+"L<sudoers(5)> for more information."
+msgstr ""
+
+#. type: =head1
+#: C/sudo.pod:407
+msgid "RETURN VALUES"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:409
+msgid ""
+"Upon successful execution of a program, the exit status from B<sudo> will "
+"simply be the exit status of the program that was executed."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:412
+msgid ""
+"Otherwise, B<sudo> quits with an exit value of 1 if there is a "
+"configuration/permission problem or if B<sudo> cannot execute the given "
+"command.  In the latter case the error string is printed to stderr.  If "
+"B<sudo> cannot L<stat(2)> one or more entries in the user's C<PATH> an error "
+"is printed on stderr.  (If the directory does not exist or if it is not "
+"really a directory, the entry is ignored and no error is printed.)  This "
+"should not happen under normal circumstances.  The most common reason for "
+"L<stat(2)> to return \"permission denied\" is if you are running an "
+"automounter and one of the directories in your C<PATH> is on a machine that "
+"is currently unreachable."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:426
+msgid "B<sudo> tries to be safe when executing external commands."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:428
+msgid ""
+"There are two distinct ways to deal with environment variables.  By default, "
+"the I<env_reset> I<sudoers> option is enabled.  This causes commands to be "
+"executed with a minimal environment containing C<TERM>, C<PATH>, C<HOME>, "
+"C<SHELL>, C<LOGNAME>, C<USER> and C<USERNAME> in addition to variables from "
+"the invoking process permitted by the I<env_check> and I<env_keep> "
+"I<sudoers> options.  There is effectively a whitelist for environment "
+"variables."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:436
+msgid ""
+"If, however, the I<env_reset> option is disabled in I<sudoers>, any "
+"variables not explicitly denied by the I<env_check> and I<env_delete> "
+"options are inherited from the invoking process.  In this case, I<env_check> "
+"and I<env_delete> behave like a blacklist.  Since it is not possible to "
+"blacklist all potentially dangerous environment variables, use of the "
+"default I<env_reset> behavior is encouraged."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:443
+msgid ""
+"In all cases, environment variables with a value beginning with C<()> are "
+"removed as they could be interpreted as B<bash> functions.  The list of "
+"environment variables that B<sudo> allows or denies is contained in the "
+"output of C<sudo -V> when run as root."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:448
+msgid ""
+"Note that the dynamic linker on most operating systems will remove variables "
+"that can control dynamic linking from the environment of setuid executables, "
+"including B<sudo>.  Depending on the operating system this may include "
+"C<_RLD*>, C<DYLD_*>, C<LD_*>, C<LDR_*>, C<LIBPATH>, C<SHLIB_PATH>, and "
+"others.  These type of variables are removed from the environment before "
+"B<sudo> even begins execution and, as such, it is not possible for B<sudo> "
+"to preserve them."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:456
+msgid ""
+"To prevent command spoofing, B<sudo> checks \".\" and \"\" (both denoting "
+"current directory) last when searching for a command in the user's PATH (if "
+"one or both are in the PATH).  Note, however, that the C<PATH> environment "
+"variable is further modified in Debian because of the use of the "
+"I<SECURE_PATH> build option."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:462
+msgid ""
+"B<sudo> will check the ownership of its time stamp directory (F<@timedir@> "
+"by default) and ignore the directory's contents if it is not owned by root "
+"or if it is writable by a user other than root.  On systems that allow "
+"non-root users to give away files via L<chown(2)>, if the time stamp "
+"directory is located in a directory writable by anyone (e.g., F</tmp>), it "
+"is possible for a user to create the time stamp directory before B<sudo> is "
+"run.  However, because B<sudo> checks the ownership and mode of the "
+"directory and its contents, the only damage that can be done is to \"hide\" "
+"files by putting them in the time stamp dir.  This is unlikely to happen "
+"since once the time stamp dir is owned by root and inaccessible by any other "
+"user, the user placing files there would be unable to get them back out.  To "
+"get around this issue you can use a directory that is not world-writable for "
+"the time stamps (F</var/adm/sudo> for instance) or create F<@timedir@> with "
+"the appropriate owner (root)  and permissions (0700) in the system startup "
+"files."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:479
+msgid ""
+"B<sudo> will not honor time stamps set far in the future.  Timestamps with a "
+"date greater than current_time + 2 * C<TIMEOUT> will be ignored and sudo "
+"will log and complain.  This is done to keep a user from creating his/her "
+"own time stamp with a bogus date on systems that allow users to give away "
+"files."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:485
+msgid ""
+"On systems where the boot time is available, B<sudo> will also not honor "
+"time stamps from before the machine booted."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:488
+msgid ""
+"Since time stamp files live in the file system, they can outlive a user's "
+"login session.  As a result, a user may be able to login, run a command with "
+"B<sudo> after authenticating, logout, login again, and run B<sudo> without "
+"authenticating so long as the time stamp file's modification time is within "
+"C<@timeout@> minutes (or whatever the timeout is set to in I<sudoers>).  "
+"When the I<tty_tickets> option is enabled in I<sudoers>, the time stamp has "
+"per-tty granularity but still may outlive the user's session.  On Linux "
+"systems where the devpts filesystem is used, Solaris systems with the "
+"devices filesystem, as well as other systems that utilize a devfs filesystem "
+"that monotonically increase the inode number of devices as they are created "
+"(such as Mac OS X), B<sudo> is able to determine when a tty-based time stamp "
+"file is stale and will ignore it.  Administrators should not rely on this "
+"feature as it is not universally available."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:503
+msgid ""
+"Please note that B<sudo> will normally only log the command it explicitly "
+"runs.  If a user runs a command such as C<sudo su> or C<sudo sh>, subsequent "
+"commands run from that shell will I<not> be logged, nor will B<sudo>'s "
+"access control affect them.  The same is true for commands that offer shell "
+"escapes (including most editors).  Because of this, care must be taken when "
+"giving users access to commands via B<sudo> to verify that the command does "
+"not inadvertently give the user an effective root shell.  For more "
+"information, please see the C<PREVENTING SHELL ESCAPES> section in "
+"L<sudoers(5)>."
+msgstr ""
+
+#. type: =head1
+#: C/sudo.pod:514 C/visudo.pod:107
+msgid "ENVIRONMENT"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:516
+msgid "B<sudo> utilizes the following environment variables:"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:520 C/visudo.pod:118
+msgid "C<EDITOR>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:522
+msgid ""
+"Default editor to use in B<-e> (sudoedit) mode if neither C<SUDO_EDITOR> nor "
+"C<VISUAL> is set"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:525
+msgid "C<MAIL>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:527
+msgid ""
+"In B<-i> mode or when I<env_reset> is enabled in I<sudoers>, set to the mail "
+"spool of the target user"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:530
+msgid "C<HOME>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:532
+msgid ""
+"Set to the home directory of the target user if B<-i> or B<-H> are "
+"specified, I<env_reset> or I<always_set_home> are set in I<sudoers>, or when "
+"the B<-s> option is specified and I<set_home> is set in I<sudoers>"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:537
+msgid "C<PATH>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:539
+msgid "Set to a sane value if the I<secure_path> sudoers option is set."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:541
+msgid "C<SHELL>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:543
+msgid "Used to determine shell to run with C<-s> option"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:545
+msgid "C<SUDO_ASKPASS>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:547
+msgid ""
+"Specifies the path to a helper program used to read the password if no "
+"terminal is available or if the C<-A> option is specified."
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:550
+msgid "C<SUDO_COMMAND>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:552
+msgid "Set to the command run by sudo"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:554
+msgid "C<SUDO_EDITOR>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:556
+msgid "Default editor to use in B<-e> (sudoedit) mode"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:558
+msgid "C<SUDO_GID>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:560
+msgid "Set to the group ID of the user who invoked sudo"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:562
+msgid "C<SUDO_PROMPT>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:564
+msgid "Used as the default password prompt"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:566
+msgid "C<SUDO_PS1>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:568
+msgid "If set, C<PS1> will be set to its value for the program being run"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:570
+msgid "C<SUDO_UID>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:572
+msgid "Set to the user ID of the user who invoked sudo"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:574
+msgid "C<SUDO_USER>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:576
+msgid "Set to the login of the user who invoked sudo"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:578
+msgid "C<USER>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:580
+msgid "Set to the target user (root unless the B<-u> option is specified)"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:582 C/visudo.pod:114
+msgid "C<VISUAL>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:584
+msgid "Default editor to use in B<-e> (sudoedit) mode if C<SUDO_EDITOR> is not set"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:597
+msgid "F<@timedir@>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:599
+msgid "Directory containing time stamps"
+msgstr ""
+
+#. type: =item
+#: C/sudo.pod:601
+msgid "F</etc/environment>"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:603
+msgid "Initial environment for B<-i> mode on Linux and AIX"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:609
+msgid "Note: the following examples assume suitable L<sudoers(5)> entries."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:611
+msgid "To get a file listing of an unreadable directory:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:613
+#, no-wrap
+msgid ""
+" $ sudo ls /usr/local/protected\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:615
+msgid ""
+"To list the home directory of user yaz on a machine where the file system "
+"holding ~yaz is not exported as root:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:618
+#, no-wrap
+msgid ""
+" $ sudo -u yaz ls ~yaz\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:620
+msgid "To edit the F<index.html> file as user www:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:622
+#, no-wrap
+msgid ""
+" $ sudo -u www vi ~www/htdocs/index.html\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:624
+msgid "To view system logs only accessible to root and users in the adm group:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:626
+#, no-wrap
+msgid ""
+" $ sudo -g adm view /var/log/syslog\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:628
+msgid "To run an editor as jim with a different primary group:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:630
+#, no-wrap
+msgid ""
+" $ sudo -u jim -g audio vi ~jim/sound.txt\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:632
+msgid "To shutdown a machine:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:634
+#, no-wrap
+msgid ""
+" $ sudo shutdown -r +15 \"quick reboot\"\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:636
+msgid ""
+"To make a usage listing of the directories in the /home partition.  Note "
+"that this runs the commands in a sub-shell to make the C<cd> and file "
+"redirection work."
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:640
+#, no-wrap
+msgid ""
+" $ sudo sh -c \"cd /home ; du -s * | sort -rn > USAGE\"\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:644
+msgid ""
+"L<grep(1)>, L<su(1)>, L<stat(2)>, L<login_cap(3)>, L<passwd(5)>, "
+"L<sudoers(5)>, L<visudo(8)>"
+msgstr ""
+
+#. type: =head1
+#: C/sudo.pod:648
+msgid "AUTHORS"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:650
+msgid ""
+"Many people have worked on B<sudo> over the years; this version consists of "
+"code written primarily by:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:653
+#, no-wrap
+msgid ""
+"\tTodd C. Miller\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:655
+msgid ""
+"See the HISTORY file in the B<sudo> distribution or visit "
+"http://www.sudo.ws/sudo/history.html for a short history of B<sudo>."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:661
+msgid ""
+"There is no easy way to prevent a user from gaining a root shell if that "
+"user is allowed to run arbitrary commands via B<sudo>.  Also, many programs "
+"(such as editors) allow the user to run commands via shell escapes, thus "
+"avoiding B<sudo>'s checks.  However, on most systems it is possible to "
+"prevent shell escapes with B<sudo>'s I<noexec> functionality.  See the "
+"L<sudoers(5)> manual for details."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:669
+msgid "It is not meaningful to run the C<cd> command directly via sudo, e.g.,"
+msgstr ""
+
+#. type: verbatim
+#: C/sudo.pod:671
+#, no-wrap
+msgid ""
+" $ sudo cd /usr/local/protected\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:673
+msgid ""
+"since when the command exits the parent process (your shell) will still be "
+"the same.  Please see the EXAMPLES section for more information."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:676
+msgid ""
+"If users have sudo C<ALL> there is nothing to prevent them from creating "
+"their own program that gives them a root shell regardless of any '!' "
+"elements in the user specification."
+msgstr ""
+
+#. type: textblock
+#: C/sudo.pod:680
+msgid ""
+"Running shell scripts via B<sudo> can expose the same kernel bugs that make "
+"setuid shell scripts unsafe on some operating systems (if your OS has a "
+"/dev/fd/ directory, setuid shell scripts are generally safe)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:20
+msgid "sudoreplay - replay sudo session logs"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:24
+msgid ""
+"B<sudoreplay> [B<-d> I<directory>] [B<-f> I<filter>] [B<-m> I<max_wait>] "
+"[B<-s> I<speed_factor>] ID"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:26
+msgid "B<sudoreplay> [B<-d> I<directory>] -l [search expression]"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:30
+msgid ""
+"B<sudoreplay> plays back or lists the session logs created by B<sudo>.  When "
+"replaying, B<sudoreplay> can play the session back in real-time, or the "
+"playback speed may be adjusted (faster or slower) based on the command line "
+"options.  The I<ID> should be a six character sequence of digits and upper "
+"case letters, e.g.  0100A5, which is logged by B<sudo> when a command is run "
+"with session logging enabled."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:38
+msgid ""
+"In list mode, B<sudoreplay> can be used to find the ID of a session based on "
+"a number of criteria such as the user, tty or command run."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:41
+msgid ""
+"In replay mode, if the standard output has not been redirected, "
+"B<sudoreplay> will act on the following keys:"
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:46
+msgid "' ' (space)"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:48
+msgid "Pause output; press any key to resume."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:50
+msgid "'<'"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:52
+msgid "Reduce the playback speed by one half."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:54
+msgid "'>'"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:56
+msgid "Double the playback speed."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:62
+msgid "B<sudoreplay> accepts the following command line options:"
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:66
+msgid "-d I<directory>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:68
+msgid ""
+"Use I<directory> to for the session logs instead of the default, "
+"F</var/log/sudo-io>."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:71
+msgid "-f I<filter>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:73
+msgid ""
+"By default, B<sudoreplay> will play back the command's standard output, "
+"standard error and tty output.  The I<-f> option can be used to select which "
+"of these to output.  The I<filter> argument is a comma-separated list, "
+"consisting of one or more of following: I<stdout>, I<stderr>, and I<ttyout>."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:79
+msgid "-l"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:81
+msgid ""
+"Enable \"list mode\".  In this mode, B<sudoreplay> will list available "
+"session IDs.  If a I<search expression> is specified, it will be used to "
+"restrict the IDs that are displayed.  An expression is composed of the "
+"following predicates:"
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:88
+msgid "command I<command pattern>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:90
+msgid ""
+"Evaluates to true if the command run matches I<command pattern>.  On systems "
+"with POSIX regular expression support, the pattern may be an extended "
+"regular expression.  On systems without POSIX regular expression support, a "
+"simple substring match is performed instead."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:95
+msgid "cwd I<directory>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:97
+msgid ""
+"Evaluates to true if the command was run with the specified current working "
+"directory."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:100
+msgid "fromdate I<date>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:102
+msgid ""
+"Evaluates to true if the command was run on or after I<date>.  See L<\"Date "
+"and time format\"> for a description of supported date and time formats."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:106
+msgid "group I<runas_group>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:108
+msgid ""
+"Evaluates to true if the command was run with the specified I<runas_group>.  "
+"Note that unless a I<runas_group> was explicitly specified when B<sudo> was "
+"run this field will be empty in the log."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:112
+msgid "runas I<runas_user>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:114
+msgid ""
+"Evaluates to true if the command was run as the specified I<runas_user>.  "
+"Note that B<sudo> runs commands as user I<root> by default."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:117
+msgid "todate I<date>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:119
+msgid ""
+"Evaluates to true if the command was run on or prior to I<date>.  See "
+"L<\"Date and time format\"> for a description of supported date and time "
+"formats."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:123
+msgid "tty I<tty>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:125
+msgid ""
+"Evaluates to true if the command was run on the specified terminal device.  "
+"The I<tty> should be specified without the F</dev/> prefix, e.g.  F<tty01> "
+"instead of F</dev/tty01>."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:129
+msgid "user I<user name>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:131
+msgid "Evaluates to true if the ID matches a command run by I<user name>."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:135
+msgid ""
+"Predicates may be abbreviated to the shortest unique string (currently all "
+"predicates may be shortened to a single character)."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:138
+msgid ""
+"Predicates may be combined using I<and>, I<or> and I<!> operators as well as "
+"C<'('> and C<')'> for grouping (note that parentheses must generally be "
+"escaped from the shell).  The I<and> operator is optional, adjacent "
+"predicates have an implied I<and> unless separated by an I<or>."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:144
+msgid "-m I<max_wait>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:146
+msgid ""
+"Specify an upper bound on how long to wait between key presses or output "
+"data.  By default, B<sudo_replay> will accurately reproduce the delays "
+"between key presses or program output.  However, this can be tedious when "
+"the session includes long pauses.  When the I<-m> option is specified, "
+"B<sudoreplay> will limit these pauses to at most I<max_wait> seconds.  The "
+"value may be specified as a floating point number, .e.g. I<2.5>."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:154
+msgid "-s I<speed_factor>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:156
+msgid ""
+"This option causes B<sudoreplay> to adjust the number of seconds it will "
+"wait between key presses or program output.  This can be used to slow down "
+"or speed up the display.  For example, a I<speed_factor> of I<2> would make "
+"the output twice as fast whereas a I<speed_factor> of <.5> would make the "
+"output twice as slow."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:164
+msgid ""
+"The B<-V> (version) option causes B<sudoreplay> to print its version number "
+"and exit."
+msgstr ""
+
+#. type: =head2
+#: C/sudoreplay.pod:169
+msgid "Date and time format"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:171
+msgid "The time and date may be specified multiple ways, common formats include:"
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:175
+msgid "HH:MM:SS am MM/DD/CCYY timezone"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:177
+msgid "24 hour time may be used in place of am/pm."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:179
+msgid "HH:MM:SS am Month, Day Year timezone"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:181
+msgid ""
+"24 hour time may be used in place of am/pm, and month and day names may be "
+"abbreviated.  Note that month and day of the week names must be specified in "
+"English."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:185
+msgid "CCYY-MM-DD HH:MM:SS"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:187
+msgid "ISO time format"
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:189
+msgid "DD Month CCYY HH:MM:SS"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:191
+msgid "The month name may be abbreviated."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:195
+msgid ""
+"Either time or date may be omitted, the am/pm and timezone are optional.  If "
+"no date is specified, the current day is assumed; if no time is specified, "
+"the first second of the specified date is used.  The less significant parts "
+"of both time and date may also be omitted, in which case zero is assumed.  "
+"For example, the following are all valid:"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:202
+msgid "The following are all valid time and date specifications:"
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:206
+msgid "now"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:208
+msgid "The current time and date."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:210
+msgid "tomorrow"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:212
+msgid "Exactly one day from now."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:214
+msgid "yesterday"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:216
+msgid "24 hours ago."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:218
+msgid "2 hours ago"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:220
+msgid "2 hours ago."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:222
+msgid "next Friday"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:224
+msgid "The first second of the next Friday."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:226
+msgid "this week"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:228
+msgid "The current time but the first day of the coming week."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:230
+msgid "a fortnight ago"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:232
+msgid "The current time but 14 days ago."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:234
+msgid "10:01 am 9/17/2009"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:236 C/sudoreplay.pod:252
+msgid "10:01 am, September 17, 2009."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:238
+msgid "10:01 am"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:240
+msgid "10:01 am on the current day."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:242
+msgid "10"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:244
+msgid "10:00 am on the current day."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:246
+msgid "9/17/2009"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:248
+msgid "00:00 am, September 17, 2009."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:250
+msgid "10:01 am Sep 17, 2009"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:262
+msgid "The default I/O log directory."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:264
+msgid "F</var/log/sudo-io/00/00/01/log>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:266
+msgid "Example session log info."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:268
+msgid "F</var/log/sudo-io/00/00/01/stdin>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:270
+msgid "Example session standard input log."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:272
+msgid "F</var/log/sudo-io/00/00/01/stdout>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:274
+msgid "Example session standard output log."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:276
+msgid "F</var/log/sudo-io/00/00/01/stderr>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:278
+msgid "Example session standard error log."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:280
+msgid "F</var/log/sudo-io/00/00/01/ttyin>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:282
+msgid "Example session tty input file."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:284
+msgid "F</var/log/sudo-io/00/00/01/ttyout>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:286
+msgid "Example session tty output file."
+msgstr ""
+
+#. type: =item
+#: C/sudoreplay.pod:288
+msgid "F</var/log/sudo-io/00/00/01/timing>"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:290
+msgid "Example session timing file."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:294
+msgid ""
+"Note that the I<stdin>, I<stdout> and I<stderr> files will be empty unless "
+"B<sudo> was used as part of a pipeline for a particular command."
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:300
+msgid "List sessions run by user I<millert>:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoreplay.pod:302
+#, no-wrap
+msgid ""
+" sudoreplay -l user millert\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:304
+msgid "List sessions run by user I<bob> with a command containing the string vi:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoreplay.pod:306
+#, no-wrap
+msgid ""
+" sudoreplay -l user bob command vi\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:308
+msgid "List sessions run by user I<jeff> that match a regular expression:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoreplay.pod:310
+#, no-wrap
+msgid ""
+" sudoreplay -l user jeff command '/bin/[a-z]*sh'\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:312
+msgid "List sessions run by jeff or bob on the console:"
+msgstr ""
+
+#. type: verbatim
+#: C/sudoreplay.pod:314
+#, no-wrap
+msgid ""
+" sudoreplay -l ( user jeff or user bob ) tty console\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:318
+msgid "L<sudo(8)>, L<script(1)>"
+msgstr ""
+
+#. type: =head1
+#: C/sudoreplay.pod:320 C/visudo.pod:174
+msgid "AUTHOR"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:322
+msgid "Todd C. Miller"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:326
+msgid ""
+"If you feel you have found a bug in B<sudoreplay>, please submit a bug "
+"report at http://www.sudo.ws/sudo/bugs/"
+msgstr ""
+
+#. type: textblock
+#: C/sudoreplay.pod:337
+msgid ""
+"B<sudoreplay> is provided ``AS IS'' and any express or implied warranties, "
+"including, but not limited to, the implied warranties of merchantability and "
+"fitness for a particular purpose are disclaimed.  See the LICENSE file "
+"distributed with B<sudo> or http://www.sudo.ws/sudo/license.html for "
+"complete details."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:25
+msgid "visudo - edit the sudoers file"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:29
+msgid "B<visudo> [B<-c>] [B<-q>] [B<-s>] [B<-V>] [B<-f> I<sudoers>]"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:33
+msgid ""
+"B<visudo> edits the I<sudoers> file in a safe fashion, analogous to "
+"L<vipw(8)>.  B<visudo> locks the I<sudoers> file against multiple "
+"simultaneous edits, provides basic sanity checks, and checks for parse "
+"errors.  If the I<sudoers> file is currently being edited you will receive a "
+"message to try again later."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:39
+msgid ""
+"There is a hard-coded list of one or more editors that B<visudo> will use "
+"set at compile-time that may be overridden via the I<editor> I<sudoers> "
+"C<Default> variable.  This list defaults to C<\"@editor@\">.  Normally, "
+"B<visudo> does not honor the C<VISUAL> or C<EDITOR> environment variables "
+"unless they contain an editor in the aforementioned editors list.  However, "
+"if B<visudo> is configured with the I<--with-env-editor> option or the "
+"I<env_editor> C<Default> variable is set in I<sudoers>, B<visudo> will use "
+"any the editor defines by C<VISUAL> or C<EDITOR>.  Note that this can be a "
+"security hole since it allows the user to execute any program they wish "
+"simply by setting C<VISUAL> or C<EDITOR>."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:50
+msgid ""
+"B<visudo> parses the I<sudoers> file after the edit and will not save the "
+"changes if there is a syntax error.  Upon finding an error, B<visudo> will "
+"print a message stating the line number(s)  where the error occurred and the "
+"user will receive the \"What now?\" prompt.  At this point the user may "
+"enter \"e\" to re-edit the I<sudoers> file, \"x\" to exit without saving the "
+"changes, or \"Q\" to quit and save changes.  The \"Q\" option should be used "
+"with extreme care because if B<visudo> believes there to be a parse error, "
+"so will B<sudo> and no one will be able to B<sudo> again until the error is "
+"fixed.  If \"e\" is typed to edit the I<sudoers> file after a parse error "
+"has been detected, the cursor will be placed on the line where the error "
+"occurred (if the editor supports this feature)."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:66
+msgid "B<visudo> accepts the following command line options:"
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:70
+msgid "-c"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:72
+msgid ""
+"Enable B<check-only> mode.  The existing I<sudoers> file will be checked for "
+"syntax and a message will be printed to the standard output detailing the "
+"status of I<sudoers>.  If the syntax check completes successfully, B<visudo> "
+"will exit with a value of 0.  If a syntax error is encountered, B<visudo> "
+"will exit with a value of 1."
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:79
+msgid "-f I<sudoers>"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:81
+msgid ""
+"Specify and alternate I<sudoers> file location.  With this option B<visudo> "
+"will edit (or check) the I<sudoers> file of your choice, instead of the "
+"default, F<@sysconfdir@/sudoers>.  The lock file used is the specified "
+"I<sudoers> file with \".tmp\" appended to it."
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:86
+msgid "-q"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:88
+msgid ""
+"Enable B<quiet> mode.  In this mode details about syntax errors are not "
+"printed.  This option is only useful when combined with the B<-c> option."
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:92
+msgid "-s"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:94
+msgid ""
+"Enable B<strict> checking of the I<sudoers> file.  If an alias is used "
+"before it is defined, B<visudo> will consider this a parse error.  Note that "
+"it is not possible to differentiate between an alias and a host name or user "
+"name that consists solely of uppercase letters, digits, and the underscore "
+"('_') character."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:102
+msgid ""
+"The B<-V> (version) option causes B<visudo> to print its version number and "
+"exit."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:109
+msgid ""
+"The following environment variables may be consulted depending on the value "
+"of the I<editor> and I<env_editor> I<sudoers> variables:"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:116
+msgid "Invoked by visudo as the editor to use"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:120
+msgid "Used by visudo if VISUAL is not set"
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:132
+msgid "F<@sysconfdir@/sudoers.tmp>"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:134
+msgid "Lock file for visudo"
+msgstr ""
+
+#. type: =head1
+#: C/visudo.pod:138
+msgid "DIAGNOSTICS"
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:142
+msgid "sudoers file busy, try again later."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:144
+msgid "Someone else is currently editing the I<sudoers> file."
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:146
+msgid "@sysconfdir@/sudoers.tmp: Permission denied"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:148
+msgid "You didn't run B<visudo> as root."
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:150
+msgid "Can't find you in the passwd database"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:152
+msgid "Your userid does not appear in the system passwd file."
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:154
+msgid "Warning: {User,Runas,Host,Cmnd}_Alias referenced but not defined"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:156
+msgid ""
+"Either you are trying to use an undeclare {User,Runas,Host,Cmnd}_Alias or "
+"you have a user or host name listed that consists solely of uppercase "
+"letters, digits, and the underscore ('_') character.  In the latter case, "
+"you can ignore the warnings (B<sudo> will not complain).  In B<-s> (strict) "
+"mode these are errors, not warnings."
+msgstr ""
+
+#. type: =item
+#: C/visudo.pod:162
+msgid "Warning: unused {User,Runas,Host,Cmnd}_Alias"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:164
+msgid ""
+"The specified {User,Runas,Host,Cmnd}_Alias was defined but never used.  You "
+"may wish to comment out or remove the unused alias.  In B<-s> (strict) mode "
+"this is an error, not a warning."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:172
+msgid "L<vi(1)>, L<sudoers(5)>, L<sudo(8)>, L<vipw(8)>"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:176
+msgid ""
+"Many people have worked on I<sudo> over the years; this version of B<visudo> "
+"was written by:"
+msgstr ""
+
+#. type: verbatim
+#: C/visudo.pod:179
+#, no-wrap
+msgid ""
+" Todd Miller\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:181
+msgid ""
+"See the HISTORY file in the sudo distribution or visit "
+"http://www.sudo.ws/sudo/history.html for more details."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:186
+msgid ""
+"There is no easy way to prevent a user from gaining a root shell if the "
+"editor used by B<visudo> allows shell escapes."
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:191
+msgid ""
+"If you feel you have found a bug in B<visudo>, please submit a bug report at "
+"http://www.sudo.ws/sudo/bugs/"
+msgstr ""
+
+#. type: textblock
+#: C/visudo.pod:202
+msgid ""
+"B<visudo> is provided ``AS IS'' and any express or implied warranties, "
+"including, but not limited to, the implied warranties of merchantability and "
+"fitness for a particular purpose are disclaimed.  See the LICENSE file "
+"distributed with B<sudo> or http://www.sudo.ws/sudo/license.html for "
+"complete details."
+msgstr ""
