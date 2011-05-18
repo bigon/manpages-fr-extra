@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: e2fsprogs\n"
-"POT-Creation-Date: 2010-09-12 18:15-0400\n"
+"POT-Creation-Date: 2011-05-17 22:00-0400\n"
 "PO-Revision-Date: 2010-09-23 00:22-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -161,7 +161,7 @@ msgstr ""
 #: C/man8/debugfs.8:45 C/man8/dumpe2fs.8:30 C/man8/e2fsck.8:71
 #: C/man8/e2undo.8:22 C/man8/filefrag.8:24 C/man8/e2freefrag.8:30
 #: C/man8/logsave.8:39 C/man8/mke2fs.8:166 C/man8/mklost+found.8:29
-#: C/man8/resize2fs.8:80 C/man8/tune2fs.8:99
+#: C/man8/resize2fs.8:88 C/man8/tune2fs.8:105
 #, no-wrap
 msgid "OPTIONS"
 msgstr "OPTIONS"
@@ -193,8 +193,8 @@ msgstr ""
 
 #. type: TP
 #: C/man1/chattr.1:46 C/man8/badblocks.8:104 C/man8/dumpe2fs.8:48
-#: C/man8/e2fsck.8:193 C/man8/e2undo.8:23 C/man8/resize2fs.8:94
-#: C/man8/tune2fs.8:198
+#: C/man8/e2fsck.8:193 C/man8/e2undo.8:23 C/man8/resize2fs.8:102
+#: C/man8/tune2fs.8:204
 #, no-wrap
 msgid "B<-f>"
 msgstr "B<-f>"
@@ -463,8 +463,8 @@ msgstr ""
 #: C/man8/debugfs.8:540 C/man8/dumpe2fs.8:75 C/man8/e2fsck.8:388
 #: C/man8/e2image.8:132 C/man8/e2label.8:43 C/man8/e2undo.8:34
 #: C/man8/filefrag.8:41 C/man8/e2freefrag.8:90 C/man8/logsave.8:58
-#: C/man8/mke2fs.8:636 C/man8/mklost+found.8:31 C/man8/resize2fs.8:126
-#: C/man8/tune2fs.8:571
+#: C/man8/mke2fs.8:636 C/man8/mklost+found.8:31 C/man8/resize2fs.8:134
+#: C/man8/tune2fs.8:577
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTEUR"
@@ -514,7 +514,7 @@ msgstr ""
 #: C/man1/chattr.1:168 C/man1/lsattr.1:40 C/man8/badblocks.8:224
 #: C/man8/dumpe2fs.8:79 C/man8/e2image.8:135 C/man8/e2label.8:46
 #: C/man8/e2undo.8:37 C/man8/mke2fs.8:648 C/man8/mklost+found.8:37
-#: C/man8/tune2fs.8:579
+#: C/man8/tune2fs.8:585
 #, no-wrap
 msgid "AVAILABILITY"
 msgstr "DISPONIBILITÉ"
@@ -535,7 +535,7 @@ msgstr ""
 #: C/man8/dumpe2fs.8:83 C/man8/e2fsck.8:392 C/man8/e2image.8:139
 #: C/man8/e2label.8:50 C/man8/e2undo.8:41 C/man8/e2freefrag.8:93
 #: C/man8/logsave.8:60 C/man8/mke2fs.8:652 C/man8/mklost+found.8:41
-#: C/man8/resize2fs.8:135 C/man8/tune2fs.8:583
+#: C/man8/resize2fs.8:143 C/man8/tune2fs.8:589
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
@@ -689,7 +689,7 @@ msgstr ""
 #. type: SH
 #: C/man1/compile_et.1:65 C/man1/lsattr.1:38 C/man1/mk_cmds.1:46
 #: C/man8/dumpe2fs.8:72 C/man8/mke2fs.8:640 C/man8/mklost+found.8:35
-#: C/man8/tune2fs.8:569
+#: C/man8/tune2fs.8:575
 #, no-wrap
 msgid "BUGS"
 msgstr "BOGUES"
@@ -1054,9 +1054,14 @@ msgstr "e2fsck.conf - Fichier de configuration d'e2fsck"
 
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:15
+#, fuzzy
+#| msgid ""
+#| "I<e2fsck.conf> is the configuration file for B<e2fsck>(8).  It controls "
+#| "the default behavior of B<e2fsck>(8)  while it is checking ext2 or ext3 "
+#| "filesystems."
 msgid ""
 "I<e2fsck.conf> is the configuration file for B<e2fsck>(8).  It controls the "
-"default behavior of B<e2fsck>(8)  while it is checking ext2 or ext3 "
+"default behavior of B<e2fsck>(8)  while it is checking ext2, ext3, or ext4 "
 "filesystems."
 msgstr ""
 "I<e2fsck.conf> est le fichier de configuration de B<e2fsck>(8). Il contrôle "
@@ -1301,15 +1306,27 @@ msgstr "I<broken_system_clock>"
 
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:125
+#, fuzzy
+#| msgid ""
+#| "The B<e2fsck>(8)  program has some hueristics that assume that the system "
+#| "clock is correct.  In addition, many system programs make similar "
+#| "assumptions.  For example, the UUID library depends on time not going "
+#| "backwards in order for it to be able to make its guarantees about issuing "
+#| "universally unique ID's.  Systems with broken system clocks, are well, "
+#| "broken.  However, broken system clocks, particularly in embedded systems, "
+#| "do exist.  E2fsck will attempt to use hueristics to determine if the time "
+#| "can no tbe trusted; and to skip time-based checks if this is true.  If "
+#| "this boolean is set to true, then e2fsck will always assume that the "
+#| "system clock can not be trusted."
 msgid ""
-"The B<e2fsck>(8)  program has some hueristics that assume that the system "
+"The B<e2fsck>(8)  program has some heuristics that assume that the system "
 "clock is correct.  In addition, many system programs make similar "
 "assumptions.  For example, the UUID library depends on time not going "
 "backwards in order for it to be able to make its guarantees about issuing "
 "universally unique ID's.  Systems with broken system clocks, are well, "
 "broken.  However, broken system clocks, particularly in embedded systems, do "
-"exist.  E2fsck will attempt to use hueristics to determine if the time can "
-"no tbe trusted; and to skip time-based checks if this is true.  If this "
+"exist.  E2fsck will attempt to use heuristics to determine if the time can "
+"not be trusted; and to skip time-based checks if this is true.  If this "
 "boolean is set to true, then e2fsck will always assume that the system clock "
 "can not be trusted."
 msgstr ""
@@ -2214,11 +2231,22 @@ msgstr "I<flex_bg_size>"
 # NOTE: I<options> => new variable
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:355
+#, fuzzy
+#| msgid ""
+#| "This relation specifies the number of block goups that will be packed "
+#| "together to create one large virtual block group on an ext4 filesystem.  "
+#| "This improves meta-data locality and performance on meta-data heavy "
+#| "workloads.  The number of goups must be a power of 2 and may only be "
+#| "specified if the flex_bg filesystem feature is enabled.  I<options> This "
+#| "relation specifies additional extended options which should be treated by "
+#| "B<mke2fs>(8)  as if they were prepended to the argument of the B<-E> "
+#| "option.  This can be used to configure the default extended options used "
+#| "by B<mke2fs>(8)  on a per-filesystem type basis."
 msgid ""
-"This relation specifies the number of block goups that will be packed "
+"This relation specifies the number of block groups that will be packed "
 "together to create one large virtual block group on an ext4 filesystem.  "
 "This improves meta-data locality and performance on meta-data heavy "
-"workloads.  The number of goups must be a power of 2 and may only be "
+"workloads.  The number of groups must be a power of 2 and may only be "
 "specified if the flex_bg filesystem feature is enabled.  I<options> This "
 "relation specifies additional extended options which should be treated by "
 "B<mke2fs>(8)  as if they were prepended to the argument of the B<-E> "
@@ -2998,10 +3026,17 @@ msgstr ""
 # NOTE: s/esystem/system/
 #. type: Plain text
 #: C/man8/debugfs.8:213
+#, fuzzy
+#| msgid ""
+#| "(Please note that the length and range of blocks for the last extent in "
+#| "an interior node is an estimate by the extents library functions, and is "
+#| "not stored in file esystem data structures.  Hence, the values displayed "
+#| "may not necessarily by accurate and does not indicate a problem or "
+#| "corruption in the file system.)"
 msgid ""
 "(Please note that the length and range of blocks for the last extent in an "
 "interior node is an estimate by the extents library functions, and is not "
-"stored in file esystem data structures.  Hence, the values displayed may not "
+"stored in filesystem data structures.  Hence, the values displayed may not "
 "necessarily by accurate and does not indicate a problem or corruption in the "
 "file system.)"
 msgstr ""
@@ -4178,7 +4213,7 @@ msgid "Force checking even if the file system seems clean."
 msgstr "Forcer la vérification même si le système de fichiers semble bon."
 
 #. type: TP
-#: C/man8/e2fsck.8:196 C/man8/mke2fs.8:247 C/man8/resize2fs.8:98
+#: C/man8/e2fsck.8:196 C/man8/mke2fs.8:247 C/man8/resize2fs.8:106
 #, no-wrap
 msgid "B<-F>"
 msgstr "B<-F>"
@@ -4280,7 +4315,7 @@ msgstr ""
 "options B<-n> ou B<-p>."
 
 #. type: TP
-#: C/man8/e2fsck.8:251 C/man8/resize2fs.8:107
+#: C/man8/e2fsck.8:251 C/man8/resize2fs.8:115
 #, no-wrap
 msgid "B<-p>"
 msgstr "B<-p>"
@@ -5229,8 +5264,7 @@ msgstr "LOGSAVE"
 #. type: Plain text
 #: C/man8/logsave.8:8
 msgid "logsave - save the output of a command in a logfile"
-msgstr ""
-"logsave - Enregistrer la sortie d'une commande dans un fichier journal"
+msgstr "logsave - Enregistrer la sortie d'une commande dans un fichier journal"
 
 #. type: Plain text
 #: C/man8/logsave.8:14
@@ -5426,7 +5460,7 @@ msgstr ""
 "lent est utilisé à la place d'un test rapide en lecture seule."
 
 #. type: TP
-#: C/man8/mke2fs.8:189 C/man8/tune2fs.8:157
+#: C/man8/mke2fs.8:189 C/man8/tune2fs.8:163
 #, no-wrap
 msgid "B<-E>I< extended-options>"
 msgstr "B<-E>I< options_étendues>"
@@ -5448,7 +5482,7 @@ msgstr ""
 "sont supportées :"
 
 #. type: TP
-#: C/man8/mke2fs.8:203 C/man8/tune2fs.8:163
+#: C/man8/mke2fs.8:203 C/man8/tune2fs.8:169
 #, no-wrap
 msgid "B<stride=>I<stride-size>"
 msgstr "B<stride=>I<taille_bande>"
@@ -5537,13 +5571,13 @@ msgstr ""
 "l'initialisation  paresseuse de la table des inœuds."
 
 #. type: TP
-#: C/man8/mke2fs.8:239 C/man8/tune2fs.8:189
+#: C/man8/mke2fs.8:239 C/man8/tune2fs.8:195
 #, no-wrap
 msgid "B<test_fs>"
 msgstr "B<test_fs>"
 
 #. type: Plain text
-#: C/man8/mke2fs.8:243 C/man8/tune2fs.8:193
+#: C/man8/mke2fs.8:243 C/man8/tune2fs.8:199
 msgid ""
 "Set a flag in the filesystem superblock indicating that it may be mounted "
 "using experimental kernel code, such as the ext4dev filesystem."
@@ -5683,7 +5717,7 @@ msgstr ""
 "création du système de fichiers."
 
 #. type: TP
-#: C/man8/mke2fs.8:310 C/man8/tune2fs.8:241
+#: C/man8/mke2fs.8:310 C/man8/tune2fs.8:247
 #, no-wrap
 msgid "B<-j>"
 msgstr "B<-j>"
@@ -5722,7 +5756,7 @@ msgstr ""
 "supportées pour le journal sont les suivantes :"
 
 #. type: TP
-#: C/man8/mke2fs.8:325 C/man8/tune2fs.8:282
+#: C/man8/mke2fs.8:325 C/man8/tune2fs.8:288
 #, no-wrap
 msgid "B<size=>I<journal-size>"
 msgstr "B<size=>I<taille_journal>"
@@ -5742,7 +5776,7 @@ msgstr ""
 "dans le système de fichiers nouvellement créé."
 
 #. type: TP
-#: C/man8/mke2fs.8:333 C/man8/tune2fs.8:291
+#: C/man8/mke2fs.8:333 C/man8/tune2fs.8:297
 #, no-wrap
 msgid "B<device=>I<external-journal>"
 msgstr "B<device=>I<journal_externe>"
@@ -5758,7 +5792,7 @@ msgstr ""
 "journal. Le journal externe doit avoir déjà été crée par la commande :"
 
 #. type: Plain text
-#: C/man8/mke2fs.8:342 C/man8/tune2fs.8:300
+#: C/man8/mke2fs.8:342 C/man8/tune2fs.8:306
 msgid "B<mke2fs -O journal_dev> I<external-journal>"
 msgstr "B<mke2fs -O périphérique_journal> I<journal_externe>"
 
@@ -5778,7 +5812,7 @@ msgstr ""
 "externe."
 
 #. type: Plain text
-#: C/man8/mke2fs.8:366 C/man8/tune2fs.8:324
+#: C/man8/mke2fs.8:366 C/man8/tune2fs.8:330
 msgid ""
 "Instead of specifying a device name directly, I<external-journal> can also "
 "be specified by either B<LABEL=>I<label> or B<UUID=>I<UUID> to locate the "
@@ -5795,7 +5829,7 @@ msgstr ""
 "l'option B<-L> de B<tune2fs>(8)."
 
 #. type: Plain text
-#: C/man8/mke2fs.8:371 C/man8/tune2fs.8:329
+#: C/man8/mke2fs.8:371 C/man8/tune2fs.8:335
 msgid ""
 "Only one of the B<size> or B<device> options can be given for a filesystem."
 msgstr ""
@@ -5853,7 +5887,7 @@ msgstr ""
 "I<nom_nouveau_volume>. La taille maximale du nom est de 16 octets."
 
 #. type: TP
-#: C/man8/mke2fs.8:398 C/man8/tune2fs.8:350
+#: C/man8/mke2fs.8:398 C/man8/tune2fs.8:356
 #, no-wrap
 msgid "B<-m>I< reserved-blocks-percentage>"
 msgstr "B<-m>I< pourcentage_blocs_réservés>"
@@ -5874,7 +5908,7 @@ msgstr ""
 "sur le système de fichiers. La valeur par défaut est de 5 %."
 
 #. type: TP
-#: C/man8/mke2fs.8:407 C/man8/tune2fs.8:361
+#: C/man8/mke2fs.8:407 C/man8/tune2fs.8:367
 #, no-wrap
 msgid "B<-M>I< last-mounted-directory>"
 msgstr "B<-M>I< dernier_répertoire_montage>"
@@ -6006,13 +6040,13 @@ msgstr ""
 "caractéristiques de système de fichiers."
 
 #. type: TP
-#: C/man8/mke2fs.8:479 C/man8/tune2fs.8:435
+#: C/man8/mke2fs.8:479 C/man8/tune2fs.8:441
 #, no-wrap
 msgid "B<dir_index>"
 msgstr "B<dir_index>"
 
 #. type: Plain text
-#: C/man8/mke2fs.8:482 C/man8/tune2fs.8:438
+#: C/man8/mke2fs.8:482 C/man8/tune2fs.8:444
 msgid "Use hashed b-trees to speed up lookups in large directories."
 msgstr ""
 "Utiliser des arbres binaires hachés pour accélérer la recherche dans les "
@@ -6037,20 +6071,20 @@ msgstr ""
 "accès au système de fichiers, notamment pour les gros fichiers."
 
 #. type: TP
-#: C/man8/mke2fs.8:488 C/man8/tune2fs.8:438
+#: C/man8/mke2fs.8:488 C/man8/tune2fs.8:444
 #, no-wrap
 msgid "B<filetype>"
 msgstr "B<filetype>"
 
 #. type: Plain text
-#: C/man8/mke2fs.8:491 C/man8/tune2fs.8:441
+#: C/man8/mke2fs.8:491 C/man8/tune2fs.8:447
 msgid "Store file type information in directory entries."
 msgstr ""
 "Enregistrer les informations sur les types de fichiers dans les entrées de "
 "répertoires."
 
 #. type: TP
-#: C/man8/mke2fs.8:491 C/man8/tune2fs.8:441
+#: C/man8/mke2fs.8:491 C/man8/tune2fs.8:447
 #, no-wrap
 msgid "B<flex_bg>"
 msgstr "B<flex_bg>"
@@ -6071,7 +6105,7 @@ msgstr ""
 "groupe flex_bg peut être précisée via l'option B<-G>. "
 
 #. type: TP
-#: C/man8/mke2fs.8:501 C/man8/tune2fs.8:450
+#: C/man8/mke2fs.8:501 C/man8/tune2fs.8:456
 #, no-wrap
 msgid "B<has_journal>"
 msgstr "B<has_journal>"
@@ -6099,13 +6133,13 @@ msgstr ""
 "la même taille de blocs que les systèmes de fichiers qui vont l'utiliser."
 
 #. type: TP
-#: C/man8/mke2fs.8:514 C/man8/tune2fs.8:456
+#: C/man8/mke2fs.8:514 C/man8/tune2fs.8:462
 #, no-wrap
 msgid "B<large_file>"
 msgstr "B<large_file>"
 
 #. type: Plain text
-#: C/man8/mke2fs.8:518 C/man8/tune2fs.8:460
+#: C/man8/mke2fs.8:518 C/man8/tune2fs.8:466
 msgid ""
 "Filesystem can contain files that are greater than 2GB.  (Modern kernels set "
 "this feature automatically when a file E<gt> 2GB is created.)"
@@ -6115,7 +6149,7 @@ msgstr ""
 "fichier de plus de 2 Go est créé)."
 
 #. type: TP
-#: C/man8/mke2fs.8:518 C/man8/tune2fs.8:460
+#: C/man8/mke2fs.8:518 C/man8/tune2fs.8:466
 #, no-wrap
 msgid "B<resize_inode>"
 msgstr "B<resize_inode>"
@@ -6136,7 +6170,7 @@ msgstr ""
 "peut être changé en utilisant l'option étendue B<resize>."
 
 #. type: TP
-#: C/man8/mke2fs.8:530 C/man8/tune2fs.8:466
+#: C/man8/mke2fs.8:530 C/man8/tune2fs.8:472
 #, no-wrap
 msgid "B<sparse_super>"
 msgstr "B<sparse_super>"
@@ -6151,7 +6185,7 @@ msgstr ""
 "bloc (préserve de l'espace sur les gros systèmes de fichiers)."
 
 #. type: TP
-#: C/man8/mke2fs.8:534 C/man8/tune2fs.8:469
+#: C/man8/mke2fs.8:534 C/man8/tune2fs.8:475
 #, no-wrap
 msgid "B<uninit_bg>"
 msgstr "B<uninit_bg>"
@@ -6323,7 +6357,7 @@ msgstr ""
 "(8) utilisera le type par défaut I<default>."
 
 #. type: TP
-#: C/man8/mke2fs.8:625 C/man8/tune2fs.8:528
+#: C/man8/mke2fs.8:625 C/man8/tune2fs.8:534
 #, no-wrap
 msgid "B<-U>I< UUID>"
 msgstr "B<-U>I< UUID>"
@@ -6483,13 +6517,21 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/resize2fs.8:35
+#, fuzzy
+#| msgid ""
+#| "The B<resize2fs> program will resize ext2, ext3, or ext4 file systems.  "
+#| "It can be used to enlarge or shrink an unmounted file system located on "
+#| "I<device>.  If the filesystem is mounted, it can be used to expand the "
+#| "size of the mounted filesystem, assuming the kernel supports on-line "
+#| "resizing.  (As of this writing, the Linux 2.6 kernel supports on-line "
+#| "resize for filesystems mounted using ext3 only.)."
 msgid ""
 "The B<resize2fs> program will resize ext2, ext3, or ext4 file systems.  It "
 "can be used to enlarge or shrink an unmounted file system located on "
 "I<device>.  If the filesystem is mounted, it can be used to expand the size "
 "of the mounted filesystem, assuming the kernel supports on-line resizing.  "
 "(As of this writing, the Linux 2.6 kernel supports on-line resize for "
-"filesystems mounted using ext3 only.)."
+"filesystems mounted using ext3 and ext4.)."
 msgstr ""
 "Le programme B<resize2fs> change la taille de systèmes de fichiers ext2, "
 "ext3 ou ext4. Il peut être utilisé pour augmenter ou réduire la taille d'un "
@@ -6521,7 +6563,17 @@ msgstr ""
 "utilisé, la taille par défaut est la taille de la partition."
 
 #. type: Plain text
-#: C/man8/resize2fs.8:72
+#: C/man8/resize2fs.8:61
+msgid ""
+"Note: when kilobytes is used above, I mean I<real>, power-of-2 kilobytes, (i."
+"e., 1024 bytes), which some politically correct folks insist should be the "
+"stupid-sounding ``kibibytes''.  The same holds true for megabytes, also "
+"sometimes known as ``mebibytes'', or gigabytes, as the amazingly silly "
+"``gibibytes''.  Makes you want to gibber, doesn't it?"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/resize2fs.8:80
 msgid ""
 "The B<resize2fs> program does not manipulate the size of partitions.  If you "
 "wish to enlarge a filesystem, you must make sure you can expand the size of "
@@ -6547,7 +6599,7 @@ msgstr ""
 "taille disponible sur la partition."
 
 #. type: Plain text
-#: C/man8/resize2fs.8:80
+#: C/man8/resize2fs.8:88
 msgid ""
 "If you wish to shrink an ext2 partition, first use B<resize2fs> to shrink "
 "the size of filesystem.  Then you may use B<fdisk>(8)  to shrink the size of "
@@ -6560,13 +6612,13 @@ msgstr ""
 "pas la rendre plus petite que la nouvelle taille du système de fichiers !"
 
 #. type: TP
-#: C/man8/resize2fs.8:81
+#: C/man8/resize2fs.8:89
 #, no-wrap
 msgid "B<-d >I<debug-flags>"
 msgstr "B<-d> I<drapeaux_débogage>"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:88
+#: C/man8/resize2fs.8:96
 msgid ""
 "Turns on various resize2fs debugging features, if they have been compiled "
 "into the binary.  I<debug-flags> should be computed by adding the numbers of "
@@ -6578,22 +6630,22 @@ msgstr ""
 "voulues dans la liste suivante :"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:90
+#: C/man8/resize2fs.8:98
 msgid "\\\t2\\\t-\\ Debug block relocations"
 msgstr "\\\t2\\\t-\\ Déboguer le déplacement des blocs"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:92
+#: C/man8/resize2fs.8:100
 msgid "\\\t4\\\t-\\ Debug inode relocations"
 msgstr "\\\t4\\\t-\\ Déboguer le déplacement des inodes"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:94
+#: C/man8/resize2fs.8:102
 msgid "\\\t8\\\t-\\ Debug moving the inode table"
 msgstr "\\\t8\\\t-\\ Déboguer le déplacement des tables d'inodes"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:98
+#: C/man8/resize2fs.8:106
 msgid ""
 "Forces resize2fs to proceed with the filesystem resize operation, overriding "
 "some safety checks which resize2fs normally enforces."
@@ -6603,7 +6655,7 @@ msgstr ""
 "normalement."
 
 #. type: Plain text
-#: C/man8/resize2fs.8:104
+#: C/man8/resize2fs.8:112
 msgid ""
 "Flush the filesystem device's buffer caches before beginning.  Only really "
 "useful for doing B<resize2fs> time trials."
@@ -6613,44 +6665,49 @@ msgstr ""
 "vitesse de B<resize2fs>."
 
 #. type: TP
-#: C/man8/resize2fs.8:104
+#: C/man8/resize2fs.8:112
 #, no-wrap
 msgid "B<-M>"
 msgstr "B<-M>"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:107
+#: C/man8/resize2fs.8:115
 msgid "Shrink the filesystem to the minimum size."
 msgstr "Réduire le système de fichiers à la taille minimale."
 
 #. type: Plain text
-#: C/man8/resize2fs.8:113
+#: C/man8/resize2fs.8:121
+#, fuzzy
+#| msgid ""
+#| "Prints out a percentage completion bars for each B<resize2fs> operation, "
+#| "so that the user can keep track of what the program is doing."
 msgid ""
-"Prints out a percentage completion bars for each B<resize2fs> operation, so "
-"that the user can keep track of what the program is doing."
+"Prints out a percentage completion bars for each B<resize2fs> operation "
+"during an offline resize, so that the user can keep track of what the "
+"program is doing."
 msgstr ""
 "Afficher une barre de progression pour chaque opération de B<resize2fs>, "
 "pour que l'utilisateur puisse suivre ce que le programme fait."
 
 #. type: TP
-#: C/man8/resize2fs.8:113
+#: C/man8/resize2fs.8:121
 #, no-wrap
 msgid "B<-P>"
 msgstr "B<-P>"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:116
+#: C/man8/resize2fs.8:124
 msgid "Print the minimum size of the filesystem and exit."
 msgstr "Afficher la taille minimale du système de fichier, puis quitter."
 
 #. type: TP
-#: C/man8/resize2fs.8:116
+#: C/man8/resize2fs.8:124
 #, no-wrap
 msgid "B<-S >I<RAID-stride>"
 msgstr "B<-S >I<bande_RAID>"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:123
+#: C/man8/resize2fs.8:131
 msgid ""
 "The B<resize2fs> program will heuristically determine the RAID stride that "
 "was specified when the filesystem was created.  This option allows the user "
@@ -6662,13 +6719,13 @@ msgstr ""
 "resize2fs doit utiliser."
 
 #. type: SH
-#: C/man8/resize2fs.8:123
+#: C/man8/resize2fs.8:131
 #, no-wrap
 msgid "KNOWN BUGS"
 msgstr "BOGUES CONNUS"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:126
+#: C/man8/resize2fs.8:134
 msgid ""
 "The minimum size of the filesystem as estimated by resize2fs may be "
 "incorrect, especially for filesystems with 1k and 2k blocksizes."
@@ -6678,18 +6735,18 @@ msgstr ""
 "taille de bloc de 1 ko ou 2 ko."
 
 #. type: Plain text
-#: C/man8/resize2fs.8:129
+#: C/man8/resize2fs.8:137
 msgid "B<resize2fs> was written by Theodore Ts'o E<lt>tytso@mit.eduE<gt>."
 msgstr "B<resize2fs> a été écrit par Theodore Ts'o E<lt>tytso@mit.eduE<gt>."
 
 #. type: SH
-#: C/man8/resize2fs.8:129
+#: C/man8/resize2fs.8:137
 #, no-wrap
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
 
 #. type: Plain text
-#: C/man8/resize2fs.8:135
+#: C/man8/resize2fs.8:143
 msgid ""
 "Resize2fs is Copyright 1998 by Theodore Ts'o and PowerQuest, Inc.  All "
 "rights reserved.  As of April, 2000 B<Resize2fs> may be redistributed under "
@@ -6700,7 +6757,7 @@ msgstr ""
 "sous les conditions de la GPL."
 
 #. type: Plain text
-#: C/man8/resize2fs.8:140
+#: C/man8/resize2fs.8:148
 msgid "B<fdisk>(8), B<e2fsck>(8), B<mke2fs>(8), B<lvm>(8), B<lvextend>(8)"
 msgstr "B<fdisk>(8), B<e2fsck>(8), B<mke2fs>(8), B<lvm>(8), B<lvextend>(8)"
 
@@ -6753,14 +6810,22 @@ msgstr ""
 "de ces options peuvent être affichées en utilisant l'option B<-l> du "
 "programme B<tune2fs>(8) ou en utilisant le programme B<dumpe2fs>(8)."
 
+#. type: Plain text
+#: C/man8/tune2fs.8:105
+msgid ""
+"The I<device> specifer can either be a filename (i.e., /dev/sda1), or a "
+"LABEL or UUID specifer: \"B<LABEL=>I<volume-name>\" or \"B<UUID=>I<uuid>\".  "
+"(i.e., LABEL=home or UUID=e40486c6-84d5-4f2f-b99c-032281799c9d)."
+msgstr ""
+
 #. type: TP
-#: C/man8/tune2fs.8:100
+#: C/man8/tune2fs.8:106
 #, no-wrap
 msgid "B<-c>I< max-mount-counts>"
 msgstr "B<-c>I< nombre_max_montages>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:110
+#: C/man8/tune2fs.8:116
 msgid ""
 "Adjust the number of mounts after which the filesystem will be checked by "
 "B<e2fsck>(8).  If I<max-mount-counts> is 0 or -1, the number of times the "
@@ -6772,7 +6837,7 @@ msgstr ""
 "et par le noyau."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:114
+#: C/man8/tune2fs.8:120
 msgid ""
 "Staggering the mount-counts at which filesystems are forcibly checked will "
 "avoid all filesystems being checked at one time when using journaled "
@@ -6784,7 +6849,7 @@ msgstr ""
 "fichiers journalisés."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:125
+#: C/man8/tune2fs.8:131
 msgid ""
 "You should strongly consider the consequences of disabling mount-count-"
 "dependent checking entirely.  Bad disk drives, cables, memory, and kernel "
@@ -6805,19 +6870,19 @@ msgstr ""
 "déjà trop tard à ce moment là pour prévenir la perte de données."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:129
+#: C/man8/tune2fs.8:135
 msgid "See also the B<-i> option for time-dependent checking."
 msgstr ""
 "Voir aussi l'option B<-i> pour les vérifications fonctions du temps écoulé."
 
 #. type: TP
-#: C/man8/tune2fs.8:129
+#: C/man8/tune2fs.8:135
 #, no-wrap
 msgid "B<-C>I< mount-count>"
 msgstr "B<-C>I< nombre_montages>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:138
+#: C/man8/tune2fs.8:144
 msgid ""
 "Set the number of times the filesystem has been mounted.  If set to a "
 "greater value than the max-mount-counts parameter set by the B<-c> option, "
@@ -6829,13 +6894,13 @@ msgstr ""
 "système de fichiers lors du prochain redémarrage."
 
 #. type: TP
-#: C/man8/tune2fs.8:138
+#: C/man8/tune2fs.8:144
 #, no-wrap
 msgid "B<-e>I< error-behavior>"
 msgstr "B<-e>I< comportement_erreur>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:146
+#: C/man8/tune2fs.8:152
 msgid ""
 "Change the behavior of the kernel code when errors are detected.  In all "
 "cases, a filesystem error will cause B<e2fsck>(8)  to check the filesystem "
@@ -6847,40 +6912,40 @@ msgstr ""
 "redémarrage. Les choix possibles pour I<comportement_erreur> sont :"
 
 #. type: TP
-#: C/man8/tune2fs.8:147
+#: C/man8/tune2fs.8:153
 #, no-wrap
 msgid "B<continue>"
 msgstr "B<continue>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:150
+#: C/man8/tune2fs.8:156
 msgid "Continue normal execution."
 msgstr "Continuer l'exécution normale."
 
 #. type: TP
-#: C/man8/tune2fs.8:150
+#: C/man8/tune2fs.8:156
 #, no-wrap
 msgid "B<remount-ro>"
 msgstr "B<remount-ro>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:153
+#: C/man8/tune2fs.8:159
 msgid "Remount filesystem read-only."
 msgstr "Remonter le système de fichiers en lecture-seule."
 
 #. type: TP
-#: C/man8/tune2fs.8:153
+#: C/man8/tune2fs.8:159
 #, no-wrap
 msgid "B<panic>"
 msgstr "B<panic>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:156
+#: C/man8/tune2fs.8:162
 msgid "Cause a kernel panic."
 msgstr "Provoquer une panique du noyau."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:162
+#: C/man8/tune2fs.8:168
 msgid ""
 "Set extended options for the filesystem.  Extended options are comma "
 "separated, and may take an argument using the equals ('=') sign.  The "
@@ -6891,7 +6956,7 @@ msgstr ""
 "utilisant le signe égal (« = »). Les options étendues suivantes sont gérées :"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:173
+#: C/man8/tune2fs.8:179
 msgid ""
 "Configure the filesystem for a RAID array with I<stride-size> filesystem "
 "blocks. This is the number of blocks read or written to disk before moving "
@@ -6908,13 +6973,13 @@ msgstr ""
 "performances.Elle peut aussi être utilisée par l'allocateur de blocs."
 
 #. type: TP
-#: C/man8/tune2fs.8:173
+#: C/man8/tune2fs.8:179
 #, no-wrap
 msgid "B<stripe_width=>I<stripe-width>"
 msgstr "B<stripe_width=>I<largeur_bande>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:181
+#: C/man8/tune2fs.8:187
 msgid ""
 "Configure the filesystem for a RAID array with I<stripe-width> filesystem "
 "blocks per stripe. This is typically be stride-size * N, where N is the "
@@ -6930,13 +6995,13 @@ msgstr ""
 "parité dans une bande RAID si c'est possible quand les données sont écrites."
 
 #. type: TP
-#: C/man8/tune2fs.8:181
+#: C/man8/tune2fs.8:187
 #, no-wrap
 msgid "B<hash_alg=>I<hash-alg>"
 msgstr "B<hash_alg=>I<algo_hachage>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:189
+#: C/man8/tune2fs.8:195
 msgid ""
 "Set the default hash algorithm used for filesystems with hashed b-tree "
 "directories.  Valid algorithms accepted are: I<legacy>, I<half_md4>, and "
@@ -6947,13 +7012,13 @@ msgstr ""
 "algorithmes acceptés sont : I<legacy>, I<half_md4> et I<tea>."
 
 #. type: TP
-#: C/man8/tune2fs.8:193
+#: C/man8/tune2fs.8:199
 #, no-wrap
 msgid "B<^test_fs>"
 msgstr "B<^test_fs>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:197
+#: C/man8/tune2fs.8:203
 msgid ""
 "Clear the test_fs flag, indicating the filesystem should only be mounted "
 "using production-level filesystem code."
@@ -6963,7 +7028,7 @@ msgstr ""
 "près pour la production."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:207
+#: C/man8/tune2fs.8:213
 msgid ""
 "Force the tune2fs operation to complete even in the face of errors.  This "
 "option is useful when removing the B<has_journal> filesystem feature from a "
@@ -6978,7 +7043,7 @@ msgstr ""
 "mais que le journal n'est pas disponible."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:212
+#: C/man8/tune2fs.8:218
 msgid ""
 "B<WARNING:> Removing an external journal from a filesystem which was not "
 "cleanly unmounted without first replaying the external journal can result in "
@@ -6990,13 +7055,13 @@ msgstr ""
 "fichiers."
 
 #. type: TP
-#: C/man8/tune2fs.8:212
+#: C/man8/tune2fs.8:218
 #, no-wrap
 msgid "B<-g>I< group>"
 msgstr "B<-g>I< groupe>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:219
+#: C/man8/tune2fs.8:225
 msgid ""
 "Set the group which can use the reserved filesystem blocks.  The I<group> "
 "parameter can be a numerical gid or a group name.  If a group name is given, "
@@ -7008,13 +7073,13 @@ msgstr ""
 "converti en GID numérique puis enregistré dans le superbloc."
 
 #. type: TP
-#: C/man8/tune2fs.8:219
+#: C/man8/tune2fs.8:225
 #, no-wrap
 msgid "B<-i  >I<interval-between-checks>[B<d>|B<m>|B<w>]"
 msgstr "B<-i  >I<intervalle_entre_vérifications>[B<d>|B<m>|B<w>]"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:231
+#: C/man8/tune2fs.8:237
 msgid ""
 "Adjust the maximal time between two filesystem checks.  No suffix or B<d> "
 "will interpret the number I<interval-between-checks> as days, B<m> as "
@@ -7027,7 +7092,7 @@ msgstr ""
 "La valeur zéro désactivera les vérifications périodiques."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:241
+#: C/man8/tune2fs.8:247
 msgid ""
 "It is strongly recommended that either B<-c> (mount-count-dependent) or B<-"
 "i> (time-dependent) checking be enabled to force periodic full B<e2fsck>(8)  "
@@ -7044,7 +7109,7 @@ msgstr ""
 "la perte des données."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:249
+#: C/man8/tune2fs.8:255
 msgid ""
 "Add an ext3 journal to the filesystem.  If the B<-J> option is not "
 "specified, the default journal parameters will be used to create an "
@@ -7060,7 +7125,7 @@ msgstr ""
 "le journal."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:268
+#: C/man8/tune2fs.8:274
 msgid ""
 "If this option is used to create a journal on a mounted filesystem, an "
 "immutable file, B<.journal>, will be created in the top-level directory of "
@@ -7090,7 +7155,7 @@ msgstr ""
 "transition soit effectuée."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:276
+#: C/man8/tune2fs.8:282
 msgid ""
 "On some distributions, such as Debian, if an initial ramdisk is used, the "
 "initrd scripts will automatically convert an ext2 root filesystem to ext3 if "
@@ -7106,13 +7171,13 @@ msgstr ""
 "fichiers racine."
 
 #. type: TP
-#: C/man8/tune2fs.8:276
+#: C/man8/tune2fs.8:282
 #, no-wrap
 msgid "B<-J> journal-options"
 msgstr "B<-J> options_journal"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:281
+#: C/man8/tune2fs.8:287
 msgid ""
 "Override the default ext3 journal parameters. Journal options are comma "
 "separated, and may take an argument using the equals ('=')  sign.  The "
@@ -7124,7 +7189,7 @@ msgstr ""
 "supportées :"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:291
+#: C/man8/tune2fs.8:297
 msgid ""
 "Create a journal stored in the filesystem of size I<journal-size> "
 "megabytes.  The size of the journal must be at least 1024 filesystem blocks "
@@ -7138,7 +7203,7 @@ msgstr ""
 "suffisamment d'espace libre pour stocker un journal de cette taille."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:297
+#: C/man8/tune2fs.8:303
 msgid ""
 "Attach the filesystem to the journal block device located on I<external-"
 "journal>.  The external journal must have been already created using the "
@@ -7149,7 +7214,7 @@ msgstr ""
 "la commande :"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:310
+#: C/man8/tune2fs.8:316
 msgid ""
 "Note that I<external-journal> must be formatted with the same block size as "
 "filesystems which will be using it.  In addition, while there is support for "
@@ -7164,13 +7229,13 @@ msgstr ""
 "journal externe."
 
 #. type: TP
-#: C/man8/tune2fs.8:329
+#: C/man8/tune2fs.8:335
 #, no-wrap
 msgid "B<-l>"
 msgstr "B<-l>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:333
+#: C/man8/tune2fs.8:339
 msgid ""
 "List the contents of the filesystem superblock, including the current values "
 "of the parameters that can be set via this program."
@@ -7179,13 +7244,13 @@ msgstr ""
 "actuelles des paramètres qui peuvent être définis par ce programme."
 
 #. type: TP
-#: C/man8/tune2fs.8:333
+#: C/man8/tune2fs.8:339
 #, no-wrap
 msgid "B<-L>I< volume-label>"
 msgstr "B<-L>I< nom_volume>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:350
+#: C/man8/tune2fs.8:356
 msgid ""
 "Set the volume label of the filesystem.  Ext2 filesystem labels can be at "
 "most 16 characters long; if I<volume-label> is longer than 16 characters, "
@@ -7202,7 +7267,7 @@ msgstr ""
 "B<LABEL=>I<nom_volume> à la place du nom de périphérique comme B</dev/hda5>."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:361
+#: C/man8/tune2fs.8:367
 msgid ""
 "Set the percentage of the filesystem which may only be allocated by "
 "privileged processes.  Reserving some number of filesystem blocks for use by "
@@ -7220,18 +7285,18 @@ msgstr ""
 "de fichiers. La valeur par défaut est de 5 %."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:364
+#: C/man8/tune2fs.8:370
 msgid "Set the last-mounted directory for the filesystem."
 msgstr "Définir le dernier point de montage du système de fichiers."
 
 #. type: TP
-#: C/man8/tune2fs.8:364
+#: C/man8/tune2fs.8:370
 #, no-wrap
 msgid "B<-o> [^]I<mount-option>[,...]"
 msgstr "B<-o> [^]I<option_montage>[,...]"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:375
+#: C/man8/tune2fs.8:381
 msgid ""
 "Set or clear the indicated default mount options in the filesystem.  Default "
 "mount options can be overridden by mount options specified either in B</etc/"
@@ -7249,7 +7314,7 @@ msgstr ""
 "superbloc."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:381
+#: C/man8/tune2fs.8:387
 msgid ""
 "More than one mount option can be cleared or set by separating features with "
 "commas.  Mount options prefixed with a caret character ('^') will be cleared "
@@ -7262,31 +7327,31 @@ msgstr ""
 "le préfixe « + » seront ajoutées."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:384
+#: C/man8/tune2fs.8:390
 msgid "The following mount options can be set or cleared using B<tune2fs>:"
 msgstr ""
 "Les options de montage suivantes peuvent être positionnées ou effacées en "
 "utilisant B<tune2fs> :"
 
 #. type: TP
-#: C/man8/tune2fs.8:385
+#: C/man8/tune2fs.8:391
 #, no-wrap
 msgid "B<debug>"
 msgstr "B<debug>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:388
+#: C/man8/tune2fs.8:394
 msgid "Enable debugging code for this filesystem."
 msgstr "Activer le code de débogage pour ce système de fichiers."
 
 #. type: TP
-#: C/man8/tune2fs.8:388
+#: C/man8/tune2fs.8:394
 #, no-wrap
 msgid "B<bsdgroups>"
 msgstr "B<bsdgroups>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:396
+#: C/man8/tune2fs.8:402
 msgid ""
 "Emulate BSD behaviour when creating new files: they will take the group-id "
 "of the directory in which they were created.  The standard System V "
@@ -7303,35 +7368,35 @@ msgstr ""
 "également le bit setgid si c'est lui-même un répertoire."
 
 #. type: TP
-#: C/man8/tune2fs.8:396
+#: C/man8/tune2fs.8:402
 #, no-wrap
 msgid "B<user_xattr>"
 msgstr "B<user_xattr>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:399
+#: C/man8/tune2fs.8:405
 msgid "Enable user-specified extended attributes."
 msgstr "Activer les attributs étendus de l'utilisateur."
 
 #. type: TP
-#: C/man8/tune2fs.8:399
+#: C/man8/tune2fs.8:405
 #, no-wrap
 msgid "B<acl>"
 msgstr "B<acl>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:402
+#: C/man8/tune2fs.8:408
 msgid "Enable Posix Access Control Lists."
 msgstr "Activer les listes de contrôle d'accès POSIX (ACL)."
 
 #. type: TP
-#: C/man8/tune2fs.8:402
+#: C/man8/tune2fs.8:408
 #, no-wrap
 msgid "B<uid16>"
 msgstr "B<uid16>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:406
+#: C/man8/tune2fs.8:412
 msgid ""
 "Disables 32-bit UIDs and GIDs.  This is for interoperability with older "
 "kernels which only store and expect 16-bit values."
@@ -7340,13 +7405,13 @@ msgstr ""
 "noyaux anciens qui ne supportent que des valeurs 16 bits."
 
 #. type: TP
-#: C/man8/tune2fs.8:406
+#: C/man8/tune2fs.8:412
 #, no-wrap
 msgid "B<journal_data>"
 msgstr "B<journal_data>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:411
+#: C/man8/tune2fs.8:417
 msgid ""
 "When the filesystem is mounted with journalling enabled, all data (not just "
 "metadata) is committed into the journal prior to being written into the main "
@@ -7357,13 +7422,13 @@ msgstr ""
 "journal avant d'êtres écrites sur le système de fichiers."
 
 #. type: TP
-#: C/man8/tune2fs.8:411
+#: C/man8/tune2fs.8:417
 #, no-wrap
 msgid "B<journal_data_ordered>"
 msgstr "B<journal_data_ordered>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:416
+#: C/man8/tune2fs.8:422
 msgid ""
 "When the filesystem is mounted with journalling enabled, all data is forced "
 "directly out to the main file system prior to its metadata being committed "
@@ -7374,13 +7439,13 @@ msgstr ""
 "données ne soient inscrites dans le journal."
 
 #. type: TP
-#: C/man8/tune2fs.8:416
+#: C/man8/tune2fs.8:422
 #, no-wrap
 msgid "B<journal_data_writeback>"
 msgstr "B<journal_data_writeback>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:422
+#: C/man8/tune2fs.8:428
 msgid ""
 "When the filesystem is mounted with journalling enabled, data may be written "
 "into the main filesystem after its metadata has been committed to the "
@@ -7394,13 +7459,13 @@ msgstr ""
 "les fichiers suite à un crash et à une restauration à l'aide du journal."
 
 #. type: TP
-#: C/man8/tune2fs.8:423
+#: C/man8/tune2fs.8:429
 #, no-wrap
 msgid "B<-O> [^]I<feature>[,...]"
 msgstr "B<-O> [^]I<caractéristique>[,...]"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:431
+#: C/man8/tune2fs.8:437
 msgid ""
 "Set or clear the indicated filesystem features (options) in the filesystem.  "
 "More than one filesystem feature can be cleared or set by separating "
@@ -7416,7 +7481,7 @@ msgstr ""
 "sans préfixe ou avec le préfixe « + » seront ajoutées."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:434
+#: C/man8/tune2fs.8:440
 msgid ""
 "The following filesystem features can be set or cleared using B<tune2fs>:"
 msgstr ""
@@ -7424,7 +7489,7 @@ msgstr ""
 "utilisant B<tune2fs> :"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:450
+#: C/man8/tune2fs.8:456
 msgid ""
 "Allow bitmaps and inode tables for a block group to be placed anywhere on "
 "the storage media.  B<Tune2fs> will not reorganize the location of the inode "
@@ -7437,7 +7502,7 @@ msgstr ""
 "fichiers ayant la caractéristique B<flex_bg> activée."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:456
+#: C/man8/tune2fs.8:462
 msgid ""
 "Use a journal to ensure filesystem consistency even across unclean "
 "shutdowns.  Setting the filesystem feature is equivalent to using the B<-j> "
@@ -7448,7 +7513,7 @@ msgstr ""
 "utiliser l'option B<-j>."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:466
+#: C/man8/tune2fs.8:472
 msgid ""
 "Reserve space so the block group descriptor table may grow in the future.  "
 "B<Tune2fs> only supports clearing this filesystem feature."
@@ -7458,7 +7523,7 @@ msgstr ""
 "de cette caractéristique du système de fichiers."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:469
+#: C/man8/tune2fs.8:475
 msgid ""
 "Limit the number of backup superblocks to save space on large filesystems."
 msgstr ""
@@ -7466,7 +7531,7 @@ msgstr ""
 "sur les grands systèmes de fichiers."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:477
+#: C/man8/tune2fs.8:483
 msgid ""
 "Allow the kernel to initialize bitmaps and inode tables and keep a high "
 "watermark for the unused inodes in a filesystem, to reduce B<e2fsck>(8)  "
@@ -7482,7 +7547,7 @@ msgstr ""
 "en fonction du taux de remplissage du système de fichiers."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:502
+#: C/man8/tune2fs.8:508
 msgid ""
 "After setting or clearing B<sparse_super>, B<uninit_bg>, B<filetype>, or "
 "B<resize_inode> filesystem features, B<e2fsck>(8)  must be run on the "
@@ -7508,24 +7573,24 @@ msgstr ""
 "B<flex_bg> ne sont prises en charge que par les systèmes de fichiers ext4."
 
 #. type: TP
-#: C/man8/tune2fs.8:502
+#: C/man8/tune2fs.8:508
 #, no-wrap
 msgid "B<-r>I< reserved-blocks-count>"
 msgstr "B<-r>I< nombre_blocs_réservés>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:505
+#: C/man8/tune2fs.8:511
 msgid "Set the number of reserved filesystem blocks."
 msgstr "Définir le nombre de blocs réservés dans le système de fichiers."
 
 #. type: TP
-#: C/man8/tune2fs.8:505
+#: C/man8/tune2fs.8:511
 #, no-wrap
 msgid "B<-T>I< time-last-checked>"
 msgstr "B<-T>I< date_dernière_vérification>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:522
+#: C/man8/tune2fs.8:528
 msgid ""
 "Set the time the filesystem was last checked using B<e2fsck>.  The time is "
 "interpreted using the current (local) timezone.  This can be useful in "
@@ -7552,13 +7617,13 @@ msgstr ""
 "cas la date de dernière vérification sera positionnée à la date actuelle."
 
 #. type: TP
-#: C/man8/tune2fs.8:522
+#: C/man8/tune2fs.8:528
 #, no-wrap
 msgid "B<-u>I< user>"
 msgstr "B<-u>I< utilisateur>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:528
+#: C/man8/tune2fs.8:534
 msgid ""
 "Set the user who can use the reserved filesystem blocks.  I<user> can be a "
 "numerical uid or a user name.  If a user name is given, it is converted to a "
@@ -7570,7 +7635,7 @@ msgstr ""
 "sera converti en UID numérique avant d'être stocké dans le superbloc."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:538
+#: C/man8/tune2fs.8:544
 msgid ""
 "Set the universally unique identifier (UUID) of the filesystem to I<UUID>.  "
 "The format of the UUID is a series of hex digits separated by hyphens, like "
@@ -7584,40 +7649,40 @@ msgstr ""
 "suivants :"
 
 #. type: TP
-#: C/man8/tune2fs.8:539
+#: C/man8/tune2fs.8:545
 #, no-wrap
 msgid "I<clear>"
 msgstr "I<clear>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:542
+#: C/man8/tune2fs.8:548
 msgid "clear the filesystem UUID"
 msgstr "Effacer l'UUID du système de fichiers."
 
 #. type: TP
-#: C/man8/tune2fs.8:542
+#: C/man8/tune2fs.8:548
 #, no-wrap
 msgid "I<random>"
 msgstr "I<random>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:545
+#: C/man8/tune2fs.8:551
 msgid "generate a new randomly-generated UUID"
 msgstr "Générer aléatoirement un nouvel UUID."
 
 #. type: TP
-#: C/man8/tune2fs.8:545
+#: C/man8/tune2fs.8:551
 #, no-wrap
 msgid "I<time>"
 msgstr "I<time>"
 
 #. type: Plain text
-#: C/man8/tune2fs.8:548
+#: C/man8/tune2fs.8:554
 msgid "generate a new time-based UUID"
 msgstr "Générer un nouvel UUID à partir de la date courante."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:559
+#: C/man8/tune2fs.8:565
 msgid ""
 "The UUID may be used by B<mount>(8), B<fsck>(8), and B</etc/fstab>(5)  (and "
 "possibly others) by specifying B<UUID=>I<uuid> instead of a block special "
@@ -7628,7 +7693,7 @@ msgstr ""
 "périphérique comme B</dev/hda1>."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:569
+#: C/man8/tune2fs.8:575
 msgid ""
 "See B<uuidgen>(8)  for more information.  If the system does not have a good "
 "random number generator such as I</dev/random> or I</dev/urandom>, "
@@ -7641,14 +7706,14 @@ msgstr ""
 "l'UUID généré aléatoirement."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:571
+#: C/man8/tune2fs.8:577
 msgid "We haven't found any bugs yet.  That doesn't mean there aren't any..."
 msgstr ""
 "Nous n'avons pas encore trouvé de bogues. Ça ne veut pas dire qu'il n'y en a "
 "pas..."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:579
+#: C/man8/tune2fs.8:585
 msgid ""
 "B<tune2fs> was written by Remy Card E<lt>Remy.Card@linux.orgE<gt>.  It is "
 "currently being maintained by Theodore Ts'o E<lt>tytso@alum.mit.eduE<gt>.  "
@@ -7665,7 +7730,7 @@ msgstr ""
 "ajoutée par Uwe Ohse E<lt>uwe@tirka.gun.deE<gt>."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:583
+#: C/man8/tune2fs.8:589
 msgid ""
 "B<tune2fs> is part of the e2fsprogs package and is available from http://"
 "e2fsprogs.sourceforge.net."
@@ -7674,7 +7739,7 @@ msgstr ""
 "e2fsprogs.sourceforge.net."
 
 #. type: Plain text
-#: C/man8/tune2fs.8:587
+#: C/man8/tune2fs.8:593
 msgid "B<debugfs>(8), B<dumpe2fs>(8), B<e2fsck>(8), B<mke2fs>(8)"
 msgstr "B<debugfs>(8), B<dumpe2fs>(8), B<e2fsck>(8), B<mke2fs>(8)"
 
