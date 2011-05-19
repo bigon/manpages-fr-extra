@@ -6,7 +6,7 @@
 .SH NAME
 rpc.svcgssd \- server-side rpcsec_gss daemon
 .SH SYNOPSIS
-.B "rpc.svcgssd [-v] [-r] [-i] [-f] [-p pipefsdir]"
+.B "rpc.svcgssd [-v] [-r] [-i] [-f] [-p principal]"
 .SH DESCRIPTION
 The rpcsec_gss protocol gives a means of using the gss-api generic security
 api to provide security for protocols using rpc (in particular, nfs).  Before
@@ -40,7 +40,9 @@ increases the verbosity of the output (can be specified multiple times).
 Do not search for nfs/<your.host>@<YOUR.REALM> at start up, but instead
 accept requests for any key in the keytab file. Useful for HA clusters
 where the NFS service hostname is different from the node hostname.
-
+.TP
+.B -p
+Use \fIprincipal\fR instead of the default nfs/host.domain.
 .SH SEE ALSO
 .BR rpc.gssd(8),
 .SH AUTHORS
