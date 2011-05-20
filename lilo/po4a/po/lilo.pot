@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-09-12 18:15-0400\n"
+"POT-Creation-Date: 2011-05-19 13:04-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 #. type: TH
 #: C/man5/lilo.conf.5:19
 #, no-wrap
-msgid "19 Feb 2007"
+msgid "April 2011"
 msgstr ""
 
-#. type: SH
-#: C/man5/lilo.conf.5:20 C/man8/activate.8:21 C/man8/keytab-lilo.8:20 C/man8/lilo.8:34 C/man8/liloconfig.8:17 C/man8/lilo_find_mbr.8:18 C/man8/mkrescue.8:13
+#. type: =head1
+#: C/man5/lilo.conf.5:20 C/man8/keytab-lilo.8:20 C/man8/lilo.8:34 C/man8/mkrescue.8:15 C/pod/liloconfig.pod:10 C/pod/lilo-uuid-diskid.pod:10 C/pod/update-lilo.pod:10
 #, no-wrap
 msgid "NAME"
 msgstr ""
@@ -39,8 +39,8 @@ msgstr ""
 msgid "lilo.conf - configuration file for lilo"
 msgstr ""
 
-#. type: SH
-#: C/man5/lilo.conf.5:22 C/man8/activate.8:33 C/man8/keytab-lilo.8:28 C/man8/lilo.8:67 C/man8/liloconfig.8:21 C/man8/lilo_find_mbr.8:23 C/man8/mkrescue.8:20
+#. type: =head1
+#: C/man5/lilo.conf.5:22 C/man8/keytab-lilo.8:28 C/man8/lilo.8:67 C/man8/mkrescue.8:23 C/pod/liloconfig.pod:18 C/pod/lilo-uuid-diskid.pod:18 C/pod/update-lilo.pod:18
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr ""
@@ -58,10 +58,10 @@ msgid "It might look as follows:"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:66
+#: C/man5/lilo.conf.5:67
 #, no-wrap
 msgid ""
-"# lilo.conf\n"
+"# /etc/lilo.conf\n"
 "#\n"
 "#  global options:\n"
 "boot=/dev/hda\n"
@@ -74,32 +74,33 @@ msgid ""
 "read-only\n"
 "menu-title=\" John's Computer \"\n"
 "#\n"
-"#  bootable kernel images:\n"
-"image=/boot/zImage-1.5.99\n"
+"### bootable kernel images ###\n"
+"image=/boot/vmlinuz-2.6.29-1-i386\n"
 "     label=try\n"
-"image=/boot/zImage-1.0.9\n"
-"     label=1.0.9\n"
+"     initrd=/boot/initrd.img-2.6.29-1-i386\n"
+"image=/boot/vmlinuz-2.4.33-1-i386\n"
+"     label=2.4.33\n"
 "image=/tamu/vmlinuz\n"
 "     label=tamu\n"
-"     initrd=initramdisk.img\n"
+"     initrd=/tamu/initrd.img\n"
 "     root=/dev/hdb2\n"
 "     vga=ask\n"
 "#\n"
-"#  other operating systems:\n"
+"### other operating systems ###\n"
 "other=/dev/hda3\n"
-"     label=dos\n"
+"     label=PCDOS\n"
 "     boot-as=0x80    # must be C:\n"
 "other=/dev/hdb1\n"
-"     label=Win98\n"
+"     label=WinXP\n"
 "     boot-as=0x80    # must be C:\n"
 "other=/dev/hdb5\n"
-"     label=os2\n"
-"     loader=os2_d\n"
-"     table=E:   # os2 sees as E:\n"
+"     label=oldDOS\n"
+"     loader=chain\n"
+"     table=/dev/hdb5\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:72
+#: C/man5/lilo.conf.5:73
 msgid ""
 "This configuration file specifies that lilo uses the Master Boot Record on "
 "/dev/hda. (For a discussion of the various ways to use lilo, and the "
@@ -108,7 +109,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:87
+#: C/man5/lilo.conf.5:88
 msgid ""
 "When booting, the boot loader will issue its I<boot:> prompt and wait for "
 "you to enter the label of the kernel (and any options)  which you wish to "
@@ -123,7 +124,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:92
+#: C/man5/lilo.conf.5:93
 msgid ""
 "As can be seen above, a configuration file starts with a number of global "
 "options (the top 9 lines in the example), followed by descriptions of the "
@@ -132,31 +133,31 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:94
+#: C/man5/lilo.conf.5:95
 msgid "Comment lines may appear anywhere, and begin with the \"#\" character."
 msgstr ""
 
 #. type: SH
-#: C/man5/lilo.conf.5:95
+#: C/man5/lilo.conf.5:96
 #, no-wrap
 msgid "GLOBAL OPTIONS"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:98
+#: C/man5/lilo.conf.5:99
 msgid ""
 "There are many possible keywords. The description below is almost literally "
 "from user.tex (just slightly abbreviated)."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:98
+#: C/man5/lilo.conf.5:99
 #, no-wrap
 msgid "B<backup=>I<E<lt>backup-fileE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:111
+#: C/man5/lilo.conf.5:112
 msgid ""
 "Specifies the location where a copy of any modified boot sector will be "
 "saved in a file. 'backup=' may specify this location in one of three ways: a "
@@ -172,13 +173,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:111
+#: C/man5/lilo.conf.5:112
 #, no-wrap
 msgid "B<bios-passes-dl=>I<E<lt>optionE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:120
+#: C/man5/lilo.conf.5:121
 msgid ""
 "The option is indicated as I<yes>, I<no>, or I<unknown>.  If not specified, "
 "a value of \"unknown\" is assumed, unless additional information is "
@@ -190,20 +191,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:123
+#: C/man5/lilo.conf.5:124
 msgid ""
 "N.B.: This option may not be retained in releases beyond 22.5.1, and may be "
 "specified on the command line with the '-Z' switch: yes=1, no=0."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:123
+#: C/man5/lilo.conf.5:124
 #, no-wrap
 msgid "B<bitmap=>I<E<lt>bitmap-fileE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:130
+#: C/man5/lilo.conf.5:131
 msgid ""
 "Specifies use of a 640x480x16 (VGA BIOS) or 640x480x256 (VGA/VESA BIOS)  "
 "bitmap file as the background on which a boot menu is displayed.  May not be "
@@ -212,28 +213,36 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:144
+#: C/man5/lilo.conf.5:135
 msgid ""
 "When a bitmap file is specified as a background screen during the boot "
 "process, the color selection and layout of the text which overlays the "
-"graphic image must be specified in one of two ways.  One way, is to use a "
-"bitmap image (*.bmp) file which has had a header written by the B<lilo -E> "
-"command.  If this command is used, then all of the information specified by "
-"the 'bmp-colors', 'bmp-table', and 'bmp-timer' options is stored in a "
-"special LILO header within the bitmap file.  Without this header, the 'bmp-' "
-"option values should be specified in the configuration file; if not, default "
-"values are used.  Any use of the 'bmp-' options within the configuration "
-"file overrides the values stored in the bitmap file header."
+"graphic image must be specified in one of two ways."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/lilo.conf.5:147
+msgid ""
+"One way is the use of header information in the bitmap image (*.bmp) file: "
+"From a text file with all the information about 'bmp-colors', 'bmp-table' "
+"and 'bmp-timer' options together with the 'bitmap' option are stored in the "
+"special LILO header of the bitmap image file by the B<lilo -E> "
+"+command. Another way works without these special header information: All "
+"+the information about 'bmp-colors', 'bmp-table' and 'bmp-timer' options "
+"+together with the 'bitmap' option are stored in the configuration file.  "
+"+Any use of the 'bmp-' options within the configuration file overrides +the "
+"options stored in the bitmap file header. If lilo cannot find any of +the "
+"'bmp-' options, then default values are used."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:144
+#: C/man5/lilo.conf.5:147
 #, no-wrap
 msgid "B<bmp-colors=>I<E<lt>fgE<gt>,E<lt>bgE<gt>,E<lt>shE<gt>,E<lt>hfgE<gt>,E<lt>hbgE<gt>,E<lt>hshE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:153
+#: C/man5/lilo.conf.5:156
 msgid ""
 "Specifies the decimal values of the colors to be used for the menu display "
 "on a 'bitmap=' background.  The list consists of 6 entries, 3 for normal "
@@ -245,26 +254,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:153 C/man5/lilo.conf.5:977
+#: C/man5/lilo.conf.5:156 C/man5/lilo.conf.5:981
 #, no-wrap
 msgid "B<bmp-retain>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:157
+#: C/man5/lilo.conf.5:160
 msgid ""
 "Option applies to all 'image=' and 'other=' sections.  (See COMMON OPTIONS, "
 "below.)"
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:157
+#: C/man5/lilo.conf.5:160
 #, no-wrap
 msgid "B<bmp-table=>I<E<lt>xE<gt>,E<lt>yE<gt>,E<lt>ncolE<gt>,E<lt>nrowE<gt>,E<lt>xsepE<gt>,E<lt>spillE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:170
+#: C/man5/lilo.conf.5:173
 msgid ""
 "Specifies the location and layout of the menu table.  "
 "E<lt>xE<gt>,E<lt>yE<gt> specify the starting x- and y-position of the upper "
@@ -281,13 +290,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:170
+#: C/man5/lilo.conf.5:173
 #, no-wrap
 msgid "B<bmp-timer=>I<E<lt>xE<gt>,E<lt>yE<gt>,E<lt>fgE<gt>,E<lt>bgE<gt>,E<lt>shE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:182
+#: C/man5/lilo.conf.5:185
 msgid ""
 "Optional specification of the 'timeout=' countdown timer.  "
 "E<lt>xE<gt>,E<lt>yE<gt> specifies the character (or pixel) coordinate of the "
@@ -300,36 +309,62 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:182
+#: C/man5/lilo.conf.5:185
 #, no-wrap
 msgid "B<boot=>I<E<lt>boot-deviceE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:191
+#: C/man5/lilo.conf.5:190
 msgid ""
 "Sets the name of the device (e.g. a hard disk partition) that contains the "
 "boot sector. If this keyword is omitted, the boot sector is read from (and "
-"possibly written to) the device that is currently mounted as root.  A raid "
-"installation is initiated by specifying a RAID1 device as the boot device; "
-"e.g., \"boot=/dev/md0\".  Note that LILO version 22.0 and later operate "
-"differently from earlier versions with respect to the actual location of the "
-"boot records."
+"possibly written to) the device that is currently mounted as root."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/lilo.conf.5:195
+msgid ""
+"A raid installation is initiated by specifying a RAID1 device as the boot "
+"device; e.g., \"boot=/dev/md0\".  Note that LILO version 22.0 and later "
+"operate differently from earlier versions with respect to the actual "
+"location of the boot records."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/lilo.conf.5:199
+msgid ""
+"On newer systems you need an unique ID for the boot device. If the boot "
+"sector should write to a partition you can use its UUID in the same manner "
+"is for the root options."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/lilo.conf.5:202
+msgid ""
+"If your boot device is a hard disk you need a special ID, which is supported "
+"by udev. You find the right ID in the directory /dev/disks/by-id, i. e.:"
+msgstr ""
+
+#. type: Plain text
+#: C/man5/lilo.conf.5:205
+#, no-wrap
+msgid "    boot = /dev/disk/by-id/ata-SAMSUNG_SV1604N_S01FJ10X999999\n"
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:191
+#: C/man5/lilo.conf.5:206
 #, no-wrap
 msgid "B<change-rules>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:194
+#: C/man5/lilo.conf.5:209
 msgid "Defines boot-time changes to partition type numbers (`hiding')."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:207
+#: C/man5/lilo.conf.5:222
 #, no-wrap
 msgid ""
 "change-rules\n"
@@ -346,7 +381,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:219
+#: C/man5/lilo.conf.5:234
 msgid ""
 "The above excerpt from a configuration file specifies that all default "
 "I<change-rules> are removed (\"reset\"), and the change-rules for three "
@@ -359,13 +394,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:219
+#: C/man5/lilo.conf.5:234
 #, no-wrap
 msgid "B<compact>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:225
+#: C/man5/lilo.conf.5:240
 msgid ""
 "Tries to merge read requests for adjacent sectors into a single read "
 "request. This drastically reduces load time and keeps the map file "
@@ -374,13 +409,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:225
+#: C/man5/lilo.conf.5:240
 #, no-wrap
 msgid "B<default=>I<E<lt>nameE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:231
+#: C/man5/lilo.conf.5:246
 msgid ""
 "Uses the specified image as the default boot image. If `default' is omitted, "
 "the image appearing first in the configuration file is used. See also, "
@@ -388,13 +423,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:231
+#: C/man5/lilo.conf.5:246
 #, no-wrap
 msgid "B<delay=>I<E<lt>tsecsE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:243
+#: C/man5/lilo.conf.5:258
 msgid ""
 "Specifies the number of tenths of a second the boot loader should wait "
 "before automatically booting a locked command line, a command line "
@@ -407,18 +442,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:245
+#: C/man5/lilo.conf.5:260
 msgid "This action is modified by specifying `prompt' (see below)."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:245
+#: C/man5/lilo.conf.5:260
 #, no-wrap
 msgid "B<disk=>I<E<lt>device-nameE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:253
+#: C/man5/lilo.conf.5:268
 msgid ""
 "Defines non-standard parameters for the specified disk.  See section \"Disk "
 "geometry\" of user.tex for details.  For versions of LILO prior to 22.5, the "
@@ -427,7 +462,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:261
+#: C/man5/lilo.conf.5:276
 #, no-wrap
 msgid ""
 "       disk=/dev/sda\n"
@@ -439,7 +474,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:267
+#: C/man5/lilo.conf.5:282
 msgid ""
 "would say that your SCSI disk is the first BIOS disk (0x80), that your "
 "(primary master) IDE disk is the second BIOS disk (0x81), and that your "
@@ -448,7 +483,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:272
+#: C/man5/lilo.conf.5:287
 msgid ""
 "NOTE: Use of the 'bios=' option is largely obsolete beginning with LILO "
 "version 22.5, as the boot loader now identifies disks by 32-bit Volume-ID, "
@@ -456,19 +491,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:276
-msgid ""
-"Most USB devices which are implemented as SCSI disks MUST be marked "
-"B<inaccessible> unless they are actually assigned a device code by the BIOS."
-msgstr ""
-
-#. type: Plain text
-#: C/man5/lilo.conf.5:278
+#: C/man5/lilo.conf.5:289
 msgid "Other options include the specification of disk geometry; e.g.,"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:284
+#: C/man5/lilo.conf.5:295
 #, no-wrap
 msgid ""
 "       disk=/dev/fd0\n"
@@ -478,26 +506,26 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:290
+#: C/man5/lilo.conf.5:301
 msgid ""
-"probably only useful for floppy disks and loopback devices, since for hard "
-"disks the B<lba32> disk addressing option (LILO 21.2) ignores disk geometry."
+"probably only useful for floppy disks and loopback devices, because for hard "
+"disks the B<lba32> disk addressing option ignores disk geometry."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:298
+#: C/man5/lilo.conf.5:309
 msgid ""
-"(22.5.8) Developers who have implemented a disk driver for a new block "
-"storage device will have to indicate to LILO the maximum number of "
-"partitions on the device.  This is in addition to making all of the "
-"necessary entries for the device in the \"/dev\" directory (with 'mknod').  "
-"The maximum number of partitions must be one of 63 (like an IDE disk), 31 "
-"(uncommon), 15 (like SCSI disks -- most common value), or 7 (like one array "
-"controller).  An example specification would be:"
+"Developers who have implemented a disk driver for a new block storage device "
+"will have to indicate to LILO the maximum number of partitions on the "
+"device.  This is in addition to making all of the necessary entries for the "
+"device in the \"/dev\" directory (with 'mknod').  The maximum number of "
+"partitions must be one of 63 (like an IDE disk), 31 (uncommon), 15 (like "
+"SCSI disks -- most common value), or 7 (like one array controller). An "
+"example specification would be:"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:302
+#: C/man5/lilo.conf.5:313
 #, no-wrap
 msgid ""
 "     disk=/dev/userd0\n"
@@ -505,7 +533,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:308
+#: C/man5/lilo.conf.5:319
 msgid ""
 "In cases where there is no kernel partition information available, such as "
 "on loopback devices, the 'disk=' specification may include paritition start "
@@ -513,7 +541,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:317
+#: C/man5/lilo.conf.5:328
 #, no-wrap
 msgid ""
 "       disk=/dev/loop0\n"
@@ -526,26 +554,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:319
+#: C/man5/lilo.conf.5:330
 #, no-wrap
 msgid "B<disktab=>I<E<lt>disktab-fileE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:325
+#: C/man5/lilo.conf.5:336
 msgid ""
 "Specifies the name of the disk parameter table.  The map installer looks for "
 "I</etc/disktab> if `disktab' is omitted. The use of disktabs is discouraged."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:325
+#: C/man5/lilo.conf.5:336
 #, no-wrap
 msgid "B<el-torito-bootable-CD>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:330
+#: C/man5/lilo.conf.5:341
 msgid ""
 "Flag second stage loader to terminate disk emulation when booting from an El "
 "Torito Bootable CD. This option is used by the B<mkrescue> utility when the "
@@ -553,25 +581,25 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:330
+#: C/man5/lilo.conf.5:341
 #, no-wrap
 msgid "B<fix-table>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:340
+#: C/man5/lilo.conf.5:351
 msgid ""
 "This allows lilo to adjust 3D addresses in partition tables. Each partition "
 "entry contains a 3D (cylinder/head/sector) and a linear address of the first "
 "and the last sector of the partition. If a partition is not track-aligned "
-"and if certain other operating systems (e.g. PC/MS-DOS or OS/2) are using "
-"the same disk, they may change the 3D address. lilo can store its boot "
-"sector only on partitions where both address types correspond. lilo "
-"re-adjusts incorrect 3D start addresses if `fix-table' is set."
+"and if certain other operating systems (e.g. PC/MS-DOS) are using the same "
+"disk, they may change the 3D address. lilo can store its boot sector only on "
+"partitions where both address types correspond. lilo re-adjusts incorrect 3D "
+"start addresses if `fix-table' is set."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:348
+#: C/man5/lilo.conf.5:359
 msgid ""
 "WARNING: This does not guarantee that other operating systems may not "
 "attempt to reset the address later. It is also possible that this change has "
@@ -583,26 +611,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:348
+#: C/man5/lilo.conf.5:359
 #, no-wrap
 msgid "B<force-backup=>I<E<lt>backup-fileE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:352
+#: C/man5/lilo.conf.5:363
 msgid ""
 "Operation is identical to B<backup=> above, except an existing backup file "
 "is unconditionally overwritten if it exists."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:352
+#: C/man5/lilo.conf.5:363
 #, no-wrap
 msgid "B<geometric>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:359
+#: C/man5/lilo.conf.5:370
 msgid ""
 "Force disk addressing which is compatible with older versions of LILO.  "
 "Geometric addressing uses cylinder/head/sector addresses, and is limited to "
@@ -612,24 +640,24 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:359
+#: C/man5/lilo.conf.5:370
 #, no-wrap
 msgid "B<ignore-table>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:362
+#: C/man5/lilo.conf.5:373
 msgid "tells lilo to ignore corrupt partition tables."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:362
+#: C/man5/lilo.conf.5:373
 #, no-wrap
 msgid "B<install=>I<E<lt>user-interfaceE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:374
+#: C/man5/lilo.conf.5:385
 msgid ""
 "Selects the user interface which will be seen at boot time.  One of the "
 "following three options may be specified: B<text>, B<menu>, or B<bmp>. The "
@@ -644,20 +672,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:377
+#: C/man5/lilo.conf.5:388
 msgid ""
 "(Prior to LILO version 22.3, `install=' specified the user interface as a "
 "file in the `/boot' directory.)"
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:377
+#: C/man5/lilo.conf.5:388
 #, no-wrap
 msgid "B<large-memory>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:385
+#: C/man5/lilo.conf.5:396
 msgid ""
 "Normally any initial ramdisk (initrd) loaded with a kernel is loaded as high "
 "in memory as possible, but never above 15Mb.  This is due to a BIOS "
@@ -668,7 +696,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:391
+#: C/man5/lilo.conf.5:402
 msgid ""
 "This switch (or its absence) is not passed to the kernel, and does not in "
 "any way affect the amount of physical memory which it will use.  (See the "
@@ -677,13 +705,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:391
+#: C/man5/lilo.conf.5:402
 #, no-wrap
 msgid "B<lba32>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:403
+#: C/man5/lilo.conf.5:414
 msgid ""
 "Generate 32-bit Logical Block Addresses instead of cylinder/head/sector "
 "addresses. If the BIOS supports packet addressing, then packet calls will be "
@@ -697,13 +725,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:403
+#: C/man5/lilo.conf.5:414
 #, no-wrap
 msgid "B<linear>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:414
+#: C/man5/lilo.conf.5:425
 msgid ""
 "Generate 24-bit linear sector addresses instead of cylinder/head/sector "
 "(geometric) addresses. Linear addresses are translated at run time to "
@@ -715,13 +743,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:414 C/man5/lilo.conf.5:998 C/man8/lilo.8:393
+#: C/man5/lilo.conf.5:425 C/man5/lilo.conf.5:1002 C/man8/lilo.8:393
 #, no-wrap
 msgid "B<lock>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:419
+#: C/man5/lilo.conf.5:430
 msgid ""
 "Enables automatic recording of boot command lines as the defaults for the "
 "following boots. This way, lilo \"locks\" on a choice until it is manually "
@@ -729,31 +757,31 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:419 C/man5/lilo.conf.5:1022
+#: C/man5/lilo.conf.5:430 C/man5/lilo.conf.5:1026
 #, no-wrap
 msgid "B<mandatory>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:422
+#: C/man5/lilo.conf.5:433
 msgid "The per-image password option `mandatory' (see below) applies to all images."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:422
+#: C/man5/lilo.conf.5:433
 #, no-wrap
 msgid "B<map=>I<E<lt>map-fileE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:427
+#: C/man5/lilo.conf.5:438
 msgid ""
 "Specifies the location of the map file. If `map' is omitted, the file "
 "I</boot/map> is used."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:435
+#: C/man5/lilo.conf.5:446
 msgid ""
 "On machines with a pre-1998 BIOS, the EDD bios extensions which are required "
 "to support \"lba32\" disk sector addressing may not be present. In this "
@@ -765,13 +793,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:435
+#: C/man5/lilo.conf.5:446
 #, no-wrap
 msgid "B<menu-title=>I<E<lt>title-stringE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:443
+#: C/man5/lilo.conf.5:454
 msgid ""
 "Specifies the title line (up to 37 characters) for the boot menu. This title "
 "replaces the default \"LILO Boot Menu\" title string. If I<menu> is not "
@@ -780,13 +808,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:443
+#: C/man5/lilo.conf.5:454
 #, no-wrap
 msgid "B<menu-scheme=>I<E<lt>color-schemeE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:450
+#: C/man5/lilo.conf.5:461
 msgid ""
 "The default color scheme of the boot menu may be overridden on VGA displays "
 "using this option. (The color scheme of MDA displays is fixed.)  The general "
@@ -794,13 +822,13 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:453
+#: C/man5/lilo.conf.5:464
 #, no-wrap
 msgid "     E<lt>textE<gt>:E<lt>highlightE<gt>:E<lt>borderE<gt>:E<lt>titleE<gt>\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:464
+#: C/man5/lilo.conf.5:475
 msgid ""
 "where each entry is two characters which specify a foreground color and a "
 "background color. Only the first entry is required. The default highlight is "
@@ -812,7 +840,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:469
+#: C/man5/lilo.conf.5:480
 #, no-wrap
 msgid ""
 "    menu-scheme=Wm     intense white on magenta\n"
@@ -821,20 +849,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:474
+#: C/man5/lilo.conf.5:485
 msgid ""
 "If I<menu> is not installed as the boot loader, then this line has no "
 "effect."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:474
+#: C/man5/lilo.conf.5:485
 #, no-wrap
 msgid "B<message=>I<E<lt>message-fileE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:485
+#: C/man5/lilo.conf.5:496
 msgid ""
 "specifies a file containing a message that is displayed before the boot "
 "prompt. No message is displayed while waiting for a shifting key after "
@@ -846,13 +874,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:485
+#: C/man5/lilo.conf.5:496
 #, no-wrap
 msgid "B<nodevcache>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:491
+#: C/man5/lilo.conf.5:502
 msgid ""
 "(22.8)  Disables pre-loading of the internal device cache. May be needed for "
 "Linux distributions which use non-standard device naming conventions; e.g., "
@@ -860,13 +888,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:491
+#: C/man5/lilo.conf.5:502
 #, no-wrap
 msgid "B<nokbdefault=>I<E<lt>nameE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:501
+#: C/man5/lilo.conf.5:512
 msgid ""
 "(22.7.2)  The named descriptor is taken to be the default boot image if no "
 "IBM-PC keyboard is present. If no serial interface (\"serial=\") is in use, "
@@ -876,13 +904,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:501
+#: C/man5/lilo.conf.5:512
 #, no-wrap
 msgid "B<noraid>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:509
+#: C/man5/lilo.conf.5:520
 msgid ""
 "Disables the automatic marking of disk volumes which are components of RAID "
 "arrays as B<inaccessible>.  This allows the user to edit the B<disk=> / "
@@ -893,35 +921,35 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:509
+#: C/man5/lilo.conf.5:520
 #, no-wrap
 msgid "B<nowarn>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:512
+#: C/man5/lilo.conf.5:523
 msgid "Disables warnings about possible future dangers."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:512 C/man5/lilo.conf.5:1001
+#: C/man5/lilo.conf.5:523 C/man5/lilo.conf.5:1005
 #, no-wrap
 msgid "B<optional>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:515
+#: C/man5/lilo.conf.5:526
 msgid "The per-image option `optional' (see below) applies to all images."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:515 C/man5/lilo.conf.5:1006
+#: C/man5/lilo.conf.5:526 C/man5/lilo.conf.5:1010
 #, no-wrap
 msgid "B<password=>I<E<lt>passwordE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:521
+#: C/man5/lilo.conf.5:532
 msgid ""
 "The per-image option `password=...' (see below) applies to all images. This "
 "option may prevent unattended booting, if the default image is `password=' "
@@ -930,13 +958,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:521
+#: C/man5/lilo.conf.5:532
 #, no-wrap
 msgid "B<prompt>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:533
+#: C/man5/lilo.conf.5:544
 msgid ""
 "Automatic booting (see `delay' above) will not take place unless a locked or "
 "pre-stored (\"lilo -R\") command line is present. Instead, the boot loader "
@@ -947,13 +975,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:533
+#: C/man5/lilo.conf.5:544
 #, no-wrap
 msgid "B<raid-extra-boot=>I<E<lt>optionE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:556
+#: C/man5/lilo.conf.5:567
 msgid ""
 "This option only has meaning for RAID1 installations.  The E<lt>optionE<gt> "
 "may be specified as I<none>, I<auto>, I<mbr>, I<mbr-only>, or a "
@@ -977,26 +1005,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:556 C/man5/lilo.conf.5:1036
+#: C/man5/lilo.conf.5:567 C/man5/lilo.conf.5:1040
 #, no-wrap
 msgid "B<restricted>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:559
+#: C/man5/lilo.conf.5:570
 msgid ""
 "The per-image password option `restricted' (see below) applies to all "
 "images."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:559
+#: C/man5/lilo.conf.5:570
 #, no-wrap
 msgid "B<serial=>I<E<lt>parametersE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:569
+#: C/man5/lilo.conf.5:580
 msgid ""
 "enables control from a serial line. The specified serial port is initialized "
 "and the boot loader is accepting input from it and from the PC's "
@@ -1008,20 +1036,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:572
+#: C/man5/lilo.conf.5:583
 #, no-wrap
 msgid "    E<lt>portE<gt>[,E<lt>bpsE<gt>[E<lt>parityE<gt>[E<lt>bitsE<gt>]]]\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:576
+#: C/man5/lilo.conf.5:587
 msgid ""
 "E<lt>portE<gt>: the number of the serial port, zero-based. 0 corresponds to "
 "COM1 alias /dev/ttyS0, etc. All four ports can be used (if present)."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:581
+#: C/man5/lilo.conf.5:592
 msgid ""
 "E<lt>bpsE<gt>: the baud rate of the serial port. The following baud rates "
 "are supported: 110, 150, 300, 600, 1200, 2400(default), 4800, 9600, plus the "
@@ -1030,7 +1058,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:586
+#: C/man5/lilo.conf.5:597
 msgid ""
 "E<lt>parityE<gt>: the parity used on the serial line. The boot loader "
 "ignores input parity and strips the 8th bit. The following (upper or lower "
@@ -1039,7 +1067,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:590
+#: C/man5/lilo.conf.5:601
 msgid ""
 "E<lt>bitsE<gt>: the number of bits in a character. Only 7 and 8 bits are "
 "supported. Default is 8 if parity is \"none\", 7 if parity is \"even\" or "
@@ -1047,23 +1075,23 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:592
+#: C/man5/lilo.conf.5:603
 msgid "If `serial' is set, the value of `delay' is automatically raised to 20."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:594
+#: C/man5/lilo.conf.5:605
 msgid "Example: \"serial=0,2400n8\" initializes COM1 with the default parameters."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:594
+#: C/man5/lilo.conf.5:605
 #, no-wrap
 msgid "B<single-key>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:600
+#: C/man5/lilo.conf.5:611
 msgid ""
 "This option specifies that boot images or 'other's are to be selected and "
 "launched with a single keystroke.  Selection is based upon the first "
@@ -1072,13 +1100,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:600
+#: C/man5/lilo.conf.5:611
 #, no-wrap
 msgid "B<static-BIOS-codes>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:609
+#: C/man5/lilo.conf.5:620
 msgid ""
 "Causes the operation of the boot installer and boot loader to bypass the use "
 "of Volume-ID information, and to revert to a mode of operation of versions "
@@ -1089,7 +1117,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:617
+#: C/man5/lilo.conf.5:628
 msgid ""
 "With the use of this option, BIOS codes of disks MUST be correctly specified "
 "at install time; either guessed correctly by LILO (which often fails on "
@@ -1100,18 +1128,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:620
+#: C/man5/lilo.conf.5:631
 msgid "In general, this option should never be used, except as a bug workaround."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:620
+#: C/man5/lilo.conf.5:631
 #, no-wrap
 msgid "B<suppress-boot-time-BIOS-data>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:625
+#: C/man5/lilo.conf.5:636
 msgid ""
 "This global option suppresses the boot-time real mode collection of BIOS "
 "data on systems which hang on certain BIOS calls.  It is equivalent to using "
@@ -1119,7 +1147,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:630
+#: C/man5/lilo.conf.5:641
 msgid ""
 "This option defeats the disk volume recognition and BIOS device code "
 "detection features of LILO on systems with more than one disk. Thus the use "
@@ -1128,13 +1156,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:630
+#: C/man5/lilo.conf.5:641
 #, no-wrap
 msgid "B<timeout=>I<E<lt>tsecsE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:637
+#: C/man5/lilo.conf.5:648
 msgid ""
 "sets a timeout (in tenths of a second) for keyboard input at the I<boot:> "
 "prompt.  \"timeout\" only has meaning if \"prompt\" is mentioned.  If no key "
@@ -1143,13 +1171,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:637
+#: C/man5/lilo.conf.5:648
 #, no-wrap
 msgid "B<unattended>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:644
+#: C/man5/lilo.conf.5:655
 msgid ""
 "(22.6) Alters the operation of the \"timeout\" parameter in a manner which "
 "is useful on noisy serial lines.  Each typed (or noise) character restarts "
@@ -1158,13 +1186,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:644
+#: C/man5/lilo.conf.5:655
 #, no-wrap
 msgid "B<verbose=>I<E<lt>numberE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:649
+#: C/man5/lilo.conf.5:660
 msgid ""
 "Turns on lots of progress reporting. Higher numbers give more verbose "
 "output. If -v is additionally specified on the lilo command line, the level "
@@ -1172,13 +1200,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:649
+#: C/man5/lilo.conf.5:660
 #, no-wrap
 msgid "B<vmdefault=>I<E<lt>nameE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:654
+#: C/man5/lilo.conf.5:665
 msgid ""
 "The named boot image is used as the default boot if booting in \"virtual\" "
 "mode with a virtual monitor, such as VMware(tm).  Thus a real mode boot and "
@@ -1186,7 +1214,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:664
+#: C/man5/lilo.conf.5:675
 msgid ""
 "Additionally, the kernel configuration parameters B<append>, B<ramdisk>, "
 "B<read-only>, B<read-write>, B<root> and B<vga> can be set in the global "
@@ -1195,49 +1223,49 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man5/lilo.conf.5:665
+#: C/man5/lilo.conf.5:676
 #, no-wrap
 msgid "PER-IMAGE SECTION"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:667
+#: C/man5/lilo.conf.5:678
 msgid "A per-image section starts with either a line"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:670
+#: C/man5/lilo.conf.5:681
 #, no-wrap
 msgid "    B<image=>I<E<lt>pathnameE<gt>>\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:674
+#: C/man5/lilo.conf.5:685
 msgid ""
 "to indicate a file or device containing the boot image of a Linux kernel, or "
 "a line"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:677
+#: C/man5/lilo.conf.5:688
 #, no-wrap
 msgid "    B<other=>I<E<lt>deviceE<gt>>\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:680
+#: C/man5/lilo.conf.5:691
 msgid "to indicate an arbitrary system to boot."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:685
+#: C/man5/lilo.conf.5:696
 msgid ""
 "In the former case, if an B<image> line specifies booting from a device, "
 "then one has to indicate the range of sectors to be mapped using"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:690
+#: C/man5/lilo.conf.5:701
 #, no-wrap
 msgid ""
 "    B<range=>I<E<lt>startE<gt>-E<lt>endE<gt>>\n"
@@ -1246,31 +1274,31 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:693
+#: C/man5/lilo.conf.5:704
 msgid "In the third case, 'nsec=1' is assumed."
 msgstr ""
 
 #. type: SH
-#: C/man5/lilo.conf.5:694
+#: C/man5/lilo.conf.5:705
 #, no-wrap
 msgid "KERNEL OPTIONS (image=)"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:697
+#: C/man5/lilo.conf.5:708
 msgid ""
 "If the booted image is a Linux kernel, then one may pass command line "
 "parameters to this kernel."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:697
+#: C/man5/lilo.conf.5:708
 #, no-wrap
 msgid "B<addappend=>I<E<lt>stringE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:710
+#: C/man5/lilo.conf.5:721
 msgid ""
 "(22.6) The kernel parameters from the specified string, are concatenated to "
 "the parameter(s) from an B<append=> specification (see below).  The string "
@@ -1282,13 +1310,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:710
+#: C/man5/lilo.conf.5:721
 #, no-wrap
 msgid "B<append=>I<E<lt>stringE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:721
+#: C/man5/lilo.conf.5:732
 msgid ""
 "Appends the options specified to the parameter line passed to the kernel.  "
 "This is typically used to specify hardware parameters that can't be entirely "
@@ -1301,19 +1329,19 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:724
+#: C/man5/lilo.conf.5:735
 #, no-wrap
 msgid "     append=\"mem=96M hd=576,64,32 console=ttyS1,9600\"\n"
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:726
+#: C/man5/lilo.conf.5:737
 #, no-wrap
 msgid "B<initrd=>I<E<lt>nameE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:731
+#: C/man5/lilo.conf.5:742
 msgid ""
 "Specifies the initial ramdisk image to be loaded with the kernel.  The image "
 "will contain modules needed at boot time, such as network and scsi "
@@ -1321,13 +1349,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:731
+#: C/man5/lilo.conf.5:742
 #, no-wrap
 msgid "B<literal=>I<E<lt>stringE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:737
+#: C/man5/lilo.conf.5:748
 msgid ""
 "Like `append', but removes all other options (e.g. setting of the root "
 "device). 'literal' overrides all 'append' and 'addappend' options.  Because "
@@ -1336,13 +1364,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:737
+#: C/man5/lilo.conf.5:748
 #, no-wrap
 msgid "B<ramdisk=>I<E<lt>sizeE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:742
+#: C/man5/lilo.conf.5:753
 msgid ""
 "This specifies the size (e.g., \"4096k\") of the optional RAM disk. A value "
 "of zero indicates that no RAM disk should be created. If this variable is "
@@ -1350,13 +1378,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:742
+#: C/man5/lilo.conf.5:753
 #, no-wrap
 msgid "B<read-only>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:748
+#: C/man5/lilo.conf.5:759
 msgid ""
 "This specifies that the root file system should be mounted read-only.  It "
 "may be specified as a global option.  Typically, the system startup "
@@ -1365,26 +1393,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:748
+#: C/man5/lilo.conf.5:759
 #, no-wrap
 msgid "B<read-write>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:752
+#: C/man5/lilo.conf.5:763
 msgid ""
 "This specifies that the root file system should be mounted read-write.  It "
 "may be specified as a global option."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:752
+#: C/man5/lilo.conf.5:763
 #, no-wrap
 msgid "B<root=>I<E<lt>root-deviceE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:764
+#: C/man5/lilo.conf.5:775
 msgid ""
 "This specifies the device that should be mounted as root.  It may be "
 "specified as a global option.  If the special name B<current> is used, the "
@@ -1397,22 +1425,24 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:773
+#: C/man5/lilo.conf.5:784
 msgid ""
-"(22.6) The root filesystem may also be specified by a B<LABEL=> or B<UUID=> "
+"The root filesystem may also be specified by a B<LABEL=> or B<UUID=> "
 "directive, as in '/etc/fstab'.  In this case, the argument to I<root=> must "
 "be enclosed in quotation marks, to avoid a syntax error on the second equal "
-"sign; viz.,"
+"sign, e.g.:"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:776
+#: C/man5/lilo.conf.5:788
 #, no-wrap
-msgid "     root=\"LABEL=MyDisk\"\n"
+msgid ""
+"     root=\"LABEL=MyDisk\"\n"
+"     root=\"UUID=5472fd8e-9089-4256-bcaa-ceab4f01a439\"\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:791
+#: C/man5/lilo.conf.5:803
 msgid ""
 "Note: The command line I<root=> parameter passed to the kernel will be: "
 "'root=LABEL=MyDisk'; i.e., without the quotation marks. If the I<root=> "
@@ -1424,13 +1454,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:791
+#: C/man5/lilo.conf.5:803
 #, no-wrap
 msgid "B<vga=>I<E<lt>modeE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:797
+#: C/man5/lilo.conf.5:809
 msgid ""
 "This specifies the VGA text mode that should be selected when booting.  It "
 "may be specified as a global option.  The following values are recognized "
@@ -1438,29 +1468,30 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:800
+#: C/man5/lilo.conf.5:812
 msgid "B<normal>: select normal 80x25 text mode."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:803
+#: C/man5/lilo.conf.5:815
 msgid "B<extended> (or B<ext>): select 80x50 text mode."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:806
+#: C/man5/lilo.conf.5:818
 msgid "B<ask>: stop and ask for user input (at boot time)."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:811
+#: C/man5/lilo.conf.5:824
 msgid ""
-"E<lt>numberE<gt>: use the corresponding text mode. A list of available modes "
-"can be obtained by booting with I<vga=ask> and pressing [Enter]."
+"E<lt>numberE<gt>: use the corresponding text mode (can specify the number in "
+"decimal or in hex with the usual '0x' convention).  A list of available "
+"modes can be obtained by booting with I<vga=ask> and pressing [Enter]."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:816
+#: C/man5/lilo.conf.5:829
 msgid ""
 "If this variable is omitted, the VGA mode setting contained in the kernel "
 "image is used. (And that is set at compile time using the SVGA_MODE variable "
@@ -1468,13 +1499,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man5/lilo.conf.5:817
+#: C/man5/lilo.conf.5:830
 #, no-wrap
 msgid "ALTERNATE SYSTEM (other=)"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:823
+#: C/man5/lilo.conf.5:836
 msgid ""
 "Used to load systems other than Linux. The `other = E<lt>deviceE<gt>' "
 "specifies the boot sector of an alternate system contained on a device or "
@@ -1483,31 +1514,29 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:823
+#: C/man5/lilo.conf.5:836
 #, no-wrap
 msgid "B<loader=>I<E<lt>chain-loaderE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:838
+#: C/man5/lilo.conf.5:847
 msgid ""
 "This specifies the chain loader that should be used.  It may also be "
 "specified as a global option.  By default I<chain> is used.  This chain "
 "loader passes partition and drive information in the boot sector it loads "
-"only to DOS on FAT12 or FAT16, Windows on FAT16 or FAT32, or OS/2 on FAT16 "
-"or HPFS.  The alternate chain loader, I<os2_d> passes partition and drive "
-"information unconditionally, and uses a format suitable for OS/2 and DOS "
-"(see I<table=E<lt>letterE<gt>> below)."
+"only to DOS on FAT12 or FAT16, Windows on FAT16 or FAT32. (see also "
+"I<table=E<lt>letterE<gt>> below)."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:838
+#: C/man5/lilo.conf.5:847
 #, no-wrap
 msgid "B<table=>I<E<lt>deviceE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:848
+#: C/man5/lilo.conf.5:857
 msgid ""
 "This specifies the device that contains the partition table.  The boot "
 "loader will pass default partition information to the booted operating "
@@ -1519,38 +1548,36 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:848
+#: C/man5/lilo.conf.5:857
 #, no-wrap
 msgid "B<table=>I<E<lt>drive-letterE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:858
+#: C/man5/lilo.conf.5:862
 msgid ""
-"This is a special case for the I<os2_d> chain loader.  It specifies the DOS "
-"drive letter for the partition that will be booted.  This is I<mandatory> "
-"when booting OS/2 installed on an extended partition.  The drive letter may "
-"be specified with or without a trailing colon."
+"This option is obsolete. It were used in the special case with the obsolete "
+"I<os2_d> chain loader."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:858
+#: C/man5/lilo.conf.5:862
 #, no-wrap
 msgid "B<change>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:869
+#: C/man5/lilo.conf.5:873
 msgid ""
 "This keyword starts a section which describes how primary partition IDs are "
 "changed, and how primary partitions are activated and deactivated.  If "
 "B<change> is omitted, change rules are generated as though the I<automatic> "
-"keyword were specified.  The keyword B<change> alone, without any rules "
+"keyword were specified. The keyword B<change> alone, without any rules "
 "following, will suppress automatic change-rules.  For example,"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:882
+#: C/man5/lilo.conf.5:886
 #, no-wrap
 msgid ""
 "   other=/dev/hda2\n"
@@ -1567,7 +1594,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:893
+#: C/man5/lilo.conf.5:897
 msgid ""
 "specifies that when primary partition /dev/hda2 is booted, automatic "
 "change-rules will be in effect; plus, partition 1, a DOS12 partition, will "
@@ -1578,13 +1605,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:893
+#: C/man5/lilo.conf.5:897
 #, no-wrap
 msgid "B<boot-as=>I<E<lt>biosE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:900
+#: C/man5/lilo.conf.5:904
 msgid ""
 "This option (LILO version 22.5.1) indicates the BIOS device code which must "
 "be assigned to the specified drive in order for the \"other=\" operating "
@@ -1594,7 +1621,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:907
+#: C/man5/lilo.conf.5:911
 msgid ""
 "This option is easier to specify than \"map-drive=\" and more general than "
 "\"master-boot\" in that any device code may be specified.  Unlike "
@@ -1605,7 +1632,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:914
+#: C/man5/lilo.conf.5:918
 msgid ""
 "This option may be specified as a global option, in which case it applies to "
 "all \"other=\" sections unless overridden with a specific \"master-boot\" "
@@ -1616,24 +1643,24 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:914
+#: C/man5/lilo.conf.5:918
 #, no-wrap
 msgid "B<master-boot>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:923
+#: C/man5/lilo.conf.5:927
 msgid ""
-"This flag (LILO version 22.5) indicates a DOS/Windows/OS2 or other system "
-"which will only boot from BIOS device 0x80, the \"C:\" drive, or BIOS device "
-"0, the A: drive. When this flag is specified, if this drive is not assigned "
+"This flag (LILO version 22.5) indicates a DOS/Windows or other system which "
+"will only boot from BIOS device 0x80, the \"C:\" drive, or BIOS device 0, "
+"the A: drive. When this flag is specified, if this drive is not assigned "
 "device code 0x80 or 0 by the BIOS, then the chain loader will dynamically "
 "swap the device code actually assigned with device code 0x80 or 0 to make "
 "this drive appear to be the first hard or floppy drive, \"C:\" or \"A:\"."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:930
+#: C/man5/lilo.conf.5:934
 msgid ""
 "This flag is easier to use than \"map-drive=\" (see below), and is "
 "preferred, if simple forcing of device code 0x80 is all that is required. It "
@@ -1644,7 +1671,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:933
+#: C/man5/lilo.conf.5:937
 msgid ""
 "This option may be specified as a global option, in which case it applies to "
 "all \"other=\" sections unless overridden with a specific \"boot-as=\" "
@@ -1652,13 +1679,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:933
+#: C/man5/lilo.conf.5:937
 #, no-wrap
 msgid "B<map-drive=>I<E<lt>numE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:939
+#: C/man5/lilo.conf.5:943
 msgid ""
 "Maps BIOS calls for the specified drive to the device code specified on the "
 "next line as B<to=>E<lt>numE<gt>.  This mapping is useful for booting "
@@ -1667,7 +1694,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:945
+#: C/man5/lilo.conf.5:949
 #, no-wrap
 msgid ""
 "   map-drive=0x80\n"
@@ -1677,20 +1704,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:949
+#: C/man5/lilo.conf.5:953
 msgid ""
 "This option is largely rendered obsolete by \"boot-as=\", introduced with "
 "LILO version 22.5."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:949
+#: C/man5/lilo.conf.5:953
 #, no-wrap
 msgid "B<unsafe>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:959
+#: C/man5/lilo.conf.5:963
 msgid ""
 "Do not access the boot sector at map creation time. This disables some "
 "sanity checks, including a partition table check. If the boot sector is on a "
@@ -1703,24 +1730,24 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man5/lilo.conf.5:960
+#: C/man5/lilo.conf.5:964
 #, no-wrap
 msgid "COMMON DESCRIPTOR OPTIONS (image= & other=)"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:965
+#: C/man5/lilo.conf.5:969
 msgid "In both the B<image=> and B<other=> cases, the following options apply."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:965
+#: C/man5/lilo.conf.5:969
 #, no-wrap
 msgid "B<bypass>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:969
+#: C/man5/lilo.conf.5:973
 msgid ""
 "No password is required to boot this image. Used to indicate that the global "
 "password does not apply to this `image=' or `other='.  See 'password=' "
@@ -1728,13 +1755,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:969
+#: C/man5/lilo.conf.5:973
 #, no-wrap
 msgid "B<label=>I<E<lt>nameE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:974
+#: C/man5/lilo.conf.5:978
 msgid ""
 "The boot loader uses the main file name (without its path)  of each image "
 "specification to identify that image.  A different name can be used by "
@@ -1742,18 +1769,18 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:974
+#: C/man5/lilo.conf.5:978
 #, no-wrap
 msgid "B<alias=>I<E<lt>nameE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:977
+#: C/man5/lilo.conf.5:981
 msgid "A second name for the same entry can be used by specifying an alias."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:984
+#: C/man5/lilo.conf.5:988
 msgid ""
 "The bitmap graphic (install=bmp) is retained when control is passed to the "
 "loaded kernel image, or other= bootloader; i.e., the screen is not blanked "
@@ -1762,13 +1789,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:984
+#: C/man5/lilo.conf.5:988
 #, no-wrap
 msgid "B<fallback=>I<E<lt>command-lineE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:998
+#: C/man5/lilo.conf.5:1002
 msgid ""
 "Specifies a string that is stored as the default command line if the current "
 "image is booted. This is useful when experimenting with kernels which may "
@@ -1781,12 +1808,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1001
+#: C/man5/lilo.conf.5:1005
 msgid "(See above.)"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1006
+#: C/man5/lilo.conf.5:1010
 msgid ""
 "Omit the image if it is not available at map creation time.  It may be "
 "specified as a global option.  This is useful to specify test kernels that "
@@ -1794,7 +1821,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1012
+#: C/man5/lilo.conf.5:1016
 msgid ""
 "Protect the `image=' or `other=' with a password (or passphrase).  It may be "
 "specified as a global option.  The interpretation of the `password=' setting "
@@ -1803,7 +1830,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1022
+#: C/man5/lilo.conf.5:1026
 msgid ""
 "The password may be specified in the config-file (less secure) or entered at "
 "the time the boot loader is installed. To request interactive entry of the "
@@ -1816,20 +1843,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1026
+#: C/man5/lilo.conf.5:1030
 msgid ""
 "A password is required to boot this image. This is the default. May be used "
 "on a single `image=' or `other=' to override a different global setting."
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:1026
+#: C/man5/lilo.conf.5:1030
 #, no-wrap
 msgid "B<nokbdisable>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1036
+#: C/man5/lilo.conf.5:1040
 msgid ""
 "(22.7.2)  The specified descriptor is not bootable if the IBM-PC keyboard is "
 "not present.  This option is really only useful if the \"serial=\" boot "
@@ -1839,7 +1866,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1041
+#: C/man5/lilo.conf.5:1045
 msgid ""
 "A password is only required to boot the image if kernel parameters are "
 "specified on the command line (e.g. 'single').  May be used on a single "
@@ -1847,13 +1874,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:1041
+#: C/man5/lilo.conf.5:1045
 #, no-wrap
 msgid "B<vmwarn>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1046
+#: C/man5/lilo.conf.5:1050
 msgid ""
 "If booting under a virtual monitor such as VMware(tm), the image with this "
 "label will cause a cautionary warning to be issued at boot time, and user "
@@ -1861,175 +1888,28 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man5/lilo.conf.5:1046
+#: C/man5/lilo.conf.5:1050
 #, no-wrap
 msgid "B<vmdisable>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1052
+#: C/man5/lilo.conf.5:1056
 msgid ""
 "If booting under a virtual monitor, the image with this label will not be "
 "displayed as a boot option.  The image is only bootable in real mode.  See "
 "I<vmdefault> above."
 msgstr ""
 
-#. type: SH
-#: C/man5/lilo.conf.5:1055 C/man8/activate.8:85 C/man8/keytab-lilo.8:99 C/man8/lilo.8:487 C/man8/liloconfig.8:77 C/man8/lilo_find_mbr.8:26 C/man8/mkrescue.8:127
+#. type: =head1
+#: C/man5/lilo.conf.5:1059 C/man8/keytab-lilo.8:99 C/man8/lilo.8:487 C/man8/mkrescue.8:144 C/pod/liloconfig.pod:105 C/pod/lilo-uuid-diskid.pod:71 C/pod/update-lilo.pod:41
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/lilo.conf.5:1057
+#: C/man5/lilo.conf.5:1061
 msgid "lilo(8), mkinitrd(8), mknod(1), mkrescue(8), rdev(8)."
-msgstr ""
-
-#. type: Plain text
-#: C/man5/lilo.conf.5:1060
-msgid ""
-"The lilo distribution comes with extensive TEX documentation of which the "
-"above is an extract."
-msgstr ""
-
-#. type: TH
-#: C/man8/activate.8:20
-#, no-wrap
-msgid "ACTIVATE"
-msgstr ""
-
-#. type: TH
-#: C/man8/activate.8:20
-#, no-wrap
-msgid "March 1998"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:23
-msgid "activate - read/write flags marking active boot partition"
-msgstr ""
-
-#. type: SH
-#: C/man8/activate.8:23 C/man8/keytab-lilo.8:22 C/man8/lilo.8:36 C/man8/liloconfig.8:19 C/man8/lilo_find_mbr.8:20 C/man8/mkrescue.8:15
-#, no-wrap
-msgid "SYNOPSIS"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:26
-msgid "B</sbin/activate> I<device>"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:28
-msgid "show which partition is currently marked active on device"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:31
-msgid "B</sbin/activate> I<device partition>"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:33
-msgid "mark specified partition as active on given device"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:45
-msgid ""
-"B<activate> is a simple program which sets the partition which will be used "
-"to boot the system. To be precise, it sets a flag in the partition table of "
-"the hard disk. This may or may not have an effect on the bootup procedure.  "
-"PC booting is complicated, and this manual page does not attempt to explain "
-"it; for more information on what partition you should set active, you should "
-"consult the documentation for your bootloader (an example bootloader is "
-"B<lilo,> which has a good manual in /usr/share/doc/lilo/ on Debian systems)."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:65
-msgid ""
-"Note that programs such as B<fdisk> will also allow you to set the active "
-"partition; it is probably better to use one of these, since they generally "
-"provide services such as allowing you to view the partition table before "
-"picking which partition to activate, and provide opportunity to confirm "
-"actions before writing to the partition table. However, these programs have "
-"more checking for 'wrong' values; for instance, they might not allow you to "
-"set the active flag on an extended partition (because this is generally a "
-"bad idea).  B<activate>, on the other hand, assumes you really do know what "
-"you're doing and doesn't have any bothersome prompts or sanity checks.  In "
-"particular, B<activate> makes I<no> checks that the device you give has a "
-"partition table on it at all! If you specify the wrong device it will "
-"happily write garbage to it."
-msgstr ""
-
-#. type: SH
-#: C/man8/activate.8:66 C/man8/keytab-lilo.8:75 C/man8/lilo_find_mbr.8:25 C/man8/mkrescue.8:32
-#, no-wrap
-msgid "OPTIONS"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:70
-msgid ""
-"I<device> should be a block device such as /dev/hda. Note that it does not "
-"make sense to give one of the partition devices such as /dev/hda3."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:74
-msgid ""
-"I<partition> should be a number between 1 and 4 specifying which partition "
-"should have the active flag set."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:77
-msgid ""
-"If no partition number is given, activate will print out the partition which "
-"is currently marked active."
-msgstr ""
-
-#. type: SH
-#: C/man8/activate.8:77 C/man8/lilo.8:481
-#, no-wrap
-msgid "BUGS"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:80
-msgid ""
-"B<activate> should check that the device actually has a partition table on "
-"it."
-msgstr ""
-
-#. type: SH
-#: C/man8/activate.8:81 C/man8/keytab-lilo.8:95 C/man8/liloconfig.8:69 C/man8/lilo_find_mbr.8:30 C/man8/mkrescue.8:130
-#, no-wrap
-msgid "AUTHOR"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:83 C/man8/keytab-lilo.8:97
-msgid "Werner Almesberger (almesber@bernina.ethz.ch)."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:85 C/man8/keytab-lilo.8:99 C/man8/liloconfig.8:77
-msgid "Peter Maydell (pmaydell@chiark.greenend.org.uk) wrote this manual page."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:88
-msgid "B<lilo>(8), B<fdisk>(8)"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/activate.8:91 C/man8/keytab-lilo.8:106 C/man8/liloconfig.8:83
-msgid ""
-"B<lilo> comes with extensive documentation; this can be found in "
-"/usr/share/doc/lilo/ on Debian systems."
 msgstr ""
 
 #. type: TH
@@ -2049,10 +1929,16 @@ msgstr ""
 msgid "keytab-lilo - compile keytables files for use with LILO"
 msgstr ""
 
+#. type: =head1
+#: C/man8/keytab-lilo.8:22 C/man8/lilo.8:36 C/man8/mkrescue.8:18 C/pod/liloconfig.pod:14 C/pod/lilo-uuid-diskid.pod:14 C/pod/update-lilo.pod:14
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr ""
+
 #. type: Plain text
 #: C/man8/keytab-lilo.8:28
 msgid ""
-"B</usr/sbin/keytab-lilo> [B<-p> I<old_code>=I<new_code>] ...  "
+"B</usr/sbin/keytab-lilo> [B<-p> I<R old_code = new_code ]> ...  "
 "[I<default_layout>]I< kbd_layout>"
 msgstr ""
 
@@ -2093,6 +1979,12 @@ msgid ""
 "(where B<.ktl> stands for \"Keyboard Table for Lilo\")."
 msgstr ""
 
+#. type: =head1
+#: C/man8/keytab-lilo.8:75 C/man8/mkrescue.8:36 C/pod/liloconfig.pod:26 C/pod/lilo-uuid-diskid.pod:28
+#, no-wrap
+msgid "OPTIONS"
+msgstr ""
+
 #. type: TP
 #: C/man8/keytab-lilo.8:76
 #, no-wrap
@@ -2101,7 +1993,7 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/keytab-lilo.8:79
-msgid "I<old_code>=I<new_code>"
+msgid "I<R old_code = new_code>"
 msgstr ""
 
 #. type: Plain text
@@ -2114,8 +2006,8 @@ msgid ""
 "they are prefixed with 0x or 0, respectively."
 msgstr ""
 
-#. type: SH
-#: C/man8/keytab-lilo.8:87
+#. type: =head1
+#: C/man8/keytab-lilo.8:87 C/pod/liloconfig.pod:44 C/pod/lilo-uuid-diskid.pod:42
 #, no-wrap
 msgid "EXAMPLES"
 msgstr ""
@@ -2133,9 +2025,32 @@ msgid ""
 "file (in this case dvorak) and puts the result in B</boot/dvorak.ktl>."
 msgstr ""
 
+#. type: =head1
+#: C/man8/keytab-lilo.8:95 C/pod/liloconfig.pod:98 C/pod/lilo-uuid-diskid.pod:64 C/pod/update-lilo.pod:34
+#, no-wrap
+msgid "AUTHOR"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/keytab-lilo.8:97
+msgid "Werner Almesberger (almesber@bernina.ethz.ch)."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/keytab-lilo.8:99
+msgid "Peter Maydell (pmaydell@chiark.greenend.org.uk) wrote this manual page."
+msgstr ""
+
 #. type: Plain text
 #: C/man8/keytab-lilo.8:103
 msgid "B<lilo>(8), B<keytables>(5), B<gzip>(1)"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/keytab-lilo.8:106
+msgid ""
+"B<lilo> comes with extensive documentation which can be found in "
+"/usr/share/doc/lilo-doc/ on Debian-based systems."
 msgstr ""
 
 #. type: TH
@@ -2772,7 +2687,7 @@ msgstr ""
 #. type: Plain text
 #: C/man8/lilo.8:349
 msgid ""
-"When used with the -M switch, clears the Volume-ID.  Usually used in the "
+"When used with the `-M' switch, clears the Volume-ID.  Usually used in the "
 "following sequence to generate a new Volume-ID:"
 msgstr ""
 
@@ -3157,6 +3072,12 @@ msgid ""
 "mbr-only' switch."
 msgstr ""
 
+#. type: SH
+#: C/man8/lilo.8:481
+#, no-wrap
+msgid "BUGS"
+msgstr ""
+
 #. type: Plain text
 #: C/man8/lilo.8:487
 msgid ""
@@ -3177,8 +3098,8 @@ msgstr ""
 msgid ""
 "The lilo distribution comes with very extensive TeX documentation through "
 "Version 21.  Text file README's in the source directory provide updates on "
-"more recent topics.  This can be found in /usr/share/doc/lilo on Debian "
-"systems."
+"more recent topics.  This can be found in /usr/share/doc/lilo-doc/ on "
+"Debian-based systems."
 msgstr ""
 
 #. type: SH
@@ -3198,398 +3119,539 @@ msgid "John Coffman E<lt>johninsd@san.rr.comE<gt> (21.2 to present date)"
 msgstr ""
 
 #. type: TH
-#: C/man8/liloconfig.8:16
-#, no-wrap
-msgid "LILOCONFIG"
-msgstr ""
-
-#. type: TH
-#: C/man8/liloconfig.8:16
-#, no-wrap
-msgid "September 1999"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:19
-msgid "liloconfig - interactive configure script for lilo"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:21
-msgid "B<liloconfig>"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:32
-msgid ""
-"B<liloconfig> is an interactive program which will ask you a series of "
-"questions and write a B<lilo.conf(5)> configuration file for you. It will "
-"also set up the Master Boot Record (MBR) so that Linux will boot from hard "
-"disk.  It is normally run automatically whenever you upgrade the B<lilo(8)> "
-"Debian package."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:42
-msgid ""
-"The configuration file generated by B<liloconfig> is intended for common "
-"installations; if your setup is complicated or unusual you should consider "
-"writing your own customised B<lilo.conf.> To do this you should refer to the "
-"comprehensive B<lilo> documentation, which can be found in "
-"/usr/share/doc/lilo/ on Debian systems."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:52
-msgid ""
-"If you have already written your own B<lilo.conf> then the script will ask "
-"you if you wish to keep it, in which case it will check it for options which "
-"are incompatible with the current version of B<lilo> and run B<lilo> to "
-"install the boot block."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:63
-msgid ""
-"If you have no B<lilo.conf> or choose to overwrite it, B<liloconfig> will "
-"perform three operations to ensure that the Linux system will boot from the "
-"hard disk: install LILO in the Linux partition's boot record, install a "
-"simple MBR, and mark the Linux partition as the active partition.  You will "
-"be prompted prior to each of these operations, so you can skip them and "
-"perform them manually later on."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:68
-msgid ""
-"The automatically generated B<lilo.conf> contains helpful comments, so it "
-"might well be a good place to start even if you wish to roll your own "
-"configuration file."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:71
-msgid "Bruce Perens E<lt>bruce@Pixar.comE<gt>,"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:73
-msgid "Bernd Eckenfels E<lt>ecki@debian.orgE<gt>"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:75
-msgid "and Vincent Renardias E<lt>vincent@ldsol.comE<gt>."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/liloconfig.8:80
-msgid "B<lilo>(8), B<lilo.conf>(5)"
-msgstr ""
-
-#. type: TH
-#: C/man8/lilo_find_mbr.8:5
-#, no-wrap
-msgid "LILO_FIND_MBR"
-msgstr ""
-
-#. type: TH
-#: C/man8/lilo_find_mbr.8:5
-#, no-wrap
-msgid "july 9, 2003"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/lilo_find_mbr.8:20
-msgid ""
-"lilo_find_mbr - a simple script that prints the block device containing the "
-"main MBR"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/lilo_find_mbr.8:22
-msgid "B<lilo_find_mbr>"
-msgstr ""
-
-#. type: Plain text
-#: C/man8/lilo_find_mbr.8:29
-msgid ""
-"For information about LILO, see /usr/share/doc/lilo and "
-"/usr/share/doc/lilo-doc."
-msgstr ""
-
-#. type: Plain text
-#: C/man8/lilo_find_mbr.8:32
-msgid ""
-"This manual page was written by Andrés Roldán "
-"E<lt>aroldan@fluidsignal.comE<gt> for the Debian GNU/Linux project."
-msgstr ""
-
-#. type: TH
-#: C/man8/mkrescue.8:12
+#: C/man8/mkrescue.8:13
 #, no-wrap
 msgid "MKRESCUE"
 msgstr ""
 
 #. type: TH
-#: C/man8/mkrescue.8:12
+#: C/man8/mkrescue.8:13
 #, no-wrap
-msgid "16 Nov 2004"
+msgid "6 Mar 2011"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:15
-msgid "mkrescue - make rescue floppy"
+#: C/man8/mkrescue.8:17
+msgid "mkrescue - make rescue floppy or CD"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:20
+#: C/man8/mkrescue.8:22
 msgid ""
-"B</usr/sbin/mkrescue> - make a bootable rescue floppy or CD using the "
-"default kernel specified in I<lilo.conf>."
+"B</sbin/mkrescue> makes a bootable rescue floppy or CD using the default "
+"kernel specified in I<lilo.conf>."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:32
+#: C/man8/mkrescue.8:35
 msgid ""
-"B<mkrescue> takes its specification for the kernel from the default image "
-"specified in B</etc/lilo.conf>.  If the actual default is an I<other=> "
+"B<mkrescue> takes its specifation for the kernel from the default image "
+"specified in I</etc/lilo.conf>.  If the actual default is an I<other=> "
 "specification, then use the first I<image=> specification.  Any associated "
-"initial ramdisk (initrd=), and I<append=> options will also be used.  The "
+"initial ramdisk (I<initrd=>), and I<append=> options will also be used.  The "
 "root directory will be taken to be the I<current> root.  A bootable floppy "
 "or CD-image will be created using LILO version 22.5.5 or later.  B<mkrescue> "
-"normally requires no options, unless a CD-image is desired (I<--iso>)."
+"normally requires no options, unless a CD-image is desired (B<--iso>)."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:34
+#: C/man8/mkrescue.8:38
 #, no-wrap
-msgid "B<--append E<lt>stringE<gt>>"
+msgid "B<--append> E<lt>stringE<gt>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:39
+#: C/man8/mkrescue.8:44
 msgid ""
 "Override any I<append=> options taken from the default image.  If there is "
 "any doubt about whether the I<lilo.conf> options are correct, then specify "
-"no kernel parameters with: B<--append \"\">, the null string."
+"no kernel parameters by providing the null string (B<--append \"\">)."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:39
+#: C/man8/mkrescue.8:45
 #, no-wrap
 msgid "B<--debug>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:44
+#: C/man8/mkrescue.8:51
 msgid ""
-"Provide verbose output of the operation of \"mkrescue\", pausing to allow "
-"the setting of internal operating parameters to be viewed.  \"E<lt>CRE<gt>\" "
-"must be hit to proceed from these pauses."
+"Provide verbose output of the operation of B<mkrescue>, pausing to allow the "
+"setting of internal operating parameters to be viewed.  E<lt>CRE<gt> must be "
+"hit to proceed from these pauses."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:44
+#: C/man8/mkrescue.8:52
 #, no-wrap
-msgid "B<--device E<lt>deviceE<gt>>"
+msgid "B<--device> E<lt>deviceE<gt>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:49
+#: C/man8/mkrescue.8:57
 msgid ""
-"Make the floppy on a device other than /dev/fd0.  The floppy disk will "
+"Make the floppy on a device other than I</dev/fd0>.  The floppy disk will "
 "always be made to boot on BIOS device code 0x00 (A: drive), without regard "
 "to the drive on which it is created."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:49
+#: C/man8/mkrescue.8:58
 #, no-wrap
 msgid "B<--fast>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:55
+#: C/man8/mkrescue.8:64
 msgid ""
 "Use a faster method of creating the boot floppy.  This involves first "
-"creating a file of \"--size\" 1k blocks (default is 1440)  mounted using a "
+"creating a file of B<--size> 1k blocks (default is 1440) mounted using a "
 "loopback device, creating the bootable floppy, then copying the entire file "
 "to the disk."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:55
+#: C/man8/mkrescue.8:65
 #, no-wrap
-msgid "B<--fs [ ext2 | msdos | minix ]>"
+msgid "B<--fs> [ I<ext2> | I<msdos> | I<minix> ]"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:61
+#: C/man8/mkrescue.8:70
 msgid ""
-"Specify the type of filesystem to create on the drive.  B<ext2> is the "
-"default, but \"msdos\" and \"minix\" allow slightly more disk sectors for "
+"Specify the type of filesystem to create on the drive.  I<ext2> is the "
+"default, but I<msdos> and I<minix> allow slightly more disk sectors for "
 "really big kernels."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:61
+#: C/man8/mkrescue.8:71
 #, no-wrap
 msgid "B<--help>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:64
+#: C/man8/mkrescue.8:74
 msgid "Print a short usage synopsis, including a list of command options."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:64
+#: C/man8/mkrescue.8:75
 #, no-wrap
-msgid "B<--image E<lt>labelE<gt>>"
+msgid "B<--image> E<lt>labelE<gt>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:69
+#: C/man8/mkrescue.8:80
 msgid ""
 "Specifies the label or alias of the particular image from which the append, "
 "initial ramdisk, root, keytable, and kernel information is to be taken."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:69
+#: C/man8/mkrescue.8:81
 #, no-wrap
-msgid "B<--initrd E<lt>filepathE<gt>>I<  and  >B<--kernel E<lt>filepathE<gt>>"
+msgid "B<--initrd> I<E<lt>filepathE<gt>> and B<--kernel> I<E<lt>filepathE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:76
+#: C/man8/mkrescue.8:89
 msgid ""
 "These options, which must be used together, allow specification of an "
 "arbitrary kernel file and initial ramdisk file to be used on the created "
 "boot floppy.  Be sure you know what you are doing before you use these "
-"options.  If no initial ramdisk is needed with a particular kernel, then you "
+"options.  If no inital ramdisk is needed with a particular kernel, then you "
 "MUST specify B<--initrd \"\">, meaning a null pathname."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:76
+#: C/man8/mkrescue.8:90
 #, no-wrap
-msgid "B<--install [ text | menu ]>"
+msgid "B<--install> [ I<text> | I<menu> ]"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:82
+#: C/man8/mkrescue.8:96
 msgid ""
 "Allows overriding the default human interface used with the rescue "
-"bootloader (configuration file \"install=\" option). \"text\" is the default "
-"on 1.2MB and 1.44MB floppy disks, and \"menu\" is the default on 2.88MB "
+"bootloader (configuration file \"install=\" option). I<text> is the default "
+"on 1.2MB and 1.44MB floppy disks, and I<menu> is the default on 2.88MB "
 "floppies and HD emulation on CD-R media."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:82
+#: C/man8/mkrescue.8:97
 #, no-wrap
 msgid "B<--iso>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:91
+#: C/man8/mkrescue.8:105
 msgid ""
 "Create an ISO-9660 bootable CD image (El Torito Format) suitable for burning "
 "to a CD-R or CD-RW.  The B<--device> specification defaults to the filename "
-"B<\"rescue.iso\">, and the B<--size> defaults to 2880.  A utility such as "
-"I<cdrecord> may be used to burn the ISO file to a recordable CD medium.  "
-"With this ISO option, the B<--size HD> option is allowed."
+"I<rescue.iso>, and the B<--size> defaults to 2880.  A utility such as "
+"\"wodim\" may be used to burn the ISO file to a recordable CD medium.  With "
+"this ISO option, the B<--size> I<HD> option is allowed."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:91
+#: C/man8/mkrescue.8:106
 #, no-wrap
 msgid "B<--nocompact>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:96
+#: C/man8/mkrescue.8:112
 msgid ""
 "For faster kernel loading from a floppy, LILO map compaction is normally "
-"enabled. This option will disable map compaction by omitting the lilo \"-c\" "
+"enabled.  This option will disable map compaction by omitting the lilo B<-c> "
 "switch."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:96
+#: C/man8/mkrescue.8:113
 #, no-wrap
 msgid "B<--noformat>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:103
+#: C/man8/mkrescue.8:119
 msgid ""
-"Suppresses creation of a new filesystem on the boot floppy. This option may "
-"be used B<only> when you know that the floppy you will be writing upon is "
-"formatted with the same filesystem as specified by \"--fs XXX\" (default is "
-"ext2)."
+"Suppresses creation of a new filesystem on the boot floppy.  This option may "
+"be used ONLY when you know that the floppy you will be writing upon is "
+"formatted with the same filesystem as specified by B<--fs> I<XXX> (default "
+"is I<ext2>)."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:103
+#: C/man8/mkrescue.8:120
 #, no-wrap
-msgid "B<--root E<lt>deviceE<gt>>"
+msgid "B<--root> I<E<lt>deviceE<gt>>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:107
+#: C/man8/mkrescue.8:124
 msgid ""
-"Specify the root filesystem for the kernel on the boot floppy. The currently "
-"mounted root is taken as the default specification."
+"Specify the root filesystem for the kernel on the boot floppy.  The "
+"currently mounted root is taken as the default specification."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:107
+#: C/man8/mkrescue.8:125
 #, no-wrap
-msgid "B<--size [ 1440 | 1200 | 2880 | HD ]>"
+msgid "B<--size> [ I<1440> | I<1200> | I<2880> | I<HD> ]"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:113
+#: C/man8/mkrescue.8:132
 msgid ""
-"The default floppy disk size is I<1440>, meaning a 1.44MB floppy. When "
-"I<--iso> is specified, the default size is I<2880>.  Allowed specifications "
-"are 1200, 1440, or 2880, meaning a 1.2MB, 1.44MB or 2.88MB floppy, "
+"The default floppy disk size is I<1440>, meaning a 1.44MB floppy.  When "
+"B<--iso> is specified, the default size is I<2880>.  Allowed specifications "
+"are I<1200>, I<1440>, or I<2880>, meaning a 1.2MB, 1.44MB or 2.88MB floppy, "
 "respectively.  No other floppy disk sizes are supported."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:123
+#: C/man8/mkrescue.8:139
 msgid ""
 "The I<HD> specification, meaning \"hard disk\", may only be used with the "
 "B<--iso> option, to indicate a 16MB hard disk is to be generated for "
-"emulation.  This allows for very large kernel / initial ramdisk combinations "
+"emulation.  This allows for very large kernel/initial ramdisk combinations "
 "on CD-R.  The hard disk image is created using loopback devices "
-"\"/dev/loop0\" and \"/dev/loop1\", which must be free to utilize this size "
+"I</dev/loop0> and I</dev/loop1>, which must be free to utilize this size "
 "option."
 msgstr ""
 
 #. type: TP
-#: C/man8/mkrescue.8:123
+#: C/man8/mkrescue.8:140
 #, no-wrap
 msgid "B<--version>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:126
-msgid "Print the version number of I<mkrescue>, then terminate."
+#: C/man8/mkrescue.8:143
+msgid "Print the version number of B<mkrescue>, then terminate."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/mkrescue.8:130
+#: C/man8/mkrescue.8:154
 msgid ""
-"lilo(8), lilo.conf(5), mkfs(8), dd(1), mount(8), mkinitrd(8), mkisofs(8), "
-"cdrecord(1)."
+"B<cdrecord>(1), B<dd>(1), B<wodim>(1), B<lilo.conf>(5), B<lilo>(8), "
+"B<mkfs>(8), B<mkinitrd>(8), B<mkisofs>(8), B<mount>(8)"
 msgstr ""
 
-#. type: Plain text
-#: C/man8/mkrescue.8:131
-msgid "John Coffman E<lt>johninsd@san.rr.comE<gt> (3.0)"
+#. type: =for
+#: C/pod/liloconfig.pod:1
+msgid ""
+"header manpage: LILOCONFIG section: 8 title: liloconfig documentation "
+"version: 23.1 datum: 2011-03-20"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:12
+msgid "liloconfig - create new lilo.conf file (with diskid and uuid)"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:16
+msgid "B<liloconfig> [B<-h>] [B<-v>] [B<-f>] [B<lilo.conf>]"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:20
+msgid ""
+"liloconfig is an simple program for creating a new lilo.conf file.  After "
+"creating the new configuration file you must execute '/sbin/lilo'."
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:23
+msgid ""
+"liloconfig use the lilo.example.conf file as template. In the final "
+"lilo.conf file you find many useful comments for custom changes."
+msgstr ""
+
+#. type: =item
+#: C/pod/liloconfig.pod:30 C/pod/lilo-uuid-diskid.pod:32
+msgid "B<-h>"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:32 C/pod/lilo-uuid-diskid.pod:34
+msgid "Print a brief help."
+msgstr ""
+
+#. type: =item
+#: C/pod/liloconfig.pod:34 C/pod/lilo-uuid-diskid.pod:36
+msgid "B<-v>"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:36 C/pod/lilo-uuid-diskid.pod:38
+msgid "Print verbose messages."
+msgstr ""
+
+#. type: =item
+#: C/pod/liloconfig.pod:38
+msgid "B<-f>"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:40
+msgid "Force overriding existing lilo.conf."
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:46 C/pod/lilo-uuid-diskid.pod:44
+msgid "Lines in the configuration file /etc/lilo.conf:"
+msgstr ""
+
+#. type: verbatim
+#: C/pod/liloconfig.pod:48
+#, no-wrap
+msgid ""
+"  ### LILO global section ###\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/pod/liloconfig.pod:50
+#, no-wrap
+msgid ""
+"  #large-memory\n"
+"  lba32\n"
+"  boot = /dev/sda\n"
+"  map = /boot/map\n"
+"  install = menu\n"
+"  menu-scheme = Wb:Yr:Wb:Wb\n"
+"  prompt\n"
+"  timeout = 100\n"
+"  vga = normal\n"
+"  #default = Linux\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/pod/liloconfig.pod:61
+#, no-wrap
+msgid ""
+"  ### LILO per-image section ###\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/pod/liloconfig.pod:63 C/pod/lilo-uuid-diskid.pod:46
+#, no-wrap
+msgid ""
+"  #boot = /dev/sda\n"
+"  boot = /dev/disk/by-id/ata-SAMSUNG_SV1604N_S01FJ10X999999\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/pod/liloconfig.pod:66
+#, no-wrap
+msgid ""
+"  image = /boot/vmlinuz-2.6.32-5book-686\n"
+"      label = \"Linux\"\n"
+"      #root = /dev/sda1\n"
+"      root = \"UUID=18843936-00f9-4df0-a373-000d05a5dd44\"\n"
+"      read-only\n"
+"  #   restricted\n"
+"  #   alias = 1\n"
+"  #   optional\n"
+"      initrd = /boot/initrd.img-2.6.32-5book-686\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/pod/liloconfig.pod:76
+#, no-wrap
+msgid ""
+"  image = /boot/vmlinuz-2.6.32-5-686\n"
+"      label = \"Linux Old\"\n"
+"      #root = /dev/sda1\n"
+"      root = \"UUID=18843936-00f9-4df0-a373-000d05a5dd44\"\n"
+"      read-only\n"
+"  #   restricted\n"
+"  #   alias = 2\n"
+"  #   optional\n"
+"      initrd = /boot/initrd.img-2.6.32-5-686\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/pod/liloconfig.pod:86 C/pod/lilo-uuid-diskid.pod:52 C/pod/update-lilo.pod:22
+msgid "COPYRIGHT and LICENSE"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:88
+msgid "Copyright (C) 2011 Joachim Wiedorn"
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:90 C/pod/lilo-uuid-diskid.pod:56 C/pod/update-lilo.pod:26
+msgid ""
+"This script is free software; you can redistribute it and/or modify it under "
+"the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:95 C/pod/lilo-uuid-diskid.pod:61 C/pod/update-lilo.pod:31
+msgid ""
+"On Debian systems, the complete text of the GNU General Public License "
+"version 2 can be found in `/usr/share/common-licenses/GPL-2'."
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:100
+msgid "B<lilconfig> was written by Joachim Wiedorn."
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:102 C/pod/lilo-uuid-diskid.pod:68 C/pod/update-lilo.pod:38
+msgid ""
+"This manual page was written by Joachim Wiedorn <ad_debian at joonet.de> for "
+"the Debian project (and may be used by others)."
+msgstr ""
+
+#. type: textblock
+#: C/pod/liloconfig.pod:107
+msgid "B<lilo>(8), B<update-lilo>(8), B<lilo-uuid-diskid>(8)"
+msgstr ""
+
+#. type: =for
+#: C/pod/lilo-uuid-diskid.pod:1
+msgid ""
+"header manpage: LILO-UUID-DISKID section: 8 title: lilo documentation "
+"version: 23.1 datum: 2011-03-20"
+msgstr ""
+
+#. type: textblock
+#: C/pod/lilo-uuid-diskid.pod:12
+msgid ""
+"lilo-uuid-diskid - convert boot / root options to diskid and uuid in "
+"lilo.conf."
+msgstr ""
+
+#. type: textblock
+#: C/pod/lilo-uuid-diskid.pod:16
+msgid "B<lilo-uuid-diskid> [B<-h>] [B<-v>] [B<lilo.conf>]"
+msgstr ""
+
+#. type: textblock
+#: C/pod/lilo-uuid-diskid.pod:20
+msgid ""
+"This script looks for the boot block device or boot partition and create the "
+"right diskid or uuid as boot option. Then it looks for all root partitions "
+"and create the right uuids as root options."
+msgstr ""
+
+#. type: textblock
+#: C/pod/lilo-uuid-diskid.pod:24
+msgid ""
+"These conversions are necessary for use with newer kernel (>= 2.6.26) if it "
+"use the libata module for parallel and serial ATA interfaces of block "
+"devices (i. e. hard disks with IDE or SATA interface, usbsticks)."
+msgstr ""
+
+#. type: verbatim
+#: C/pod/lilo-uuid-diskid.pod:49
+#, no-wrap
+msgid ""
+"  #root = /dev/sda1\n"
+"  root = \"UUID=/dev/disk/by-uuid/18843936-00f9-4df0-a373-000d05a5dd44\"\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/pod/lilo-uuid-diskid.pod:54 C/pod/update-lilo.pod:24
+msgid "Copyright (C) 2010-2011 Joachim Wiedorn"
+msgstr ""
+
+#. type: textblock
+#: C/pod/lilo-uuid-diskid.pod:66
+msgid "B<lilo-uuid-diskid> was written by Joachim Wiedorn."
+msgstr ""
+
+#. type: textblock
+#: C/pod/lilo-uuid-diskid.pod:73
+msgid "B<lilo>(8), B<update-lilo>(8), B<liloconfig>(8)"
+msgstr ""
+
+#. type: =for
+#: C/pod/update-lilo.pod:1
+msgid ""
+"header manpage: UPDATE-LILO section: 8 title: lilo documentation version: "
+"23.1 datum: 2011-03-20"
+msgstr ""
+
+#. type: textblock
+#: C/pod/update-lilo.pod:12
+msgid "update-lilo - execute lilo in special debconf mode"
+msgstr ""
+
+#. type: textblock
+#: C/pod/update-lilo.pod:16
+msgid "B<update-lilo>"
+msgstr ""
+
+#. type: textblock
+#: C/pod/update-lilo.pod:20
+msgid "This special script only execute lilo with sending all output to >$2"
+msgstr ""
+
+#. type: textblock
+#: C/pod/update-lilo.pod:36
+msgid "B<update-lilo> was written by Joachim Wiedorn."
+msgstr ""
+
+#. type: textblock
+#: C/pod/update-lilo.pod:43
+msgid "B<lilo>(8), B<lilo-uuid-diskid>(1), B<liloconfig>(8)"
 msgstr ""

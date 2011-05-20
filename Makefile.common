@@ -53,6 +53,33 @@ define check_link
   fi
 endef
 
+define create_from_pod
+  set -e; \
+  echo -n "Creating manual pages from POD..."; \
+  for file in fr/pod/*.pod; do \
+    if [ -e $$file ]; then \
+      sh C/pod/pod2manpage $$file; \
+    fi; \
+  done; \
+  echo -n "Move manual pages from POD to their actual location..."; \
+  for file in fr/pod/*; do \
+    if [ -e $$file ]; then \
+      section=`echo $$file | sed -e "s/^.*\.\([1-9]\|pod\)\([^1-9.][^.]*\)*$$/\1/"`; \
+      if [ `expr $$section : "pod"` = 0 ]; then \
+        if [ `expr $$section : "[1-9]"` = 0 ]; then \
+          echo "failed."; \
+          exit 0; \
+        fi; \
+        if [ ! -d fr/man$$section ]; then \
+          mkdir fr/man$$section; \
+        fi; \
+        cp $$file fr/man$$section; \
+        echo "done."; \
+      fi; \
+    fi; \
+  done
+endef
+
 all: build
 
 pre-build:
@@ -61,6 +88,9 @@ po4a-build:
 	po4a --previous $(PO4ACONFIGFILE)
 
 post-build:
+	@if [ -d fr/pod ]; then \
+	  $(call create_from_pod); \
+	fi;
 	@if [ -e links ]; then \
 	  cat links | while read line; do \
 	    LINK=`echo $$line | cut -d " " -f 1`; \

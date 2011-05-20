@@ -1,7 +1,7 @@
-'\" t
+.\" '\" t
 .\" This page is based on the lilo docs/source, which carry the following
 .\" COPYING condition:
-.\"
+.\" 
 .\" LILO program code, documentation and auxiliary programs are
 .\" Copyright 1992-1994 Werner Almesberger.
 .\" All rights reserved.
@@ -12,22 +12,22 @@
 .\" author may not be used to endorse or promote products derived from
 .\" this software without specific prior written permission. This work
 .\" is provided "as is" and without any express or implied warranties.
-.\"
+.\" 
 .\" Original version of this manpage: 
 .\" Peter Maydell (pmaydell@chiark.greenend.org.uk), 03/1998
-.\"
-.TH KEYTAB-LILO.PL 8 "April 1998"
-.SH NAME
-keytab-lilo \- compile keytables files for use with LILO
-.SH SYNOPSIS
-.B /usr/sbin/keytab-lilo
-.RB [ -p
-.IR old_code = new_code ]
+.\" 
+.TH "KEYTAB-LILO.PL" "8" "April 1998" "" ""
+.SH "NAME"
+keytab\-lilo \- compile keytables files for use with LILO
+.SH "SYNOPSIS"
+.B /usr/sbin/keytab\-lilo
+.RB [ \-p
+.I R old_code = new_code ]
 .RB ...
 .RI [ default_layout ] " kbd_layout"
-.SH DESCRIPTION
-.LP
-.B keytab-lilo
+.SH "DESCRIPTION"
+.LP 
+.B keytab\-lilo
 is a program which compiles keytable definitions (in the format
 specified in 
 .BR keytables(5) ) 
@@ -62,7 +62,7 @@ file is specified,
 .B us.map.gz
 is used.
 
-.B keytab-lilo
+.B keytab\-lilo
 writes the output translation table as a binary string to standard
 output, so you should redirect it to a suitable file. 
 .B lilo
@@ -72,35 +72,35 @@ files, but the suggested naming convention and location is
 (where
 .B .ktl
 stands for "Keyboard Table for Lilo").
-.SH OPTIONS
-.TP
-.B -p
-.IR old_code = new_code
-.br
+.SH "OPTIONS"
+.TP 
+.B \-p
+.I R old_code = new_code
+.br 
 Specifies corrections ("patches") to the mapping obtained from the 
 translation table files. E.g. if pressing the upper case "A" should 
-yield an at sign, -p 65=64 would be used. The  -p  option can be 
+yield an at sign, \-p 65=64 would be used. The  \-p  option can be 
 repeated any number of times. The codes can also be given as 
 hexadecimal or as octal numbers if they are prefixed with 0x or 0, 
 respectively. 
 
-.SH EXAMPLES
-.TP
-.B keytab-lilo dvorak >/boot/dvorak.ktl
+.SH "EXAMPLES"
+.TP 
+.B keytab\-lilo dvorak >/boot/dvorak.ktl
 
 This is the most common form of invocation; it simply compiles the
 given map file (in this case dvorak) and puts the result in
 .BR /boot/dvorak.ktl .
 
-.SH AUTHOR
+.SH "AUTHOR"
 Werner Almesberger (almesber@bernina.ethz.ch).
-.br
+.br 
 Peter Maydell (pmaydell@chiark.greenend.org.uk) wrote this manual page.
-.SH SEE ALSO
+.SH "SEE ALSO"
 .BR lilo (8),
 .BR keytables (5),
 .BR gzip (1)
 
 .B lilo
-comes with extensive documentation; this can be found in
-/usr/share/doc/lilo/ on Debian systems.
+comes with extensive documentation which can be found in
+/usr/share/doc/lilo-doc/ on Debian-based systems.

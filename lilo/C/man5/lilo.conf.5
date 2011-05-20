@@ -16,7 +16,7 @@
 .\" this software without specific prior written permission. This work
 .\" is provided "as is" and without any express or implied warranties.
 .\"
-.TH LILO.CONF 5 "19 Feb 2007"
+.TH LILO.CONF 5 "April 2011"
 .SH NAME
 lilo.conf \- configuration file for lilo
 .SH DESCRIPTION
@@ -28,7 +28,7 @@ is read by the boot loader installer 'lilo' (see lilo(8)).
 It might look as follows:
 .IP
 .nf
-# lilo.conf
+# /etc/lilo.conf
 #
 #  global options:
 boot=/dev/hda
@@ -41,28 +41,29 @@ root=/dev/hda1
 read-only
 menu-title=" John's Computer "
 #
-#  bootable kernel images:
-image=/boot/zImage-1.5.99
+### bootable kernel images ###
+image=/boot/vmlinuz-2.6.29-1-i386
      label=try
-image=/boot/zImage-1.0.9
-     label=1.0.9
+     initrd=/boot/initrd.img-2.6.29-1-i386
+image=/boot/vmlinuz-2.4.33-1-i386
+     label=2.4.33
 image=/tamu/vmlinuz
      label=tamu
-     initrd=initramdisk.img
+     initrd=/tamu/initrd.img
      root=/dev/hdb2
      vga=ask
 #
-#  other operating systems:
+### other operating systems ###
 other=/dev/hda3
-     label=dos
+     label=PCDOS
      boot-as=0x80    # must be C:
 other=/dev/hdb1
-     label=Win98
+     label=WinXP
      boot-as=0x80    # must be C:
 other=/dev/hdb5
-     label=os2
-     loader=os2_d
-     table=E:   # os2 sees as E:
+     label=oldDOS
+     loader=chain
+     table=/dev/hdb5
 .fi
 .LP
 This configuration file specifies that lilo uses the Master
@@ -119,7 +120,7 @@ as certain RAID installations may benefit from knowing that the
 BIOS is 100% reliable.  Its use should be considered experimental.
 .sp
 N.B.:  This option may not be retained in releases beyond 22.5.1, and
-may be specified on the command line with the '-Z' switch:  yes=1, no=0.
+may be specified on the command line with the '\-Z' switch:  yes=1, no=0.
 .TP
 .BI "bitmap=" <bitmap-file>
 Specifies use of a 640x480x16 (VGA BIOS) or 640x480x256 (VGA/VESA BIOS)
@@ -130,17 +131,19 @@ loader, unless overridden with "install=" (see below).
 .sp
 When a bitmap file is specified as a background screen during the boot
 process, the color selection and layout of the text which overlays the
-graphic image must be specified in one of two ways.  One way, is to use
-a bitmap image (*.bmp) file which has had a header written by the
+graphic image must be specified in one of two ways.
+.sp
+One way is the use of header information in the bitmap image (*.bmp) file:
+From a text file with all the information about 'bmp-colors', 'bmp-table' 
+and 'bmp-timer' options together with the 'bitmap' option are stored in 
+the special LILO  header of the bitmap image file by the
 .BI "lilo -E"
-command.  If this command is used, then all of the
-information specified by the 'bmp-colors', 'bmp-table', and 'bmp-timer'
-options is stored in a special LILO header within the bitmap file.
-Without this header, the 'bmp-' option values should be
-specified in the configuration file; if not, default values are used.
-Any use of the 'bmp-' options
-within the configuration file overrides the values stored in the
-bitmap file header.
++command. Another way works without these special header information: All
++the information about 'bmp-colors', 'bmp-table' and 'bmp-timer' options
++together with the 'bitmap' option are stored in the configuration file.
++Any use of the 'bmp-' options within the configuration file overrides
++the options stored in the bitmap file header. If lilo cannot find any of
++the 'bmp-' options, then default values are used.
 .TP
 .BI "bmp-colors=" <fg>,<bg>,<sh>,<hfg>,<hbg>,<hsh>
 Specifies the decimal values of the colors to be used for the menu display
@@ -184,10 +187,22 @@ display entirely.
 Sets the name of the device (e.g. a hard disk partition) that contains
 the boot sector. If this keyword is omitted, the boot sector is read
 from (and possibly written to) the device that is currently mounted as root.
+.sp
 A raid installation is initiated by specifying a RAID1 device as the boot
 device; e.g., "boot=/dev/md0".  Note that LILO version 22.0 and later
 operate differently from earlier versions with respect to the actual
 location of the boot records.
+.sp
+On newer systems you need an unique ID for the boot device. If the boot
+sector should write to a partition you can use its UUID in the same manner
+is for the root options.
+.sp
+If your boot device is a hard disk you need a special ID, which is supported
+by udev. You find the right ID in the directory /dev/disks/by-id, i. e.:
+.IP
+.nf
+    boot = /dev/disk/by-id/ata-SAMSUNG_SV1604N_S01FJ10X999999
+.fi
 .TP
 .BI "change-rules"
 Defines boot-time changes to partition type numbers (`hiding').
@@ -233,7 +248,7 @@ below.
 Specifies the number of tenths of a second the boot loader should 
 wait before automatically booting a locked command line,
 a command line pre-stored by
-"lilo -R", or the default `image=' or `other='.
+"lilo \-R", or the default `image=' or `other='.
 When `delay' is non-zero, the boot loader will wait for an interrupt for the 
 specified interval. If an interrupt is received, or
 is already waiting, the \fBboot:\fP
@@ -270,10 +285,6 @@ with LILO version 22.5, as the boot loader now identifies disks
 by 32-bit Volume-ID, and defers BIOS device code determination
 until boot time.
 .sp
-Most USB devices which are implemented as SCSI disks MUST be marked
-.BI inaccessible
-unless they are actually assigned a device code by the BIOS.
-.sp
 Other options include the specification of disk geometry; e.g.,
 .sp
 .nf
@@ -284,17 +295,17 @@ Other options include the specification of disk geometry; e.g.,
 .fi
 .sp
 probably only useful for floppy disks and loopback devices,
-since for hard disks the
+because for hard disks the
 .BI lba32
-disk addressing option (LILO 21.2) ignores disk geometry.
+disk addressing option ignores disk geometry.
 .sp
-(22.5.8) Developers who have implemented a disk driver for a new block storage
+Developers who have implemented a disk driver for a new block storage
 device will have to indicate to LILO the maximum number of partitions
 on the device.  This is in addition to making all of the necessary
 entries for the device in the "/dev" directory (with 'mknod').  The
-maximum number of partitions must be one of 63 (like an IDE disk), 31 (uncommon), 15
-(like SCSI disks -- most common value), or 7 (like one array controller).
-An example specification would be:
+maximum number of partitions must be one of 63 (like an IDE disk), 
+31 (uncommon), 15 (like SCSI disks -- most common value), or 7 
+(like one array controller). An example specification would be:
 .sp
 .nf
      disk=/dev/userd0
@@ -326,14 +337,14 @@ if `disktab' is omitted. The use of disktabs is discouraged.
 .BI "el-torito-bootable-CD"
 Flag second stage loader to terminate disk emulation when booting
 from an El Torito Bootable CD. This option is used by the
-\fBmkrescue\fP utility when the "--iso" switch is specified.
+\fBmkrescue\fP utility when the "\-\-iso" switch is specified.
 .TP
 .BI "fix-table"
 This allows lilo to adjust 3D addresses in partition tables. Each 
 partition entry contains a 3D (cylinder/head/sector) and a linear 
 address of the first and the last sector of the partition. If a 
 partition is not track-aligned and if certain other operating systems 
-(e.g. PC/MS-DOS or OS/2) are using the same disk, they may change the 
+(e.g. PC/MS-DOS) are using the same disk, they may change the 
 3D address. lilo can store its boot sector only on partitions where 
 both address types correspond. lilo re-adjusts incorrect 3D start 
 addresses if `fix-table' is set.
@@ -370,7 +381,7 @@ interface as though the console were a dumb terminal.  The \fImenu\fP
 interface is a text-based screen of the boot choices, with the option to
 enter additional command line parameters.  And the \fIbmp\fP interface is a
 menu presented against a graphic screen, specified as a 640x480 BitMaP file
-of 16 or 256 colors.  (See the 'lilo -E' switch for editing options).
+of 16 or 256 colors.  (See the 'lilo \-E' switch for editing options).
 .sp
 (Prior to LILO version 22.3, `install=' specified the user interface as
 a file in the `/boot' directory.)
@@ -521,7 +532,7 @@ protected at the default level `mandatory', which is a level higher than
 .TP
 .BI "prompt"
 Automatic booting (see `delay' above) will not take place unless a locked or
-pre-stored ("lilo -R") command line is present. Instead, the boot
+pre-stored ("lilo \-R") command line is present. Instead, the boot
 loader will issue the 
 .I boot:
 prompt and wait for user input before proceeding (see
@@ -756,23 +767,24 @@ It may be specified as a global option.
 If the special name
 .B current
 is used, the root device is set to the device on which the root file
-system is currently mounted. If the root has been changed with  -r ,
+system is currently mounted. If the root has been changed with  \-r ,
 the respective device is used. If the variable `root' is omitted,
 the root device setting contained in the kernel image is used.
 (And that is set at compile time using the ROOT_DEV variable in
 the kernel Makefile, and can later be changed with the rdev(8) program.)
 .sp
-(22.6) The root filesystem may also be specified by a
+The root filesystem may also be specified by a
 .B LABEL=
 or
 .B UUID=
 directive, as in '/etc/fstab'.  In this case, the argument to
 .I root=
 must be enclosed in quotation marks, to avoid a syntax error on the second
-equal sign; viz., 
+equal sign, e.g.:
 .sp
 .nf
      root="LABEL=MyDisk"
+     root="UUID=5472fd8e-9089-4256-bcaa-ceab4f01a439"
 .fi
 .sp
 Note:  The command line
@@ -804,7 +816,8 @@ select 80x50 text mode.
 .BR ask :
 stop and ask for user input (at boot time).
 .sp
-<number>: use the corresponding text mode. A list of available modes 
+<number>: use the corresponding text mode (can specify the number in decimal
+or in hex with the usual '0x' convention).  A list of available modes 
 can be obtained by booting with
 .I vga=ask
 and pressing [Enter]. 
@@ -828,11 +841,7 @@ By default
 .I chain
 is used.  This chain loader passes partition and drive information in the
 boot sector it loads only to DOS on FAT12 or FAT16, Windows on FAT16 or
-FAT32, or OS/2 on FAT16 or HPFS.
-The alternate chain loader,
-.I os2_d
-passes partition and drive information unconditionally, and uses a format
-suitable for OS/2 and DOS (see 
+FAT32. (see also 
 .I table=<letter>
 below).
 .TP
@@ -847,14 +856,9 @@ Note that /sbin/lilo must be re-run if a partition table mapped referenced
 with `table' is modified.
 .TP
 .BI "table=" <drive-letter>
-This is a special case for the
+This option is obsolete. It were used in the special case with the obsolete
 .I os2_d
-chain loader.  It specifies the DOS drive letter for the partition
-that will be booted.  This is
-.I mandatory
-when booting OS/2 installed on
-an extended partition.  The drive letter may be specified with or without a
-trailing colon.
+chain loader.
 .TP
 .BI "change"
 This keyword starts a section which describes how primary partition IDs are
@@ -862,7 +866,7 @@ changed, and how primary partitions are activated and deactivated.  If
 .B change
 is omitted, change rules are generated as though the 
 .I "automatic"
-keyword were specified.  The keyword
+keyword were specified. The keyword
 .B change
 alone, without any rules following, will suppress automatic change-rules.
 For example,
@@ -913,7 +917,7 @@ interfere with floppy disk BIOS device codes; "boot-as=" is then used as a
 local option to override "master-boot" as necessary.
 .TP
 .BI "master-boot"
-This flag (LILO version 22.5) indicates a DOS/Windows/OS2 or other
+This flag (LILO version 22.5) indicates a DOS/Windows or other
 system which will only boot from BIOS device 0x80, the "C:" drive, or BIOS
 device 0, the A: drive. When this
 flag is specified, if this drive is not assigned device code 0x80 or 0 by the
@@ -1017,7 +1021,7 @@ Passwords entered interactively are not required to be entered again if the
 boot installer is re-run. They are cached, in hashed form, in a companion
 file to the config-file, default name: \fB/etc/lilo.conf.crc\fP. If the 
 config-file is updated, a warning message
-will be issued telling you to re-run \fIlilo -p\fP to force re-creation of the
+will be issued telling you to re-run \fIlilo \-p\fP to force re-creation of the
 password cache file.
 .TP
 .BI "mandatory"
@@ -1054,7 +1058,4 @@ above.
 
 .SH "SEE ALSO"
 lilo(8), mkinitrd(8), mknod(1), mkrescue(8), rdev(8).
-.br
-.sp
-The lilo distribution comes with extensive TEX documentation
-of which the above is an extract.
+
