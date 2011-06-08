@@ -19,15 +19,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra\n"
 "POT-Creation-Date: 2011-05-17 22:27-0400\n"
-"PO-Revision-Date: 2011-05-17 22:32-0400\n"
-"Last-Translator: David Prévot <david@tilapin.org>\n"
+"PO-Revision-Date: 2011-05-22 08:24+0100\n"
+"Last-Translator: Romain DOUMENC <rd6137@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.0\n"
 
 #. type: TH
 #: C/man1/last.1:20
@@ -1754,6 +1753,12 @@ msgid ""
 "is deprecated and to override the defaults an entry should be created in /"
 "etc/fstab, for example:"
 msgstr ""
+"Alors qu'il était jusqu'à présent configuré via B<RAMRUN>, /run est "
+"maintenant monté comme un système de fichier temporaire (tmpfs). Sa taille "
+"peut être contrôlée à l'aide des options TMPFS_SIZE et RUN_SIZE dans le "
+"fichier /etc/default/tmpfs. Cependant, le fichier /etc/default/tmpfs est "
+"obsolète, remplacé par des entrées adéquates dans /etc/fstab surchargeant "
+"les options par défaut. Par exemple :"
 
 #. type: Plain text
 #: C/man5/rcS.5:110
@@ -1769,6 +1774,13 @@ msgid ""
 "fixed.  Note that /run was previously /var/run, and a compatibility symlink "
 "or bind mount will be created to allow the old path to continue to function."
 msgstr ""
+"Le contenu du point de montage /run est réinitialisé à chaque redémarrage du "
+"système, mais n'est plus explicitement nettoyé pendant le démarrage. Les "
+"paquets ne doivent pas compter sur la présence de répertoires dans /run "
+"après un démarrage. Les paquets comptant dessus sont bogués et doivent être "
+"corrigés. Notez que /run était précédemment nommé /var/run, et un lien "
+"symbolique, ou un montage « bind », sera créé afin de permettre à l'ancien "
+"chemin de fonctionner."
 
 #. type: IP
 #: C/man5/rcS.5:119
@@ -1778,14 +1790,6 @@ msgstr "B<RAMLOCK>"
 
 #. type: Plain text
 #: C/man5/rcS.5:126
-#, fuzzy
-#| msgid ""
-#| "Make /var/lock/ available as a ram file system (tmpfs).  Will also "
-#| "disable cleaning of /var/lock/ during boot.  Set to 'yes' to enable, to "
-#| "'no' to disable.  The size of the tmpfs can be controlled using "
-#| "TMPFS_SIZE and LOCK_SIZE in /etc/default/tmpfs.  Because of this, "
-#| "packages can not expect directories in /var/lock to exist after boot.  "
-#| "Packages expecting this are buggy and need to be fixed."
 msgid ""
 "Make /run/lock/ available as a ram file system (tmpfs).  Set to 'yes' to "
 "enable, to 'no' to disable (defaults to yes).  The size of the tmpfs can be "
@@ -1793,14 +1797,13 @@ msgid ""
 "etc/default/tmpfs is deprecated and to override the defaults an entry should "
 "be created in /etc/fstab, for example:"
 msgstr ""
-"Rendre /var/lock/ disponible comme système de fichiers en RAM (tmpfs). Ceci "
-"désactivera également le nettoyage de /var/lock/ pendant le démarrage. "
+"Rendre /rum/lock/ disponible comme système de fichiers en RAM (tmpfs). "
 "Positionnez la variable à « yes » pour l'activer et à « no » pour la "
-"désactiver. La taille du système de fichiers tmpfs peut être contrôlé par "
-"TMPFS_SIZE et RUN_SIZE dans /etc/defaults/tmpfs. Du fait de cette option, "
-"les paquets ne peuvent pas s'attendre à ce que les répertoires de /var/lock "
-"existent après un démarrage. Les paquets qui ont cette exigence sont bogués "
-"et doivent être corrigés."
+"désactiver (la valeur par défaut est « yes »). La taille du système de "
+"fichiers tmpfs peut être contrôlée par TMPFS_SIZE et LOCK_SIZE dans /etc/"
+"defaults/tmpfs. Cependant, le fichier /etc/default/tmpfs est obsolète, "
+"remplacé par des entrées adéquates dans /etc/fstab surchargeant les options "
+"par défaut. Par exemple :"
 
 #. type: Plain text
 #: C/man5/rcS.5:129
@@ -1821,6 +1824,16 @@ msgid ""
 "was previously /var/lock, and a compatibility symlink or bind mount will be "
 "created to allow the old path to continue to function."
 msgstr ""
+"Notez que, de manière indépendante à ces réglages, /run/lock sera situé sur "
+"un système de fichiers temporaires (tmpfs), monté soit sur /run/lock (si "
+"l'option RAMLOCK=yes) ou sur /run (si RAMLOCK=no). Le contenu du répertoire /"
+"var/lock sera donc toujours perdu lors d'un redémarrage système, et non "
+"explicitement vidé au redémarrage. Les paquets ne doivent pas compter sur la "
+"présence de répertoires dans /var/lock après un démarrage. Si des paquets "
+"comptent dessus, cela veut dire qu'ils sont bogués et doivent être corrigés. "
+"Notez que /run/lock était précédemment nommé /var/lock, et un lien "
+"symbolique, ou un montage « bind », sera créé afin de permettre à l'ancien "
+"chemin de fonctionner."
 
 #. type: IP
 #: C/man5/rcS.5:142
@@ -1830,14 +1843,6 @@ msgstr "B<RAMSHM>"
 
 #. type: Plain text
 #: C/man5/rcS.5:148
-#, fuzzy
-#| msgid ""
-#| "Make /var/run/ available as a ram file system (tmpfs).  Will also disable "
-#| "cleaning of /var/run/ during boot.  Set to 'yes' to enable, to 'no' to "
-#| "disable.  The size of the tmpfs can be controlled using TMPFS_SIZE and "
-#| "RUN_SIZE in /etc/default/tmpfs.  Because of this, packages can not expect "
-#| "directories in /var/run to exist after boot.  Packages expecting this are "
-#| "buggy and need to be fixed."
 msgid ""
 "Make /run/shm available as a ram file system (tmpfs).  Set to 'yes' to "
 "enable, to 'no' to disable (defaults to yes).  The size of the tmpfs can be "
@@ -1845,14 +1850,13 @@ msgid ""
 "etc/default/tmpfs is deprecated to override the defaults and an entry should "
 "be created in /etc/fstab, for example:"
 msgstr ""
-"Rendre /var/run/ disponible comme système de fichiers en RAM (tmpfs). Ceci "
-"désactivera également le nettoyage de /var/run/ pendant le démarrage. "
+"Rendre /rum/shm/ disponible comme système de fichiers en RAM (tmpfs). "
 "Positionnez la variable à « yes » pour l'activer et à « no » pour la "
-"désactiver. La taille du système de fichiers tmpfs peut être contrôlé par "
-"TMPFS_SIZE et RUN_SIZE dans /etc/defaults/tmpfs. Du fait de cette option, "
-"les paquets ne peuvent pas s'attendre à ce que les répertoires de /var/run "
-"existent après un démarrage. Les paquets qui ont cette exigence sont bogués "
-"et doivent être corrigés."
+"désactiver (la valeur par défaut est « yes »). La taille du système de "
+"fichiers tmpfs peut être contrôlée par TMPFS_SIZE et SHM_SIZE dans /etc/"
+"defaults/tmpfs. Cependant, le fichier /etc/default/tmpfs est obsolète, "
+"remplacé par des entrées adéquates dans /etc/fstab surchargeant les options "
+"par défaut. Par exemple :"
 
 #. type: Plain text
 #: C/man5/rcS.5:151
@@ -1866,6 +1870,10 @@ msgid ""
 "that /run/shm was previously /dev/shm, and a compatibility symlink or bind "
 "mount will be created to allow the old path to continue to function."
 msgstr ""
+"Les paquets ne peuvent compter sur la présence de répertoires dans /run/shm "
+"après le redémarrage. Notez que /run/shm était précédemment nommé /dev/shm, "
+"et un lien symbolique, ou un montage « bind », sera utilisé pour permettre à "
+"l'ancien chemin de fonctionner."
 
 #. type: IP
 #: C/man5/rcS.5:159
@@ -1875,14 +1883,6 @@ msgstr "B<RAMTMP>"
 
 #. type: Plain text
 #: C/man5/rcS.5:165
-#, fuzzy
-#| msgid ""
-#| "Make /var/run/ available as a ram file system (tmpfs).  Will also disable "
-#| "cleaning of /var/run/ during boot.  Set to 'yes' to enable, to 'no' to "
-#| "disable.  The size of the tmpfs can be controlled using TMPFS_SIZE and "
-#| "RUN_SIZE in /etc/default/tmpfs.  Because of this, packages can not expect "
-#| "directories in /var/run to exist after boot.  Packages expecting this are "
-#| "buggy and need to be fixed."
 msgid ""
 "Make /tmp/ available as a ram file system (tmpfs).  Set to 'yes' to enable, "
 "to 'no' to disable (defaults to yes).  The size of the tmpfs can be "
@@ -1890,14 +1890,13 @@ msgid ""
 "etc/default/tmpfs is deprecated and to override the defaults an entry should "
 "be created in /etc/fstab, for example:"
 msgstr ""
-"Rendre /var/run/ disponible comme système de fichiers en RAM (tmpfs). Ceci "
-"désactivera également le nettoyage de /var/run/ pendant le démarrage. "
+"Rendre /tmp/ disponible comme système de fichiers en RAM (tmpfs). "
 "Positionnez la variable à « yes » pour l'activer et à « no » pour la "
-"désactiver. La taille du système de fichiers tmpfs peut être contrôlé par "
-"TMPFS_SIZE et RUN_SIZE dans /etc/defaults/tmpfs. Du fait de cette option, "
-"les paquets ne peuvent pas s'attendre à ce que les répertoires de /var/run "
-"existent après un démarrage. Les paquets qui ont cette exigence sont bogués "
-"et doivent être corrigés."
+"désactiver (la valeur par défaut est « yes »). La taille du système de "
+"fichiers tmpfs peut être contrôlée par TMPFS_SIZE et TMP_SIZE dans /etc/"
+"defaults/tmpfs. Cependant, le fichier /etc/default/tmpfs est obsolète, "
+"remplacé par des entrées adéquates dans /etc/fstab surchargeant les options "
+"par défaut. Par exemple :"
 
 #. type: Plain text
 #: C/man5/rcS.5:168
@@ -1908,6 +1907,8 @@ msgstr "tmpfs\t/tmp\ttmpfs\tnodev,nosuid,size=20%,mode=1777\t0\t0"
 #: C/man5/rcS.5:171
 msgid "Packages can not expect directories in /tmp to exist after boot."
 msgstr ""
+"Les paquets ne doivent pas compter sur la présence de fichiers dans /tmp "
+"après un démarrage."
 
 #. type: IP
 #: C/man5/rcS.5:172
