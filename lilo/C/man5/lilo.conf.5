@@ -69,22 +69,22 @@ other=/dev/hdb5
 This configuration file specifies that lilo uses the Master
 Boot Record on /dev/hda. (For a discussion of the various ways
 to use lilo, and the interaction with other operating systems,
-see user.tex from the lilo documentation.)
+see user.pdf from the lilo documentation.)
 .LP
 When booting, the boot loader will issue its 
 .I "boot:"
-prompt and wait for you to enter the label of the kernel (and any options)
-which you wish to boot. At any time you may hit [Tab] to see
-a list of kernel/other labels.
+prompt and wait for you to enter the label of the kernel (and any
+options) which you wish to boot. At any time you may hit [Tab] to
+see a list of kernel/other labels.
 Alternately, if the \fBmenu\fP boot loader is installed,
 a menu of boot options will be presented for your selection.
 The title of this menu is overridden with the menu
 title specification in this configuration file.
-If you enter nothing,
-then the default kernel image, the first mentioned, (/boot/zImage-1.5.99)
-will be booted after a timeout of 15 seconds (150 deciseconds).
-There may be at least 16 images mentioned in lilo.conf. (The exact number depends
-upon compilation options.)
+If you enter nothing, then the default kernel image, the first 
+mentioned, (in the example /boot/vmlinuz-2.6.29-1-i386) will be
+booted after a timeout of 15 seconds (150 deciseconds). There may
+be at least 16 images mentioned in lilo.conf. (The exact number 
+depends upon compilation options.)
 .LP
 As can be seen above, a configuration file starts with a number
 of global options (the top 9 lines in the example),
@@ -95,7 +95,7 @@ Comment lines may appear anywhere, and begin with the "#" character.
 
 .SH "GLOBAL OPTIONS"
 There are many possible keywords. The description below is
-almost literally from user.tex (just slightly abbreviated).
+almost literally from user.pdf (just slightly abbreviated).
 .TP
 .BI "backup=" <backup-file>
 Specifies the location where a copy of any modified boot sector will be
@@ -119,8 +119,8 @@ loader in the DL register.  Its only function at this point is experimental,
 as certain RAID installations may benefit from knowing that the
 BIOS is 100% reliable.  Its use should be considered experimental.
 .sp
-N.B.:  This option may not be retained in releases beyond 22.5.1, and
-may be specified on the command line with the '\-Z' switch:  yes=1, no=0.
+This option may be specified on the command line with the '\-Z' switch:
+yes=1, no=0.
 .TP
 .BI "bitmap=" <bitmap-file>
 Specifies use of a 640x480x16 (VGA BIOS) or 640x480x256 (VGA/VESA BIOS)
@@ -138,12 +138,12 @@ From a text file with all the information about 'bmp-colors', 'bmp-table'
 and 'bmp-timer' options together with the 'bitmap' option are stored in 
 the special LILO  header of the bitmap image file by the
 .BI "lilo -E"
-+command. Another way works without these special header information: All
-+the information about 'bmp-colors', 'bmp-table' and 'bmp-timer' options
-+together with the 'bitmap' option are stored in the configuration file.
-+Any use of the 'bmp-' options within the configuration file overrides
-+the options stored in the bitmap file header. If lilo cannot find any of
-+the 'bmp-' options, then default values are used.
+command. Another way works without these special header information: All
+the information about 'bmp-colors', 'bmp-table' and 'bmp-timer' options
+together with the 'bitmap' option are stored in the configuration file.
+Any use of the 'bmp-' options within the configuration file overrides
+the options stored in the bitmap file header. If lilo cannot find any of
+the 'bmp-' options, then default values are used.
 .TP
 .BI "bmp-colors=" <fg>,<bg>,<sh>,<hfg>,<hbg>,<hsh>
 Specifies the decimal values of the colors to be used for the menu display
@@ -184,14 +184,12 @@ then the form 'bmp-timer = none' is acceptable.  This will disable the timer
 display entirely.
 .TP
 .BI "boot=" <boot-device>
-Sets the name of the device (e.g. a hard disk partition) that contains
-the boot sector. If this keyword is omitted, the boot sector is read
-from (and possibly written to) the device that is currently mounted as root.
+Sets the name of the device (e.g. hard disk or partition) that contains
+the boot sector and where the new boot sector should be written to. Notice: 
+The boot-device should be the device with the currently mounted root partition.
 .sp
 A raid installation is initiated by specifying a RAID1 device as the boot
-device; e.g., "boot=/dev/md0".  Note that LILO version 22.0 and later
-operate differently from earlier versions with respect to the actual
-location of the boot records.
+device; e.g., "boot=/dev/md0".
 .sp
 On newer systems you need an unique ID for the boot device. If the boot
 sector should write to a partition you can use its UUID in the same manner
@@ -230,7 +228,7 @@ rules are sufficient.  The strings which define the partition types
 are used in a
 .I change
 section (see below), with the suffixes "_normal" or "_hidden" appended.
-See section "Partition type change rules" of user.tex for more details.
+See section "Partition type change rules" of user.pdf for more details.
 .TP
 .BI "compact"
 Tries to merge read requests for adjacent sectors into a single 
@@ -260,7 +258,7 @@ This action is modified by specifying `prompt' (see below).
 .TP
 .BI "disk=" <device-name>
 Defines non-standard parameters for the specified disk.
-See section "Disk geometry" of user.tex for details.
+See section "Disk geometry" of user.pdf for details.
 For versions of LILO prior to 22.5, the `bios=' parameter
 is quite useful for specifying how the BIOS has assigned
 device codes to your disks.
@@ -707,17 +705,26 @@ If the booted image is a Linux kernel, then one may pass
 command line parameters to this kernel.
 .TP
 .BI "addappend=" <string>
-(22.6) The kernel parameters from the specified string, are concatenated to the
+The kernel parameters of this string are concatenated to the
 parameter(s) from an
 .B "append="
-specification (see below).
-The string must be enclosed within double quotes.  Usually, the previous
+option (see below).
+The string of addappend must be enclosed within double quotes. 
+Usually, the previous
 .B "append="
-will specify parameters common to all kernels by appearing in the top,
-or global, section of the configuration file and
+will set parameters common to all kernels by appearing in the global 
+section of the configuration file and
 .B "addappend="
 will be used to add local parameter(s) to an individual image.
-Addappend= may be used only once per "image=" section.
+The addappend option may be used only once per "image=" section.
+.sp
+If the string is a very long line, this line can be divided 
+in more lines using "\\" as last character of a line, e.g.
+.sp
+.nf
+    addappend="noapic acpi=off pci=usepirqmask \\
+            pnpbios=off pnpacpi=off noisapnp"
+.fi
 .TP
 .BI "append=" <string>
 Appends the options specified to the parameter line passed to the kernel.
@@ -726,14 +733,16 @@ entirely auto-detected or for which probing may be dangerous. Multiple
 kernel parameters are separated by a blank space, and the string must be
 enclosed in double quotes.  A local append= appearing withing an image=
 section overrides any
-global append= appearing in the top section of the configuration file.
-Append= may be used only once per "image="
+global append= appearing in the global section of the configuration file.
+The append option may be used only once per "image="
 section. To concatenate parameter strings, use "addappend=". Example:
 .sp
 .nf
      append="mem=96M hd=576,64,32 console=ttyS1,9600"
 .fi
 .sp
+If the string is a very long line, this line can be divided in more lines 
+using "\\" as last character of a line. See example of addappend option.
 .TP
 .BI "initrd=" <name>
 Specifies the initial ramdisk image to be loaded with the kernel.  The
@@ -769,9 +778,8 @@ If the special name
 is used, the root device is set to the device on which the root file
 system is currently mounted. If the root has been changed with  \-r ,
 the respective device is used. If the variable `root' is omitted,
-the root device setting contained in the kernel image is used.
-(And that is set at compile time using the ROOT_DEV variable in
-the kernel Makefile, and can later be changed with the rdev(8) program.)
+the root device setting contained in the running kernel image is used.
+Warning: This can induce to an unbootable system!
 .sp
 The root filesystem may also be specified by a
 .B LABEL=
