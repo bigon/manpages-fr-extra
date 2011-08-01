@@ -21,7 +21,7 @@
 . \" ISO 8601 date, complete format, extended representation
 . ds Dt \\*(Yr-\\*(Mn-\\*(Dy
 ..
-.TH GREP 1 \*(Dt "GNU grep 2.6.3" "User Commands"
+.TH GREP 1 \*(Dt "GNU grep 2.9" "User Commands"
 .hy 0
 .
 .SH NAME
@@ -118,7 +118,7 @@ This is the default.
 .BR \-P ", " \-\^\-perl\-regexp
 Interpret
 .I PATTERN
-as a Perl regular expression.
+as a Perl regular expression (PCRE, see below).
 This is highly experimental and
 .B "grep \-P"
 may warn of unimplemented features.
@@ -602,7 +602,7 @@ expressions, by using various operators to combine smaller expressions.
 .PP
 .B grep
 understands three different versions of regular expression syntax:
-\*(lqbasic,\*(rq \*(lqextended\*(rq and \*(lqperl.\*(rq In
+\*(lqbasic\*(rq (BRE), \*(lqextended\*(rq (ERE) and \*(lqperl\*(rq (PRCE). In
 .RB "\s-1GNU\s0\ " grep ,
 there is no difference in available functionality between basic and
 extended syntaxes.
@@ -749,11 +749,6 @@ times.
 The preceding item is matched
 .I n
 or more times.
-.TP
-.BI {, m }
-The preceding item is matched at most
-.I m
-times.
 .TP
 .BI { n , m }
 The preceding item is matched at least
@@ -1169,7 +1164,7 @@ If an error occurred the exit status is 2.  (Note: POSIX error
 handling code should check for '2' or greater.)
 .
 .SH COPYRIGHT
-Copyright 1998-2000, 2002, 2005-2010 Free Software Foundation, Inc.
+Copyright 1998-2000, 2002, 2005-2011 Free Software Foundation, Inc.
 .PP
 This is free software;
 see the source for copying conditions.
