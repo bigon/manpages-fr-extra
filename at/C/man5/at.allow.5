@@ -14,9 +14,6 @@ or
 The format of the files is a list of usernames, one on each line.  Whitespace
 is not permitted.
 .PP
-The superuser may always use
-.BR at .
-.PP
 If the file
 .I /etc/at.allow
 exists, only usernames mentioned in it are allowed to use
@@ -26,10 +23,18 @@ If
 .I /etc/at.allow
 does not exist,
 .I /etc/at.deny
-is checked.
+is checked, every username not mentioned in it is then allowed
+to use
+.BR at .
+.PP
+An empty
+.I /etc/at.deny
+means that every user may use
+.BR at .
+.PP
+If neither exists, only the superuser is allowed to use at.
 .SH "SEE ALSO"
 .BR at (1),
-.BR atrun (1),
 .BR cron (8),
 .BR crontab (1),
 .BR atd (8).
