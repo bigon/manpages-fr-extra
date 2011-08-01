@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cron\n"
-"POT-Creation-Date: 2011-04-26 22:01+0300\n"
+"POT-Creation-Date: 2011-08-02 00:01+0300\n"
 "PO-Revision-Date: 2011-04-27 02:05+0200\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -237,7 +237,7 @@ msgstr ""
 "aura pour effet que la commande B<crontab -l> affichera l'en-tête."
 
 #. type: SH
-#: C/man1/crontab.1:127 C/man5/crontab.5:272 C/man8/cron.8:161
+#: C/man1/crontab.1:127 C/man5/crontab.5:274 C/man8/cron.8:162
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
@@ -303,7 +303,7 @@ msgstr ""
 "Vixie Cron, ainsi que de la syntaxe SVR3 classique."
 
 #. type: SH
-#: C/man1/crontab.1:152 C/man5/crontab.5:307
+#: C/man1/crontab.1:152 C/man5/crontab.5:309
 #, no-wrap
 msgid "DIAGNOSTICS"
 msgstr "DIAGNOSTICS"
@@ -329,13 +329,13 @@ msgstr ""
 "considérera (au moins partiellement) cassée et refusera de l'installer."
 
 #. type: SH
-#: C/man1/crontab.1:160 C/man5/crontab.5:313 C/man8/cron.8:163
+#: C/man1/crontab.1:160 C/man5/crontab.5:315 C/man8/cron.8:164
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTEUR"
 
 #. type: Plain text
-#: C/man1/crontab.1:162 C/man5/crontab.5:315 C/man8/cron.8:165
+#: C/man1/crontab.1:162 C/man5/crontab.5:317 C/man8/cron.8:166
 #, no-wrap
 msgid "Paul Vixie E<lt>paul@vix.comE<gt>\n"
 msgstr "Paul Vixie E<lt>paul@vix.comE<gt>\n"
@@ -381,23 +381,29 @@ msgstr ""
 "même ligne qu'une affectation de variable d'environnement."
 
 #. type: Plain text
-#: C/man5/crontab.5:44
+#: C/man5/crontab.5:46
+#, fuzzy
+#| msgid ""
+#| "An active line in a crontab will be either an environment setting or a "
+#| "cron command.  An environment setting is of the form,"
 msgid ""
 "An active line in a crontab will be either an environment setting or a cron "
-"command.  An environment setting is of the form,"
+"command.  The crontab file is parsed from top to bottom, so any environment "
+"settings will affect only the cron commands below them in the file.  An "
+"environment setting is of the form,"
 msgstr ""
 "Une ligne active dans une crontab devra donc être soit une affectation de "
 "variable d'environnement, soit une commande cron. Une ligne d'affectation "
 "d'environnement est de la forme :"
 
 #. type: Plain text
-#: C/man5/crontab.5:46
+#: C/man5/crontab.5:48
 #, no-wrap
 msgid "    name = value\n"
 msgstr "    nom = valeur\n"
 
 #. type: Plain text
-#: C/man5/crontab.5:63
+#: C/man5/crontab.5:65
 msgid ""
 "where the spaces around the equal-sign (=) are optional, and any subsequent "
 "non-leading spaces in I<value> will be part of the value assigned to "
@@ -415,18 +421,18 @@ msgstr ""
 "d'environnement ou le remplacement de variables, ainsi une ligne comme"
 
 #. type: Plain text
-#: C/man5/crontab.5:65
+#: C/man5/crontab.5:67
 #, no-wrap
 msgid "    PATH = $HOME/bin:$PATH\n"
 msgstr "    PATH = $HOME/bin:$PATH\n"
 
 #. type: Plain text
-#: C/man5/crontab.5:67
+#: C/man5/crontab.5:69
 msgid "will not work as you might expect. And neither will this work"
 msgstr "ne fonctionnera pas comme attendu. Tout comme ceci ne fonctionnera pas"
 
 #. type: Plain text
-#: C/man5/crontab.5:71
+#: C/man5/crontab.5:73
 #, no-wrap
 msgid ""
 "    A=1\n"
@@ -438,7 +444,7 @@ msgstr ""
 "    C=$A $B\n"
 
 #. type: Plain text
-#: C/man5/crontab.5:74
+#: C/man5/crontab.5:76
 msgid ""
 "There will not be any subsitution for the defined variables in the last "
 "value."
@@ -447,7 +453,7 @@ msgstr ""
 "valeur."
 
 #. type: Plain text
-#: C/man5/crontab.5:79
+#: C/man5/crontab.5:81
 msgid ""
 "An alternative for setting up the commands path is using the fact that many "
 "shells will treat the tilde(~) as substitution of $HOME, so if you use "
@@ -459,7 +465,7 @@ msgstr ""
 "tâches, vous pouvez utiliser ceci :"
 
 #. type: Plain text
-#: C/man5/crontab.5:82
+#: C/man5/crontab.5:84
 #, no-wrap
 msgid ""
 "     SHELL=/bin/bash\n"
@@ -469,7 +475,7 @@ msgstr ""
 "     PATH=~/bin:/usr/bin/:/bin\n"
 
 #. type: Plain text
-#: C/man5/crontab.5:90
+#: C/man5/crontab.5:92
 msgid ""
 "Several environment variables are set up automatically by the I<cron>(8)  "
 "daemon.  SHELL is set to /bin/sh, and LOGNAME and HOME are set from the /etc/"
@@ -485,7 +491,7 @@ msgstr ""
 "LOGNAME, qui est l'utilisateur ayant lancé la tâche."
 
 #. type: Plain text
-#: C/man5/crontab.5:93
+#: C/man5/crontab.5:95
 msgid ""
 "(Another note: the LOGNAME variable is sometimes called USER on BSD "
 "systems...  on these systems, USER will be set also.)"
@@ -494,7 +500,7 @@ msgstr ""
 "Sur ces systèmes, USER doit aussi être définie.)"
 
 #. type: Plain text
-#: C/man5/crontab.5:102
+#: C/man5/crontab.5:104
 msgid ""
 "In addition to LOGNAME, HOME, and SHELL, I<cron>(8)  will look at MAILTO if "
 "it has any reason to send mail as a result of running commands in ``this'' "
@@ -513,7 +519,7 @@ msgstr ""
 "sera envoyé. Sinon, le courriel sera envoyé au propriétaire de la crontab."
 
 #. type: Plain text
-#: C/man5/crontab.5:117
+#: C/man5/crontab.5:119
 msgid ""
 "On the Debian GNU/Linux system, cron supports the B<pam_env> module, and "
 "loads the environment specified by I</etc/environment> and I</etc/security/"
@@ -533,7 +539,7 @@ msgstr ""
 "fichier crontab."
 
 #. type: Plain text
-#: C/man5/crontab.5:129
+#: C/man5/crontab.5:131
 msgid ""
 "By default, cron will send mail using the mail \"Content-Type:\" header of "
 "\"text/plain\" with the \"charset=\" parameter set to the charmap / codeset "
@@ -554,7 +560,7 @@ msgstr ""
 "vos crontabs aux valeurs souhaitées des en-têtes de message correspondants."
 
 #. type: Plain text
-#: C/man5/crontab.5:137
+#: C/man5/crontab.5:139
 msgid ""
 "The format of a cron command is very much the V7 standard, with a number of "
 "upward-compatible extensions.  Each line has five time and date fields, "
@@ -572,7 +578,7 @@ msgstr ""
 "séparés par des espaces ou des tabulations."
 
 #. type: Plain text
-#: C/man5/crontab.5:147
+#: C/man5/crontab.5:149
 msgid ""
 "Commands are executed by I<cron>(8)  when the minute, hour, and month of "
 "year fields match the current time, I<and> when at least one of the two day "
@@ -587,55 +593,55 @@ msgstr ""
 "chaque minute. Les champs d'heure et de date sont :"
 
 #. type: ta
-#: C/man5/crontab.5:148 C/man5/crontab.5:212
+#: C/man5/crontab.5:150 C/man5/crontab.5:214
 #, no-wrap
 msgid "1.5i"
 msgstr "1.5i"
 
 #. type: Plain text
-#: C/man5/crontab.5:150
+#: C/man5/crontab.5:152
 msgid "field\tallowed values"
 msgstr "champ\t valeurs autorisées"
 
 #. type: Plain text
-#: C/man5/crontab.5:152
+#: C/man5/crontab.5:154
 msgid "-----\t--------------"
 msgstr "-----\t --------------"
 
 #. type: Plain text
-#: C/man5/crontab.5:154
+#: C/man5/crontab.5:156
 msgid "minute\t0-59"
 msgstr "minute\t 0-59"
 
 #. type: Plain text
-#: C/man5/crontab.5:156
+#: C/man5/crontab.5:158
 msgid "hour\t0-23"
 msgstr "heure\t 0-23"
 
 #. type: Plain text
-#: C/man5/crontab.5:158
+#: C/man5/crontab.5:160
 msgid "day of month\t1-31"
 msgstr "jour du mois\t 1-31"
 
 #. type: Plain text
-#: C/man5/crontab.5:160
+#: C/man5/crontab.5:162
 msgid "month\t1-12 (or names, see below)"
 msgstr "mois\t 1-12 (ou noms, voir ci-dessous)"
 
 #. type: Plain text
-#: C/man5/crontab.5:162
+#: C/man5/crontab.5:164
 msgid "day of week\t0-7 (0 or 7 is Sun, or use names)"
 msgstr "jour de semaine\t 0-7 (0 et 7 pour dimanche, ou utiliser les noms)"
 
 #. type: Plain text
-#: C/man5/crontab.5:165
+#: C/man5/crontab.5:167
 msgid "A field may be an asterisk (*), which always stands for ``first-last''."
 msgstr ""
 "Un champ peut contenir un astérisque « * », qui correspond à l'intervalle "
 "« premier-dernier »."
 
 #. type: Plain text
-#: C/man5/crontab.5:170
+#: C/man5/crontab.5:172
 msgid ""
 "Ranges of numbers are allowed.  Ranges are two numbers separated with a "
 "hyphen.  The specified range is inclusive.  For example, 8-11 for an "
@@ -647,7 +653,7 @@ msgstr ""
 "11."
 
 #. type: Plain text
-#: C/man5/crontab.5:173
+#: C/man5/crontab.5:175
 msgid ""
 "Lists are allowed.  A list is a set of numbers (or ranges)  separated by "
 "commas.  Examples: ``1,2,5,9'', ``0-4,8-12''."
@@ -656,7 +662,7 @@ msgstr ""
 "d'intervalles séparés par des virgules. Exemple « 1,2,5,9 », « 0-4,8-12 »."
 
 #. type: Plain text
-#: C/man5/crontab.5:181
+#: C/man5/crontab.5:183
 msgid ""
 "Step values can be used in conjunction with ranges.  Following a range with "
 "``/E<lt>numberE<gt>'' specifies skips of the number's value through the "
@@ -674,7 +680,7 @@ msgstr ""
 "peut utiliser « */2 »."
 
 #. type: Plain text
-#: C/man5/crontab.5:186
+#: C/man5/crontab.5:188
 msgid ""
 "Names can also be used for the ``month'' and ``day of week'' fields.  Use "
 "the first three letters of the particular day or month (case doesn't "
@@ -685,7 +691,7 @@ msgstr ""
 "minuscule). Les intervalles ou les listes de noms ne sont pas acceptés."
 
 #. type: Plain text
-#: C/man5/crontab.5:197
+#: C/man5/crontab.5:199
 msgid ""
 "The ``sixth'' field (the rest of the line) specifies the command to be run.  "
 "The entire command portion of the line, up to a newline or % character, will "
@@ -706,7 +712,7 @@ msgstr ""
 "plusieurs lignes, comme on le ferait dans un shell avec le \\e final."
 
 #. type: Plain text
-#: C/man5/crontab.5:203
+#: C/man5/crontab.5:205
 msgid ""
 "Note: The day of a command's execution can be specified by two fields \\(em "
 "day of month, and day of week.  If both fields are restricted (i.e., aren't "
@@ -719,7 +725,7 @@ msgstr ""
 "moins correspond à la date en cours. Par exemple"
 
 #. type: Plain text
-#: C/man5/crontab.5:209
+#: C/man5/crontab.5:211
 msgid ""
 "``30 4 1,15 * 5'' would cause a command to be run at 4:30 am on the 1st and "
 "15th of each month, plus every Friday. One can, however, achieve the desired "
@@ -732,7 +738,7 @@ msgstr ""
 "dans la section B<EXEMPLE DE FICHIER CRONTAB> plus bas)."
 
 #. type: Plain text
-#: C/man5/crontab.5:211
+#: C/man5/crontab.5:213
 msgid ""
 "Instead of the first five fields, one of eight special strings may appear:"
 msgstr ""
@@ -740,63 +746,63 @@ msgstr ""
 "spéciales :"
 
 #. type: Plain text
-#: C/man5/crontab.5:214
+#: C/man5/crontab.5:216
 msgid "string\tmeaning"
 msgstr "chaîne\tsignification"
 
 #. type: Plain text
-#: C/man5/crontab.5:216
+#: C/man5/crontab.5:218
 msgid "------\t-------"
 msgstr "------\t-------"
 
 #. type: Plain text
-#: C/man5/crontab.5:218
+#: C/man5/crontab.5:220
 msgid "@reboot\tRun once, at startup."
 msgstr "@reboot\tExécuter une fois au démarrage."
 
 #. type: Plain text
-#: C/man5/crontab.5:220
+#: C/man5/crontab.5:222
 msgid "@yearly\tRun once a year, \"0 0 1 1 *\"."
 msgstr "@yearly\tExécuter une fois par an, « 0 0 1 1 * »."
 
 #. type: Plain text
-#: C/man5/crontab.5:222
+#: C/man5/crontab.5:224
 msgid "@annually\t(same as @yearly)"
 msgstr "@annually\t(idem que @yearly) "
 
 #. type: Plain text
-#: C/man5/crontab.5:224
+#: C/man5/crontab.5:226
 msgid "@monthly\tRun once a month, \"0 0 1 * *\"."
 msgstr "@monthly\tExécuter une fois par mois, « 0 0 1 * * »."
 
 #. type: Plain text
-#: C/man5/crontab.5:226
+#: C/man5/crontab.5:228
 msgid "@weekly\tRun once a week, \"0 0 * * 0\"."
 msgstr "@weekly\tExécuter une fois par semaine, « 0 0 * * 0 »."
 
 #. type: Plain text
-#: C/man5/crontab.5:228
+#: C/man5/crontab.5:230
 msgid "@daily\tRun once a day, \"0 0 * * *\"."
 msgstr "@daily\tExécuter une fois par jour, « 0 0 * * * »."
 
 #. type: Plain text
-#: C/man5/crontab.5:230
+#: C/man5/crontab.5:232
 msgid "@midnight\t(same as @daily)"
 msgstr "@midnight\t(idem que @daily)"
 
 #. type: Plain text
-#: C/man5/crontab.5:232
+#: C/man5/crontab.5:234
 msgid "@hourly\tRun once an hour, \"0 * * * *\"."
 msgstr "@hourly\tExécuter une fois par heure, « 0 * * * * »."
 
 #. type: SH
-#: C/man5/crontab.5:233
+#: C/man5/crontab.5:235
 #, no-wrap
 msgid "EXAMPLE CRON FILE"
 msgstr "EXEMPLE DE FICHIER CRONTAB"
 
 #. type: Plain text
-#: C/man5/crontab.5:251
+#: C/man5/crontab.5:253
 #, no-wrap
 msgid ""
 "# use /bin/bash to run commands, instead of the default /bin/sh\n"
@@ -833,20 +839,20 @@ msgstr ""
 "0 4 8-14 * *    test $(date +%u) -eq 6 && echo \"deuxième samedi\"\n"
 
 #. type: SH
-#: C/man5/crontab.5:252
+#: C/man5/crontab.5:254
 #, no-wrap
 msgid "EXAMPLE SYSTEM CRON FILE"
 msgstr "EXEMPLE DE FICHIER SYSTÈME CRON"
 
 #. type: Plain text
-#: C/man5/crontab.5:254
+#: C/man5/crontab.5:256
 msgid "This has the username field, as used by /etc/crontab."
 msgstr ""
 "Le champ utilisateur est présent, il est utilisé comme dans le fichier /etc/"
 "crontab."
 
 #. type: Plain text
-#: C/man5/crontab.5:260
+#: C/man5/crontab.5:262
 #, no-wrap
 msgid ""
 "# /etc/crontab: system-wide crontab\n"
@@ -862,7 +868,7 @@ msgstr ""
 "# les autres crontabs n'ont pas.\n"
 
 #. type: Plain text
-#: C/man5/crontab.5:263
+#: C/man5/crontab.5:265
 #, no-wrap
 msgid ""
 "SHELL=/bin/sh\n"
@@ -872,7 +878,7 @@ msgstr ""
 "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin\n"
 
 #. type: Plain text
-#: C/man5/crontab.5:271
+#: C/man5/crontab.5:273
 #, no-wrap
 msgid ""
 "# m h dom mon dow user    command\n"
@@ -892,18 +898,18 @@ msgstr ""
 "# un fichier dans /etc/cron.d\n"
 
 #. type: Plain text
-#: C/man5/crontab.5:274
+#: C/man5/crontab.5:276
 msgid "cron(8), crontab(1)"
 msgstr "cron(8), crontab(1)"
 
 #. type: SH
-#: C/man5/crontab.5:274
+#: C/man5/crontab.5:276
 #, no-wrap
 msgid "EXTENSIONS"
 msgstr "EXTENSIONS"
 
 #. type: Plain text
-#: C/man5/crontab.5:277
+#: C/man5/crontab.5:279
 msgid ""
 "When specifying day of week, both day 0 and day 7 will be considered "
 "Sunday.  BSD and AT&T seem to disagree about this."
@@ -912,7 +918,7 @@ msgstr ""
 "deux au dimanche. BSD et AT&T ne sont pas entièrement d'accord là-dessus."
 
 #. type: Plain text
-#: C/man5/crontab.5:280
+#: C/man5/crontab.5:282
 msgid ""
 "Lists and ranges are allowed to co-exist in the same field.  \"1-3,7-9\" "
 "would be rejected by AT&T or BSD cron -- they want to see \"1-3\" or "
@@ -923,7 +929,7 @@ msgstr ""
 "« 7,8,9 »."
 
 #. type: Plain text
-#: C/man5/crontab.5:282
+#: C/man5/crontab.5:284
 msgid ""
 "Ranges can include \"steps\", so \"1-9/2\" is the same as \"1,3,5,7,9\"."
 msgstr ""
@@ -931,12 +937,12 @@ msgstr ""
 "« 1,3,5,7,9 »."
 
 #. type: Plain text
-#: C/man5/crontab.5:284
+#: C/man5/crontab.5:286
 msgid "Months or days of the week can be specified by name."
 msgstr "Le nom des mois ou des jours de la semaine peut être utilisé."
 
 #. type: Plain text
-#: C/man5/crontab.5:287
+#: C/man5/crontab.5:289
 msgid ""
 "Environment variables can be set in the crontab.  In BSD or AT&T, the "
 "environment handed to child processes is basically the one from /etc/rc."
@@ -946,7 +952,7 @@ msgstr ""
 "celui de /etc/rc."
 
 #. type: Plain text
-#: C/man5/crontab.5:292
+#: C/man5/crontab.5:294
 msgid ""
 "Command output is mailed to the crontab owner (BSD can't do this), can be "
 "mailed to a person other than the crontab owner (SysV can't do this), or the "
@@ -959,7 +965,7 @@ msgstr ""
 "non plus)."
 
 #. type: Plain text
-#: C/man5/crontab.5:295
+#: C/man5/crontab.5:297
 msgid ""
 "All of the `@' commands that can appear in place of the first five fields "
 "are extensions."
@@ -968,13 +974,13 @@ msgstr ""
 "premiers champs sont des extensions."
 
 #. type: SH
-#: C/man5/crontab.5:295
+#: C/man5/crontab.5:297
 #, no-wrap
 msgid "LIMITATIONS"
 msgstr "LIMITATIONS"
 
 #. type: Plain text
-#: C/man5/crontab.5:306
+#: C/man5/crontab.5:308
 msgid ""
 "The I<cron> daemon runs with a defined timezone. It currently does not "
 "support per-user timezones. All the tasks: system's and user's will be run "
@@ -990,7 +996,7 @@ msgstr ""
 "exécutée dans la tâche, pas l'exécution des tâches crontab elles mêmes."
 
 #. type: Plain text
-#: C/man5/crontab.5:312
+#: C/man5/crontab.5:314
 msgid ""
 "cron requires that each entry in a crontab end in a newline character. If "
 "the last entry in a crontab is missing a newline (ie, terminated by EOF), "
@@ -1145,17 +1151,24 @@ msgstr ""
 "etc/crontab."
 
 #. type: Plain text
-#: C/man8/cron.8:92
+#: C/man8/cron.8:93
+#, fuzzy
+#| msgid ""
+#| "In contrast to the spool area, files in /etc/cron.d may be symlinks, "
+#| "provided that both the symlink and the file it points to are owned by "
+#| "root."
 msgid ""
-"In contrast to the spool area, files in /etc/cron.d may be symlinks, "
-"provided that both the symlink and the file it points to are owned by root."
+"/etc/crontab and the files in /etc/cron.d must be owned by root, and must "
+"not be group- or other-writable. In contrast to the spool area, they may "
+"also be symlinks, provided that both the symlink and the file it points to "
+"are owned by root."
 msgstr ""
 "Contrairement à ceux du répertoire /var/spool/cron/crontabs, les fichiers "
 "de /etc/cron.d peuvent être des liens symboliques, à condition que le lien "
 "symbolique et le fichier pointés appartiennent au superutilisateur."
 
 #. type: Plain text
-#: C/man8/cron.8:101
+#: C/man8/cron.8:102
 msgid ""
 "I<cron> then wakes up every minute, examining all stored crontabs, checking "
 "each command to see if it should be run in the current minute.  When "
@@ -1173,7 +1186,7 @@ msgstr ""
 "observable dans le syslog et dans la sortie de la commande ps. "
 
 #. type: Plain text
-#: C/man8/cron.8:116
+#: C/man8/cron.8:117
 msgid ""
 "Additionally, I<cron> checks each minute to see if its spool directory's "
 "modtime (or the modtime on I</etc/crontab)> has changed, and if it has, "
@@ -1191,7 +1204,7 @@ msgstr ""
 "modification du répertoire de stockage si un changement a lieu."
 
 #. type: Plain text
-#: C/man8/cron.8:123
+#: C/man8/cron.8:124
 msgid ""
 "Special considerations exist when the clock is changed by less than 3 hours, "
 "for example at the beginning and end of daylight savings time. If the time "
@@ -1208,7 +1221,7 @@ msgstr ""
 "seront pas exécutés de nouveau."
 
 #. type: Plain text
-#: C/man8/cron.8:128
+#: C/man8/cron.8:129
 msgid ""
 "Only jobs that run at a particular time (not specified as @hourly, nor with "
 "'*' in the hour or minute specifier) are affected. Jobs which are specified "
@@ -1220,7 +1233,7 @@ msgstr ""
 "base de l'heure modifiée."
 
 #. type: Plain text
-#: C/man8/cron.8:131
+#: C/man8/cron.8:132
 msgid ""
 "Clock changes of more than 3 hours are considered to be corrections to the "
 "clock, and the new time is used immediately."
@@ -1229,7 +1242,7 @@ msgstr ""
 "corrections de l'horloge, et la nouvelle heure est utilisée immédiatement."
 
 #. type: Plain text
-#: C/man8/cron.8:135
+#: C/man8/cron.8:136
 msgid ""
 "I<cron> logs its action to the syslog facility 'cron', and logging may be "
 "controlled using the standard syslogd(8) facility."
@@ -1239,13 +1252,13 @@ msgstr ""
 "B<syslogd>(8)."
 
 #. type: SH
-#: C/man8/cron.8:135
+#: C/man8/cron.8:136
 #, no-wrap
 msgid "ENVIRONMENT"
 msgstr "ENVIRONNEMENT"
 
 #. type: Plain text
-#: C/man8/cron.8:148
+#: C/man8/cron.8:149
 msgid ""
 "If configured in I</etc/default/cron> in Debian systems, the I<cron> daemon "
 "localisation settings environment can be managed through the use of I</etc/"
@@ -1264,7 +1277,7 @@ msgstr ""
 "« C » par défaut."
 
 #. type: Plain text
-#: C/man8/cron.8:153
+#: C/man8/cron.8:154
 msgid ""
 "This does B<NOT> affect the environment of tasks running under cron. For "
 "more information on how to modify the environment of tasks, consult crontab"
@@ -1275,7 +1288,7 @@ msgstr ""
 "veuillez consultez B<crontab>(5)."
 
 #. type: Plain text
-#: C/man8/cron.8:157
+#: C/man8/cron.8:158
 msgid ""
 "The daemon will use, if present, the definition from I</etc/timezone> for "
 "the timezone."
@@ -1284,7 +1297,7 @@ msgstr ""
 "etc/timezone>."
 
 #. type: Plain text
-#: C/man8/cron.8:161
+#: C/man8/cron.8:162
 msgid ""
 "The environment can be redefined in user's crontab definitions but I<cron> "
 "will only handle tasks in a single timezone."
@@ -1294,7 +1307,7 @@ msgstr ""
 "horaire."
 
 #. type: Plain text
-#: C/man8/cron.8:163
+#: C/man8/cron.8:164
 msgid "crontab(1), crontab(5)"
 msgstr "crontab(1), crontab(5)."
 
