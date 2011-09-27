@@ -232,7 +232,18 @@ string	meaning
 .br
 @hourly	Run once an hour, "0 * * * *".
 .br
+.PP
+Please note that startup, as far as @reboot is concerned, is the time when
+the
+.IR cron (8)
+daemon startup.  In particular, it may be before some system daemons,
+or other facilities, were startup.  This is due to the boot order
+sequence of the machine.
+
 .SH EXAMPLE CRON FILE
+
+The following lists an example of a user crontab file.
+
 .nf
 
 # use /bin/bash to run commands, instead of the default /bin/sh
@@ -252,24 +263,26 @@ MAILTO=paul
 0 4 8-14 * *    test $(date +%u) \-eq 6 && echo "2nd Saturday"
 .fi
 .SH EXAMPLE SYSTEM CRON FILE
-This has the username field, as used by /etc/crontab.
+
+The following lists the content of a regular system-wide crontab file. Unlinke a
+user's crontab, this file has the username field, as used by /etc/crontab.
+
 .nf
 # /etc/crontab: system-wide crontab
 # Unlike any other crontab you don't have to run the `crontab'
 # command to install the new version when you edit this file
 # and files in /etc/cron.d. These files also have username fields,
-# that none of other the crontabs do.
+# that none of the other crontabs do.
 
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-# m h dom mon dow user    command
-42 6 * * *        root    run-parts \-\-report /etc/cron.daily
-47 6 * * 7        root    run-parts \-\-report /etc/cron.weekly
-52 6 1 * *        root    run-parts \-\-report /etc/cron.monthly
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test \-x /usr/sbin/anacron || ( cd / && run-parts \-\-report /etc/cron.daily )
+47 6	* * 7	root	test \-x /usr/sbin/anacron || ( cd / && run-parts \-\-report /etc/cron.weekly )
+52 6	1 * *	root	test \-x /usr/sbin/anacron || ( cd / && run-parts \-\-report /etc/cron.monthly )
 #
-# Removed invocation of anacron, as this is now handled by a 
-# /etc/cron.d file
 .fi
 .SH SEE ALSO
 cron(8), crontab(1)
@@ -306,6 +319,30 @@ environment variable in his
 this will affect only the commands executed in the crontab, not the execution
 of the crontab tasks themselves.
 
+The 
+.I crontab
+syntax does not make it possible to define all possible periods one could 
+image off. For example, it is not straightforward to define the last
+weekday of a month. If a task needs to be run in a specific period of time
+that cannot be defined in the 
+.I crontab
+syntaxs the best approach would be to have the program itself check the
+date and time information and continue execution only if the period
+matches the desired one.
+
+If the program itself cannot do the checks then a wrapper script would be
+required. Useful tools that could be used for date analysis are 
+.I ncal
+or
+.I calendar 
+For example, to run a program the last Saturday of every month you could use
+the following wrapper code:
+
+.nf
+0 4 * * Sat   [ "$(date +%e)" = "`ncal | grep $(date +%a | sed  -e 's/.$//') | sed -e 's/^.*\\s\\([0-9]\\+\\)\\s*$/\\1/'`" ] && echo "Last Saturday" && program_to_run
+.fi
+
+
 .SH DIAGNOSTICS
 cron requires that each entry in a crontab end in a newline character. If the
 last entry in a crontab is missing a newline (ie, terminated by EOF), cron will
@@ -314,4 +351,7 @@ syslog.
 
 .SH AUTHOR
 .nf
-Paul Vixie <paul@vix.com>
+Paul Vixie <paul@vix.com> is the author of 
+.I cron
+and original creator of this manual page. This page has also been modified for
+Debian by Steve Greenland, Javier Fernandez-Sanguino and Christian Kastner.

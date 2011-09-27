@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-02 00:01+0300\n"
+"POT-Creation-Date: 2011-09-26 21:37-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,7 +152,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/crontab.1:107
+#: C/man1/crontab.1:107 C/man8/cron.8:188
 #, no-wrap
 msgid "DEBIAN SPECIFIC"
 msgstr ""
@@ -182,7 +182,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/crontab.1:127 C/man5/crontab.5:274 C/man8/cron.8:162
+#: C/man1/crontab.1:127 C/man5/crontab.5:287 C/man8/cron.8:297
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -234,7 +234,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/crontab.1:152 C/man5/crontab.5:309
+#: C/man1/crontab.1:152 C/man5/crontab.5:346
 #, no-wrap
 msgid "DIAGNOSTICS"
 msgstr ""
@@ -255,15 +255,21 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/crontab.1:160 C/man5/crontab.5:315 C/man8/cron.8:164
+#: C/man1/crontab.1:160 C/man5/crontab.5:352 C/man8/cron.8:299
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/crontab.1:162 C/man5/crontab.5:317 C/man8/cron.8:166
+#: C/man1/crontab.1:165
 #, no-wrap
-msgid "Paul Vixie E<lt>paul@vix.comE<gt>\n"
+msgid ""
+"Paul Vixie E<lt>paul@vix.comE<gt>  is the author of \n"
+"I<cron>\n"
+"and original creator of this manual page. This page has also been modified "
+"for\n"
+"Debian by Steve Greenland, Javier Fernandez-Sanguino and Christian "
+"Kastner.\n"
 msgstr ""
 
 #. type: Plain text
@@ -602,14 +608,28 @@ msgstr ""
 msgid "@hourly\tRun once an hour, \"0 * * * *\"."
 msgstr ""
 
+#. type: Plain text
+#: C/man5/crontab.5:242
+msgid ""
+"Please note that startup, as far as @reboot is concerned, is the time when "
+"the I<cron>(8)  daemon startup.  In particular, it may be before some system "
+"daemons, or other facilities, were startup.  This is due to the boot order "
+"sequence of the machine."
+msgstr ""
+
 #. type: SH
-#: C/man5/crontab.5:235
+#: C/man5/crontab.5:243
 #, no-wrap
 msgid "EXAMPLE CRON FILE"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:253
+#: C/man5/crontab.5:246
+msgid "The following lists an example of a user crontab file."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/crontab.5:264
 #, no-wrap
 msgid ""
 "# use /bin/bash to run commands, instead of the default /bin/sh\n"
@@ -630,29 +650,32 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man5/crontab.5:254
+#: C/man5/crontab.5:265
 #, no-wrap
 msgid "EXAMPLE SYSTEM CRON FILE"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:256
-msgid "This has the username field, as used by /etc/crontab."
+#: C/man5/crontab.5:269
+msgid ""
+"The following lists the content of a regular system-wide crontab "
+"file. Unlinke a user's crontab, this file has the username field, as used by "
+"/etc/crontab."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:262
+#: C/man5/crontab.5:276
 #, no-wrap
 msgid ""
 "# /etc/crontab: system-wide crontab\n"
 "# Unlike any other crontab you don't have to run the `crontab'\n"
 "# command to install the new version when you edit this file\n"
 "# and files in /etc/cron.d. These files also have username fields,\n"
-"# that none of other the crontabs do.\n"
+"# that none of the other crontabs do.\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:265
+#: C/man5/crontab.5:279
 #, no-wrap
 msgid ""
 "SHELL=/bin/sh\n"
@@ -660,38 +683,40 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:273
+#: C/man5/crontab.5:286
 #, no-wrap
 msgid ""
-"# m h dom mon dow user    command\n"
-"42 6 * * *        root    run-parts --report /etc/cron.daily\n"
-"47 6 * * 7        root    run-parts --report /etc/cron.weekly\n"
-"52 6 1 * *        root    run-parts --report /etc/cron.monthly\n"
+"# m h dom mon dow user\tcommand\n"
+"17 *\t* * *\troot    cd / && run-parts --report /etc/cron.hourly\n"
+"25 6\t* * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report "
+"/etc/cron.daily )\n"
+"47 6\t* * 7\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report "
+"/etc/cron.weekly )\n"
+"52 6\t1 * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report "
+"/etc/cron.monthly )\n"
 "#\n"
-"# Removed invocation of anacron, as this is now handled by a \n"
-"# /etc/cron.d file\n"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:276
+#: C/man5/crontab.5:289
 msgid "cron(8), crontab(1)"
 msgstr ""
 
 #. type: SH
-#: C/man5/crontab.5:276
+#: C/man5/crontab.5:289
 #, no-wrap
 msgid "EXTENSIONS"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:279
+#: C/man5/crontab.5:292
 msgid ""
 "When specifying day of week, both day 0 and day 7 will be considered "
 "Sunday.  BSD and AT&T seem to disagree about this."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:282
+#: C/man5/crontab.5:295
 msgid ""
 "Lists and ranges are allowed to co-exist in the same field.  \"1-3,7-9\" "
 "would be rejected by AT&T or BSD cron -- they want to see \"1-3\" or "
@@ -699,24 +724,24 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:284
+#: C/man5/crontab.5:297
 msgid "Ranges can include \"steps\", so \"1-9/2\" is the same as \"1,3,5,7,9\"."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:286
+#: C/man5/crontab.5:299
 msgid "Months or days of the week can be specified by name."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:289
+#: C/man5/crontab.5:302
 msgid ""
 "Environment variables can be set in the crontab.  In BSD or AT&T, the "
 "environment handed to child processes is basically the one from /etc/rc."
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:294
+#: C/man5/crontab.5:307
 msgid ""
 "Command output is mailed to the crontab owner (BSD can't do this), can be "
 "mailed to a person other than the crontab owner (SysV can't do this), or the "
@@ -725,20 +750,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:297
+#: C/man5/crontab.5:310
 msgid ""
 "All of the `@' commands that can appear in place of the first five fields "
 "are extensions."
 msgstr ""
 
 #. type: SH
-#: C/man5/crontab.5:297
+#: C/man5/crontab.5:310
 #, no-wrap
 msgid "LIMITATIONS"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:308
+#: C/man5/crontab.5:321
 msgid ""
 "The I<cron> daemon runs with a defined timezone. It currently does not "
 "support per-user timezones. All the tasks: system's and user's will be run "
@@ -748,12 +773,54 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/crontab.5:314
+#: C/man5/crontab.5:332
+msgid ""
+"The I<crontab> syntax does not make it possible to define all possible "
+"periods one could image off. For example, it is not straightforward to "
+"define the last weekday of a month. If a task needs to be run in a specific "
+"period of time that cannot be defined in the I<crontab> syntaxs the best "
+"approach would be to have the program itself check the date and time "
+"information and continue execution only if the period matches the desired "
+"one."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/crontab.5:340
+msgid ""
+"If the program itself cannot do the checks then a wrapper script would be "
+"required. Useful tools that could be used for date analysis are I<ncal> or "
+"I<calendar> For example, to run a program the last Saturday of every month "
+"you could use the following wrapper code:"
+msgstr ""
+
+#. type: Plain text
+#: C/man5/crontab.5:343
+#, no-wrap
+msgid ""
+"0 4 * * Sat   [ \"$(date +%e)\" = \"`ncal | grep $(date +%a | sed  -e "
+"'s/.$//') | sed -e 's/^.*\\es\\e([0-9]\\e+\\e)\\es*$/\\e1/'`\" ] && echo "
+"\"Last Saturday\" && program_to_run\n"
+msgstr ""
+
+#. type: Plain text
+#: C/man5/crontab.5:351
 msgid ""
 "cron requires that each entry in a crontab end in a newline character. If "
 "the last entry in a crontab is missing a newline (ie, terminated by EOF), "
 "cron will consider the crontab (at least partially) broken. A warning will "
 "be written to syslog."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/crontab.5:357 C/man8/cron.8:305
+#, no-wrap
+msgid ""
+"Paul Vixie E<lt>paul@vix.comE<gt> is the author of \n"
+"I<cron>\n"
+"and original creator of this manual page. This page has also been modified "
+"for\n"
+"Debian by Steve Greenland, Javier Fernandez-Sanguino and Christian "
+"Kastner.\n"
 msgstr ""
 
 #. type: TH
@@ -803,34 +870,86 @@ msgid "B<-l>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:41
-msgid "Enable LSB compliant names for /etc/cron.d files"
+#: C/man8/cron.8:43
+msgid ""
+"Enable LSB compliant names for /etc/cron.d files. This setting, however, "
+"does not affect the parsing of files under /etc/cron.hourly, "
+"/etc/cron.daily, /etc/cron.weekly or /etc/cron.monthly."
 msgstr ""
 
 #. type: TP
-#: C/man8/cron.8:41
+#: C/man8/cron.8:43
 #, no-wrap
 msgid "B<-L loglevel>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:48
+#: C/man8/cron.8:47
 msgid ""
-"Sets the loglevel for cron. The standard logging level (1) will log the "
-"start of all the cron jobs. A higher loglevel (2) will cause cron to log "
-"also the end of all cronjobs, which can be useful to audit the behaviour of "
-"tasks run by cron. Logging will be disabled if the I<loglevel> is set to "
-"zero (0)."
+"Tell cron what to log about B<jobs> (errors are logged regardless of this "
+"value) as the sum of the following values:"
+msgstr ""
+
+#. type: IP
+#: C/man8/cron.8:49
+#, no-wrap
+msgid "B<1>"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:51
+msgid "will log the start of all cron jobs"
+msgstr ""
+
+#. type: IP
+#: C/man8/cron.8:51
+#, no-wrap
+msgid "B<2>"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:53
+msgid "will log the end of all cron jobs"
+msgstr ""
+
+#. type: IP
+#: C/man8/cron.8:53
+#, no-wrap
+msgid "B<4>"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:55
+msgid "will log all failed jobs (exit status != 0)"
+msgstr ""
+
+#. type: IP
+#: C/man8/cron.8:55
+#, no-wrap
+msgid "B<8>"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:57
+msgid "will log the process number of all cron jobs"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:62
+msgid ""
+"The default is to log the start of all jobs (1). Logging will be disabled if "
+"I<levels> is set to zero (0). A value of fifteen (15) will select all "
+"options."
 msgstr ""
 
 #. type: SH
-#: C/man8/cron.8:48
+#: C/man8/cron.8:62
 #, no-wrap
 msgid "NOTES"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:58
+#: C/man8/cron.8:72
 msgid ""
 "I<cron> searches its spool area (/var/spool/cron/crontabs) for crontab files "
 "(which are named after accounts in /etc/passwd); crontabs found are loaded "
@@ -839,43 +958,51 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:85
+#: C/man8/cron.8:83
 msgid ""
 "I<cron> also reads /etc/crontab, which is in a slightly different format "
-"(see I<crontab(5)>).  Additionally, I<cron> reads the files in /etc/cron.d: "
-"it treats the files in /etc/cron.d as in the same way as the /etc/crontab "
-"file (they follow the special format of that file, i.e. they include the "
-"I<user> field). However, they are independent of /etc/crontab: they do not, "
-"for example, inherit environment variable settings from it. The intended "
-"purpose of this feature is to allow packages that require finer control of "
-"their scheduling than the /etc/cron.{daily,weekly,monthly} directories to "
-"add a crontab file to /etc/cron.d. Such files should be named after the "
-"package that supplies them. Files must conform to the same naming convention "
-"as used by I<run-parts(8)>: they must consist solely of upper- and "
-"lower-case letters, digits, underscores, and hyphens. If the B<-l> option is "
-"specified, then they must conform to the LSB namespace specification, "
-"exactly as in the B<--lsbsysinit> option in I<run-parts>."
+"(see I<crontab(5)>).  In Debian, the content of /etc/crontab is predefined "
+"to run programs under /etc/cron.hourly, /etc/cron.daily, /etc/cron.weekly "
+"and /etc/cron.monthly. This configuration is specific to Debian, see the "
+"note under B<DEBIAN SPECIFIC> below.  in order"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:89
+#: C/man8/cron.8:96
+msgid ""
+"Additionally, in Debian, I<cron> reads the files in the /etc/cron.d "
+"directory.  I<cron> treats the files in /etc/cron.d as in the same way as "
+"the /etc/crontab file (they follow the special format of that file, "
+"i.e. they include the I<user> field). However, they are independent of "
+"/etc/crontab: they do not, for example, inherit environment variable "
+"settings from it. This change is specific to Debian see the note under "
+"B<DEBIAN SPECIFIC> below."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:100
 msgid ""
 "Like /etc/crontab, the files in the /etc/cron.d directory are monitored for "
-"changes. In general, the admin should not use /etc/cron.d/, but use the "
-"standard system crontab /etc/crontab."
+"changes. In general, the system administrator should not use /etc/cron.d/, "
+"but use the standard system crontab /etc/crontab."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:93
+#: C/man8/cron.8:113
 msgid ""
 "/etc/crontab and the files in /etc/cron.d must be owned by root, and must "
-"not be group- or other-writable. In contrast to the spool area, they may "
-"also be symlinks, provided that both the symlink and the file it points to "
-"are owned by root."
+"not be group- or other-writable. In contrast to the spool area, the files "
+"under /etc/cron.d or the files under /etc/cron.hourly, /etc/cron.daily, "
+"/etc/cron.weekly and /etc/cron.monthly may also be symlinks, provided that "
+"both the symlink and the file it points to are owned by root.  The files "
+"under /etc/cron.d do not need to be executable, while the files under "
+"/etc/cron.hourly, /etc/cron.daily, /etc/cron.weekly and /etc/cron.monthly "
+"do, as they are run by I<run-parts> (see I<run-parts(8)> for more "
+"information)."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:102
+#: C/man8/cron.8:122
 msgid ""
 "I<cron> then wakes up every minute, examining all stored crontabs, checking "
 "each command to see if it should be run in the current minute.  When "
@@ -886,18 +1013,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:117
+#: C/man8/cron.8:138
 msgid ""
 "Additionally, I<cron> checks each minute to see if its spool directory's "
-"modtime (or the modtime on I</etc/crontab)> has changed, and if it has, "
-"I<cron> will then examine the modtime on all crontabs and reload those which "
-"have changed.  Thus I<cron> need not be restarted whenever a crontab file is "
-"modified.  Note that the I<crontab>(1)  command updates the modtime of the "
-"spool directory whenever it changes a crontab."
+"modtime (or the modtime on the I</etc/crontab> file)  has changed, and if it "
+"has, I<cron> will then examine the modtime on all crontabs files and reload "
+"those which have changed.  Thus I<cron> need not be restarted whenever a "
+"crontab file is modified.  Note that the I<crontab>(1)  command updates the "
+"modtime of the spool directory whenever it changes a crontab."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:124
+#: C/man8/cron.8:145
 msgid ""
 "Special considerations exist when the clock is changed by less than 3 hours, "
 "for example at the beginning and end of daylight savings time. If the time "
@@ -908,7 +1035,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:129
+#: C/man8/cron.8:150
 msgid ""
 "Only jobs that run at a particular time (not specified as @hourly, nor with "
 "'*' in the hour or minute specifier) are affected. Jobs which are specified "
@@ -916,27 +1043,27 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:132
+#: C/man8/cron.8:153
 msgid ""
 "Clock changes of more than 3 hours are considered to be corrections to the "
 "clock, and the new time is used immediately."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:136
+#: C/man8/cron.8:159
 msgid ""
 "I<cron> logs its action to the syslog facility 'cron', and logging may be "
-"controlled using the standard syslogd(8) facility."
+"controlled using the standard I<syslogd(8)> facility."
 msgstr ""
 
 #. type: SH
-#: C/man8/cron.8:136
+#: C/man8/cron.8:159
 #, no-wrap
 msgid "ENVIRONMENT"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:149
+#: C/man8/cron.8:172
 msgid ""
 "If configured in I</etc/default/cron> in Debian systems, the I<cron> daemon "
 "localisation settings environment can be managed through the use of "
@@ -948,28 +1075,172 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:154
+#: C/man8/cron.8:178
 msgid ""
 "This does B<NOT> affect the environment of tasks running under cron. For "
 "more information on how to modify the environment of tasks, consult "
-"crontab(5)."
+"I<crontab(5)>"
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:158
+#: C/man8/cron.8:183
 msgid ""
 "The daemon will use, if present, the definition from I</etc/timezone> for "
 "the timezone."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:162
+#: C/man8/cron.8:187
 msgid ""
 "The environment can be redefined in user's crontab definitions but I<cron> "
 "will only handle tasks in a single timezone."
 msgstr ""
 
 #. type: Plain text
-#: C/man8/cron.8:164
-msgid "crontab(1), crontab(5)"
+#: C/man8/cron.8:194
+msgid ""
+"Debian introduces some changes to I<cron> that were not originally available "
+"upstream. The most significant changes introduced are:"
+msgstr ""
+
+#. type: IP
+#: C/man8/cron.8:195 C/man8/cron.8:197 C/man8/cron.8:199 C/man8/cron.8:201 C/man8/cron.8:203 C/man8/cron.8:205 C/man8/cron.8:207 C/man8/cron.8:209 C/man8/cron.8:211 C/man8/cron.8:213
+#, no-wrap
+msgid "\\(em"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:197
+msgid "Support for /etc/cron.{hourly,daily,weekly,monthly} via /etc/crontab,"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:199
+msgid "Support for /etc/cron.d (drop-in dir for package crontabs),"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:201
+msgid "PAM support,"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:203
+msgid "SELinux support,"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:205
+msgid "auditlog support,"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:207
+msgid "DST and other time-related changes/fixes,"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:209
+msgid "SGID crontab(1) instead of SUID root,"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:211
+msgid "Debian-specific file locations and commands,"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:213
+msgid "Debian-specific configuration (/etc/default/cron),"
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:215
+msgid "numerous other smaller features and fixes."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:228
+msgid ""
+"Support for /etc/cron.hourly, /etc/cron.daily, /etc/cron.weekly and "
+"/etc/cron.monthly is provided in Debian through the default setting of the "
+"/etc/crontab file (see the system-wide example in I<crontab(5)>).  The "
+"default sytem-wide crontab contains four tasks: run every hour, every day, "
+"every week and every month. Each of these tasks will execute B<run-parts> "
+"providing each one of the directories as an argument. These tasks are "
+"disabled if B<anacron> is installed (except for the hourly task) to prevent "
+"conflicts between both daemons."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:244
+msgid ""
+"As described above, the files under these directories have to be pass some "
+"sanity checks including the following: be executable, be owned by root, not "
+"be writable by group or other and, if symlinks, point to files owned by "
+"root. Additionally, the file names must conform to the filename requirements "
+"of B<run-parts>: they must be entirely made up of letters, digits and can "
+"only contain the special signs underscores ('_') and hyphens ('-'). Any file "
+"that does not conform to these requirements will not be executed by "
+"B<run-parts>.  For example, any file containing dots will be ignored.  This "
+"is done to prevent cron from running any of the files that are left by the "
+"Debian package management system when handling files in /etc/cron.d/ as "
+"configuration files (i.e. files ending in .dpkg-dist, .dpkg-orig, and "
+".dpkg-new)."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:248
+msgid ""
+"This feature can be used by system administrators and packages to include "
+"tasks that will be run at defined intervals. Files created by packages in "
+"these directories should be named after the package that supplies them."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:256
+msgid ""
+"Support for /etc/cron.d is included in the I<cron> daemon itself, which "
+"handles this location as the system-wide crontab spool.  This directory can "
+"contain any file defining tasks following the format used in /etc/crontab, "
+"i.e. unlike the user cron spool, these files must provide the username to "
+"run the task as in the task definition."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:275
+msgid ""
+"Files in this directory have to be owned by root, do not need to be "
+"executable (they are configuration files, just like /etc/crontab) and must "
+"conform to the same naming convention as used by I<run-parts(8)>: they must "
+"consist solely of upper- and lower-case letters, digits, underscores, and "
+"hyphens. This means that they B<cannot> contain any dots.  If the B<-l> "
+"option is specified to I<cron> (this option can be setup through "
+"/etc/default/cron, see below), then they must conform to the LSB namespace "
+"specification, exactly as in the B<--lsbsysinit> option in I<run-parts>."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:281
+msgid ""
+"The intended purpose of this feature is to allow packages that require finer "
+"control of their scheduling than the /etc/cron.{hourly,daily,weekly,monthly} "
+"directories to add a crontab file to /etc/cron.d. Such files should be named "
+"after the package that supplies them."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:296
+msgid ""
+"Also, the default configuration of I<cron> is controlled by "
+"I</etc/default/cron> which is read by the init.d script that launches the "
+"I<cron> daemon. This file determines whether I<cron> will read the system's "
+"environment variables and makes it possible to add additional options to the "
+"I<cron> program before it is executed, either to configure its logging or to "
+"define how it will treat the files under /etc/cron.d."
+msgstr ""
+
+#. type: Plain text
+#: C/man8/cron.8:299
+msgid "crontab(1), crontab(5), run-parts(8)"
 msgstr ""
