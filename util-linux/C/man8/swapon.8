@@ -54,6 +54,7 @@ Enable/disable:
 .br
 .in +5
 .B swapon
+.RB [ \-d ]
 .RB [ \-f ]
 .RB [ \-p
 .IR priority ]
@@ -111,8 +112,24 @@ All devices marked as ``swap'' in
 are made available, except for those with the ``noauto'' option.
 Devices that are already being used as swap are silently skipped.
 .TP
+.B "\-d, \-\-discard"
+Discard freed swap pages before they are reused, if the swap
+device supports the discard or trim operation.  This may improve
+performance on some Solid State Devices, but often it does not.
+The
+.I /etc/fstab
+mount option
+.BI discard
+may be also used to enable discard flag.
+.TP
 .B "\-e, \-\-ifexists"
 Silently skip devices that do not exist.
+The
+.I /etc/fstab
+mount option
+.BI nofail
+may be also used to skip non-existing device.
+
 .TP
 .B "\-f, \-\-fixpgsz"
 Reinitialize (exec /sbin/mkswap) the swap space if its page size does not
@@ -167,6 +184,18 @@ automatically detects and rewrites swap space signature with old software
 suspend data (e.g S1SUSPEND, S2SUSPEND, ...). The problem is that if we don't
 do it, then we get data corruption the next time an attempt at unsuspending is
 made.
+.PP
+.B swapon
+may not work correctly when using a swap file with some versions of btrfs.
+This is due to the swap file implementation in the kernel expecting to be able
+to write to the file directly, without the assistance of the file system.
+Since btrfs is a copy-on-write file system, the file location may not be
+static and corruption can result. Btrfs actively disallows the use of files
+on its file systems by refusing to map the file. This can be seen in the system
+log as "swapon: swapfile has holes." One possible workaround is to map the
+file to a loopback device. This will allow the file system to determine the
+mapping properly but may come with a performance impact.
+
 .SH SEE ALSO
 .BR swapon (2),
 .BR swapoff (2),
@@ -187,5 +216,5 @@ The
 .B swapon
 command appeared in 4.0BSD.
 .SH AVAILABILITY
-The swapon command is part of the util-linux-ng package and is available from
-ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/.
+The swapon command is part of the util-linux package and is available from
+ftp://ftp.kernel.org/pub/linux/utils/util-linux/.

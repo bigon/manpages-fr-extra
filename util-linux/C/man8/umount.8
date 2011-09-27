@@ -123,6 +123,12 @@ anymore.
 Don't canonicalize paths. For more details about this option see the
 .B mount(8)
 man page.
+.IP "\fB\-\-fake\fP"
+Causes everything to be done except for the actual system call; this
+``fakes'' unmounting the filesystem.  It can  be used to remove
+entries from
+.I /etc/mtab
+that were unmounted earlier with the -n option.
 
 .SH "THE LOOP DEVICE"
 The
@@ -141,9 +147,13 @@ The syntax of external umount helpers is:
 .BI /sbin/umount. <suffix>
 .RI { dir | device }
 .RB [ \-nlfvr ]
+.RB [ \-t
+.IR type.subtype ]
 .br
 
 where the <suffix> is filesystem type or a value from "uhelper=" mtab option.
+The \-t option is used  for filesystems with subtypes support (for example
+/sbin/mount.fuse -t fuse.sshfs).
 
 The uhelper (unprivileged umount helper) is possible to used when non-root user
 wants to umount a mountpoint which is not defined in the /etc/fstab file (e.g
@@ -163,5 +173,5 @@ A
 .B umount
 command appeared in Version 6 AT&T UNIX.
 .SH AVAILABILITY
-The umount command is part of the util-linux-ng package and is available from
-ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/.
+The umount command is part of the util-linux package and is available from
+ftp://ftp.kernel.org/pub/linux/utils/util-linux/.

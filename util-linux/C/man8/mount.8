@@ -136,9 +136,19 @@ or
 The recommended setup is to use LABEL=<label> or UUID=<uuid> tags rather than
 .B /dev/disk/by-{label,uuid}
 udev symlinks in the /etc/fstab file. The tags are
-more readable, robust and portable. The mount(8) command internally uses udev
+more readable, robust and portable. The
+.BR mount (8)
+command internally uses udev
 symlinks, so use the symlinks in /etc/fstab is not advantage over LABEL=/UUID=.
-For more details see libblkid(3).
+For more details see
+.BR libblkid (3).
+
+Note that
+.BR mount (8)
+uses UUIDs as strings. The UUIDs from command line or
+.BR fstab (5)
+are not converted to internal binary representation. The string representation
+of the UUID should be based on lower case characters.
 
 The
 .I proc
@@ -327,17 +337,28 @@ or fstab entry is:
 .RE
 
 After this call the same contents is accessible in two places.
-One can also remount a single file (on a single file).
+One can also remount a single file (on a single file). It's also
+possible to use the bind mount to create a mountpoint from a regular
+directory, for example:
 
-This call attaches only (part of) a single filesystem, not possible
+.RS
+.br
+.B mount --bind
+.I foo foo
+.RE
+
+The bind mount call attaches only (part of) a single filesystem, not possible
 submounts. The entire file hierarchy including submounts is attached
 a second place using
+
 .RS
 .br
 .B mount --rbind
 .I olddir newdir
 .RE
+
 or shortoption
+
 .RS
 .br
 .B mount -R
@@ -359,11 +380,27 @@ changed by a separate remount command, for example:
 .I newdir
 .RE
 
+Note that behavior of the remount operation depends on the /etc/mtab file. The
+first command stores the 'bind' flag to the /etc/mtab file and the second
+command reads the flag from the file.  If you have a system without the
+/etc/mtab file or if you explicitly define source and target for the remount
+command (then mount(8) does not read /etc/mtab), then you have to use bind flag
+(or option) for the remount command too. For example:
+
+.RS
+.br
+.B mount --bind
+.I olddir newdir
+.br
+.B mount -o remount,ro,bind
+.I olddir newdir
+.RE
 .RE
 
 .B The move operation.
 .RS
-Since Linux 2.5.1 it is possible to atomically move a mounted tree
+Since Linux 2.5.1 it is possible to atomically move a
+.B mounted tree
 to another place. The call is
 .RS
 .br
@@ -378,6 +415,9 @@ or shortoption
 .RE
 This will cause the contents which previously appeared under olddir to be
 accessed under newdir.  The physical location of the files is not changed.
+Note that the
+.I olddir
+has to be a mountpoint.
 .RE
 
 .B The shared subtrees operations.
@@ -387,7 +427,7 @@ private, slave or unbindable. A shared mount provides ability to create mirrors
 of that mount such that mounts and umounts within any of the mirrors propagate
 to the other mirror. A slave mount receives propagation from its master, but
 any not vice-versa.  A private mount carries no propagation abilities.  A
-unbindable mount is a private mount which cannot cloned through a bind
+unbindable mount is a private mount which cannot be cloned through a bind
 operation. Detailed semantics is documented in Documentation/sharedsubtree.txt
 file in the kernel source tree.
 
@@ -581,6 +621,15 @@ was known as
 Note, the real list of all supported filesystems depends on your
 kernel.
 
+The programs
+.B mount
+and
+.B umount
+support filesystem subtypes.  The subtype is defined by '.subtype' suffix.  For
+example  'fuse.sshfs'. It's recommended to use subtype notation rather than add
+any prefix to the mount source (for example 'sshfs#example.com' is
+depreacated).
+
 For most types all the
 .B mount
 program has to do is issue a simple
@@ -629,11 +678,6 @@ Creating a file
 .I /etc/filesystems
 can be useful to change the probe order (e.g., to try vfat before msdos
 or ext3 before ext2) or if you use a kernel module autoloader.
-Warning: the probing uses a heuristic (the presence of appropriate `magic'),
-and could recognize the wrong filesystem type, possibly with catastrophic
-consequences. If your data is valuable, don't ask
-.B mount
-to guess.
 
 More than one type may be specified in a comma separated
 list.  The list of filesystem types can be prefixed with
@@ -741,9 +785,12 @@ All I/O to the filesystem should be done asynchronously. (See also the
 option.)
 .TP
 .B atime
-Update inode access time for each access. See also the
+Do not use noatime feature, then the inode access time is controlled by kernel
+defaults. See also the description for
 .B strictatime
-mount option.
+and
+.B reatime
+mount options.
 .TP
 .B noatime
 Do not update inode access times on this filesystem (e.g, for faster
@@ -805,6 +852,9 @@ The
 option allows you to explicitly label the root inode of a FS being mounted
 before that FS or inode because visable to userspace. This was found to be
 useful for things like stateless linux.
+
+Note that kernel rejects any remount request that includes the context
+option even if unchanged from the current context.
 
 For more details, see
 .BR selinux (8)
@@ -885,6 +935,15 @@ time is only updated if the previous access time was earlier than the
 current modify or change time. (Similar to noatime, but doesn't break
 mutt or other applications that need to know if a file has been read
 since the last time it was modified.)
+
+Since Linux 2.6.30, the kernel defaults to the behavior provided by this
+option (unless
+.B noatime
+was  specified), and the
+.B strictatime
+option is required to obtain traditional semantics. In addition, since Linux
+2.6.30, the file's last access time is always  updated  if  it  is more than 1
+day old.
 .TP
 .B norelatime
 Do not use
@@ -925,7 +984,7 @@ This option implies the options
 .B remount
 Attempt to remount an already-mounted filesystem.  This is commonly
 used to change the mount flags for a filesystem, especially to make a
-readonly filesystem writeable. It does not change device or mount point.
+readonly filesystem writable. It does not change device or mount point.
 
 The remount functionality follows the standard way how the mount command works
 with options from fstab. It means the mount command doesn't read fstab (or
@@ -1276,8 +1335,19 @@ journal file;  ext3 will create a new journal, overwriting the old contents
 of the file whose inode number is
 .IR inum .
 .TP
-.BR noload
-Do not load the ext3 filesystem's journal on mounting.
+.BR journal_dev=devnum	
+When the external journal device's major/minor numbers
+have changed, this option allows the user to specify
+the new journal location.  The journal device is
+identified through its new major/minor numbers encoded
+in devnum.
+.TP
+.BR norecovery / noload
+Don't load the journal on mounting.  Note that
+if the filesystem was not unmounted cleanly,
+skipping the journal replay will lead to the
+filesystem containing inconsistencies that can
+lead to any number of problems.
 .TP
 .BR data= { journal | ordered | writeback }
 Specifies the journalling mode for file data.  Metadata is always journaled.
@@ -1391,7 +1461,7 @@ small amount of time to see if any other transactions can piggyback on the
 synchronous write. The algorithm used is designed to automatically tune for
 the speed of the disk, by measuring the amount of time (on average) that it
 takes to finish committing a transaction. Call this time the "commit time".
-If the time that the transactoin has been running is less than the commit time,
+If the time that the transaction has been running is less than the commit time,
 ext4 will try sleeping for the commit time to see if other operations will join
 the transaction. The commit time is capped by the max_batch_time, which
 defaults to 15000us (15ms). This optimization can be turned off entirely by
@@ -1409,6 +1479,11 @@ used for I/O operations submitted by kjournald2 during a commit operation.
 This defaults to 3, which is a slightly higher priority than the default I/O
 priority.
 .TP
+.BR abort
+Simulate the effects of calling ext4_abort() for
+debugging purposes.  This is normally used while
+remounting a filesystem which is already mounted.
+.TP
 .BR auto_da_alloc | noauto_da_alloc
 Many broken applications don't use fsync() when noauto_da_alloc
 replacing existing files via patterns such as
@@ -1423,9 +1498,47 @@ If auto_da_alloc is enabled, ext4 will detect the replace-via-rename and
 replace-via-truncate patterns and force that any delayed allocation blocks are
 allocated such that at the next journal commit, in the default data=ordered
 mode, the data blocks of the new file are forced to disk before the rename()
-operation is commited.  This provides roughly the same level of guarantees as
+operation is committed.  This provides roughly the same level of guarantees as
 ext3, and avoids the "zero-length" problem that can happen when a system
 crashes before the delayed allocation blocks are forced to disk.
+.TP
+.BR discard / nodiscard
+Controls whether ext4 should issue discard/TRIM commands to the underlying
+block device when blocks are freed.  This is useful for SSD devices and
+sparse/thinly-provisioned LUNs, but it is off by default until sufficient
+testing has been done.
+.TP
+.BR nouid32
+Disables 32-bit UIDs and GIDs.  This is for
+interoperability  with  older kernels which only
+store and expect 16-bit values.
+.TP
+.BR resize
+Allows to resize filesystem to the end of the last
+existing block group, further resize has to be done
+with resize2fs either online, or offline. It can be
+used only with conjunction with remount.
+.TP
+.BR block_validity / noblock_validity
+This options allows to enables/disables the in-kernel facility for tracking
+filesystem metadata blocks within internal data structures. This allows multi-
+block allocator and other routines to quickly locate extents which might
+overlap with filesystem metadata blocks. This option is intended for debugging
+purposes and since it negatively affects the performance, it is off by default.
+.TP
+.BR dioread_lock / dioread_nolock
+Controls whether or not ext4 should use the DIO read locking. If the
+dioread_nolock option is specified ext4 will allocate uninitialized extent
+before buffer write and convert the extent to initialized after IO completes.
+This approach allows ext4 code to avoid using inode mutex, which improves
+scalability on high speed storages. However this does not work with nobh option
+and the mount will fail. Nor does it work with data journaling and
+dioread_nolock option will be ignored with kernel warning. Note that
+dioread_nolock code path is only used for extent-based files.  Because of the
+restrictions this options comprises it is off by default (e.g. dioread_lock).
+.TP
+.BR i_version
+Enable 64-bit inode version support. This option is off by default.
 
 .SH "Mount options for fat"
 (Note:
@@ -1624,7 +1737,7 @@ This option will fail with anything but a CDROM as underlying device.
 .TP
 .BI part= n
 Select partition number n from the device.
-Only makes sense for CDROMS.
+Only makes sense for CDROMs.
 Defaults to not parsing the partition table at all.
 .TP
 .B quiet
@@ -1676,7 +1789,7 @@ length), and in addition all characters are in upper case.  Also there is
 no field for file ownership, protection, number of links, provision for
 block/character devices, etc.
 
-Rock Ridge is an extension to iso9660 that provides all of these unix like
+Rock Ridge is an extension to iso9660 that provides all of these UNIX-like
 features.  Basically there are extensions to each directory record that
 supply all of the additional information, and when Rock Ridge is in use,
 the filesystem is indistinguishable from a normal UNIX filesystem (except
@@ -1811,7 +1924,7 @@ See mount options for fat.
 If the
 .I msdos
 filesystem detects an inconsistency, it reports an error and sets the file
-system read-only. The filesystem can be made writeable again by remounting
+system read-only. The filesystem can be made writable again by remounting
 it.
 
 .SH "Mount options for ncpfs"
@@ -1845,7 +1958,7 @@ and the current version of
 .BI iocharset= name
 Character set to use when returning file names.
 Unlike VFAT, NTFS suppresses names that contain
-unconvertible characters. Deprecated.
+nonconvertible characters. Deprecated.
 .\" since 2.5.11
 .TP
 .BI nls= name
@@ -2077,7 +2190,7 @@ NUMA capability (perhaps a safe recovery kernel), or with fewer nodes
 online, then it is advisable to omit the mpol option from automatic
 mount options.  It can be added later, when the tmpfs is already mounted
 on MountPoint, by 'mount -o remount,mpol=Policy:NodeList MountPoint'.
-
+.RE
 
 .SH "Mount options for ubifs"
 UBIFS is a flash file system which works on top of UBI volumes. Note that
@@ -2302,7 +2415,7 @@ preferred display. There are four modes:
 .TP
 .I lower
 Force the short name to lower case upon display; store a long name when
-the short name is not all upper case. This mode is the default.
+the short name is not all upper case.
 .TP
 .I win95
 Force the short name to upper case upon display; store a long name when
@@ -2314,7 +2427,7 @@ not all lower case or all upper case.
 .TP
 .I mixed
 Display the short name as is; store a long name when the short name is not
-all upper case.
+all upper case. This mode is the default since Linux 2.6.32.
 .RE
 
 
@@ -2425,13 +2538,7 @@ was specified.
 .BI logbufs= value
 Set the number of in-memory log buffers.  Valid numbers range
 from 2-8 inclusive.
-The default value is 8 buffers for filesystems with a
-blocksize of 64KiB, 4 buffers for filesystems with a blocksize
-of 32KiB, 3 buffers for filesystems with a blocksize of 16KiB
-and 2 buffers for all other configurations.  Increasing the
-number of buffers may increase performance on some workloads
-at the cost of the memory used for the additional log buffers
-and their associated control structures.
+The default value is 8 buffers for any recent kernel.
 .TP
 .BI logbsize= value
 Set the size of each in-memory log buffer.
@@ -2439,8 +2546,7 @@ Size may be specified in bytes, or in kilobytes with a "k" suffix.
 Valid sizes for version 1 and version 2 logs are 16384 (16k) and
 32768 (32k).  Valid sizes for version 2 logs also include
 65536 (64k), 131072 (128k) and 262144 (256k).
-The default value for machines with more than 32MiB of memory
-is 32768, machines with less memory use 16384 by default.
+The default value for any recent kernel is 32768.
 .TP
 \fBlogdev=\fP\fIdevice\fP and \fBrtdev=\fP\fIdevice\fP
 Use an external log (metadata journal) and/or real-time device.
@@ -2546,18 +2652,38 @@ Since Linux version 2.1.21 xiafs is no longer part of the kernel source.
 .SH "THE LOOP DEVICE"
 One further possible type is a mount via the loop device. For example,
 the command
-
-.nf
-.B "  mount /tmp/fdimage /mnt -t vfat -o loop=/dev/loop3
-.fi
-
+.RS
+.sp
+.B "mount /tmp/disk.img /mnt -t vfat -o loop=/dev/loop"
+.sp
+.RE
 will set up the loop device
 .I /dev/loop3
 to correspond to the file
-.IR /tmp/fdimage ,
+.IR /tmp/disk.img ,
 and then mount this device on
 .IR /mnt .
 
+If no explicit loop device is mentioned
+(but just an option `\fB\-o loop\fP' is given), then
+.B mount
+will try to find some unused loop device and use that, for example
+.RS
+.sp
+.B "mount /tmp/disk.img /mnt -o loop"
+.sp
+.RE
+The mount command
+.B automatically
+creates a loop device from a regular file if a filesystem type is
+not specified or the filesystem is known for libblkid, for example:
+.RS
+.sp
+.B "mount /tmp/disk.img /mnt"
+.sp
+.B "mount -t ext3 /tmp/disk.img /mnt"
+.sp
+.RE
 This type of mount knows about four options, namely
 .BR loop ", " offset ", " sizelimit " and " encryption ,
 that are really options to
@@ -2568,11 +2694,6 @@ you specify a file descriptor to read from instead with the
 option.
 (These options can be used in addition to those specific
 to the filesystem type.)
-
-If no explicit loop device is mentioned
-(but just an option `\fB\-o loop\fP' is given), then
-.B mount
-will try to find some unused loop device and use that.
 
 Since Linux 2.6.25 is supported auto-destruction of loop devices and
 then any loop device allocated by
@@ -2623,10 +2744,13 @@ The syntax of external mount helpers is:
 .RB [ \-sfnv ]
 .RB [ \-o
 .IR options ]
+.RB [ \-t
+.IR type.subtype ]
 .RE
 
-where the <suffix> is filesystem type and \-sfnvo options have same meaning like
-standard mount options.
+where the <type> is filesystem type and \-sfnvo options have same meaning like
+standard mount options. The \-t option is used  for filesystems with subtypes
+support (for example /sbin/mount.fuse -t fuse.sshfs).
 
 .SH FILES
 .TP 18n
@@ -2710,6 +2834,6 @@ A
 .B mount
 command existed in Version 5 AT&T UNIX.
 .SH AVAILABILITY
-The mount command is part of the util-linux-ng package and is available from
-ftp://ftp.kernel.org/pub/linux/utils/util-linux-ng/.
+The mount command is part of the util-linux package and is available from
+ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
 
