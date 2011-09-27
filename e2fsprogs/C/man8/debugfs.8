@@ -2,13 +2,13 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH DEBUGFS 8 "May 2010" "E2fsprogs version 1.41.12"
+.TH DEBUGFS 8 "September 2011" "E2fsprogs version 1.42-WIP"
 .SH NAME
 debugfs \- ext2/ext3/ext4 file system debugger
 .SH SYNOPSIS
 .B debugfs
 [
-.B \-Vwci
+.B \-DVwci
 ]
 [
 .B \-b
@@ -106,7 +106,14 @@ to read in commands from
 and execute them.  When 
 .B debugfs
 is finished executing those commands, it will exit.
-.TP 
+.TP
+.I -D
+Causes
+.B debugfs
+to open the device using Direct I/O, bypassing the buffer cache.  Note
+that some Linux devices, notably device mapper as of this writing, do
+not support Direct I/O.
+.TP
 .I -R request
 Causes 
 .B debugfs
@@ -150,6 +157,11 @@ This is a list of the commands which
 .B debugfs
 supports.
 .TP
+.I blocks filespace
+Print the blocks used by the inode
+.I filespec
+to stdout.
+.TP
 .I bmap filespec logical_block
 Print the physical block number corresponding to the logical block number
 .I logical_block
@@ -180,6 +192,12 @@ master superblock.
 Clear the contents of the inode 
 .IR file .
 .TP
+.I dirsearch filespec filename
+Search the directory
+.I filespec
+for
+.IR filename .
+.TP
 .I dump [-p] filespec out_file
 Dump the contents of the inode 
 .I filespec
@@ -191,6 +209,16 @@ option is given set the owner, group and permissions information on
 .I out_file 
 to match 
 .IR filespec .
+.TP
+.I dx_hash [-h hash_alg] [-s hash_seed] filename
+Calculate the directory hash of
+.IR filename .
+The hash algorithm specified with
+.I -h
+may be "legacy" "half_md4" or "tea".
+The hash seed specified with
+.I -s
+must be in UUID format.
 .TP
 .I dump_extents [-n] [-l] filespec
 Dump the the extent tree of the inode
@@ -255,7 +283,12 @@ Free the inode specified by
 .TP
 .I help
 Print a list of commands understood by 
-.BR debugfs (8).
+.BR debugfs .
+.TP
+.I htree_dump filespec
+Dump the hash-indexed directory
+.IR filespec ,
+showing its tree structure.
 .TP
 .I icheck block ...
 Print a listing of the inodes which use the one or more blocks specified
@@ -364,7 +397,7 @@ device numbers must be specified.
 Take the requested list of inode numbers, and print a listing of pathnames
 to those inodes.
 .TP
-.I open [-w] [-e] [-f] [-i] [-c] [-b blocksize] [-s superblock] device
+.I open [-w] [-e] [-f] [-i] [-c] [-D] [-b blocksize] [-s superblock] device
 Open a filesystem for editing.  The 
 .I -f 
 flag forces the filesystem to be opened even if there are some unknown 
@@ -372,9 +405,21 @@ or incompatible filesystem features which would normally
 prevent the filesystem from being opened.  The
 .I -e
 flag causes the filesystem to be opened in exclusive mode.  The
-.IR -b ", " -c ", " -i ", " -s ", and " -w
+.IR -b ", " -c ", " -i ", " -s ", " -w ", and " -D
 options behave the same as the command-line options to 
 .BR debugfs .
+.TP
+.I punch filespec start_blk [end_blk]
+Delete the blocks in the inode ranging from
+.I start_blk
+to
+.IR end_blk .
+If
+.I end_blk
+is omitted then this command will function as a truncate command; that
+is, all of the blocks starting at
+.I start_blk
+through to the end of the file will be deallocated.
 .TP
 .I pwd
 Print the current working directory.
@@ -511,7 +556,7 @@ into the destination file.
 .TP
 .B DEBUGFS_PAGER, PAGER
 The
-.BR debugfs (8)
+.B debugfs
 program always pipes the output of the some commands through a
 pager program.  These commands include: 
 .IR show_super_stats ,

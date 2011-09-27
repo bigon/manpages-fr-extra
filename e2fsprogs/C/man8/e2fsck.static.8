@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH E2FSCK 8 "May 2010" "E2fsprogs version 1.41.12"
+.TH E2FSCK 8 "September 2011" "E2fsprogs version 1.42-WIP"
 .SH NAME
 e2fsck \- check a Linux ext2/ext3/ext4 file system
 .SH SYNOPSIS
@@ -186,9 +186,27 @@ Set the version of the extended attribute blocks which
 will require while checking the filesystem.  The version number may 
 be 1 or 2.  The default extended attribute version format is 2.
 .TP
+.BI journal_only
+Only replay the journal if required, but do not perform any further checks
+or repairs.
+.TP
 .BI fragcheck
 During pass 1, print a detailed report of any discontiguous blocks for
 files in the filesystem.
+.TP
+.BI discard
+Attempt to discard free blocks and unused inode blocks after the full
+filesystem check (discarding blocks is useful on solid state devices and sparse
+/ thin-provisioned storage). Note that discard is done in pass 5 AFTER the
+filesystem has been fully checked and only if it does not contain recognizable
+errors. However there might be cases where
+.B e2fsck
+does not fully recognise a problem and hence in this case this
+option may prevent you from further manual data recovery.
+.TP
+.BI nodiscard
+Do not attempt to discard free blocks and unused inode blocks. This option is
+exactly the opposite of discard option. This is set as default.
 .RE
 .TP
 .B \-f

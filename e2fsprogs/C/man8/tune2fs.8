@@ -2,7 +2,7 @@
 .\" Initial revision
 .\"
 .\"
-.TH TUNE2FS 8 "May 2010" "E2fsprogs version 1.41.12"
+.TH TUNE2FS 8 "September 2011" "E2fsprogs version 1.42-WIP"
 .SH NAME
 tune2fs \- adjust tunable filesystem parameters on ext2/ext3/ext4 filesystems
 .SH SYNOPSIS
@@ -76,6 +76,11 @@ tune2fs \- adjust tunable filesystem parameters on ext2/ext3/ext4 filesystems
 .B \-O 
 .RI [^] feature [,...]
 ]
+[
+.B \-Q
+.I quota-options
+]
+[
 [
 .B \-T
 .I time-last-checked
@@ -167,6 +172,21 @@ separated, and may take an argument using the equals ('=') sign.
 The following extended options are supported:
 .RS 1.2i
 .TP
+.B clear_mmp
+Reset the MMP block (if any) back to the clean state.  Use only if
+absolutely certain the device is not currently mounted or being
+fscked, or major filesystem corruption can result.  Needs '-f'.
+.TP
+.BI mmp_update_interval= interval
+Adjust the initial MMP update interval to
+.I interval
+seconds.  Specifying an
+.I interval
+of 0 means to use the default interval.  The specified interval must
+be less than 300 seconds.  Requires that the
+.B mmp
+feature be enabled.
+.TP
 .BI stride= stride-size
 Configure the filesystem for a RAID array with
 .I stride-size
@@ -192,6 +212,26 @@ directories.  Valid algorithms accepted are:
 .IR half_md4 ,
 and
 .IR tea .
+.TP
+.BI mount_opts= mount_option_string
+Set a set of default mount options which will be used when the file
+system is mounted.  Unlike the bitmask-based default mount options which
+can be specified with the
+.B -o
+option,
+.I mount_option_string
+is an arbitrary string with a maximum length of 63 bytes, which is
+stored in the superblock.
+.IP
+The ext4 file system driver will first apply
+the bitmask-based default options, and then parse the
+.IR mount_option_string ,
+before parsing the mount options passed from the
+.BR mount (8)
+program.
+.IP
+This superblock setting is only honored in 2.6.35+ kernels;
+and not at all by the ext2 and ext3 file system drivers.
 .TP
 .B test_fs
 Set a flag in the filesystem superblock indicating that it may be
@@ -425,6 +465,35 @@ When the filesystem is mounted with journalling enabled, data may be
 written into the main filesystem after its metadata has been committed
 to the journal.  This may increase throughput, however, it may allow old
 data to appear in files after a crash and journal recovery.
+.TP
+.B nobarrier
+The file system will be mounted with barrier operations in the journal
+disabled.  (This option is currently only supported by the ext4 file
+system driver in 2.6.35+ kernels.)
+.TP
+.B block_validity
+The file system will be mounted with the block_validity option enabled,
+which causes extra checks to be performed after reading or writing from
+the file system.  This prevents corrupted metadata blocks from causing
+file system damage by overwriting parts of the inode table or block
+group descriptors.  This comes at the cost of increased memory and CPU
+overhead, so it is enabled only for debugging purposes.  (This option is
+currently only supported by the ext4 file system driver in 2.6.35+
+kernels.)
+.TP
+.B discard
+The file system will be mouinted with the discard mount option.  This will
+cause the file system driver to attempt to use the trim/discard feature
+of some storage devices (such as SSD's and thin-provisioned drives
+available in some enterprise storage arrays) to inform the storage
+device that blocks belonging to deleted files can be reused for other
+purposes.  (This option is currently only supported by the ext4 file
+system driver in 2.6.35+ kernels.)
+.TP
+.B nodelalloc
+The file system will be mounted with the nodelalloc mount option.  This
+will disable the delayed allocation feature.  (This option is currently
+only supported by the ext4 file system driver in 2.6.35+ kernels.)
 .RE
 .TP
 .BR \-O " [^]\fIfeature\fR[,...]"
@@ -441,6 +510,9 @@ The following filesystem features can be set or cleared using
 .TP
 .B dir_index
 Use hashed b-trees to speed up lookups in large directories.
+.TP
+.B dir_nlink
+Allow more than 65000 subdirectories per directory.
 .TP
 .B filetype
 Store file type information in directory entries.
@@ -469,6 +541,11 @@ Reserve space so the block group descriptor table may grow in the
 future.
 .B Tune2fs 
 only supports clearing this filesystem feature.
+.TP
+.B mmp
+Enable or disable multiple mount protection (MMP) feature.  MMP helps to
+protect the filesystem from being multiply mounted and is useful in
+shared storage environments.
 .TP
 .B sparse_super
 Limit the number of backup superblocks to save space on large filesystems.
@@ -506,8 +583,21 @@ and
 .BR flex_bg
 features are only supported by the ext4 filesystem.
 .TP
+.BI \-p " mmp_check_interval"
+Set the desired MMP check interval in seconds. It is 5 seconds by default.
+.TP
 .BI \-r " reserved-blocks-count"
 Set the number of reserved filesystem blocks.
+.TP
+.BI \-Q " quota-options"
+Sets 'quota' feature on the superblock and works on the quota files for the
+given quota type. Quota options could be one or more of the following:
+.RS 1.2i
+.TP
+.BR [^]usrquota
+Sets/clears user quota inode in the superblock.
+.BR [^]usrquota
+Sets/clears group quota inode in the superblock.
 .TP
 .BI \-T " time-last-checked"
 Set the time the filesystem was last checked using
