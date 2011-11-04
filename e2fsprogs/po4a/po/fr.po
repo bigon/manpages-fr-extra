@@ -11,12 +11,13 @@
 # Nicolas François <nicolas.francois@centraliens.net>, 2007.
 # Romain Doumenc <rd6137@gmail.com>, 2010.
 # David Prévot <david@tilapin.org>, 2010, 2011.
+# Cédric Boutillier <cedric.boutillier@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: e2fsprogs\n"
 "POT-Creation-Date: 2011-10-31 21:58-0400\n"
-"PO-Revision-Date: 2011-09-27 13:06-0400\n"
-"Last-Translator: David Prévot <david@tilapin.org>\n"
+"PO-Revision-Date: 2011-11-04 01:56+0100\n"
+"Last-Translator: Cédric Boutillier <cedric.boutillier@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -38,10 +39,9 @@ msgstr "CHATTR"
 #: C/man8/e2undo.8:5 C/man8/filefrag.8:2 C/man8/e2freefrag.8:2
 #: C/man8/logsave.8:5 C/man8/mke2fs.8:5 C/man8/mklost+found.8:5
 #: C/man8/resize2fs.8:5 C/man8/tune2fs.8:5
-#, fuzzy, no-wrap
-#| msgid "October 2008"
+#, no-wrap
 msgid "October 2011"
-msgstr "Octobre 2008"
+msgstr "Octobre 2011"
 
 #. type: TH
 #: C/man1/chattr.1:2 C/man1/lsattr.1:2 C/man5/e2fsck.conf.5:5
@@ -1510,20 +1510,17 @@ msgstr "I<no_nomsg>"
 
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:200
-#, fuzzy
-#| msgid ""
-#| "This boolean relation overrides the default behavior controlling whether "
-#| "or not the description for this filesystem problem should be suppressed "
-#| "when B<e2fsck> is run with the B<-n> option."
 msgid ""
 "This boolean relation overrides the default behavior controlling whether or "
 "not the description for this filesystem problem should be suppressed when a "
 "problem forced not to be fixed, either because B<e2fsck> is run with the B<-"
 "n> option or because the I<force_no> flag has been set for the problem."
 msgstr ""
-"Cette variable booléenne indique si la description de ce problème de système "
-"de fichiers ne doit pas être affichée quand B<e2fsck> est exécuté avec "
-"l'option B<-n>."
+"Cette variable booléenne a la priorité sur le comportement par défaut du "
+"contrôle de la suppression ou non de la description de ce problème de "
+"système de fichiers si la réparation de celui-ci est empêchée, soit parce "
+"que B<e2fsck> est exécuté avec l'option B<-n>, soit parce que l'indicateur "
+"I<force_no> a été positionné pour ce problème."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:200
@@ -1540,6 +1537,11 @@ msgid ""
 "B<-y> option given on the command-line (just for the specific problem, of "
 "course)."
 msgstr ""
+"Si cette variable booléenne est positionnée à true, alors cela forcera le "
+"problème à ne jamais être réparé, comme si l'utilisateur répondait « non » à "
+"la question « Ce problème doit-il être réparé ? ». L'option "
+"I<force_no>annule complètement l'option B<-y> donnée sur la ligne de "
+"commande (seulement pour le problème indiqué, bien sûr)."
 
 #. type: SH
 #: C/man5/e2fsck.conf.5:209
@@ -1731,6 +1733,10 @@ msgid ""
 "boolean true value, and ``no'', ``n'', ``false'', ``nil'', ``0'', ``off'' as "
 "a boolean false value."
 msgstr ""
+"Certaines variables prennent des valeurs booléennes. L'analyseur est "
+"suffisamment flexible pour reconnaître « yes », « y », « true », « t », "
+"« 1 », « on »… comme la valeur booléenne « vrai », et « no », « n », "
+"« false », « nil », « 0 », « off » comme la valeur booléenne « faux »."
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:71
@@ -1838,22 +1844,17 @@ msgstr "I<enable_periodic_fsck>"
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:125
-#, fuzzy
-#| msgid ""
-#| "This relation specifies set of features which should be enabled or "
-#| "disabled after applying the features listed in the I<base_features> and "
-#| "I<features> relations.  It may be overridden by the B<-O> command-line "
-#| "option to B<mke2fs>(8)."
 msgid ""
 "This boolean relation specifies whether periodic filesystem checks should be "
 "enforced at boot time.  If set to true, checks will be forced every 180 "
 "days, or after a random number of mounts.  These values may be changed later "
 "via the B<-i> and B<-c> command-line options to B<tune2fs>(8)."
 msgstr ""
-"Cette relation indique un jeu de caractéristiques à activer ou désactiver "
-"après application des caractéristiques fournies par les relations "
-"I<base_features> et I<features>. Il peut être surchargé par l'option B<-O> "
-"de la ligne de commande appelant B<mke2fs>(8)."
+"Cette variable booléenne indique si les vérifications périodiques des "
+"systèmes de fichiers doivent être forcées au démarrage. Si cela est activé, "
+"les vérifications seront faites tous les 180 jours, ou après un nombre "
+"aléatoire de montages. Ces valeurs peuvent être modifiées ultérieurement "
+"avec les options en ligne de commande B<-i> et B<-c> de B<tune2fs>(8)."
 
 #. type: TP
 #: C/man5/mke2fs.conf.5:125
@@ -1863,22 +1864,17 @@ msgstr "I<force_undo>"
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:132
-#, fuzzy
-#| msgid ""
-#| "This relation, if set to a boolean value of true, forces B<mke2fs> to "
-#| "always try to create an undo file, even if the undo file might be huge "
-#| "and it might extend the time to create the filesystem image because the "
-#| "inode table isn't being initialized lazily."
 msgid ""
 "This boolean relation, if set to a value of true, forces B<mke2fs> to always "
 "try to create an undo file, even if the undo file might be huge and it might "
 "extend the time to create the filesystem image because the inode table isn't "
 "being initialized lazily."
 msgstr ""
-"Cette variable, si elle vaut « true », force B<mke2fs> à toujours essayer de "
-"créer un fichier d'annulation, même si celui-ci pourrait être énorme et "
-"augmenterait le temps nécessaire à la création de l'image du système de "
-"fichier parce que la table des inœud n'est pas initialisée paresseusement."
+"Cette variable booléenne, si elle vaut « true », force B<mke2fs> à toujours "
+"essayer de créer un fichier d'annulation, même si celui-ci pourrait être "
+"énorme et augmenterait le temps nécessaire à la création de l'image du "
+"système de fichier parce que la table des inœud n'est pas initialisée en "
+"différé."
 
 #. type: TP
 #: C/man5/mke2fs.conf.5:132 C/man5/mke2fs.conf.5:414
@@ -1983,21 +1979,17 @@ msgstr "I<reserved_ratio>"
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:182
-#, fuzzy
-#| msgid ""
-#| "This relation specifies the default inode ratio if the user does not "
-#| "specify one on the command line, and the filesystem-type specific section "
-#| "of the configuration file does not specify a default inode ratio."
 msgid ""
 "This relation specifies the default percentage of filesystem blocks reserved "
 "for the super-user, if the user does not specify one on the command line, "
 "and the filesystem-type specific section of the configuration file does not "
 "specify a default reserved ratio. This value can be a floating point number."
 msgstr ""
-"Cette variable indique le ratio d'inœuds par défaut si l'utilisateur ne le "
-"précise pas sur la ligne de commande et s'il n'est pas précisé dans la sous-"
-"section spécifique au type de système de fichiers du fichier de "
-"configuration."
+"Cette variable indique le ratio de blocs du système de fichiers réservés "
+"pour le superutilisateur, si l'utilisateur ne le précise pas sur la ligne de "
+"commande et s'il n'est pas précisé dans le fichier de configuration "
+"spécifique au type de système de fichiers. Cette valeur peut être un nombre "
+"flottant."
 
 #. type: TP
 #: C/man5/mke2fs.conf.5:182
@@ -2257,6 +2249,11 @@ msgid ""
 "system requires this feature to be enabled.  The resize_inode feature is "
 "also automatically disabled since it doesn't support 64-bit block numbers."
 msgstr ""
+"Cette variable booléenne indique si B<mke2fs>(8) doit automatiquement "
+"ajouter la caractéristique « 64bit » si le nombre de blocs pour le système "
+"de fichiers nécessite l'activation de celle-ci. La caractéristique "
+"resize_inode est alors automatiquement désactivée, puisqu'elle ne gère pas "
+"les nombres de blocs sur 64 bits."
 
 #. type: TP
 #: C/man5/mke2fs.conf.5:336
@@ -2266,21 +2263,14 @@ msgstr "I<default_mntopts>"
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:343
-#, fuzzy
-#| msgid ""
-#| "This relation specifies set of features which should be enabled or "
-#| "disabled after applying the features listed in the I<base_features> and "
-#| "I<features> relations.  It may be overridden by the B<-O> command-line "
-#| "option to B<mke2fs>(8)."
 msgid ""
 "This relation specifies the set of mount options which should be enabled by "
 "default.  These may be changed at a later time with the B<-o> command-line "
 "option to B<tune2fs>(8)."
 msgstr ""
-"Cette relation indique un jeu de caractéristiques à activer ou désactiver "
-"après application des caractéristiques fournies par les relations "
-"I<base_features> et I<features>. Il peut être surchargé par l'option B<-O> "
-"de la ligne de commande appelant B<mke2fs>(8)."
+"Cette variable indique l'ensemble des options de montage qui doivent être "
+"activées par défaut. Celles-ci peuvent être modifiées ultérieurement avec "
+"l'option en ligne de commande B<-o> pour B<tune2fs>(8)."
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:347
@@ -2300,15 +2290,6 @@ msgstr "I<lazy_itable_init>"
 # NOTE: s/will not fully/will not be fully/
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:359
-#, fuzzy
-#| msgid ""
-#| "This relation is a boolean which specifies whether the inode table should "
-#| "be lazily initialized.  It only has meaning if the uninit_bg feature is "
-#| "enabled.  If lazy_itable_init is true and the uninit_bg feature is "
-#| "enabled, the inode table will not fully initialized by B<mke2fs>(8).  "
-#| "This speeds up filesystem initialization noticeably, but it requires the "
-#| "kernel to finish initializing the filesystem in the background when the "
-#| "filesystem is first mounted."
 msgid ""
 "This boolean relation specifies whether the inode table should be lazily "
 "initialized.  It only has meaning if the uninit_bg feature is enabled.  If "
@@ -2317,12 +2298,13 @@ msgid ""
 "initialization noticeably, but it requires the kernel to finish initializing "
 "the filesystem in the background when the filesystem is first mounted."
 msgstr ""
-"Cette variable est un booléen qui indique si la table d'inœuds doit être "
-"initialisée paresseusement. Elle n'a de sens que si la caractéristique "
-"uninit_bg est activée. La table d'inœuds ne sera pas complètement "
-"initialisée par B<mke2fs>(8). Cela accélère l'initialisation du système de "
-"fichiers notablement, mais nécessite que le noyau termine l'initialisation "
-"du système de fichiers en tâche de fond quand il sera monté la première fois."
+"Cette variable booléenne indique si la table d'inœuds doit être initialisée "
+"en différé. Elle n'a de sens que si la caractéristique uninit_bg est "
+"activée. Si lazy_itable_init vaut « true » et la caractéristique uninit_bg "
+"est activée, la table d'inœuds ne sera pas complètement initialisée par "
+"B<mke2fs>(8). Cela accélère l'initialisation du système de fichiers "
+"notablement, mais nécessite que le noyau termine l'initialisation du système "
+"de fichiers en tâche de fond quand il sera monté la première fois."
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:363
@@ -2344,16 +2326,13 @@ msgstr ""
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:372
-#, fuzzy
-#| msgid ""
-#| "This relation specifies the default inode size if the user does not "
-#| "specify one on the command line."
 msgid ""
 "This relation specifies the default percentage of filesystem blocks reserved "
 "for the super-user, if the user does not specify one on the command line."
 msgstr ""
-"Cette variable indique la taille des inœuds par défaut, si l'utilisateur ne "
-"l'indique pas sur la ligne de commande."
+"Cette variable indique le ratio de blocs du système de fichiers réservé pour "
+"le superutilisateur si l'utilisateur n'en précise pas sur la ligne de "
+"commande."
 
 #. type: TP
 #: C/man5/mke2fs.conf.5:381
@@ -2397,6 +2376,8 @@ msgid ""
 "This boolean relation specifies whether the B<mke2fs>(8)  should attempt to "
 "discard device prior to filesystem creation."
 msgstr ""
+"Cette variable booléenne indique si B<mke2fs>(8) doit essayer d'abandonner "
+"le périphérique avant la création du système de fichiers."
 
 #. type: TP
 #: C/man5/mke2fs.conf.5:403
@@ -2406,28 +2387,21 @@ msgstr "I<cluster_size>"
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:410
-#, fuzzy
-#| msgid ""
-#| "This relation specifies set of features which should be enabled or "
-#| "disabled after applying the features listed in the I<base_features> and "
-#| "I<features> relations.  It may be overridden by the B<-O> command-line "
-#| "option to B<mke2fs>(8)."
 msgid ""
 "This relation specifies the default cluster size if the bigalloc file system "
 "feature is enabled.  It can be overridden via the B<-C> command line option "
 "to B<mke2fs>(8)"
 msgstr ""
-"Cette relation indique un jeu de caractéristiques à activer ou désactiver "
-"après application des caractéristiques fournies par les relations "
-"I<base_features> et I<features>. Il peut être surchargé par l'option B<-O> "
-"de la ligne de commande appelant B<mke2fs>(8)."
+"Cette variable indique la taille d'amas (« cluster ») par défaut si la "
+"caractéristique « bigalloc » du système de fichiers est activée. Elle peut "
+"être surchargée par l'option B<-C> de la ligne de commande appelant B<mke2fs>"
+"(8)."
 
 #. type: SH
 #: C/man5/mke2fs.conf.5:410
-#, fuzzy, no-wrap
-#| msgid "THE [defaults] STANZA"
+#, no-wrap
 msgid "THE [devices] STANZA"
-msgstr "SECTION [defaults]"
+msgstr "SECTION [devices]"
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:414
@@ -2435,18 +2409,17 @@ msgid ""
 "Each tag in the I<[devices]> stanza names device name so that per-device "
 "defaults can be specified."
 msgstr ""
+"Chaque étiquette dans la section I<[devices]> correspond à un nom de "
+"périphérique afin de pouvoir attribuer des paramètres par défaut à des "
+"périphériques particuliers."
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:419
-#, fuzzy
-#| msgid ""
-#| "This relation specifies the default inode ratio if the user does not "
-#| "specify one on the command line."
 msgid ""
 "This relation specifies the default parameter for the B<-t> option, if this "
 "option isn't specified on the command line."
 msgstr ""
-"Cette variable indique le ratio d'inœud (octet par inœud) par défaut, si "
+"Cette variable indique le paramètre par défaut pour l'option B<-t>, si "
 "l'utilisateur ne le précise pas sur la ligne de commande."
 
 #. type: TP
@@ -2457,15 +2430,11 @@ msgstr "I<usage_types>"
 
 #. type: Plain text
 #: C/man5/mke2fs.conf.5:424
-#, fuzzy
-#| msgid ""
-#| "This relation specifies the default inode ratio if the user does not "
-#| "specify one on the command line."
 msgid ""
 "This relation specifies the default parameter for the B<-T> option, if this "
 "option isn't specified on the command line."
 msgstr ""
-"Cette variable indique le ratio d'inœud (octet par inœud) par défaut, si "
+"Cette variable indique le paramètre par défaut pour l'option B<-T>, si "
 "l'utilisateur ne le précise pas sur la ligne de commande."
 
 #. type: TP
@@ -2777,6 +2746,8 @@ msgid ""
 "Verbose mode.  Will write the number of read errors, write errors and data- "
 "corruptions to stderr."
 msgstr ""
+"Mode verbeux. Le nombre d'erreurs de lecture, d'écriture et de corruption "
+"des données sera affiché sur le flux d'erreur standard."
 
 #. type: TP
 #: C/man8/badblocks.8:189
@@ -2808,6 +2779,8 @@ msgstr "B<-B>"
 #: C/man8/badblocks.8:201
 msgid "Use buffered I/O and do not use Direct I/O, even if it is available."
 msgstr ""
+"Utiliser des tampons d'entrées/sorties, au lieu d'entrées/sorties directes "
+"(« Direct I/O »), même si celles-ci sont disponibles."
 
 #. type: TP
 #: C/man8/badblocks.8:201
@@ -3056,7 +3029,7 @@ msgid ""
 "Causes B<debugfs> to read in commands from I<cmd_file>, and execute them.  "
 "When B<debugfs> is finished executing those commands, it will exit."
 msgstr ""
-"B<debugfs> lira les commande dans le fichier I<fichier_commande> et les "
+"B<debugfs> lira les commandes dans le fichier I<fichier_commande> et les "
 "exécutera. Quand B<debugfs> a fini d'exécuter les commandes, il se termine."
 
 #. type: TP
@@ -3072,6 +3045,10 @@ msgid ""
 "cache.  Note that some Linux devices, notably device mapper as of this "
 "writing, do not support Direct I/O."
 msgstr ""
+"B<debugfs> ouvrira le périphérique en utilisant les entrées/sorties directes "
+"(« Direct I/O »), outre-passant le cache de fichiers. Notez que certains "
+"périphériques Linux, comme à l'heure actuelle device mapper, ne prennent pas "
+"en charge les entrées/sorties directes."
 
 #. type: TP
 #: C/man8/debugfs.8:116
@@ -3140,10 +3117,9 @@ msgstr "Voici une liste de commandes gérées par B<debugfs> :"
 
 #. type: TP
 #: C/man8/debugfs.8:159
-#, fuzzy, no-wrap
-#| msgid "I<cd filespec>"
+#, no-wrap
 msgid "I<blocks filespace>"
-msgstr "I<cd filespec>"
+msgstr "I<blocks filespace>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:164
@@ -3229,17 +3205,14 @@ msgstr "Effacer le contenu de l'inœud I<fichier>."
 
 #. type: TP
 #: C/man8/debugfs.8:194
-#, fuzzy, no-wrap
-#| msgid "I<mkdir filespec>"
+#, no-wrap
 msgid "I<dirsearch filespec filename>"
-msgstr "I<mkdir filespec>"
+msgstr "I<dirsearch filespec fichier>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:200
-#, fuzzy
-#| msgid "Expand the directory I<filespec>."
 msgid "Search the directory I<filespec> for I<filename>."
-msgstr "Développer le répertoire I<filespec>."
+msgstr "Chercher I<fichier> dans le répertoire I<filespec>."
 
 #. type: TP
 #: C/man8/debugfs.8:200
@@ -3254,7 +3227,7 @@ msgid ""
 "If the I<-p> option is given set the owner, group and permissions "
 "information on I<out_file> to match I<filespec>."
 msgstr ""
-"Fournir le contenu de l'inœud I<debugfs> dans le fichier de sortie "
+"Fournir le contenu de l'inœud I<filespec> dans le fichier de sortie "
 "I<fichier_sortie>. Avec l'option B<-p>, le propriétaire, le groupe et les "
 "informations de permission de I<fichier_sortie> correspondront à ceux de "
 "I<filespec>."
@@ -3263,7 +3236,7 @@ msgstr ""
 #: C/man8/debugfs.8:212
 #, no-wrap
 msgid "I<dx_hash [-h hash_alg] [-s hash_seed] filename>"
-msgstr ""
+msgstr "I<dx_hash [-h hash_alg] [-s hash_graine] fichier>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:222
@@ -3272,6 +3245,10 @@ msgid ""
 "with I<-h> may be \"legacy\" \"half_md4\" or \"tea\".  The hash seed "
 "specified with I<-s> must be in UUID format."
 msgstr ""
+"Calculer le hachage du répertoire du I<fichier>. Le nom de l'algorithme de "
+"hachage précisé par I<-h> peut prendre l'une des valeurs « legacy », "
+"« half_md4 » ou « tea ». La graine de hachage précisée avec l'option I<-s> "
+"doit être au format UUID."
 
 #. type: TP
 #: C/man8/debugfs.8:222
@@ -3423,6 +3400,8 @@ msgstr "I<htree_dump filespec>"
 msgid ""
 "Dump the hash-indexed directory I<filespec>, showing its tree structure."
 msgstr ""
+"Décharger le répertoire indexé par hachage I<filespec>, en montrant sa "
+"structure d'arbre."
 
 #. type: TP
 #: C/man8/debugfs.8:292
@@ -3660,10 +3639,9 @@ msgstr ""
 
 #. type: TP
 #: C/man8/debugfs.8:411
-#, fuzzy, no-wrap
-#| msgid "I<ln filespec dest_file>"
+#, no-wrap
 msgid "I<punch filespec start_blk [end_blk]>"
-msgstr "I<ln filespec fichier_dest>"
+msgstr "I<punch filespec bloc_début [bloc_fin]>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:423
@@ -3673,6 +3651,10 @@ msgid ""
 "that is, all of the blocks starting at I<start_blk> through to the end of "
 "the file will be deallocated."
 msgstr ""
+"Effacer les blocs de l'inœud dans l'intervalle entre I<bloc_début> et "
+"I<bloc_fin>. Si I<bloc_fin> est omis, la commande fonctionnera comme la "
+"commande truncate : tous les blocs depuis I<bloc_début> jusqu'à la fin du "
+"fichier seront désalloués."
 
 #. type: TP
 #: C/man8/debugfs.8:423
@@ -4038,6 +4020,8 @@ msgid ""
 "B<Note:> When used with a mounted filesystem, the printed information may be "
 "old or inconsistent."
 msgstr ""
+"B<Remarque :> si il est utilisé sur un système de fichiers monté, "
+"l'information affichée peut ne plus être à jour, ou être incohérente."
 
 #. type: TP
 #: C/man8/dumpe2fs.8:30 C/man8/filefrag.8:29
@@ -4493,6 +4477,8 @@ msgid ""
 "Only replay the journal if required, but do not perform any further checks "
 "or repairs."
 msgstr ""
+"Revoir le journal si besoin, mais n'effectuer aucune autre vérification ou "
+"réparation."
 
 #. type: TP
 #: C/man8/e2fsck.8:192
@@ -4526,6 +4512,15 @@ msgid ""
 "fully recognise a problem and hence in this case this option may prevent you "
 "from further manual data recovery."
 msgstr ""
+"Essayer d'abandonner les blocs libres et les blocs d'inœuds inutilisés après "
+"la vérification complète du système de fichiers (l'abandon de blocs est "
+"utile sur les périphériques à état solide (« SDD ») et les systèmes de "
+"stockage creux ou à allocation fine et dynamique). Notez que l'abandon est "
+"effectué au 5e passage, APRÈS que le système de fichiers a été vérifié "
+"complètement et seulement s'il ne contient pas d'erreurs identifiables. "
+"Cependant, il se peut que B<e2fsck> ne décèle pas un problème existant, et "
+"dans ce cas, cette option vous empêchera peut-être de récupérer manuellement "
+"les données."
 
 #. type: TP
 #: C/man8/e2fsck.8:206 C/man8/mke2fs.8:266
@@ -4539,6 +4534,9 @@ msgid ""
 "Do not attempt to discard free blocks and unused inode blocks. This option "
 "is exactly the opposite of discard option. This is set as default."
 msgstr ""
+"Ne pas essayer d'abandonner les blocs libres et les blocs d'inœuds "
+"inutilisés. Cette option est l'exact contraire de l'option discard. C'est le "
+"comportement par défaut."
 
 #. type: Plain text
 #: C/man8/e2fsck.8:214
@@ -4972,15 +4970,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/e2image.8:48
-#, fuzzy
-#| msgid ""
-#| "If I<image-file> is -, then the output of B<e2image> will be sent to "
-#| "standard output, so that the output can be piped to another program, such "
-#| "as B<gzip>(1).  (Note that this is currently only supported when creating "
-#| "a raw image file using the B<-r> option, since the process of creating a "
-#| "normal image file currently requires random access to the file, which "
-#| "cannot be done using a pipe.  This restriction will hopefully be lifted "
-#| "in a future version of B<e2image>.)"
 msgid ""
 "If I<image-file> is -, then the output of B<e2image> will be sent to "
 "standard output, so that the output can be piped to another program, such as "
@@ -4994,9 +4983,9 @@ msgstr ""
 "sortie standard et peut être envoyée vers un autre programme, comme B<gzip>"
 "(1). Remarquez que c'est actuellement géré uniquement lors de la création "
 "d'une image brute avec l'option B<-r> car il est nécessaire de pouvoir "
-"accéder aléatoirement dans le fichier pour créer une image normale, ce qui "
-"n'est pas possible avec la sortie standard. On espère pouvoir enlever cette "
-"restriction dans une version future de B<e2image>."
+"accéder aléatoirement dans le fichier pour créer une image normale ou une "
+"image QCOW2, ce qui n'est pas possible avec la sortie standard. On espère "
+"pouvoir enlever cette restriction dans une version future de B<e2image>."
 
 #. type: Plain text
 #: C/man8/e2image.8:57
@@ -5018,12 +5007,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/e2image.8:68
-#, fuzzy
-#| msgid ""
-#| "To save disk space, B<e2image> creates the image file as a sparse file.  "
-#| "Hence, if the image file needs to be copied to another location, it "
-#| "should either be compressed first or copied using the B<--sparse=always> "
-#| "option to the GNU version of B<cp>."
 msgid ""
 "To save disk space, B<e2image> creates the image file as a sparse file, or "
 "in QCOW2 format.  Hence, if the sparse image file needs to be copied to "
@@ -5032,9 +5015,10 @@ msgid ""
 "to the QCOW2 image, which is not sparse."
 msgstr ""
 "Pour économiser de l'espace disque, B<e2image> crée l'image comme un fichier "
-"creux. De ce fait, si le fichier doit être copié ailleurs, il doit être soit "
-"compressé préalablement, soit copié en utilisant l'option B<--sparse=always> "
-"de la version GNU de B<cp>."
+"creux, ou au format QCOW2. De ce fait, si le fichier doit être copié "
+"ailleurs, il doit être soit compressé préalablement, soit copié en utilisant "
+"l'option B<--sparse=always> de la version GNU de B<cp>. Cela ne s'applique "
+"pas aux images QCOW2, qui ne sont pas creuses."
 
 #. type: Plain text
 #: C/man8/e2image.8:77
@@ -5170,6 +5154,9 @@ msgid ""
 "Note that this will work even if you substitute \"/dev/hda1\" for another "
 "raw disk image, or QCOW2 image previously created by B<e2image>."
 msgstr ""
+"Remarquez que cela fonctionnera également si vous remplacez « /dev/hda1 » "
+"par une autre image disque brute, ou une image QCOW2 créée au préalable par "
+"B<e2image>."
 
 #. type: SH
 #: C/man8/e2image.8:138
@@ -5186,23 +5173,22 @@ msgid ""
 "amount of disk space by storing data in special format with pack data "
 "closely together, hence avoiding holes while still minimizing size."
 msgstr ""
+"L'option B<-Q> va créer un fichier image QCOW2 au lieu d'un fichier image "
+"normal ou brut. Une image QCOW2 contient autant d'informations qu'une image "
+"brute, mais contrairement à cette dernière, elle n'est pas creuse. L'image "
+"QCOW2 minimise l'espace disque utilisé en stockant les données dans un "
+"format spécial, en serrant des paquets de données, afin d'éviter les trous "
+"tout en minimisant la taille."
 
 #. type: Plain text
 #: C/man8/e2image.8:149
-#, fuzzy
-#| msgid ""
-#| "Raw image files are sometimes used when sending filesystems to the "
-#| "maintainer as part of bug reports to e2fsprogs.  When used in this "
-#| "capacity, the recommended command is as follows (replace hda1 with the "
-#| "appropriate device):"
 msgid ""
 "In order to send filesystem to the maintainer as a part of bug report to "
 "e2fsprogs, use following commands (replace hda1 with the appropriate device):"
 msgstr ""
-"Les images brutes sont parfois utilisées pour l'envoi de systèmes de "
-"fichiers en accompagnement d'un rapport de bogue pour e2fsprogs. Pour cela, "
-"il est recommandé de procéder de la façon suivante (remplacez hda1 par le "
-"périphérique approprié) :"
+"Afin d'envoyer des systèmes de fichier au responsable en accompagnement d'un "
+"rapport de bogue pour e2fsprogs, veuillez procéder de la façon suivante "
+"(remplacez hda1 par le périphérique approprié) :"
 
 #. type: Plain text
 #: C/man8/e2image.8:152
@@ -5220,6 +5206,9 @@ msgid ""
 "Note that QCOW2 image created by B<e2image> is regular QCOW2 image and can "
 "be processed by tools aware of QCOW2 format such as for example B<qemu-img>."
 msgstr ""
+"Remarquez qu'une image QCOW2 créée par B<e2image> est une image QCOW2 "
+"normale, qui peut donc être traitée par des outils pouvant manipuler le "
+"format QCOW2, tels que B<qemu-img>, par exemple."
 
 #. type: Plain text
 #: C/man8/e2image.8:177
@@ -5680,17 +5669,13 @@ msgstr "e4defrag version 2.0"
 
 #. type: Plain text
 #: C/man8/e4defrag.8:4
-#, fuzzy
-#| msgid "Set the last-mounted directory for the filesystem."
 msgid "e4defrag - online defragmenter for ext4 filesystem"
-msgstr "Définir le dernier point de montage du système de fichiers."
+msgstr "e4defrag - Défragmenteur en ligne pour le système de fichiers ext4"
 
 #. type: Plain text
 #: C/man8/e4defrag.8:14
-#, fuzzy
-#| msgid "B<e2freefrag> [ B<-c chunk_kb> ] [ B<-h> ] B<filesys>"
 msgid "B<e4defrag> [ B<-c> ] [ B<-v> ] I<target> \\&..."
-msgstr "B<e2freefrag> [ B<-c morceau_ko> ] [ B<-h> ] B<système_fichiers>"
+msgstr "B<e4defrag> [ B<-c> ] [ B<-v> ] I<cible> \\&..."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:22
@@ -5700,6 +5685,11 @@ msgid ""
 "(see B<mke2fs>(8)).  The targeted file gets more contiguous blocks and "
 "improves the file access speed."
 msgstr ""
+"B<e4defrag> réduit la fragmentation du fichier basé sur les extents. Le "
+"fichier ciblé par B<e4defrag> est présent sur les systèmes de fichiers ext4 "
+"créés avec l'option « -O extent » (consultez B<mke2fs>(8)). Le fichier ciblé "
+"obtient ainsi plus de blocs contigus, ce qui améliore la vitesse d'accès à "
+"ce fichier."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:35
@@ -5710,6 +5700,11 @@ msgid ""
 "the mount point of it and reduces fragmentation of all files in this mount "
 "point."
 msgstr ""
+"I<cible> est un fichier normal, un répertoire, ou un périphérique monté "
+"ayant un système de fichiers ext4. Si I<cible> est un répertoire, "
+"B<e4defrag> réduit la fragmentation de tous les fichiers qu'il contient. Si "
+"I<cible> est un périphérique, B<e4defrag> réduit la fragmentation de tous "
+"les fichiers contenus dans son point de montage."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:48
@@ -5720,6 +5715,11 @@ msgid ""
 "with B<-v> option, the current fragmentation count and the ideal "
 "fragmentation count are printed for each file."
 msgstr ""
+"Obtenir l'état de fragmentation actuel et l'état de fragmentation idéal, et "
+"calculer à partir de ces informations un score de fragmentation. En fonction "
+"de ce score, on peut déterminer s'il faut ou non exécuter B<e4defrag> sur "
+"I<cible>. Lorsque l'option B<-v> est utilisée, les états de fragmentation "
+"actuel et idéal sont affichés pour chaque fichier."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:52
@@ -5728,11 +5728,15 @@ msgid ""
 "you'll find the file has ideal extents or not. Note that the maximum extent "
 "size is 131072KB in ext4 filesystem (if block size is 4KB)."
 msgstr ""
+"Cette option affiche aussi la taille moyenne des données par extent. Il est "
+"possible de déterminer en la voyant si un fichier a des extents idéaux ou "
+"non. Notez que la taille maximale d'un extent est 131 072 ko pour un système "
+"de fichiers ext4 (si la taille d'un bloc est 4 ko)."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:56
 msgid "If this option is specified, I<target> is never defragmented."
-msgstr ""
+msgstr "Si cette option est indiquée, I<cible> ne sera jamais défragmentée."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:60
@@ -5740,6 +5744,8 @@ msgid ""
 "Print error messages and the fragmentation count before and after defrag for "
 "each file."
 msgstr ""
+"Afficher les messages d'erreur et l'état de fragmentation avant et après la "
+"défragmentation de chaque fichier."
 
 #. type: SH
 #: C/man8/e4defrag.8:60
@@ -5754,6 +5760,11 @@ msgid ""
 "files allocated in indirect blocks. When I<target> is a device or a mount "
 "point, B<e4defrag> doesn't defragment files in mount point of other device."
 msgstr ""
+"B<e4defrag> ne gère pas les fichiers d'échange (« swap files »), les "
+"fichiers dans le répertoire lost+found, et les fichiers alloués dans des "
+"blocs indirects. Lorsque I<cible> est un périphérique ou un point de "
+"montage, B<e4defrag> ne défragmente pas les fichiers d'autres points de "
+"montage de périphériques."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:74
@@ -5762,6 +5773,10 @@ msgid ""
 "score is not printed if B<-c> option is specified. Therefore, it is "
 "desirable to be executed by root user."
 msgstr ""
+"Les utilisateurs sans droits particuliers peuvent exécuter B<e4defrag> "
+"surleurs propres fichiers, mais le score n'est pas affiché si l'option B<-c> "
+"est indiquée. Il est donc préférable de l'utiliser avec les droits du "
+"superutilisateur."
 
 #. type: Plain text
 #: C/man8/e4defrag.8:77
@@ -6017,6 +6032,10 @@ msgid ""
 "interval must be less than 300 seconds.  Requires that the B<mmp> feature be "
 "enabled."
 msgstr ""
+"Ajuster la durée, en seconde, de l'intervalle de temps pour la mise à jour "
+"MMP. Indiquer un I<intervalle> de 0 signifie utiliser la valeur par défaut. "
+"La valeur indiquée doit être inférieure à 300 secondes. Cette option "
+"nécessite que la caractéristique B<mmp> ait été activée."
 
 #. type: TP
 #: C/man8/mke2fs.8:210 C/man8/tune2fs.8:189
@@ -6092,14 +6111,6 @@ msgstr "B<lazy_itable_init>[B<= >I<E<lt>0 pour désactiver, 1 pour activerE<gt>>
 
 #. type: Plain text
 #: C/man8/mke2fs.8:246
-#, fuzzy
-#| msgid ""
-#| "If enabled and the uninit_bg feature is enabled, the inode table will not "
-#| "be fully initialized by B<mke2fs>.  This speeds up filesystem "
-#| "initialization noticeably, but it requires the kernel to finish "
-#| "initializing the filesystem in the background when the filesystem is "
-#| "first mounted.  If the option value is omitted, it defaults to 1 to "
-#| "enable lazy inode table initialization."
 msgid ""
 "If enabled and the uninit_bg feature is enabled, the inode table will not be "
 "fully initialized by B<mke2fs>.  This speeds up filesystem initialization "
@@ -6112,8 +6123,8 @@ msgstr ""
 "accélère l'initialisation du système de fichier notablement, mais nécessite "
 "que le noyau finisse l'initialisation du système de fichiers en tâche de "
 "fond quand il est monté pour la première fois. Si la valeur de l'option "
-"n'est pas fournie, la valeur par défaut utilisée est 1, ce qui active "
-"l'initialisation paresseuse de la table des inœuds."
+"n'est pas fournie, la valeur par défaut utilisée est 1, ce qui active la "
+"mise à zéro différée de la table des inœuds."
 
 # NOTE: \fb => \fB
 #. type: TP
@@ -6124,14 +6135,6 @@ msgstr "B<lazy_journal_init>[B<= >I<E<lt>0 pour désactiver, 1 pour activerE<gt>
 
 #. type: Plain text
 #: C/man8/mke2fs.8:254
-#, fuzzy
-#| msgid ""
-#| "If enabled and the uninit_bg feature is enabled, the inode table will not "
-#| "be fully initialized by B<mke2fs>.  This speeds up filesystem "
-#| "initialization noticeably, but it requires the kernel to finish "
-#| "initializing the filesystem in the background when the filesystem is "
-#| "first mounted.  If the option value is omitted, it defaults to 1 to "
-#| "enable lazy inode table initialization."
 msgid ""
 "If enabled, the journal inode will not be fully zeroed out by B<mke2fs>.  "
 "This speeds up filesystem initialization noticeably, but carries some small "
@@ -6139,13 +6142,12 @@ msgid ""
 "one time.  If the option value is omitted, it defaults to 1 to enable lazy "
 "journal inode zeroing."
 msgstr ""
-"Lorsqu'elle est activée et que la caractéristique uninit_bg est activée, la "
-"table des inœuds ne sera pas complètement initialisée par B<mke2fs>. Cela "
-"accélère l'initialisation du système de fichier notablement, mais nécessite "
-"que le noyau finisse l'initialisation du système de fichiers en tâche de "
-"fond quand il est monté pour la première fois. Si la valeur de l'option "
-"n'est pas fournie, la valeur par défaut utilisée est 1, ce qui active "
-"l'initialisation paresseuse de la table des inœuds."
+"Lorsqu'elle est activée, le journal des inœuds ne sera pas complètement mis "
+"à zéro par B<mke2fs>. Cela accélère l'initialisation du système de fichiers "
+"notablement, mais comporte un léger risque en cas de plantage du système "
+"avant que le journal ne soit entièrement réécrit une fois. Si la valeur de "
+"l'option n'est pas fournie, la valeur par défaut utilisée est 1, ce qui "
+"active la mise à zéro différée du journal des inœuds."
 
 #. type: TP
 #: C/man8/mke2fs.8:254 C/man8/tune2fs.8:235
@@ -6173,11 +6175,19 @@ msgid ""
 "zeroed inode tables as zeroed. This significantly speeds up filesystem "
 "initialization. This is set as default."
 msgstr ""
+"Essayer d'abandonner les blocs au moment de mkfs (l'abandon de blocs est "
+"utile pour les périphériques à état solide « SSD » et les systèmes de "
+"stockage creux ou à allocation fine et dynamique). Lorsque le périphérique "
+"signale que l'abandon met aussi à zéro les données (toute lecture "
+"postérieure à l'abandon et antérieure à une écriture renvoie zéro), marquer "
+"comme étant remises à zéro toutes les tables d'inœuds étant sur le point de "
+"l'être. Cela augmente de manière significative l'initialisation du système "
+"de fichiers. C'est le comportement par défaut."
 
 #. type: Plain text
 #: C/man8/mke2fs.8:269
 msgid "Do not attempt to discard blocks at mkfs time."
-msgstr ""
+msgstr "Ne pas essayer d'abandonner des blocs au moment de mkfs."
 
 #. type: TP
 #: C/man8/mke2fs.8:270
@@ -6356,12 +6366,6 @@ msgstr "B<size=>I<taille_journal>"
 
 #. type: Plain text
 #: C/man8/mke2fs.8:360
-#, fuzzy
-#| msgid ""
-#| "Create an internal journal (i.e., stored inside the filesystem) of size "
-#| "I<journal-size> megabytes.  The size of the journal must be at least 1024 "
-#| "filesystem blocks (i.e., 1MB if using 1k blocks, 4MB if using 4k blocks, "
-#| "etc.)  and may be no more than 102,400 filesystem blocks."
 msgid ""
 "Create an internal journal (i.e., stored inside the filesystem) of size "
 "I<journal-size> megabytes.  The size of the journal must be at least 1024 "
@@ -6372,8 +6376,8 @@ msgstr ""
 "Créer un journal dans le système de fichiers de taille I<taille_journal> "
 "mégaoctets. La taille du journal doit être d'au moins 1024 blocs du système "
 "de fichiers (c'est-à-dire 1 Mo pour des blocs de 1 ko, 4 Mo pour des blocs "
-"de 4 ko, etc.) et d'au plus 102 400 blocs. Le journal doit pouvoir tenir "
-"dans le système de fichiers nouvellement créé."
+"de 4 ko, etc.) et d'au plus 10 240 000 blocs, sans dépasser la moitié de la "
+"taille du système de fichiers total."
 
 #. type: TP
 #: C/man8/mke2fs.8:360 C/man8/tune2fs.8:337
@@ -6745,6 +6749,10 @@ msgid ""
 "and set them in the superblock.  With this feature, the quotas will be "
 "enabled automatically when the filesystem is mounted."
 msgstr ""
+"Créer des inœuds de quota (inœud nº 3 pour le quota utilisateur, inœud nº 4 "
+"pour le quota de groupe) et les positionner dans le superbloc. Avec cette "
+"caractéristique, les quotas seront activés automatiquement lorsque le "
+"système de fichiers sera monté."
 
 #. type: TP
 #: C/man8/mke2fs.8:546 C/man8/tune2fs.8:538
@@ -6937,15 +6945,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/mke2fs.8:662
-#, fuzzy
-#| msgid ""
-#| "If this option is is not specified, B<mke2fs> will pick a single default "
-#| "usage type based on the size of the filesystem to be created.  If the "
-#| "filesystem size is less than or equal to 3 megabytes, B<mke2fs> will use "
-#| "the filesystem type I<floppy>.  If the filesystem size is greater than 3 "
-#| "but less than or equal to 512 megabytes, B<mke2fs>(8)  will use the "
-#| "filesystem I<small>.  Otherwise, B<mke2fs>(8)  will use the default "
-#| "filesystem type I<default>."
 msgid ""
 "If this option is is not specified, B<mke2fs> will pick a single default "
 "usage type based on the size of the filesystem to be created.  If the "
@@ -7005,6 +7004,9 @@ msgid ""
 "If set to non-zero integer value, its value is used to determine how often "
 "B<sync>(2)  is called during inode table initialization."
 msgstr ""
+"Si la valeur attribuée est un entier non nul, elle est utilisée pour "
+"déterminer la fréquence d'appels à B<sync>(2) pendant l'initialisation de la "
+"table des inœuds."
 
 #. type: TP
 #: C/man8/mke2fs.8:679
@@ -7014,11 +7016,11 @@ msgstr "B<MKE2FS_CONFIG>"
 
 #. type: Plain text
 #: C/man8/mke2fs.8:683
-#, fuzzy
-#| msgid "The configuration file for B<mke2fs>(8)."
 msgid ""
 "Determines the location of the configuration file (see B<mke2fs.conf>(5))."
-msgstr "Le fichier de configuration de B<mke2fs>(8)."
+msgstr ""
+"Détermine le chemin du fichier de configuration (consultez B<mke2fs,conf>"
+"(5))."
 
 #. type: TP
 #: C/man8/mke2fs.8:683
@@ -7032,6 +7034,9 @@ msgid ""
 "If set to non-zero integer value, its value is used to determine first meta "
 "block group. This is mostly for debugging purposes."
 msgstr ""
+"Si la valeur attribuée est un entier non nul, elle est utilisée pour "
+"déterminer le premier groupe de métablocs. Elle est utilisée majoritairement "
+"pour le débogage."
 
 #. type: TP
 #: C/man8/mke2fs.8:687
@@ -7045,6 +7050,8 @@ msgid ""
 "If set to non-zero integer value, its value is used to determine physical "
 "sector size of the I<device>."
 msgstr ""
+"Si la valeur attribuée est un entier non nul, elle est utilisée pour "
+"déterminer la taille des secteurs physiques du I<périphérique>."
 
 #. type: TP
 #: C/man8/mke2fs.8:692
@@ -7058,6 +7065,9 @@ msgid ""
 "If set, do not show the message of filesystem automatic check caused by "
 "mount count or check interval."
 msgstr ""
+"Si cette variable est positionnée, ne pas afficher le message de "
+"vérification automatique du système de fichiers induite par le compte du "
+"nombre de montages ou le temps écoulé depuis la dernière vérification."
 
 #. type: Plain text
 #: C/man8/mke2fs.8:700
@@ -7449,16 +7459,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/tune2fs.8:93
-#, fuzzy
-#| msgid ""
-#| "B<tune2fs> [ B<-l> ] [ B<-c> I<max-mount-counts> ] [ B<-e> I<errors-"
-#| "behavior> ] [ B<-f> ] [ B<-i> I<interval-between-checks> ] [ B<-j> ] [ B<-"
-#| "J> I<journal-options> ] [ B<-m> I<reserved-blocks-percentage> ] [ B<-o> "
-#| "[^]mount-optionsI<[,...]> ] [ B<-r> I<reserved-blocks-count> ] [ B<-s> "
-#| "I<sparse-super-flag> ] [ B<-u> I<user> ] [ B<-g> I<group> ] [ B<-C> "
-#| "I<mount-count> ] [ B<-E> I<extended-options> ] [ B<-L> I<volume-name> ] "
-#| "[ B<-M> I<last-mounted-directory> ] [ B<-O> [^]I<feature>[,...] ] [ B<-T> "
-#| "I<time-last-checked> ] [ B<-U> I<UUID> ] device"
 msgid ""
 "B<tune2fs> [ B<-l> ] [ B<-c> I<max-mount-counts> ] [ B<-e> I<errors-"
 "behavior> ] [ B<-f> ] [ B<-i> I<interval-between-checks> ] [ B<-j> ] [ B<-J> "
@@ -7477,8 +7477,8 @@ msgstr ""
 "I<activer_réduction_superblocs> ] [ B<-u> I<utilisateur> ] [ B<-g> "
 "I<groupe> ] [ B<-C> I<nombre_montages> ] [ B<-E> I<options_étendues> ] [ B<-"
 "L> I<nom_volume> ] [ B<-M> I<dernier_répertoire_montage> ] [ B<-O> [^]"
-"I<caractéristique>[,...] ] [ B<-T> I<date_dernière_vérification> ] [ B<-U> "
-"I<UUID> ] périphérique"
+"I<caractéristique>[,...] ] [B<-Q> I<options-quota> ] [ B<-T> "
+"I<date_dernière_vérification> ] [ B<-U> I<UUID> ] périphérique"
 
 #. type: Plain text
 #: C/man8/tune2fs.8:104
@@ -7655,6 +7655,10 @@ msgid ""
 "absolutely certain the device is not currently mounted or being fscked, or "
 "major filesystem corruption can result.  Needs '-f'."
 msgstr ""
+"Réinitialiser le bloc MMP (s'il existe) à un état sain. À n'utiliser qu'en "
+"ayant la certitude que le périphérique n'est pas monté ou que son système de "
+"fichiers n'est pas en train d'être vérifié, afin d'éviter une corruption "
+"sévère du système de fichiers."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:199
@@ -7720,6 +7724,12 @@ msgid ""
 "specified with the B<-o> option, I<mount_option_string> is an arbitrary "
 "string with a maximum length of 63 bytes, which is stored in the superblock."
 msgstr ""
+"Fixer un ensemble d'options de montage qui seront utilisées lorsque le "
+"système de fichiers sera monté. Contrairement aux options de montage par "
+"défaut basées sur un masque de bits qui peuvent être indiquées avec l'option "
+"B<-o>, I<mount_option_string> est une chaîne de caractères arbitraire de "
+"longueur inférieure à 63 octets, qui est ensuite enregistrée dans le "
+"superbloc."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:232
@@ -7728,6 +7738,9 @@ msgid ""
 "options, and then parse the I<mount_option_string>, before parsing the mount "
 "options passed from the B<mount>(8)  program."
 msgstr ""
+"Le pilote du système de fichiers ext4 appliquera d'abord les options basées "
+"sur un masque de bits, puis analysera la chaîne I<mount_option_string>, "
+"avant d'analyser les options passées directement au programme B<mount>(8)."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:235
@@ -7735,6 +7748,9 @@ msgid ""
 "This superblock setting is only honored in 2.6.35+ kernels; and not at all "
 "by the ext2 and ext3 file system drivers."
 msgstr ""
+"Ce réglage du superbloc est pris en compte dans les noyaux 2.6.35 et "
+"postérieurs. Il est en revanche complètement ignoré par les pilotes pour les "
+"systèmes de fichiers ext2 et ext3."
 
 #. type: TP
 #: C/man8/tune2fs.8:239
@@ -8197,6 +8213,9 @@ msgid ""
 "disabled.  (This option is currently only supported by the ext4 file system "
 "driver in 2.6.35+ kernels.)"
 msgstr ""
+"Le système de fichiers sera monté avec les opérations de barrières "
+"d'écriture désactivées. (Cette option n'est actuellement gérée que par le "
+"pilote du système de fichiers ext4 dans les noyaux 2.6.35 et postérieurs.)"
 
 #. type: TP
 #: C/man8/tune2fs.8:473
@@ -8215,6 +8234,15 @@ msgid ""
 "so it is enabled only for debugging purposes.  (This option is currently "
 "only supported by the ext4 file system driver in 2.6.35+ kernels.)"
 msgstr ""
+"Le système de fichiers sera monté avec l'option de validité de bloc activée, "
+"ce qui entraînera des vérifications supplémentaires après la lecture ou "
+"l'écriture dans le système de fichiers. Cela empêche l'apparition de blocs "
+"de métadonnées corrompus causant des dommages au système de fichiers par la "
+"réécriture de parties de la table des inœuds ou des descripteurs de groupes "
+"de blocs. Cela a un coût en terme de consommation de mémoire et de temps "
+"processeur, donc ce n'est activé que pour le débogage. (Cette option n'est "
+"actuellement gérée que par le pilote du système de fichiers ext4 des "
+"noyaux 2.6.35 et postérieurs.)"
 
 #. type: Plain text
 #: C/man8/tune2fs.8:492
@@ -8227,6 +8255,14 @@ msgid ""
 "is currently only supported by the ext4 file system driver in 2.6.35+ "
 "kernels.)"
 msgstr ""
+"Le système de fichiers sera monté avec l'option de montage discard. Cela "
+"conduira le système de fichiers à essayer d'utiliser les caractéristiques "
+"d'abandon (« discard ») ou de rognage (« trim ») de certains périphériques "
+"de stockage (tels que les disques durs SSD et les disques à allocation fine "
+"et dynamique disponibles dans certaines baies de stockage) pour informer le "
+"périphérique de stockage que les blocs appartenant aux fichiers effacés "
+"peuvent être réutilisés. (Cette option n'est actuellement gérée que par le "
+"pilote du système de fichiers ext4 des noyaux 2.6.35 et postérieurs.)"
 
 #. type: TP
 #: C/man8/tune2fs.8:492
@@ -8241,6 +8277,10 @@ msgid ""
 "disable the delayed allocation feature.  (This option is currently only "
 "supported by the ext4 file system driver in 2.6.35+ kernels.)"
 msgstr ""
+"Le système de fichiers sera monté avec l'option de montage nodelalloc. Cela "
+"aura pour effet de désactiver la fonctionnalité d'allocation retardée. "
+"(Cette option n'est actuellement gérée que par le pilote du système de "
+"fichiers ext4 des noyaux 2.6.35 et postérieurs.)"
 
 #. type: TP
 #: C/man8/tune2fs.8:498
@@ -8281,7 +8321,7 @@ msgstr "B<dir_nlink>"
 #. type: Plain text
 #: C/man8/tune2fs.8:516
 msgid "Allow more than 65000 subdirectories per directory."
-msgstr ""
+msgstr "Autoriser plus de 65 000 sous-répertoires par répertoire."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:528
@@ -8330,6 +8370,9 @@ msgid ""
 "protect the filesystem from being multiply mounted and is useful in shared "
 "storage environments."
 msgstr ""
+"Activer ou désactiver la protection multiple de montage (« MMP »). Cette "
+"fonctionnalité contribue à la protection du système de fichiers contre les "
+"montages multiples et est utile dans les environnements de stockage partagé."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:552
@@ -8385,13 +8428,15 @@ msgstr ""
 #: C/man8/tune2fs.8:585
 #, no-wrap
 msgid "B<-p>I< mmp_check_interval>"
-msgstr ""
+msgstr "B<-p>I< mmp_intervalle_vérif>"
 
 #. type: Plain text
 #: C/man8/tune2fs.8:588
 msgid ""
 "Set the desired MMP check interval in seconds. It is 5 seconds by default."
 msgstr ""
+"Déterminer l'intervalle de temps, en seconde, entre deux vérifications de "
+"MMP. Il est fixé à 5 secondes par défaut."
 
 #. type: TP
 #: C/man8/tune2fs.8:588
@@ -8416,6 +8461,9 @@ msgid ""
 "Sets 'quota' feature on the superblock and works on the quota files for the "
 "given quota type. Quota options could be one or more of the following:"
 msgstr ""
+"Définir la caractéristique de « quota » sur le superbloc et travailler sur "
+"les fichiers de quota pour le type de quota donné. Les options de quota "
+"possibles sont les suivantes :"
 
 #. type: TP
 #: C/man8/tune2fs.8:596
@@ -8429,6 +8477,9 @@ msgid ""
 "Sets/clears user quota inode in the superblock.  B<[^]usrquota> Sets/clears "
 "group quota inode in the superblock."
 msgstr ""
+"Positionner ou supprimer l'inœud de quota utilisateur dans le superbloc. B<"
+"[^]grpquota> Positionner ou supprimer l'inœud de quota de groupe dans le "
+"superbloc."
 
 #. type: TP
 #: C/man8/tune2fs.8:601
