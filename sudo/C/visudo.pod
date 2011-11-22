@@ -1,4 +1,4 @@
-Copyright (c) 1996,1998-2005, 2007-2010
+Copyright (c) 1996,1998-2005, 2007-2011
 	Todd C. Miller <Todd.Miller@courtesan.com>
 
 Permission to use, copy, modify, and distribute this software for any
@@ -26,7 +26,7 @@ visudo - edit the sudoers file
 
 =head1 SYNOPSIS
 
-B<visudo> [B<-c>] [B<-q>] [B<-s>] [B<-V>] [B<-f> I<sudoers>]
+B<visudo> [B<-chqsV>] [B<-f> I<sudoers>]
 
 =head1 DESCRIPTION
 
@@ -82,6 +82,13 @@ Specify and alternate I<sudoers> file location.  With this option
 B<visudo> will edit (or check) the I<sudoers> file of your choice,
 instead of the default, F<@sysconfdir@/sudoers>.  The lock file used
 is the specified I<sudoers> file with ".tmp" appended to it.
+In B<check-only> mode only, the argument to B<-f> may be "-",
+indicating that I<sudoers> will be read from the standard input.
+
+=item -h
+
+The B<-h> (I<help>) option causes B<visudo> to print a short help message
+to the standard output and exit.
 
 =item -q
 
@@ -164,6 +171,13 @@ complain).  In B<-s> (strict) mode these are errors, not warnings.
 The specified {User,Runas,Host,Cmnd}_Alias was defined but never
 used.  You may wish to comment out or remove the unused alias.  In
 B<-s> (strict) mode this is an error, not a warning.
+
+=item Warning: cycle in {User,Runas,Host,Cmnd}_Alias
+
+The specified {User,Runas,Host,Cmnd}_Alias includes a reference to
+itself, either directly or through an alias it includes.  This is
+only a warning by default as B<sudo> will ignore cycles when parsing
+the I<sudoers> file.
 
 =back
 

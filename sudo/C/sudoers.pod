@@ -1,4 +1,4 @@
-Copyright (c) 1994-1996, 1998-2005, 2007-2010
+Copyright (c) 1994-1996, 1998-2005, 2007-2011
 	Todd C. Miller <Todd.Miller@courtesan.com>
 
 Permission to use, copy, modify, and distribute this software for any
@@ -22,9 +22,108 @@ Materiel Command, USAF, under agreement number F39502-99-1-0512.
 
 =head1 NAME
 
-sudoers - list of which users may execute what
+sudoers - default sudo security policy module
 
 =head1 DESCRIPTION
+
+The I<sudoers> policy module determines a user's B<sudo> privileges.
+It is the default B<sudo> policy plugin.  The policy is driven by
+the F<@sysconfdir@/sudoers> file or, optionally in LDAP.  The policy
+format is described in detail in the L<"SUDOERS FILE FORMAT">
+section.  For information on storing I<sudoers> policy information
+in LDAP, please see L<sudoers.ldap(5)>.
+
+=head2 Authentication and Logging
+
+The I<sudoers> security policy requires that most users authenticate
+themselves before they can use B<sudo>.  A password is not required
+if the invoking user is root, if the target user is the same as the
+invoking user, or if the policy has disabled authentication for the
+user or command.  Unlike L<su(1)>, when I<sudoers> requires
+authentication, it validates the invoking user's credentials, not
+the target user's (or root's) credentials.  This can be changed via
+the I<rootpw>, I<targetpw> and I<runaspw> flags, described later.
+
+If a user who is not listed in the policy tries to run a command
+via B<sudo>, mail is sent to the proper authorities.  The address
+used for such mail is configurable via the I<mailto> Defaults entry
+(described later) and defaults to C<@mailto@>.
+
+Note that mail will not be sent if an unauthorized user tries to
+run B<sudo> with the B<-l> or B<-v> option.  This allows users to
+determine for themselves whether or not they are allowed to use
+B<sudo>.
+
+If B<sudo> is run by root and the C<SUDO_USER> environment variable
+is set, the I<sudoers> policy will use this value to determine who
+the actual user is.  This can be used by a user to log commands 
+through sudo even when a root shell has been invoked.  It also
+allows the B<-e> option to remain useful even when invoked via a
+sudo-run script or program.  Note, however, that the I<sudoers>
+lookup is still done for root, not the user specified by C<SUDO_USER>.
+
+I<sudoers> uses time stamp files for credential caching.  Once a
+user has been authenticated, a time stamp is updated and the user
+may then use sudo without a password for a short period of time
+(C<@timeout@> minutes unless overridden by the I<timeout> option.
+By default, I<sudoers> uses a tty-based time stamp which means that
+there is a separate time stamp for each of a user's login sessions.
+The I<tty_tickets> option can be disabled to force the use of a
+single time stamp for all of a user's sessions.
+
+I<sudoers> can log both successful and unsuccessful attempts (as well
+as errors) to syslog(3), a log file, or both.  By default, I<sudoers>
+will log via syslog(3) but this is changeable via the I<syslog>
+and I<logfile> Defaults settings.
+
+I<sudoers> also supports logging a command's input and output
+streams.  I/O logging is not on by default but can be enabled using
+the I<log_input> and I<log_output> Defaults flags as well as the
+C<LOG_INPUT> and C<LOG_OUTPUT> command tags.
+
+=head2 Command Environment
+
+Since environment variables can influence program behavior, I<sudoers>
+provides a means to restrict which variables from the user's
+environment are inherited by the command to be run.  There are two
+distinct ways I<sudoers> can deal with environment variables.
+
+By default, the I<env_reset> option is enabled.  This causes commands
+to be executed with a minimal environment containing C<TERM>,
+C<PATH>, C<HOME>, C<MAIL>, C<SHELL>, C<LOGNAME>, C<USER> and C<USERNAME> in
+addition to variables from the invoking process permitted by the
+I<env_check> and I<env_keep> options.  This is effectively a whitelist
+for environment variables.
+
+If, however, the I<env_reset> option is disabled, any variables not
+explicitly denied by the I<env_check> and I<env_delete> options are
+inherited from the invoking process.  In this case, I<env_check>
+and I<env_delete> behave like a blacklist.  Since it is not possible
+to blacklist all potentially dangerous environment variables, use
+of the default I<env_reset> behavior is encouraged.
+
+In all cases, environment variables with a value beginning with
+C<()> are removed as they could be interpreted as B<bash> functions.
+The list of environment variables that B<sudo> allows or denies is
+contained in the output of C<sudo -V> when run as root.
+
+Note that the dynamic linker on most operating systems will remove
+variables that can control dynamic linking from the environment of
+setuid executables, including B<sudo>.  Depending on the operating
+system this may include C<_RLD*>, C<DYLD_*>, C<LD_*>, C<LDR_*>,
+C<LIBPATH>, C<SHLIB_PATH>, and others.  These type of variables are
+removed from the environment before B<sudo> even begins execution
+and, as such, it is not possible for B<sudo> to preserve them.
+
+As a special case, if B<sudo>'s B<-i> option (initial login) is
+specified, I<sudoers> will initialize the environment regardless
+of the value of I<env_reset>.  The I<DISPLAY>, I<PATH> and I<TERM>
+variables remain unchanged; I<HOME>, I<MAIL>, I<SHELL>, I<USER>,
+and I<LOGNAME> are set based on the target user.  On Linux and AIX
+systems the contents of F</etc/environment> are also included.  All
+other environment variables are removed.
+
+=head1 SUDOERS FILE FORMAT
 
 The I<sudoers> file is composed of two types of entries: aliases
 (basically variables) and user specifications (which specify who
@@ -112,25 +211,33 @@ The definitions of what constitutes a valid I<alias> member follow.
 	       User ',' User_List
 
  User ::= '!'* user name |
-	  '!'* '#'uid |
-	  '!'* '%'group |
-	  '!'* '+'netgroup |
-	  '!'* '%:'nonunix_group |
+	  '!'* #uid |
+	  '!'* %group |
+	  '!'* %#gid |
+	  '!'* +netgroup |
+	  '!'* %:nonunix_group |
+	  '!'* %:#nonunix_gid |
 	  '!'* User_Alias
 
-A C<User_List> is made up of one or more user names, uids (prefixed
-with '#'), system groups (prefixed with '%'), netgroups (prefixed
-with '+') and C<User_Alias>es.  Each list item may be prefixed with
-zero or more '!' operators.  An odd number of '!' operators negate
-the value of the item; an even number just cancel each other out.
+A C<User_List> is made up of one or more user names, user ids
+(prefixed with '#'), system group names and ids (prefixed with '%'
+and '%#' respectively), netgroups (prefixed with '+'), non-Unix
+group names and IDs (prefixed with '%:' and '%:#' respectively) and
+C<User_Alias>es.  Each list item may be prefixed with zero or more
+'!' operators.  An odd number of '!' operators negate the value of
+the item; an even number just cancel each other out.
 
-A C<user name>, C<group>, C<netgroup> or C<nonunix_group> may
-be enclosed in double quotes to avoid the need for escaping special
-characters.  Alternately, special characters may be specified in
-escaped hex mode, e.g. \x20 for space.
+A C<user name>, C<uid>, C<group>, C<gid>, C<netgroup>, C<nonunix_group>
+or C<nonunix_gid> may be enclosed in double quotes to avoid the
+need for escaping special characters.  Alternately, special characters
+may be specified in escaped hex mode, e.g. \x20 for space.  When
+using double quotes, any prefix characters must be included inside
+the quotes.
 
-The C<nonunix_group> syntax depends on the underlying implementation.
-For instance, the QAS AD backend supports the following formats:
+The actual C<nonunix_group> and C<nonunix_gid> syntax depends on
+the underlying group provider plugin (see the I<group_plugin>
+description below).  For instance, the QAS AD plugin supports the
+following formats:
 
 =over 4
 
@@ -148,15 +255,20 @@ Group SID: "S-1-2-34-5678901234-5678901234-5678901234-567"
 
 =back
 
-Note that quotes around group names are optional.  Unquoted strings must
-use a backslash (\) to escape spaces and the '@' symbol.
+Note that quotes around group names are optional.  Unquoted strings
+must use a backslash (\) to escape spaces and special characters.
+See L<"Other special characters and reserved words"> for a list of
+characters that need to be escaped.
 
  Runas_List ::= Runas_Member |
 		Runas_Member ',' Runas_List
 
  Runas_Member ::= '!'* user name |
-	          '!'* '#'uid |
-	          '!'* '%'group |
+	          '!'* #uid |
+	          '!'* %group |
+	          '!'* %#gid |
+	          '!'* %:nonunix_group |
+	          '!'* %:#nonunix_gid |
 	          '!'* +netgroup |
 	          '!'* Runas_Alias
 
@@ -173,7 +285,7 @@ and toor), you can use a uid instead (#0 in the example given).
  Host ::= '!'* host name |
 	  '!'* ip_addr |
 	  '!'* network(/netmask)? |
-	  '!'* '+'netgroup |
+	  '!'* +netgroup |
 	  '!'* Host_Alias
 
 A C<Host_List> is made up of one or more host names, IP addresses,
@@ -293,7 +405,7 @@ A B<user specification> determines which commands a user may run
 (and as what user) on specified hosts.  By default, commands are
 run as B<root>, but this can be changed on a per-command basis.
 
-The basic structure of a user specification is `who = where (as_whom)
+The basic structure of a user specification is `who where = (as_whom)
 what'.  Let's break that down into its constituent parts:
 
 =head2 Runas_Spec
@@ -322,7 +434,7 @@ What this means is that for the entry:
 The user B<dgb> may run F</bin/ls>, F</bin/kill>, and
 F</usr/bin/lprm> -- but only as B<operator>.  E.g.,
 
- $ sudo -u operator /bin/ls.
+ $ sudo -u operator /bin/ls
 
 It is also possible to override a C<Runas_Spec> later on in an
 entry.  If we modify the entry like so:
@@ -338,12 +450,35 @@ the user or group set to B<operator>:
  dgb	boulder = (operator : operator) /bin/ls, (root) /bin/kill, \
 	/usr/bin/lprm
 
+Note that while the group portion of the C<Runas_Spec> permits the
+user to run as command with that group, it does not force the user
+to do so.  If no group is specified on the command line, the command
+will run with the group listed in the target user's password database
+entry.  The following would all be permitted by the sudoers entry above:
+
+ $ sudo -u operator /bin/ls
+ $ sudo -u operator -g operator /bin/ls
+ $ sudo -g operator /bin/ls
+
 In the following example, user B<tcm> may run commands that access
-a modem device file with the dialer group.  Note that in this example
-only the group will be set, the command still runs as user B<tcm>.
+a modem device file with the dialer group.
 
  tcm	boulder = (:dialer) /usr/bin/tip, /usr/bin/cu, \
 	/usr/local/bin/minicom
+
+Note that in this example only the group will be set, the command
+still runs as user B<tcm>.  E.g.
+
+ $ sudo -g dialer /usr/bin/cu
+
+Multiple users and groups may be present in a C<Runas_Spec>, in
+which case the user may select any combination of users and groups
+via the B<-u> and B<-g> options.  In this example:
+
+ alan	ALL = (root, bin : operator, system) ALL
+
+user B<alan> may run any command as either user root or bin,
+optionally setting the group to operator or system.
 
 =head2 SELinux_Spec
 
@@ -408,13 +543,14 @@ on how C<NOEXEC> works and whether or not it will work on your system.
 =head3 SETENV and NOSETENV
 
 These tags override the value of the I<setenv> option on a per-command
-basis.  Note that if C<SETENV> has been set for a command, any
-environment variables set on the command line way are not subject
-to the restrictions imposed by I<env_check>, I<env_delete>, or
-I<env_keep>.  As such, only trusted users should be allowed to set
-variables in this manner.  If the command matched is B<ALL>, the
-C<SETENV> tag is implied for that command; this default may
-be overridden by use of the C<NOSETENV> tag.
+basis.  Note that if C<SETENV> has been set for a command, the user
+may disable the I<env_reset> option from the command line via the
+B<-E> option.  Additionally, environment variables set on the command
+line are not subject to the restrictions imposed by I<env_check>,
+I<env_delete>, or I<env_keep>.  As such, only trusted users should
+be allowed to set variables in this manner.  If the command matched
+is B<ALL>, the C<SETENV> tag is implied for that command; this
+default may be overridden by use of the C<NOSETENV> tag.
 
 =head3 LOG_INPUT and NOLOG_INPUT
 
@@ -579,7 +715,7 @@ characters in a I<User Specification> ('=', ':', '(', ')') is optional.
 
 The following characters must be escaped with a backslash ('\') when
 used as part of a word (e.g.E<nbsp>a user name or host name):
-'@', '!', '=', ':', ',', '(', ')', '\'.
+'!', '=', ':', ',', '(', ')', '\'.
 
 =head1 SUDOERS OPTIONS
 
@@ -598,7 +734,8 @@ home directory of the target user (which is root unless the B<-u>
 option is used).  This effectively means that the B<-H> option is
 always implied.  Note that C<HOME> is already set when the the
 I<env_reset> option is enabled, so I<always_set_home> is only
-effective for configurations where I<env_reset> is disabled.
+effective for configurations where either I<env_reset> is disabled
+or C<HOME> is present in the I<env_keep> list.
 This flag is I<off> by default.
 
 =item authenticate
@@ -640,7 +777,7 @@ and C<env_check> lists are then added.  The default contents of the
 C<env_keep> and C<env_check> lists are displayed when B<sudo> is
 run by root with the I<-V> option.  If the I<secure_path> option
 is set, its value will be used for the C<PATH> environment variable.
-This flag is I<on> by default.
+This flag is I<@env_reset@> by default.
 
 =item fast_glob
 
@@ -701,6 +838,43 @@ password.  This flag is I<@insults@> by default.
 If set, the host name will be logged in the (non-syslog) B<sudo> log file.
 This flag is I<off> by default.
 
+=item log_input
+
+If set, B<sudo> will run the command in a I<pseudo tty> and log all
+user input.
+If the standard input is not connected to the user's tty, due to
+I/O redirection or because the command is part of a pipeline, that
+input is also captured and stored in a separate log file.
+
+Input is logged to the directory specified by the I<iolog_dir>
+option (F<@iolog_dir@> by default) using a unique session ID that
+is included in the normal B<sudo> log line, prefixed with I<TSID=>.
+The I<iolog_file> option may be used to control the format of the
+session ID.
+
+Note that user input may contain sensitive information such as
+passwords (even if they are not echoed to the screen), which will
+be stored in the log file unencrypted.  In most cases, logging the
+command output via I<log_output> is all that is required.
+
+=item log_output
+
+If set, B<sudo> will run the command in a I<pseudo tty> and log all
+output that is sent to the screen, similar to the script(1) command.
+If the standard output or standard error is not connected to the
+user's tty, due to I/O redirection or because the command is part
+of a pipeline, that output is also captured and stored in separate
+log files.
+
+Output is logged to the directory specified by the I<iolog_dir>
+option (F<@iolog_dir@> by default) using a unique session ID that
+is included in the normal B<sudo> log line, prefixed with I<TSID=>.
+The I<iolog_file> option may be used to control the format of the
+session ID.
+
+Output logs may be viewed with the L<sudoreplay(8)> utility, which
+can also be used to list or search the available logs.
+
 =item log_year
 
 If set, the four-digit year will be logged in the (non-syslog) B<sudo> log file.
@@ -708,7 +882,7 @@ This flag is I<off> by default.
 
 =item long_otp_prompt
 
-When validating with a One Time Password (OPT) scheme such as
+When validating with a One Time Password (OTP) scheme such as
 B<S/Key> or B<OPIE>, a two-line prompt is used to make it easier
 to cut and paste the challenge to a local window.  It's not as
 pretty as the default but some people find it more convenient.  This
@@ -822,7 +996,8 @@ environment variable will be set to the home directory of the target
 user (which is root unless the B<-u> option is used).  This effectively
 makes the B<-s> option imply B<-H>.  Note that C<HOME> is already
 set when the the I<env_reset> option is enabled, so I<set_home> is
-only effective for configurations where I<env_reset> is disabled.
+only effective for configurations where either I<env_reset> is disabled
+or C<HOME> is present in the I<env_keep> list.
 This flag is I<off> by default.
 
 =item set_logname
@@ -837,14 +1012,23 @@ option.  Note that if the I<env_reset> option has not been disabled,
 entries in the I<env_keep> list will override the value of
 I<set_logname>.  This flag is I<on> by default.
 
+=item set_utmp
+
+When enabled, B<sudo> will create an entry in the utmp (or utmpx)
+file when a pseudo-tty is allocated.  A pseudo-tty is allocated by
+B<sudo> when the I<log_input>, I<log_output> or I<use_pty> flags
+are enabled.  By default, the new entry will be a copy of the user's
+existing utmp entry (if any), with the tty, time, type and pid
+fields updated.  This flag is I<on> by default.
+
 =item setenv
 
 Allow the user to disable the I<env_reset> option from the command
-line.  Additionally, environment variables set via the command line
-are not subject to the restrictions imposed by I<env_check>,
-I<env_delete>, or I<env_keep>.  As such, only trusted users should
-be allowed to set variables in this manner.  This flag is I<off>
-by default.
+line via the B<-E> option.  Additionally, environment variables set
+via the command line are not subject to the restrictions imposed
+by I<env_check>, I<env_delete>, or I<env_keep>.  As such, only
+trusted users should be allowed to set variables in this manner.
+This flag is I<off> by default.
 
 =item shell_noargs
 
@@ -874,34 +1058,6 @@ include the target user's name.  Note that this flag precludes the
 use of a uid not listed in the passwd database as an argument to
 the B<-u> option.  This flag is I<off> by default.
 
-=item log_input
-
-If set, B<sudo> will run the command in a I<pseudo tty> and log all
-user input.
-If the standard input is not connected to the user's tty, due to
-I/O redirection or because the command is part of a pipeline, that
-input is also captured and stored in a separate log file.
-
-Input is logged to the F</var/log/sudo-io> directory using a unique
-session ID that is included in the normal B<sudo> log line, prefixed
-with I<TSID=>.
-
-=item log_output
-
-If set, B<sudo> will run the command in a I<pseudo tty> and log all
-output that is sent to the screen, similar to the script(1) command.
-If the standard output or standard error is not connected to the
-user's tty, due to I/O redirection or because the command is part
-of a pipeline, that output is also captured and stored in separate
-log files.
-
-Output is logged to the
-F</var/log/sudo-io> directory using a unique session ID that is
-included in the normal B<sudo> log line, prefixed with I<TSID=>.
-
-Output logs may be viewed with the L<sudoreplay(8)> utility, which
-can also be used to list or search the available logs.
-
 =item tty_tickets
 
 If set, users must authenticate on a per-tty basis.  With this flag
@@ -917,7 +1073,7 @@ modification.  This makes it possible to specify a more permissive
 umask in I<sudoers> than the user's own umask and matches historical
 behavior.  If I<umask_override> is not set, B<sudo> will set the
 umask to be the union of the user's umask and what is specified in
-I<sudoers>.  This flag is I<off> by default.
+I<sudoers>.  This flag is I<@umask_override@> by default.
 
 =item use_loginclass
 
@@ -931,7 +1087,13 @@ If set, B<sudo> will run the command in a pseudo-pty even if no I/O
 logging is being gone.  A malicious program run under B<sudo> could
 conceivably fork a background process that retains to the user's
 terminal device after the main program has finished executing.  Use
-of this option will make that impossible.
+of this option will make that impossible.  This flag is I<off> by default.
+
+=item utmp_runas
+
+If set, B<sudo> will store the name of the runas user when updating
+the utmp (or utmpx) file.  By default, B<sudo> stores the name of
+the invoking user.  This flag is I<off> by default.
 
 =item visiblepw
 
@@ -995,11 +1157,11 @@ own timestamps via C<sudo -v> and C<sudo -k> respectively.
 
 Umask to use when running the command.  Negate this option or set
 it to 0777 to preserve the user's umask.  The actual umask that is
-used will be the union of the user's umask and C<@sudo_umask@>.
-This guarantees that B<sudo> never lowers the umask when running a
-command.  Note on systems that use PAM, the default PAM configuration
-may specify its own umask which will override the value set in
-I<sudoers>.
+used will be the union of the user's umask and the value of the
+I<umask> option, which defaults to C<@sudo_umask@>.  This guarantees
+that B<sudo> never lowers the umask when running a command.  Note
+on systems that use PAM, the default PAM configuration may specify
+its own umask which will override the value set in I<sudoers>.
 
 =back
 
@@ -1019,6 +1181,73 @@ B<visudo>.  B<visudo> will choose the editor that matches the user's
 EDITOR environment variable if possible, or the first editor in the
 list that exists and is executable.  The default is C<"@editor@">.
 
+=item iolog_dir
+
+The top-level directory to use when constructing the path name for
+the input/output log directory.  Only used if the I<log_input> or
+I<log_output> options are enabled or when the C<LOG_INPUT> or
+C<LOG_OUTPUT> tags are present for a command.  The session sequence
+number, if any, is stored in the directory.
+The default is C<"@iolog_dir@">.
+
+The following percent (`C<%>') escape sequences are supported:
+
+=over 4
+
+=item C<%{seq}>
+
+expanded to a monotonically increasing base-36 sequence number, such as 0100A5,
+where every two digits are used to form a new directory, e.g. F<01/00/A5>
+
+=item C<%{user}>
+
+expanded to the invoking user's login name
+
+=item C<%{group}>
+
+expanded to the name of the invoking user's real group ID
+
+=item C<%{runas_user}>
+
+expanded to the login name of the user the command will
+be run as (e.g. root)
+
+=item C<%{runas_group}>
+
+expanded to the group name of the user the command will
+be run as (e.g. wheel)
+
+=item C<%{hostname}>
+
+expanded to the local host name without the domain name
+
+=item C<%{command}>
+
+expanded to the base name of the command being run
+
+=back
+
+In addition, any escape sequences supported by the system's strftime()
+function will be expanded.
+
+To include a literal `C<%>' character, the string `C<%%>' should
+be used.
+
+=item iolog_file
+
+The path name, relative to I<iolog_dir>, in which to store input/output
+logs when the I<log_input> or I<log_output> options are enabled or
+when the C<LOG_INPUT> or C<LOG_OUTPUT> tags are present for a command.
+Note that I<iolog_file> may contain directory components.
+The default is C<"%{seq}">.
+
+See the I<iolog_dir> option above for a list of supported percent
+(`C<%>') escape sequences.
+
+In addition to the escape sequences, path names that end in six or
+more C<X>s will have the C<X>s replaced with a unique combination
+of digits and letters, similar to the mktemp() function.
+
 =item mailsub
 
 Subject of the mail sent to the I<mailto> user. The escape C<%h>
@@ -1027,23 +1256,22 @@ Default is C<@mailsub@>.
 
 =item noexec_file
 
-Path to a shared library containing dummy versions of the execv(),
-execve() and fexecve() library functions that just return an error.
-This is used to implement the I<noexec> functionality on systems that
-support C<LD_PRELOAD> or its equivalent.  Defaults to F<@noexec_file@>.
+This option is deprecated and will be removed in a future release
+of B<sudo>.  The path to the noexec file should now be set in the
+F<@sysconfdir@/sudo.conf> file.
 
 =item passprompt
 
 The default prompt to use when asking for a password; can be overridden
 via the B<-p> option or the C<SUDO_PROMPT> environment variable.
-The following percent (`C<%>') escapes are supported:
+The following percent (`C<%>') escape sequences are supported:
 
 =over 4
 
 =item C<%H>
 
 expanded to the local host name including the domain name
-(on if the machine's host name is fully qualified or the I<fqdn>
+(only if the machine's host name is fully qualified or the I<fqdn>
 option is set)
 
 =item C<%h>
@@ -1083,24 +1311,27 @@ This option is only available whe B<sudo> is built with SELinux support.
 
 The default user to run commands as if the B<-u> option is not specified
 on the command line.  This defaults to C<@runas_default@>.
-Note that if I<runas_default> is set it B<must> occur before
-any C<Runas_Alias> specifications.
 
 =item syslog_badpri
 
 Syslog priority to use when user authenticates unsuccessfully.
 Defaults to C<@badpri@>.
 
+The following syslog priorities are supported: B<alert>, B<crit>,
+B<debug>, B<emerg>, B<err>, B<info>, B<notice>, and B<warning>.
+
 =item syslog_goodpri
 
 Syslog priority to use when user authenticates successfully.
 Defaults to C<@goodpri@>.
 
+See L<syslog_badpri> for the list of supported syslog priorities.
+
 =item sudoers_locale
 
-Locale to use when parsing the sudoers file.  Note that changing
-the locale may affect how sudoers is interpreted.
-Defaults to C<"C">.
+Locale to use when parsing the sudoers file, logging commands, and
+sending email.  Note that changing the locale may affect how sudoers
+is interpreted.  Defaults to C<"C">.
 
 =item timestampdir
 
@@ -1125,17 +1356,6 @@ B<Strings that can be used in a boolean context>:
 
 =over 12
 
-=item askpass
-
-The I<askpass> option specifies the fully qualified path to a helper
-program used to read the user's password when no terminal is
-available.  This may be the case when B<sudo> is executed from a
-graphical (as opposed to text-based) application.  The program
-specified by I<askpass> should display the argument passed to it
-as the prompt and write the user's password to the standard output.
-The value of I<askpass> may be overridden by the C<SUDO_ASKPASS>
-environment variable.
-
 =item env_file
 
 The I<env_file> options specifies the fully qualified path to a
@@ -1149,7 +1369,26 @@ as I<env_keep> and I<env_check>.
 =item exempt_group
 
 Users in this group are exempt from password and PATH requirements.
+The group name specified should not include a C<%> prefix.
 This is not set by default.
+
+=item group_plugin
+
+A string containing a I<sudoers> group plugin with optional arguments.
+This can be used to implement support for the C<nonunix_group>
+syntax described earlier.  The string should consist of the plugin
+path, either fully-qualified or relative to the F<@prefix@/libexec>
+directory, followed by any configuration arguments the plugin
+requires.  These arguments (if any) will be passed to the plugin's
+initialization function.  If arguments are present, the string must
+be enclosed in double quotes (C<">).
+
+For example, given F</etc/sudo-group>, a group file in Unix group
+format, the sample group plugin can be used:
+
+    Defaults group_plugin="sample_group.so /etc/sudo-group"
+
+For more information see L<sudo_plugin(5)>.
 
 =item lecture
 
@@ -1255,6 +1494,10 @@ This option is @secure_path@ by default.
 Syslog facility if syslog is being used for logging (negate to
 disable syslog logging).  Defaults to C<@logfac@>.
 
+The following syslog facilities are supported: B<authpriv> (if your
+OS supports it), B<auth>, B<daemon>, B<user>, B<local0>, B<local1>,
+B<local2>, B<local3>, B<local4>, B<local5>, B<local6>, and B<local7>.
+
 =item verifypw
 
 This option controls when a password will be required when a user runs
@@ -1309,9 +1552,6 @@ the I<-V> option.
 
 =item env_delete
 
-Not effective due to security issues: only variables listed in 
-I<env_keep> or I<env_check> can be passed through B<sudo>!
-
 Environment variables to be removed from the user's environment
 when the I<env_reset> option is not in effect.  The argument may
 be a double-quoted, space-separated list or a single value without
@@ -1325,8 +1565,8 @@ B<sudo>).
 
 =item env_keep
 
-Environment variables to be preserved in the user's environment.
-This allows fine-grained
+Environment variables to be preserved in the user's environment
+when the I<env_reset> option is in effect.  This allows fine-grained
 control over the environment B<sudo>-spawned processes will receive.
 The argument may be a double-quoted, space-separated list or a
 single value without double-quotes.  The list can be replaced, added
@@ -1335,14 +1575,6 @@ C<!> operators respectively.  The default list of variables to keep
 is displayed when B<sudo> is run by root with the I<-V> option.
 
 =back
-
-When logging via L<syslog(3)>, B<sudo> accepts the following values
-for the syslog facility (the value of the B<syslog> Parameter):
-B<authpriv> (if your OS supports it), B<auth>, B<daemon>, B<user>,
-B<local0>, B<local1>, B<local2>, B<local3>, B<local4>, B<local5>,
-B<local6>, and B<local7>.  The following syslog priorities are
-supported: B<alert>, B<crit>, B<debug>, B<emerg>, B<err>, B<info>,
-B<notice>, and B<warning>.
 
 =head1 FILES
 
@@ -1360,9 +1592,17 @@ Local groups file
 
 List of network groups
 
-=item F</var/log/sudo-io>
+=item F<@iolog_dir@>
 
 I/O log files
+
+=item F<@timedir@>
+
+Directory containing time stamps for the I<sudoers> security policy
+
+=item F</etc/environment>
+
+Initial environment for B<-i> mode on Linux and AIX
 
 =back
 
@@ -1601,7 +1841,7 @@ arbitrary commands.  Many editors have a restricted mode where shell
 escapes are disabled, though B<sudoedit> is a better solution to
 running editors via B<sudo>.  Due to the large number of programs that
 offer shell escapes, restricting users to the set of programs that
-do not if often unworkable.
+do not is often unworkable.
 
 =item noexec
 
@@ -1614,25 +1854,15 @@ Note, however, that this applies only to native dynamically-linked
 executables.  Statically-linked executables and foreign executables
 running under binary emulation are not affected.
 
-To tell whether or not B<sudo> supports I<noexec>, you can run
-the following as root:
-
-    sudo -V | grep "dummy exec"
-
-If the resulting output contains a line that begins with:
-
-    File containing dummy exec functions:
-
-then B<sudo> may be able to replace the exec family of functions
-in the standard library with its own that simply return an error.
-Unfortunately, there is no foolproof way to know whether or not
-I<noexec> will work at compile-time.  I<noexec> should work on
-SunOS, Solaris, *BSD, Linux, IRIX, Tru64 UNIX, MacOS X, and HP-UX
-11.x.  It is known B<not> to work on AIX and UnixWare.  I<noexec>
-is expected to work on most operating systems that support the
+The I<noexec> feature is known to work on SunOS, Solaris, *BSD,
+Linux, IRIX, Tru64 UNIX, MacOS X, HP-UX 11.x and AIX 5.3 and above.
+It should be supported on most operating systems that support the
 C<LD_PRELOAD> environment variable.  Check your operating system's
 manual pages for the dynamic linker (usually ld.so, ld.so.1, dyld,
 dld.sl, rld, or loader) to see if C<LD_PRELOAD> is supported.
+
+On Solaris 10 and higher, I<noexec> uses Solaris privileges instead
+of the C<LD_PRELOAD> environment variable.
 
 To enable I<noexec> for a command, use the C<NOEXEC> tag as documented
 in the User Specification section above.  Here is that example again:
@@ -1643,7 +1873,8 @@ This allows user B<aaron> to run F</usr/bin/more> and F</usr/bin/vi>
 with I<noexec> enabled.  This will prevent those two commands from
 executing other commands (such as a shell).  If you are unsure
 whether or not your system is capable of supporting I<noexec> you
-can always just try it out and see if it works.
+can always just try it out and check whether shell escapes work
+when I<noexec> is enabled.
 
 =back
 
@@ -1654,9 +1885,56 @@ to unintended privilege escalation.  In the specific case of an
 editor, a safer approach is to give the user permission to run
 B<sudoedit>.
 
+=head1 SECURITY NOTES
+
+I<sudoers> will check the ownership of its time stamp directory
+(F<@timedir@> by default) and ignore the directory's contents if
+it is not owned by root or if it is writable by a user other than
+root.  On systems that allow non-root users to give away files via
+L<chown(2)>, if the time stamp directory is located in a world-writable
+directory (e.g., F</tmp>), it is possible for a user to create the
+time stamp directory before B<sudo> is run.  However, because
+I<sudoers> checks the ownership and mode of the directory and its
+contents, the only damage that can be done is to "hide" files by
+putting them in the time stamp dir.  This is unlikely to happen
+since once the time stamp dir is owned by root and inaccessible by
+any other user, the user placing files there would be unable to get
+them back out.
+
+I<sudoers> will not honor time stamps set far in the future.  Time
+stamps with a date greater than current_time + 2 * C<TIMEOUT> will
+be ignored and sudo will log and complain.  This is done to keep a
+user from creating his/her own time stamp with a bogus date on
+systems that allow users to give away files if the time stamp directory
+is located in a world-writable directory.
+
+On systems where the boot time is available, I<sudoers> will ignore
+time stamps that date from before the machine booted.
+
+Since time stamp files live in the file system, they can outlive a
+user's login session.  As a result, a user may be able to login,
+run a command with B<sudo> after authenticating, logout, login
+again, and run B<sudo> without authenticating so long as the time
+stamp file's modification time is within C<@timeout@> minutes (or
+whatever the timeout is set to in I<sudoers>).  When the I<tty_tickets>
+option is enabled, the time stamp has per-tty granularity but still
+may outlive the user's session.  On Linux systems where the devpts
+filesystem is used, Solaris systems with the devices filesystem,
+as well as other systems that utilize a devfs filesystem that
+monotonically increase the inode number of devices as they are
+created (such as Mac OS X), I<sudoers> is able to determine when a
+tty-based time stamp file is stale and will ignore it.  Administrators
+should not rely on this feature as it is not universally available.
+
+If users have sudo C<ALL> there is nothing to prevent them from
+creating their own program that gives them a root shell (or making
+their own copy of a shell) regardless of any '!' elements in the
+user specification.
+
 =head1 SEE ALSO
 
-L<rsh(1)>, L<su(1)>, L<fnmatch(3)>, L<glob(3)>, L<sudo(8)>, L<visudo(8)>
+L<rsh(1)>, L<su(1)>, L<fnmatch(3)>, L<glob(3)>, L<mktemp(3)>, L<strftime(3)>,
+L<sudoers.ldap(5)>, L<sudo_plugin(8)>, L<sudo(8)>, L<visudo(8)>
 
 =head1 CAVEATS
 
