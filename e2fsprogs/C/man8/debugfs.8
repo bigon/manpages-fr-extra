@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH DEBUGFS 8 "October 2011" "E2fsprogs version 1.42-WIP"
+.TH DEBUGFS 8 "November 2011" "E2fsprogs version 1.42"
 .SH NAME
 debugfs \- ext2/ext3/ext4 file system debugger
 .SH SYNOPSIS
@@ -210,6 +210,9 @@ option is given set the owner, group and permissions information on
 to match 
 .IR filespec .
 .TP
+.I dump_mmp
+Display the multiple-mount protection (mmp) field values.
+.TP
 .I dx_hash [-h hash_alg] [-s hash_seed] filename
 Calculate the directory hash of
 .IR filename .
@@ -248,6 +251,27 @@ Set or clear various filesystem features in the superblock.  After setting
 or clearing any filesystem features that were requested, print the current
 state of the filesystem feature set.
 .TP
+.I filefrag [-dvr] filespec
+Print the number of contiguous extents in
+.IR filespec .
+If
+.I filespec
+is a directory and the
+.I -d
+option is not specified,
+.I filefrag
+will print the number of contiguous extents for each file in
+the directory.  The
+.I -v
+option will cause
+.I filefrag
+print a tabular listing of the contiguous extents in the
+file.  The
+.I -r
+option will cause
+.I filefrag
+to do a recursive listing of the directory.
+.TP
 .I find_free_block [count [goal]]
 Find the first 
 .I count
@@ -276,6 +300,16 @@ is present, then
 blocks starting at block number
 .I block
 will be marked as not allocated.
+.TP
+.I freefrag [-c chunk_kb ]
+Report free space fragmentation on the currently open file system.
+If the
+.I \-c
+option is specified then the filefrag command will print how many free
+chunks of size
+.I chunk_kb
+can be found in the file system.  The chunk size must be a power of two
+and be larger than the file system block size.
 .TP
 .I freei filespec
 Free the inode specified by 
@@ -484,6 +518,16 @@ has value
 The list of valid inode fields which can be set via this command 
 can be displayed by using the command:
 .B set_inode_field -l
+.TP
+.I set_mmp_value field value
+Modify the multiple-mount protection (mmp) data so that the
+mmp field
+.I field
+has value
+.I value.
+The list of valid mmp fields which can be set via this command
+can be displayed by using the command:
+.B set_mmp_value -l
 .TP
 .I set_super_value field value
 Set the superblock field
