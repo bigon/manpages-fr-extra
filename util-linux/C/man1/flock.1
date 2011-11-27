@@ -24,9 +24,9 @@
 .\"   OTHER DEALINGS IN THE SOFTWARE.
 .\"
 .\" -----------------------------------------------------------------------
-.TH FLOCK "1" "4 Feb 2006" "flock utility" "H. Peter Anvin"
+.TH FLOCK 1 "February 2006" "util-linux" "User Commands"
 .SH NAME
-flock \- Manage locks from shell scripts
+flock \- manage locks from shell scripts
 .SH SYNOPSIS
 \fBflock\fP [\fB\-sxon\fP] [\fB\-w\fP \fItimeout\fP] \fIlockfile\fP [\fB\-c\fP] \fIcommand...\fP
 .PP
@@ -49,17 +49,17 @@ permissions), if it does not already exist.
 The third form is convenient inside shell scripts, and is usually
 used the following manner:
 .PP
-\fR(
+\fC(
 .br
-  flock -n 9
+  flock -n 9 || exit 1
 .br
   # ... commands executed under lock ...
 .br
 ) 9>/var/lock/mylockfile\fP
 .PP
 The mode used to open the file doesn't matter to \fBflock\fP; using
-\fR>\fP or \fP>>\fP allows the lockfile to be created if it does not
-already exist, however, write permission is required; using \fR<\fP
+\fC>\fP or \fP>>\fP allows the lockfile to be created if it does not
+already exist, however, write permission is required; using \fC<\fP
 requires that the file already exists but only read permission is
 required.
 .PP
