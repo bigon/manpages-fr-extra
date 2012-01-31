@@ -1883,13 +1883,6 @@ msgstr "B<RAMTMP>"
 
 #. type: Plain text
 #: C/man5/rcS.5:167
-#, fuzzy
-#| msgid ""
-#| "Make /tmp/ available as a ram file system (tmpfs).  Set to 'yes' to "
-#| "enable, to 'no' to disable (defaults to yes).  The size of the tmpfs can "
-#| "be controlled using TMPFS_SIZE and TMP_SIZE in /etc/default/tmpfs.  "
-#| "However, /etc/default/tmpfs is deprecated and to override the defaults an "
-#| "entry should be created in /etc/fstab, for example:"
 msgid ""
 "Make /tmp/ available as a ram file system (tmpfs).  Set to 'yes' to enable, "
 "to 'no' to disable.  It defaults to yes for new installations (wheezy and "
@@ -1901,11 +1894,13 @@ msgid ""
 msgstr ""
 "Rendre /tmp/ disponible comme système de fichiers en RAM (tmpfs). "
 "Positionnez la variable à « yes » pour l'activer et à « no » pour la "
-"désactiver (la valeur par défaut est « yes »). La taille du système de "
-"fichiers tmpfs peut être contrôlée par TMPFS_SIZE et TMP_SIZE dans /etc/"
-"defaults/tmpfs. Cependant, le fichier /etc/default/tmpfs est obsolète, "
-"remplacé par des entrées adéquates dans /etc/fstab surchargeant les options "
-"par défaut. Par exemple :"
+"désactiver. La valeur par défaut est « yes » pour les nouvelles "
+"installations (depuis Wheezy), et « no » pour les mises à niveau depuis les "
+"versions précédentes, qui ne contiennent pas RAMTMP dans I</etc/default/"
+"rcS>. La taille du système de fichiers tmpfs peut être contrôlée par "
+"TMPFS_SIZE et TMP_SIZE dans /etc/defaults/tmpfs. Cependant, le fichier /etc/"
+"default/tmpfs est obsolète, remplacé par des entrées adéquates dans /etc/"
+"fstab surchargeant les options par défaut. Par exemple :"
 
 #. type: Plain text
 #: C/man5/rcS.5:170
@@ -2785,12 +2780,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/init.8:150
-#, fuzzy
-#| msgid ""
-#| "Usage of B<SIGPWR> and B</etc/powerstatus> is discouraged. Someone "
-#| "wanting to interact with B<init> should use the B</dev/initctl> control "
-#| "channel - see the source code of the B<sysvinit> package for more "
-#| "documentation about this."
 msgid ""
 "Usage of B<SIGPWR> and B</etc/powerstatus> is discouraged. Someone wanting "
 "to interact with B<init> should use the B</run/initctl> control channel - "
@@ -2799,7 +2788,7 @@ msgid ""
 msgstr ""
 "L'utilisation de B<SIGPWR> et de I</etc/powerstatus> n'est pas conseillé. "
 "Pour interagir avec B<init> il est préférable d'utiliser le canal de "
-"contrôle I</dev/initctl> ; consultez le code source de B<sysvinit> pour plus "
+"contrôle I</run/initctl> ; consultez le code source de B<sysvinit> pour plus "
 "de documentation à ce sujet."
 
 #. }}}
@@ -3138,20 +3127,13 @@ msgstr "INTERFACE"
 
 #. type: Plain text
 #: C/man8/init.8:256
-#, fuzzy
-#| msgid ""
-#| "Init listens on a I<fifo> in /dev, I</dev/initctl>, for messages.  "
-#| "B<Telinit> uses this to communicate with init. The interface is not very "
-#| "well documented or finished. Those interested should study the I<initreq."
-#| "h> file in the I<src/> subdirectory of the B<init> source code tar "
-#| "archive."
 msgid ""
 "Init listens on a I<fifo> in /run, I</run/initctl>, for messages.  "
 "B<Telinit> uses this to communicate with init. The interface is not very "
 "well documented or finished. Those interested should study the I<initreq.h> "
 "file in the I<src/> subdirectory of the B<init> source code tar archive."
 msgstr ""
-"init écoute sur une I<fifo> dans /dev, I</dev/initctl> dans l'attente de "
+"init écoute sur une I<fifo> dans /dev, I</run/initctl> dans l'attente de "
 "messages. B<telinit> utilise ceci pour communiquer avec init. L'interface "
 "n'est pas très documentée ou finalisée. Les personnes intéressées devraient "
 "étudier le fichier I<initreq.h> dans le sous-répertoire I<src/> de l'archive "
@@ -3187,17 +3169,12 @@ msgstr "B<SIGUSR1>"
 
 #. type: Plain text
 #: C/man8/init.8:266
-#, fuzzy
-#| msgid ""
-#| "On receipt of this signals, init closes and re-opens its control fifo, B</"
-#| "dev/initctl>. Useful for bootscripts when /dev is remounted."
 msgid ""
 "On receipt of this signals, init closes and re-opens its control fifo, B</"
 "run/initctl>."
 msgstr ""
 "Lors de la réception de ces signaux, init ferme et réouvre sa fifo de "
-"contrôle, I</dev/initctl>. Ceci est utile pour les scripts de démarrage "
-"quand /dev est remonté."
+"contrôle, I</run/initctl>."
 
 #. type: TP
 #: C/man8/init.8:266
@@ -3254,14 +3231,7 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/init.8:291
-#, fuzzy, no-wrap
-#| msgid ""
-#| "/etc/inittab\n"
-#| "/etc/initscript\n"
-#| "/dev/console\n"
-#| "/var/run/utmp\n"
-#| "/var/log/wtmp\n"
-#| "/dev/initctl\n"
+#, no-wrap
 msgid ""
 "/etc/inittab\n"
 "/etc/initscript\n"
@@ -3275,7 +3245,7 @@ msgstr ""
 "/dev/console\n"
 "/var/run/utmp\n"
 "/var/log/wtmp\n"
-"/dev/initctl\n"
+"/run/initctl\n"
 
 #. }}}
 #. {{{  Warnings
