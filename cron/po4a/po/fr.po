@@ -335,23 +335,14 @@ msgstr "AUTEUR"
 
 #. type: Plain text
 #: C/man1/crontab.1:164 C/man5/crontab.5:356 C/man8/cron.8:304
-#, fuzzy
-#| msgid ""
-#| "Paul Vixie E<lt>paul@vix.comE<gt> is the author of \n"
-#| "I<cron>\n"
-#| "and original creator of this manual page. This page has also been "
-#| "modified for\n"
-#| "Debian by Steve Greenland, Javier Fernandez-Sanguino and Christian "
-#| "Kastner.\n"
 msgid ""
 "Paul Vixie E<lt>paul@vix.comE<gt> is the author of I<cron> and original "
 "creator of this manual page. This page has also been modified for Debian by "
 "Steve Greenland, Javier Fernandez-Sanguino and Christian Kastner."
 msgstr ""
 "Paul Vixie E<lt>I<paul@vix.com>E<gt> est l'auteur de B<cron> et de cette "
-"page de\n"
-"manuel. Cette page a ensuite été modifiée pour Debian par Steve\n"
-"Greenland, Javier Fernandez-Sanguino et Christian Kastner.\n"
+"page de manuel. Cette page a ensuite été modifiée pour Debian par Steve "
+"Greenland, Javier Fernandez-Sanguino et Christian Kastner."
 
 #. type: Plain text
 #: C/man5/crontab.5:24
@@ -836,23 +827,7 @@ msgstr "L'exemple suivant présente le fichier crontab d'un utilisateur"
 
 #. type: Plain text
 #: C/man5/crontab.5:264
-#, fuzzy, no-wrap
-#| msgid ""
-#| "# use /bin/bash to run commands, instead of the default /bin/sh\n"
-#| "SHELL=/bin/bash\n"
-#| "# mail any output to `paul', no matter whose crontab this is\n"
-#| "MAILTO=paul\n"
-#| "#\n"
-#| "# run five minutes after midnight, every day\n"
-#| "5 0 * * *       $HOME/bin/daily.job E<gt>E<gt> $HOME/tmp/out 2E<gt>&1\n"
-#| "# run at 2:15pm on the first of every month -- output mailed to paul\n"
-#| "15 14 1 * *     $HOME/bin/monthly\n"
-#| "# run at 10 pm on weekdays, annoy Joe\n"
-#| "0 22 * * 1-5    mail -s \"It's 10pm\" joe%Joe,%%Where are your kids?%\n"
-#| "23 0-23/2 * * * echo \"run 23 minutes after midn, 2am, 4am ..., everyday\"\n"
-#| "5 4 * * sun     echo \"run at 5 after 4 every sunday\"\n"
-#| "# Run on every second Saturday of the month\n"
-#| "0 4 8-14 * *    test $(date +%u) -eq 6 && echo \"2nd Saturday\"\n"
+#, no-wrap
 msgid ""
 "# use /bin/bash to run commands, instead of the default /bin/sh\n"
 "SHELL=/bin/bash\n"
@@ -885,7 +860,7 @@ msgstr ""
 "23 0-23/2 * * * echo \"Tous les jours, 23 mn après 0 h, 2 h, 4 h…\"\n"
 "5 4 * * sun     echo \"Tous les dimanches à 4 h 05\"\n"
 "# Tous les deuxièmes samedis du mois\n"
-"0 4 8-14 * *    test $(date +%u) -eq 6 && echo \"deuxième samedi\"\n"
+"0 4 8-14 * *    test $(date +\\e%u) -eq 6 && echo \"deuxième samedi\"\n"
 
 #. type: SH
 #: C/man5/crontab.5:265
@@ -932,14 +907,7 @@ msgstr ""
 
 #. type: Plain text
 #: C/man5/crontab.5:286
-#, fuzzy, no-wrap
-#| msgid ""
-#| "# m h dom mon dow user\tcommand\n"
-#| "17 *\t* * *\troot    cd / && run-parts --report /etc/cron.hourly\n"
-#| "25 6\t* * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )\n"
-#| "47 6\t* * 7\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )\n"
-#| "52 6\t1 * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )\n"
-#| "#\n"
+#, no-wrap
 msgid ""
 "# m h dom mon dow user\tcommand\n"
 "17 * * * *  root  cd / && run-parts --report /etc/cron.hourly\n"
@@ -1088,12 +1056,11 @@ msgstr ""
 
 #. type: Plain text
 #: C/man5/crontab.5:343
-#, fuzzy, no-wrap
-#| msgid "0 4 * * Sat   [ \"$(date +%e)\" = \"`ncal | grep $(date +%a | sed  -e 's/.$//') | sed -e 's/^.*\\es\\e([0-9]\\e+\\e)\\es*$/\\e1/'`\" ] && echo \"Last Saturday\" && program_to_run\n"
+#, no-wrap
 msgid "0 4 * * Sat   [ \"$(date +\\e%e)\" = \"`ncal | grep $(date +\\e%a | sed  -e 's/.$//') | sed -e 's/^.*\\es\\e([0-9]\\e+\\e)\\es*$/\\e1/'`\" ] && echo \"Last Saturday\" && program_to_run\n"
 msgstr ""
-"0 4 * * Sat  [ \"$(date +\\%e)\" = \n"
-" \"`ncal | grep $(date +\\%a | sed  -e 's/.$//') | sed -e 's/^.*\\s\\([0-9]\\+\\)\\s*$/\\1/'`\" \n"
+"0 4 * * Sat  [ \"$(date +\\e%e)\" = \n"
+" \"`ncal | grep $(date +\\e%a | sed  -e 's/.$//') | sed -e 's/^.*\\s\\([0-9]\\+\\)\\s*$/\\1/'`\" \n"
 " ] && echo \"Dernier samedi\" && programme_à_exécuter\n"
 
 #. type: Plain text
@@ -1683,19 +1650,6 @@ msgstr ""
 #: C/man8/cron.8:299
 msgid "crontab(1), crontab(5), run-parts(8)"
 msgstr "B<crontab>(1), B<crontab>(5), B<run-parts>(8)"
-
-#~ msgid ""
-#~ "Paul Vixie E<lt>paul@vix.comE<gt>  is the author of \n"
-#~ "I<cron>\n"
-#~ "and original creator of this manual page. This page has also been modified for\n"
-#~ "Debian by Steve Greenland, Javier Fernandez-Sanguino and Christian Kastner.\n"
-#~ msgstr ""
-#~ "Paul Vixie E<lt>I<paul@vix.com>E<gt> est l'auteur de B<cron> et de cette page de\n"
-#~ "manuel. Cette page a ensuite été modifiée pour Debian par Steve\n"
-#~ "Greenland, Javier Fernandez-Sanguino et Christian Kastner.\n"
-
-#~ msgid "Paul Vixie E<lt>paul@vix.comE<gt>\n"
-#~ msgstr "Paul Vixie E<lt>paul@vix.comE<gt>\n"
 
 #~ msgid "This has the username field, as used by /etc/crontab."
 #~ msgstr ""
