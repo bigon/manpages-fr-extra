@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: glibc\n"
-"POT-Creation-Date: 2011-11-06 17:03-0400\n"
+"POT-Creation-Date: 2012-03-02 16:58-0400\n"
 "PO-Revision-Date: 2011-11-01 23:16+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -269,7 +269,7 @@ msgstr ""
 #: C/man3/pthread_condattr_init.3:34 C/man3/pthread_key_create.3:103
 #: C/man3/pthread_mutex_init.3:171 C/man3/pthread_mutexattr_init.3:75
 #: C/man3/pthread_mutexattr_setkind_np.3:33 C/man3/pthread_once.3:32
-#: C/man5/gai.conf.5:87 C/man5/locale.gen.5:40 C/man8/iconvconfig.8:216
+#: C/man5/gai.conf.5:93 C/man5/locale.gen.5:40 C/man8/iconvconfig.8:216
 #: C/man8/iconvconfig.8:231 C/man8/locale-gen.8:92 C/man8/update-locale.8:44
 #, no-wrap
 msgid "AUTHOR"
@@ -553,7 +553,7 @@ msgstr "I<getconf> a été écrit par Roland McGrath pour la bibliothèque GNU C
 #: C/man1/zdump.1:41 C/man3/pthread_atfork.3:50 C/man3/pthread_cond_init.3:137
 #: C/man3/pthread_condattr_init.3:37 C/man3/pthread_key_create.3:106
 #: C/man3/pthread_mutex_init.3:174 C/man3/pthread_mutexattr_init.3:78
-#: C/man3/pthread_mutexattr_setkind_np.3:36 C/man5/gai.conf.5:90
+#: C/man3/pthread_mutexattr_setkind_np.3:36 C/man5/gai.conf.5:96
 #: C/man5/locale.gen.5:38 C/man5/nscd.conf.5:242 C/man8/ldconfig.8:156
 #: C/man8/zic.8:411 C/man8/ld.so.8:217 C/man8/validlocale.8:47
 #: C/man8/locale-gen.8:89 C/man8/update-locale.8:47 C/man8/nscd.8:84
@@ -1207,7 +1207,7 @@ msgstr ""
 
 #. type: Sh
 #: C/man1/locale.1:246 C/man1/locale.1:247 C/man1/localedef.1:203
-#: C/man1/tzselect.1:52 C/man5/gai.conf.5:84 C/man8/ldconfig.8:136
+#: C/man1/tzselect.1:52 C/man5/gai.conf.5:90 C/man8/ldconfig.8:136
 #: C/man8/ld.so.8:192 C/man8/validlocale.8:13 C/man8/locale-gen.8:81
 #: C/man8/update-locale.8:40 C/man8/nscd.8:73
 #, no-wrap
@@ -2886,7 +2886,7 @@ msgstr ""
 
 #. type: SH
 #: C/man3/pthread_cond_init.3:144 C/man3/pthread_key_create.3:109
-#: C/man3/pthread_mutex_init.3:179 C/man5/gai.conf.5:66 C/man5/nscd.conf.5:214
+#: C/man3/pthread_mutex_init.3:179 C/man5/gai.conf.5:72 C/man5/nscd.conf.5:214
 #: C/man8/update-locale.8:33
 #, no-wrap
 msgid "EXAMPLE"
@@ -4284,9 +4284,15 @@ msgstr "B<precedence> I<masque_réseau> I<priorité>"
 # NOTE: precendence -> precedence
 #. type: Plain text
 #: C/man5/gai.conf.5:57
+#, fuzzy
+#| msgid ""
+#| "This keyword is similar to B<label> but instead the value is added to the "
+#| "precendence table as specified in RFC 3484.  Once again, the presence of "
+#| "a single B<precedence> line in the configuration file causes the default "
+#| "table to not be used."
 msgid ""
 "This keyword is similar to B<label> but instead the value is added to the "
-"precendence table as specified in RFC 3484.  Once again, the presence of a "
+"precedence table as specified in RFC 3484.  Once again, the presence of a "
 "single B<precedence> line in the configuration file causes the default table "
 "to not be used."
 msgstr ""
@@ -4314,8 +4320,22 @@ msgstr ""
 "relu. Ceci peut causer des problèmes dans les applications multi-threads et "
 "est généralement une mauvaise idée. La valeur par défaut est « B<no> »."
 
+#. type: TP
+#: C/man5/gai.conf.5:65
+#, no-wrap
+msgid "B<scopev4> I<mask> I<value>"
+msgstr ""
+
 #. type: Plain text
-#: C/man5/gai.conf.5:70
+#: C/man5/gai.conf.5:71
+msgid ""
+"Add another rule to the RFC 3484 scope table for IPv4 address.  By default "
+"the scope IDs described in section 3.2 in RFC 3438 are used.  Changing these "
+"defaults should hardly ever be necessary."
+msgstr ""
+
+#. type: Plain text
+#: C/man5/gai.conf.5:76
 msgid ""
 "The default table according to RFC 3484 would be specified with the "
 "following configuration file:"
@@ -4324,19 +4344,30 @@ msgstr ""
 "configuration suivant :"
 
 #. type: Plain text
-#: C/man5/gai.conf.5:82
-#, no-wrap
+#: C/man5/gai.conf.5:88
+#, fuzzy, no-wrap
+#| msgid ""
+#| "label  ::1/128       0\n"
+#| "label  ::/0          1\n"
+#| "label  2002::/16     2\n"
+#| "label ::/96          3\n"
+#| "label ::ffff:0:0/96  4\n"
+#| "precendence  ::1/128       50\n"
+#| "precendence  ::/0          40\n"
+#| "precendence  2002::/16     30\n"
+#| "precendence ::/96          20\n"
+#| "precendence ::ffff:0:0/96  10\n"
 msgid ""
 "label  ::1/128       0\n"
 "label  ::/0          1\n"
 "label  2002::/16     2\n"
 "label ::/96          3\n"
 "label ::ffff:0:0/96  4\n"
-"precendence  ::1/128       50\n"
-"precendence  ::/0          40\n"
-"precendence  2002::/16     30\n"
-"precendence ::/96          20\n"
-"precendence ::ffff:0:0/96  10\n"
+"precedence  ::1/128       50\n"
+"precedence  ::/0          40\n"
+"precedence  2002::/16     30\n"
+"precedence ::/96          20\n"
+"precedence ::ffff:0:0/96  10\n"
 msgstr ""
 "label  ::1/128       0\n"
 "label  ::/0          1\n"
@@ -4350,17 +4381,17 @@ msgstr ""
 "precendence ::ffff:0:0/96  10\n"
 
 #. type: Plain text
-#: C/man5/gai.conf.5:86
+#: C/man5/gai.conf.5:92
 msgid "I</etc/gai.conf>"
 msgstr "I</etc/gai.conf>"
 
 #. type: Plain text
-#: C/man5/gai.conf.5:89
+#: C/man5/gai.conf.5:95
 msgid "Ulrich Drepper E<lt>drepper redhat comE<gt>"
 msgstr "Ulrich Drepper E<lt>drepper redhat comE<gt>"
 
 #. type: Plain text
-#: C/man5/gai.conf.5:92
+#: C/man5/gai.conf.5:98
 msgid "B<getaddrinfo(3),> RFC 3484"
 msgstr "B<getaddrinfo(3),> RFC 3484"
 
