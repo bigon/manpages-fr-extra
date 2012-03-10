@@ -84,14 +84,14 @@ others.  Normally, only primary partitions [1..4] may be activated, but if
 the Extended Master Boot Loader is present on the Master Boot Record
 of the device
 (see the \fI-M\fP option), any partition may be made active.  Whether the
-actual OS in the partition will boot from an extended partition depends on
-the characteristics of the OS.  LILO boot records for Linux
-may be booted from an extended partition.
+actual OS in the partition will boot from a logical partition depends on
+the characteristics of the OS.  LILO boot records for Linux may be booted
+from a logical partition.
 .TP
 .BI "\-\^b " bootdev
 Specify the boot device; i.e., where the boot loader will be installed.
 "\-b /dev/hda" specifies the Master Boot Record; "\-b /dev/sdb5" specifies
-the first extended partition on the second SCSI disk.
+the first logical partition on the second SATA disk.
 .TP
 .BI "\-\^B " bitmap-file
 Specify a bitmap file for the boot-time graphics screen, preferably one
@@ -176,8 +176,8 @@ addresses.
 .TP
 .BI "\-\^L"
 Generate 32-bit Logical Block Addresses instead of cylinder/head/sector
-addresses, allowing
-access to all partitions on disks with more than 1024 cylinders.
+addresses, allowing access to all partitions on disks with more than 1024
+cylinders.
 .TP
 .BI "\-\^m " map-file
 Use specified map file instead of the default.
@@ -204,7 +204,7 @@ Require interactive entry of all passwords specified as
 .B """""" 
 in the configuration file.
 .TP
-.BI "\-\^P " "{fix|ignore|\<global-option\>}"
+.BI "\-\^P " "{fix|ignore|<global-option>}"
 Fix or ignore `corrupt' partition tables, i.e., partition tables
 with linear and cylinder/head/sector addresses that do not correspond.
 Always try
