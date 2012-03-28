@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\"
-.TH MKE2FS 8 "February 2012" "E2fsprogs version 1.42.1"
+.TH MKE2FS 8 "March 2012" "E2fsprogs version 1.42.2"
 .SH NAME
 mke2fs \- create an ext2/ext3/ext4 filesystem
 .SH SYNOPSIS
@@ -16,6 +16,9 @@ mke2fs \- create an ext2/ext3/ext4 filesystem
 [
 .B \-b
 .I block-size
+]
+[
+.B \-D
 ]
 [
 .B \-f
@@ -183,6 +186,12 @@ the blocksize be a multiple of 2k.
 Check the device for bad blocks before creating the file system.  If
 this option is specified twice, then a slower read-write
 test is used instead of a fast read-only test.
+.TP
+.B \-D
+Use direct I/O when writing to the disk.  This avoids mke2fs dirtying a
+lot of buffer cache memory, which may impact other applications running
+on a busy server.  This option will cause mke2fs to run much more
+slowly, however, so there is a tradeoff to using direct I/O.
 .TP
 .BI \-E " extended-options"
 Set extended options for the filesystem.  Extended options are comma
