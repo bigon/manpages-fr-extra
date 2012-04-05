@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e2fsprogs\n"
 "POT-Creation-Date: 2012-03-28 11:06-0400\n"
-"PO-Revision-Date: 2012-03-28 11:22-0400\n"
+"PO-Revision-Date: 2012-04-05 17:26+0200\n"
 "Last-Translator: Cédric Boutillier <cedric.boutillier@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -1374,6 +1374,8 @@ msgid ""
 "If the I<log_filename> relation contains a relative pathname, then the log "
 "file will be placed in the directory named by the I<log_dir> relation."
 msgstr ""
+"Si la variable I<log_filename> contient un nom de chemin relatif, alors le "
+"journal sera placé dans le répertoire indiqué par la variable I<log_dir>."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:146
@@ -1387,6 +1389,9 @@ msgid ""
 "This relation contains an alternate directory that will be used if the "
 "directory specified by I<log_dir> is not available or is not writeable."
 msgstr ""
+"Cette variable contient un répertoire alternatif, qui sera utilisé si le "
+"répertoire indiqué dans I<log_dir> n'est pas disponible ou si l'écriture n'y "
+"est pas permise."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:152
@@ -1405,6 +1410,14 @@ msgid ""
 "reading/writing.  This implements the functionality provided by B<logsave>"
 "(8)  for e2fsck log files."
 msgstr ""
+"Si cette variable booléenne est vraie, alors si les répertoires précisés par "
+"I<log_dir> ou I<log_dir_fallback> ne sont pas disponibles, ou si l'écriture "
+"n'y est pas encore autorisée, e2fsck sauvegardera la sortie dans un tampon "
+"en mémoire. Un processus fils vérifiera alors de manière périodique si le "
+"répertoire de journalisation est devenu disponible après que la séquence "
+"d'amorçage a monté le système de fichier nécessaire pour la lecture et "
+"l'écriture. Cela implémente la fonctionnalité fournie par B<logsave>(8) pour "
+"les journaux d'e2fsck."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:165
@@ -1424,6 +1437,15 @@ msgid ""
 "include things like date, time, device name, and other run-time parameters.  "
 "See the B<LOGGING> section for more details."
 msgstr ""
+"Cette variable indique le nom du fichier dans lequel une copie de la sortie "
+"d'e2fsck sera écrite. Si certains rapports de problèmes sont supprimées par "
+"la variable I<max_count_problems>, (ou par la variable I<max_count> pour "
+"réglage propre à chaque type de problème), la totalité des problèmes sera "
+"quand même écrite dans le journal. Le nom de fichier peut contenir des "
+"expressions avec des pour-cents (%D, %T, %N, etc.) qui seront développées de "
+"sorte que le nom de fichier du journal puisse contenir la date, l'heure, le "
+"nom du périphérique, ainsi que d'autres paramètres de l'exécution. Consultez "
+"la section B<JOURNALISATION> pour plus d'informations."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:179
@@ -1440,6 +1462,12 @@ msgid ""
 "connected to a serial port) and so a large amount of output could end up "
 "delaying the boot process for a long time (potentially hours)."
 msgstr ""
+"Cette variable précise le nombre maximal de rapports de problèmes d'un type "
+"particulier qui sera affiché sur la sortie standard, avant que les autres "
+"soient oubliés. Cela peut être utile si la console est lente (par exemple, "
+"si elle est connectée par un port série) et que la grande quantité "
+"d'information en sortie peut entraîner un retard important dans le processus "
+"d'amorçage (éventuellement plusieurs heures)."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:186
@@ -1545,6 +1573,8 @@ msgid ""
 "This integer relation overrides the I<max_count_problems> parameter (set in "
 "the options section) for this particular problem."
 msgstr ""
+"Cette variable entière remplace la variable I<max_count_problems> "
+"(positionnée dans la section I<[options]>) pour ce problème particulier."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:226
@@ -1718,7 +1748,7 @@ msgstr ""
 #: C/man5/e2fsck.conf.5:285
 #, no-wrap
 msgid "LOGGING"
-msgstr ""
+msgstr "JOURNALISATION"
 
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:299
@@ -1731,6 +1761,12 @@ msgid ""
 "I<log_dir_fallback>, and I<log_dir_wait> relations in the I<[options]> "
 "stanza."
 msgstr ""
+"e2fsck a la faculté de sauvegarder l'information tirée d'une exécution "
+"d'e2fsck dans un répertoire, afin qu'un administrateur système puisse la "
+"consulter au besoin. Cela permet de conserver l'information capturée pendant "
+"les exécutions aussi bien automatiques que manuelles d'e2fsck. Cette "
+"fonctionnalité est contrôlée par les variables I<log_filename>, I<log_dir>, "
+"I<log_dir_fallback> et I<log_dir_wait> dans la section I<[options]>."
 
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:304
@@ -1738,6 +1774,8 @@ msgid ""
 "The filename in I<log_filename> may contain the following percent-"
 "expressions that will be expanded as follows."
 msgstr ""
+"Le nom du fichier dans I<log_filename> peut contenir les expressions avec "
+"pour-cents suivantes qui seront développées comme suit :"
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:304
@@ -1748,7 +1786,7 @@ msgstr "B<%d>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:307
 msgid "The current day of the month"
-msgstr ""
+msgstr "Jour du mois"
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:307
@@ -1759,7 +1797,7 @@ msgstr "B<%D>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:311
 msgid "The current date; this is a equivalent of B<%Y%m%d>"
-msgstr ""
+msgstr "Date du jour. Équivalent à B<%Y%m%d>"
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:311
@@ -1770,7 +1808,7 @@ msgstr "B<%h>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:314
 msgid "The hostname of the system."
-msgstr ""
+msgstr "Nom de l'hôte du système."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:314
@@ -1781,7 +1819,7 @@ msgstr "B<%H>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:317
 msgid "The current hour in 24-hour format (00..23)"
-msgstr ""
+msgstr "Heure au format 24 heures (00..23)."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:317
@@ -1792,7 +1830,7 @@ msgstr "B<%m>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:320
 msgid "The current month as a two-digit number (01..12)"
-msgstr ""
+msgstr "Mois, sous la forme d'un nombre à deux chiffres (01..12)."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:320
@@ -1803,7 +1841,7 @@ msgstr "B<%M>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:323
 msgid "The current minute (00..59)"
-msgstr ""
+msgstr "Minute (00..59)."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:323
@@ -1817,6 +1855,8 @@ msgid ""
 "The name of the block device containing the file system, with any directory "
 "pathname stripped off."
 msgstr ""
+"Nom du périphérique bloc contenant le système de fichier, sans nom de "
+"répertoire du chemin."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:327
@@ -1827,7 +1867,7 @@ msgstr "B<%p>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:330
 msgid "The pid of the e2fsck process"
-msgstr ""
+msgstr "Identifiant du processus e2fsck."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:330
@@ -1840,7 +1880,7 @@ msgstr "B<%s>"
 msgid ""
 "The current time expressed as the number of seconds since 1970-01-01 "
 "00:00:00 UTC"
-msgstr ""
+msgstr "Heure, exprimée en seconde depuis le 1er janvier 1970, 00h00 UTC."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:334
@@ -1851,7 +1891,7 @@ msgstr "B<%S>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:337
 msgid "The current second (00..59)"
-msgstr ""
+msgstr "Seconde (00..59)"
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:337
@@ -1862,7 +1902,7 @@ msgstr "B<%T>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:341
 msgid "The current time; this is equivalent of B<%H%M%S>"
-msgstr ""
+msgstr "Heure actuelle. Équivalent à B<%H%M%S>."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:341
@@ -1873,7 +1913,7 @@ msgstr "B<%u>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:344
 msgid "The name of the user running e2fsck."
-msgstr ""
+msgstr "Nom de l'utilisateur faisant fonctionner e2fsck."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:344
@@ -1888,6 +1928,9 @@ msgid ""
 "following date or time expressions should be expressed in UTC time instead "
 "of the local timzeone."
 msgstr ""
+"Cette expression avec un signe pour-cents n'est pas développée, mais signale "
+"que les dates et heures qui suivent doivent être exprimées en UTC plutôt que "
+"sur le fuseau local."
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:349
@@ -1898,7 +1941,7 @@ msgstr "B<%y>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:352
 msgid "The last two digits of the current year (00..99)"
-msgstr ""
+msgstr "Les deux derniers chiffres de l'année (00..99)"
 
 #. type: TP
 #: C/man5/e2fsck.conf.5:352
@@ -1909,7 +1952,7 @@ msgstr "B<%Y>"
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:355
 msgid "The current year (i.e., 2012)."
-msgstr ""
+msgstr "Année (par exemple, 2012)."
 
 #. type: SH
 #: C/man5/e2fsck.conf.5:355
@@ -1967,6 +2010,17 @@ msgid ""
 "serial console (which could potentially slow down the boot sequence), only "
 "print no more than 16 instances of each type of file system corruption."
 msgstr ""
+"Avec recette suivante, le journal d'e2fsck sera enregistré dans le "
+"répertoire /var/log/e2fsck, avec un nom de fichier qui contient le nom du "
+"périphérique, le nom de l'hôte du système, la date et l'heure sous la forme "
+"« e2fsck-sda3.server.INFO.20120314-112142 ». Si le répertoire contenant /var/"
+"log est situé sur le système de fichiers racine qui est initialement monté "
+"en lecture seule, la sortie sera enregistrée en mémoire et écrite dans le "
+"fichier dès que le système de fichiers racine a été remonté en lecture et "
+"écriture. Afin d'éviter que trop de détails soient écrits sur la console "
+"série (ce qui pourrait potentiellement ralentir la séquence d'amorçage), ne "
+"seront affichées que les 16 premières occurences de chaque type de problème "
+"de corruption du système de fichiers."
 
 #. type: Plain text
 #: C/man5/e2fsck.conf.5:387
@@ -3774,11 +3828,12 @@ msgstr "B<freei> I<filespec> [I<num>]"
 
 #. type: Plain text
 #: C/man8/debugfs.8:320
-#, fuzzy
 msgid ""
 "Free the inode specified by I<filespec>.  If I<num> is specified, also clear "
 "num-1 inodes after the specified inode."
-msgstr "Libérer l'inœud indiqué par I<filespec>."
+msgstr ""
+"Libérer l'inœud indiqué par I<filespec>. Si I<num> est indiqué, libérer "
+"aussi les I<num>-1 inœuds qui suivent celui qui a été précisé."
 
 #. type: TP
 #: C/man8/debugfs.8:320
@@ -4169,11 +4224,13 @@ msgstr "B<seti> I<filespec> [I<num>]"
 
 #. type: Plain text
 #: C/man8/debugfs.8:518
-#, fuzzy
 msgid ""
 "Mark inode I<filespec> as in use in the inode bitmap.  If I<num> is "
 "specified, also set num-1 inodes after the specified inode."
-msgstr "Marquer l'inœud I<filespec> comme utilisé dans la table des inœuds."
+msgstr ""
+"Marquer l'inœud I<filespec> comme utilisé dans la table des inœuds. Si "
+"I<num> est indiqué, marquer de la même façon les I<num>-1 inœuds qui suivent "
+"celui qui a été précisé."
 
 #. type: TP
 #: C/man8/debugfs.8:518
@@ -6430,6 +6487,12 @@ msgid ""
 "busy server.  This option will cause mke2fs to run much more slowly, "
 "however, so there is a tradeoff to using direct I/O."
 msgstr ""
+"Utiliser les entrées et sorties directes lors de l'écritude sur le disque. "
+"Cela évite à mke2fs de salir une grande quantité de mémoire cache tampon, ce "
+"qui peut avoir un effet sur les applications en cours de fonctionnement sur "
+"un serveur très sollicité. Cependant, cette option fera fonctionner mke2fs "
+"plus lentement. Il y a donc un compromis à faire pour utiliser les entrées "
+"et sorties directes."
 
 #. type: TP
 #: C/man8/mke2fs.8:195 C/man8/tune2fs.8:168
