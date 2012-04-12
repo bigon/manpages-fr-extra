@@ -2,7 +2,7 @@
 .\" Copyright 2006 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH e2fsck.conf 5 "March 2012" "E2fsprogs version 1.42.2"
+.TH e2fsck.conf 5 "April 2012" "E2fsprogs version 1.42.2"
 .SH NAME
 e2fsck.conf \- Configuration file for e2fsck
 .SH DESCRIPTION
@@ -122,6 +122,18 @@ exist.  E2fsck will attempt to use heuristics to determine if the time
 can not be trusted; and to skip time-based checks if this is true.  If
 this boolean is set to true, then e2fsck will always assume that the
 system clock can not be trusted.
+.TP
+.I buggy_init_scripts
+This boolean relation is an alias for
+.I accept_time_fudge
+for backwards compatibility; it used to
+be that the behavior defined by
+.I accept_time_fudge
+above defaulted to false, and
+.I buggy_init_scripts
+would enable superblock time field to be wrong by up to 24 hours.  When
+we changed the default, we also renamed this boolean relation to
+.IR accept_time_fudge.
 .TP
 .I clear_test_fs_flag
 This boolean relation controls whether or not 
