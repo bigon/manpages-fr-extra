@@ -1,4 +1,4 @@
-.TH rcS 5 "16 Jan 2006" "" "Debian Administrator's Manual"
+.TH rcS 5 "21 May 2012" "" "Debian Administrator's Manual"
 .SH NAME
 rcS \- variables that affect the behavior of boot scripts
 .SH DESCRIPTION
@@ -13,11 +13,10 @@ Comments (starting with '#') are also allowed.
 
 .SH OPTIONS
 The following variables can be set.
-For the default values please see \fI/usr/share/initscripts/default.rcS\fP.
 
 .IP \fBTMPTIME\fP
-On boot the files in /tmp will be deleted if their modification time
-is more than TMPTIME days ago.
+On boot the files in /tmp will be deleted if their modification time,
+file status time and access time are all at least TMPTIME days ago.
 A value of 0 means that files are removed regardless of age.
 If you don't want the system to clean /tmp
 then set TMPTIME to a negative value (e.g., \-1)
@@ -53,27 +52,6 @@ as (the target of) \fI/etc/nologin\fP exists.
 If you set the variable to \fBno\fP then it is advisable to ensure
 that \fI/var/lib/initscripts/nologin\fP does not exist.
 
-.IP \fBUTC\fP
-This is used to govern how the hardware real time clock is interpreted
-when it is read (e.g., at boot time, for the purpose of setting the
-system clock) and when it is written (e.g., at shutdown).
-If this option is set to \fBno\fP
-then the system clock is assumed to be set to local time.
-If the option is set to \fByes\fP
-then the system clock is assumed to be set to something approximating
-Coordinated Universal Time (UTC).
-(POSIX systems keep a variant of UTC, without leap seconds.)
-
-On contemporary Debian systems
-(although change has been requested at
-\fIhttp://bugs.debian.org/346342\fP),
-if UTC is set to \fBno\fP then \fI/usr/share/zoneinfo\fP
-must be readable early in the boot process.
-If you want to keep \fI/usr\fP on a separate filesystem then
-you must still ensure that the target of \fI/etc/localtime\fP
-points to the correct zone information file for the time zone
-of the time kept in your hardware real time clock.
-
 .IP \fBVERBOSE\fP
 Setting this option to \fBno\fP (in lower case) will make the boot process
 a bit less verbose.
@@ -97,92 +75,38 @@ to be run with the \fB\-y\fP option instead of the \fB\-a\fP option.
 This will tell fsck always to repair the file systems
 without asking for permission.
 
-.IP /run
-
-Previously configured using \fBRAMRUN\fP, /run is now always mounted
-as a ram file system (tmpfs).  The size of the tmpfs can be controlled
-using TMPFS_SIZE and RUN_SIZE in /etc/default/tmpfs.  However,
-/etc/default/tmpfs is deprecated and to override the defaults an entry
-should be created in /etc/fstab, for example:
-
-.IP
-tmpfs	/run	tmpfs	nodev,nosuid,size=10%,mode=755	0	0
-
-.IP
-The contents of /run will always be lost on system reboot, and it it
-is no longer explicitly cleaned at boot.  Packages can not expect
-directories in /run to exist after boot.  Packages expecting this are
-buggy and need to be fixed.  Note that /run was previously /var/run,
-and a compatibility symlink or bind mount will be created to allow the
-old path to continue to function.
-
-.IP \fBRAMLOCK\fP
-Make /run/lock/ available as a ram file system (tmpfs).  Set to 'yes'
-to enable, to 'no' to disable (defaults to yes).  The size of the
-tmpfs can be controlled using TMPFS_SIZE and LOCK_SIZE in
-/etc/default/tmpfs.  However, /etc/default/tmpfs is deprecated and to
-override the defaults an entry should be created in /etc/fstab, for
-example:
-
-.IP
-tmpfs	/run/lock	tmpfs	nodev,noexec,nosuid,size=52428800,mode=1777	0	0
-
-.IP
-Note that irrespective of this setting /run/lock will be located on a
-tmpfs, either one mounted on /run/lock (if RAMLOCK=yes) or one mounted
-on /run (if RAMLOCK=no), and as a result the contents of /var/lock
-will always be lost on system reboot, and it it is no longer
-explicitly cleaned at boot.  Packages can not expect directories in
-/var/lock to exist after boot.  Packages expecting this are buggy and
-need to be fixed.  Note that /run/lock was previously /var/lock, and a
-compatibility symlink or bind mount will be created to allow the old
-path to continue to function.
-
-
-.IP \fBRAMSHM\fP
-Make /run/shm available as a ram file system (tmpfs).  Set to 'yes' to
-enable, to 'no' to disable (defaults to yes).  The size of the tmpfs
-can be controlled using TMPFS_SIZE and SHM_SIZE in /etc/default/tmpfs.
-However, /etc/default/tmpfs is deprecated to override the defaults and
-an entry should be created in /etc/fstab, for example:
-
-.IP
-tmpfs	/run/shm	tmpfs	nosuid,nodev,size=40%,mode=1777	0	0
-
-.IP
-Packages can not expect directories in /run/shm to exist after boot.
-Note that /run/shm was previously /dev/shm, and a compatibility
-symlink or bind mount will be created to allow the old path to
-continue to function.
-
-
-.IP \fBRAMTMP\fP
-Make /tmp/ available as a ram file system (tmpfs).  Set to 'yes' to
-enable, to 'no' to disable.  It defaults to yes for new installations
-(wheezy and later); no for upgrades from earlier releases, which do
-not contain RAMTMP in /etc/default/rcS.  The size of the tmpfs can be
-controlled using TMPFS_SIZE and TMP_SIZE in /etc/default/tmpfs.
-However, /etc/default/tmpfs is deprecated and to override the defaults
-an entry should be created in /etc/fstab, for example:
-
-.IP
-tmpfs	/tmp	tmpfs	nodev,nosuid,size=20%,mode=1777	0	0
-
-.IP
-Packages can not expect directories in /tmp to exist after boot.
-
 .IP \fBASYNCMOUNTNFS\fP
 Set this to 'no' to disable asynchronous mounting of network drives
-when the network interfaces are mounted, and instead do it only once when
-the machine boot.  The default is 'yes'.  It is useful to disable this
-on machines with the root file system in NFS until ifup from ifupdown work
-properly in such setup.
+when the network interfaces are mounted, and instead do it only once
+when the machine boots.  The default is 'yes'.  It is useful to
+disable this on machines where the root file system is NFS, until ifup
+from ifupdown works properly in such setup.
 
 .SH NOTE
-The \fBEDITMOTD\fP and \fBRAMRUN\fP variables are no longer used.
+The \fBEDITMOTD\fP, \fBRAMRUN\fP and \fBUTC\fP variables are no longer
+used.  The \fBRAMLOCK\fP, \fBRAMSHM\fP and \fBRAMTMP\fP variables have
+been moved to /etc/default/tmpfs; RAMSHM and RAMTMP settings in rcS
+are used (if set) for backward compatibility, but will be overridden
+by settings enabled in /etc/default/tmpfs.  See
+.BR tmpfs (5)
+for further details.  The settings are not automatically migrated to
+/etc/default/tmpfs.  Please update /etc/default/tmpfs appropriately.
+The UTC setting is replaced by the UTC or LOCAL setting in
+/etc/adjtime, and should have been migrated automatically.  See
+.BR hwclock (5)
+and
+.BR hwclock (8)
+for further details on configuring the system clock.
 
 .SH AUTHOR
 Miquel van Smoorenburg <miquels@cistron.nl>
+Roger Leigh <rleigh@debian.org>
 
 .SH SEE ALSO
-.BR inetd "(8), " init "(8), " inittab "(5), " login "(1)."
+.BR hwclock (5),
+.BR hwclock (8),
+.BR inetd (8),
+.BR init (8),
+.BR inittab (5),
+.BR login (1),
+.BR tmpfs (5).

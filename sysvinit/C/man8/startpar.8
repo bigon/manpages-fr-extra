@@ -1,4 +1,4 @@
-.\"
+'\" e
 .\" SuSE man page for startpar
 .\"
 .\" Copyright (c) 2003 SuSE Linux AG, Nuernberg, Germany.
@@ -62,13 +62,19 @@ option, the default is full parallelism. An argument to all of
 the scripts can be provided with the
 .B \-a
 option.
-Processes block by pending
+Processes blocked by pending
 .B I/O
-will weighting by the factor
+will cause new process creation to be weighted by the iorate factor
 .IR 800 .
 To change this factor the option
 .B \-i
-can be used to specify an other value.
+can be used to specify another value.  The amount
+.EQ
+weight = (nblocked times iorate) / 1000
+.EN
+will be subtracted from the total number of processes which could be
+started, where nblocked is the number of processes currently blocked
+by pending I/O.
 
 The output of each script is buffered and written when the script
 exits, so output lines of different scripts won't mix. You can
@@ -114,9 +120,8 @@ it then executes the appropriate scripts in parallel.
 .I /etc/init.d/.depend.stop
 
 .SH SEE ALSO
-.BR init.d (7),
-.BR insserv (8),
-.BR startproc (8).
+.BR init (8)
+.BR insserv (8).
 
 .SH COPYRIGHT
 2003,2004 SuSE Linux AG, Nuernberg, Germany.
