@@ -9,12 +9,13 @@
 # Romain DOUMENC <rd6137@gmail.com>, 2010, 2011.
 # David Prévot <david@tilapin.org>, 2011, 2012.
 # Denis Mugnier <myou72@orange.fr>, 2011.
+# Cédric Boutillier <cedric.boutillier@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: nfs-utils\n"
 "POT-Creation-Date: 2012-05-30 15:46-0400\n"
-"PO-Revision-Date: 2012-06-23 20:20+0200\n"
-"Last-Translator: Denis Mugnier <myou72@orange.fr>\n"
+"PO-Revision-Date: 2012-06-13 11:56+0200\n"
+"Last-Translator: Cédric Boutillier <cedric.boutillier@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -2073,6 +2074,7 @@ msgstr ""
 #: C/man5/nfs.5:504 C/man5/nfs.5:521
 msgid "B<Before using NFS over UDP, refer to the TRANSPORT METHODS section.>"
 msgstr ""
+"B<avant d'utiliser NFS sur UDP, consultez la section MÉTHODES DE TRANSPORT.>"
 
 #. type: Plain text
 #: C/man5/nfs.5:512
@@ -3148,7 +3150,7 @@ msgstr ""
 #: C/man5/nfs.5:1077
 #, no-wrap
 msgid "Using NFS over UDP on high-speed links"
-msgstr ""
+msgstr "Utiliser NFS sur UDP sur des connexions haut débit"
 
 #. type: Plain text
 #: C/man5/nfs.5:1080
@@ -3156,6 +3158,8 @@ msgid ""
 "Using NFS over UDP on high-speed links such as Gigabit B<can cause silent "
 "data corruption>."
 msgstr ""
+"Utiliser NFS sur UDP avec des connexions haut débit comme Gigabit B<peut "
+"causer des corruptions de données silencieuses>."
 
 #. type: Plain text
 #: C/man5/nfs.5:1087
@@ -3167,6 +3171,13 @@ msgid ""
 "by default. This process happens at the IP network layer and is called "
 "fragmentation."
 msgstr ""
+"Le problème peut être déclenché lors de fortes charges, et est causé par des "
+"difficultés dans le réassemblage de fragments IP. Les lectures et écritures "
+"par NFS transmettent typiquement des paquets UDP de 4 kilooctets ou plus, "
+"qui doivent être cassés en plusieurs fragments pour être envoyés sur le lien "
+"Ethernet, pour lequel la taille des paquets est limitée à 1500 octets par "
+"défaut. Ce processus a lieu au niveau de la couche réseau IP et est appelé "
+"fragmentation."
 
 #. type: Plain text
 #: C/man5/nfs.5:1097
@@ -3180,6 +3191,15 @@ msgid ""
 "interval, it assumes the missing fragment(s)  got lost and discards those it "
 "already received."
 msgstr ""
+"Afin d'identifier les fragments qui proviennent du même paquet, IP attribue "
+"un identifiant IP (I<IP ID>) sur 16 bits à chaque paquet. Les fragments "
+"générés à partir du même paquet UPD auront le même identifiant IP. Le "
+"système destinataire récupère ces fragments et les combine pour reformer les "
+"paquets UPD originaux. Ce processus est appelé réassemblage. Le délai "
+"d'expiration par défaut pour le réassemblage de paquets est de 30 secondes. "
+"Si la pile réseau ne reçoit pas tous les fragments d'un paquet donné pendant "
+"cet intervalle de temps, elle suppose que les fragments manquants se sont "
+"perdus et rejette ceux qui ont déjà été reçus."
 
 #. type: Plain text
 #: C/man5/nfs.5:1102
@@ -3188,6 +3208,10 @@ msgid ""
 "send more than 65536 packets within 30 seconds. In fact, with heavy NFS "
 "traffic one can observe that the IP IDs repeat after about 5 seconds."
 msgstr ""
+"Le problème que cela crée sur des connexions à haut débit est dû au fait "
+"qu'il est possible d'envoyer plus de 655356 paquets en 30 secondes. En fait, "
+"avec un trafic dense NFS, les identifiants IP se "
+"répètent au bout d'environ 5 secondes."
 
 #. type: Plain text
 #: C/man5/nfs.5:1114
@@ -3200,6 +3224,13 @@ msgid ""
 "checksum, which is a 16 bit checksum over the entire packet payload, will "
 "usually not match, and UDP will discard the bad packet."
 msgstr ""
+"Cela a de sérieux effets sur le réassemblage : si un fragment se perd, un "
+"autre fragment I<d'un paquet différent> mais avec le I<même identifiant IP> "
+"arrivera avant l'expiration au bout de 30 secondes, et la pile réseau "
+"combinera ces fragments pour former un nouveau paquet. La plupart du temps, "
+"les couches réseau au-dessus d'IP détecteront ce réassemblage non assorti "
+"— dans le cas d'UPD, la somme de contrôle UDP sur 16 bits sur la charge "
+"utile du paquet ne correspondra pas, et UDP rejettera le mauvais paquet."
 
 #. type: Plain text
 #: C/man5/nfs.5:1119
@@ -3209,6 +3240,10 @@ msgid ""
 "very often isn't the case). If that is the case, silent data corruption will "
 "occur."
 msgstr ""
+"Cependant, comme la somme de contrôle UDP est sur uniquement 16 bits, il y a "
+"une chance sur 655356 qu'elle coïncide même si la charge utile du paquet est "
+"complètement aléatoire (ce qui très souvent n'est pas vrai). Si tel est le "
+"cas, une corruption de données silencieuse se sera produite."
 
 #. type: Plain text
 #: C/man5/nfs.5:1125
@@ -3218,6 +3253,10 @@ msgid ""
 "with most traffic patterns IP ID wrap around will take much longer than 30 "
 "seconds."
 msgstr ""
+"Cette possibilité doit être prise au sérieux, au moins sur Ethernet Gigabit. "
+"Les débits réseau de 100 Mbit/s devraient être considérés comme moins "
+"problématiques, car dans la plupart des situations, l'épuisement des "
+"identifiants IP prendra bien plus que 30 secondes."
 
 #. type: Plain text
 #: C/man5/nfs.5:1129
@@ -3225,6 +3264,8 @@ msgid ""
 "It is therefore strongly recommended to use B<NFS over TCP where possible>, "
 "since TCP does not perform fragmentation."
 msgstr ""
+"Il est donc fortement recommandé d'utiliser B<NFS sur TCP là où c'est "
+"possible>, car TCP n'effectue pas de fragmentation."
 
 #. type: Plain text
 #: C/man5/nfs.5:1133
@@ -3233,12 +3274,15 @@ msgid ""
 "can be taken to mitigate the problem and reduce the probability of "
 "corruption:"
 msgstr ""
+"Si vous devez absolument utiliser NFS sur UDP sur un réseau Gigabit "
+"Ethernet, quelques actions peuvent être effectuées pour limiter le problème "
+"et réduire la probabilité de corruption :"
 
 #. type: TP
 #: C/man5/nfs.5:1133
 #, no-wrap
 msgid "I<Jumbo frames:>"
-msgstr ""
+msgstr "I<trames Jumbo :>"
 
 #. type: Plain text
 #: C/man5/nfs.5:1140
@@ -3249,6 +3293,12 @@ msgid ""
 "of 8K without fragmentation. Of course, this is only feasible if all "
 "involved stations support jumbo frames."
 msgstr ""
+"Beaucoup de cartes réseau Gigabit sont capables de transmettre des trames "
+"plus grandes que la limite traditionnelle sur Ethernet de 1500 octets "
+"(typiquement 9000 octets). Utiliser ces grandes trames (Jumbo) vous "
+"permettra de faire fonctionner NFS sur UDP avec une taille de page de 8 ko "
+"sans fragmentation. Bien sûr, cela n'est possible que si toutes les stations "
+"impliquées gèrent les trames Jumbo."
 
 #. type: Plain text
 #: C/man5/nfs.5:1143
@@ -3256,12 +3306,15 @@ msgid ""
 "To enable a machine to send jumbo frames on cards that support it, it is "
 "sufficient to configure the interface for a MTU value of 9000."
 msgstr ""
+"Pour activer l'envoi de trames Jumbo sur une machine avec une carte réseau "
+"qui les gère, il suffit de configurer l'interface avec une valeur MTU de "
+"9000."
 
 #. type: TP
 #: C/man5/nfs.5:1143
 #, no-wrap
 msgid "I<Lower reassembly timeout:>"
-msgstr ""
+msgstr "I<diminution du délai avant expiration de réassemblage :>"
 
 #. type: Plain text
 #: C/man5/nfs.5:1150
@@ -3271,6 +3324,10 @@ msgid ""
 "so, simply write the new timeout value (in seconds)  to the file B</proc/sys/"
 "net/ipv4/ipfrag_time>."
 msgstr ""
+"Le réassemblage incorrect de fragments peut être aussi évité en diminuant ce "
+"délai sous le temps nécessaire à la réinitialisation des identifiants IP. "
+"Pour ce faire, écrivez simplement la nouvelle valeur du délai (en seconde) "
+"dans le fichier B</proc/sys/net/ipv4/ipfrag_time>."
 
 #. type: Plain text
 #: C/man5/nfs.5:1154
@@ -3279,6 +3336,10 @@ msgid ""
 "a single Gigabit link, while still allowing for a reasonable timeout when "
 "receiving fragmented traffic from distant peers."
 msgstr ""
+"Une valeur de 2 secondes diminuera fortement la probabilité d'une collision "
+"d'identifiants IP sur un seul lien Gigabit, tout en permettant un délai "
+"d'expiration raisonnable lors de la réception d'un trafic fragmenté depuis "
+"des serveurs distants."
 
 #. type: SH
 #: C/man5/nfs.5:1154
@@ -4405,6 +4466,11 @@ msgid ""
 "lookup error resulting in all the cached uids/gids to be set to the user id "
 "nobody."
 msgstr ""
+"I<nfsidmap> peut aussi être utilisé pour effacer le trousseau contenant "
+"toutes les clés ou révoquer une clé particulière. C'est utilisé lorsque la "
+"mise en correspondance des identifiants a échoué à cause d'une erreur de "
+"recherche causant l'attribution de l'identifiant « nobody » à tous les "
+"identifiants d'utilisateur et de groupe en cache."
 
 #. type: SH
 #: C/man5/nfsidmap.5:30 C/man8/blkmapd.8:34 C/man8/exportfs.8:87
@@ -4426,7 +4492,7 @@ msgstr "B<-c>"
 #. type: Plain text
 #: C/man5/nfsidmap.5:34
 msgid "Clear the keyring of all the keys."
-msgstr ""
+msgstr "Effacer le trousseau contenant toutes les clés."
 
 #. type: TP
 #: C/man5/nfsidmap.5:34
@@ -4436,10 +4502,9 @@ msgstr "B<-g> I<utilisateur>"
 
 #. type: Plain text
 #: C/man5/nfsidmap.5:37
-#, fuzzy
 #| msgid "  uid: Find the UID for the given user"
 msgid "Revoke the gid key of the given user."
-msgstr "  uid : Trouve l'UID d'un utilisateur donné"
+msgstr "Révoquer la clé identifiant de groupe (GID) de l'utilisateur donné."
 
 #. type: TP
 #: C/man5/nfsidmap.5:37
@@ -4449,10 +4514,11 @@ msgstr "B<-r> I<utilisateur>"
 
 #. type: Plain text
 #: C/man5/nfsidmap.5:40
-#, fuzzy
 #| msgid "  uid: Find the UID for the given user"
 msgid "Revoke both the uid and gid key of the given user."
-msgstr "  uid : Trouve l'UID d'un utilisateur donné"
+msgstr ""
+"Révoquer simultanément les clés utilisateur (UID) et groupe (GID) pour "
+"l'utilisateur donné."
 
 #. type: TP
 #: C/man5/nfsidmap.5:40 C/man8/gssd.8:125
@@ -4466,6 +4532,8 @@ msgid ""
 "Set the expiration timer, in seconds, on the key.  The default is 600 "
 "seconds (10 mins)."
 msgstr ""
+"Déterminer la durée (en seconde) avant expiration de la clé. La valeur par "
+"défaut est 600 secondes (soit 10 minutes)."
 
 #. type: TP
 #: C/man5/nfsidmap.5:44
@@ -4475,10 +4543,9 @@ msgstr "B<-u> I<utilisateur>"
 
 #. type: Plain text
 #: C/man5/nfsidmap.5:47
-#, fuzzy
 #| msgid "  uid: Find the UID for the given user"
 msgid "Revoke the uid key of the given user."
-msgstr "  uid : Trouve l'UID d'un utilisateur donné"
+msgstr "Révoquer la clé identifiant utilisateur (UID) de l'utilisateur donné."
 
 #. type: TP
 #: C/man5/nfsidmap.5:47 C/man8/exportfs.8:131 C/man8/gssd.8:111
@@ -6044,6 +6111,13 @@ msgid ""
 "client can access a server that has strong keys in its keytab for ticket "
 "decryption but whose kernel only supports Single DES."
 msgstr ""
+"Indiquer à B<rpc.gssd> de limiter les clés de session au type Single DES, "
+"même si le noyau gère des types de chiffrement plus forts. Le chiffrement de "
+"ticket de service (« Service ticket encryption ») est toujours gouverné par "
+"ce que le centre de distribution des clés (« KDC ») croit être géré par le "
+"serveur cible. Ainsi le client peut accéder à un serveur qui a des clés "
+"fortes dans son fichier de clés pour le déchiffrement de ticket mais dont le "
+"noyau ne gère que Single DES."
 
 #. type: Plain text
 #: C/man8/gssd.8:87
@@ -6053,6 +6127,12 @@ msgid ""
 "cause service tickets for this server to be encrypted using only Single DES "
 "and (as a side-effect) contain only Single DES session keys."
 msgstr ""
+"L'alternative est de mettre seulement des clés Single DES dans le fichier de "
+"clés du serveur et limiter essentiellement les types de chiffrement à Single "
+"DES sur le centre de distribution des clés. Cela impliquera que les tickets "
+"de service pour ce serveur seront chiffrés en utilisant seulement Single DES "
+"et (comme effet secondaire) ne contiendront que les clés de session Single "
+"DES."
 
 #. type: Plain text
 #: C/man8/gssd.8:92
@@ -6061,6 +6141,10 @@ msgid ""
 "utils-1.2.4). If the server has a recent kernel, Kerberos implementation and "
 "nfs-utils it will work just fine with stronger encryption."
 msgstr ""
+"Ce comportement désuet est nécessaire seulement pour les anciens serveurs "
+"(antérieurs à nfs-utils-1.2.4). Si le serveur a un noyau, une implémentation "
+"de Kerberos et une version de nfs-utils récents, cela fonctionnera sans "
+"problèmes avec un chiffrement plus fort."
 
 #. type: Plain text
 #: C/man8/gssd.8:96
@@ -6068,6 +6152,8 @@ msgid ""
 "B<Note:> This option is only available with Kerberos libraries that support "
 "setable encryption types."
 msgstr ""
+"B<Note :> cette option n'est disponible qu'avec les bibliothèques Kerberos "
+"qui gèrent la détermination du type de chiffrement."
 
 #. type: TP
 #: C/man8/gssd.8:96
@@ -9340,7 +9426,7 @@ msgid ""
 "the risk of a privilege escalation attack."
 msgstr ""
 "Le démon B<rpc.statd> doit être lancé en superutilisateur afin d'avoir assez "
-"de privilèges pour créer un tuyau sur un port privilégié, et pour accéder "
+"de privilèges pour créer un tuyau sur un port privilégié, et pour accéder la "
 "la base de données d'information d'états. Afin d'éviter les risques "
 "d'attaque par escalade de privilèges (risques accentués par le fait que "
 "B<rpc.statd> est un service tournant longtemps), ce démon quitte les "
