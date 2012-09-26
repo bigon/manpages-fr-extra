@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2012 Debian French l10n team <debian-l10n-french@lists.debian.org>
+# This file is distributed under the same license as the openssl package.
 #
+# Thomas Blein <tblein@tblein.eu>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2010-04-17 16:50+0300\n"
-"PO-Revision-Date: 2009-09-06 17:53+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2012-09-27 00:45+0200\n"
+"Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -859,7 +860,7 @@ msgstr "L<d2i_PKCS12(3)|d2i_PKCS12(3)>"
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:5
 msgid "PKCS12_parse - parse a PKCS#12 structure"
-msgstr ""
+msgstr "PKCS12_parse - Analyser une structure PKCS#12"
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:11
@@ -867,11 +868,13 @@ msgid ""
 "int PKCS12_parse(PKCS12 *p12, const char *pass, EVP_PKEY **pkey, X509 "
 "**cert, STACK_OF(X509) **ca);"
 msgstr ""
+"int B<PKCS12_parse>(PKCS12 *I<p12>, const char *I<pass>, EVP_PKEY "
+"*I<*clé_privée>, X509 *I<*cert>, STACK_OF(X509) *I<*ca>);"
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:15
 msgid "PKCS12_parse() parses a PKCS12 structure."
-msgstr ""
+msgstr "B<PKCS12_parse>() analyse une structure PKCS#12."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:17
@@ -881,6 +884,10 @@ msgid ""
 "corresponding certificate to B<*cert> and any additional certificates to "
 "B<*ca>."
 msgstr ""
+"I<p12> est la structure B<PKCS12> à analyser. I<pass> est la phrase secrète "
+"à utiliser. En cas de succès la clé privée sera écrite dans I<*clé_privée>, "
+"le certificat correspondant dans I<*cert> et tous les certificats "
+"additionnels dans I<*ca>."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:23
@@ -890,6 +897,11 @@ msgid ""
 "valid STACK in which case additional certificates are appended to B<*ca>. If "
 "B<*ca> is B<NULL> a new STACK will be allocated."
 msgstr ""
+"Les paramètres I<clé_privée> et I<cert> ne peuvent pas être B<NULL>. I<ca> "
+"peut être B<NULL>, dans ce cas les certificats additionnels seront "
+"supprimés. I<*ca> peut aussi être une B<STACK> valide dans ce cas les "
+"certificats additionnels seront ajoutés à I<*ca>. Si  I<*ca> est B<NULL>, "
+"une nouvelle B<STACK> sera allouée."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:28
@@ -898,16 +910,20 @@ msgid ""
 "certificate will be stored in the B<alias> and B<keyid> attributes of the "
 "B<X509> structure."
 msgstr ""
+"Les attributs B<friendlyName> et B<localKeyID> (si présents) de chaque "
+"certificat seront sauver dans les attributs B<alias> et B<keyid> de la "
+"structure B<X509>."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:34
 msgid "PKCS12_parse() returns 1 for success and zero if an error occurred."
-msgstr ""
+msgstr "B<PKCS12_parse>() retourne 1 en cas de succès et zéro en cas d'erreur."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:36 C/crypto/PKCS7_verify.pod:97
 msgid "The error can be obtained from L<ERR_get_error(3)|ERR_get_error(3)>"
 msgstr ""
+"L'erreur peut être obtenue à partir de L<ERR_get_error(3)|ERR_get_error(3)>"
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:40
@@ -916,6 +932,9 @@ msgid ""
 "function. More complex PKCS#12 files with multiple private keys will only "
 "return the first match."
 msgstr ""
+"Une seule clé privée unique et son certificat correspondant est retournée "
+"par cette fonction. Les fichiers PKCS#12 complexes avec plusieurs clés "
+"privées retourneront que la première correspondance."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:44
@@ -923,6 +942,8 @@ msgid ""
 "Only B<friendlyName> and B<localKeyID> attributes are currently stored in "
 "certificates. Other attributes are discarded."
 msgstr ""
+"Seul les attributs B<friendlyName> et B<localKeyID> sont actuellement "
+"enregistrés dans le certificat. Les autres attributs sont éliminés."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:47
@@ -930,8 +951,10 @@ msgid ""
 "Attributes currently cannot be stored in the private key B<EVP_PKEY> "
 "structure."
 msgstr ""
+"Les attributs ne peuvent pas être sauver actuellement dans la structure de "
+"clé privée B<EVP_PKEY>."
 
 #. type: textblock
 #: C/crypto/PKCS12_parse.pod:55
 msgid "PKCS12_parse was added in OpenSSL 0.9.3"
-msgstr ""
+msgstr "B<PKCS12_parse> a été ajouté dans OpenSSL 0.9.3"

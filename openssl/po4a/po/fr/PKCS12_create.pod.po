@@ -1,20 +1,22 @@
 # French translations for PACKAGE package
 # Copyright (C) 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
 #
+# Automatically generated, 2008.
+# Thomas Blein <tblein@tblein.eu>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2009-09-06 16:40+0300\n"
-"PO-Revision-Date: 2009-09-06 17:53+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2012-09-27 01:00+0200\n"
+"Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -717,7 +719,7 @@ msgstr "HISTORIQUE"
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:5
 msgid "PKCS12_create - create a PKCS#12 structure"
-msgstr ""
+msgstr "PKCS12_create - Créer une structure PKCS#12"
 
 #. type: verbatim
 #: C/crypto/PKCS12_create.pod:9 C/crypto/PKCS12_parse.pod:9
@@ -737,11 +739,15 @@ msgid ""
 "\t\t\t\tint nid_key, int nid_cert, int iter, int mac_iter, int keytype);\n"
 "\n"
 msgstr ""
+" PKCS12 *PKCS12_create(char *pass, char *nom, EVP_PKEY *clé_privée, X509 *cert, \n"
+"                       STACK_OF(X509) *ca, int alg_clé, int alg_cert, int iter, \n"
+"                       int mac_iter, int type_clé);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:16
 msgid "PKCS12_create() creates a PKCS#12 structure."
-msgstr ""
+msgstr "B<PKCS12_create>() crée une structure PKCS#12."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:18
@@ -751,6 +757,11 @@ msgid ""
 "the structure and B<cert> its corresponding certificates. B<ca>, if not "
 "B<NULL> is an optional set of certificates to also include in the structure."
 msgstr ""
+"I<pass> est la phrase secrète à utiliser. I<nom> est le B<friendlyName> à "
+"utiliser pour le certificat et la clé fournis. I<clé_privée> est la clé "
+"privée à inclure dans la structure et I<cert> le certificat correspondant. "
+"Si non B<NULL>, I<ca> est un jeu optionnel de certificats à inclure "
+"également dans la structure."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:23
@@ -760,6 +771,11 @@ msgid ""
 "algorithm iteration count to use and B<mac_iter> is the MAC iteration count "
 "to use.  B<keytype> is the type of key."
 msgstr ""
+"I<alg_clé> et I<alg_cert> sont des algorithmes de chiffrement qui doivent "
+"être utilisés pour respectivement la clé et le certificat. I<iter> est le "
+"nombre d'itérations à utiliser pour l'algorithme de chiffrement et "
+"I<mac_iter> est le nombre d'itérations MAC à utiliser. I<type_clé> est le "
+"type de clé."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:30
@@ -767,6 +783,9 @@ msgid ""
 "The parameters B<nid_key>, B<nid_cert>, B<iter>, B<mac_iter> and B<keytype> "
 "can all be set to zero and sensible defaults will be used."
 msgstr ""
+"Les paramètres I<alg_clé>, I<alg_cert>, I<iter>, I<mac_iter> et I<type_clé> "
+"peuvent tous être définis à zéro et les valeurs par défaut appropriées "
+"seront utilisées."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:33
@@ -775,6 +794,10 @@ msgid ""
 "encryption for private keys, a key iteration count of PKCS12_DEFAULT_ITER "
 "(currently 2048) and a MAC iteration count of 1."
 msgstr ""
+"Ces valeurs par défaut sont : chiffrement RC2 40 bits pour les certificats, "
+"triple chiffrement DES pour les clés privées, un nombre d'itérations pour la "
+"clé de B<PKCS12_DEFAULT_ITER> (2048 pour le moment) et un nombre d'itération "
+"MAC de 1."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:37
@@ -784,6 +807,10 @@ msgid ""
 "compatibility is not required then B<mac_iter> should be set to "
 "PKCS12_DEFAULT_ITER."
 msgstr ""
+"Le nombre d'itération MAC par défaut est de 1 dans le but de maintenir la "
+"compatibilité avec les vieux logiciels qui n'interprète pas le nombre "
+"d'itérations MAC. Si cette compatibilité n'est pas requise, alors "
+"I<mac_iter> doit être définit à B<PKCS12_DEFAULT_ITER>."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:41
@@ -796,11 +823,20 @@ msgid ""
 "of arbitrary size but had restrictions on the permissible sizes of keys "
 "which could be used for encryption."
 msgstr ""
+"I<type_clé> ajoute un drapeau au magasin de clés privées. C'est une "
+"extension non standard qui est seulement interprétée par MSIE. Si définit à "
+"zéro le drapeau est ignoré, si définit à B<KEY_SIG> la clé ne peut être "
+"utilisée que pour les signatures, si définit à B<KEY_EX> elle peut être "
+"utiliser à la fois pour les signatures et les chiffrements. Cette option "
+"était utile pour les vieux logiciels qui pouvaient utiliser des clés "
+"utilisées pour les signatures de taille arbitraire mais avaient des "
+"restrictions sur les tailles permises pour les clés pouvant être utilisées "
+"pour le chiffrement."
 
 #. type: =head1
 #: C/crypto/PKCS12_create.pod:49
 msgid "NEW FUNCTIONALITY IN OPENSSL 0.9.8"
-msgstr ""
+msgstr "NOUVELLES FONCTIONNALITÉS DANS OPENSSL 0.9.8"
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:51
@@ -808,6 +844,8 @@ msgid ""
 "Some additional functionality was added to PKCS12_create() in OpenSSL 0.9.8. "
 "These extensions are detailed below."
 msgstr ""
+"Quelques fonctionnalités supplémentaires ont été ajoutées à B<PKCS12_create>"
+"() dans OpenSSL 0.9.8. Ces extensions sont décrites ci-dessous."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:54
@@ -815,6 +853,9 @@ msgid ""
 "If a certificate contains an B<alias> or B<keyid> then this will be used for "
 "the corresponding B<friendlyName> or B<localKeyID> in the PKCS12 structure."
 msgstr ""
+"Si un certificat contient un B<alias> ou un B<keyid> alors ils seront "
+"utilisés respectivement pour B<friendlyName> et B<localKeyID> dans la "
+"structure B<PKCS12>."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:58
@@ -823,6 +864,10 @@ msgid ""
 "certficate is required. In previous versions both had to be present or a "
 "fatal error is returned."
 msgstr ""
+"Soit I<clé_privée>, soit I<cert> ou les deux peuvent être B<NULL> pour "
+"indiquer qu'aucune clé ou certificat n'est requis. Dans les versions "
+"précédentes, les deux devaient être présents ou une erreur fatale était "
+"retournée."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:62
@@ -830,11 +875,13 @@ msgid ""
 "B<nid_key> or B<nid_cert> can be set to -1 indicating that no encryption "
 "should be used."
 msgstr ""
+"I<alg_clé> ou I<alg_cert> peuvent être défini à -1 indiquant qu'aucun "
+"chiffrement ne doit être utilisé."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:65
 msgid "B<mac_iter> can be set to -1 and the MAC will then be omitted entirely."
-msgstr ""
+msgstr "I<mac_iter> peut être définit à -1 et le MAC sera omis entièrement."
 
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:69 C/crypto/PKCS12_parse.pod:44
@@ -844,4 +891,4 @@ msgstr "L<d2i_PKCS12(3)|d2i_PKCS12(3)>"
 #. type: textblock
 #: C/crypto/PKCS12_create.pod:73
 msgid "PKCS12_create was added in OpenSSL 0.9.3"
-msgstr ""
+msgstr "B<PKCS12_create> a été ajouté dans OpenSSL 0.9.3"
