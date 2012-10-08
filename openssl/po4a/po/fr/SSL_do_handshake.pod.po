@@ -1,21 +1,22 @@
 # French translations for the openssl package
-# Copyright (C) 2008 Free Software Foundation, Inc.
+# Copyright (C) 2008, 2012 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
-# Copyright (C) 2008 Nicolas François <nicolas.francois@centraliens.net>
-#
+# Nicolas François <nicolas.francois@centraliens.net>, 2008.
+# David Prévot <david@tilapin.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl 0.9.8g-8\n"
-"POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2008-05-14 23:23+0200\n"
-"Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
+"POT-Creation-Date: 2012-10-07 21:16-0400\n"
+"PO-Revision-Date: 2012-10-07 19:34-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -657,20 +658,6 @@ msgstr "VOIR AUSSI"
 msgid "0"
 msgstr "0"
 
-#. type: =item
-#: C/apps/smime.pod:272 C/ssl/SSL_COMP_add_compression_method.pod:60
-#: C/ssl/SSL_CTX_add_session.pod:61
-#: C/ssl/SSL_CTX_load_verify_locations.pod:109
-#: C/ssl/SSL_CTX_set_client_CA_list.pod:69
-#: C/ssl/SSL_CTX_set_session_id_context.pod:73
-#: C/ssl/SSL_CTX_set_ssl_version.pod:49 C/ssl/SSL_accept.pod:47
-#: C/ssl/SSL_clear.pod:58 C/ssl/SSL_connect.pod:44
-#: C/ssl/SSL_do_handshake.pod:48 C/ssl/SSL_session_reused.pod:34
-#: C/ssl/SSL_set_fd.pod:42 C/ssl/SSL_set_session.pod:44
-#: C/ssl/SSL_shutdown.pod:95
-msgid "1"
-msgstr "1"
-
 #. type: =head1
 #: C/crypto/ASN1_OBJECT_new.pod:27 C/crypto/ASN1_STRING_length.pod:73
 #: C/crypto/ASN1_STRING_new.pod:29 C/crypto/ASN1_generate_nconf.pod:247
@@ -831,6 +818,11 @@ msgstr ""
 msgid "The following return values can occur:"
 msgstr "Les valeurs suivantes peuvent être renvoyées :"
 
+#. type: =item
+#: C/ssl/SSL_accept.pod:47 C/ssl/SSL_do_handshake.pod:48
+msgid "Z<>1"
+msgstr "Z<>1"
+
 #. type: textblock
 #: C/ssl/SSL_accept.pod:49 C/ssl/SSL_connect.pod:46
 #: C/ssl/SSL_do_handshake.pod:50
@@ -882,7 +874,7 @@ msgstr ""
 #. type: textblock
 #: C/ssl/SSL_do_handshake.pod:5
 msgid "SSL_do_handshake - perform a TLS/SSL handshake"
-msgstr ""
+msgstr "SSL_do_handshake - réaliser une initiation de connexion TLS ou SSL"
 
 #. type: verbatim
 #: C/ssl/SSL_do_handshake.pod:11
@@ -903,11 +895,17 @@ msgid ""
 "L<SSL_set_connect_state(3)|SSL_set_connect_state(3)> or "
 "L<SSL_set_accept_state(3)|SSL_set_accept_state(3)>."
 msgstr ""
+"B<SSL_do_handshake>() attendra une initiation de connexion TLS ou SSL. Si la "
+"connexion est en mode client, l'initiation de connexion sera démarrée. Les "
+"routines d'initiation de connexion pourraient avoir besoin d'être définies "
+"explicitement au préalable en utilisant soit L<SSL_set_connect_state(3)|"
+"SSL_set_connect_state(3)>, soit L<SSL_set_accept_state(3)|"
+"SSL_set_accept_state(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_do_handshake.pod:23
 msgid "The behaviour of SSL_do_handshake() depends on the underlying BIO."
-msgstr ""
+msgstr "Le comportement de B<SSL_do_handshake>() dépend du BIO sous-jacent."
 
 #. type: textblock
 #: C/ssl/SSL_do_handshake.pod:25
@@ -918,6 +916,12 @@ msgid ""
 "but SSL_get_error() will yield B<SSL_ERROR_WANT_READ/WRITE> and "
 "SSL_do_handshake() should be called again."
 msgstr ""
+"Si le BIO sous-jacent est B<bloquant>, B<SSL_do_handshake>() ne s'arrêtera "
+"qu'une fois l'initiation de connexion terminée ou si une erreur survient, "
+"sauf pour SGC (« Server Gated Cryptography »). Pour SGC, B<SSL_do_handshake>"
+"() pourrait renvoyer -1, mais B<SSL_get_error>() échouera avec "
+"B<SSL_ERROR_WANT_READ> ou B<SSL_ERROR_WANT_WRITE> et B<SSL_do_handshake>() "
+"devrait être rappelé."
 
 #. type: textblock
 #: C/ssl/SSL_do_handshake.pod:31
@@ -934,6 +938,18 @@ msgid ""
 "pair, data must be written into or retrieved out of the BIO before being "
 "able to continue."
 msgstr ""
+"Si le BIO sous-jacent est B<non bloquant>, B<SSL_do_handshake>() s'arrêtera "
+"aussi si le BIO sous-jacent ne peut pas satisfaire les besoins de "
+"B<SSL_do_handshake>() pour continuer l'initiation de connexion. Dans ce cas, "
+"un appel de B<SSL_get_error>() avec la valeur de retour de "
+"B<SSL_do_handshake>() renverra B<SSL_ERROR_WANT_READ> ou "
+"B<SSL_ERROR_WANT_WRITE>. Le processus appelant doit alors répéter l'appel "
+"après avoir pris les mesures nécessaires pour satisfaire les besoins de "
+"B<SSL_do_handshake>(). L'action dépend du BIO sous-jacent. Lors de "
+"l'utilisation d'une socket non bloquante, il n'y a rien à faire, à part "
+"utiliser B<select>() pour vérifier la condition nécessaire. Lors de "
+"l'utilisation d'un BIO de type tampon, comme une paire de BIO, les données "
+"doivent être écrites ou récupérées du BIO avant de pouvoir continuer."
 
 #. type: textblock
 #: C/ssl/SSL_do_handshake.pod:71
