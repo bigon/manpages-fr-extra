@@ -1,4 +1,4 @@
-Copyright (c) 1994-1996, 1998-2005, 2007-2011
+Copyright (c) 1994-1996, 1998-2005, 2007-2012
 	Todd C. Miller <Todd.Miller@courtesan.com>
 
 Permission to use, copy, modify, and distribute this software for any
@@ -26,24 +26,21 @@ sudo, sudoedit - execute a command as another user
 
 =head1 SYNOPSIS
 
-B<sudo> S<[B<-D> I<level>]> B<-h> | B<-K> | B<-k> | B<-V>
+B<sudo> B<-h> | B<-K> | B<-k> | B<-V>
 
 B<sudo> B<-v> [B<-AknS>]
 S<[B<-a> I<auth_type>]>
-S<[B<-D> I<level>]>
 S<[B<-g> I<group name>|I<#gid>]> S<[B<-p> I<prompt>]>
 S<[B<-u> I<user name>|I<#uid>]>
 
 B<sudo> B<-l[l]> [B<-AknS>]
 S<[B<-a> I<auth_type>]>
-S<[B<-D> I<level>]>
 S<[B<-g> I<group name>|I<#gid>]> S<[B<-p> I<prompt>]>
 S<[B<-U> I<user name>]> S<[B<-u> I<user name>|I<#uid>]> [I<command>]
 
 B<sudo> [B<-AbEHnPS>]
 S<[B<-a> I<auth_type>]>
 S<[B<-C> I<fd>]>
-S<[B<-D> I<level>]>
 S<[B<-c> I<class>|I<->]>
 S<[B<-g> I<group name>|I<#gid>]> S<[B<-p> I<prompt>]>
 S<[B<-r> I<role>]> S<[B<-t> I<type>]>
@@ -54,7 +51,6 @@ B<sudoedit> [B<-AnS>]
 S<[B<-a> I<auth_type>]>
 S<[B<-C> I<fd>]>
 S<[B<-c> I<class>|I<->]>
-S<[B<-D> I<level>]>
 S<[B<-g> I<group name>|I<#gid>]> S<[B<-p> I<prompt>]>
 S<[B<-u> I<user name>|I<#uid>]> file ...
 
@@ -69,7 +65,7 @@ option was specified).
 
 B<sudo> supports a plugin architecture for security policies and
 input/output logging.  Third parties can develop and distribute
-their own policy and I/O logging modules to work seemlessly with
+their own policy and I/O logging modules to work seamlessly with
 the B<sudo> front end.  The default security policy is I<sudoers>,
 which is configured via the file F<@sysconfdir@/sudoers>, or via
 LDAP.  See the L<PLUGINS> section for more information.
@@ -157,11 +153,6 @@ capabilities for the user the command is run as.  If the I<class>
 argument specifies an existing user class, the command must be run
 as root, or the B<sudo> command must be run from a shell that is already
 root.  This option is only available on systems with BSD login classes.
-
-=item -D I<level>
-
-Enable debugging of B<sudo> plugins and B<sudo> itself.  The I<level>
-may be a value from 1 through 9.
 
 =item -E
 
@@ -416,7 +407,7 @@ command line are subject to the same restrictions as normal environment
 variables with one important exception.  If the I<setenv> option
 is set in I<sudoers>, the command to be run has the C<SETENV> tag
 set or the command matched is C<ALL>, the user may set variables
-that would overwise be forbidden.  See L<sudoers(5)> for more information.
+that would otherwise be forbidden.  See L<sudoers(5)> for more information.
 
 =head1 PLUGINS
 
@@ -430,14 +421,17 @@ which corresponds to the following F<@sysconfdir@/sudo.conf> file.
  # Default @sysconfdir@/sudo.conf file
  #
  # Format:
- #   Plugin plugin_name plugin_path
+ #   Plugin plugin_name plugin_path plugin_options ...
  #   Path askpass /path/to/askpass
- #   Path noexec /path/to/noexec.so
+ #   Path noexec /path/to/sudo_noexec.so
+ #   Debug sudo /var/log/sudo_debug all@warn
+ #   Set disable_coredump true
  #
  # The plugin_path is relative to @prefix@/libexec unless
  #   fully qualified.
  # The plugin_name corresponds to a global symbol in the plugin
  #   that contains the plugin interface structure.
+ # The plugin_options are optional.
  #
  Plugin policy_plugin sudoers.so
  Plugin io_plugin sudoers.so 
@@ -448,8 +442,9 @@ plugin.  The I<symbol_name> is the name of the C<struct policy_plugin>
 or C<struct io_plugin> in the plugin shared object.  The I<path>
 may be fully qualified or relative.  If not fully qualified it is
 relative to the F<@prefix@/libexec> directory.  Any additional
-parameters after the I<path> are ignored.  Lines that don't begin
-with C<Plugin> or C<Path> are silently ignored
+parameters after the I<path> are passed as arguments to the plugin's
+I<open> function.  Lines that don't begin with C<Plugin>, C<Path>,
+C<Debug> or C<Set> are silently ignored.
 
 For more information, see the L<sudo_plugin(8)> manual.
 
@@ -483,6 +478,96 @@ versions of the execv(), execve() and fexecve() library functions
 that just return an error.  This is used to implement the I<noexec>
 functionality on systems that support C<LD_PRELOAD> or its equivalent.
 Defaults to F<@noexec_file@>.
+
+=back
+
+=head1 DEBUG FLAGS
+
+B<sudo> versions 1.8.4 and higher support a flexible debugging
+framework that can help track down what B<sudo> is doing internally
+if there is a problem.
+
+A C<Debug> line consists of the C<Debug> keyword, followed by the
+name of the program to debug (B<sudo>, B<visudo>, B<sudoreplay>),
+the debug file name and a comma-separated list of debug flags.
+The debug flag syntax used by B<sudo> and the I<sudoers> plugin is
+I<subsystem>@I<priority> but the plugin is free to use a different
+format so long as it does not include a command C<,>.
+
+For instance:
+
+ Debug sudo /var/log/sudo_debug all@warn,plugin@info
+
+would log all debugging statements at the I<warn> level and higher
+in addition to those at the I<info> level for the plugin subsystem.
+
+Currently, only one C<Debug> entry per program is supported.  The
+C<sudo> C<Debug> entry is shared by the B<sudo> front end, B<sudoedit>
+and the plugins.  A future release may add support for per-plugin
+C<Debug> lines and/or support for multiple debugging files for a
+single program.
+
+The priorities used by the B<sudo> front end, in order of decreasing
+severity, are: I<crit>, I<err>, I<warn>, I<notice>, I<diag>, I<info>,
+I<trace> and I<debug>.  Each priority, when specified, also includes
+all priorities higher than it.  For example, a priority of I<notice>
+would include debug messages logged at I<notice> and higher.
+
+The following subsystems are used by B<sudo>:
+
+=over 10
+
+=item I<all>
+
+matches every subsystem
+
+=item I<args>
+
+command line argument processing
+
+=item I<conv>
+
+user conversation
+
+=item I<edit>
+
+sudoedit
+
+=item I<exec>
+
+command execution
+
+=item I<main>
+
+B<sudo> main function
+
+=item I<netif>
+
+network interface handling
+
+=item I<pcomm>
+
+communication with the plugin
+
+=item I<plugin>
+
+plugin configuration
+
+=item I<pty>
+
+pseudo-tty related code
+
+=item I<selinux>
+
+SELinux-specific handling
+
+=item I<util>
+
+utility functions
+
+=item I<utmp>
+
+utmp handling
 
 =back
 
@@ -524,6 +609,20 @@ Because of this, care must be taken when giving users access to
 commands via B<sudo> to verify that the command does not inadvertently
 give the user an effective root shell.  For more information, please
 see the C<PREVENTING SHELL ESCAPES> section in L<sudoers(5)>.
+
+To prevent the disclosure of potentially sensitive information,
+B<sudo> disables core dumps by default while it is executing (they
+are re-enabled for the command that is run).  To aid in debugging
+B<sudo> crashes, you may wish to re-enable core dumps by setting
+"disable_coredump" to false in the F<@sysconfdir@/sudo.conf> file.
+
+ Set disable_coredump false
+
+Note that by default, most operating systems disable core dumps
+from setuid programs, which includes B<sudo>.  To actually get a
+B<sudo> core file you may need to enable core dumps for setuid
+processes.  On BSD and Linux systems this is accomplished via the
+sysctl command, on Solaris the coreadm command can be used.
 
 =head1 ENVIRONMENT
 
@@ -607,7 +706,7 @@ is not set
 
 =item F<@sysconfdir@/sudo.conf>
 
-B<sudo> plugin and path configuration
+B<sudo> front end configuration
 
 =back
 
@@ -659,9 +758,14 @@ version consists of code written primarily by:
 
 	Todd C. Miller
 
-See the HISTORY file in the B<sudo> distribution or visit
-http://www.sudo.ws/sudo/history.html for a short history
-of B<sudo>.
+See the CONTRIBUTORS file in the B<sudo> distribution
+(http://www.sudo.ws/sudo/contributors.html) for a list of people
+who have contributed to B<sudo>.
+
+=head1 HISTORY
+
+See the HISTORY file in the B<sudo> distribution
+(http://www.sudo.ws/sudo/history.html) for a brief history of sudo.
 
 =head1 CAVEATS
 
