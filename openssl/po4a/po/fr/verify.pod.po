@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl 0.9.8g-8\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2012-08-29 23:00-0400\n"
+"PO-Revision-Date: 2012-10-14 17:21-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -763,11 +763,6 @@ msgstr "verify - Utilitaire de vérification de certificats"
 
 #. type: textblock
 #: C/apps/verify.pod:9
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<verify> [B<-CApath directory>] [B<-CAfile file>] [B<-purpose "
-#| "purpose>] [B<-untrusted file>] [B<-help>] [B<-issuer_checks>] [B<-"
-#| "verbose>] [B<->] [certificates]"
 msgid ""
 "B<openssl> B<verify> [B<-CApath directory>] [B<-CAfile file>] [B<-purpose "
 "purpose>] [B<-policy arg>] [B<-ignore_critical>] [B<-crl_check>] [B<-"
@@ -777,7 +772,10 @@ msgid ""
 "verbose>] [B<->] [certificates]"
 msgstr ""
 "B<openssl> B<verify> [B<-CApath> I<répertoire>] [B<-CAfile> I<fichier>] [B<-"
-"purpose> I<raison>] [B<-untrusted> I<fichier>] [B<-help>] [B<-"
+"purpose> I<raison>] [B<-policy> I<param>] [B<-ignore_critical>] [B<-"
+"crl_check>] [B<-crl_check_all>] [B<-policy_check>] [B<-explicit_policy>] [B<-"
+"inhibit_any>] [B<-inhibit_map>] [B<-x509_strict>] [B<-extended_crl>] [B<-"
+"use_deltas>] [B<-policy_print>] [B<-untrusted> I<fichier>] [B<-help>] [B<-"
 "issuer_checks>] [B<-verbose>] [B<->] [I<certificats>]"
 
 #. type: textblock
@@ -808,7 +806,7 @@ msgid ""
 "certificates in PEM format concatenated together."
 msgstr ""
 "Un fichier avec des certificats de confiance. Le fichier doit contenir des "
-"certificats au format PEM, concaténés ensemble."
+"certificats au format PEM, concaténés."
 
 #. type: =item
 #: C/apps/verify.pod:54
@@ -823,7 +821,7 @@ msgid ""
 "certificates"
 msgstr ""
 "Un fichier avec des certificats qui ne sont pas de confiance. Le fichier "
-"doit contenir des certificats au format PEM, concaténés ensemble."
+"doit contenir des certificats au format PEM, concaténés."
 
 #. type: =item
 #: C/apps/verify.pod:58
@@ -840,7 +838,7 @@ msgid ""
 msgstr ""
 "Le but de ce certificat. Sans cette option, aucune vérification de chaîne ne "
 "sera réalisée. Les utilisations actuellement acceptées sont : B<sslclient>, "
-"B<sslserver>, B<nssslserver>, B<smimesign>, B<smimeencrypt>. Consultez la "
+"B<sslserver>, B<nssslserver>, B<smimesign> et B<smimeencrypt>. Consultez la "
 "section B<OPÉRATION DE VÉRIFICATION> pour de plus amples renseignements."
 
 #. type: =item
@@ -879,6 +877,7 @@ msgstr ""
 "n'implique pas elle-même qu'il y a un problème : lors du processus de "
 "vérification normal, plusieurs rejets peuvent avoir lieu."
 
+# s/name an/name and an/
 #. type: textblock
 #: C/apps/verify.pod:83
 msgid ""
@@ -886,69 +885,71 @@ msgid ""
 "RFC3280 et al). The policy B<arg> can be an object name an OID in numeric "
 "form. This argument can appear more than once."
 msgstr ""
+"Activer le traitement de la politique et ajouter I<param> à user-initial-"
+"policy-set (consultez entre autres la RFC 3280). La politique I<param> peut "
+"être un nom d'objet ou un OID sous forme numérique. Cet argument peut être "
+"fourni plus d'une fois."
 
 #. type: =item
 #: C/apps/verify.pod:87
-#, fuzzy
-#| msgid "B<-check>"
 msgid "B<-policy_check>"
-msgstr "B<-check>"
+msgstr "B<-policy_check>"
 
 #. type: textblock
 #: C/apps/verify.pod:89
 msgid "Enables certificate policy processing."
-msgstr ""
+msgstr "Activer le traitement de la politique de certificat."
 
 #. type: =item
 #: C/apps/verify.pod:91
-#, fuzzy
-#| msgid "B<policy>"
 msgid "B<-explicit_policy>"
-msgstr "B<policy>"
+msgstr "B<-explicit_policy>"
 
 #. type: textblock
 #: C/apps/verify.pod:93
 msgid "Set policy variable require-explicit-policy (see RFC3280 et al)."
 msgstr ""
+"Définir la variable de politique require-explicit-policy (consultez entre "
+"autres la RFC 3280)."
 
 #. type: =item
 #: C/apps/verify.pod:95
 msgid "B<-inhibit_any>"
-msgstr ""
+msgstr "B<-inhibit_any>"
 
 #. type: textblock
 #: C/apps/verify.pod:97
 msgid "Set policy variable inhibit-any-policy (see RFC3280 et al)."
 msgstr ""
+"Définir la variable de politique inhibit-any-policy (consultez entre autres "
+"la RFC 3280)."
 
 #. type: =item
 #: C/apps/verify.pod:99
 msgid "B<-inhibit_map>"
-msgstr ""
+msgstr "B<-inhibit_map>"
 
 #. type: textblock
 #: C/apps/verify.pod:101
 msgid "Set policy variable inhibit-policy-mapping (see RFC3280 et al)."
 msgstr ""
+"Définir la variable de politique inhibit-policy-mapping (consultez entre "
+"autres la RFC 3280)."
 
 #. type: =item
 #: C/apps/verify.pod:103
-#, fuzzy
-#| msgid "B<-policy arg>"
 msgid "B<-policy_print>"
-msgstr "B<-policy> I<param>"
+msgstr "B<-policy_print>"
 
 #. type: textblock
 #: C/apps/verify.pod:105
 msgid "Print out diagnostics, related to policy checking"
-msgstr ""
+msgstr "Afficher les diagnostics, relatifs à la vérification de politique."
 
 #. type: =item
 #: C/apps/verify.pod:107
-#, fuzzy
-#| msgid "B<-check>"
 msgid "B<-crl_check>"
-msgstr "B<-check>"
+msgstr "B<-crl_check>"
 
 #. type: textblock
 #: C/apps/verify.pod:109
@@ -956,13 +957,15 @@ msgid ""
 "Checks end entity certificate validity by attempting to lookup a valid CRL.  "
 "If a valid CRL cannot be found an error occurs."
 msgstr ""
+"Vérifier la fin de validité d'une entité de certificat en essayant de "
+"rechercher une liste valable de révocations de certificats. Cela produit une "
+"erreur si une liste valable de révocations de certificats ne peut pas être "
+"trouvée."
 
 #. type: =item
 #: C/apps/verify.pod:112
-#, fuzzy
-#| msgid "B<-check>"
 msgid "B<-crl_check_all>"
-msgstr "B<-check>"
+msgstr "B<-crl_check_all>"
 
 #. type: textblock
 #: C/apps/verify.pod:114
@@ -970,11 +973,13 @@ msgid ""
 "Checks the validity of B<all> certificates in the chain by attempting to "
 "lookup valid CRLs."
 msgstr ""
+"Vérifier la validité de B<tous> les certificats de la chaîne en essayant de "
+"rechercher une liste valable de révocations de certificats."
 
 #. type: =item
 #: C/apps/verify.pod:117
 msgid "B<-ignore_critical>"
-msgstr ""
+msgstr "B<-ignore_critical>"
 
 #. type: textblock
 #: C/apps/verify.pod:119
@@ -983,13 +988,15 @@ msgid ""
 "supported by OpenSSL the certificate is rejected (as required by RFC3280 et "
 "al). If this option is set critical extensions are ignored."
 msgstr ""
+"Normalement, si une extension critique non gérée mais présente n'est pas "
+"prise en charge par OpenSSL, le certificat est rejeté (conformément entre "
+"autres à la RFC 3280). Si cette option est définie, les extensions critiques "
+"sont ignorées."
 
 #. type: =item
 #: C/apps/verify.pod:124
-#, fuzzy
-#| msgid "B<-x509toreq>"
 msgid "B<-x509_strict>"
-msgstr "B<-x509toreq>"
+msgstr "B<-x509_strict>"
 
 #. type: textblock
 #: C/apps/verify.pod:126
@@ -997,13 +1004,13 @@ msgid ""
 "Disable workarounds for broken certificates which have to be disabled for "
 "strict X.509 compliance."
 msgstr ""
+"Désactiver le contournement pour les certificats cassés qui doivent être "
+"désactivés par conformité X.509 stricte."
 
 #. type: =item
 #: C/apps/verify.pod:129
-#, fuzzy
-#| msgid "B<-gencrl>"
 msgid "B<-extended_crl>"
-msgstr "B<-gencrl>"
+msgstr "B<-extended_crl>"
 
 #. type: textblock
 #: C/apps/verify.pod:131
@@ -1011,18 +1018,21 @@ msgid ""
 "Enable extended CRL features such as indirect CRLs and alternate CRL signing "
 "keys."
 msgstr ""
+"Activer les fonctionnalités étendues de liste de révocations de certificats, "
+"comme les listes indirectes de révocations de certificats et les clefs de "
+"signature alternatives de liste de révocations de certificats."
 
 #. type: =item
 #: C/apps/verify.pod:134
-#, fuzzy
-#| msgid "B<use_quote>"
 msgid "B<-use_deltas>"
-msgstr "B<use_quote>"
+msgstr "B<-use_deltas>"
 
 #. type: textblock
 #: C/apps/verify.pod:136
 msgid "Enable support for delta CRLs."
 msgstr ""
+"Activer la prise en charge pour les deltas de listes de révocations de "
+"certificats."
 
 #. type: =item
 #: C/apps/verify.pod:138
@@ -1099,7 +1109,7 @@ msgstr ""
 "Une différence fondamentale existe entre les opérations de vérification "
 "réalisées par le programme B<verify> : à chaque fois que c'est possible, une "
 "tentative de continuer est essayée après une erreur, alors que l'opération "
-"de vérification se serait normalement arrêté après la première erreur. Cela "
+"de vérification se serait normalement arrêtée après la première erreur. Cela "
 "permet de déterminer tous les problèmes avec une chaîne de certificats."
 
 #. type: textblock
@@ -1144,11 +1154,11 @@ msgstr ""
 "certificat actuel était considéré comme le certificat émetteur. Dans "
 "OpenSSL 0.9.6 et les versions suivantes, tous les certificats dont le nom de "
 "sujet correspond au nom de l'émetteur du certificat actuel sont sujets à "
-"d'autres tests. Les composants identificateurs de clef d'autorité utile du "
-"certificat actuel (s'ils existent) doivent correspondre à l'objet "
-"d'identificateur de clef (s'il existe), et l'émetteur et le numéro de série "
-"de l'émetteur candidat, en plus de l'extension keyUsage de l'émetteur "
-"candidat (s'il existe), doivent permettre la signature de certificat."
+"d'autres tests. Les composants identificateurs concernant la clef d'autorité "
+"du certificat actuel (s'ils existent) doivent correspondre au sujet de "
+"l'identificateur de clef (s'il existe), et l'émetteur, le numéro de série de "
+"l'émetteur candidat, en plus de l'extension keyUsage de l'émetteur candidat "
+"(s'il existe), doivent permettre la signature de certificat."
 
 #. type: textblock
 #: C/apps/verify.pod:189
@@ -1181,11 +1191,11 @@ msgstr ""
 "La deuxième opération est de vérifier toutes les extensions des certificats "
 "qui ne sont pas de confiance, en cohérence avec la raison fournie. Si "
 "l'option B<-purpose> n'est pas inclue, aucune vérification n'est réalisée. "
-"Le certificat fourni ou « feuille » doit avoir des extensions compatibles "
-"avec la raison fournie et tous les autres certificats doivent aussi être des "
-"certificats d'autorité de certification valables. Les extensions exactes "
-"nécessaires sont décrites plus en détail dans la section B<EXTENSIONS DE "
-"CERTIFICATS> de l'utilitaire B<x509>."
+"Le certificat fourni ou « feuille » (VS racine) doit avoir des extensions "
+"compatibles avec la raison fournie et tous les autres certificats doivent "
+"aussi être des certificats d'autorité de certification valables. Les "
+"extensions exactes nécessaires sont décrites plus en détail dans la section "
+"B<EXTENSIONS DE CERTIFICATS> de l'utilitaire B<x509>."
 
 #. type: textblock
 #: C/apps/verify.pod:202
@@ -1199,8 +1209,8 @@ msgstr ""
 "certificat racine de l'autorité de certification. Le certificat racine de "
 "l'autorité de certification devrait être de confiance pour la raison "
 "fournie. Par compatibilité avec les versions précédentes de SSLeay et "
-"OpenSSL, un certificat sans réglages de confiance est considéré valable pour "
-"toutes les raisons."
+"OpenSSL, un certificat sans réglages de confiance est considéré valable dans "
+"tous les cas."
 
 #. type: textblock
 #: C/apps/verify.pod:207
@@ -1232,7 +1242,7 @@ msgid ""
 "The general form of the error message is:"
 msgstr ""
 "Quand une opération de vérification échoue, les messages de sortie peuvent "
-"être un peu cryptiques. La forme globale du message d'erreur est :"
+"être un peu abscons. La forme globale du message d'erreur est :"
 
 #. type: verbatim
 #: C/apps/verify.pod:220
@@ -1272,7 +1282,7 @@ msgid ""
 "Some of the error codes are defined but never returned: these are described "
 "as \"unused\"."
 msgstr ""
-"Une liste exhaustive des codes d'erreur et messages est montée ci-dessous, "
+"Une liste exhaustive des codes d'erreur et messages est montrée ci-dessous, "
 "cela inclut également le nom du code d'erreur tel qu'il est défini dans le "
 "fichier d'en-têtes F<x509_vfy.h>. Certains codes d'erreur sont définis mais "
 "jamais renvoyés : ce sont ceux décrits comme « inutilisés »."
@@ -1312,10 +1322,8 @@ msgstr "B<3 X509_V_ERR_UNABLE_TO_GET_CRL: unable to get certificate CRL>"
 
 #. type: textblock
 #: C/apps/verify.pod:248 C/crypto/X509_STORE_CTX_get_error.pod:83
-#, fuzzy
-#| msgid "the CRL of a certificate could not be found. Unused."
 msgid "the CRL of a certificate could not be found."
-msgstr "La liste de révocations de certificats est introuvable. Inutilisé."
+msgstr "La liste de révocations de certificats est introuvable."
 
 #. type: =item
 #: C/apps/verify.pod:250
@@ -1427,11 +1435,8 @@ msgstr "B<11 X509_V_ERR_CRL_NOT_YET_VALID: CRL is not yet valid>"
 
 #. type: textblock
 #: C/apps/verify.pod:283 C/crypto/X509_STORE_CTX_get_error.pod:119
-#, fuzzy
-#| msgid "the CRL is not yet valid. Unused."
 msgid "the CRL is not yet valid."
-msgstr ""
-"La liste de révocations de certificats n'est pas encore valable. Inutilisé."
+msgstr "La liste de révocations de certificats n'est pas encore valable."
 
 #. type: =item
 #: C/apps/verify.pod:285
@@ -1440,10 +1445,8 @@ msgstr "B<12 X509_V_ERR_CRL_HAS_EXPIRED: CRL has expired>"
 
 #. type: textblock
 #: C/apps/verify.pod:287 C/crypto/X509_STORE_CTX_get_error.pod:123
-#, fuzzy
-#| msgid "the CRL has expired. Unused."
 msgid "the CRL has expired."
-msgstr "La liste de révocations de certificats a expiré. Inutilisé."
+msgstr "La liste de révocations de certificats a expiré."
 
 #. type: =item
 #: C/apps/verify.pod:289
@@ -1484,12 +1487,10 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/verify.pod:299 C/crypto/X509_STORE_CTX_get_error.pod:135
-#, fuzzy
-#| msgid "the CRL lastUpdate field contains an invalid time. Unused."
 msgid "the CRL lastUpdate field contains an invalid time."
 msgstr ""
 "Le champ lastUpdate de la liste de révocations de certificats contient une "
-"date incorrecte. Inutilisé."
+"date incorrecte."
 
 #. type: =item
 #: C/apps/verify.pod:301
@@ -1502,12 +1503,10 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/verify.pod:303 C/crypto/X509_STORE_CTX_get_error.pod:139
-#, fuzzy
-#| msgid "the CRL nextUpdate field contains an invalid time. Unused."
 msgid "the CRL nextUpdate field contains an invalid time."
 msgstr ""
 "Le champ nextUpdate de la liste de révocations de certificats contient une "
-"date incorrecte. Inutilisé."
+"date incorrecte."
 
 #. type: =item
 #: C/apps/verify.pod:305
@@ -1611,10 +1610,8 @@ msgstr "B<23 X509_V_ERR_CERT_REVOKED: certificate revoked>"
 
 #. type: textblock
 #: C/apps/verify.pod:335 C/crypto/X509_STORE_CTX_get_error.pod:171
-#, fuzzy
-#| msgid "the certificate has been revoked. Unused."
 msgid "the certificate has been revoked."
-msgstr "Le certificat a été révoquée. Inutilisé."
+msgstr "Le certificat a été révoqué."
 
 #. type: =item
 #: C/apps/verify.pod:337
@@ -1792,7 +1789,7 @@ msgid ""
 "are identical and mishandled them."
 msgstr ""
 "Les versions précédentes d'OpenSSL supposent que les certificats avec les "
-"même noms de sujet sont identiques et les gèrent mal."
+"mêmes noms de sujet sont identiques et les gèrent mal."
 
 #. type: textblock
 #: C/apps/verify.pod:398
