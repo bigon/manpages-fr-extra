@@ -65,7 +65,7 @@ msgid ""
 msgstr ""
 "B<sudo> n'a plus besoin de lire I<sudoers> dans son intégralité. Lorsque "
 "LDAP est utilisé, il y a uniquement deux ou trois requêtes LDAP par appel. "
-"Ceci rend <B>sudo rapide et surtout utilisable dans des environnements LDAP."
+"Ceci rend B<sudo> rapide et surtout utilisable dans des environnements LDAP."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:42
@@ -85,7 +85,6 @@ msgstr ""
 
 #. type: textblock
 #: C/sudoers.ldap.pod:50
-#, fuzzy
 msgid ""
 "It is possible to specify per-entry options that override the global default "
 "options.  F<@sysconfdir@/sudoers> only supports default options and limited "
@@ -94,9 +93,9 @@ msgid ""
 "options directly in the entry is more natural."
 msgstr ""
 "Il est possible de préciser pour chaque entrée des options qui outrepassent "
-"les options globales par défaut. F<@sysconfdir@/sudoers> supporte uniquement "
-"les options par défaut ainsi que les options limitées associées avec les "
-"directives utilisateur/hôte/commandes/alias. La syntaxe et compliquée et "
+"les options globales par défaut. F<@sysconfdir@/sudoers> gère uniquement les "
+"options par défaut ainsi que les options limitées associées avec les "
+"directives utilisateur/hôte/commandes/alias. La syntaxe est compliquée et "
 "peut être difficile à comprendre pour les utilisateurs. Placer les options "
 "directement dans une entrée est plus naturel."
 
@@ -123,7 +122,7 @@ msgid ""
 "LDAP, B<sudo>-specific Aliases are not supported."
 msgstr ""
 "Une autre différence majeure entre LDAP et le fichier I<sudoers> est que "
-"dans LDAP, les alias spécifiques B<sudo> ne sont pas supportés."
+"dans LDAP, les alias spécifiques B<sudo> ne sont pas pris en charge."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:69
@@ -137,15 +136,14 @@ msgstr ""
 "Dans la plupart des cas, il n'y a pas réellement besoin des alias "
 "spécifiques B<sudo>. Les groupes Unix ou bien les groupes réseaux "
 "utilisateurs (« users netgroups ») peuvent être utilisés en lieu et place de "
-"« User_Aliases » et de « Runas_Aliases ». Les groupes réseaux machines (« "
-"host netgroups ») peuvent être utilisé en lieu et place de « Host_Aliases ». "
-"Étant donné que les groupes Unix et les groupes réseaux peuvent êtres "
-"stockés dans LDAP, il n'y a pas de besoin réel pour les alias spécifiques "
-"B<sudo>."
+"« User_Aliases » et de « Runas_Aliases ». Les groupes réseau machines (« "
+"host netgroups ») peuvent être utilisés en lieu et place de "
+"« Host_Aliases ». Étant donné que les groupes Unix et les groupes réseau "
+"peuvent être stockés dans LDAP, il n'y a pas de besoin réel pour les alias "
+"spécifiques B<sudo>."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:75
-#, fuzzy
 msgid ""
 "Cmnd_Aliases are not really required either since it is possible to have "
 "multiple users listed in a C<sudoRole>.  Instead of defining a Cmnd_Alias "
@@ -153,11 +151,10 @@ msgid ""
 "contains the commands and assign multiple users to it."
 msgstr ""
 "Les alias de type « Cmnd_Aliases » ne sont pas réellement requis étant donné "
-"qu'il est possible d'avoir plusieurs utilisateurs listés dans un objet LDAP "
-"de type C<sudoRole>. Au lieu de définir une instruction « Cmnd_Aliases » qui "
-"est référencée par de multiple utilisateurs, on peut créer un objet "
-"C<sudoRole> contenant les commandes et assigner à celui-ci plusieurs "
-"utilisateurs."
+"qu'il est possible d'avoir plusieurs utilisateurs listés dans un "
+"C<sudoRole>. Au lieu de définir une instruction « Cmnd_Aliases » qui est "
+"référencée par de multiples utilisateurs, on peut créer un objet C<sudoRole> "
+"contenant les commandes et assigner à celui-ci plusieurs utilisateurs."
 
 #. type: =head2
 #: C/sudoers.ldap.pod:81
@@ -265,7 +262,7 @@ msgstr ""
 "Une commande Unix avec des paramètres optionnels passés en ligne de "
 "commande, incluant potentiellement des caractères permettant de représenter "
 "des motifs (connus également sous le nom de caractères de remplacement). La "
-"valeur spéciale C<ALL> correspondra à n'importe quelle commande. SI une "
+"valeur spéciale C<ALL> correspondra à n'importe quelle commande. Si une "
 "commande est préfixée avec un point d'exclamation C<'!'>, l'utilisateur sera "
 "interdit d'exécuter cette commande."
 
@@ -310,6 +307,9 @@ msgid ""
 "and higher.  Older versions of B<sudo> use the C<sudoRunAs> attribute "
 "instead."
 msgstr ""
+"L'attribut C<sudoRunAsUser> n'est disponible que depuis la version 1.7.0 de "
+"B<sudo>. Les versions plus anciennes de B<sudo> utilisent C<sudoRunAs> à la "
+"place."
 
 #. type: =item
 #: C/sudoers.ldap.pod:141
@@ -332,6 +332,8 @@ msgid ""
 "The C<sudoRunAsGroup> attribute is only available in B<sudo> versions 1.7.0 "
 "and higher."
 msgstr ""
+"L'attribut C<sudoRunAsGroup> n'est disponible que depuis la version 1.7.0 de "
+"B<sudo>."
 
 #. type: =item
 #: C/sudoers.ldap.pod:149
@@ -348,6 +350,13 @@ msgid ""
 "timezone.  The minute and seconds portions are optional, but some LDAP "
 "servers require that they be present (contrary to the RFC)."
 msgstr ""
+"Un horodatage de la forme C<aaaammjjHHMMSSZ> peut être utilisé pour fournir "
+"une date à partir de laquelle le C<sudoRole> sera valide. En présence de "
+"plusieurs entrées C<sudoNotBefore>, celle ayant la date la plus tôt est "
+"utilisée. Veuillez noter que les horodatages doivent être en temps coordoné "
+"universel (UTC) et non dans la zone horaire locale. La partie des minutes et "
+"secondes est optionnelles mais il se peut que certains serveurs LDAP "
+"l'exigent (contrairement à ce qu'indique la RFC)."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:158
@@ -356,6 +365,9 @@ msgid ""
 "and higher and must be explicitly enabled via the B<SUDOERS_TIMED> option in "
 "F<@ldap_conf@>."
 msgstr ""
+"L'attribut C<sudoNotBefore> n'est disponible que depuis la version 1.7.5 de "
+"B<sudo> est doit être activé explicitement grâce à l'option B<SUDOERS_TIMED> "
+"dans F<@ldap_conf@>."
 
 #. type: =item
 #: C/sudoers.ldap.pod:162
@@ -372,6 +384,13 @@ msgid ""
 "timezone.  The minute and seconds portions are optional, but some LDAP "
 "servers require that they be present (contrary to the RFC)."
 msgstr ""
+"Un horodatage de la forme C<aaaammjjHHMMSSZ> qui indique une date "
+"d'expiration après laquelle le C<sudoRole> ne sera plus valide. En présence "
+"de plusieurs entrées C<sudoNotAfter>, celle ayant la date la plus tard est "
+"utilisée. Veuillez noter que les horodatages doivent être entemps coordoné "
+"universel (UTC) et non dans la zone horaire locale. La partie des minutes et "
+"secondes est optionnelles mais il se peut que certains serveurs LDAP "
+"l'exigent (contrairement à ce qu'indique la RFC)."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:171
@@ -380,6 +399,9 @@ msgid ""
 "and higher and must be explicitly enabled via the B<SUDOERS_TIMED> option in "
 "F<@ldap_conf@>."
 msgstr ""
+"L'attribut C<sudoNotAfter> n'est disponible que depuis la version 1.7.5 de "
+"B<sudo> est doit être activé explicitement grâce à l'option B<SUDOERS_TIMED> "
+"dans F<@ldap_conf@>."
 
 #. type: =item
 #: C/sudoers.ldap.pod:175
@@ -399,6 +421,15 @@ msgid ""
 "sudoers file.  If the C<sudoOrder> attribute is not present, a value of 0 is "
 "assumed."
 msgstr ""
+"Les entrées C<sudoRole> récupérées depuis le répertoire LDAP n'ont pas "
+"d'ordre. L'attribut C<sudoOrder> est un entier (ou un nombre en virgule "
+"flottante pour les serveurs LDAP qui le gèrent) utilisé pour ordonner les "
+"entrées qui correspondent. Cela permet aux entrées sudoers basées sur LDAP "
+"de mieux imiter le comportement du fichier sudoers, où l'ordre des entrées a "
+"une influence sur le résultat. Si plusieurs entrées correspondent, celle "
+"ayant l'attribut C<sudoOrder> le plus élevé est choisie. Cela correspond le "
+"comportement « dernière correspondance » du fichier sudoers. Si l'attribut "
+"C<sudoOrder> est absent, une value de 0 est donnée."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:187
@@ -406,8 +437,8 @@ msgid ""
 "The C<sudoOrder> attribute is only available in B<sudo> versions 1.7.5 and "
 "higher."
 msgstr ""
-"L'attribut C<sudoOrder> est seulement présent dans les versions de B<sudo> "
-"supérieures ou égales à 1.7.5."
+"L'attribut C<sudoOrder> n'est disponible que depuis la version 1.7.5 de "
+"B<sudo>."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:192
@@ -417,7 +448,7 @@ msgid ""
 "least one C<sudoUser>, C<sudoHost> and C<sudoCommand>."
 msgstr ""
 "Chaque attribut listé ci-dessus devrait contenir une simple valeur, mais il "
-"peut y avoir de multiples instances de chaque type de attribut. Un objet "
+"peut y avoir de multiples instances de chaque type d'attribut. Un objet "
 "C<sudoRole> doit contenir au moins un objet C<sudoUser>, un objet "
 "C<sudoHost> et un objet C<sudoCommand>."
 
@@ -468,11 +499,11 @@ msgid ""
 "containing user netgroups and checks to see if the user belongs to any of "
 "them."
 msgstr ""
-"Lorsque vous cherchez un sudoer utilisant LDAP il y a seulement deux ou "
+"Lorsque vous cherchez un sudoer utilisant LDAP, il y a seulement deux ou "
 "trois requêtes LDAP par appel. La première requête consiste à analyser les "
 "options globales. La seconde est la correspondance entre le nom "
-"d'utilisateur et les groupes auquel l'utilisateur appartient. (La balise "
-"spéciale ALL correspond à cette requête aussi.) Si aucune correspondance "
+"d'utilisateur et les groupes auxquels l'utilisateur appartient (la balise "
+"spéciale ALL correspond à cette requête aussi). Si aucune correspondance "
 "n'est retournée pour le nom d'utilisateur et les groupes, une troisième "
 "requête renvoie toutes les entrées contenant des « netgroups » utilisateurs "
 "et vérifie si l'utilisateur appartient à l'un d'eux."
@@ -484,6 +515,10 @@ msgid ""
 "directive, the LDAP queries include a subfilter that limits retrieval to "
 "entries that satisfy the time constraints, if any."
 msgstr ""
+"Si les entrées datées sont activées avec la directive de configuration "
+"B<SUDOERS_TIMED>, les requêtes LDAP incluent un filtre qui limite la "
+"récupération aux entrées satisfaisant les contraintes de temps, si elles "
+"existent."
 
 #. type: =head2
 #: C/sudoers.ldap.pod:221
@@ -506,14 +541,6 @@ msgstr ""
 
 #. type: textblock
 #: C/sudoers.ldap.pod:228
-#, fuzzy
-#| msgid ""
-#| "There are some subtle differences in the way sudoers is handled once in "
-#| "LDAP.  Probably the biggest is that according to the RFC, LDAP ordering "
-#| "is arbitrary and you cannot expect that Attributes and Entries are "
-#| "returned in any specific order.  If there are conflicting command rules "
-#| "on an entry, the negative takes precedence.  This is called paranoid "
-#| "behavior (not necessarily the most specific match)."
 msgid ""
 "The order in which different entries are applied can be controlled using the "
 "C<sudoOrder> attribute, but there is no way to guarantee the order of "
@@ -521,9 +548,12 @@ msgid ""
 "in an entry, the negative takes precedence.  This is called paranoid "
 "behavior (not necessarily the most specific match)."
 msgstr ""
-"S'il y a des règles de gestion en conflit sur une entrée, la négative passe "
-"en priorité. Ceci est appelé le comportement paranoïaque (pas nécessairement "
-"la correspondance la plus spécifique)."
+"L'ordre dans lequel les différentes entrées sont appliquées peut être "
+"contrôlé au moyen de l'attribut C<sudoOrder>, mais il n'est pas possible de "
+"garantir l'ordres des attributs dans une entrée donnée. S'il y a des règles "
+"de gestion en conflit sur une entrée, la négative passe en priorité. Ceci "
+"est appelé le comportement paranoïaque (pas nécessairement la correspondance "
+"la plus spécifique)."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:235
@@ -627,7 +657,7 @@ msgid ""
 "\n"
 msgstr ""
 "    # ne correspond pas à « Tout le monde sauf joe »\n"
-"    # mais plutôt , ne correspond à personne\n"
+"    # mais plutôt à « ne correspond à personne »\n"
 "    sudoUser: !joe\n"
 "\n"
 
@@ -642,7 +672,7 @@ msgid ""
 "\n"
 msgstr ""
 "    # ne correspond pas à « tout le monde sauf joe »\n"
-"    # mais plutôt, correspond à « tout le monde y compris joe »\n"
+"    # mais plutôt à « tout le monde y compris joe »\n"
 "    sudoUser: ALL\n"
 "    sudoUser: !joe\n"
 "\n"
@@ -658,7 +688,7 @@ msgid ""
 "\n"
 msgstr ""
 "    # ne correspond pas à « Tout le monde sauf web01 »\n"
-"    # mais plutôt; correspond à « Tous les hôtes y compris web01 »\n"
+"    # mais plutôt à « Tous les hôtes y compris web01 »\n"
 "    sudoHost: ALL\n"
 "    sudoHost: !web01\n"
 "\n"
@@ -666,7 +696,7 @@ msgstr ""
 #. type: =head2
 #: C/sudoers.ldap.pod:284
 msgid "Sudoers Schema"
-msgstr "Schema Sudoers"
+msgstr "Schéma Sudoers"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:286
@@ -674,8 +704,8 @@ msgid ""
 "In order to use B<sudo>'s LDAP support, the B<sudo> schema must be installed "
 "on your LDAP server.  In addition, be sure to index the 'sudoUser' attribute."
 msgstr ""
-"Afin d'utiliser le support LDAP de B<sudo>, le schéma B<sudo> doit être "
-"installé sur votre serveur LDAP. De plus, soyez sur d'indexer l'attribut "
+"Afin d'utiliser la gestion LDAP de B<sudo>, le schéma B<sudo> doit être "
+"installé sur votre serveur LDAP. De plus, soyez sûr d'indexer l'attribut "
 "« sudoUser »."
 
 #. type: textblock
@@ -686,7 +716,7 @@ msgid ""
 "Active Directory (F<schema.ActiveDirectory>) may be found in the B<sudo> "
 "distribution."
 msgstr ""
-"Trois versions du schéma :une pour les serveurs OpenLDAP (<schema."
+"Trois versions du schéma : une pour les serveurs OpenLDAP (<schema."
 "OpenLDAP>), une pour les serveurs dérivés de celui de Netscape (F<schema."
 "iPlanet>), et une pour Microsoft Active Directory (<schema.ActiveDirectory>) "
 "peuvent êtres trouvées dans la distribution de B<sudo>."
@@ -698,7 +728,7 @@ msgid ""
 "section."
 msgstr ""
 "Le schéma pour B<sudo> sous la forme OpenLDAP est inclus dans la section "
-"L<EXAMPLES>."
+"L<EXEMPLES>."
 
 #. type: =head2
 #: C/sudoers.ldap.pod:298
@@ -716,9 +746,10 @@ msgid ""
 msgstr ""
 "Sudo lit le fichier <@ldap_conf@> pour la configuration spécifique LDAP. "
 "Typiquement, ce fichier est partagé parmi les différents clients utilisant "
-"LDAP. Comme tel, la plupart des réglages ne sont pas spécifiques à B<sudo>. "
-"A noter que B.<sudo> analyse F<@ldap_conf@> lui-même et peut supporter des "
-"options qui diffèrent de celles décrites dans le manuel de L<ldap.conf(5)>."
+"LDAP. Ainsi, la plupart des réglages ne sont pas spécifiques à B<sudo>. À "
+"noter que B<sudo> analyse F<@ldap_conf@> lui-même et peut prendre en charge "
+"des options qui diffèrent de celles décrites dans le manuel de L<ldap.conf(5)"
+">."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:306
@@ -727,26 +758,21 @@ msgid ""
 "specified in F</etc/openldap/ldap.conf> or the user's F<.ldaprc> files are "
 "not used."
 msgstr ""
-"A noter aussi que sur des systèmes utilisant les librairies OpenLDAP, les "
-"valeurs par défaut précisées dans F</etc/openldap/ldap.conf> ou dans le "
-"fichier F<.ldaprc> de l'utilisateur ne sont pas utilisées."
+"Veuillez également noter que sur des systèmes utilisant les bibliothèques "
+"OpenLDAP, les valeurs précisées par défaut dans F</etc/openldap/ldap.conf> "
+"ou dans le fichier F<.ldaprc> de l'utilisateur ne sont pas utilisées."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:310
-#, fuzzy
-#| msgid ""
-#| "Only those options explicitly listed in F<@ldap_conf@> that are supported "
-#| "by B<sudo> are honored.  Configuration options are listed below in upper "
-#| "case but are parsed in a case-independent manner."
 msgid ""
 "Only those options explicitly listed in F<@ldap_conf@> as being supported by "
 "B<sudo> are honored.  Configuration options are listed below in upper case "
 "but are parsed in a case-independent manner."
 msgstr ""
-"Uniquement ces options là explicitement listées dans F<@ldap_conf@> qui sont "
-"supportées par B<sudo> sont honorées. Les options de configurations sont "
-"listées ci-dessous en majuscules mais sont analysées de manière insensible à "
-"la casse."
+"Seules ces options explicitement listées dans F<@ldap_conf@> comme étant "
+"prises en charge par B<sudo> sont honorées. Les options de configuration "
+"sont listées ci-dessous en majuscules mais sont analysées de manière "
+"insensible à la casse."
 
 #. type: =item
 #: C/sudoers.ldap.pod:316
@@ -769,15 +795,15 @@ msgid ""
 msgstr ""
 "Spécifie une liste avec un espace blanc comme délimiteur d'une ou plusieurs "
 "URIs décrivant le(s) serveur(s) au(x)quel(s) se connecter. Le I<protocole> "
-"peut être soit B<ldap> ou bien B<ldaps>, ce dernier étant pour les serveurs "
-"qui supportent le chiffrement TLS(SSL). Si aucun port n'est précisé, le port "
-"par défaut est 389 pour C<ldap://> ou 636 pour C<ldaps://>. Si aucun nom "
-"d'hôte n'est précisé, B<sudo> se connectera à B<localhost>. Les lignes "
-"B<URI> multiples sont traitées identiquement à une seule ligne B<URI> "
-"contenant de multiples entrées. Seuls les systèmes utilisant les libraires "
-"OpenSSL supportent le mélange d'URIs C<ldap://> et C<ldaps://>. Les "
-"librairies dérivées de Netscape utilisées sur la plupart des versions "
-"commerciales d'Unix sont uniquement capables de supporter l'un ou l'autre."
+"peut être soit B<ldap> soit B<ldaps>, ce dernier étant pour les serveurs qui "
+"gèrent le chiffrement TLS(SSL). Si aucun port n'est précisé, le port par "
+"défaut est 389 pour C<ldap://> ou 636 pour C<ldaps://>. Si aucun nom d'hôte "
+"n'est précisé, B<sudo> se connectera à B<localhost>. Les lignes B<URI> "
+"multiples sont traitées identiquement à une seule ligne B<URI> contenant de "
+"multiples entrées. Seuls les systèmes utilisant les bibliothèques OpenSSL "
+"gèrent le mélange d'URIs C<ldap://> et C<ldaps://>. Les bibliothèques "
+"dérivées de Netscape utilisées sur la plupart des versions commerciales "
+"d'Unix sont uniquement capables de gérer l'un ou l'autre."
 
 #. type: =item
 #: C/sudoers.ldap.pod:330
@@ -795,7 +821,7 @@ msgid ""
 msgstr ""
 "Si aucune B<URI> n'est précisée, le paramètre B<HOST> précise une liste avec "
 "un espace blanc comme délimiteur de serveurs LDAP auxquels se connecter. "
-"Chaque hôte, peut inclure un I<port> optionnel séparé par deux-points "
+"Chaque hôte peut inclure un I<port> optionnel séparé par deux-points "
 "(« : »). Le paramètre B<HOST> est déprécié en faveur de la spécification "
 "B<URI> et est inclus pour des raisons de compatibilité descendante."
 
@@ -824,7 +850,7 @@ msgstr ""
 #. type: =item
 #: C/sudoers.ldap.pod:347
 msgid "B<BIND_TIMELIMIT> seconds"
-msgstr "B<BIND_TIMELIMIT> nombre de secondes"
+msgstr "B<BIND_TIMELIMIT> secondes"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:349
@@ -871,15 +897,11 @@ msgstr "B<TIMEOUT> secondes"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:365
-#, fuzzy
-#| msgid ""
-#| "The B<TIMELIMIT> parameter specifies the amount of time, in seconds, to "
-#| "wait for a response to an LDAP query."
 msgid ""
 "The B<TIMEOUT> parameter specifies the amount of time, in seconds, to wait "
 "for a response from the various LDAP APIs."
 msgstr ""
-"Le paramètre B<TIMELIMIT> définit la durée, en secondes, à attendre pour une "
+"Le paramètre B<TIMEOUT> définit la durée, en secondes, à attendre pour une "
 "réponse à une requête LDAP."
 
 #. type: =item
@@ -897,14 +919,14 @@ msgid ""
 msgstr ""
 "Le DN de base à utiliser lors de la réalisation des requêtes LDAP de "
 "B<sudo>. Typiquement, ceci est de la forme C<ou=SUDOers,dc=exemple,dc=com> "
-"pour le domaine C<exemple.com>. Plusieurs lignes B<SUDOERS_BASE> peut être "
-"précisées, ce qui fait que dans ce cas , ils seront interrogés dans l'ordre "
-"précisé."
+"pour le domaine C<exemple.com>. Plusieurs lignes B<SUDOERS_BASE> peuvent "
+"être précisées, ce qui fait que dans ce cas, ils seront interrogés dans "
+"l'ordre précisé."
 
 #. type: =item
 #: C/sudoers.ldap.pod:375
 msgid "B<SUDOERS_SEARCH_FILTER> ldap_filter"
-msgstr ""
+msgstr "B<SUDOERS_SEARCH_FILTER> filtre_ldap"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:377
@@ -913,6 +935,9 @@ msgid ""
 "performing a B<sudo> LDAP query.  Typically, this is of the form "
 "C<attribute=value> or C<(&(attribute=value)(attribute2=value2))>."
 msgstr ""
+"Un filtre LDAP utilisé pour restreindre l'ensemble des enregistrements "
+"renvoyés lors d'une requête LDAP B<sudo>. Typiquement, c'est de la forme "
+"C<attribute=value> ou C<(&(attribute=value)(attribute2=value2))>."
 
 #. type: =item
 #: C/sudoers.ldap.pod:381
@@ -925,6 +950,8 @@ msgid ""
 "Whether or not to evaluate the C<sudoNotBefore> and C<sudoNotAfter> "
 "attributes that implement time-dependent sudoers entries."
 msgstr ""
+"Évaluer ou non les attributs C<sudoNotBefore> et C<sudoNotAfter> qui "
+"implémentent les entrées sudoers dépendant du temps."
 
 #. type: =item
 #: C/sudoers.ldap.pod:386
@@ -940,12 +967,12 @@ msgid ""
 "themselves.  This parameter should not be set in a production environment as "
 "the extra information is likely to confuse users."
 msgstr ""
-"Ceci définit le niveau de débogage pour les requêtes LDAP de B<sudo>. "
+"Cela définit le niveau de débogage pour les requêtes LDAP de B<sudo>. "
 "L'information de débogage est affichée sur l'erreur standard. Une valeur de "
 "1 a pour résultat une quantité d'information de débogage modérée. Une valeur "
 "de 2 montre les résultats des correspondances. Ce paramètre ne devrait pas "
 "être défini dans un environnement de production vu que l'information "
-"supplémentaire a tendance a troubler les utilisateurs."
+"supplémentaire a tendance à troubler les utilisateurs."
 
 #. type: =item
 #: C/sudoers.ldap.pod:395
@@ -960,8 +987,8 @@ msgid ""
 "specified, LDAP operations are performed with an anonymous identity.  By "
 "default, most LDAP servers will allow anonymous access."
 msgstr ""
-"Le paramètre B<BINDDN> spécifie, sous la forme d'un non distinctif (« "
-"Distinguished Name » ou DN), l'identité à utiliser pour effectuer des "
+"Le paramètre B<BINDDN> spécifie, sous la forme d'un nom distinctif "
+"(« Distinguished Name » ou DN), l'identité à utiliser pour effectuer des "
 "opérations LDAP. Si ce n'est pas précisé, les opérations LDAP seront "
 "réalisées avec une identité anonyme. Par défaut, la plupart des serveurs "
 "LDAP autorisent l'accès anonyme."
@@ -997,7 +1024,7 @@ msgid ""
 "identity is used (if any)."
 msgstr ""
 "Le paramètre B<ROOTBINDDN> spécifie l'identité à utiliser, sous la forme "
-"d'un nom distinctif (« Distinguished Name » ou DN), afin d'effectuer des "
+"d'un nom distinctif (« Distinguished Name » ou DN), afin d'effectuer des "
 "opérations LDAP privilégiées, telles que des requêtes I<sudoers>. Le mot de "
 "passe correspondant à cette identité doit être stocké dans F<@ldap_secret@>. "
 "S'il n'est pas spécifié, l'identité B<BINDDN> est utilisée (si elle existe)."
@@ -1014,7 +1041,7 @@ msgid ""
 "default value is protocol version 3."
 msgstr ""
 "La version du protocole LDAP à utiliser lors de la connexion au serveur. La "
-"valeur par défaut est protocole version 3."
+"valeur par défaut est le protocole en version 3."
 
 #. type: =item
 #: C/sudoers.ldap.pod:421
@@ -1040,7 +1067,6 @@ msgstr "B<SSL> start_tls"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:430
-#, fuzzy
 msgid ""
 "If the B<SSL> parameter is set to C<start_tls>, the LDAP server connection "
 "is initiated normally and TLS encryption is begun before the bind "
@@ -1052,8 +1078,8 @@ msgstr ""
 "LDAP est initiée normalement et le chiffrement TLS est démarré avant que les "
 "paramètres d'accès ne soient envoyés. Ceci présente l'avantage de ne pas "
 "requérir un port dédié pour les communications chiffrées. Ce paramètre est "
-"uniquement supporté par les serveurs LDAP qui honorent l'extension "
-"C<start_tls>, comme le serveur OpenLDAP. "
+"uniquement pris en charge par les serveurs LDAP qui honorent l'extension "
+"C<start_tls>, comme le serveur OpenLDAP."
 
 #. type: =item
 #: C/sudoers.ldap.pod:437
@@ -1076,8 +1102,8 @@ msgstr ""
 "serveur LDAP. Si le certificat TLS du serveur ne peut être vérifié "
 "(généralement parce qu'il est signé avec un certificat d'une autorité "
 "inconnue), B<sudo> sera incapable de s'y connecter. Si B<TLS_CHECKPEER> est "
-"désactivé, aucune contrôle n'est fait. A noter que désactiver ce contrôle "
-"créé une opportunité pour des attaques de type « Man-in-the-middle » (Homme "
+"désactivé, aucune contrôle n'est fait. À noter que désactiver ce contrôle "
+"crée une opportunité pour des attaques de type « Man-in-the-middle » (Homme "
 "du milieu) étant donné que l'identité du serveur ne sera pas authentifiée. "
 "Si possible, le certificat de l'AC devrait être installé localement afin que "
 "cette identité puisse être vérifiée."
@@ -1089,10 +1115,8 @@ msgstr "B<TLS_CACERT> nom du fichier"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:450
-#, fuzzy
-#| msgid "An alias for B<TLS_CACERTFILE>."
 msgid "An alias for B<TLS_CACERTFILE> for OpenLDAP compatibility."
-msgstr "Un alias pour B<TLS_CACERTFILE>."
+msgstr "Un alias pour B<TLS_CACERTFILE> pour la compatibilité avec OpenLDAP."
 
 #. type: =item
 #: C/sudoers.ldap.pod:452
@@ -1109,10 +1133,10 @@ msgid ""
 "database for CA and client certificates (see B<TLS_CERT>)."
 msgstr ""
 "Le chemin vers un fichier paquet de certificats d'autorité qui contient les "
-"certificats pour toutes les Autorités de Certification que le client "
+"certificats pour toutes les autorités de certification (CA) que le client "
 "reconnaît comme valide comme par exemple F</etc/ssl/ca-bundle.pem>. Cette "
-"option est uniquement supportée par les bibliothèques OpenLDAP. Les "
-"bibliothèques LDAP « Dérivé-Netscape » utilisent la même base de données de "
+"option est uniquement prise en charge par les bibliothèques OpenLDAP. Les "
+"bibliothèques LDAP dérivées de Netscape utilisent la même base de données de "
 "certificats pour les AC et les certificats clients (voir B<TLS_CERT>)."
 
 #. type: =item
@@ -1129,10 +1153,10 @@ msgid ""
 "B<TLS_CACERTFILE>.  This option is only supported by the OpenLDAP libraries."
 msgstr ""
 "Semblable à B<TLS_CACERTFILE> mais au lieu d'un fichier, il s'agit d'un "
-"répertoire contenant les certificats individuels des Autorités de "
-"Certification, comme par exemple F</etc/ssl/certs>. Le répertoire spécifié "
-"par B<TLS_CACERTDIR> est vérifié après B<TLS_CACERTFILE>. Cette option est "
-"supportée uniquement par les bibliothèques OpenLDAP."
+"répertoire contenant les certificats individuels des autorités de "
+"certification (CA), comme par exemple F</etc/ssl/certs>. Le répertoire "
+"spécifié par B<TLS_CACERTDIR> est vérifié après B<TLS_CACERTFILE>. Cette "
+"option est prise en charge uniquement par les bibliothèques OpenLDAP."
 
 #. type: =item
 #: C/sudoers.ldap.pod:470
@@ -1180,8 +1204,8 @@ msgid ""
 "When using Netscape-derived libraries, this file may also contain "
 "Certificate Authority certificates."
 msgstr ""
-"Lors de l'utilisation des bibliothèques « Dérivé-Netscape », ce fichier peut "
-"également contenir les certificats des Autorités de Certification."
+"Lors de l'utilisation des bibliothèques dérivées de Netscape, ce fichier "
+"peut également contenir les certificats des autorités de certification."
 
 #. type: =item
 #: C/sudoers.ldap.pod:485
@@ -1239,7 +1263,7 @@ msgstr ""
 "Le paramètre B<TLS_RANDFILE> spécifie le chemin vers une source d'entropie "
 "pour les systèmes ne disposant pas d'un générateur de nombres aléatoires. Il "
 "est généralement utilisé conjointement avec I<prngd> ou I<egd>. Cette option "
-"est uniquement supportée par les bibliothèques OpenLDAP."
+"est uniquement prise en charge par les bibliothèques OpenLDAP."
 
 #. type: =item
 #: C/sudoers.ldap.pod:505
@@ -1257,7 +1281,7 @@ msgstr ""
 "Le paramètre <TLS_CIPHERS> permet à l'administrateur de restreindre les "
 "algorithmes de chiffrement qui peuvent être utilisés pour les connexions TLS "
 "(SSL). Voir le manuel OpenSSL pour une liste des chiffres valides. Cette "
-"option est uniquement supportée par les bibliothèques OpenLDAP."
+"option est uniquement prise en charge par les bibliothèques OpenLDAP."
 
 #. type: =item
 #: C/sudoers.ldap.pod:512
@@ -1268,8 +1292,8 @@ msgstr "B<USE_SASL> on/true/yes/off/false/no"
 #: C/sudoers.ldap.pod:514
 msgid "Enable B<USE_SASL> for LDAP servers that support SASL authentication."
 msgstr ""
-"Activer B<USE_SASL> pour les serveurs LDAP supportant l'authentification "
-"SASL."
+"Activer B<USE_SASL> pour les serveurs LDAP prenant en charge "
+"l'authentification SASL."
 
 #. type: =item
 #: C/sudoers.ldap.pod:516
@@ -1335,13 +1359,13 @@ msgid ""
 "The path to the Kerberos 5 credential cache to use when authenticating with "
 "the remote server."
 msgstr ""
-"Le chemin du cache des autorisation d'accès de Kerberos 5 à utiliser lors "
+"Le chemin du cache des autorisations d'accès de Kerberos 5 à utiliser lors "
 "d'une authentification avec un serveur distant."
 
 #. type: =item
 #: C/sudoers.ldap.pod:540
 msgid "B<DEREF> never/searching/finding/always"
-msgstr ""
+msgstr "B<DEREF> never/searching/finding/always"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:542
@@ -1349,6 +1373,9 @@ msgid ""
 "How alias dereferencing is to be performed when searching.  See the L<ldap."
 "conf(5)> manual for a full description of this option."
 msgstr ""
+"Manière dont le déréférencement d'alias doit être effectué lors de la "
+"recherche.Voir le manuel L<ldap.conf(5)> pour une description complète de "
+"cette option."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:547
@@ -1373,7 +1400,7 @@ msgstr ""
 "le fichier du service de nom (« Name Service Switch ») F<@nsswitch_conf@>, "
 "afin de préciser l'ordre de recherche de I<sudoers>. Sudo cherche une ligne "
 "commençant avec C<sudoers> et l'utilise pour déterminer l'ordre de "
-"recherche. A noter que B<sudo> ne s'arrête pas de chercher après la première "
+"recherche. À noter que B<sudo> ne s'arrête pas de chercher après la première "
 "correspondance et que la dernière correspondance prévaut sur toutes les "
 "précédentes. "
 
@@ -1461,7 +1488,7 @@ msgid ""
 "Note that F<@nsswitch_conf@> is supported even when the underlying operating "
 "system does not use an nsswitch.conf file."
 msgstr ""
-"À noter que F<@nsswitch_conf@> est supporté même si le système "
+"À noter que F<@nsswitch_conf@> est pris en charge même si le système "
 "d'exploitation sous-jacent n'utilise pas de fichier nsswitch.conf."
 
 #. type: =head2
@@ -1529,7 +1556,7 @@ msgid ""
 "lookups; both LDAP and I<sudoers> will be queried for C<Defaults> entries."
 msgstr ""
 "À noter que dans l'exemple ci-dessus, le qualificatif C<auth> affecte "
-"uniquement les recherche d'utilisateurs ; les deux ressources LDAP and "
+"uniquement les recherches d'utilisateurs ; les deux ressources LDAP et "
 "I<sudoers> seront consultées pour les entrées C<Defaults>."
 
 #. type: textblock
@@ -1600,112 +1627,7 @@ msgstr "Exemple de fichier ldap.conf"
 
 #. type: verbatim
 #: C/sudoers.ldap.pod:635
-#, fuzzy, no-wrap
-#| msgid ""
-#| "  # Either specify one or more URIs or one or more host:port pairs.\n"
-#| "  # If neither is specified sudo will default to localhost, port 389.\n"
-#| "  #\n"
-#| "  #host          ldapserver\n"
-#| "  #host          ldapserver1 ldapserver2:390\n"
-#| "  #\n"
-#| "  # Default port if host is specified without one, defaults to 389.\n"
-#| "  #port          389\n"
-#| "  #\n"
-#| "  # URI will override the host and port settings.\n"
-#| "  uri            ldap://ldapserver\n"
-#| "  #uri            ldaps://secureldapserver\n"
-#| "  #uri            ldaps://secureldapserver ldap://ldapserver\n"
-#| "  #\n"
-#| "  # The amount of time, in seconds, to wait while trying to connect to\n"
-#| "  # an LDAP server.\n"
-#| "  bind_timelimit 30\n"
-#| "  #\n"
-#| "  # The amount of time, in seconds, to wait while performing an LDAP query.\n"
-#| "  timelimit 30\n"
-#| "  #\n"
-#| "  # Must be set or sudo will ignore LDAP; may be specified multiple times.\n"
-#| "  sudoers_base   ou=SUDOers,dc=example,dc=com\n"
-#| "  #\n"
-#| "  # verbose sudoers matching from ldap\n"
-#| "  #sudoers_debug 2\n"
-#| "  #\n"
-#| "  # optional proxy credentials\n"
-#| "  #binddn        <who to search as>\n"
-#| "  #bindpw        <password>\n"
-#| "  #rootbinddn    <who to search as, uses /etc/ldap.secret for bindpw>\n"
-#| "  #\n"
-#| "  # LDAP protocol version, defaults to 3\n"
-#| "  #ldap_version 3\n"
-#| "  #\n"
-#| "  # Define if you want to use an encrypted LDAP connection.\n"
-#| "  # Typically, you must also set the port to 636 (ldaps).\n"
-#| "  #ssl on\n"
-#| "  #\n"
-#| "  # Define if you want to use port 389 and switch to\n"
-#| "  # encryption before the bind credentials are sent.\n"
-#| "  # Only supported by LDAP servers that support the start_tls\n"
-#| "  # extension such as OpenLDAP.\n"
-#| "  #ssl start_tls\n"
-#| "  #\n"
-#| "  # Additional TLS options follow that allow tweaking of the\n"
-#| "  # SSL/TLS connection.\n"
-#| "  #\n"
-#| "  #tls_checkpeer yes # verify server SSL certificate\n"
-#| "  #tls_checkpeer no  # ignore server SSL certificate\n"
-#| "  #\n"
-#| "  # If you enable tls_checkpeer, specify either tls_cacertfile\n"
-#| "  # or tls_cacertdir.  Only supported when using OpenLDAP.\n"
-#| "  #\n"
-#| "  #tls_cacertfile /etc/certs/trusted_signers.pem\n"
-#| "  #tls_cacertdir  /etc/certs\n"
-#| "  #\n"
-#| "  # For systems that don't have /dev/random\n"
-#| "  # use this along with PRNGD or EGD.pl to seed the\n"
-#| "  # random number pool to generate cryptographic session keys.\n"
-#| "  # Only supported when using OpenLDAP.\n"
-#| "  #\n"
-#| "  #tls_randfile /etc/egd-pool\n"
-#| "  #\n"
-#| "  # You may restrict which ciphers are used.  Consult your SSL\n"
-#| "  # documentation for which options go here.\n"
-#| "  # Only supported when using OpenLDAP.\n"
-#| "  #\n"
-#| "  #tls_ciphers <cipher-list>\n"
-#| "  #\n"
-#| "  # Sudo can provide a client certificate when communicating to\n"
-#| "  # the LDAP server.\n"
-#| "  # Tips:\n"
-#| "  #   * Enable both lines at the same time.\n"
-#| "  #   * Do not password protect the key file.\n"
-#| "  #   * Ensure the keyfile is only readable by root.\n"
-#| "  #\n"
-#| "  # For OpenLDAP:\n"
-#| "  #tls_cert /etc/certs/client_cert.pem\n"
-#| "  #tls_key  /etc/certs/client_key.pem\n"
-#| "  #\n"
-#| "  # For SunONE or iPlanet LDAP, tls_cert and tls_key may specify either\n"
-#| "  # a directory, in which case the files in the directory must have the\n"
-#| "  # default names (e.g. cert8.db and key4.db), or the path to the cert\n"
-#| "  # and key files themselves.  However, a bug in version 5.0 of the LDAP\n"
-#| "  # SDK will prevent specific file names from working.  For this reason\n"
-#| "  # it is suggested that tls_cert and tls_key be set to a directory,\n"
-#| "  # not a file name.\n"
-#| "  #\n"
-#| "  # The certificate database specified by tls_cert may contain CA certs\n"
-#| "  # and/or the client's cert.  If the client's cert is included, tls_key\n"
-#| "  # should be specified as well.\n"
-#| "  # For backward compatibility, \"sslpath\" may be used in place of tls_cert.\n"
-#| "  #tls_cert /var/ldap\n"
-#| "  #tls_key /var/ldap\n"
-#| "  #\n"
-#| "  # If using SASL authentication for LDAP (OpenSSL)\n"
-#| "  # use_sasl yes\n"
-#| "  # sasl_auth_id <SASL user name>\n"
-#| "  # rootuse_sasl yes\n"
-#| "  # rootsasl_auth_id <SASL user name for root access>\n"
-#| "  # sasl_secprops none\n"
-#| "  # krb5_ccname /etc/.ldapcache\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "  # Either specify one or more URIs or one or more host:port pairs.\n"
 "  # If neither is specified sudo will default to localhost, port 389.\n"
@@ -1842,6 +1764,9 @@ msgstr ""
 "  # sudoers verbeux si correspondance depuis ldap\n"
 "  #sudoers_debug 2\n"
 "  #\n"
+"  # Activer la gestion des entrées basées sur le temps dans sudoers.\n"
+"  #sudoers_timed yes\n"
+"  #\n"
 "  # Autorisations d'accès mandataires optionnelles\n"
 "  #binddn        <celui qui fait la recherche>\n"
 "  #bindpw        <mot de passe>\n"
@@ -1856,7 +1781,7 @@ msgstr ""
 "  #\n"
 "  # À définir si vous voulez utiliser le port 389 et basculer sur\n"
 "  # le chiffrement avant que les paramètres d'authentification soient envoyés.\n"
-"  # Uniquement supporté par les serveur LDAP supportant l'extension\n"
+"  # Uniquement pris en charge par les serveurs LDAP gérant l'extension\n"
 "  # start_tls comme OpenLDAP.\n"
 "  #ssl start_tls\n"
 "  #\n"
@@ -1867,50 +1792,51 @@ msgstr ""
 "  #tls_checkpeer no  # Ignore le certificat SSL serveur\n"
 "  #\n"
 "  # Si vous activez tls_checkpeer, précisez soit tls_cacertfile, \n"
-"  # soit tls_cacertdir. Uniquement supporté par OpenLDAP.\n"
+"  # soit tls_cacertdir. Uniquement pris en charge par OpenLDAP.\n"
 "  #\n"
 "  #tls_cacertfile /etc/certs/signataires_de_confiance.pem\n"
 "  #tls_cacertdir  /etc/certs\n"
 "  #\n"
-"  # Pour les système de disposant pas de /dev/random\n"
-"  # utilisez l'option suivante accompagné de PRNGD or EGD.pl pour fournir\n"
+"  # Pour les systèmes de disposant pas de /dev/random\n"
+"  # utilisez l'option suivante accompagnée de PRNGD ou EGD.pl pour fournir\n"
 "  # une réserve de nombres aléatoires afin de générer les clés de session cryptographiques.\n"
-"  # Uniquement supporté par OpenLDAP.\n"
+"  # Uniquement géré par OpenLDAP.\n"
 "  #\n"
 "  #tls_randfile /etc/egd-pool\n"
 "  #\n"
-"  # Vous pouvez restreindre les méthodes de chiffrement utilisables.   # Consultez votre documentation SSL pour les options pouvant convenir ici.\n"
-"  # Uniquement supporté par OpenLDAP.\n"
+"  # Vous pouvez restreindre les méthodes de chiffrement utilisables.\n"
+"  # Consultez votre documentation SSL pour les options pouvant convenir ici.\n"
+"  # Uniquement géré par OpenLDAP.\n"
 "  #\n"
 "  #tls_ciphers <liste des méthodes de chiffrement>\n"
 "  #\n"
 "  # Sudo peut fournir un certificat client lors de la communication avec\n"
 "  # le serveur LDAP.\n"
-"  # Astuces:\n"
+"  # Astuces :\n"
 "  #   * Activer les 2 lignes de configuration en même temps.\n"
 "  #   * Ne pas protéger le fichier de la clé par mot de passe.\n"
 "  #   * S'assurer que le fichier de la clé soit uniquement lisible par le superutilisateur.\n"
 "  #\n"
-"  # Pour OpenLDAP:\n"
+"  # Pour OpenLDAP :\n"
 "  #tls_cert /etc/certs/certificat_client.pem\n"
 "  #tls_key  /etc/certs/cle_client.pem\n"
 "  #\n"
 "  # Pour les LDAP SunONE ou iPlanet, tls_cert and tls_key peuvent spécifier soit\n"
 "  # un répertoire, auquel cas les fichiers dans le répertoire doivent avoir leur\n"
-"  # nom par défaut (par exemple:  cert8.db et key4.db), soit le chemin vers les fichiers\n"
-"  # certificat et clé eux-mêmes.  Cependant, un bogue en version 5.0 du kit de développement \n"
+"  # nom par défaut (par exemple :  cert8.db et key4.db), soit le chemin vers les fichiers\n"
+"  # certificat et clé eux-mêmes.  Cependant, un bogue en version 5.0 du kit de développement \n"
 "  # logiciel (« SDK ») LDAP empêchera les noms de fichiers spécifiques de fonctionner.\n"
 "  # Pour cette raison, il est suggéré que tls_cert et tls_key soient définis avec un répertoire,\n"
 "  # et non un nom de fichier.\n"
 "  #\n"
-"  # La base de données de certificats spécifié par tls_cert peut contenir les certificats des AC\n"
+"  # La base de données de certificats spécifiée par tls_cert peut contenir les certificats des AC\n"
 "  # et/ou le certificat du client. Si le certificat du client est inclus, tls_key\n"
 "  # devrait être précisé également.\n"
-"  # Pour des raisons de compatibilité descendante ,« sslpath » peut être utilisé à la place de tls_cert.\n"
+"  # Pour des raisons de compatibilité descendante, « sslpath » peut être utilisé à la place de tls_cert.\n"
 "  #tls_cert /var/ldap\n"
 "  #tls_key /var/ldap\n"
 "  #\n"
-"  # Si l'authentification SASL est utilisé pour LDAP (OpenSSL)\n"
+"  # Si l'authentification SASL est utilisée pour LDAP (OpenSSL)\n"
 "  # use_sasl yes\n"
 "  # sasl_auth_id <nom d'utilisateur SASL>\n"
 "  # rootuse_sasl yes\n"
@@ -1922,7 +1848,7 @@ msgstr ""
 #. type: =head2
 #: C/sudoers.ldap.pod:742
 msgid "Sudo schema for OpenLDAP"
-msgstr "Schema sudo pour OpenLDAP"
+msgstr "Schéma sudo pour OpenLDAP"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:744
@@ -1935,7 +1861,7 @@ msgstr ""
 "Le schéma suivant est au format OpenLDAP, disponible dans les sources de "
 "B<sudo> et dans le fichier F<schema.OpenLDAP> des distributions binaires. "
 "Copier simplement celui-ci dans le répertoire des schémas (par exemple, F</"
-"etc/openldap/schema>), ajouter la line C<include> appropriée dans C<slapd."
+"etc/openldap/schema>), ajouter la ligne C<include> appropriée dans C<slapd."
 "conf> et redémarrer B<slapd>."
 
 #. type: verbatim
@@ -2070,15 +1996,7 @@ msgstr ""
 
 #. type: verbatim
 #: C/sudoers.ldap.pod:793
-#, fuzzy, no-wrap
-#| msgid ""
-#| " attributetype ( 1.3.6.1.4.1.15953.9.1.2\n"
-#| "    NAME 'sudoHost'\n"
-#| "    DESC 'Host(s) who may run sudo'\n"
-#| "    EQUALITY caseExactIA5Match\n"
-#| "    SUBSTR caseExactIA5SubstringsMatch\n"
-#| "    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " attributetype ( 1.3.6.1.4.1.15953.9.1.8\n"
 "    NAME 'sudoNotBefore'\n"
@@ -2088,25 +2006,17 @@ msgid ""
 "    SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 )\n"
 "\n"
 msgstr ""
-" attributetype ( 1.3.6.1.4.1.15953.9.1.2\n"
-"    NAME 'sudoHost'\n"
-"    DESC 'Hôte(s) qui peuvent exécuter sudo'\n"
-"    EQUALITY caseExactIA5Match\n"
-"    SUBSTR caseExactIA5SubstringsMatch\n"
-"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+" attributetype ( 1.3.6.1.4.1.15953.9.1.8\n"
+"    NAME 'sudoNotBefore'\n"
+"    DESC 'Début de la période pendant laquelle l'entrée est valide'\n"
+"    EQUALITY generalizedTimeMatch\n"
+"    ORDERING generalizedTimeOrderingMatch\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 )\n"
 "\n"
 
 #. type: verbatim
 #: C/sudoers.ldap.pod:800
-#, fuzzy, no-wrap
-#| msgid ""
-#| " attributetype ( 1.3.6.1.4.1.15953.9.1.2\n"
-#| "    NAME 'sudoHost'\n"
-#| "    DESC 'Host(s) who may run sudo'\n"
-#| "    EQUALITY caseExactIA5Match\n"
-#| "    SUBSTR caseExactIA5SubstringsMatch\n"
-#| "    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " attributetype ( 1.3.6.1.4.1.15953.9.1.9\n"
 "    NAME 'sudoNotAfter'\n"
@@ -2116,25 +2026,17 @@ msgid ""
 "    SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 )\n"
 "\n"
 msgstr ""
-" attributetype ( 1.3.6.1.4.1.15953.9.1.2\n"
-"    NAME 'sudoHost'\n"
-"    DESC 'Hôte(s) qui peuvent exécuter sudo'\n"
-"    EQUALITY caseExactIA5Match\n"
-"    SUBSTR caseExactIA5SubstringsMatch\n"
-"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+" attributetype ( 1.3.6.1.4.1.15953.9.1.9\n"
+"    NAME 'sudoNotAfter'\n"
+"    DESC 'Fin de la période pendant laquelle l'entrée est valide'\n"
+"    EQUALITY generalizedTimeMatch\n"
+"    ORDERING generalizedTimeOrderingMatch\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 )\n"
 "\n"
 
 #. type: verbatim
 #: C/sudoers.ldap.pod:807
-#, fuzzy, no-wrap
-#| msgid ""
-#| " attributetype ( 1.3.6.1.4.1.15953.9.1.1\n"
-#| "    NAME 'sudoUser'\n"
-#| "    DESC 'User(s) who may  run sudo'\n"
-#| "    EQUALITY caseExactIA5Match\n"
-#| "    SUBSTR caseExactIA5SubstringsMatch\n"
-#| "    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " attributeTypes ( 1.3.6.1.4.1.15953.9.1.10\n"
 "     NAME 'sudoOrder'\n"
@@ -2144,25 +2046,17 @@ msgid ""
 "     SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 )\n"
 "\n"
 msgstr ""
-" attributetype ( 1.3.6.1.4.1.15953.9.1.1\n"
-"    NAME 'sudoUser'\n"
-"    DESC 'Utilisateur(s) qui peuvent exécuter sudo'\n"
-"    EQUALITY caseExactIA5Match\n"
-"    SUBSTR caseExactIA5SubstringsMatch\n"
-"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )\n"
+" attributetype ( 1.3.6.1.4.1.15953.9.1.10\n"
+"    NAME 'sudoOrder'\n"
+"    DESC 'Entier pour ordonner les entrées sudoRole'\n"
+"    EQUALITY integerMatch\n"
+"    ORDERING integerOrderingMatch\n"
+"    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 )\n"
 "\n"
 
 #. type: verbatim
 #: C/sudoers.ldap.pod:814
-#, fuzzy, no-wrap
-#| msgid ""
-#| " objectclass ( 1.3.6.1.4.1.15953.9.2.1 NAME 'sudoRole' SUP top STRUCTURAL\n"
-#| "    DESC 'Sudoer Entries'\n"
-#| "    MUST ( cn )\n"
-#| "    MAY ( sudoUser $ sudoHost $ sudoCommand $ sudoRunAs $ sudoRunAsUser $\n"
-#| "\t  sudoRunAsGroup $ sudoOption $ description )\n"
-#| "    )\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " objectclass ( 1.3.6.1.4.1.15953.9.2.1 NAME 'sudoRole' SUP top STRUCTURAL\n"
 "    DESC 'Sudoer Entries'\n"
@@ -2177,7 +2071,8 @@ msgstr ""
 "    DESC 'Entrée sudoer'\n"
 "    MUST ( cn )\n"
 "    MAY ( sudoUser $ sudoHost $ sudoCommand $ sudoRunAs $ sudoRunAsUser $\n"
-"\t  sudoRunAsGroup $ sudoOption $ description )\n"
+"\t  sudoRunAsGroup $ sudoOption $ sudoNotBefore $ sudoNotAfter $\n"
+"\t  sudoOrder $ description )\n"
 "    )\n"
 "\n"
 
@@ -2199,21 +2094,14 @@ msgstr "AVERTISSEMENTS"
 
 #. type: textblock
 #: C/sudoers.ldap.pod:828
-#, fuzzy
-#| msgid ""
-#| "The way that I<sudoers> is parsed differs between Note that there are "
-#| "differences in the way that LDAP-based I<sudoers> is parsed compared to "
-#| "file-based I<sudoers>.  See the L<Differences between LDAP and non-LDAP "
-#| "sudoers> section for more information."
 msgid ""
 "Note that there are differences in the way that LDAP-based I<sudoers> is "
 "parsed compared to file-based I<sudoers>.  See the L<Differences between "
 "LDAP and non-LDAP sudoers> section for more information."
 msgstr ""
-"La façon dont I<sudoers> est analysée diffère entre les deux. A noter qu'il "
-"y a des différences dans la façon dont I<sudoers> basé sur LDAP est analysé "
-"comparé à I<sudoers> dans un fichier plat. Voir la section L<Différences "
-"entre les sudoers LDAP et non LDAP>."
+"Veuillez noter qu'il y a des différences dans la façon dont I<sudoers> basé "
+"sur LDAP est analysé comparé à I<sudoers> dans un fichier plat. Voir la "
+"section L<Différences entre les sudoers LDAP et non LDAP>."
 
 #. type: =head1
 #: C/sudoers.ldap.pod:832 C/sudoers.pod:2138 C/sudo.pod:790
@@ -2227,7 +2115,7 @@ msgid ""
 "If you feel you have found a bug in B<sudo>, please submit a bug report at "
 "http://www.sudo.ws/sudo/bugs/"
 msgstr ""
-"Si vous pensez avoir trouvé un boque dans B<sudo>, merci de soumettre un "
+"Si vous pensez avoir trouvé un bogue dans B<sudo>, merci de soumettre un "
 "rapport de bogue à l'adresse http://www.sudo.ws/sudo/bugs/"
 
 #. type: =head1
@@ -2272,7 +2160,7 @@ msgstr ""
 #. type: textblock
 #: C/sudoers.pod:25
 msgid "sudoers - default sudo security policy module"
-msgstr ""
+msgstr "sudoers - module de politique de sécurité sudo par défaut"
 
 #. type: textblock
 #: C/sudoers.pod:29
@@ -2284,11 +2172,18 @@ msgid ""
 "information on storing I<sudoers> policy information in LDAP, please see "
 "L<sudoers.ldap(5)>."
 msgstr ""
+"Le module de politique de I<sudoers> détermines les droits B<sudo> d'un "
+"utilisateur.Il s'agit du greffon de politique B<sudo> par défaut. La "
+"politique est menée par le fichier F<@sysconfdir@/sudoers> ou, "
+"optionnellement, dans LDAP.Le format de politique est décrit en détail dans "
+"la section L<\"FORMAT DE FICHIERS SUDOERS\">. Pour en savoir plus sur la "
+"façon de stocker les informations de politique I<sudoers> dans LDAP, "
+"veuillez consulter L<sudoers.ldap(5)>."
 
 #. type: =head2
 #: C/sudoers.pod:36
 msgid "Authentication and Logging"
-msgstr ""
+msgstr "Authentification et connexion"
 
 #. type: textblock
 #: C/sudoers.pod:38
@@ -2302,6 +2197,15 @@ msgid ""
 "This can be changed via the I<rootpw>, I<targetpw> and I<runaspw> flags, "
 "described later."
 msgstr ""
+"La politique de sécurité de I<sudoers> nécessite que la plupart des "
+"utilisateurs s'authentifient eux-mêmes avant de pouvoir utiliser B<sudo>. "
+"Aucun mot de pas n'est requis si l'utilisateur est le superutilisateur, si "
+"l'utilisateur cible est l'utilisateur appelant ou si la politique a "
+"désactivé l'authentification pour l'utilisateur ou la commande. "
+"Contrairement à L<su(1)>, quand I<sudoers> nécessite une authentification, "
+"il valide les identifiants de l'utilisateur appelant mais pas ceux de "
+"l'utilisateur cible (ou du superutilisateur). Cela peut être modifié grâce "
+"aux marqueurs I<rootpw>, I<targetpw> et I<runaspw> décrits plus tard."
 
 #. type: textblock
 #: C/sudoers.pod:47
@@ -2311,6 +2215,10 @@ msgid ""
 "mail is configurable via the I<mailto> Defaults entry (described later) and "
 "defaults to C<@mailto@>."
 msgstr ""
+"Si un utilisateur non listé par la politique essaie de lancer une commande "
+"grâce à B<sudo>, un message est envoyé aux responsables. L'adresse utilisée "
+"pour ce message est configurable grâce à l'entrée par défaut I<mailto> "
+"(décrite plus tard) et vaut C<@mailto@> par défaut."
 
 #. type: textblock
 #: C/sudoers.pod:52
@@ -2319,21 +2227,12 @@ msgid ""
 "with the B<-l> or B<-v> option.  This allows users to determine for "
 "themselves whether or not they are allowed to use B<sudo>."
 msgstr ""
-"A noter que ce mail ne sera pas envoyé si un utilisateur non autorisé essaye "
+"À noter que ce mail ne sera pas envoyé si un utilisateur non autorisé essaye "
 "d'exécuter B<sudo> avec les options B<-l> ou B<-v>. Ceci permet aux "
-"utilisateur de savoir s'ils sont autorisés à utiliser B<sudo>."
+"utilisateurs de savoir s'ils sont autorisés à utiliser B<sudo>."
 
 #. type: textblock
 #: C/sudoers.pod:57
-#, fuzzy
-#| msgid ""
-#| "If B<sudo> is run by root and the C<SUDO_USER> environment variable is "
-#| "set, B<sudo> will use this value to determine who the actual user is.  "
-#| "This can be used by a user to log commands through sudo even when a root "
-#| "shell has been invoked.  It also allows the B<-e> option to remain useful "
-#| "even when being run via a sudo-run script or program.  Note however, that "
-#| "the sudoers lookup is still done for root, not the user specified by "
-#| "C<SUDO_USER>."
 msgid ""
 "If B<sudo> is run by root and the C<SUDO_USER> environment variable is set, "
 "the I<sudoers> policy will use this value to determine who the actual user "
@@ -2344,14 +2243,14 @@ msgid ""
 "C<SUDO_USER>."
 msgstr ""
 "Si B<sudo> est exécuté par root et que la variable d'environnement "
-"C<SUDO_USER> est définie, B<sudo> utilisera cette valeur pour déterminer qui "
-"est l'utilisateur courant. Ceci peut être utilisé par un utilisateur pour "
-"enregistrer les commandes lancées par le biais de sudo lorsqu'un "
-"interpréteur de commande super utilisateur a été lancé. Cela permet aussi à "
-"l'option B<-e> de rester utile lorsque exécutée via un script ou un "
-"programme sudo-exécuté. A noter cependant que cette recherche de sudoers est "
-"toujours faite pour le super utilisateur, pas pour l'utilisateur spécifié "
-"par C<SUDO_USER>."
+"C<SUDO_USER> est définie, la politique de I<sudoers> utilisera cette valeur "
+"pour déterminer qui est l'utilisateur courant. Ceci peut être utilisé par un "
+"utilisateur pour enregistrer les commandes lancées par le biais de sudo "
+"lorsqu'un interpréteur de commande super utilisateur a été lancé. Cela "
+"permet aussi à l'option B<-e> de rester utile lorsque invoquée via un script "
+"ou un programme sudo-exécuté. À noter cependant que cette recherche de "
+"I<sudoers> est toujours faite pour le super utilisateur, pas pour "
+"l'utilisateur spécifié par C<SUDO_USER>."
 
 #. type: textblock
 #: C/sudoers.pod:65
@@ -2364,6 +2263,14 @@ msgid ""
 "a user's login sessions.  The I<tty_tickets> option can be disabled to force "
 "the use of a single time stamp for all of a user's sessions."
 msgstr ""
+"I<sudoers> utilise des fichiers d'horodatage pour mettre les identifiants en "
+"cache. Quand un utilisateur est authentifié, un horodatage est mis à jour et "
+"l'utilisateur peut utiliser sudo sans mot de passe pour une courte période "
+"de temps (C<@timeout@> minutes, sauf surcharge par l'option I<timeout>).Par "
+"défaut, I<sudoers> utilise un horodatage basé sur tty, ce qui signifie qu'il "
+"y a un horodatage séparé pour chaque session d'un même utilisateur.L'option "
+"I<tty_tickets> peut être désactivée pour forcer l'utilisation d'un "
+"horodatage unique pour toutes les sessions d'un utilisateur."
 
 #. type: textblock
 #: C/sudoers.pod:74
@@ -2386,11 +2293,16 @@ msgid ""
 "I<log_output> Defaults flags as well as the C<LOG_INPUT> and C<LOG_OUTPUT> "
 "command tags."
 msgstr ""
+"I<sudoers> prend également en charge l'enregistrement des flux d'entrée et "
+"de sortie d'une commande. L'enregistrement des E/S ne se fait pas par défaut "
+"mais peut être activé grâce aux marqueurs par défaut I<log_input> et "
+"I<log_output> ainsi que les étiquettes de commande C<LOG_INPUT> et "
+"C<LOG_OUTPUT>."
 
 #. type: =head2
 #: C/sudoers.pod:84
 msgid "Command Environment"
-msgstr ""
+msgstr "Environnement de commandes"
 
 #. type: textblock
 #: C/sudoers.pod:86
@@ -2400,18 +2312,14 @@ msgid ""
 "inherited by the command to be run.  There are two distinct ways I<sudoers> "
 "can deal with environment variables."
 msgstr ""
+"Puisque les variables d'environnement peuvent influencer le comportement des "
+"programmes, I<sudoers> fournit un moyen de restreindre la liste des "
+"variables de l'environnement de l'utilisateur qui seront héritées par la "
+"commande à lancer. Il y a deux façons dont I<sudoers> peut gérer les "
+"variables d'environnement."
 
 #. type: textblock
 #: C/sudoers.pod:91
-#, fuzzy
-#| msgid ""
-#| "There are two distinct ways to deal with environment variables.  By "
-#| "default, the I<env_reset> I<sudoers> option is enabled.  This causes "
-#| "commands to be executed with a minimal environment containing C<TERM>, "
-#| "C<PATH>, C<HOME>, C<SHELL>, C<LOGNAME>, C<USER> and C<USERNAME> in "
-#| "addition to variables from the invoking process permitted by the "
-#| "I<env_check> and I<env_keep> I<sudoers> options.  There is effectively a "
-#| "whitelist for environment variables."
 msgid ""
 "By default, the I<env_reset> option is enabled.  This causes commands to be "
 "executed with a new, minimal environment.  On AIX (and Linux systems without "
@@ -2424,24 +2332,19 @@ msgid ""
 "permitted by the I<env_check> and I<env_keep> options.  This is effectively "
 "a whitelist for environment variables."
 msgstr ""
-"Il y a deux manières distinctes de s'occuper des variables d'environnement. "
-"Par défaut. l'option I<env_reset> de I<sudoers> est activé. Ceci fait que "
-"les commandes sont à exécuter avec un environnement minimal contenant "
-"C<TERM>, C<PATH>, C<HOME>, C<MAIL>, C<SHELL>, C<LOGNAME>, C<USER> et "
-"C<USERNAME> en plus des variables du processus appelant autorisées par les "
-"options I<sudoers> I<env_check> et I<env_keep>. Il y a effectivement une "
-"liste blanche des variables d'environnement."
+"Par défaut. l'option I<env_reset> est activée. Ceci fait que les commandes "
+"sont à exécuter avec un environnement minimal. Sur AIX (et les systèmes "
+"Linux sans PAM), l'environnement est initialisé avec le contenu du fichier "
+"F</etc/environment>. Sur les systèmes BSD, si l'option I<use_loginclass> est "
+"activée, l'environnement est initialisé en se basant sur les réglages "
+"I<path> et I<setenv> de F</etc/login.conf>. Le nouvel environnement contient "
+"C<TERM>, C<PATH>, C<HOME>, C<MAIL>, C<SHELL>, C<LOGNAME>, C<USER>, "
+"C<USERNAME> et C<SUDO_*> en plus des variables du processus appelant "
+"autorisées par les options I<env_check> et I<env_keep>. Il s'agit "
+"effectivement d'une liste blanche des variables d'environnement."
 
 #. type: textblock
 #: C/sudoers.pod:103
-#, fuzzy
-#| msgid ""
-#| "If, however, the I<env_reset> option is disabled in I<sudoers>, any "
-#| "variables not explicitly denied by the I<env_check> and I<env_delete> "
-#| "options are inherited from the invoking process.  In this case, "
-#| "I<env_check> and I<env_delete> behave like a blacklist.  Since it is not "
-#| "possible to blacklist all potentially dangerous environment variables, "
-#| "use of the default I<env_reset> behavior is encouraged."
 msgid ""
 "If, however, the I<env_reset> option is disabled, any variables not "
 "explicitly denied by the I<env_check> and I<env_delete> options are "
@@ -2450,10 +2353,10 @@ msgid ""
 "blacklist all potentially dangerous environment variables, use of the "
 "default I<env_reset> behavior is encouraged."
 msgstr ""
-"Si, cependant l'option I<env_reset> est désactivée dans I<sudoers>, toutes "
-"les variables non explicitement refusées par les options I<env_check> et "
-"I<env_delete> sont héritées du processus appelant. Dans ce cas, I<env_check> "
-"et I<env_delete> se comportent comme une liste noire. Dans la mesure ou il "
+"Si, cependant, l'option I<env_reset> est désactivée, toutes les variables "
+"non explicitement refusées par les options I<env_check> et I<env_delete> "
+"sont héritées du processus appelant. Dans ce cas, I<env_check> et "
+"I<env_delete> se comportent comme une liste noire. Dans la mesure où il "
 "n'est pas possible de mettre en liste noire toutes les variables "
 "d'environnement potentiellement dangereuses, l'utilisation du comportement "
 "par défaut de I<env_reset> est encouragé."
@@ -2467,14 +2370,13 @@ msgid ""
 "output of C<sudo -V> when run as root."
 msgstr ""
 "Dans tous les cas, les variables d'environnement avec une valeur commençant "
-"avec C<()> sont supprimées étant donné qu'elles pourraient êtres "
-"interprétées comme des fonctions B<bash>. La liste des variables "
-"d'environnement que B<sudo> accepte ou refuse est contenue dans la sortie de "
-"C<sudo -V> lorsque exécuté en tant que superutilisateur."
+"par C<()> sont supprimées étant donné qu'elles pourraient être interprétées "
+"comme des fonctions B<bash>. La liste des variables d'environnement que "
+"B<sudo> accepte ou refuse est contenue dans la sortie de C<sudo -V> lorsque "
+"exécuté en tant que superutilisateur."
 
 #. type: textblock
 #: C/sudoers.pod:115
-#, fuzzy
 msgid ""
 "Note that the dynamic linker on most operating systems will remove variables "
 "that can control dynamic linking from the environment of setuid executables, "
@@ -2484,14 +2386,14 @@ msgid ""
 "B<sudo> even begins execution and, as such, it is not possible for B<sudo> "
 "to preserve them."
 msgstr ""
-"A noter que les éditeurs de liens sur la plupart des systèmes d'exploitation "
-"supprimeront les variables qui peuvent contrôler l'édition de liens "
-"dynamique  depuis l'environnement des exécutables setuid incluant B<sudo>. "
-"Selon, le système d'exploitation, ceci peut inclure C<_RLD*>, C<DYLD_*>, "
-"C<LD_*>, C<LDR_*>, C<LIBPATH>, C<SHLIB_PATH> et autres. Ces type de "
-"variables sont supprimées de l'environnement avant même que B<sudo> commence "
-"l'exécution et, comme tel, il n'est pas possible pour B<sudo> de les "
-"préserver."
+"Veuillez noter que les éditeurs de liens sur la plupart des systèmes "
+"d'exploitation supprimeront les variables qui peuvent contrôler l'édition "
+"dynamique de liens depuis l'environnement des exécutables setuid incluant "
+"B<sudo>. Selon le système d'exploitation, cela peut inclure C<_RLD*>, "
+"C<DYLD_*>, C<LD_*>, C<LDR_*>, C<LIBPATH>, C<SHLIB_PATH> et autres. Ces types "
+"de variables sont supprimés de l'environnement avant même que B<sudo> "
+"commence l'exécution et, comme tel, il n'est pas possible pour B<sudo> de "
+"les préserver."
 
 #. type: textblock
 #: C/sudoers.pod:123
@@ -2506,6 +2408,15 @@ msgid ""
 "F</etc/login.conf> are also applied.  All other environment variables are "
 "removed."
 msgstr ""
+"Exceptionnellement, si l'option B<-i> (login initial) de B<sudo> est "
+"spécifiée,I<sudoers>, initialisera l'environnement sans tenir compte de la "
+"valeur de I<env_reset>. Les variables I<DISPLAY>, I<PATH> et I<TERM> restent "
+"inchangées : I<HOME>, I<MAIL>, I<SHELL>, I<USER>, et I<LOGNAME> sont réglées "
+"en fonction de l'utilisateur cible. Sur AIX(et les systèmes Linux sans PAM), "
+"le contenu de F</etc/environment> est également inclus. Sur les systèmes "
+"BSD, si l'option I<use_loginclass> est activée, les variables I<path> et "
+"I<setenv> de F</etc/login.conf> sont également appliquées. Toutes les autres "
+"variables d'environnement sont supprimées."
 
 #. type: textblock
 #: C/sudoers.pod:133
@@ -2514,6 +2425,9 @@ msgid ""
 "file will be set to their specified values as long as they would not "
 "conflict with an existing environment variable."
 msgstr ""
+"Enfin, si l'option I<env_file> est définie, toutes les variables présentes "
+"dans ce fichier seront réglées aux valeurs spécifiées tant qu'elles "
+"n'entrent pas en conflit avec une variable d'environnement existante."
 
 #. type: =head1
 #: C/sudoers.pod:137
@@ -2526,6 +2440,9 @@ msgid ""
 "The I<sudoers> file is composed of two types of entries: aliases (basically "
 "variables) and user specifications (which specify who may run what)."
 msgstr ""
+"Le fichier I<sudoers> est composé de deux types d'entrées : les alias "
+"(basiquement, des variables) et les spécifications d'utilisateurs (qui "
+"indiquent qui peut lancer quoi)."
 
 #. type: textblock
 #: C/sudoers.pod:143
@@ -2534,6 +2451,9 @@ msgid ""
 "there are multiple matches, the last match is used (which is not necessarily "
 "the most specific match)."
 msgstr ""
+"Quand plusieurs entrées correspondent à un utilisateur, elles sont "
+"appliquées dans l'ordre. S'il y a plusieurs correspondances, la dernière est "
+"utilisée (ce n'est pas nécessairement la plus spécifique)."
 
 #. type: textblock
 #: C/sudoers.pod:147
@@ -2542,11 +2462,15 @@ msgid ""
 "(EBNF).  Don't despair if you don't know what EBNF is; it is fairly simple, "
 "and the definitions below are annotated."
 msgstr ""
+"La grammaire de I<sudoers> est décrite ci-dessous en forme Backus-Naur "
+"étendue (« Extended Backus-Naur Form » − EBNF). Ne vous inquiétez pas si "
+"vous ne savez pas ce qu'est EBNF ; c'est relativement simple et les "
+"définitions sont annotées."
 
 #. type: =head2
 #: C/sudoers.pod:151
 msgid "Quick guide to EBNF"
-msgstr ""
+msgstr "Guide rapide pour EBNF"
 
 #. type: textblock
 #: C/sudoers.pod:153
@@ -2554,6 +2478,9 @@ msgid ""
 "EBNF is a concise and exact way of describing the grammar of a language.  "
 "Each EBNF definition is made up of I<production rules>.  E.g.,"
 msgstr ""
+"EBNF est une façon concise et exacte de décrire la grammaire d'un langage. "
+"Chaque définition EBNF est faite à partir de I<règles de production>. Par "
+"exemple, "
 
 #. type: verbatim
 #: C/sudoers.pod:156
@@ -2562,6 +2489,8 @@ msgid ""
 " symbol ::= definition | alternate1 | alternate2 ...\n"
 "\n"
 msgstr ""
+" symbole ::= définition | alternative1 | alternative2 …\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:158
@@ -2571,6 +2500,11 @@ msgid ""
 "readers will recognize from regular expressions.  Do not, however, confuse "
 "them with \"wildcard\" characters, which have different meanings."
 msgstr ""
+"Chaque I<règle de production> fait référence à d'autres règles et forme "
+"ainsi une grammaire pour le langage. EBNF contient aussi les opérateurs "
+"suivants, que de nombreux lecteurs pourraient prendre pour des opérateurs "
+"d'expressions rationnelles. Ne les confondez pas avec les caractères "
+"« joker » qui ont des significations différentes."
 
 #. type: =item
 #: C/sudoers.pod:166 C/sudoers.pod:592
@@ -2583,6 +2517,8 @@ msgid ""
 "Means that the preceding symbol (or group of symbols) is optional.  That is, "
 "it may appear once or not at all."
 msgstr ""
+"Signifie que le symbole (ou groubde de symboles) précédent est optionnel, "
+"c'est-à-dire qu'il peut apparaître une fois ou pas du tout."
 
 #. type: =item
 #: C/sudoers.pod:171 C/sudoers.pod:588
@@ -2595,6 +2531,8 @@ msgid ""
 "Means that the preceding symbol (or group of symbols) may appear zero or "
 "more times."
 msgstr ""
+"Signifie que le symbole (ou groupe de symboles) précédent peut apparaître "
+"zéro ou plusieurs fois."
 
 #. type: =item
 #: C/sudoers.pod:176
@@ -2607,6 +2545,8 @@ msgid ""
 "Means that the preceding symbol (or group of symbols) may appear one or more "
 "times."
 msgstr ""
+"Signifie que le symbole (ou groupe de symboles) précédent peut apparaître "
+"une ou plusieurs fois."
 
 #. type: textblock
 #: C/sudoers.pod:183
@@ -2615,6 +2555,10 @@ msgid ""
 "single quotes ('') to designate what is a verbatim character string (as "
 "opposed to a symbol name)."
 msgstr ""
+"Les parenthèses peuvent être utilisées pour regrouper les symboles. Pour "
+"plus de clarté, nous utiliserons les guillemets simples anglais ('') pour "
+"désigner les chaînes de caractères à laisser telles quelles (par opposition "
+"avec les noms de symboles)."
 
 #. type: =head2
 #: C/sudoers.pod:187
@@ -2627,6 +2571,8 @@ msgid ""
 "There are four kinds of aliases: C<User_Alias>, C<Runas_Alias>, "
 "C<Host_Alias> and C<Cmnd_Alias>."
 msgstr ""
+"Il y a quatre types d'alias : C<User_Alias>, C<Runas_Alias>, C<Host_Alias> "
+"et C<Cmnd_Alias>."
 
 #. type: verbatim
 #: C/sudoers.pod:192
@@ -2638,6 +2584,11 @@ msgid ""
 "\t   'Cmnd_Alias'  Cmnd_Alias (':' Cmnd_Alias)*\n"
 "\n"
 msgstr ""
+" Alias ::= 'User_Alias'  User_Alias (':' User_Alias)* |\n"
+"\t   'Runas_Alias' Runas_Alias (':' Runas_Alias)* |\n"
+"\t   'Host_Alias'  Host_Alias (':' Host_Alias)* |\n"
+"\t   'Cmnd_Alias'  Cmnd_Alias (':' Cmnd_Alias)*\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:197
@@ -2646,6 +2597,8 @@ msgid ""
 " User_Alias ::= NAME '=' User_List\n"
 "\n"
 msgstr ""
+" User_Alias ::= NOM '=' User_List\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:199
@@ -2654,6 +2607,8 @@ msgid ""
 " Runas_Alias ::= NAME '=' Runas_List\n"
 "\n"
 msgstr ""
+" Runas_Alias ::= NOM '=' Runas_List\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:201
@@ -2662,6 +2617,8 @@ msgid ""
 " Host_Alias ::= NAME '=' Host_List\n"
 "\n"
 msgstr ""
+" Host_Alias ::= NOM '=' Host_List\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:203
@@ -2670,6 +2627,8 @@ msgid ""
 " Cmnd_Alias ::= NAME '=' Cmnd_List\n"
 "\n"
 msgstr ""
+" Cmnd_Alias ::= NOM '=' Cmnd_List\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:205
@@ -2678,11 +2637,13 @@ msgid ""
 " NAME ::= [A-Z]([A-Z][0-9]_)*\n"
 "\n"
 msgstr ""
+" NOM ::= [A-Z]([A-Z][0-9]_)*\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:207
 msgid "Each I<alias> definition is of the form"
-msgstr ""
+msgstr "Chaque définition I<alias> est de la forme"
 
 #. type: verbatim
 #: C/sudoers.pod:209
@@ -2691,6 +2652,8 @@ msgid ""
 " Alias_Type NAME = item1, item2, ...\n"
 "\n"
 msgstr ""
+" Alias_Type NOM = item1, item2, ...\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:211
@@ -2701,6 +2664,12 @@ msgid ""
 "letter.  It is possible to put several alias definitions of the same type on "
 "a single line, joined by a colon (':').  E.g.,"
 msgstr ""
+"où I<Alias_Type> est C<User_Alias>, C<Runas_Alias>, C<Host_Alias> ou "
+"C<Cmnd_Alias>. Un C<NOM> est une chaîne de caractères formée de lettres "
+"capitales, de nombres et de caractères « underscore » ('_'). Un C<NOM> "
+"B<doit> commencer par une lettre capitale. Il est possible de mettre "
+"plusieurs définitions d'alias dans le même type sur une seule ligne, séparée "
+"par un symbole deux-points (':'). Par exemple, "
 
 #. type: verbatim
 #: C/sudoers.pod:217
@@ -2709,11 +2678,13 @@ msgid ""
 " Alias_Type NAME = item1, item2, item3 : NAME = item4, item5\n"
 "\n"
 msgstr ""
+" Alias_Type NOM = item1, item2, item3 : NOM = item4, item5\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:219
 msgid "The definitions of what constitutes a valid I<alias> member follow."
-msgstr ""
+msgstr "Les définitions de ce qui constitue un I<alias> valide suivent."
 
 #. type: verbatim
 #: C/sudoers.pod:221
@@ -2723,6 +2694,9 @@ msgid ""
 "\t       User ',' User_List\n"
 "\n"
 msgstr ""
+" Liste_Utilisateurs ::= Utilisateur |\n"
+"\t       Utilisateur ',' Liste_Utilisateurs\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:224
@@ -2738,6 +2712,15 @@ msgid ""
 "\t  '!'* User_Alias\n"
 "\n"
 msgstr ""
+" Utilisateur ::= '!'* nom utilisateur |\n"
+"\t  '!'* #uid |\n"
+"\t  '!'* %group |\n"
+"\t  '!'* %#gid |\n"
+"\t  '!'* +netgroup |\n"
+"\t  '!'* %:nonunix_group |\n"
+"\t  '!'* %:#nonunix_gid |\n"
+"\t  '!'* User_Alias\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:233
@@ -2749,6 +2732,14 @@ msgid ""
 "prefixed with zero or more '!' operators.  An odd number of '!' operators "
 "negate the value of the item; an even number just cancel each other out."
 msgstr ""
+"Une C<Liste_Utilisateurs> est faite à partir d'un ou plusieurs noms "
+"d'utilisateurs, des identifiants utilisateurs (préfixés avec « # »), des "
+"noms et identifiants de groupes système (respectivement préfixés par « % » "
+"et « %# »), des groupes réseau (préfixés par « + »), des identifiants et "
+"noms non-Unix (respectivement préfixés par « %: » et « %:# ») et des "
+"C<Alias_Utilisateur>. Chaque élément de liste peut être préfixé par zéro ou "
+"plusieurs opérateurs « ! ». Un nombre impair d'opérateurs « ! » inverse la "
+"valeur de l'élément ; un nombre pair les annule."
 
 #. type: textblock
 #: C/sudoers.pod:241
@@ -7635,7 +7626,6 @@ msgstr ""
 
 #. type: textblock
 #: C/sudo.pod:516
-#| msgid "The following sources are recognized:"
 msgid "The following subsystems are used by B<sudo>:"
 msgstr "Les sous-systèmes suivants sont utilisés par B<sudo> :"
 
