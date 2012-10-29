@@ -17,21 +17,23 @@ P2M = pod2man --utf8 --center="OpenSSL" --release="$(VERSION)"
 post-build: man1 man3
 
 man1:
-	mkdir -p fr/man1
+	mkdir -p fr/man1 fr/man5
 	@set -e; \
 	for m in fr/apps/*.pod; do \
+	sec=`$(PERL) ./extract-section.pl 1 < $$m`; \
 		man=$$(basename $$m); \
 		man=$${man%.pod}; \
-		$(P2M) --section=1SSL $$m > fr/man1/$$man.1ssl; \
+		$(P2M) --section=$${sec}SSL $$m > fr/man$$sec/$$man.$$secssl; \
 	done
 
 man3:
-	mkdir -p fr/man3
+	mkdir -p fr/man3 fr/man7
 	@set -e; \
 	for m in fr/crypto/*.pod fr/ssl/*.pod; do \
+	sec=`$(PERL) ./extract-section.pl 3 < $$m`; \
 		man=$$(basename $$m); \
 		man=$${man%.pod}; \
-		$(P2M) --section=3SSL $$m > fr/man3/$$man.3ssl; \
+		$(P2M) --section=$${sec}SSL $$m > fr/man$$sec/$$man.$${sec}ssl; \
 	done
 
 build: pre-build po4a-build post-build
