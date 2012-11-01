@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sudo manpages\n"
 "POT-Creation-Date: 2012-10-13 15:23+0300\n"
-"PO-Revision-Date: 2012-10-26 00:16+0200\n"
+"PO-Revision-Date: 2012-11-01 16:40+0100\n"
 "Last-Translator: Olivier Bonhomme <obonhomme@nerim.net>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -352,11 +352,11 @@ msgid ""
 msgstr ""
 "Un horodatage de la forme C<aaaammjjHHMMSSZ> peut être utilisé pour fournir "
 "une date à partir de laquelle le C<sudoRole> sera valide. En présence de "
-"plusieurs entrées C<sudoNotBefore>, celle ayant la date la plus antérieure est "
-"utilisée. Veuillez noter que les horodatages doivent être indiqués en temps coordonné "
-"universel (UTC) et non dans la zone horaire locale. L'indication des minutes et "
-"secondes est optionnelle mais il se peut que certains serveurs LDAP "
-"l'exigent (contrairement à ce qu'indique la RFC)."
+"plusieurs entrées C<sudoNotBefore>, celle ayant la date la plus antérieure "
+"est utilisée. Veuillez noter que les horodatages doivent être indiqués en "
+"temps coordonné universel (UTC) et non dans la zone horaire locale. "
+"L'indication des minutes et secondes est optionnelle mais il se peut que "
+"certains serveurs LDAP l'exigent (contrairement à ce qu'indique la RFC)."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:158
@@ -374,9 +374,9 @@ msgstr ""
 msgid "B<sudoNotAfter>"
 msgstr "B<sudoNotAfter>"
 
+# FIXME: to be reported to sudo: typo, read sudoNotAfter instead of sudoNotBefore
 #. type: textblock
 #: C/sudoers.ldap.pod:164
-# FIXME: to be reported to sudo: typo, read sudoNotAfter instead of sudoNotBefore
 msgid ""
 "A timestamp in the form C<yyyymmddHHMMSSZ> that indicates an expiration date/"
 "time, after which the C<sudoRole> will no longer be valid.  If multiple "
@@ -387,11 +387,11 @@ msgid ""
 msgstr ""
 "Un horodatage de la forme C<aaaammjjHHMMSSZ> qui indique une date "
 "d'expiration après laquelle le C<sudoRole> ne sera plus valide. En présence "
-"de plusieurs entrées C<sudoNotAfter>, celle ayant la date la plus récente est "
-"utilisée. Veuillez noter que les horodatages doivent être indiqués en temps coordonné "
-"universel (UTC) et non dans la zone horaire locale. L'indication des minutes et "
-"secondes est optionnelle mais il se peut que certains serveurs LDAP "
-"l'exigent (contrairement à ce qu'indique la RFC)."
+"de plusieurs entrées C<sudoNotAfter>, celle ayant la date la plus récente "
+"est utilisée. Veuillez noter que les horodatages doivent être indiqués en "
+"temps coordonné universel (UTC) et non dans la zone horaire locale. "
+"L'indication des minutes et secondes est optionnelle mais il se peut que "
+"certains serveurs LDAP l'exigent (contrairement à ce qu'indique la RFC)."
 
 #. type: textblock
 #: C/sudoers.ldap.pod:171
@@ -425,8 +425,8 @@ msgstr ""
 "Les entrées C<sudoRole> récupérées depuis le répertoire LDAP n'ont pas "
 "d'ordre. L'attribut C<sudoOrder> est un entier (ou un nombre en virgule "
 "flottante pour les serveurs LDAP qui le gèrent) utilisé pour ordonner les "
-"entrées concordantes. Cela permet aux entrées sudoers basées sur LDAP "
-"de mieux imiter le comportement du fichier sudoers, où l'ordre des entrées a "
+"entrées concordantes. Cela permet aux entrées sudoers basées sur LDAP de "
+"mieux imiter le comportement du fichier sudoers, où l'ordre des entrées a "
 "une influence sur le résultat. Si plusieurs entrées correspondent, celle "
 "ayant l'attribut C<sudoOrder> le plus élevé est choisie. Cela correspond au "
 "comportement « dernière correspondance » du fichier sudoers. Si l'attribut "
@@ -2247,11 +2247,11 @@ msgstr ""
 "C<SUDO_USER> est définie, la politique de I<sudoers> utilisera cette valeur "
 "pour déterminer qui est l'utilisateur courant. Ceci peut être utilisé par un "
 "utilisateur pour enregistrer les commandes lancées par le biais de sudo "
-"lorsqu'un interpréteur de commande superutilisateur a été lancé. Cela "
-"permet aussi à l'option B<-e> de rester utile lorsque invoquée par un script "
-"ou un programme sudo-exécuté. À noter cependant que cette recherche de "
-"I<sudoers> est toujours faite pour le superutilisateur, pas pour "
-"l'utilisateur spécifié par C<SUDO_USER>."
+"lorsqu'un interpréteur de commande superutilisateur a été lancé. Cela permet "
+"aussi à l'option B<-e> de rester utile lorsque invoquée par un script ou un "
+"programme sudo-exécuté. À noter cependant que cette recherche de I<sudoers> "
+"est toujours faite pour le superutilisateur, pas pour l'utilisateur spécifié "
+"par C<SUDO_USER>."
 
 #. type: textblock
 #: C/sudoers.pod:65
@@ -2413,11 +2413,11 @@ msgstr ""
 "spécifiée, I<sudoers> initialisera l'environnement sans tenir compte de la "
 "valeur de I<env_reset>. Les variables I<DISPLAY>, I<PATH> et I<TERM> restent "
 "inchangées : I<HOME>, I<MAIL>, I<SHELL>, I<USER>, et I<LOGNAME> sont réglées "
-"en fonction de l'utilisateur cible. Sur AIX (et les systèmes Linux sans PAM), "
-"le contenu de F</etc/environment> est également inclus. Sur les systèmes "
-"BSD, si l'option I<use_loginclass> est activée, les variables I<path> et "
-"I<setenv> de F</etc/login.conf> sont également appliquées. Toutes les autres "
-"variables d'environnement sont supprimées."
+"en fonction de l'utilisateur cible. Sur AIX (et les systèmes Linux sans "
+"PAM), le contenu de F</etc/environment> est également inclus. Sur les "
+"systèmes BSD, si l'option I<use_loginclass> est activée, les variables "
+"I<path> et I<setenv> de F</etc/login.conf> sont également appliquées. Toutes "
+"les autres variables d'environnement sont supprimées."
 
 #. type: textblock
 #: C/sudoers.pod:133
@@ -2669,8 +2669,8 @@ msgstr ""
 "C<Cmnd_Alias>. Un C<NOM> est une chaîne de caractères formée de lettres "
 "capitales, de nombres et de caractères « underscore » ('_'). Un C<NOM> "
 "B<doit> commencer par une lettre capitale. Il est possible de mettre "
-"plusieurs définitions d'alias du même type sur une seule ligne, séparées "
-"par deux-points (« : »). Par exemple, "
+"plusieurs définitions d'alias du même type sur une seule ligne, séparées par "
+"deux-points (« : »). Par exemple, "
 
 #. type: verbatim
 #: C/sudoers.pod:217
@@ -2685,7 +2685,8 @@ msgstr ""
 #. type: textblock
 #: C/sudoers.pod:219
 msgid "The definitions of what constitutes a valid I<alias> member follow."
-msgstr "Les définitions de ce qui constitue un élément possible d'I<alias> suivent."
+msgstr ""
+"Les définitions de ce qui constitue un élément possible d'I<alias> suivent."
 
 #. type: verbatim
 #: C/sudoers.pod:221
@@ -6497,7 +6498,7 @@ msgstr "sudo, sudoedit - exécute une commande en tant qu'un autre utilisateur"
 #. type: =head1
 #: C/sudo.pod:27 C/sudoreplay.pod:22 C/visudo.pod:27
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNOPSIS"
 
 #. type: textblock
 #: C/sudo.pod:29
@@ -6578,6 +6579,12 @@ msgid ""
 "password database, and the group vector is initialized based on the group "
 "database (unless the B<-P> option was specified)."
 msgstr ""
+"B<sudo> permet à un utilisateur autorisé d'exécuter une I<commande> en tant "
+"que superutilisateur ou bien un autre utilisateur, selon la politique de "
+"sécurité. Les uid et gid réels et effectifs sont déclarés afin de "
+"correspondre à ceux de l'utilisateur cible tels que déclarés dans la base "
+"des mots de passe et le vecteur de groupe est initialisé selon la base des "
+"groupes (à moins que l'option B<-P> ne soit mentionnée)."
 
 #. type: textblock
 #: C/sudo.pod:66
@@ -6589,6 +6596,13 @@ msgid ""
 "F<@sysconfdir@/sudoers>, or via LDAP.  See the L<PLUGINS> section for more "
 "information."
 msgstr ""
+"B<sudo> dispose d'une architecture à base de greffons pour les politiques de "
+"sécurité et la journalisation des entrées et sorties. Des modules tiers "
+"peuvent être développés et distribués pour mettre en œuvre leurs propres "
+"politique de sécurité et journalisation, en s'interfaçant de manière "
+"transparente avec B<sudo>. La politique par défaut est I<sudoers>, "
+"configurable à travers le fichier F<@sysconfdir@/sudoers> ou LDAP. Consultez "
+"la section L<PLUGINS> pour plus d'information."
 
 #. type: textblock
 #: C/sudo.pod:73
@@ -6660,15 +6674,6 @@ msgstr "-A"
 
 #. type: textblock
 #: C/sudo.pod:103
-#, fuzzy
-#| msgid ""
-#| "Normally, if B<sudo> requires a password, it will read it from the "
-#| "current terminal.  If the B<-A> (I<askpass>) option is specified, a "
-#| "(possibly graphical) helper program is executed to read the user's "
-#| "password and output the password to the standard output.  If the "
-#| "C<SUDO_ASKPASS> environment variable is set, it specifies the path to the "
-#| "helper program.  Otherwise, the value specified by the I<askpass> option "
-#| "in L<sudoers(5)> is used."
 msgid ""
 "Normally, if B<sudo> requires a password, it will read it from the user's "
 "terminal.  If the B<-A> (I<askpass>) option is specified, a (possibly "
@@ -6679,12 +6684,12 @@ msgid ""
 "that value will be used.  For example:"
 msgstr ""
 "Normalement, si B<sudo> exige un mot de passe, il le lira depuis le terminal "
-"courant. Si l'option B<-A> (« I<askpass> ») est spécifiée, un programme "
-"d'aide (pouvant être graphique) est exécuté pour lire le mot de passe de "
-"l'utilisateur et afficher le mot de passe sur la sortie standard. Si la "
-"variable d'environnement C<SUDO_ASKPASS> est définie, cela spécifie le "
-"chemin du programme d'aide. Autrement, la valeur spécifiée par l'option "
-"« I<askpass> » dans L<sudoers(5)> est utilisée.<askpass>."
+"de l'utilisateur. Si l'option B<-A> (« I<askpass> ») est activée, un "
+"programme d'aide (pouvant être graphique) est exécuté pour lire le mot de "
+"passe de l'utilisateur et afficher le mot de passe sur la sortie standard. "
+"Si la variable d'environnement C<SUDO_ASKPASS> est définie, cela spécifie le "
+"chemin du programme d'aide. Sinon, la valeur définissant le programme d'aide "
+"(« askpass ») sera lue depuis F<@sysconfdir@/sudo.conf>. Par exemple :"
 
 #. type: verbatim
 #: C/sudo.pod:112
@@ -6694,11 +6699,16 @@ msgid ""
 "    Path askpass /usr/X11R6/bin/ssh-askpass\n"
 "\n"
 msgstr ""
+"    # Chemin vers le programme de demande de mot de passe\n"
+"    Path askpass /usr/X11R6/bin/ssh-askpass\n"
+"\n"
 
 #. type: textblock
 #: C/sudo.pod:115
 msgid "If no askpass program is available, sudo will exit with an error."
 msgstr ""
+"Si aucun programme de demande de mot de passe (« askpass ») n'est "
+"disponible, sudo se terminera en erreur."
 
 #. type: =item
 #: C/sudo.pod:117
@@ -6824,12 +6834,6 @@ msgstr "-e"
 
 #. type: textblock
 #: C/sudo.pod:167
-#, fuzzy
-#| msgid ""
-#| "The B<-e> (I<edit>) option indicates that, instead of running a command, "
-#| "the user wishes to edit one or more files.  In lieu of a command, the "
-#| "string \"sudoedit\" is used when consulting the I<sudoers> file.  If the "
-#| "user is authorized by I<sudoers> the following steps are taken:"
 msgid ""
 "The B<-e> (I<edit>) option indicates that, instead of running a command, the "
 "user wishes to edit one or more files.  In lieu of a command, the string "
@@ -6839,8 +6843,8 @@ msgstr ""
 "L'option B<-e> (I<edition>) indique que, au lieu d'exécuter la "
 "commande, l'utilisateur souhaite éditer un ou plusieurs fichiers. Au lieu "
 "d'une commande, la chaîne « sudoedit » est utilisée lors de la consultation "
-"du fichier I<sudoers>. Si l'utilisateur est autorisé par I<sudoers>, les "
-"mesures suivantes sont prises :"
+"de la politique de sécurité. Si l'utilisateur est autorisé, les mesures "
+"suivantes sont prises :"
 
 #. type: =item
 #: C/sudo.pod:175
@@ -6863,12 +6867,6 @@ msgstr "2."
 
 #. type: textblock
 #: C/sudo.pod:182
-#, fuzzy
-#| msgid ""
-#| "The editor specified by the C<SUDO_EDITOR>, C<VISUAL> or C<EDITOR> "
-#| "environment variables is run to edit the temporary files.  If none of "
-#| "C<SUDO_EDITOR>, C<VISUAL> or C<EDITOR> are set, the first program listed "
-#| "in the I<editor> I<sudoers> variable is used."
 msgid ""
 "The editor specified by the policy is run to edit the temporary files.  The "
 "I<sudoers> policy uses the C<SUDO_EDITOR>, C<VISUAL> and C<EDITOR> "
@@ -6876,11 +6874,11 @@ msgid ""
 "or C<EDITOR> are set, the first program listed in the I<editor> L<sudoers(5)"
 "> option is used."
 msgstr ""
-"L'éditeur spécifié par les variables d'environnement C<SUDO_EDITOR>, "
-"C<VISUAL> ou bien C<EDITOR> est exécuté pour éditer les fichiers "
-"temporaires. Si ni C<SUDO_EDITOR>, ni C<VISUAL>, ni C<EDITOR> ne sont "
-"définies, le premier programme listé dans la variable I<editor> de "
-"I<sudoers> est utilisé."
+"L'éditeur spécifié par la politique est exécuté pour éditer les fichiers "
+"temporaires. La politique I<sudoers> utilise les variables d'environnement "
+"C<SUDO_EDITOR>, C<VISUAL> et C<EDITOR>, dans cet ordre. Si ni "
+"C<SUDO_EDITOR>, ni C<VISUAL>, ni C<EDITOR> ne sont définies, le premier "
+"programme listé dans la variable I<editor> de L<sudoers(5)> est utilisé."
 
 #. type: =item
 #: C/sudo.pod:188
@@ -6974,16 +6972,12 @@ msgstr "-h"
 
 #. type: textblock
 #: C/sudo.pod:223
-#, fuzzy
-#| msgid ""
-#| "The B<-h> (I<help>) option causes B<sudo> to print a usage message and "
-#| "exit."
 msgid ""
 "The B<-h> (I<help>) option causes B<sudo> to print a short help message to "
 "the standard output and exit."
 msgstr ""
-"L'option B<-h> (« I<help> » ce qui signifie aide>) amène B<sudo> à afficher "
-"le message d'usage et sortir."
+"L'option B<-h> (I<help>) affiche un court message d'aide sur la sortie "
+"standard, puis le programme s'arrête."
 
 #. type: =item
 #: C/sudo.pod:226
@@ -7192,11 +7186,6 @@ msgstr "-p I<invite>"
 
 #. type: textblock
 #: C/sudo.pod:293
-#, fuzzy
-#| msgid ""
-#| "The B<-p> (I<prompt>) option allows you to override the default password "
-#| "prompt and use a custom one.  The following percent (`C<%>')  escapes are "
-#| "supported:"
 msgid ""
 "The B<-p> (I<prompt>) option allows you to override the default password "
 "prompt and use a custom one.  The following percent (`C<%>')  escapes are "
@@ -7204,7 +7193,8 @@ msgid ""
 msgstr ""
 "L'option B<-p> (« I<prompt> » ce qui signifie invite) vous permet de "
 "surcharger l'invite de mot passe par défaut par une personnalisée. Les "
-"échappements pour-cent (« C<%> ») suivants sont supportés :"
+"échappements pour-cent (« C<%> ») suivants sont pris en charge par la "
+"politique I<sudoers> :"
 
 #. type: textblock
 #: C/sudo.pod:301
@@ -7287,12 +7277,6 @@ msgstr "-s [commande]"
 
 #. type: textblock
 #: C/sudo.pod:347
-#, fuzzy
-#| msgid ""
-#| "The B<-s> (I<shell>) option runs the shell specified by the I<SHELL> "
-#| "environment variable if it is set or the shell as specified in L<passwd(5)"
-#| ">.  If a command is specified, it is passed to the shell for execution.  "
-#| "Otherwise, an interactive shell is executed."
 msgid ""
 "The B<-s> (I<shell>) option runs the shell specified by the I<SHELL> "
 "environment variable if it is set or the shell as specified in the password "
@@ -7302,9 +7286,9 @@ msgid ""
 msgstr ""
 "L'option B<-s> (« I<shell> » ce qui signifie interpréteur) exécute "
 "l'interpréteur spécifié par la variable d'environnement I<SHELL> si elle est "
-"définie ou bien l'interpréteur comme spécifié dans L<passwd(5)>. Si une "
-"commande est spécifiée, elle est passée à l'interpréteur pour exécution. "
-"Autrement, un interpréteur interactif est exécuté."
+"définie ou bien l'interpréteur indiqué par la base des mots de passe. Si une "
+"commande est spécifiée, elle est passée à l'interpréteur pour exécution avec "
+"l'option B<-c>. Sinon, un interpréteur interactif est exécuté."
 
 #. type: =item
 #: C/sudo.pod:353
@@ -7525,6 +7509,8 @@ msgid ""
 "A C<Path> line consists of the C<Path> keyword, followed by the name of the "
 "path to set and its value.  E.g."
 msgstr ""
+"Une ligne C<Path> contient le mot-clé C<Path> suivi du chemin à configurer "
+"puis sa valeur. Par exemple :"
 
 #. type: verbatim
 #: C/sudo.pod:456
@@ -7534,6 +7520,9 @@ msgid ""
 " Path askpass /usr/X11R6/bin/ssh-askpass\n"
 "\n"
 msgstr ""
+" Path noexec @noexec_file@\n"
+" Path askpass /usr/X11R6/bin/ssh-askpass\n"
+"\n"
 
 #. type: textblock
 #: C/sudo.pod:459
@@ -7541,11 +7530,13 @@ msgid ""
 "The following plugin-agnostic paths may be set in the F<@sysconfdir@/sudo."
 "conf> file."
 msgstr ""
+"Les chemins suivants sont applicables à tous les greffons et peuvent être "
+"configurés dans le fichier F<@sysconfdir@/sudo.conf>."
 
 #. type: =item
 #: C/sudo.pod:464
 msgid "askpass"
-msgstr ""
+msgstr "askpass"
 
 #. type: textblock
 #: C/sudo.pod:466
@@ -7598,6 +7589,8 @@ msgid ""
 " Debug sudo /var/log/sudo_debug all@warn,plugin@info\n"
 "\n"
 msgstr ""
+" Debug sudo /var/log/sudo_debug all@warn,plugin@info\n"
+"\n"
 
 #. type: textblock
 #: C/sudo.pod:501
@@ -7883,7 +7876,7 @@ msgid ""
 "C<VISUAL> is set"
 msgstr ""
 "L'éditeur par défaut à utiliser en mode B<-e> (sudoedit) si ni <SUDO_EDITOR> "
-"et ni C<VISUAL> ne sont définies"
+"ni C<VISUAL> ne sont définies"
 
 #. type: =item
 #: C/sudo.pod:639
@@ -7913,7 +7906,7 @@ msgid ""
 msgstr ""
 "Défini avec le répertoire d'accueil de l'utilisateur cible si B<-i> ou B<-H> "
 "sont précisées, I<env_reset> ou I<always_set_home> sont définies dans "
-"I<sudoers>, ou lorsque l'option <-s> est précisées et que I<set_home> est "
+"I<sudoers>, ou lorsque l'option <-s> est précisée et que I<set_home> est "
 "définie dans I<sudoers>"
 
 #. type: =item
@@ -8088,7 +8081,7 @@ msgid ""
 "To list the home directory of user yaz on a machine where the file system "
 "holding ~yaz is not exported as root:"
 msgstr ""
-"Lister le répertoire d'accueil d'un utilisateur yaz sur une machine ou le "
+"Lister le répertoire d'accueil d'un utilisateur yaz sur une machine où le "
 "système de fichiers contenant ~yaz n'est pas exporté en tant que "
 "superutilisateur :"
 
@@ -8222,34 +8215,27 @@ msgstr ""
 
 #. type: textblock
 #: C/sudo.pod:761 C/visudo.pod:195
-#, fuzzy
-#| msgid ""
-#| "See the HISTORY file in the B<sudo> distribution or visit http://www.sudo."
-#| "ws/sudo/history.html for a short history of B<sudo>."
 msgid ""
 "See the CONTRIBUTORS file in the B<sudo> distribution (http://www.sudo.ws/"
 "sudo/contributors.html) for a list of people who have contributed to B<sudo>."
 msgstr ""
-"Consultez le fichier HISTORY de votre distribution B<sudo> ou visitez http://"
-"www.sudo.ws/sudo/history.html pour un bref historique de B<sudo>."
+"Consultez le fichier CONTRIBUTORS des sources de B<sudo> ou visitez http://"
+"www.sudo.ws/sudo/contributors.html pour une liste des contributeurs à "
+"B<sudo>."
 
 #. type: =head1
 #: C/sudo.pod:765
 msgid "HISTORY"
-msgstr ""
+msgstr "HISTORIQUE"
 
 #. type: textblock
 #: C/sudo.pod:767
-#, fuzzy
-#| msgid ""
-#| "See the HISTORY file in the B<sudo> distribution or visit http://www.sudo."
-#| "ws/sudo/history.html for a short history of B<sudo>."
 msgid ""
 "See the HISTORY file in the B<sudo> distribution (http://www.sudo.ws/sudo/"
 "history.html) for a brief history of sudo."
 msgstr ""
-"Consultez le fichier HISTORY de votre distribution B<sudo> ou visitez http://"
-"www.sudo.ws/sudo/history.html pour un bref historique de B<sudo>."
+"Consultez le fichier HISTORY des sources de B<sudo> ou visitez http://www."
+"sudo.ws/sudo/history.html pour un bref historique de B<sudo>."
 
 #. type: textblock
 #: C/sudo.pod:772
