@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-10 15:27-0400\n"
+"POT-Creation-Date: 2012-11-08 12:43-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr ""
 #. type: TH
 #: C/man1/grep.1:24
 #, no-wrap
-msgid "GNU grep 2.12"
+msgid "GNU grep 2.14"
 msgstr ""
 
 #. type: TH
@@ -663,10 +663,11 @@ msgstr ""
 #: C/man1/grep.1:497
 msgid ""
 "If an input file is a directory, use I<ACTION> to process it.  By default, "
-"I<ACTION> is B<read>, which means that directories are read just as if they "
-"were ordinary files.  If I<ACTION> is B<skip>, directories are silently "
-"skipped.  If I<ACTION> is B<recurse>, B<grep> reads all files under each "
-"directory, recursively; this is equivalent to the B<-r> option."
+"I<ACTION> is B<read>, i.e., read directories just as if they were ordinary "
+"files.  If I<ACTION> is B<skip>, silently skip directories.  If I<ACTION> is "
+"B<recurse>, read all files under each directory, recursively, following "
+"symbolic links only if they are on the command line.  This is equivalent to "
+"the B<-r> option."
 msgstr ""
 
 #. type: TP
@@ -736,41 +737,55 @@ msgstr ""
 #. type: TP
 #: C/man1/grep.1:533
 #, no-wrap
-msgid "B<-R>, B<-r>, B<-\\^-recursive>"
+msgid "B<-r>, B<-\\^-recursive>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:539
+#: C/man1/grep.1:540
 msgid ""
-"Read all files under each directory, recursively; this is equivalent to the "
-"B<-d recurse> option."
-msgstr ""
-
-#. type: SS
-#: C/man1/grep.1:539
-#, no-wrap
-msgid "Other Options"
+"Read all files under each directory, recursively, following symbolic links "
+"only if they are on the command line.  This is equivalent to the B<-d "
+"recurse> option."
 msgstr ""
 
 #. type: TP
 #: C/man1/grep.1:540
 #, no-wrap
+msgid "B<-R>, B<-\\^-dereference-recursive>"
+msgstr ""
+
+#. type: Plain text
+#: C/man1/grep.1:545
+msgid ""
+"Read all files under each directory, recursively.  Follow all symbolic "
+"links, unlike B<-r>."
+msgstr ""
+
+#. type: SS
+#: C/man1/grep.1:545
+#, no-wrap
+msgid "Other Options"
+msgstr ""
+
+#. type: TP
+#: C/man1/grep.1:546
+#, no-wrap
 msgid "B<-\\^-line-buffered>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:544
+#: C/man1/grep.1:550
 msgid "Use line buffering on output.  This can cause a performance penalty."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:544
+#: C/man1/grep.1:550
 #, no-wrap
 msgid "B<-\\^-mmap>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:561
+#: C/man1/grep.1:567
 msgid ""
 "If possible, use the B<mmap>(2)  system call to read input, instead of the "
 "default B<read>(2)  system call.  In some situations, B<-\\^-mmap> yields "
@@ -780,13 +795,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:561
+#: C/man1/grep.1:567
 #, no-wrap
 msgid "B<-U>, B<-\\^-binary>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:584
+#: C/man1/grep.1:590
 msgid ""
 "Treat the file(s) as binary.  By default, under \\s-1MS-DOS\\s0 and "
 "\\s-1MS\\s0-Windows, B<grep> guesses the file type by looking at the "
@@ -801,13 +816,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:584
+#: C/man1/grep.1:590
 #, no-wrap
 msgid "B<-z>, B<-\\^-null-data>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:597
+#: C/man1/grep.1:603
 msgid ""
 "Treat the input as a set of lines, each terminated by a zero byte (the "
 "\\s-1ASCII\\s0 B<NUL> character) instead of a newline.  Like the B<-Z> or "
@@ -816,13 +831,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/grep.1:598
+#: C/man1/grep.1:604
 #, no-wrap
 msgid "REGULAR EXPRESSIONS"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:602
+#: C/man1/grep.1:608
 msgid ""
 "A regular expression is a pattern that describes a set of strings.  Regular "
 "expressions are constructed analogously to arithmetic expressions, by using "
@@ -830,7 +845,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:615
+#: C/man1/grep.1:621
 msgid ""
 "B<grep> understands three different versions of regular expression syntax: "
 "``basic'' (BRE), ``extended'' (ERE) and ``perl'' (PRCE). In \\s-1GNU\\s0\\ "
@@ -844,7 +859,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:622
+#: C/man1/grep.1:628
 msgid ""
 "The fundamental building blocks are the regular expressions that match a "
 "single character.  Most characters, including all letters and digits, are "
@@ -853,18 +868,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:626
+#: C/man1/grep.1:632
 msgid "The period B<.\\&> matches any single character."
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:626
+#: C/man1/grep.1:632
 #, no-wrap
 msgid "Character Classes and Bracket Expressions"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:643
+#: C/man1/grep.1:649
 msgid ""
 "A I<bracket expression> is a list of characters enclosed by B<[> and B<]>.  "
 "It matches any single character in that list; if the first character of the "
@@ -874,7 +889,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:665
+#: C/man1/grep.1:671
 msgid ""
 "Within a bracket expression, a I<range expression> consists of two "
 "characters separated by a hyphen.  It matches any single character that "
@@ -888,7 +903,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:700
+#: C/man1/grep.1:706
 msgid ""
 "Finally, certain named classes of characters are predefined within bracket "
 "expressions, as follows.  Their names are self explanatory, and they are "
@@ -906,26 +921,26 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:700
+#: C/man1/grep.1:706
 #, no-wrap
 msgid "Anchoring"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:707
+#: C/man1/grep.1:713
 msgid ""
 "The caret B<^> and the dollar sign B<$> are meta-characters that "
 "respectively match the empty string at the beginning and end of a line."
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:707
+#: C/man1/grep.1:713
 #, no-wrap
 msgid "The Backslash Character and Special Expressions"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:729
+#: C/man1/grep.1:735
 msgid ""
 "The symbols B<\\eE<lt>> and B<\\eE<gt>> respectively match the empty string "
 "at the beginning and end of a word.  The symbol B<\\eb> matches the empty "
@@ -935,92 +950,92 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:729
+#: C/man1/grep.1:735
 #, no-wrap
 msgid "Repetition"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:731
+#: C/man1/grep.1:737
 msgid "A regular expression may be followed by one of several repetition operators:"
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:732
+#: C/man1/grep.1:738
 #, no-wrap
 msgid "B<?>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:735
+#: C/man1/grep.1:741
 msgid "The preceding item is optional and matched at most once."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:735
+#: C/man1/grep.1:741
 #, no-wrap
 msgid "B<*>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:738
+#: C/man1/grep.1:744
 msgid "The preceding item will be matched zero or more times."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:738
+#: C/man1/grep.1:744
 #, no-wrap
 msgid "B<+>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:741
+#: C/man1/grep.1:747
 msgid "The preceding item will be matched one or more times."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:741
+#: C/man1/grep.1:747
 #, no-wrap
 msgid "B<{>I<n>B<}>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:746
+#: C/man1/grep.1:752
 msgid "The preceding item is matched exactly I<n> times."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:746
+#: C/man1/grep.1:752
 #, no-wrap
 msgid "B<{>I<n>B<,}>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:751
+#: C/man1/grep.1:757
 msgid "The preceding item is matched I<n> or more times."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:751
+#: C/man1/grep.1:757
 #, no-wrap
 msgid "B<{>I<n>B<,>I<m>B<}>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:758
+#: C/man1/grep.1:764
 msgid ""
 "The preceding item is matched at least I<n> times, but not more than I<m> "
 "times."
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:759
+#: C/man1/grep.1:765
 #, no-wrap
 msgid "Concatenation"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:764
+#: C/man1/grep.1:770
 msgid ""
 "Two regular expressions may be concatenated; the resulting regular "
 "expression matches any string formed by concatenating two substrings that "
@@ -1028,13 +1043,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:764
+#: C/man1/grep.1:770
 #, no-wrap
 msgid "Alternation"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:769
+#: C/man1/grep.1:775
 msgid ""
 "Two regular expressions may be joined by the infix operator B<|>; the "
 "resulting regular expression matches any string matching either alternate "
@@ -1042,13 +1057,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:769
+#: C/man1/grep.1:775
 #, no-wrap
 msgid "Precedence"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:774
+#: C/man1/grep.1:780
 msgid ""
 "Repetition takes precedence over concatenation, which in turn takes "
 "precedence over alternation.  A whole expression may be enclosed in "
@@ -1056,13 +1071,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:774
+#: C/man1/grep.1:780
 #, no-wrap
 msgid "Back References and Subexpressions"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:783
+#: C/man1/grep.1:789
 msgid ""
 "The back-reference B<\\e>I<n>\\&, where I<n> is a single digit, matches the "
 "substring previously matched by the I<n>th parenthesized subexpression of "
@@ -1070,13 +1085,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:783
+#: C/man1/grep.1:789
 #, no-wrap
 msgid "Basic vs Extended Regular Expressions"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:801
+#: C/man1/grep.1:807
 msgid ""
 "In basic regular expressions the meta-characters B<?>, B<+>, B<{>, B<|>, "
 "B<(>, and B<)> lose their special meaning; instead use the backslashed "
@@ -1084,7 +1099,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:818
+#: C/man1/grep.1:824
 msgid ""
 "Traditional B<egrep> did not support the B<{> meta-character, and some "
 "B<egrep> implementations support B<\\e{> instead, so portable scripts should "
@@ -1093,7 +1108,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:832
+#: C/man1/grep.1:838
 msgid ""
 "\\s-1GNU\\s0 B<grep\\ -E> attempts to support traditional usage by assuming "
 "that B<{> is not special if it would be the start of an invalid interval "
@@ -1104,18 +1119,18 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/grep.1:833
+#: C/man1/grep.1:839
 #, no-wrap
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:837
+#: C/man1/grep.1:843
 msgid "The behavior of B<grep> is affected by the following environment variables."
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:859
+#: C/man1/grep.1:865
 msgid ""
 "The locale for category B<LC_>I<foo> is specified by examining the three "
 "environment variables B<LC_ALL>, B<LC_>I<foo>, B<LANG>, in that order.  The "
@@ -1128,13 +1143,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:859
+#: C/man1/grep.1:865
 #, no-wrap
 msgid "B<GREP_OPTIONS>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:876
+#: C/man1/grep.1:882
 msgid ""
 "This variable specifies default options to be placed in front of any "
 "explicit options.  For example, if B<GREP_OPTIONS> is "
@@ -1147,13 +1162,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:876
+#: C/man1/grep.1:882
 #, no-wrap
 msgid "B<GREP_COLOR>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:901
+#: C/man1/grep.1:907
 msgid ""
 "This variable specifies the color used to highlight matched (non-empty) "
 "text.  It is deprecated in favor of B<GREP_COLORS>, but still supported.  "
@@ -1166,13 +1181,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:901
+#: C/man1/grep.1:907
 #, no-wrap
 msgid "B<GREP_COLORS>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:914
+#: C/man1/grep.1:920
 msgid ""
 "Specifies the colors and other attributes used to highlight various parts of "
 "the output.  Its value is a colon-separated list of capabilities that "
@@ -1182,13 +1197,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:915
+#: C/man1/grep.1:921
 #, no-wrap
 msgid "B<sl=>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:933
+#: C/man1/grep.1:939
 msgid ""
 "SGR substring for whole selected lines (i.e., matching lines when the B<-v> "
 "command-line option is omitted, or non-matching lines when B<-v> is "
@@ -1198,13 +1213,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:933
+#: C/man1/grep.1:939
 #, no-wrap
 msgid "B<cx=>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:951
+#: C/man1/grep.1:957
 msgid ""
 "SGR substring for whole context lines (i.e., non-matching lines when the "
 "B<-v> command-line option is omitted, or matching lines when B<-v> is "
@@ -1215,13 +1230,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:951
+#: C/man1/grep.1:957
 #, no-wrap
 msgid "B<rv>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:963
+#: C/man1/grep.1:969
 msgid ""
 "Boolean value that reverses (swaps) the meanings of the B<sl=> and B<cx=> "
 "capabilities when the B<-v> command-line option is specified.  The default "
@@ -1229,13 +1244,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:963
+#: C/man1/grep.1:969
 #, no-wrap
 msgid "B<mt=01;31>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:979
+#: C/man1/grep.1:985
 msgid ""
 "SGR substring for matching non-empty text in any matching line (i.e., a "
 "selected line when the B<-v> command-line option is omitted, or a context "
@@ -1245,13 +1260,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:979
+#: C/man1/grep.1:985
 #, no-wrap
 msgid "B<ms=01;31>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:993
+#: C/man1/grep.1:999
 msgid ""
 "SGR substring for matching non-empty text in a selected line.  (This is only "
 "used when the B<-v> command-line option is omitted.)  The effect of the "
@@ -1260,13 +1275,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:993
+#: C/man1/grep.1:999
 #, no-wrap
 msgid "B<mc=01;31>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1007
+#: C/man1/grep.1:1013
 msgid ""
 "SGR substring for matching non-empty text in a context line.  (This is only "
 "used when the B<-v> command-line option is specified.)  The effect of the "
@@ -1275,52 +1290,52 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1007
+#: C/man1/grep.1:1013
 #, no-wrap
 msgid "B<fn=35>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1011
+#: C/man1/grep.1:1017
 msgid ""
 "SGR substring for file names prefixing any content line.  The default is a "
 "magenta text foreground over the terminal's default background."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1011
+#: C/man1/grep.1:1017
 #, no-wrap
 msgid "B<ln=32>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1015
+#: C/man1/grep.1:1021
 msgid ""
 "SGR substring for line numbers prefixing any content line.  The default is a "
 "green text foreground over the terminal's default background."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1015
+#: C/man1/grep.1:1021
 #, no-wrap
 msgid "B<bn=32>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1019
+#: C/man1/grep.1:1025
 msgid ""
 "SGR substring for byte offsets prefixing any content line.  The default is a "
 "green text foreground over the terminal's default background."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1019
+#: C/man1/grep.1:1025
 #, no-wrap
 msgid "B<se=36>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1029
+#: C/man1/grep.1:1035
 msgid ""
 "SGR substring for separators that are inserted between selected line fields "
 "(B<:>), between context line fields, (B<->), and between groups of adjacent "
@@ -1329,13 +1344,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1029
+#: C/man1/grep.1:1035
 #, no-wrap
 msgid "B<ne>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1044
+#: C/man1/grep.1:1050
 msgid ""
 "Boolean value that prevents clearing to the end of line using Erase in Line "
 "(EL) to Right (B<\\e\\33[K>)  each time a colorized item ends.  This is "
@@ -1347,14 +1362,14 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1049
+#: C/man1/grep.1:1055
 msgid ""
 "Note that boolean capabilities have no B<=>...  part.  They are omitted "
 "(i.e., false) by default and become true when specified."
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1096
+#: C/man1/grep.1:1102
 msgid ""
 "See the Select Graphic Rendition (SGR) section in the documentation of the "
 "text terminal that is used for permitted values and their meaning as "
@@ -1371,13 +1386,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1097
+#: C/man1/grep.1:1103
 #, no-wrap
 msgid "B<LC_ALL>, B<LC_COLLATE>, B<LANG>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1105
+#: C/man1/grep.1:1111
 msgid ""
 "These variables specify the locale for the B<LC_COLLATE> category, which "
 "determines the collating sequence used to interpret range expressions like "
@@ -1385,26 +1400,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1105
+#: C/man1/grep.1:1111
 #, no-wrap
 msgid "B<LC_ALL>, B<LC_CTYPE>, B<LANG>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1112
+#: C/man1/grep.1:1118
 msgid ""
 "These variables specify the locale for the B<LC_CTYPE> category, which "
 "determines the type of characters, e.g., which characters are whitespace."
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1112
+#: C/man1/grep.1:1118
 #, no-wrap
 msgid "B<LC_ALL>, B<LC_MESSAGES>, B<LANG>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1121
+#: C/man1/grep.1:1127
 msgid ""
 "These variables specify the locale for the B<LC_MESSAGES> category, which "
 "determines the language that B<grep> uses for messages.  The default C "
@@ -1412,13 +1427,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1121
+#: C/man1/grep.1:1127
 #, no-wrap
 msgid "B<POSIXLY_CORRECT>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1137
+#: C/man1/grep.1:1143
 msgid ""
 "If set, B<grep> behaves as \\s-1POSIX.2\\s0 requires; otherwise, B<grep> "
 "behaves more like other \\s-1GNU\\s0 programs.  \\s-1POSIX.2\\s0 requires "
@@ -1431,13 +1446,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: C/man1/grep.1:1137
+#: C/man1/grep.1:1143
 #, no-wrap
 msgid "B<_>I<N>B<_GNU_nonoption_argv_flags_>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1159
+#: C/man1/grep.1:1165
 msgid ""
 "(Here I<N> is B<grep>'s numeric process ID.)  If the I<i>th character of "
 "this environment variable's value is B<1>, do not consider the I<i>th "
@@ -1450,13 +1465,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/grep.1:1160
+#: C/man1/grep.1:1166
 #, no-wrap
 msgid "EXIT STATUS"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1164
+#: C/man1/grep.1:1170
 msgid ""
 "The exit status is 0 if selected lines are found, and 1 if not found.  If an "
 "error occurred the exit status is 2.  (Note: POSIX error handling code "
@@ -1464,37 +1479,37 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man1/grep.1:1165
+#: C/man1/grep.1:1171
 #, no-wrap
 msgid "COPYRIGHT"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1167
+#: C/man1/grep.1:1173
 msgid "Copyright 1998-2000, 2002, 2005-2012 Free Software Foundation, Inc."
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1172
+#: C/man1/grep.1:1178
 msgid ""
 "This is free software; see the source for copying conditions.  There is NO "
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
 msgstr ""
 
 #. type: SH
-#: C/man1/grep.1:1173
+#: C/man1/grep.1:1179
 #, no-wrap
 msgid "BUGS"
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:1174
+#: C/man1/grep.1:1180
 #, no-wrap
 msgid "Reporting Bugs"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1182
+#: C/man1/grep.1:1188
 msgid ""
 "Email bug reports to E<lt>B<bug-grep@gnu.org>E<gt>, a mailing list whose web "
 "page is E<lt>B<http://lists.gnu.org/mailman/listinfo/bug-grep>E<gt>.  "
@@ -1503,13 +1518,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:1182
+#: C/man1/grep.1:1188
 #, no-wrap
 msgid "Known Bugs"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1193
+#: C/man1/grep.1:1199
 msgid ""
 "Large repetition counts in the B<{>I<n>B<,>I<m>B<}> construct may cause "
 "B<grep> to use lots of memory.  In addition, certain other obscure regular "
@@ -1518,24 +1533,24 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1195
+#: C/man1/grep.1:1201
 msgid "Back-references are very slow, and may require exponential time."
 msgstr ""
 
 #. type: SH
-#: C/man1/grep.1:1196
+#: C/man1/grep.1:1202
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:1197
+#: C/man1/grep.1:1203
 #, no-wrap
 msgid "Regular Manual Pages"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1204
+#: C/man1/grep.1:1210
 msgid ""
 "awk(1), cmp(1), diff(1), find(1), gzip(1), perl(1), sed(1), sort(1), "
 "xargs(1), zgrep(1), mmap(2), read(2), pcre(3), pcresyntax(3), "
@@ -1543,48 +1558,56 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:1204
+#: C/man1/grep.1:1210
 #, no-wrap
 msgid "\\s-1POSIX\\s0 Programmer's Manual Page"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1206
+#: C/man1/grep.1:1212
 msgid "grep(1p)."
 msgstr ""
 
 #. type: SS
-#: C/man1/grep.1:1206
+#: C/man1/grep.1:1212
 #, no-wrap
 msgid "\\*(Txinfo Documentation"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1215
+#: C/man1/grep.1:1222
 msgid ""
-"The full documentation for B<grep> is maintained as a \\*(Txinfo manual.  If "
-"the B<info> and B<grep> programs are properly installed at your site, the "
+"The full documentation for B<grep> is maintained as a \\*(Txinfo manual, "
+"which you can read at http://www.gnu.org/software/grep/manual/.  If the "
+"B<info> and B<grep> programs are properly installed at your site, the "
 "command"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1217
+#: C/man1/grep.1:1224
 msgid "B<info grep>"
 msgstr ""
 
 #. type: Plain text
-#: C/man1/grep.1:1219
+#: C/man1/grep.1:1226
 msgid "should give you access to the complete manual."
 msgstr ""
 
 #. type: SH
-#: C/man1/grep.1:1220
+#: C/man1/grep.1:1227
 #, no-wrap
 msgid "NOTES"
 msgstr ""
 
+#. type: Plain text
+#: C/man1/grep.1:1230
+msgid ""
+"This man page is maintained only fitfully; the full documentation is often "
+"more up-to-date."
+msgstr ""
+
 #.  Work around problems with some troff -man implementations.
 #. type: Plain text
-#: C/man1/grep.1:1224
+#: C/man1/grep.1:1234
 msgid "\\s-1GNU\\s0's not Unix, but Unix is a beast; its plural form is Unixen."
 msgstr ""
