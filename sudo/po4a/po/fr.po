@@ -2752,6 +2752,12 @@ msgid ""
 "specified in escaped hex mode, e.g. \\x20 for space.  When using double "
 "quotes, any prefix characters must be included inside the quotes."
 msgstr ""
+"Un C<nom_utilisateur>, C<uid>, C<groupe>, C<gid>, C<groupe_réseau>, "
+"C<groupe_nonunix> ou C<gid_nonunix> peuvent être inclus dans des guillemets "
+"doubles « \" » pour ne pas avoir à échapper les caractères spéciaux. Autrement, "
+"les caractères spéciaux peuvent être échappés en mode hexadécimal, par "
+"exemple \\x20 pour l'espace. Quand les guillemets doubles sont utilisés, "
+"tous les caractères préfixes doivent se trouver dans les guillemets."
 
 #. type: textblock
 #: C/sudoers.pod:248
@@ -2760,21 +2766,25 @@ msgid ""
 "underlying group provider plugin (see the I<group_plugin> description "
 "below).  For instance, the QAS AD plugin supports the following formats:"
 msgstr ""
+"La syntaxe de C<groupe_nonunix> et C<gid_nonunix> dépend du greffon "
+"fournissant le groupe sous-jacent (voir la description I<greffon_groupe> "
+"plus loin). Par exemple, le plugin QAS AD gère les formats suivants :"
 
 #. type: textblock
 #: C/sudoers.pod:257
 msgid "Group in the same domain: \"Group Name\""
-msgstr ""
+msgstr "Groupe dans le même domaine : \"nom du groupe\""
 
 #. type: textblock
 #: C/sudoers.pod:261
 msgid "Group in any domain: \"Group Name@FULLY.QUALIFIED.DOMAIN\""
-msgstr ""
+msgstr "Groupe dans n'importe quel domaine : \"nom du groupe@DOMAINE."
+"TOTALEMENT.QUALIFIÉ\""
 
 #. type: textblock
 #: C/sudoers.pod:265
 msgid "Group SID: \"S-1-2-34-5678901234-5678901234-5678901234-567\""
-msgstr ""
+msgstr "SID du groupe : \"S-1-2-34-5678901234-5678901234-5678901234-567\""
 
 #. type: textblock
 #: C/sudoers.pod:269
@@ -2784,6 +2794,10 @@ msgid ""
 "special characters and reserved words\"> for a list of characters that need "
 "to be escaped."
 msgstr ""
+"Veuillez noter que les guillemets autour des noms de groupes sont optionnels. "
+"Les chaînes sans guillemet doivent utiliser un backslash (\\) pour échapper "
+"les espaces et les caractères spéciaux. Voir L<\"Autres caractères spéciaux "
+"et mots réservés\"> pour une liste de caractères devant être échappés."
 
 #. type: verbatim
 #: C/sudoers.pod:274
@@ -2793,6 +2807,9 @@ msgid ""
 "\t\tRunas_Member ',' Runas_List\n"
 "\n"
 msgstr ""
+" Liste_Runas ::= Membre_Runas |\n"
+"\t\tMembre_Runas ',' Liste_Runas\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:277
@@ -2808,6 +2825,15 @@ msgid ""
 "\t          '!'* Runas_Alias\n"
 "\n"
 msgstr ""
+" Membre_Runas ::= '!'* nom utilisateur |\n"
+"\t          '!'* #uid |\n"
+"\t          '!'* %groupe |\n"
+"\t          '!'* %#gid |\n"
+"\t          '!'* %:groupe_nonunix |\n"
+"\t          '!'* %:#gid_nonunix |\n"
+"\t          '!'* +netgroup |\n"
+"\t          '!'* Alias_Runas\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:286
@@ -2819,6 +2845,13 @@ msgid ""
 "names with the same uid (e.g.E<nbsp>root and toor), you can use a uid "
 "instead (#0 in the example given)."
 msgstr ""
+"Une C<Liste_Runas> est similaire à une C<Liste_Utilisateurs> sauf qu'elle "
+"contient des C<Alias_Runas> au lieu d'C<Alias_utilisateurs>. Veuillez noter "
+"que les noms d'utilisateurs et les groupes sont comparées en tant que "
+"chaînes de caractères. Autrement dit, deux utilisateurs (groupes) ayant le "
+"même uid (gid) sont considérés distincts. Si vous souhaitez faire "
+"correspondre tous les noms d'utilisateurs avec le même uid (par exemple root "
+"et toor), vous pouvez utiliser un uid à la place (#0 dans l'exemple donné)."
 
 #. type: verbatim
 #: C/sudoers.pod:293
@@ -2828,6 +2861,9 @@ msgid ""
 "\t       Host ',' Host_List\n"
 "\n"
 msgstr ""
+" Liste_Hôtes ::= Hôte |\n"
+"\t       Hôte ',' Liste_Hôtes\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:296
@@ -2840,6 +2876,12 @@ msgid ""
 "\t  '!'* Host_Alias\n"
 "\n"
 msgstr ""
+" Hôte ::= '!'* nom de l'hôte |\n"
+"\t  '!'* adresse_ip |\n"
+"\t  '!'* réseau(/netmask)? |\n"
+"\t  '!'* +netgroup |\n"
+"\t  '!'* Host_Alias\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:302
@@ -2861,6 +2903,24 @@ msgid ""
 "is the actual host name, which is usually only the case for non-networked "
 "systems."
 msgstr ""
+"Une C<Liste_Hôtes> est faite d'un ou plusieurs noms d'hôtes, d'adresses IP, "
+"de numéros de réseau, de groupes réseau (préfixés par « + ») et d'autres "
+"alias. À nouveau, la valeur d'un élément peut être inversée avec l'opérateur "
+"« ! ». Si vous n'indiquez pas un masque de sous-réseau avec l'adresse du "
+"réseau, B<sudo> fera une requête à chaque des interfaces réseau de l'hôte et, "
+"si l'adresse correspond à une de ces interfaces, le masque correspondant sera "
+"utilisé. Le masque de réseau peut être indiqué soit avec la notation IP "
+"standard (par exemple 255.255.255.0 ou ffff:ffff:ffff:ffff::) ou la notation "
+"CIDR (en nombre de bits, comme 24 ou 64). Un nom d'hôte peut contenir des "
+"jokers d'interpréteur de commandes (voir la section L<Jokers> plus loin), "
+"mais à moins que la commande C<host name> de votre machine ne renvoie le nom "
+"d'hôte totalement qualifié, vous aurez besoin d'utiliser l'option I<fqdn> "
+"pour que les jokers soient utiles. Veuillez noter que B<sudo> n'inspecte "
+"que les vraies interfaces réseau ; cela signifie que l'adresse 127.0.0.1 "
+"(localhost) ne correspondra jamais. De plus, le nom d'hôte « localhost » "
+"ne correspondra que si c'est le nom d'hôte de la machine, ce qui n'est "
+"généralement le cas que pour les systèmes coupés de tout réseau."
+
 
 #. type: verbatim
 #: C/sudoers.pod:321
@@ -2870,6 +2930,9 @@ msgid ""
 "\t       Cmnd ',' Cmnd_List\n"
 "\n"
 msgstr ""
+" Liste_Commandes ::= Commande |\n"
+"\n       Commande ',' Liste_Commandes\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:324
@@ -2880,6 +2943,10 @@ msgid ""
 "\t         file name '\"\"'\n"
 "\n"
 msgstr ""
+" nom de commande ::= nom de fichier |\n"
+"\t         arguments du nom de fichier |\n"
+"\t         nom de fichier'\"\"'\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:328
@@ -2891,6 +2958,11 @@ msgid ""
 "\t  '!'* Cmnd_Alias\n"
 "\n"
 msgstr ""
+" Commande ::= '!'* nom de commande |\n"
+"\t  '!'* répertoire |\n"
+"\t  '!'* \"sudoedit\" |\n"
+"\t  '!'* Alias_Commande\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:333
@@ -2906,6 +2978,18 @@ msgid ""
 "the user will be able to run any file within that directory (but not in any "
 "subdirectories therein)."
 msgstr ""
+"Une C<Liste_Commandes> est une liste d'un ou plusieurs noms de commandes, "
+"répertoires et autres alias. Un nom de commande est un nom de fichier "
+"totalement qualifié qui peut inclure des jokers dans le style des "
+"interpréteurs de commandes (voir la section L<Jokers> plus loin). Un nom de "
+"fichier simple permet à l'utilisateur de lancer la commande avec tous les "
+"arguments qu'il souhaite. Cependant, vous pouvez également indiquer des "
+"arguments en ligne de commande (y-compris des jokers). Autrement, vous "
+"pouvez utiliser C<\"\"> pour indiquer que la commande ne peut être lancée "
+"que sans arguments. Un répertoire est un nom de chemin totalement qualifié "
+"se terminant par « / ». Quand vous indiquez un répertoire dans une C<Liste_"
+"Commandes>, l'utilisateur peut exécuter tous les fichiers du répertoire "
+"(mais pas les fichiers de ses sous-répertoires)."
 
 #. type: textblock
 #: C/sudoers.pod:344
@@ -2918,6 +3002,15 @@ msgid ""
 "to permit a user to run B<sudo> with the B<-e> option (or as B<sudoedit>).  "
 "It may take command line arguments just as a normal command does."
 msgstr ""
+"Si une C<Commande> a des arguments de ligne de commande associés, alors les "
+"arguments de la C<Commande> doivent exactement correspondre à ceux donnés "
+"par l'utilisateur dans la ligne de commande (ou correspondre aux jokers le "
+"cas échéant). Veuillez noter que les caractères suivants doivent être "
+"échappés avec un « \\ » s'ils sont utilisés dans les arguments d'une "
+"commande : « , », « : », « = », « \\ ». La commande spéciale C<\"sudoedit\"> "
+"est utilisée pour permettre à l'utilisateur de lancer B<sudo> avec l'option "
+"B<-e> (ou en tant que B<sudoedit>). Les arguments sont gérés comme avec une "
+"commande normale."
 
 #. type: =head2
 #: C/sudoers.pod:353
@@ -2934,6 +3027,14 @@ msgid ""
 "entries may not include command line arguments.  If you need to specify "
 "arguments, define a C<Cmnd_Alias> and reference that instead."
 msgstr ""
+"Certaines options de configuration peuvent être changés de leur valeurs "
+"par défaut à l'exécution grâce à une ou plusieurs lignes C<Entrée_Défaut>. "
+"Cela peut affecter tous les utilisateurs sur n'importe quel hôte, tous les "
+"utilisateurs d'un hôte donné, un utilisateur spécifique, une commande "
+"spécifique ou des commandes exécutées par un utilisateur particulier. "
+"Veuillez noter que les entrées par commande ne doivent pas inclure "
+"d'argument de ligne de commande. Si vous avez besoin d'indiquer des "
+"arguments, définissez un C<Alias_Commande> et référencez-le à la place."
 
 #. type: verbatim
 #: C/sudoers.pod:363
@@ -2946,6 +3047,12 @@ msgid ""
 "\t\t  'Defaults' '>' Runas_List\n"
 "\n"
 msgstr ""
+" Type_Défaut ::= 'Défauts' |\n"
+"\t\t  'Défauts' '@' Liste_Hôtes |\n"
+"\t\t  'Défauts' ':' Liste_Utilisateurs |\n"
+"\t\t  'Défauts' '!' Liste_Commandes |\n"
+"\t\t  'Défauts' '>' Liste_Runas\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:369
@@ -2954,6 +3061,8 @@ msgid ""
 " Default_Entry ::= Default_Type Parameter_List\n"
 "\n"
 msgstr ""
+" Entrée_Défaut ::= Type_Défaut Liste_Paramètres\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:371
@@ -2963,6 +3072,9 @@ msgid ""
 "\t\t    Parameter ',' Parameter_List\n"
 "\n"
 msgstr ""
+" Liste_Paramètres ::= Paramètre |\n"
+"\t\t    Paramètre ',' Liste_Paramètres\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:374
@@ -2974,6 +3086,11 @@ msgid ""
 "\t       '!'* Parameter\n"
 "\n"
 msgstr ""
+" Paramètre ::= Paramètre '=' Valeur |\n"
+"\t       Paramètre '+=' Valeur |\n"
+"\t       Paramètre '-=' Valeur |\n"
+"\t       '!'* Paramètre\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:379
@@ -2985,6 +3102,13 @@ msgid ""
 "when they contain multiple words.  Special characters may be escaped with a "
 "backslash (C<\\>)."
 msgstr ""
+"Les paramètres peuvent être des B<drapeaux>, des B<entiers>, des B<chaînes> "
+"ou des B<listes>. Les drapeaux sont des booléens et peuvent être désactivés "
+"grâce à l'opérateur « ! ». Des paramètres entiers, chaînes et listes peuvent "
+"également être utilisés dans un contexte booléen pour les désactiver. Les "
+"valeurs peuvent être incluses dans des guillemets anglais doubles (C<\">) "
+"quand ils contiennent plusieurs mots. Les caractères spéciaux peuvent être "
+"échapés avec un backslash (C<\\>)."
 
 #. type: textblock
 #: C/sudoers.pod:386
@@ -2994,6 +3118,10 @@ msgid ""
 "an error to use the C<-=> operator to remove an element that does not exist "
 "in a list."
 msgstr ""
+"Les listes ont deux opérateurs d'assignement additionnels, C<+=> et C<-=>. "
+"Ces opérateurs sont respectivement utilisés pour ajouter et supprimer dans "
+"une liste. Utiliser l'opérateur C<-=> pour retirer un élément n'existant pas "
+"dans la liste n'est pas une erreur."
 
 #. type: textblock
 #: C/sudoers.pod:391
@@ -3001,16 +3129,21 @@ msgid ""
 "Defaults entries are parsed in the following order: generic, host and user "
 "Defaults first, then runas Defaults and finally command defaults."
 msgstr ""
+"Les entrées par défaut sont traitées dans l'ordre suivant : générique, hôte "
+"et utilisateur. D'abord les défauts, puis les runas par défaut et enfin les "
+"commandes par défaut."
 
 #. type: textblock
 #: C/sudoers.pod:395
 msgid "See L<\"SUDOERS OPTIONS\"> for a list of supported Defaults parameters."
 msgstr ""
+"Consultez L<\"OPTIONS SUDOERS\"> pour une liste des paramètres par défaut "
+"gérés."
 
 #. type: =head2
 #: C/sudoers.pod:397
 msgid "User Specification"
-msgstr ""
+msgstr "Spécification utilisateur"
 
 #. type: verbatim
 #: C/sudoers.pod:399
@@ -3020,6 +3153,10 @@ msgid ""
 "\t       (':' Host_List '=' Cmnd_Spec_List)*\n"
 "\n"
 msgstr ""
+" Spec_Utilisateur ::= List_Utilisateurs Liste_Hôtes '=' Liste_Spec_Commande"
+"\\\n"
+"\t       (':' Liste_Hôtes '=' Liste_Spec_Commande)*\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:402
@@ -3029,6 +3166,9 @@ msgid ""
 "\t\t    Cmnd_Spec ',' Cmnd_Spec_List\n"
 "\n"
 msgstr ""
+" Liste_Spec_Commande ::= Spec_Commande |\n"
+"\t\t    Spec_Commande ',' Liste_Spec_Commande\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:405
@@ -3037,6 +3177,8 @@ msgid ""
 " Cmnd_Spec ::= Runas_Spec? SELinux_Spec? Tag_Spec* Cmnd\n"
 "\n"
 msgstr ""
+" Spec_Commande ::= Spec_Runas? Spec_SELinux? Spec_Tag* Commande\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:407
@@ -3045,6 +3187,8 @@ msgid ""
 " Runas_Spec ::= '(' Runas_List? (':' Runas_List)? ')'\n"
 "\n"
 msgstr ""
+" Spec_Runas ::= '(' Liste_Runas? (':' Liste_Runas)? ')'\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:409
@@ -3053,6 +3197,8 @@ msgid ""
 " SELinux_Spec ::= ('ROLE=role' | 'TYPE=type')\n"
 "\n"
 msgstr ""
+" Spec_SELinux ::= ('ROLE=role' | 'TYPE=type')\n"
+"\n"
 
 #. type: verbatim
 #: C/sudoers.pod:411
@@ -3063,6 +3209,10 @@ msgid ""
 "               'LOG_OUTPUT:' | 'NOLOG_OUTPUT:')\n"
 "\n"
 msgstr ""
+" Spec_Tag ::= ('NOPASSWD:' | 'PASSWD:' | 'NOEXEC:' | 'EXEC:' |\n"
+"\t       'SETENV:' | 'NOSETENV:' | 'LOG_INPUT:' | 'NOLOG_INPUT:' |\n"
+"               'LOG_OUTPUT:' | 'NOLOG_OUTPUT:')\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:415
@@ -3071,6 +3221,10 @@ msgid ""
 "what user) on specified hosts.  By default, commands are run as B<root>, but "
 "this can be changed on a per-command basis."
 msgstr ""
+"Une B<spécification utilisateur> détermine quelles commandes un utilisateur "
+"peut lancer (et en tant que quel utilisateur) sur les hôtes indiqués. Par "
+"défaut, les commandes sont lancées en tant que B<root> mais cela peut être "
+"changé au niveau de chaque commande."
 
 #. type: textblock
 #: C/sudoers.pod:419
@@ -3078,6 +3232,8 @@ msgid ""
 "The basic structure of a user specification is `who where = (as_whom)  "
 "what'.  Let's break that down into its constituent parts:"
 msgstr ""
+"La structure basique d'une spécification utilisateur est « qui où = (en_tant_"
+"que_qui) quoi ». Examinons chaque partie en détail :"
 
 #. type: =head2
 #: C/sudoers.pod:422
@@ -3101,6 +3257,21 @@ msgid ""
 "to any listed in the C<Runas_List>.  If no C<Runas_Spec> is specified the "
 "command may be run as B<root> and no group may be specified."
 msgstr ""
+"Une C<Spec_Runas> détermine en tant que quel utilisateur et/ou groupe une "
+"commande peut être lancée. Une C<Spec_Runas> totalement spécifiée consiste en "
+"deux C<Listes_Runas> (telles que définies plus tôt) séparées par « : » et "
+"encadrées de parenthèses. La première C<Liste_Runas> indique en tant que "
+"quels utilisateurs la commande peut être lancée avec l'option B<-u> de "
+"B<sudo>. La seconde fait de même pour les groupes avec l'option B<-g> de "
+"B<sudo>. Si les deux listes sont données, la commande peut être lancée avec "
+"n'importe quelle combinaison d'utilisateurs et groupes listés dans leur "
+"C<Listes_Runas> respectives. Si seule la première liste est donnée, la "
+"commande peut être lancée en tant que n'importe quel utilisateur de la liste "
+"mais aucune option B<-g> n'est indiquée. Si seule la seconde liste est "
+"donnée, la commande est lancée en tant que l'utilisateur l'invoquant avec "
+"n'importe quel groupe appartenant à la liste. Si aucune <Spec_Runas> n'est "
+"indiquée, la commande est lancée en tant que B<root> et aucun groupe n'est "
+"spécifié."
 
 #. type: textblock
 #: C/sudoers.pod:440
@@ -3108,6 +3279,8 @@ msgid ""
 "A C<Runas_Spec> sets the default for the commands that follow it.  What this "
 "means is that for the entry:"
 msgstr ""
+"Une C<Spec_Runas> règle la valeur par défaut pour les commandes qui la "
+"suivent. Cela signifie que pour l'entrée :"
 
 #. type: verbatim
 #: C/sudoers.pod:443
@@ -3116,6 +3289,8 @@ msgid ""
 " dgb\tboulder = (operator) /bin/ls, /bin/kill, /usr/bin/lprm\n"
 "\n"
 msgstr ""
+" dgb\tboulder = (operator) /bin/ls, /bin/kill, /usr/bin/lprm\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:445
@@ -3123,6 +3298,8 @@ msgid ""
 "The user B<dgb> may run F</bin/ls>, F</bin/kill>, and F</usr/bin/lprm> -- "
 "but only as B<operator>.  E.g.,"
 msgstr ""
+"L'utilisateur B<dgb> peut lancer F</bin/ls>, F</bin/kill>, et "
+"F</usr/bin/lprm> mais seulement en tant que B<operator>. Par exemple,"
 
 #. type: verbatim
 #: C/sudoers.pod:448
@@ -3140,6 +3317,8 @@ msgid ""
 "It is also possible to override a C<Runas_Spec> later on in an entry.  If we "
 "modify the entry like so:"
 msgstr ""
+"Il est également possible de surcharger une C<Spec_Runas> plus tard dans une "
+"entrée. Si nous modifions l'entrée ainsi :"
 
 #. type: verbatim
 #: C/sudoers.pod:453
@@ -3148,6 +3327,8 @@ msgid ""
 " dgb\tboulder = (operator) /bin/ls, (root) /bin/kill, /usr/bin/lprm\n"
 "\n"
 msgstr ""
+" dgb\tboulder = (operator) /bin/ls, (root) /bin/kill, /usr/bin/lprm\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:455
@@ -3155,6 +3336,9 @@ msgid ""
 "Then user B<dgb> is now allowed to run F</bin/ls> as B<operator>, but F</bin/"
 "kill> and F</usr/bin/lprm> as B<root>."
 msgstr ""
+"Alors l'utilisateur B<dgb> est maintenant capabale de lancer F</bin/ls> en "
+"tant que B<operator>, mais F</bin/kill> et F</usr/bin/lprm> en tant que "
+"B<root>."
 
 #. type: textblock
 #: C/sudoers.pod:458
@@ -3162,6 +3346,8 @@ msgid ""
 "We can extend this to allow B<dgb> to run C</bin/ls> with either the user or "
 "group set to B<operator>:"
 msgstr ""
+"Nous pouvons étendre cela en permettant à B<dgb> de lancer C</bin/ls> avec "
+"l'utilisateur ou le groupe réglé sur B<operator> :"
 
 #. type: verbatim
 #: C/sudoers.pod:461
@@ -3171,6 +3357,9 @@ msgid ""
 "\t/usr/bin/lprm\n"
 "\n"
 msgstr ""
+" dgb\tboulder = (operator : operator) /bin/ls, (root) /bin/kill, \\\n"
+"\t/usr/bin/lprm\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:464
@@ -3181,6 +3370,12 @@ msgid ""
 "listed in the target user's password database entry.  The following would "
 "all be permitted by the sudoers entry above:"
 msgstr ""
+"Veuillez noter que bien que la partie du groupe de la C<Spec_Runas> permet "
+"à l'utilisateur de lancer en tant que ce groupe, il n'impose pas "
+"l'utilisateur à le faire. Si aucun groupe n'est indiqué dans la ligne de "
+"commande, la commande est lancée avec le groupe listé dans l'entrée de la "
+"base de mots de passe de l'utilisateur cible. Les commandes suivantes sont "
+"toutes permises par l'entrée sudoers précédente :"
 
 #. type: verbatim
 #: C/sudoers.pod:470
@@ -3202,6 +3397,8 @@ msgid ""
 "In the following example, user B<tcm> may run commands that access a modem "
 "device file with the dialer group."
 msgstr ""
+"Dans l'exemple suivant, l'utilisateur B<tcm> peut lancer les commandes ayant "
+"accès au fichier du périphérique modem avec le groupe « dialer »."
 
 #. type: verbatim
 #: C/sudoers.pod:477
@@ -3211,6 +3408,9 @@ msgid ""
 "\t/usr/local/bin/minicom\n"
 "\n"
 msgstr ""
+" tcm\tboulder = (:dialer) /usr/bin/tip, /usr/bin/cu, \\\n"
+"\t/usr/local/bin/minicom\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:480
@@ -3218,6 +3418,8 @@ msgid ""
 "Note that in this example only the group will be set, the command still runs "
 "as user B<tcm>.  E.g."
 msgstr ""
+"Veuillez noter que seul le groupe est réglé par cet exemple, la commande est "
+"toujours lancée en tant que B<tcm>. Par exemple"
 
 #. type: verbatim
 #: C/sudoers.pod:483
@@ -3236,6 +3438,9 @@ msgid ""
 "the user may select any combination of users and groups via the B<-u> and B<-"
 "g> options.  In this example:"
 msgstr ""
+"Plusieurs utilisateurs et groupes peuvent se trouver dans une C<Spec_Runas>, "
+"auquel cas l'utilisateur peut choisir toute combinaison d'utilisateurs et "
+"groupes avec les options B<-u> et B<-g>. Dans cet exemple :"
 
 #. type: verbatim
 #: C/sudoers.pod:489
@@ -3244,6 +3449,8 @@ msgid ""
 " alan\tALL = (root, bin : operator, system) ALL\n"
 "\n"
 msgstr ""
+" alan\tALL = (root, bin : operator, system) ALL\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:491
@@ -3251,6 +3458,9 @@ msgid ""
 "user B<alan> may run any command as either user root or bin, optionally "
 "setting the group to operator or system."
 msgstr ""
+"l'utilisateur B<alan> peut lancer n'importe quelle commande, soit en tant "
+"que root, soit en tant que bin, tout en réglant le groupe de façon "
+"optionnelle à operator ou system."
 
 #. type: =head2
 #: C/sudoers.pod:494
@@ -3266,6 +3476,11 @@ msgid ""
 "I<sudoers>.  A role or type specified on the command line, however, will "
 "supercede the values in I<sudoers>."
 msgstr ""
+"Sur les systèmes gérant SELinux, les entrées I<sudoers> peuvent "
+"optionnellement avoir un rôle et/ou type SELinux associé à une commande. Si "
+"un rôle ou type est indiqué avec la commande, il surchargera toute valeur "
+"par défaut indiquée dans I<sudoers>. Un rôle ou type indiqué sur la ligne de "
+"commande, en revanche, remplace les valeurs dans I<sudoers>."
 
 #. type: =head2
 #: C/sudoers.pod:502
@@ -3282,6 +3497,13 @@ msgid ""
 "C<Cmnd_Spec_List>, inherit the tag unless it is overridden by the opposite "
 "tag (i.e.: C<PASSWD> overrides C<NOPASSWD> and C<NOEXEC> overrides C<EXEC>)."
 msgstr ""
+"Une commande peut avoir zéro ou plusieurs étiquettes associées. Il existe "
+"huit valeurs possibles : C<NOPASSWD>, C<PASSWD>, C<NOEXEC>, C<EXEC>, C<SETENV>, "
+"C<NOSETENV>, C<LOG_INPUT>, C<NOLOG_INPUT>, C<LOG_OUTPUT> et "
+"C<NOLOG_OUTPUT>. Quand une étiquette est associée à une C<Commande>, les "
+"C<Commande>s suivantes dans la C<Liste_Spec_Commande> en héritent à moins "
+"qu'elle soit surchargée par l'étiquette oppsosée (par exemple, C<PASSWD> "
+"surcharge C<NOPASSWD> et C<NOEXEC> surcharge C<EXEC>)."
 
 #. type: =head3
 #: C/sudoers.pod:512
@@ -3297,6 +3519,12 @@ msgid ""
 "that follow it in the C<Cmnd_Spec_List>.  Conversely, the C<PASSWD> tag can "
 "be used to reverse things.  For example:"
 msgstr ""
+"Par défaut, B<sudo> nécessite que l'utilisateur s'authentifie avant de "
+"lancer une commande. Ce comportement peut être modifié avec l'étiquette "
+"C<NOPASSWD>. Comme pour une C<Spec_Runas>, l'étiquette C<NOPASSWD> définit "
+"une valeur par défaut pour les commandes la suivant dans la C<Liste_Spec_"
+"Commande>. Au contraire, l'étiquette C<PASSWD> peut être utilisée pour "
+"inverser les choses. Par exemple :"
 
 #. type: verbatim
 #: C/sudoers.pod:521
@@ -3305,6 +3533,8 @@ msgid ""
 " ray\trushmore = NOPASSWD: /bin/kill, /bin/ls, /usr/bin/lprm\n"
 "\n"
 msgstr ""
+" ray\trushmore = NOPASSWD: /bin/kill, /bin/ls, /usr/bin/lprm\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:523
@@ -3314,6 +3544,10 @@ msgid ""
 "we only want B<ray> to be able to run F</bin/kill> without a password the "
 "entry would be:"
 msgstr ""
+"permet à l'utilisateur B<ray> de lancer F</bin/kill>, F</bin/ls> et F</usr/"
+"bin/lprm> en tant que B<root> sur la machine rushmore sans avoir à "
+"s'authentifier. Si nous voulions que B<ray> ne soit capable de ne lancer que "
+"F</bin/kill> sans mot de passe, l'entrée serait :"
 
 #. type: verbatim
 #: C/sudoers.pod:528
@@ -3322,6 +3556,8 @@ msgid ""
 " ray\trushmore = NOPASSWD: /bin/kill, PASSWD: /bin/ls, /usr/bin/lprm\n"
 "\n"
 msgstr ""
+" ray\trushmore = NOPASSWD: /bin/kill, PASSWD: /bin/ls, /usr/bin/lprm\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:530
@@ -3329,6 +3565,9 @@ msgid ""
 "Note, however, that the C<PASSWD> tag has no effect on users who are in the "
 "group specified by the I<exempt_group> option."
 msgstr ""
+"Veuillez noter, en revanche, que l'étiquette C<PASSWD> n'a aucun effet sur "
+"les utilisateurs se trouvant dans le groupe indiqué par l'option "
+"I<exempt_group>."
 
 #. type: textblock
 #: C/sudoers.pod:533
@@ -3340,6 +3579,12 @@ msgid ""
 "the current host.  This behavior may be overridden via the verifypw and "
 "listpw options."
 msgstr ""
+"Par défaut, si l'étiquette C<NOPASSWD> est appliquée à une des entrées pour "
+"un utilisateur sur l'hôte actuel, il sera capable de lancer C<sudo -l> sans "
+"mot de passe. De plus, un utilisateur ne peut exécuter C<sudo -v> sans mot "
+"de passe que si C<NOPASSWD> est présent pour chaque entrée de l'utilisateur "
+"qui concerne l'hôte actuel. Ce comportement peut être surchargé grâce aux "
+"options verifypw et listpw."
 
 #. type: =head3
 #: C/sudoers.pod:540
@@ -3353,6 +3598,10 @@ msgid ""
 "operating system supports it, the C<NOEXEC> tag can be used to prevent a "
 "dynamically-linked executable from running further commands itself."
 msgstr ""
+"Si B<sudo> a été compilé avec la prise en charge de I<noexec> et que "
+"le système d'exploitation le gère, l'étiquette C<NOEXEC> peut être "
+"utilisée pour empêcher un exécutable lié dynamiquement de lancer "
+"d'autres commandes lui-même."
 
 #. type: textblock
 #: C/sudoers.pod:546
@@ -3360,6 +3609,8 @@ msgid ""
 "In the following example, user B<aaron> may run F</usr/bin/more> and F</usr/"
 "bin/vi> but shell escapes will be disabled."
 msgstr ""
+"Dans l'exemple suivant, l'utilisateur B<aaron> peut lancer F</usr/bin/more> "
+"et F</usr/bin/vi> mais les échappements de l'interpréteur sont désactivés."
 
 #. type: verbatim
 #: C/sudoers.pod:549 C/sudoers.pod:2061
@@ -3368,6 +3619,8 @@ msgid ""
 " aaron\tshanty = NOEXEC: /usr/bin/more, /usr/bin/vi\n"
 "\n"
 msgstr ""
+" aaron\tshanty = NOEXEC: /usr/bin/more, /usr/bin/vi\n"
+"\n"
 
 #. type: textblock
 #: C/sudoers.pod:551
@@ -3375,6 +3628,9 @@ msgid ""
 "See the L<Preventing Shell Escapes> section below for more details on how "
 "C<NOEXEC> works and whether or not it will work on your system."
 msgstr ""
+"Veuillez consulter la section L<Empêcher les échappements d'un 
+interpréteur> si vous voulez plus de détails sur la façon dont C<NOEXEC> "
+"fonctionne et s'il fonctionnera ou non sur votre système."
 
 #. type: =head3
 #: C/sudoers.pod:554
