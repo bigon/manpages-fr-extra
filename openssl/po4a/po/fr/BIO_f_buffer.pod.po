@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2012 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2009-12-24 17:24-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2012-11-30 14:41-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -942,7 +943,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:5
 msgid "BIO_f_buffer - buffering BIO"
-msgstr "BIO_f_buffer - buffering BIO avec miseen tampon"
+msgstr "BIO_f_buffer - BIO de mise en tampon"
 
 #. type: verbatim
 #: C/crypto/BIO_f_buffer.pod:11
@@ -975,7 +976,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:21 C/crypto/BIO_f_buffer.pod:57
 msgid "BIO_f_buffer() returns the buffering BIO method."
-msgstr "BIO_f_buffer() renvoie la méthode BIO de mise en tampon."
+msgstr "B<BIO_f_buffer>() renvoie la méthode BIO de mise en tampon."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:23
@@ -985,19 +986,26 @@ msgid ""
 "buffer which is filled from the next BIO in the chain.  Both BIO_gets() and "
 "BIO_puts() are supported."
 msgstr ""
+"Les données écrites vers un BIO de mise en tampon sont mises en tampon et "
+"écrites périodiquement dans le BIO suivant de la chaîne. Les données lues "
+"d'un BIO de mise en tampon viennent d'un tampon interne qui est rempli à "
+"partir du BIO suivant de la chaîne. B<BIO_gets>() et B<BIO_puts>() sont "
+"toutes deux prises en charge."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:28
 msgid "Calling BIO_reset() on a buffering BIO clears any buffered data."
 msgstr ""
+"Appeler B<BIO_reset>() sur un BIO de mise en tampon efface toutes les "
+"données en tampon."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:30
 msgid ""
 "BIO_get_buffer_num_lines() returns the number of lines currently buffered."
 msgstr ""
-"BIO_get_buffer_num_lines() renvoie le nombre de lignes actuellement dans le "
-"tampon."
+"B<BIO_get_buffer_num_lines>() renvoie le nombre de lignes actuellement dans "
+"le tampon."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:32
@@ -1008,6 +1016,12 @@ msgid ""
 "4096. Any attempt to reduce the buffer size below DEFAULT_BUFFER_SIZE is "
 "ignored. Any buffered data is cleared when the buffer is resized."
 msgstr ""
+"B<BIO_set_read_buffer_size>(), B<BIO_set_write_buffer_size>() et "
+"B<BIO_set_buffer_size>() définissent la lecture, l'écriture ou la lecture et "
+"l'écriture des tailles de tampon sur I<size>. La taille de tampon initiale "
+"est B<DEFAULT_BUFFER_SIZE>, actuellement 4096. Toute tentative de diminution "
+"de la taille de tampon en dessous de B<DEFAULT_BUFFER_SIZE> est ignorée. "
+"Toutes les données en tampon sont effacées quand le tampon est redimensionné."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:38
@@ -1016,6 +1030,9 @@ msgid ""
 "bytes of B<buf>. If B<num> is larger than the current buffer size the buffer "
 "is expanded."
 msgstr ""
+"B<BIO_set_buffer_read_data>() efface le tampon de lecture et le remplit avec "
+"I<num> octets de I<buf>. Si I<num> est plus grand que la taille actuelle du "
+"tampon, le tampon est agrandi."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:44
@@ -1025,6 +1042,11 @@ msgid ""
 "therefore possible to provide BIO_gets() functionality if the following BIOs "
 "do not support it (for example SSL BIOs)."
 msgstr ""
+"Les BIO de mise en tampon implémentent B<BIO_gets>() en utilisant des "
+"opérations B<BIO_read>() sur le BIO suivant de la chaîne. En faisant "
+"précéder une chaîne par un BIO de mise en tampon, il est donc possible de "
+"fournir la fonctionnalité B<BIO_gets>() si les BIO suivants ne le permettent "
+"pas (par exemple les BIO SSL)."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:49
@@ -1035,14 +1057,20 @@ msgid ""
 "removing a buffering BIO using BIO_pop(). BIO_flush() may need to be retried "
 "if the ultimate source/sink BIO is non blocking."
 msgstr ""
+"Les données ne sont écrites sur le BIO suivant de la chaîne que lorsque le "
+"tampon d'écriture est plein ou que B<BIO_flush>() est appelée. Il est donc "
+"important d'appeler B<BIO_flush>() à chaque fois que des données en attente "
+"devraient être écrites comme lors de la suppression d'un BIO de mise en "
+"tampon en utilisant B<BIO_pop>(). B<BIO_flush>() pourrait devoir être "
+"réessayée si le dernier BIO source ou destination est non bloquant. "
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:59
 msgid ""
 "BIO_get_buffer_num_lines() returns the number of lines buffered (may be 0)."
 msgstr ""
-"BIO_get_buffer_num_lines() renvoie le nombre de lignes en tampon (peut être "
-"0)."
+"B<BIO_get_buffer_num_lines>() renvoie le nombre de lignes en tampon (peut "
+"être B<0>)."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:61
@@ -1051,9 +1079,9 @@ msgid ""
 "BIO_set_buffer_size()  return 1 if the buffer was successfully resized or 0 "
 "for failure."
 msgstr ""
-"BIO_set_read_buffer_size(), BIO_set_write_buffer_size() et "
-"BIO_set_buffer_size() renvoient 1 si la taille du tampon a pu être modifiée "
-"ou 0 en cas d'échec."
+"B<BIO_set_read_buffer_size>(), B<BIO_set_write_buffer_size>() et "
+"B<BIO_set_buffer_size>() renvoient B<1> si la taille du tampon a pu être "
+"modifiée ou B<0> en cas d'échec."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:64
@@ -1061,19 +1089,16 @@ msgid ""
 "BIO_set_buffer_read_data() returns 1 if the data was set correctly or 0 if "
 "there was an error."
 msgstr ""
-"BIO_set_buffer_read_data() renvoie 1 si les données ont pu être positionnées "
-"correctement ou 0 s'il y a eu une erreur."
+"B<BIO_set_buffer_read_data>() renvoie B<1> si les données ont pu être "
+"positionnées correctement ou B<0> s'il y a eu une erreur."
 
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:69
-#, fuzzy
-#| msgid ""
-#| "L<SSL_set_bio(3)|SSL_set_bio(3)>, L<ssl(3)|ssl(3)>, L<bio(3)|bio(3)>, "
-#| "L<BIO_should_retry(3)|BIO_should_retry(3)>, L<BIO_read(3)|BIO_read(3)>"
 msgid ""
 "L<BIO(3)|BIO(3)>, L<BIO_reset(3)|BIO_reset(3)>, L<BIO_flush(3)|BIO_flush(3)"
 ">, L<BIO_pop(3)|BIO_pop(3)>, L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_int_ctrl(3)|"
 "BIO_ctrl(3)>"
 msgstr ""
-"L<SSL_set_bio(3)|SSL_set_bio(3)>, L<ssl(3)|ssl(3)>, L<bio(3)|bio(3)>, "
-"L<BIO_should_retry(3)|BIO_should_retry(3)>, L<BIO_read(3)|BIO_read(3)>"
+"L<BIO(3)|BIO(3)>, L<BIO_reset(3)|BIO_reset(3)>, L<BIO_flush(3)|BIO_flush(3)"
+">, L<BIO_pop(3)|BIO_pop(3)>, L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_int_ctrl(3)|"
+"BIO_ctrl(3)>"
