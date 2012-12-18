@@ -76,7 +76,10 @@ tmpfs	/run/shm	tmpfs	nosuid,nodev,size=40%,mode=1777	0	0
 Packages can not expect directories in /run/shm to exist after boot.
 Note that /run/shm was previously /dev/shm, and a compatibility
 symlink or bind mount will be created to allow the old path to
-continue to function.
+continue to function.  If an fstab entry for /dev/shm exists instead
+of /run/shm, then /dev/shm will continue to be used; note that this is
+only needed for users of newer versions of the Oracle database, which
+contain a buggy check for /dev/shm.
 
 .IP /tmp
 Previously configured using \fBRAMTMP\fP in /etc/default/rcS.  Note
