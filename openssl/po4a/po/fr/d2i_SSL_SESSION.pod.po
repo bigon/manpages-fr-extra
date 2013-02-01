@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2009-09-06 17:26+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-02-04 16:19-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -798,11 +799,11 @@ msgid ""
 "be used with one SSL_CTX object (and the SSL objects created from this "
 "SSL_CTX object)."
 msgstr ""
-"Les objets SSL_SESSION conservent des informations internes sur les liens "
-"concernant la liste du cache des sessions lorsqu'ils sont insérés dans le "
-"cache de session d'un objet SSL_CTX. Un objet SSL_SESSION, quel que soit son "
-"compteur de références, doit donc n'être utilisé qu'avec un objet SSL_CTX "
-"(et les objets SSL créés à partir de cet objet SSL_CTX)."
+"Les objets SSL_SESSION conservent des informations internes sur les liens à "
+"propos de la liste du cache de sessions, lorsqu'ils sont insérés dans le "
+"cache de sessions d'un objet SSL_CTX. Un objet SSL_SESSION, quel que soit "
+"son compteur de références, ne doit donc être utilisé qu'avec un objet "
+"SSL_CTX (et les objets SSL créés à partir de cet objet SSL_CTX)."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:5
@@ -810,6 +811,8 @@ msgid ""
 "d2i_SSL_SESSION, i2d_SSL_SESSION - convert SSL_SESSION object from/to ASN1 "
 "representation"
 msgstr ""
+"d2i_SSL_SESSION, i2d_SSL_SESSION - Convertir un objet SSL_SESSION depuis ou "
+"vers une représentation ASN1"
 
 #. type: verbatim
 #: C/ssl/d2i_SSL_SESSION.pod:11
@@ -819,6 +822,9 @@ msgid ""
 " int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);\n"
 "\n"
 msgstr ""
+" SSL_SESSION *d2i_SSL_SESSION(SSL_SESSION **a, const unsigned char **pp, long length);\n"
+" int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:16
@@ -827,6 +833,9 @@ msgid ""
 "session, stored as binary data at location B<pp> with length B<length>, into "
 "an SSL_SESSION object."
 msgstr ""
+"B<d2i_SSL_SESSION>() transforme la représentation ASN1 externe d'une session "
+"SSL ou TLS, stockée en données binaires à l'emplacement I<pp> de taille "
+"I<length>, en un objet SSL_SESSION."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:20
@@ -836,6 +845,10 @@ msgid ""
 "The length of the resulting ASN1 representation is returned. If B<pp> is the "
 "NULL pointer, only the length is calculated and returned."
 msgstr ""
+"B<i2d_SSL_SESSION>() transforme l'objet SSL_SESSION I<in> en représentation "
+"ASN1 et la stocke à l'emplacement mémoire pointé par I<pp>. La taille de la "
+"représentation ASN1 est renvoyée. Si I<pp> est le pointeur NULL, seule la "
+"taille est calculée et renvoyée."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:27
@@ -845,6 +858,10 @@ msgid ""
 "data on disk or into a database, it must be transformed into a binary ASN1 "
 "representation."
 msgstr ""
+"L'objet SSL_SESSION est construit à partir de plusieurs parties issues de "
+"B<malloc>(), il ne peut donc pas être déplacé, copié ou stocké directement. "
+"Afin de stocker les données de session sur le disque ou dans une base de "
+"données, elles doivent être transformées en représentation ASN1 binaire."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:32
@@ -856,6 +873,12 @@ msgid ""
 "get_session_cb() (see L<SSL_CTX_sess_set_get_cb(3)|SSL_CTX_sess_set_get_cb(3)"
 ">)."
 msgstr ""
+"Lors de l'utilisation de B<d2i_SSL_SESSION>(), l'objet SSL_SESSION est "
+"automatiquement alloué. Le compteur de références est 1, de telle sorte que "
+"la session doit être supprimée explicitement en utilisant L<SSL_SESSION_free"
+"(3)|SSL_SESSION_free(3)>, sauf si l'objet SSL_SESSION a complètement pris le "
+"dessus, lorsqu'il est appelé depuis la B<get_session_cb>() (consultez "
+"L<SSL_CTX_sess_set_get_cb(3)|SSL_CTX_sess_set_get_cb(3)>)."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:45
@@ -867,6 +890,12 @@ msgid ""
 "() with B<pp=NULL>, and obtain the size needed, then allocate the memory and "
 "call i2d_SSL_SESSION() again."
 msgstr ""
+"Lors de l'utilisation de B<i2d_SSL_SESSION>(), l'emplacement de mémoire "
+"pointé par I<pp> doit être assez grand pour y placer la représentation "
+"binaire de la session. La taille de représentation ASN1 créée n'a pas de "
+"limite connue, donc la quantité d'espace nécessaire devrait être obtenue en "
+"appelant d'abord B<i2d_SSL_SESSION>() avec B<pp=NULL> afin d'allouer la "
+"mémoire avant d'appeler de nouveau B<i2d_SSL_SESSION>()."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:54
@@ -875,6 +904,9 @@ msgid ""
 "object. In case of failure the NULL-pointer is returned and the error "
 "message can be retrieved from the error stack."
 msgstr ""
+"B<d2i_SSL_SESSION>() renvoie un pointeur vers l'objet SSL_SESSION "
+"nouvellement alloué. En cas d'échec, le pointeur NULL est renvoyé et le "
+"message d'erreur peut être récupéré depuis la pile d'erreur."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:58
@@ -883,6 +915,9 @@ msgid ""
 "When the session is not valid, B<0> is returned and no operation is "
 "performed."
 msgstr ""
+"B<i2d_SSL_SESSION>() renvoie la taille de la représentation ASN1 en octet. "
+"Quand la session n'est pas valable, B<0> est renvoyé et aucune opération "
+"n'est réalisée."
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:63

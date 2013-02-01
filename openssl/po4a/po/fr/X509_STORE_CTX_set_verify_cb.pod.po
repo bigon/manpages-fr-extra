@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-02-10 17:52-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1079,17 +1080,19 @@ msgstr ""
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:5
 msgid "X509_STORE_CTX_set_verify_cb - set verification callback"
-msgstr ""
+msgstr "X509_STORE_CTX_set_verify_cb - Définir un rappel de vérification"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:11
-#, fuzzy, no-wrap
-#| msgid "int (*B<SSL_CTX_get_verify_callback>(const SSL_CTX *ctx))(int ok, X509_STORE_CTX *ctx);"
+#, no-wrap
 msgid ""
 " void X509_STORE_CTX_set_verify_cb(X509_STORE_CTX *ctx,\n"
 "\t\t\t\tint (*verify_cb)(int ok, X509_STORE_CTX *ctx));\n"
 "\n"
-msgstr "int (*B<SSL_CTX_get_verify_callback>(const SSL_CTX *I<ctx>))(int I<ok>, X509_STORE_CTX *I<ctx>);"
+msgstr ""
+" void X509_STORE_CTX_set_verify_cb(X509_STORE_CTX *ctx,\n"
+"\t\t\t\tint (*verify_cb)(int ok, X509_STORE_CTX *ctx));\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:16
@@ -1097,6 +1100,8 @@ msgid ""
 "X509_STORE_CTX_set_verify_cb() sets the verification callback of B<ctx> to "
 "B<verify_cb> overwriting any existing callback."
 msgstr ""
+"B<X509_STORE_CTX_set_verify_cb>() définit le rappel de vérification de "
+"I<ctx> à I<verify_cb> en écrasant tout rappel existant."
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:19
@@ -1105,6 +1110,9 @@ msgid ""
 "certificate verification, either by overriding error conditions or logging "
 "errors for debugging purposes."
 msgstr ""
+"Le rappel de vérification peut être utilisé pour personnaliser l'opération "
+"de vérification de certificat, soit en écrasant les conditions d'erreur, "
+"soit en journalisant les erreurs dans un but de débogage."
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:23
@@ -1112,7 +1120,10 @@ msgid ""
 "However a verification callback is B<not> essential and the default "
 "operation is often sufficient."
 msgstr ""
+"Cependant, un rappel de vérification n'est B<pas> essentiel, et l'opération "
+"par défaut est souvent suffisante."
 
+# NOTE: S/and error/an error/
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:26
 msgid ""
@@ -1122,6 +1133,12 @@ msgid ""
 "B<X509_V_FLAG_NOTIFY_POLICY> is set then B<ok> is set to 2 to indicate the "
 "policy checking is complete."
 msgstr ""
+"Le paramètre I<ok> du rappel indique la valeur que le rappel devrait "
+"renvoyer pour garder le comportement par défaut. Si c'est B<0>, alors une "
+"condition d'erreur est indiquée. Si c'est B<1>, alors aucune erreur n'est "
+"survenue. Si l'attribut B<X509_V_FLAG_NOTIFY_POLICY> est défini, alors I<ok> "
+"est défini à B<2> pour indiquer que la vérification de politique est "
+"terminée."
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:32
@@ -1132,6 +1149,11 @@ msgid ""
 "calling X509_STORE_CTX_get_current_cert(). Additional application data can "
 "be passed to the callback via the B<ex_data> mechanism."
 msgstr ""
+"Le paramètre I<ctx> du rappel est la structure B<X509_STORE_CTX> qui réalise "
+"l'opération de vérification. Un rappel peut examiner cette structure et "
+"recevoir des informations supplémentaires sur l'erreur, par exemple en "
+"appelant B<X509_STORE_CTX_get_current_cert>(). Des données d'application "
+"supplémentaires peuvent être passées au rappel par le mécanisme B<ex_data>."
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:40
@@ -1142,6 +1164,11 @@ msgid ""
 "because B<any> certificate (including untrusted generated ones) will be "
 "accepted."
 msgstr ""
+"En général, un rappel de vérification ne devrait B<pas> renvoyer B<1> sans "
+"condition en toutes circonstances, parce que cela permettrait à la "
+"vérification de réussir quelque soit l'erreur. Cela retire effectivement "
+"toute la sécurité de l'application parce que B<tous> les certificats (y "
+"compris ceux générés qui ne sont pas de confiance) seront acceptés."
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:48
@@ -1152,30 +1179,37 @@ msgid ""
 "way to set a custom verification callback is by inheriting it from the "
 "associated B<X509_STORE>."
 msgstr ""
+"Le rappel de vérification peut être défini et hérité de la structure mère "
+"réalisant l'opération. Dans certains cas (comme une vérification S/MIME), la "
+"structure B<X509_STORE_CTX> est créée et détruite en interne et la seule "
+"façon de définir un rappel de vérification personnalisé est par héritage de "
+"la B<X509_STORE> associée."
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:56
-#, fuzzy
-#| msgid "ASN1_STRING_free() does not return a value."
 msgid "X509_STORE_CTX_set_verify_cb() does not return a value."
-msgstr "ASN1_STRING_free() ne renvoie aucune valeur."
+msgstr "B<X509_STORE_CTX_set_verify_cb>() ne renvoie aucune valeur."
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:60
 msgid "Default callback operation:"
-msgstr ""
+msgstr "Opération de rappel par défaut :"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:62
-#, fuzzy, no-wrap
-#| msgid "int (*B<SSL_CTX_get_verify_callback>(const SSL_CTX *ctx))(int ok, X509_STORE_CTX *ctx);"
+#, no-wrap
 msgid ""
 " int verify_callback(int ok, X509_STORE_CTX *ctx)\n"
 "\t{\n"
 "\treturn ok;\n"
 "\t}\n"
 "\n"
-msgstr "int (*B<SSL_CTX_get_verify_callback>(const SSL_CTX *I<ctx>))(int I<ok>, X509_STORE_CTX *I<ctx>);"
+msgstr ""
+" int verify_callback(int ok, X509_STORE_CTX *ctx)\n"
+"\t{\n"
+"\treturn ok;\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:67
@@ -1183,6 +1217,8 @@ msgid ""
 "Simple example, suppose a certificate in the chain is expired and we wish to "
 "continue after this error:"
 msgstr ""
+"Exemple simple, supposez qu'un certificat de la chaîne soit expiré, et que "
+"le but est de continuer après cette erreur :"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:70
@@ -1198,6 +1234,15 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+" int verify_callback(int ok, X509_STORE_CTX *ctx)\n"
+"\t{\n"
+"\t/* Tolérer l'expiration de certificat */\n"
+"\tif (X509_STORE_CTX_get_error(ctx) == X509_V_ERR_CERT_HAS_EXPIRED)\n"
+"\t\t\treturn 1;\n"
+"\t/* Sinon ne rien écraser */\n"
+"\treturn ok;\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:79
@@ -1205,6 +1250,8 @@ msgid ""
 "More complex example, we don't wish to continue after B<any> certificate has "
 "expired just one specific case:"
 msgstr ""
+"Exemple plus compliqué, où le but est de ne pas continuer après B<n'importe "
+"quel> certificat expiré, mais seulement dans un cas particulier :"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:82
@@ -1223,6 +1270,18 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+" int verify_callback(int ok, X509_STORE_CTX *ctx)\n"
+"\t{\n"
+"\tint err = X509_STORE_CTX_get_error(ctx);\n"
+"\tX509 *err_cert = X509_STORE_CTX_get_current_cert(ctx);\n"
+"\tif (err == X509_V_ERR_CERT_HAS_EXPIRED)\n"
+"\t\t{\n"
+"\t\tif (check_is_acceptable_expired_cert(err_cert)\n"
+"\t\t\treturn 1;\n"
+"\t\t}\n"
+"\treturn ok;\n"
+"\t}\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:94
@@ -1233,6 +1292,8 @@ msgid ""
 "B<ex_data>.\n"
 "\t\n"
 msgstr ""
+"Rappel avec journalisation complète. Dans ce cas, le I<bio_err> est supposé être un B<BIO> de journalisation global, une alternative serait de conserver un BIO dans I<ctx> en utilisant B<ex_data>.\n"
+"\t\n"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:98
@@ -1244,6 +1305,11 @@ msgid ""
 "\tint err,depth;\n"
 "\n"
 msgstr ""
+" int verify_callback(int ok, X509_STORE_CTX *ctx)\n"
+"\t{\n"
+"\tX509 *err_cert;\n"
+"\tint err,depth;\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:103
@@ -1254,6 +1320,10 @@ msgid ""
 "\tdepth =\tX509_STORE_CTX_get_error_depth(ctx);\n"
 "\n"
 msgstr ""
+"\terr_cert = X509_STORE_CTX_get_current_cert(ctx);\n"
+"\terr =\tX509_STORE_CTX_get_error(ctx);\n"
+"\tdepth =\tX509_STORE_CTX_get_error_depth(ctx);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:107
@@ -1299,6 +1369,45 @@ msgid ""
 "\t\t/* print out policies */\n"
 "\n"
 msgstr ""
+"\tBIO_printf(bio_err,\"depth=%d \",depth);\n"
+"\tif (err_cert)\n"
+"\t\t{\n"
+"\t\tX509_NAME_print_ex(bio_err, X509_get_subject_name(err_cert),\n"
+"\t\t\t\t\t0, XN_FLAG_ONELINE);\n"
+"\t\tBIO_puts(bio_err, \"\\n\");\n"
+"\t\t}\n"
+"\telse\n"
+"\t\tBIO_puts(bio_err, \"<no cert>\\n\");\n"
+"\tif (!ok)\n"
+"\t\tBIO_printf(bio_err,\"verify error:num=%d:%s\\n\",err,\n"
+"\t\t\tX509_verify_cert_error_string(err));\n"
+"\tswitch (err)\n"
+"\t\t{\n"
+"\tcase X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT:\n"
+"\t\tBIO_puts(bio_err,\"issuer= \");\n"
+"\t\tX509_NAME_print_ex(bio_err, X509_get_issuer_name(err_cert),\n"
+"\t\t\t\t\t0, XN_FLAG_ONELINE);\n"
+"\t\tBIO_puts(bio_err, \"\\n\");\n"
+"\t\tbreak;\n"
+"\tcase X509_V_ERR_CERT_NOT_YET_VALID:\n"
+"\tcase X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD:\n"
+"\t\tBIO_printf(bio_err,\"notBefore=\");\n"
+"\t\tASN1_TIME_print(bio_err,X509_get_notBefore(err_cert));\n"
+"\t\tBIO_printf(bio_err,\"\\n\");\n"
+"\t\tbreak;\n"
+"\tcase X509_V_ERR_CERT_HAS_EXPIRED:\n"
+"\tcase X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD:\n"
+"\t\tBIO_printf(bio_err,\"notAfter=\");\n"
+"\t\tASN1_TIME_print(bio_err,X509_get_notAfter(err_cert));\n"
+"\t\tBIO_printf(bio_err,\"\\n\");\n"
+"\t\tbreak;\n"
+"\tcase X509_V_ERR_NO_EXPLICIT_POLICY:\n"
+"\t\tpolicies_print(bio_err, ctx);\n"
+"\t\tbreak;\n"
+"\t\t}\n"
+"\tif (err == X509_V_OK && ok == 2)\n"
+"\t\t/* afficher les politiques */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:146
@@ -1309,6 +1418,10 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+"\tBIO_printf(bio_err,\"verify return:%d\\n\",ok);\n"
+"\treturn(ok);\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:152
@@ -1317,13 +1430,15 @@ msgid ""
 "L<X509_STORE_set_verify_cb_func(3)|X509_STORE_set_verify_cb_func(3)> "
 "L<X509_STORE_CTX_get_ex_new_index(3)|X509_STORE_CTX_get_ex_new_index(3)>"
 msgstr ""
+"L<X509_STORE_CTX_get_error(3)|X509_STORE_CTX_get_error(3)>, "
+"L<X509_STORE_CTX_get_ex_new_index(3)|X509_STORE_CTX_get_ex_new_index(3)>, "
+"L<X509_STORE_set_verify_cb_func(3)|X509_STORE_set_verify_cb_func(3)>"
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:158
-#, fuzzy
-#| msgid "DSA_size() is available in all versions of SSLeay and OpenSSL."
 msgid ""
 "X509_STORE_CTX_set_verify_cb() is available in all versions of SSLeay and "
 "OpenSSL."
 msgstr ""
-"DSA_size() est disponible dans toutes les versions de SSLeay et d'OpenSSL."
+"B<X509_STORE_CTX_set_verify_cb>() est disponible dans toutes les versions de "
+"SSLeay et d'OpenSSL."

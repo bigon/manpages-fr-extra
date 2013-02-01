@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2009-09-06 17:38+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2013-02-08 13:10-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1025,7 +1026,7 @@ msgstr "VALEURS DE RETOUR"
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:5
 msgid "EVP_BytesToKey - password based encryption routine"
-msgstr ""
+msgstr "EVP_BytesToKey - Routine de chiffrement à base de mot de passe"
 
 #. type: verbatim
 #: C/crypto/EVP_BytesToKey.pod:9 C/crypto/EVP_DigestInit.pod:16
@@ -1059,6 +1060,11 @@ msgid ""
 "                       unsigned char *key,unsigned char *iv);\n"
 "\n"
 msgstr ""
+" int EVP_BytesToKey(const EVP_CIPHER *type,const EVP_MD *md,\n"
+"                       const unsigned char *salt,\n"
+"                       const unsigned char *data, int datal, int count,\n"
+"                       unsigned char *key,unsigned char *iv);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:18
@@ -1071,6 +1077,15 @@ msgid ""
 "is the iteration count to use. The derived key and IV will be written to "
 "B<key> and B<iv> respectively."
 msgstr ""
+"B<EVP_BytesToKey>() dérive (fournit) une clef et un vecteur d'initialisation "
+"à partir de plusieurs paramètres. I<type> est l'algorithme de chiffrement "
+"pour dériver la clef et le vecteur d'initialisation. I<md> est l'algorithme "
+"de signature de message à utiliser. Le paramètre I<salt> est utilisé comme "
+"sel dans la dérivation : il devrait pointer vers un tampon de 8 octets ou "
+"NULL s'il ne faut pas utiliser de sel. I<data> est un tampon contenant "
+"I<datal> octets utilisé pour dériver les données de clef. I<count> est le "
+"nombre d'itérations à utiliser. La clef et le vecteur d'initialisation "
+"dérivés seront respectivement écrits dans I<key> et I<iv>."
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:28
@@ -1078,7 +1093,11 @@ msgid ""
 "A typical application of this function is to derive keying material for an "
 "encryption algorithm from a password in the B<data> parameter."
 msgstr ""
+"Une application typique de cette fonction est de dériver du matériel de clef "
+"pour un algorithme de chiffrement à partir d'un mot de passe dans le "
+"paramètre I<data>."
 
+# NOTE: s/peform/perform/
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:31
 msgid ""
@@ -1086,6 +1105,9 @@ msgid ""
 "harder for an attacker to peform a brute force attack using a large number "
 "of candidate passwords."
 msgstr ""
+"Augmenter le paramètre I<count> ralentit l'algorithme, ce qui rend plus "
+"difficile pour un attaquant de réaliser une attaque par force brute "
+"utilisant un grand nombre de mots de passe candidats."
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:35
@@ -1094,6 +1116,11 @@ msgid ""
 "used then the derivation algorithm is compatible with PKCS#5 v1.5 otherwise "
 "a non standard extension is used to derive the extra data."
 msgstr ""
+"Si la taille totale de la clef et du vecteur d'initialisation est inférieure "
+"à la taille de l'algorithme de signature est que B<MD5> est utilisé, alors "
+"l'algorithme de dérivation est compatible avec PKCS#5 v1.5, sinon une "
+"extension non normalisée est utilisée pour fournir les données "
+"supplémentaires."
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:39
@@ -1101,11 +1128,13 @@ msgid ""
 "Newer applications should use more standard algorithms such as PKCS#5 v2.0 "
 "for key derivation."
 msgstr ""
+"Les applications les plus récentes devraient utiliser plus d'algorithmes "
+"normalisés comme PKCS#5 v2.0 pour la dérivation de clef."
 
 #. type: =head1
 #: C/crypto/EVP_BytesToKey.pod:42
 msgid "KEY DERIVATION ALGORITHM"
-msgstr ""
+msgstr "ALGORITHME DE DÉRIVATION DE CLEF"
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:44
@@ -1113,6 +1142,9 @@ msgid ""
 "The key and IV is derived by concatenating D_1, D_2, etc until enough data "
 "is available for the key and IV. D_i is defined as:"
 msgstr ""
+"La clef et le vecteur d'initialisation sont dérivés en concaténant D_1, "
+"D_2, etc. jusqu'à ce que suffisamment de données soient disponibles pour la "
+"clef et le vecteur d'initialisation. D_i est défini comme :"
 
 #. type: verbatim
 #: C/crypto/EVP_BytesToKey.pod:47
@@ -1121,7 +1153,10 @@ msgid ""
 "\tD_i = HASH^count(D_(i-1) || data || salt)\n"
 "\n"
 msgstr ""
+"\tD_i = HASH^count(D_(i-1) || data || salt)\n"
+"\n"
 
+# NOTE: s/concatentaion/concatenation/
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:49
 msgid ""
@@ -1129,17 +1164,22 @@ msgid ""
 "in use, HASH^1(data) is simply HASH(data), HASH^2(data)  is HASH(HASH(data)) "
 "and so on."
 msgstr ""
+"où || indique la concaténation, D_0 est vide, HASH est l'algorithme de "
+"signature utilisé, HASH^1(data) est simplement HASH(data), HASH^2(data) est "
+"HASH(HASH(data)) et ainsi de suite."
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:53
 msgid ""
 "The initial bytes are used for the key and the subsequent bytes for the IV."
 msgstr ""
+"Les octets initiaux sont utilisés pour la clef et les octets suivants pour "
+"le vecteur d'initialisation."
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:58
 msgid "EVP_BytesToKey() returns the size of the derived key in bytes."
-msgstr ""
+msgstr "B<EVP_BytesToKey>() renvoie la taille de la clef dérivée en octet."
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:62

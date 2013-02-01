@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2009-09-06 17:54+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-02-07 09:40-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -726,6 +727,8 @@ msgid ""
 "RAND_add, RAND_seed, RAND_status, RAND_event, RAND_screen - add entropy to "
 "the PRNG"
 msgstr ""
+"RAND_add, RAND_seed, RAND_status, RAND_event, RAND_screen - Ajouter de "
+"l'entropie au générateur de nombres pseudoaléatoires"
 
 #. type: verbatim
 #: C/crypto/RAND_add.pod:10 C/crypto/RAND_bytes.pod:9
@@ -746,6 +749,8 @@ msgid ""
 " void RAND_seed(const void *buf, int num);\n"
 "\n"
 msgstr ""
+" void RAND_seed(const void *buf, int num);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/RAND_add.pod:14
@@ -754,6 +759,8 @@ msgid ""
 " void RAND_add(const void *buf, int num, double entropy);\n"
 "\n"
 msgstr ""
+" void RAND_add(const void *buf, int num, double entropy);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/RAND_add.pod:16
@@ -762,6 +769,8 @@ msgid ""
 " int  RAND_status(void);\n"
 "\n"
 msgstr ""
+" int  RAND_status(void);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/RAND_add.pod:18
@@ -771,6 +780,9 @@ msgid ""
 " void RAND_screen(void);\n"
 "\n"
 msgstr ""
+" int  RAND_event(UINT iMsg, WPARAM wParam, LPARAM lParam);\n"
+" void RAND_screen(void);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:23
@@ -784,6 +796,16 @@ msgid ""
 "measured in bytes. Details about sources of randomness and how to estimate "
 "their entropy can be found in the literature, e.g. RFC 1750."
 msgstr ""
+"B<RAND_add>() mélange les I<num> octets de I<buf> dans l'état du générateur "
+"de nombres pseudoaléatoires. Ainsi, si les données de I<buf> sont "
+"imprévisibles pour un adversaire, cela augmente l'incertitude sur l'état et "
+"rend la sortie du générateur de nombres pseudoaléatoires moins prévisible. "
+"L'entrée adéquate provient des interactions de l'utilisateur (frappes de "
+"touches aléatoires, mouvements de la souris) et de certains événements dans "
+"le matériel. L'argument I<entropy> est (la limite basse d')une estimation de "
+"la quantité de hasard contenu dans I<buf>, en octet. Des précisions sur les "
+"sources de l'aléa et la façon d'estimer leur entropie sont disponibles dans "
+"la littérature, par exemple la RFC 1750."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:33
@@ -791,6 +813,10 @@ msgid ""
 "RAND_add() may be called with sensitive data such as user entered passwords. "
 "The seed values cannot be recovered from the PRNG output."
 msgstr ""
+"B<RAND_add>() pourrait être appelée avec des données sensibles comme des "
+"mots de passe entrés par l'utilisateur. Les valeurs d'initialisation ne "
+"peuvent pas être récupérées depuis la sortie du générateur de nombres "
+"pseudoaléatoires."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:36
@@ -801,11 +827,18 @@ msgid ""
 "for seeding the PRNG by calling RAND_add(), L<RAND_egd(3)|RAND_egd(3)> or "
 "L<RAND_load_file(3)|RAND_load_file(3)>."
 msgstr ""
+"OpenSSL s'assure que l'état de générateur de nombres pseudoaléatoires est "
+"unique pour chaque thread. Sur les systèmes qui fournissent C</dev/urandom>, "
+"le périphérique de hasard est utilisé pour initialiser le générateur de "
+"nombres pseudoaléatoires de façon transparente. Cependant, sur tous les "
+"autres systèmes, l'application est responsable de l'initialisation du "
+"générateur de nombres pseudoaléatoires en appelant B<RAND_add>(), L<RAND_egd"
+"(3)|RAND_egd(3)> ou L<RAND_load_file(3)|RAND_load_file(3)>."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:43
 msgid "RAND_seed() is equivalent to RAND_add() when B<num == entropy>."
-msgstr ""
+msgstr "B<RAND_seed>() est équivalent à B<RAND_add>() quand B<num == entropy>."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:45
@@ -817,6 +850,13 @@ msgid ""
 "any), and add it to the PRNG. The program can then process the messages as "
 "usual."
 msgstr ""
+"B<RAND_event>() collecte l'entropie des événement de Windows comme les "
+"mouvements de la souris et autres interactions de l'utilisateur. Elle "
+"devrait être appelée avec les arguments I<iMsg>, I<wParam> et I<lParam> de "
+"I<tous> les messages envoyés à la procédure de Windows. Elle estimera "
+"l'entropie contenue dans le message (s'il y en a) et l'ajoutera au "
+"générateur de nombres pseudoaléatoires, le programme peut ensuite traiter "
+"les messages comme d'habitude."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:52
@@ -828,6 +868,14 @@ msgid ""
 "noted that both methods cannot be used on servers that run without user "
 "interaction."
 msgstr ""
+"La fonction B<RAND_screen>() est disponible pour faciliter le travail des "
+"programmeurs sous Windows. Elle ajoute le contenu actuel de l'écran au "
+"générateur de nombres pseudoaléatoires. Pour les applications qui attrapent "
+"les événements de Windows, l'initialisation du générateur de nombres "
+"pseudoaléatoires en appelant B<RAND_event>() est une source de hasard "
+"significativement meilleure. Remarquez que ces deux méthodes ne peuvent pas "
+"être utilisées sur les serveurs qui fonctionnent sans interaction de "
+"l'utilisateur."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:61
@@ -835,11 +883,14 @@ msgid ""
 "RAND_status() and RAND_event() return 1 if the PRNG has been seeded with "
 "enough data, 0 otherwise."
 msgstr ""
+"B<RAND_status>() et B<RAND_event>() renvoient B<1> si le générateur de "
+"nombres pseudoaléatoires a été initialisé avec suffisamment de données, B<0> "
+"sinon."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:64
 msgid "The other functions do not return values."
-msgstr ""
+msgstr "Les autres fonctions ne renvoient pas de valeur."
 
 #. type: textblock
 #: C/crypto/RAND_add.pod:68
@@ -857,3 +908,6 @@ msgid ""
 "OpenSSL. RAND_add() and RAND_status() have been added in OpenSSL 0.9.5, "
 "RAND_event() in OpenSSL 0.9.5a."
 msgstr ""
+"B<RAND_seed>() et B<RAND_screen>() sont disponibles dans toutes les versions "
+"de SSLeay et OpenSSL. B<RAND_add>() et B<RAND_status>() ont été ajoutées "
+"dans OpenSSL 0.9.5, B<RAND_event>() dans OpenSSL 0.9.5a."

@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2013-02-05 21:35-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -794,6 +795,8 @@ msgid ""
 "SSL_CTX_set_timeout, SSL_CTX_get_timeout - manipulate timeout values for "
 "session caching"
 msgstr ""
+"SSL_CTX_set_timeout, SSL_CTX_get_timeout - Manipuler les valeurs de délai "
+"d'expiration pour le cache de sessions"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_timeout.pod:11
@@ -803,6 +806,9 @@ msgid ""
 " long SSL_CTX_get_timeout(SSL_CTX *ctx);\n"
 "\n"
 msgstr ""
+" long SSL_CTX_set_timeout(SSL_CTX *ctx, long t);\n"
+" long SSL_CTX_get_timeout(SSL_CTX *ctx);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:16
@@ -810,12 +816,17 @@ msgid ""
 "SSL_CTX_set_timeout() sets the timeout for newly created sessions for B<ctx> "
 "to B<t>. The timeout value B<t> must be given in seconds."
 msgstr ""
+"B<SSL_CTX_set_timeout>() définit le délai d'expiration pour les sessions "
+"nouvellement créées pour I<ctx> à I<t>. La valeur de délai d'expiration I<t> "
+"doit être donnée en seconde."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:19
 msgid ""
 "SSL_CTX_get_timeout() returns the currently set timeout value for B<ctx>."
 msgstr ""
+"B<SSL_CTX_get_timeout>() renvoie la valeur de délai d'expiration "
+"actuellement définie pour I<ctx>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:23
@@ -825,6 +836,11 @@ msgid ""
 "timeout value valid at this time. If the actual time is later than creation "
 "time plus timeout, the session is not reused."
 msgstr ""
+"À chaque fois qu'une nouvelle session est créée, une durée de vie maximale "
+"lui est attribuée. Cette durée de vie est indiquée en gardant la date de "
+"création de la session et la valeur de délai d'expiration valable à ce "
+"moment. Si la date réelle est au delà du délai d'expiration ajouté à la date "
+"de création, la session n'est pas réutilisée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:28
@@ -833,6 +849,10 @@ msgid ""
 "valid at the time of the session negotiation. Changes of the timeout value "
 "do not affect already established sessions."
 msgstr ""
+"À cause de cette actualisation, toutes les sessions se comportent d'après la "
+"valeur de délai d'expiration valable au moment de la négociation de session. "
+"Les modifications à la valeur de délai d'expiration n'affectent pas les "
+"sessions déjà établies."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:32
@@ -840,6 +860,8 @@ msgid ""
 "The expiration time of a single session can be modified using the "
 "L<SSL_SESSION_get_time(3)|SSL_SESSION_get_time(3)> family of functions."
 msgstr ""
+"La date d'expiration d'une seule session peut être modifiée en utilisant la "
+"famille de fonctions L<SSL_SESSION_get_time(3)|SSL_SESSION_get_time(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:35
@@ -849,6 +871,10 @@ msgid ""
 "directly by the application or automatically (see "
 "L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>)"
 msgstr ""
+"Les sessions expirées sont supprimées du cache de sessions interne, à chaque "
+"fois que L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> est appelée, "
+"soit directement par l'application, soit automatiquement (consultez "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>)"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:40
@@ -857,16 +883,24 @@ msgid ""
 "see L<SSL_get_default_timeout(3)|SSL_get_default_timeout(3)>.  All currently "
 "supported protocols have the same default timeout value of 300 seconds."
 msgstr ""
+"La valeur par défaut pour le délai d'expiration de la session est décidée en "
+"fonction du protocole, consultez L<SSL_get_default_timeout(3)|"
+"SSL_get_default_timeout(3)>. Tous les protocoles actuellement pris en charge "
+"ont la même valeur de délai d'expiration par défaut de 300 secondes."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:47
 msgid "SSL_CTX_set_timeout() returns the previously set timeout value."
 msgstr ""
+"B<SSL_CTX_set_timeout>() renvoie la valeur de délai d'expiration "
+"précédemment définie."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:49
 msgid "SSL_CTX_get_timeout() returns the currently set timeout value."
 msgstr ""
+"B<SSL_CTX_get_timeout>() renvoie la valeur de délai d'expiration "
+"actuellement définie."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_timeout.pod:53 C/ssl/SSL_get_default_timeout.pod:35
