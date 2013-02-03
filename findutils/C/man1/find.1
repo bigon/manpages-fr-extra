@@ -1374,6 +1374,8 @@ U=unknown type (shouldn't happen)
 File's type (like %y), plus follow symlinks: L=loop, N=nonexistent
 .IP %Z
 (SELinux only) file's security context.
+.IP "%{ %[ %("
+Reserved for future use.
 .PP
 A `%' character followed by any other character is discarded, but the
 other character is printed (don't rely on this, as further format
@@ -1790,6 +1792,27 @@ directives of
 .B \-printf
 and
 .BR \-fprintf .
+.SH BINARIES
+The findutils source distribution contains two different
+implementations of
+.BR find .
+The older implementation descends the file system recursively, while
+the newer one uses
+.BR fts (3).
+Both are normally installed.
+.P
+If the option
+.B \-\-without\-fts
+was passed to
+.BR configure ,
+the recursive implementation is installed as
+.B find
+and the fts-based implementation is installed as
+.BR ftsfind .
+Otherwise, the fts-based implementation is installed as
+.B find
+and the recursive implementation is installed as
+.BR oldfind .
 .SH "EXAMPLES"
 .nf
 .B find /tmp \-name core \-type f \-print | xargs /bin/rm \-f
