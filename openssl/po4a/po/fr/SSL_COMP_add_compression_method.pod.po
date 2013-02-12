@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2013-03-07 22:54-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -833,6 +834,8 @@ msgid ""
 "SSL_COMP_add_compression_method - handle SSL/TLS integrated compression "
 "methods"
 msgstr ""
+"SSL_COMP_add_compression_method - Traitement des méthodes de compression "
+"intégrée SSL ou TLS"
 
 #. type: verbatim
 #: C/ssl/SSL_COMP_add_compression_method.pod:11
@@ -841,6 +844,8 @@ msgid ""
 " int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);\n"
 "\n"
 msgstr ""
+" int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:15
@@ -850,6 +855,11 @@ msgid ""
 "globally maintained for all SSL operations within this application.  It "
 "cannot be set for specific SSL_CTX or SSL objects."
 msgstr ""
+"B<SSL_COMP_add_compression_method>() ajoute la méthode de compression I<cm> "
+"avec l'identifiant I<id> à la liste des méthodes de compression disponibles. "
+"Cette liste est maintenue globalement pour toutes les opérations SSL dans "
+"cette application. Elle ne peut pas être définie pour des objets SSL_CTX ou "
+"SSL spécifiques."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:22
@@ -863,6 +873,15 @@ msgid ""
 "Using different compression methods with the same identifier will lead to "
 "connection failure."
 msgstr ""
+"La norme TLS (ou SSLv3) permet l'intégration des méthodes de compression "
+"dans la communication. La RFC TLS ne spécifie cependant pas de méthode de "
+"compression ni d'identifiant correspondant, il n'y a donc actuellement pas "
+"de moyen compatible d'intégrer la compression avec des pairs inconnus. Il "
+"n'est par conséquent pas recommandé d'intégrer actuellement la compression "
+"dans les applications. Les applications pour utilisation non publique "
+"pourraient se mettre d'accord sur certaines méthodes de compression. "
+"L'utilisation de différentes méthodes de compression avec le même "
+"identifiant aura pour conséquence un échec de connexion."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:30
@@ -874,6 +893,12 @@ msgid ""
 "available to restrict the list of compression method on a per connection "
 "basis."
 msgstr ""
+"Un client OpenSSL utilisant un protocole qui permet la compression (SSLv3, "
+"TLSv1) enverra sans condition la liste de toutes les méthodes de compression "
+"activées avec B<SSL_COMP_add_compression_method>() au serveur pendant "
+"l'initialisation de connexion. Contrairement aux mécanismes de définition de "
+"liste d'algorithmes de chiffrement, aucune méthode n'est disponible pour "
+"restreindre la liste des méthodes de compression en fonction de la connexion."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:36
@@ -883,6 +908,10 @@ msgid ""
 "matching identifier is found. There is no way to restrict the list of "
 "compression methods supported on a per connection basis."
 msgstr ""
+"Un serveur OpenSSL comparera les identifiants envoyés par un client avec ses "
+"propres méthodes de compression et activera sans condition la compression si "
+"un identifiant correspondant est trouvé. Restreindre la liste des méthodes "
+"de compression prises en charge en fonction de la connexion est impossible."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:41
@@ -890,6 +919,8 @@ msgid ""
 "The OpenSSL library has the compression methods B<COMP_rle()> and (when "
 "especially enabled during compilation) B<COMP_zlib()> available."
 msgstr ""
+"La bibliothèque OpenSSL a les méthodes de compression B<COMP_rle>() et "
+"(quand spécifiquement activée à la compilation) B<COMP_zlib>() disponibles."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:46
@@ -898,11 +929,15 @@ msgid ""
 "been standardized, the compression API will most likely be changed. Using it "
 "in the current state is not recommended."
 msgstr ""
+"Une fois que les identités des méthodes de compression pour le protocole TLS "
+"auront été normalisées, l'interface de programmation sera sans doute "
+"modifiée. L'utiliser maintenant n'est pas recommandé."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:52
 msgid "SSL_COMP_add_compression_method() may return the following values:"
 msgstr ""
+"B<SSL_COMP_add_compression_method>() pourrait renvoyer les valeurs suivantes."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:58
@@ -918,6 +953,7 @@ msgstr "L'opération a réussi."
 #: C/ssl/SSL_COMP_add_compression_method.pod:62
 msgid "The operation failed. Check the error queue to find out the reason."
 msgstr ""
+"L'opération a échoué. Vérifiez la file d'erreur pour découvrir la raison."
 
 #. type: textblock
 #: C/ssl/SSL_COMP_add_compression_method.pod:68 C/ssl/SSL_CTX_ctrl.pod:32

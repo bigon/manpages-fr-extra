@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2009-09-06 17:08+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2013-03-07 14:03-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -811,7 +812,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_push.pod:5
 msgid "BIO_push, BIO_pop - add and remove BIOs from a chain."
-msgstr ""
+msgstr "BIO_push, BIO_pop - Ajouter et supprimer des BIO d'une chaîne"
 
 #. type: verbatim
 #: C/crypto/BIO_push.pod:11
@@ -830,6 +831,7 @@ msgstr ""
 msgid ""
 "The BIO_push() function appends the BIO B<append> to B<b>, it returns B<b>."
 msgstr ""
+"La fonction B<BIO_push>() ajoute le BIO I<append> à I<b>, elle renvoie I<b>."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:19
@@ -839,6 +841,10 @@ msgid ""
 "single BIO with no association with the original chain, it can thus be freed "
 "or attached to a different chain."
 msgstr ""
+"B<BIO_pop>() supprime le BIO I<b> d'une chaîne et renvoie le BIO suivant de "
+"la chaîne ou NULL s'il n'y a pas de BIO suivant. Le BIO supprimé devient "
+"alors un simple BIO sans association avec la chaîne d'origine, il peut donc "
+"être libéré ou attaché à une autre chaîne."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:26
@@ -847,6 +853,10 @@ msgid ""
 "joins two BIO chains whereas BIO_pop() deletes a single BIO from a chain, "
 "the deleted BIO does not need to be at the end of a chain."
 msgstr ""
+"Les noms de ces fonctions peuvent peut-être prêter un peu à confusion. "
+"B<BIO_push>() joint deux chaînes de BIO alors que B<BIO_pop>() supprime un "
+"seul BIO d'une chaîne, le BIO supprimé ne doit pas forcément être à la fin "
+"d'une chaîne."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:30
@@ -855,6 +865,10 @@ msgid ""
 "consequences (a control call is made to the affected BIOs) any effects will "
 "be noted in the descriptions of individual BIOs."
 msgstr ""
+"Le processus d'appeler B<BIO_push>() et B<BIO_pop>() sur un BIO pourrait "
+"avoir des conséquences supplémentaires (un appel de contrôle est fait sur "
+"les BIO affectés), tous les effets seront notés dans les descriptions de "
+"chaque BIO."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:36
@@ -862,11 +876,13 @@ msgid ""
 "For these examples suppose B<md1> and B<md2> are digest BIOs, B<b64> is a "
 "base64 BIO and B<f> is a file BIO."
 msgstr ""
+"Pour ces exemples, I<md1> et I<md2> sont supposés être des BIO de signature, "
+"I<b64> est un BIO en base64 et I<f> est un BIO fichier."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:39
 msgid "If the call:"
-msgstr ""
+msgstr "Si l'appel :"
 
 #. type: verbatim
 #: C/crypto/BIO_push.pod:41
@@ -878,10 +894,12 @@ msgstr ""
 " BIO_push(b64, f);\n"
 "\n"
 
+# NOTE: s/b64-chain/b64-f/
 #. type: textblock
 #: C/crypto/BIO_push.pod:43
 msgid "is made then the new chain will be B<b64-chain>. After making the calls"
 msgstr ""
+"est fait, alors la nouvelle chaîne sera I<b64-f>. Après avoir fait les appels"
 
 #. type: verbatim
 #: C/crypto/BIO_push.pod:45
@@ -901,6 +919,9 @@ msgid ""
 "the new chain is B<md1-md2-b64-f>. Data written to B<md1> will be digested "
 "by B<md1> and B<md2>, B<base64> encoded and written to B<f>."
 msgstr ""
+"la nouvelle chaîne est I<md1-md2-b64-f>. Les données écrites vers I<md1> "
+"seront signées par I<md1> et I<md2>, encodées en B<base64> et écrites vers "
+"I<f>."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:51
@@ -909,6 +930,9 @@ msgid ""
 "direction, that is data is read from B<f>, base64 B<decoded> and digested by "
 "B<md1> and B<md2>. If the call:"
 msgstr ""
+"Remarquez que la lecture force les données à passer en sens inverse, c'est-à-"
+"dire que les données sont lues de I<f>, B<décodées> de base64 et signées par "
+"I<md1> et I<md2>. Si l'appel :"
 
 #. type: verbatim
 #: C/crypto/BIO_push.pod:55
@@ -926,14 +950,18 @@ msgid ""
 "The call will return B<b64> and the new chain will be B<md1-b64-f> data can "
 "be written to B<md1> as before."
 msgstr ""
+"L'appel renverra I<b64> et la nouvelle chaîne sera I<md1-b64-f>, les données "
+"peuvent être écrites vers I<md1> comme avant."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:62
 msgid "BIO_push() returns the end of the chain, B<b>."
-msgstr ""
+msgstr "B<BIO_push>() renvoie la fin de la chaîne, I<b>."
 
 #. type: textblock
 #: C/crypto/BIO_push.pod:64
 msgid ""
 "BIO_pop() returns the next BIO in the chain, or NULL if there is no next BIO."
 msgstr ""
+"B<BIO_pop>() renvoie le BIO suivant de la chaîne ou NULL s'il n'y a pas de "
+"BIO suivant."

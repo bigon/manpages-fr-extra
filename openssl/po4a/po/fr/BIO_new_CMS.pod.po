@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-03-05 16:14-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1069,6 +1070,8 @@ msgid ""
 " BIO_new_CMS - CMS streaming filter BIO\n"
 "\n"
 msgstr ""
+" BIO_new_CMS - BIO filtre de flux CMS\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/BIO_new_CMS.pod:9 C/crypto/CMS_add0_cert.pod:9
@@ -1096,6 +1099,8 @@ msgid ""
 " BIO *BIO_new_CMS(BIO *out, CMS_ContentInfo *cms);\n"
 "\n"
 msgstr ""
+" BIO *BIO_new_CMS(BIO *out, CMS_ContentInfo *cms);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:15
@@ -1105,6 +1110,10 @@ msgid ""
 "automatically translated to a BER format CMS structure of the appropriate "
 "type."
 msgstr ""
+"B<BIO_new_CMS>() renvoie une chaîne de BIO filtre de flux basée sur I<cms>. "
+"La sortie du filtre est écrite vers I<out>. Toutes les données écrites vers "
+"la chaîne sont automatiquement traduites en une structure CMS au format BER "
+"du type approprié."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:21
@@ -1115,6 +1124,12 @@ msgid ""
 "structures.  After all content has been written through the chain BIO_flush"
 "() must be called to finalise the structure."
 msgstr ""
+"La chaîne renvoyée par cette fonction se comporte comme un BIO filtre "
+"standard. Elle permet les entrées et sorties non bloquantes. Le contenu est "
+"traité et envoyé en flux à la volée sans passer du tout en mémoire : il est "
+"donc possible d'encoder de très grandes structures. Après que tout le "
+"contenu a été écrit dans la chaîne, B<BIO_flush>() doit être appelée pour "
+"finaliser la structure."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:27
@@ -1122,6 +1137,8 @@ msgid ""
 "The B<CMS_STREAM> flag must be included in the corresponding B<flags> "
 "parameter of the B<cms> creation function."
 msgstr ""
+"L'attribut B<CMS_STREAM> doit être inclus dans le paramètre I<flags> "
+"correspondant de la fonction de création de I<cms>."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:30
@@ -1131,6 +1148,11 @@ msgid ""
 "B<out> is reached. If no additional data needs to be written BIO_free_all() "
 "can be called to free up the whole chain."
 msgstr ""
+"Si une application désire écrire des données supplémentaires vers I<out>, "
+"les BIO devraient être supprimés de la chaîne en utilisant B<BIO_pop>() et "
+"libérés avec B<BIO_free>() jusqu'à ce que I<out> soit atteint. Si aucune "
+"donnée ne doit être écrite, B<BIO_free_all>() peut être appelée pour libérer "
+"toute la chaîne."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:35
@@ -1138,6 +1160,8 @@ msgid ""
 "Any content written through the filter is used verbatim: no canonical "
 "translation is performed."
 msgstr ""
+"Tout le contenu écrit par l'intermédiaire du filtre est utilisé verbatim : "
+"aucune traduction canonique n'est réalisée."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:38
@@ -1147,6 +1171,10 @@ msgid ""
 "applications responsibility to set the inner content type of any outer "
 "CMS_ContentInfo structures."
 msgstr ""
+"Plusieurs BIO peuvent être chaînés pour, par exemple, créer une structure "
+"triple — signée enveloppée, enveloppée et signée. Dans ce cas, définir le "
+"type de contenu interne de toutes les structures CMS_ContentInfo externes "
+"est de la responsabilité des applications."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:43
@@ -1155,6 +1183,9 @@ msgid ""
 "will produce an output consisting of lots of OCTET STRING structures. "
 "Prepending a BIO_f_buffer() buffering BIO will prevent this."
 msgstr ""
+"De nombreuses petites écritures à travers la chaîne sont à éviter car cela "
+"produira une sortie constituée de nombreuses structures OCTET STRING. Faire "
+"précéder par un BIO tampon B<BIO_f_buffer>() évitera cela."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:49
@@ -1162,20 +1193,17 @@ msgid ""
 "There is currently no corresponding inverse BIO: i.e. one which can decode a "
 "CMS structure on the fly."
 msgstr ""
+"Aucune fonction BIO inverse correspondante n'existe aujourd'hui, c'est-à-"
+"dire une capable de décoder une structure CMS à la volée."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:54
-#, fuzzy
-#| msgid ""
-#| "DSA_dup_DH() returns the new B<DH> structure, and NULL on error. The "
-#| "error codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgid ""
 "BIO_new_CMS() returns a BIO chain when successful or NULL if an error "
 "occurred. The error can be obtained from ERR_get_error(3)."
 msgstr ""
-"DSA_dup_DH() renvoie la nouvelle structure B<DH> et NULL en cas d'erreur. "
-"Les codes d'erreur peuvent être obtenus à l'aide de L<ERR_get_error(3)|"
-"ERR_get_error(3)>."
+"B<BIO_new_CMS>() renvoie une chaîne de BIO ou NULL en cas d'erreur. L'erreur "
+"peut être obtenue à l'aide de L<ERR_get_error(3)|ERR_get_error(3)>."
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:59 C/crypto/CMS_add0_cert.pod:57
@@ -1189,7 +1217,5 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/BIO_new_CMS.pod:64
-#, fuzzy
-#| msgid "BN_swap was added in OpenSSL 0.9.7."
 msgid "BIO_new_CMS() was added to OpenSSL 1.0.0"
-msgstr "BN_swap a été ajoutée dans la version 0.9.7 d'OpenSSL."
+msgstr "B<BIO_new_CMS>() a été ajoutée dans OpenSSL 1.0.0"
