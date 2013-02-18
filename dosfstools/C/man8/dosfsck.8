@@ -1,3 +1,24 @@
+.\" dosfsck.8 - manpage for dosfsck
+.\"
+.\" Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+.\"
+.\" This program is free software: you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation, either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" On Debian systems, the complete text of the GNU General Public License
+.\" can be found in /usr/share/common-licenses/GPL-3 file.
+.\"
+.\"
 .TH DOSFSCK 8 "2010\-01\-31" "3.0.9" "check and repair MS\-DOS filesystems"
 
 .SH NAME
@@ -58,6 +79,8 @@ When \fBdosfsck\fR checks a filesystem, it accumulates all changes in memory and
 Automatically repair the filesystem. No user intervention is necessary. Whenever there is more than one method to solve a problem, the least destructive approach is used.
 .IP "\fB\-A\fR" 4
 Use Atari variation of the MS\-DOS filesystem. This is default if \fBdosfsck\fR is run on an Atari, then this option turns off Atari format. There are some minor differences in Atari format: Some boot sector fields are interpreted slightly different, and the special FAT entries for end\-of\-file and bad cluster can be different. Under MS\-DOS 0xfff8 is used for EOF and Atari employs 0xffff by default, but both systems recognize all values from 0xfff8...0xffff as end\-of\-file. MS\-DOS uses only 0xfff7 for bad clusters, where on Atari values 0xfff0...0xfff7 are for this purpose (but the standard value is still 0xfff7).
+.IP "\fB-b\fR" 4
+Make read-only boot sector check.
 .IP "\fB\-d\fR" 4
 Delete the specified file. If more that one file with that name exists, the first one is deleted.
 .IP "\fB\-f\fR" 4
@@ -109,4 +132,4 @@ Does not create . and .. files where necessary. Does not remove entirely empty d
 More information about \fBdosfsck\fR and \fBdosfstools\fR can be found at <\fIhttp://www.daniel\-baumann.ch/software/dosfstools/\fR>.
 
 .SH AUTHORS
-\fBdosfstools\fR were written by Werner Almesberger <\fIwerner.almesberger@lrc.di.epfl.ch\fR>, Roman Hodek <\fIRoman.Hodek@informatik.uni-erlangen.de\fR>, and others. The current maintainer is Daniel Baumann <\fIdaniel@debian.org\fR>.
+\fBdosfstools\fR were written by Werner Almesberger <\fIwerner.almesberger@lrc.di.epfl.ch\fR>, Roman Hodek <\fIRoman.Hodek@informatik.uni-erlangen.de\fR>, and others. The current maintainer is Daniel Baumann <\fImail@daniel-baumann.ch\fR>.
