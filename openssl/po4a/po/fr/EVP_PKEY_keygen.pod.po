@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-02-14 11:30-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-04-21 17:19-0300\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1091,14 +1092,14 @@ msgstr ""
 #: C/crypto/EVP_PKEY_encrypt.pod:48 C/crypto/EVP_PKEY_keygen.pod:91
 #: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:48
 #: C/crypto/EVP_PKEY_verify.pod:51 C/crypto/EVP_PKEY_verify_recover.pod:56
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " #include <openssl/evp.h>\n"
 " #include <openssl/rsa.h>\n"
 "\n"
 msgstr ""
-" #include <openssl/bio.h>\n"
-" #include <openssl/ssl.h>\n"
+" #include <openssl/evp.h>\n"
+" #include <openssl/rsa.h>\n"
 "\n"
 
 #. type: textblock
@@ -1109,6 +1110,10 @@ msgid ""
 "EVP_PKEY_CTX_get_keygen_info, EVP_PKEVP_PKEY_CTX_set_app_data, "
 "EVP_PKEY_CTX_get_app_data - key and parameter generation functions"
 msgstr ""
+"EVP_PKEY_keygen_init, EVP_PKEY_keygen, EVP_PKEY_paramgen_init, "
+"EVP_PKEY_paramgen, EVP_PKEY_CTX_set_cb, EVP_PKEY_CTX_get_cb, "
+"EVP_PKEY_CTX_get_keygen_info, EVP_PKEVP_PKEY_CTX_set_app_data, "
+"EVP_PKEY_CTX_get_app_data - Fonctions de création de clefs et paramètres"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:11
@@ -1120,6 +1125,11 @@ msgid ""
 " int EVP_PKEY_paramgen(EVP_PKEY_CTX *ctx, EVP_PKEY **ppkey);\n"
 "\n"
 msgstr ""
+" int EVP_PKEY_keygen_init(EVP_PKEY_CTX *ctx);\n"
+" int EVP_PKEY_keygen(EVP_PKEY_CTX *ctx, EVP_PKEY **ppkey);\n"
+" int EVP_PKEY_paramgen_init(EVP_PKEY_CTX *ctx);\n"
+" int EVP_PKEY_paramgen(EVP_PKEY_CTX *ctx, EVP_PKEY **ppkey);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:16
@@ -1128,6 +1138,8 @@ msgid ""
 " typedef int EVP_PKEY_gen_cb(EVP_PKEY_CTX *ctx);\n"
 "\n"
 msgstr ""
+" typedef int EVP_PKEY_gen_cb(EVP_PKEY_CTX *ctx);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:18
@@ -1137,6 +1149,9 @@ msgid ""
 " EVP_PKEY_gen_cb *EVP_PKEY_CTX_get_cb(EVP_PKEY_CTX *ctx);\n"
 "\n"
 msgstr ""
+" void EVP_PKEY_CTX_set_cb(EVP_PKEY_CTX *ctx, EVP_PKEY_gen_cb *cb);\n"
+" EVP_PKEY_gen_cb *EVP_PKEY_CTX_get_cb(EVP_PKEY_CTX *ctx);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:21
@@ -1145,6 +1160,8 @@ msgid ""
 " int EVP_PKEY_CTX_get_keygen_info(EVP_PKEY_CTX *ctx, int idx);\n"
 "\n"
 msgstr ""
+" int EVP_PKEY_CTX_get_keygen_info(EVP_PKEY_CTX *ctx, int idx);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:23
@@ -1154,13 +1171,19 @@ msgid ""
 " void *EVP_PKEY_CTX_get_app_data(EVP_PKEY_CTX *ctx);\n"
 "\n"
 msgstr ""
+" void EVP_PKEY_CTX_set_app_data(EVP_PKEY_CTX *ctx, void *data);\n"
+" void *EVP_PKEY_CTX_get_app_data(EVP_PKEY_CTX *ctx);\n"
+"\n"
 
+# NOTE: s/genration/generation/
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:28
 msgid ""
 "The EVP_PKEY_keygen_init() function initializes a public key algorithm "
 "context using key B<pkey> for a key genration operation."
 msgstr ""
+"La fonction B<EVP_PKEY_keygen_init>() initialise un contexte d'algorithme à "
+"clef publique en utilisant I<pkey> pour une opération de création de clef."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:31
@@ -1168,6 +1191,8 @@ msgid ""
 "The EVP_PKEY_keygen() function performs a key generation operation, the "
 "generated key is written to B<ppkey>."
 msgstr ""
+"La fonction B<EVP_PKEY_keygen>() réalise une opération de création de clef, "
+"la clef crée est écrite dans I<ppkey>."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:34
@@ -1175,6 +1200,8 @@ msgid ""
 "The functions EVP_PKEY_paramgen_init() and EVP_PKEY_paramgen() are similar "
 "except parameters are generated."
 msgstr ""
+"Les fonctions B<EVP_PKEY_paramgen_init>() et B<EVP_PKEY_paramgen>() sont "
+"similaires à part que les paramètres sont créés."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:37
@@ -1183,6 +1210,9 @@ msgid ""
 "to B<cb>. The function EVP_PKEY_CTX_get_cb() returns the key or parameter "
 "generation callback."
 msgstr ""
+"La fonction B<EVP_PKEY_set_cb>() définit le rappel de génération de clefs ou "
+"paramètres à I<cb>. La fonction B<EVP_PKEY_CTX_get_cb>() renvoie le rappel "
+"de génération de clefs ou paramètres."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:41
@@ -1193,7 +1223,14 @@ msgid ""
 "of that parameter. EVP_PKEY_CTX_gen_keygen_info() with a non-negative value "
 "for B<idx> should only be called within the generation callback."
 msgstr ""
+"La fonction B<EVP_PKEY_CTX_get_keygen_info>() renvoie les paramètres "
+"associés à l'opération de création. Si I<idx> est -1, le nombre total de "
+"paramètres disponibles est renvoyé. N'importe quelle valeur non négative "
+"renvoie la valeur de ce paramètre. B<EVP_PKEY_CTX_gen_keygen_info>() avec "
+"une valeur non négative pour I<idx> ne devraient être appelée que depuis le "
+"rappel de création."
 
+# NOTE: s/genration/generation/
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:47
 msgid ""
@@ -1201,6 +1238,9 @@ msgid ""
 "error occurs. This might occur during a time consuming operation where a "
 "user clicks on a \"cancel\" button."
 msgstr ""
+"Si le rappel renvoie 0, alors l'opération de création de clef est abandonnée "
+"et une erreur survient. Cela pourrait arriver pendant une opération "
+"particulièrement longue où un utilisateur clique sur un bouton « annuler »."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:51
@@ -1210,6 +1250,11 @@ msgid ""
 "defined value which can be retrieved in the callback: for example a handle "
 "which is used to update a \"progress dialog\"."
 msgstr ""
+"Les fonctions B<EVP_PKEY_CTX_set_app_data>() et B<EVP_PKEY_CTX_get_app_data>"
+"() définissent et récupèrent un pointeur opaque. Cela peut être utilisé pour "
+"définir certaines valeurs d'application qui peuvent être récupérées dans le "
+"rappel : par exemple un traitement qui est utilisé pour mettre à jour une "
+"« boîte de dialogue de progression »."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:58
@@ -1218,6 +1263,9 @@ msgid ""
 "algorithm specific control operations can be performed to set any "
 "appropriate parameters for the operation."
 msgstr ""
+"Après l'appel de B<EVP_PKEY_keygen_init>() ou B<EVP_PKEY_paramgen_init>(), "
+"des opérations de contrôle spécifiques à l'algorithme peuvent être réalisées "
+"pour définir n'importe quels paramètres appropriés à l'opération."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:62
@@ -1226,7 +1274,11 @@ msgid ""
 "than once on the same context if several operations are performed using the "
 "same parameters."
 msgstr ""
+"Les fonctions B<EVP_PKEY_keygen>() et B<EVP_PKEY_paramgen>() peuvent être "
+"appelées plus d'une fois sur le même contexte si plusieurs opérations sont "
+"réalisées en utilisant les mêmes paramètres."
 
+# NOTE: s/specifiic/specific/
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:66
 msgid ""
@@ -1235,6 +1287,10 @@ msgid ""
 "give any useful information at all during key or parameter generation. "
 "Others might not even call the callback."
 msgstr ""
+"La signification des paramètres passés au rappel dépendra de l'algorithme et "
+"de l'implémentation spécifiques à l'algorithme. Certains pourraient ne "
+"donner aucun renseignement utile du tout lors de la création de clefs ou "
+"paramètres. Certains pourraient ne même pas appeler le rappel."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:71
@@ -1244,6 +1300,10 @@ msgid ""
 "\"generation\" option merely sets the appropriate fields in an EVP_PKEY "
 "structure."
 msgstr ""
+"L'opération réalisée par la création de clefs ou paramètres dépend de "
+"l'algorithme utilisé. Dans certains cas (par exemple EC avec une courbe "
+"nommée fournie), l'option « création » définit principalement les champs "
+"appropriés dans une structure EVP_PKEY."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:75
@@ -1253,6 +1313,11 @@ msgid ""
 "equivalent to what some libraries call a \"key pair\". A private key can be "
 "used in functions which require the use of a public key or parameters."
 msgstr ""
+"Dans OpenSSL, une structure EVP_PKEY contenant une clef privée contient "
+"aussi les composants et paramètres (s'il y en a) de clef publique. Une clef "
+"privée OpenSSL est équivalente à ce que certaines bibliothèques appellent "
+"une « paire de clefs ». Une clef privée peut être utilisée dans des "
+"fonctions qui nécessitent l'utilisation d'une clef publique ou de paramètres."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:82
@@ -1262,11 +1327,15 @@ msgid ""
 "failure.  In particular a return value of -2 indicates the operation is not "
 "supported by the public key algorithm."
 msgstr ""
+"B<EVP_PKEY_keygen_init>(), B<EVP_PKEY_paramgen_init>(), B<EVP_PKEY_keygen>() "
+"et B<EVP_PKEY_paramgen>() renvoient 1 en cas de réussite et 0 ou une valeur "
+"négative en cas d'échec. En particulier, une valeur de retour de -2 indique "
+"que l'opération n'est pas permise par l'algorithme à clef publique."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:89
 msgid "Generate a 2048 bit RSA key:"
-msgstr ""
+msgstr "Créer une clef RSA de 2048 bits :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:94
@@ -1283,6 +1352,16 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" EVP_PKEY_CTX *ctx;\n"
+" EVP_PKEY *pkey = NULL;\n"
+" ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);\n"
+" if (!ctx)\n"
+"\t/* Une erreur est survenue */\n"
+" if (EVP_PKEY_keygen_init(ctx) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_CTX_set_rsa_keygen_bits(ctx, 2048) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:104 C/crypto/EVP_PKEY_keygen.pod:122
@@ -1293,13 +1372,15 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" /* Créer une clef */\n"
+" if (EVP_PKEY_keygen(ctx, &pkey) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:108
-#, fuzzy
-#| msgid "gendsa - generate a DSA private key from a set of parameters"
 msgid "Generate a key from a set of parameters:"
-msgstr "gendsa - Générer une clé privée DSA à partir d'un jeu de paramètres"
+msgstr "Créer une clef à partir d'un ensemble de paramètres :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:113
@@ -1315,11 +1396,22 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" EVP_PKEY_CTX *ctx;\n"
+" EVP_PKEY *pkey = NULL, *param;\n"
+" /* param est supposé déjà défini */\n"
+" ctx = EVP_PKEY_CTX_new(param);\n"
+" if (!ctx)\n"
+"\t/* Une erreur est survenue */\n"
+" if (EVP_PKEY_keygen_init(ctx) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:126
 msgid "Example of generation callback for OpenSSL public key implementations:"
 msgstr ""
+"Exemple de rappel de création pour les implémentations à clef publique "
+"OpenSSL :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:128
@@ -1328,6 +1420,8 @@ msgid ""
 " /* Application data is a BIO to output status to */\n"
 "\n"
 msgstr ""
+" /* Les données d'application sont un BIO pour y afficher l'état */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:130
@@ -1336,6 +1430,8 @@ msgid ""
 " EVP_PKEY_CTX_set_app_data(ctx, status_bio);\n"
 "\n"
 msgstr ""
+" EVP_PKEY_CTX_set_app_data(ctx, status_bio);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_keygen.pod:132
@@ -1357,14 +1453,24 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+" static int genpkey_cb(EVP_PKEY_CTX *ctx)\n"
+"\t{\n"
+"\tchar c='*';\n"
+"\tBIO *b = EVP_PKEY_CTX_get_app_data(ctx);\n"
+"\tint p;\n"
+"\tp = EVP_PKEY_CTX_get_keygen_info(ctx, 0);\n"
+"\tif (p == 0) c='.';\n"
+"\tif (p == 1) c='+';\n"
+"\tif (p == 2) c='*';\n"
+"\tif (p == 3) c='\\n';\n"
+"\tBIO_write(b,&c,1);\n"
+"\t(void)BIO_flush(b);\n"
+"\treturn 1;\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_keygen.pod:149
-#, fuzzy
-#| msgid ""
-#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|"
-#| "EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, "
-#| "L<EVP_PKEY_verifyrecover(3)|EVP_PKEY_verifyrecover(3)>,"
 msgid ""
 "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
 "EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
@@ -1372,6 +1478,8 @@ msgid ""
 ">, L<EVP_PKEY_verify_recover(3)|EVP_PKEY_verify_recover(3)>, "
 "L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgstr ""
-"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign"
-"(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verifyrecover(3)|"
-"EVP_PKEY_verifyrecover(3)>"
+"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
+"EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+"L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)"
+">, L<EVP_PKEY_verify_recover(3)|EVP_PKEY_verify_recover(3)>, "
+"L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
