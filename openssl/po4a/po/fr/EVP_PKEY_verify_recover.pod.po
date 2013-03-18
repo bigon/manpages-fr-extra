@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2013 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2013.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-02-14 11:30-0400\n"
-"PO-Revision-Date: 2013-02-14 11:30-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-03-17 23:03-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1073,14 +1074,14 @@ msgstr ""
 #: C/crypto/EVP_PKEY_encrypt.pod:48 C/crypto/EVP_PKEY_keygen.pod:91
 #: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:48
 #: C/crypto/EVP_PKEY_verify.pod:51 C/crypto/EVP_PKEY_verify_recover.pod:56
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " #include <openssl/evp.h>\n"
 " #include <openssl/rsa.h>\n"
 "\n"
 msgstr ""
-" #include <openssl/bio.h>\n"
-" #include <openssl/ssl.h>\n"
+" #include <openssl/evp.h>\n"
+" #include <openssl/rsa.h>\n"
 "\n"
 
 #. type: textblock
@@ -1089,6 +1090,8 @@ msgid ""
 "EVP_PKEY_verify_recover_init, EVP_PKEY_verify_recover - recover signature "
 "using a public key algorithm"
 msgstr ""
+"EVP_PKEY_verify_recover_init, EVP_PKEY_verify_recover - Récupérer une "
+"signature à l'aide d'un algorithme à clef publique"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify_recover.pod:11
@@ -1100,19 +1103,21 @@ msgid ""
 "\t\t\tconst unsigned char *sig, size_t siglen);\n"
 "\n"
 msgstr ""
+" int EVP_PKEY_verify_recover_init(EVP_PKEY_CTX *ctx);\n"
+" int EVP_PKEY_verify_recover(EVP_PKEY_CTX *ctx,\n"
+"\t\t\tunsigned char *rout, size_t *routlen,\n"
+"\t\t\tconst unsigned char *sig, size_t siglen);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:18
-#, fuzzy
-#| msgid ""
-#| "The EVP_PKEY_CTX_new() function allocates public key algorithm context "
-#| "using the algorithm specified in B<pkey> and ENGINE B<e>."
 msgid ""
 "The EVP_PKEY_verify_recover_init() function initializes a public key "
 "algorithm context using key B<pkey> for a verify recover operation."
 msgstr ""
-"La fonction B<EVP_PKEY_CTX_new>() alloue un contexte d'algorithme de clef "
-"publique en utilisant l'algorithme indiqué dans I<pkey> et ENGINE I<e>."
+"La fonction B<EVP_PKEY_verify_recover_init>() initialise un contexte "
+"d'algorithme à clef publique en utilisant la clef I<pkey> pour une opération "
+"de vérification et récupération."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:21
@@ -1125,6 +1130,13 @@ msgid ""
 "call is successful recovered data is written to B<rout> and the amount of "
 "data written to B<routlen>."
 msgstr ""
+"La fonction B<EVP_PKEY_verify_recover>() récupère des données signées en "
+"utilisant I<ctx>. La signature est indiquée en utilisant les paramètres "
+"I<sig> et I<siglen>. Si I<rout> est B<NULL>, alors la taille maximale du "
+"tampon de sortie est écrite dans le paramètre I<routlen>. Si I<rout> n'est "
+"pas B<NULL>, alors, avant l'appel, le paramètre I<routlen> devrait contenir "
+"la taille du tampon I<rout>. Si l'appel réussit, les données récupérées sont "
+"écrites dans I<rout> et la quantité de données écrites dans I<routlen>."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:31
@@ -1133,6 +1145,9 @@ msgid ""
 "verification operation is successful in those cases the EVP_verify() "
 "function should be used."
 msgstr ""
+"Normalement, une application ne cherche à savoir que si une opération de "
+"vérification de signature a réussi. Dans ce cas la fonction B<EVP_verify>() "
+"devrait être utilisée."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:35
@@ -1141,6 +1156,10 @@ msgid ""
 "signing operation. Only certain public key algorithms can recover a "
 "signature in this way (for example RSA in PKCS padding mode)."
 msgstr ""
+"Parfois, cependant, il est utile d'obtenir les données d'origine signées en "
+"utilisant une opération de signature. Seuls certains algorithmes à clef "
+"publique peuvent récupérer une signature de cette façon (par exemple RSA en "
+"mode de remplissage PKCS)."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:39
@@ -1149,6 +1168,9 @@ msgid ""
 "operations can be performed to set any appropriate parameters for the "
 "operation."
 msgstr ""
+"Après l'appel de B<EVP_PKEY_verify_recover_init>(), les opérations de "
+"contrôle spécifique à l'algorithme peuvent être réalisée pour définir tous "
+"les paramètres nécessaires à l'opération."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:43
@@ -1156,27 +1178,28 @@ msgid ""
 "The function EVP_PKEY_verify_recover() can be called more than once on the "
 "same context if several operations are performed using the same parameters."
 msgstr ""
+"La fonction B<EVP_PKEY_verify_recover>() peut être appelée plus d'une fois "
+"sur le même contexte si plusieurs opérations sont réalisées en utilisant les "
+"mêmes paramètres."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:48
-#, fuzzy
-#| msgid ""
-#| "These functions all return 1 for success and 0 or a negative value for "
-#| "failure.  In particular a return value of -2 indicates the operation is "
-#| "not supported by the public key algorithm."
 msgid ""
 "EVP_PKEY_verify_recover_init() and EVP_PKEY_verify_recover() return 1 for "
 "success and 0 or a negative value for failure. In particular a return value "
 "of -2 indicates the operation is not supported by the public key algorithm."
 msgstr ""
-"Ces fonctions renvoient toutes B<1> en cas de réussite et B<0> ou une valeur "
-"négative en cas d'échec. En particulier, une valeur de retour de B<-2> "
-"indique que l'opération n'est pas permise par l'algorithme de clef publique."
+"B<EVP_PKEY_verify_recover_init>() et B<EVP_PKEY_verify_recover>() renvoient "
+"B<1> en cas de réussite et B<0> ou une valeur négative en cas d'échec. En "
+"particulier, une valeur de retour de B<-2> indique que l'opération n'est pas "
+"permise par l'algorithme à clef publique."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:54
 msgid "Recover digest originally signed using PKCS#1 and SHA256 digest:"
 msgstr ""
+"Récupérer l'algorithme de signature d'origine signé en utilisant PKCS#1 et "
+"un algorithme de signature SHA256 :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify_recover.pod:59
@@ -1200,32 +1223,46 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" EVP_PKEY_CTX *ctx;\n"
+" unsigned char *rout, *sig;\n"
+" size_t routlen, siglen; \n"
+" EVP_PKEY *verify_key;\n"
+" /* Remarque : verify_key, sig et siglen sont supposées déjà\n"
+"  * être configurées et verify_key une clef publique RSA\n"
+"  */\n"
+" ctx = EVP_PKEY_CTX_new(verify_key);\n"
+" if (!ctx)\n"
+"\t/* Une erreur est survenue */\n"
+" if (EVP_PKEY_verify_recover_init(ctx) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify_recover.pod:76
-#, fuzzy, no-wrap
-#| msgid ""
-#| " if (len < 0)\n"
-#| "\t/* error */\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " /* Determine buffer length */\n"
 " if (EVP_PKEY_verify_recover(ctx, NULL, &routlen, sig, siglen) <= 0)\n"
 "\t/* Error */\n"
 "\n"
 msgstr ""
-" if (len < 0)\n"
-"\t/* error */\n"
+" /* Déterminer la taille du tampon */\n"
+" if (EVP_PKEY_verify_recover(ctx, NULL, &routlen, sig, siglen) <= 0)\n"
+"\t/* Erreur */\n"
 "\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify_recover.pod:80
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " rout = OPENSSL_malloc(routlen);\n"
 "\n"
 msgstr ""
-" buf = OPENSSL_malloc(len);\n"
+" rout = OPENSSL_malloc(routlen);\n"
 "\n"
 
 #. type: verbatim
@@ -1236,21 +1273,20 @@ msgid ""
 "\t/* malloc failure */\n"
 " \n"
 msgstr ""
+" if (!rout)\n"
+"\t/* Erreur malloc */\n"
+" \n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify_recover.pod:85
-#, fuzzy, no-wrap
-#| msgid ""
-#| " if (len < 0)\n"
-#| "\t/* error */\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " if (EVP_PKEY_verify_recover(ctx, rout, &routlen, sig, siglen) <= 0)\n"
 "\t/* Error */\n"
 "\n"
 msgstr ""
-" if (len < 0)\n"
-"\t/* error */\n"
+" if (EVP_PKEY_verify_recover(ctx, rout, &routlen, sig, siglen) <= 0)\n"
+"\t/* Erreur */\n"
 "\n"
 
 #. type: verbatim
@@ -1260,20 +1296,18 @@ msgid ""
 " /* Recovered data is routlen bytes written to buffer rout */\n"
 "\n"
 msgstr ""
+" /* Données récupérées : routlen octets écrits dans le tampon rout */\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify_recover.pod:92
-#, fuzzy
-#| msgid ""
-#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|"
-#| "EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, "
-#| "L<EVP_PKEY_verifyrecover(3)|EVP_PKEY_verifyrecover(3)>,"
 msgid ""
 "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
 "EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
 "L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)"
 ">, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgstr ""
-"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign"
-"(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verifyrecover(3)|"
-"EVP_PKEY_verifyrecover(3)>"
+"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
+"EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+"L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)"
+">, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"

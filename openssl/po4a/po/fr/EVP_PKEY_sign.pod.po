@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-02-14 11:30-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-04-20 17:28-0300\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1073,20 +1074,22 @@ msgstr ""
 #: C/crypto/EVP_PKEY_encrypt.pod:48 C/crypto/EVP_PKEY_keygen.pod:91
 #: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:48
 #: C/crypto/EVP_PKEY_verify.pod:51 C/crypto/EVP_PKEY_verify_recover.pod:56
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " #include <openssl/evp.h>\n"
 " #include <openssl/rsa.h>\n"
 "\n"
 msgstr ""
-" #include <openssl/bio.h>\n"
-" #include <openssl/ssl.h>\n"
+" #include <openssl/evp.h>\n"
+" #include <openssl/rsa.h>\n"
 "\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:5
 msgid "EVP_PKEY_sign_init, EVP_PKEY_sign - sign using a public key algorithm"
 msgstr ""
+"EVP_PKEY_sign_init, EVP_PKEY_sign - Signer en utilisant un algorithme à clef "
+"publique"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_sign.pod:11
@@ -1098,6 +1101,11 @@ msgid ""
 "\t\t\tconst unsigned char *tbs, size_t tbslen);\n"
 "\n"
 msgstr ""
+" int EVP_PKEY_sign_init(EVP_PKEY_CTX *ctx);\n"
+" int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,\n"
+"\t\t\tunsigned char *sig, size_t *siglen,\n"
+"\t\t\tconst unsigned char *tbs, size_t tbslen);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:18
@@ -1105,6 +1113,8 @@ msgid ""
 "The EVP_PKEY_sign_init() function initializes a public key algorithm context "
 "using key B<pkey> for a signing operation."
 msgstr ""
+"La fonction B<EVP_PKEY_sign_init>() initialise un contexte d'algorithme à "
+"clef publique en utilisant I<pkey> pour une opération de signature."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:21
@@ -1117,6 +1127,14 @@ msgid ""
 "buffer, if the call is successful the signature is written to B<sig> and the "
 "amount of data written to B<siglen>."
 msgstr ""
+"La fonction B<EVP_PKEY_sign>() réalise une opération de signature à clef "
+"publique en utilisant I<ctx>. Les données à signer sont indiquées en "
+"utilisant les paramètres I<tbs> et I<tbslen>. Si I<sig> est B<NULL>, alors "
+"la taille maximale du tampon de sortie est écrite dans le paramètre "
+"I<siglen>. Si I<sig> n'est pas B<NULL>, alors, avant l'appel, le paramètre "
+"I<siglen> devrait contenir la taille du tampon I<sig> ; si l'appel réussit, "
+"la signature est écrite dans I<sig> et la quantité de données écrites dans "
+"I<siglen>."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:31
@@ -1124,6 +1142,9 @@ msgid ""
 "After the call to EVP_PKEY_sign_init() algorithm specific control operations "
 "can be performed to set any appropriate parameters for the operation."
 msgstr ""
+"Après l'appel de B<EVP_PKEY_sign_init>(), des opérations de contrôle "
+"spécifiques à l'algorithme peuvent être réalisées pour définir n'importe "
+"quels paramètres appropriés à l'opération."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:35
@@ -1131,6 +1152,9 @@ msgid ""
 "The function EVP_PKEY_sign() can be called more than once on the same "
 "context if several operations are performed using the same parameters."
 msgstr ""
+"La fonction B<EVP_PKEY_sign>() peut être appelée plus d'une fois sur le même "
+"contexte si plusieurs opérations sont réalisées en utilisant les mêmes "
+"paramètres."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:40
@@ -1139,11 +1163,17 @@ msgid ""
 "negative value for failure. In particular a return value of -2 indicates the "
 "operation is not supported by the public key algorithm."
 msgstr ""
+"B<EVP_PKEY_sign_init>() et B<EVP_PKEY_sign>() renvoient 1 en cas de réussite "
+"et 0 ou une valeur négative en cas d'échec. En particulier, une valeur de "
+"retour de -2 indique que l'opération n'est pas permise par l'algorithme à "
+"clef publique."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:46
 msgid "Sign data using RSA with PKCS#1 padding and SHA256 digest:"
 msgstr ""
+"Signer les données en utilisant RSA avec remplissage PKCS#1 et un algorithme "
+"de signature SHA256 :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_sign.pod:51
@@ -1167,6 +1197,23 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" EVP_PKEY_CTX *ctx;\n"
+" unsigned char *md, *sig;\n"
+" size_t mdlen, siglen; \n"
+" EVP_PKEY *signing_key;\n"
+" /* Remarque : signing_key, md et mdlen sont supposées\n"
+"  * déjà définies, avec signing_key une clef privée RSA\n"
+"  */\n"
+" ctx = EVP_PKEY_CTX_new(signing_key);\n"
+" if (!ctx)\n"
+"\t/* Une erreur est survenue */\n"
+" if (EVP_PKEY_sign_init(ctx) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_sign.pod:68
@@ -1177,18 +1224,19 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" /* Déterminer la taille du tampon */\n"
+" if (EVP_PKEY_sign(ctx, NULL, &siglen, md, mdlen) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_sign.pod:72
-#, fuzzy, no-wrap
-#| msgid ""
-#| " buf = OPENSSL_malloc(len);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " sig = OPENSSL_malloc(siglen);\n"
 "\n"
 msgstr ""
-" buf = OPENSSL_malloc(len);\n"
+" sig = OPENSSL_malloc(siglen);\n"
 "\n"
 
 #. type: verbatim
@@ -1199,6 +1247,9 @@ msgid ""
 "\t/* malloc failure */\n"
 " \n"
 msgstr ""
+" if (!sig)\n"
+"\t/* échec malloc */\n"
+" \n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_sign.pod:77
@@ -1208,6 +1259,9 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" if (EVP_PKEY_sign(ctx, sig, &siglen, md, mdlen) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_sign.pod:80
@@ -1216,20 +1270,18 @@ msgid ""
 " /* Signature is siglen bytes written to buffer sig */\n"
 "\n"
 msgstr ""
+" /* La signature est siglen octets écrits dans le tampon sig */\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:85
-#, fuzzy
-#| msgid ""
-#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|"
-#| "EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, "
-#| "L<EVP_PKEY_verifyrecover(3)|EVP_PKEY_verifyrecover(3)>,"
 msgid ""
 "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
 "EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
 "L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
 "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgstr ""
-"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign"
-"(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verifyrecover(3)|"
-"EVP_PKEY_verifyrecover(3)>"
+"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
+"EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+"L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
+"EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"

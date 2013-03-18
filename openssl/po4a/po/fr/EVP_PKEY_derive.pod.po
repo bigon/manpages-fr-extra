@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-02-14 11:30-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-04-21 12:21-0300\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1073,14 +1074,14 @@ msgstr ""
 #: C/crypto/EVP_PKEY_encrypt.pod:48 C/crypto/EVP_PKEY_keygen.pod:91
 #: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:48
 #: C/crypto/EVP_PKEY_verify.pod:51 C/crypto/EVP_PKEY_verify_recover.pod:56
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " #include <openssl/evp.h>\n"
 " #include <openssl/rsa.h>\n"
 "\n"
 msgstr ""
-" #include <openssl/bio.h>\n"
-" #include <openssl/ssl.h>\n"
+" #include <openssl/evp.h>\n"
+" #include <openssl/rsa.h>\n"
 "\n"
 
 #. type: textblock
@@ -1089,6 +1090,8 @@ msgid ""
 "EVP_PKEY_derive_init, EVP_PKEY_derive_set_peer, EVP_PKEY_derive - derive "
 "public key algorithm shared secret."
 msgstr ""
+"EVP_PKEY_derive_init, EVP_PKEY_derive_set_peer, EVP_PKEY_derive - Dériver un "
+"secret partagé d'algorithme à clef publique"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_derive.pod:11
@@ -1099,6 +1102,10 @@ msgid ""
 " int EVP_PKEY_derive(EVP_PKEY_CTX *ctx, unsigned char *key, size_t *keylen);\n"
 "\n"
 msgstr ""
+" int EVP_PKEY_derive_init(EVP_PKEY_CTX *ctx);\n"
+" int EVP_PKEY_derive_set_peer(EVP_PKEY_CTX *ctx, EVP_PKEY *peer);\n"
+" int EVP_PKEY_derive(EVP_PKEY_CTX *ctx, unsigned char *key, size_t *keylen);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:17
@@ -1106,6 +1113,8 @@ msgid ""
 "The EVP_PKEY_derive_init() function initializes a public key algorithm "
 "context using key B<pkey> for shared secret derivation."
 msgstr ""
+"La fonction B<EVP_PKEY_derive_init>() initialise un contexte d'algorithme à "
+"clef publique en utilisant I<pkey> pour une dérivation à secret partagé."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:20
@@ -1113,6 +1122,8 @@ msgid ""
 "The EVP_PKEY_derive_set_peer() function sets the peer key: this will "
 "normally be a public key."
 msgstr ""
+"La fonction B<EVP_PKEY_derive_set_peer>() définit la clef de pair : ce sera "
+"normalement une clef publique."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:23
@@ -1124,6 +1135,12 @@ msgid ""
 "call is successful the shared secret is written to B<key> and the amount of "
 "data written to B<keylen>."
 msgstr ""
+"La fonction B<EVP_PKEY_derive>() dérive un secret partagé en utilisant "
+"I<ctx>. Si I<key> est B<NULL>, alors la taille maximale du tampon de sortie "
+"est écrite dans le paramètre I<keylen>. Si I<key> n'est pas B<NULL>, alors, "
+"avant l'appel, le paramètre I<keylen> devrait contenir la taille du tampon "
+"I<key> ; si l'appel réussit, le secret partagé est écrit dans I<key> et la "
+"quantité de données écrites dans I<keylen>."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:32
@@ -1132,6 +1149,9 @@ msgid ""
 "operations can be performed to set any appropriate parameters for the "
 "operation."
 msgstr ""
+"Après l'appel de B<EVP_PKEY_derive_init>(), des opérations de contrôle "
+"spécifiques à l'algorithme peuvent être réalisées pour définir n'importe "
+"quels paramètres appropriés à l'opération."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:36
@@ -1139,6 +1159,9 @@ msgid ""
 "The function EVP_PKEY_derive() can be called more than once on the same "
 "context if several operations are performed using the same parameters."
 msgstr ""
+"La fonction B<EVP_PKEY_derive>() peut être appelée plus d'une fois sur le "
+"même contexte si plusieurs opérations sont réalisées en utilisant les mêmes "
+"paramètres."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:41
@@ -1147,11 +1170,15 @@ msgid ""
 "negative value for failure. In particular a return value of -2 indicates the "
 "operation is not supported by the public key algorithm."
 msgstr ""
+"B<EVP_PKEY_derive_init>() et B<EVP_PKEY_derive>() renvoient 1 en cas de "
+"réussite et 0 ou une valeur négative en cas d'échec. En particulier, une "
+"valeur de retour de -2 indique que l'opération n'est pas permise par "
+"l'algorithme à clef publique."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:47
 msgid "Derive shared secret (for example DH or EC keys):"
-msgstr ""
+msgstr "Dériver un secret partagé (par exemple des clefs DH ou EC) :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_derive.pod:52
@@ -1164,6 +1191,12 @@ msgid ""
 " /* NB: assumes pkey, peerkey have been already set up */\n"
 "\n"
 msgstr ""
+" EVP_PKEY_CTX *ctx;\n"
+" unsigned char *skey;\n"
+" size_t skeylen;\n"
+" EVP_PKEY *pkey, *peerkey;\n"
+" /* Remarque : pkey et peerkey sont supposées déjà définies */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_derive.pod:58
@@ -1178,6 +1211,14 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" ctx = EVP_PKEY_CTX_new(pkey);\n"
+" if (!ctx)\n"
+"\t/* Une erreur est survenue */\n"
+" if (EVP_PKEY_derive_init(ctx) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_derive_set_peer(ctx, peerkey) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_derive.pod:66
@@ -1188,18 +1229,19 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" /* Déterminer la taille du tampon */\n"
+" if (EVP_PKEY_derive(ctx, NULL, &skeylen) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_derive.pod:70
-#, fuzzy, no-wrap
-#| msgid ""
-#| " buf = OPENSSL_malloc(len);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " skey = OPENSSL_malloc(skeylen);\n"
 "\n"
 msgstr ""
-" buf = OPENSSL_malloc(len);\n"
+" skey = OPENSSL_malloc(skeylen);\n"
 "\n"
 
 #. type: verbatim
@@ -1210,21 +1252,20 @@ msgid ""
 "\t/* malloc failure */\n"
 " \n"
 msgstr ""
+" if (!skey)\n"
+"\t/* échec malloc */\n"
+" \n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_derive.pod:75
-#, fuzzy, no-wrap
-#| msgid ""
-#| " if (len < 0)\n"
-#| "\t/* error */\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " if (EVP_PKEY_derive(ctx, skey, &skeylen) <= 0)\n"
 "\t/* Error */\n"
 "\n"
 msgstr ""
-" if (len < 0)\n"
-"\t/* error */\n"
+" if (EVP_PKEY_derive(ctx, skey, &skeylen) <= 0)\n"
+"\t/* Erreur */\n"
 "\n"
 
 #. type: verbatim
@@ -1234,20 +1275,18 @@ msgid ""
 " /* Shared secret is skey bytes written to buffer skey */\n"
 "\n"
 msgstr ""
+" /* Le secret partagé est skey octets écrits dans le tampon skey */\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_derive.pod:82
-#, fuzzy
-#| msgid ""
-#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|"
-#| "EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, "
-#| "L<EVP_PKEY_verifyrecover(3)|EVP_PKEY_verifyrecover(3)>,"
 msgid ""
 "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
 "EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
 "L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)"
 ">, L<EVP_PKEY_verify_recover(3)|EVP_PKEY_verify_recover(3)>,"
 msgstr ""
-"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign"
-"(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verifyrecover(3)|"
-"EVP_PKEY_verifyrecover(3)>"
+"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
+"EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+"L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)"
+">, L<EVP_PKEY_verify_recover(3)|EVP_PKEY_verify_recover(3)>"

@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-02-14 11:30-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-04-18 10:11-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1073,14 +1074,14 @@ msgstr ""
 #: C/crypto/EVP_PKEY_encrypt.pod:48 C/crypto/EVP_PKEY_keygen.pod:91
 #: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:48
 #: C/crypto/EVP_PKEY_verify.pod:51 C/crypto/EVP_PKEY_verify_recover.pod:56
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " #include <openssl/evp.h>\n"
 " #include <openssl/rsa.h>\n"
 "\n"
 msgstr ""
-" #include <openssl/bio.h>\n"
-" #include <openssl/ssl.h>\n"
+" #include <openssl/evp.h>\n"
+" #include <openssl/rsa.h>\n"
 "\n"
 
 #. type: textblock
@@ -1089,6 +1090,8 @@ msgid ""
 "EVP_PKEY_verify_init, EVP_PKEY_verify - signature verification using a "
 "public key algorithm"
 msgstr ""
+"EVP_PKEY_verify_init, EVP_PKEY_verify - Vérification de signature en "
+"utilisant un algorithme à clef publique"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify.pod:11
@@ -1100,6 +1103,11 @@ msgid ""
 "\t\t\tconst unsigned char *tbs, size_t tbslen);\n"
 "\n"
 msgstr ""
+" int EVP_PKEY_verify_init(EVP_PKEY_CTX *ctx);\n"
+" int EVP_PKEY_verify(EVP_PKEY_CTX *ctx,\n"
+"\t\t\tconst unsigned char *sig, size_t siglen,\n"
+"\t\t\tconst unsigned char *tbs, size_t tbslen);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:18
@@ -1107,6 +1115,9 @@ msgid ""
 "The EVP_PKEY_verify_init() function initializes a public key algorithm "
 "context using key B<pkey> for a signature verification operation."
 msgstr ""
+"La fonction B<EVP_PKEY_verify_init>() initialise un contexte d'algorithme à "
+"clef publique en utilisant I<pkey> pour une opération de vérification de "
+"signature."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:21
@@ -1116,6 +1127,11 @@ msgid ""
 "parameters. The verified data (i.e. the data believed originally signed) is "
 "specified using the B<tbs> and B<tbslen> parameters."
 msgstr ""
+"La fonction B<EVP_PKEY_verify>() réalise une opération de vérification de "
+"signature à clef publique en utilisant I<ctx>. La signature est indiquée en "
+"utilisant les paramètres I<sig> et I<siglen>. Les données vérifiées (c'est-à-"
+"dire les données censées être correctement signées) sont indiquées en "
+"utilisant les paramètres I<tbs> et I<tbslen>"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:28
@@ -1124,6 +1140,9 @@ msgid ""
 "operations can be performed to set any appropriate parameters for the "
 "operation."
 msgstr ""
+"Après l'appel de B<EVP_PKEY_verify_init>(), des opérations de contrôle "
+"spécifiques à l'algorithme peuvent être réalisées pour définir n'importe "
+"quels paramètres appropriés à l'opération."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:32
@@ -1131,6 +1150,9 @@ msgid ""
 "The function EVP_PKEY_verify() can be called more than once on the same "
 "context if several operations are performed using the same parameters."
 msgstr ""
+"La fonction B<EVP_PKEY_verify>() peut être appelée plus d'une fois sur le "
+"même contexte si plusieurs opérations sont réalisées en utilisant les mêmes "
+"paramètres."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:37
@@ -1141,6 +1163,12 @@ msgid ""
 "successfully (that is tbs did not match the original data or the signature "
 "was of invalid form) it is not an indication of a more serious error."
 msgstr ""
+"B<EVP_PKEY_verify_init>() et B<EVP_PKEY_verify>() renvoient 1 si la "
+"vérification a réussi et 0 en cas d'échec. Contrairement aux autres "
+"fonctions, la valeur de retour 0 de B<EVP_PKEY_verify>() n'indique que la "
+"signature n'a pas été vérifiée correctement (c'est-à-dire que I<tbs> ne "
+"correspondait pas aux données d'origine ou que la signature n'était pas de "
+"la forme adéquate), ce n'est pas une indication d'une erreur plus sérieuse."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:43
@@ -1149,11 +1177,16 @@ msgid ""
 "failure.  In particular a return value of -2 indicates the operation is not "
 "supported by the public key algorithm."
 msgstr ""
+"Une valeur négative indique une autre erreur qu'un échec de vérification de "
+"signature. En particulier, une valeur de retour de -2 indique que "
+"l'opération n'est pas permise par l'algorithme à clef publique."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:49
 msgid "Verify signature using PKCS#1 and SHA256 digest:"
 msgstr ""
+"Vérifier une signature en utilisant PKCS#1 et un algorithme de signature "
+"SHA256 :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify.pod:54
@@ -1177,6 +1210,23 @@ msgid ""
 "\t/* Error */\n"
 "\n"
 msgstr ""
+" EVP_PKEY_CTX *ctx;\n"
+" unsigned char *md, *sig;\n"
+" size_t mdlen, siglen; \n"
+" EVP_PKEY *verify_key;\n"
+" /* Remarque : verify_key, sig, siglen, md et mdlen sont supposées\n"
+"  * déjà définies, avec verify_key une clef publique RSA\n"
+"  */\n"
+" ctx = EVP_PKEY_CTX_new(verify_key);\n"
+" if (!ctx)\n"
+"\t/* Une erreur est survenue */\n"
+" if (EVP_PKEY_verify_init(ctx) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING) <= 0)\n"
+"\t/* Erreur */\n"
+" if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0)\n"
+"\t/* Erreur */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify.pod:71
@@ -1186,6 +1236,9 @@ msgid ""
 " ret = EVP_PKEY_verify(ctx, sig, siglen, md, mdlen);\n"
 "\n"
 msgstr ""
+" /* Réaliser l'opération */\n"
+" ret = EVP_PKEY_verify(ctx, sig, siglen, md, mdlen);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_verify.pod:74
@@ -1196,20 +1249,20 @@ msgid ""
 "  */\n"
 "\n"
 msgstr ""
+" /* ret == 1 indique une réussite, 0 une erreur de vérification\n"
+"  * et < 0 un autre type d'erreur.\n"
+"  */\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:80
-#, fuzzy
-#| msgid ""
-#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|"
-#| "EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, "
-#| "L<EVP_PKEY_verifyrecover(3)|EVP_PKEY_verifyrecover(3)>,"
 msgid ""
 "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
 "EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
 "L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify_recover(3)|"
 "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgstr ""
-"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign"
-"(3)>, L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verifyrecover(3)|"
-"EVP_PKEY_verifyrecover(3)>"
+"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
+"EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+"L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify_recover(3)|"
+"EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
