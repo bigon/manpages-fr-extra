@@ -269,7 +269,7 @@ Select by real group ID (RGID) or name.  Identical to
 .BI \-\-group \ grplist
 Select by effective group ID (EGID) or name.  This selects the processes
 whose effective group name or ID is in
-.IR grouplist .
+.IR grplist .
 The effective group ID describes the group whose file access permissions are
 used by the process (see
 .IR getegid (2)).
@@ -804,14 +804,13 @@ if the parent process exits.
 If the length of the username is greater than the length of the display
 column, the numeric user ID is displayed instead.
 .PP
-Commands options such as 
-.B ps
-.I \-aux
+Commands options such as
+.B ps \-aux
 are not recommended as it is a confusion of two different standards.
 According to the POSIX and UNIX standards, the above command asks to
 display all processes with a TTY (generally the commands users are
 running) plus all processes owned by a user named "x".  If that user
-doesn't exist, then 
+doesn't exist, then
 .B ps
 will assume you really meant "\fBps\fR \fIaux\fR".
 .SH "PROCESS FLAGS"
@@ -1300,6 +1299,10 @@ format is displayed.  (alias
 .BR sig_ignore , \ sigignore ).
 T}
 
+ipcns	IPCNS	T{
+Unique inode number describing the namespace the process belongs to. See namespaces(7).
+T}
+
 label	LABEL	T{
 security label, most commonly used for SELinux context data.  This is for
 the
@@ -1312,6 +1315,10 @@ time the command started.  See also
 .BR bsdstart , \ start , \ start_time ", and" \ stime .
 T}
 
+lsession	SESSION	T{
+displays login session identifier of a process.
+T}
+
 lwp	LWP	T{
 light weight process (thread) ID of the dispatchable entity (alias
 .BR spid , \ tid ).
@@ -1320,12 +1327,24 @@ See
 for additional information.
 T}
 
+machine	MACHINE	T{
+displays machine name for processes assigned to VM or container.
+T}
+
 maj_flt	MAJFLT	T{
 The number of major page faults that have occurred with this process.
 T}
 
 min_flt	MINFLT	T{
 The number of minor page faults that have occurred with this process.
+T}
+
+mntns	MNTNS	T{
+Unique inode number describing the namespace the process belongs to. See namespaces(7).
+T}
+
+netns	NETNS	T{
+Unique inode number describing the namespace the process belongs to. See namespaces(7).
 T}
 
 ni	NI	T{
@@ -1352,6 +1371,10 @@ address of the kernel function where the process is sleeping (use
 .B wchan
 if you want the kernel function name).  Running tasks will display a dash
 ('\-') in this column.
+T}
+
+ouid	OWNER	T{
+displays the Unix user identifier of the owner of the session of a process.
 T}
 
 pcpu	%CPU	T{
@@ -1390,6 +1413,10 @@ T}
 pid	PID	T{
 a number representing the process ID (alias
 .BR tgid ).
+T}
+
+pidns	PIDNS	T{
+Unique inode number describing the namespace the process belongs to. See namespaces(7).
 T}
 
 pmem	%MEM	T{
@@ -1490,6 +1517,10 @@ SCHED_FIFO, SCHED_RR, SCHED_BATCH, SCHED_ISO, and SCHED_IDLE are respectively
 displayed as 0, 1, 2, 3, 4, and 5.
 T}
 
+seat	SEAT	T{
+displays login session identifier of a process.
+T}
+
 sess	SESS	T{
 session ID or, equivalently, the process ID of the session leader.  (alias
 .BR session , \ sid ).
@@ -1549,6 +1580,10 @@ size	SIZE	T{
 approximate amount of swap space that would be required if the process were
 to dirty all writable pages and then be swapped out.  This number is very
 rough!
+T}
+
+slice	SLICE	T{
+displays slice unit which a process belongs to.
 T}
 
 spid	SPID	T{
@@ -1709,11 +1744,27 @@ see
 .BR euser , \ user ).
 T}
 
+unit	UNIT	T{
+displays systemd unit which a process belongs to.
+T}
+
 user	USER	T{
 see
 .BR euser .
 (alias
 .BR euser , \ uname ).
+T}
+
+userns	USERNS	T{
+Unique inode number describing the namespace the process belongs to. See namespaces(7).
+T}
+
+utsns	UTSNS	T{
+Unique inode number describing the namespace the process belongs to. See namespaces(7).
+T}
+
+uunit	UUNIT	T{
+displays systemd user unit which a process belongs to.
 T}
 
 vsize	VSZ	T{
