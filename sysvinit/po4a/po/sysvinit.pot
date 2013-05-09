@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-12-18 17:02-0400\n"
+"POT-Creation-Date: 2013-05-08 19:50-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -299,7 +299,7 @@ msgid "/var/log/btmp"
 msgstr ""
 
 #. type: SH
-#: C/man1/last.1:116 C/man1/mesg.1:53 C/man1/mountpoint.1:51 C/man5/halt.5:41 C/man5/initscript.5:69 C/man5/inittab.5:255 C/man5/rcS.5:101 C/man5/tmpfs.5:198 C/man8/bootlogd.8:69 C/man8/halt.8:113 C/man8/init.8:320 C/man8/killall5.8:48 C/man8/pidof.8:91 C/man8/runlevel.8:55 C/man8/shutdown.8:205 C/man8/startpar.8:131 C/man8/sulogin.8:87
+#: C/man1/last.1:116 C/man1/mesg.1:53 C/man1/mountpoint.1:51 C/man5/halt.5:41 C/man5/initscript.5:69 C/man5/inittab.5:255 C/man5/rcS.5:100 C/man5/tmpfs.5:198 C/man8/bootlogd.8:69 C/man8/halt.8:113 C/man8/init.8:320 C/man8/killall5.8:48 C/man8/pidof.8:91 C/man8/runlevel.8:55 C/man8/shutdown.8:205 C/man8/startpar.8:131 C/man8/sulogin.8:87
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
@@ -312,7 +312,7 @@ msgid "Miquel van Smoorenburg, miquels@cistron.nl"
 msgstr ""
 
 #. type: SH
-#: C/man1/last.1:120 C/man1/mesg.1:57 C/man1/mountpoint.1:53 C/man5/halt.5:38 C/man5/initscript.5:71 C/man5/inittab.5:262 C/man5/rcS.5:105 C/man5/tmpfs.5:201 C/man8/bootlogd.8:71 C/man8/fsck.nfs.8:14 C/man8/halt.8:117 C/man8/init.8:325 C/man8/invoke-rc.d.8:220 C/man8/killall5.8:44 C/man8/pidof.8:85 C/man8/runlevel.8:52 C/man8/service.8:84 C/man8/shutdown.8:209 C/man8/startpar.8:122 C/man8/sulogin.8:89 C/man8/update-rc.d.8:317
+#: C/man1/last.1:120 C/man1/mesg.1:57 C/man1/mountpoint.1:53 C/man5/halt.5:38 C/man5/initscript.5:71 C/man5/inittab.5:262 C/man5/rcS.5:104 C/man5/tmpfs.5:201 C/man8/bootlogd.8:71 C/man8/fsck.nfs.8:14 C/man8/halt.8:117 C/man8/init.8:325 C/man8/invoke-rc.d.8:220 C/man8/killall5.8:44 C/man8/pidof.8:85 C/man8/runlevel.8:52 C/man8/service.8:84 C/man8/shutdown.8:209 C/man8/startpar.8:122 C/man8/sulogin.8:89 C/man8/update-rc.d.8:317
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -839,7 +839,8 @@ msgid ""
 "specifies the process to be executed.  If the process field starts with a "
 "`+' character, B<init> will not do utmp and wtmp accounting for that "
 "process.  This is needed for gettys that insist on doing their own utmp/wtmp "
-"housekeeping.  This is also a historic bug."
+"housekeeping.  This is also a historic bug. The length of this field is "
+"limited to 127 characters."
 msgstr ""
 
 #. type: Plain text
@@ -1308,25 +1309,23 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/rcS.5:54
+#: C/man5/rcS.5:53
 msgid ""
 "Some details: The B<DELAYLOGIN> variable controls whether or not the file "
-"I</var/lib/initscripts/nologin> is created during the boot process and "
-"deleted at the end of it.  I</etc/nologin> is normally a symbolic link to "
-"the latter location, and the B<login>(1) program refuses to allow non-root "
-"logins so long as (the target of) I</etc/nologin> exists.  If you set the "
-"variable to B<no> then it is advisable to ensure that "
-"I</var/lib/initscripts/nologin> does not exist."
+"I</run/nologin> is created during the boot process and deleted at the end of "
+"it.  The B<login>(1) program refuses to allow non-root logins so long as "
+"I</run/nologin> exists.  If you set the variable to B<no> then it is "
+"advisable to ensure that I</run/nologin> does not exist."
 msgstr ""
 
 #. type: IP
-#: C/man5/rcS.5:55
+#: C/man5/rcS.5:54
 #, no-wrap
 msgid "B<VERBOSE>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/rcS.5:60
+#: C/man5/rcS.5:59
 msgid ""
 "Setting this option to B<no> (in lower case) will make the boot process a "
 "bit less verbose.  Setting this option to B<yes> will make the boot process "
@@ -1334,13 +1333,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: C/man5/rcS.5:61
+#: C/man5/rcS.5:60
 #, no-wrap
 msgid "B<FSCKFIX>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/rcS.5:77
+#: C/man5/rcS.5:76
 msgid ""
 "When the root and all other file systems are checked, B<fsck> is invoked "
 "with the B<-a> option which means \"autorepair\".  If there are major "
@@ -1353,13 +1352,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: C/man5/rcS.5:78
+#: C/man5/rcS.5:77
 #, no-wrap
 msgid "B<ASYNCMOUNTNFS>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/rcS.5:84
+#: C/man5/rcS.5:83
 msgid ""
 "Set this to 'no' to disable asynchronous mounting of network drives when the "
 "network interfaces are mounted, and instead do it only once when the machine "
@@ -1369,13 +1368,13 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: C/man5/rcS.5:85
+#: C/man5/rcS.5:84
 #, no-wrap
 msgid "NOTE"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/rcS.5:100
+#: C/man5/rcS.5:99
 msgid ""
 "The B<EDITMOTD>, B<RAMRUN> and B<UTC> variables are no longer used.  The "
 "B<RAMLOCK>, B<RAMSHM> and B<RAMTMP> variables have been moved to "
@@ -1390,14 +1389,14 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: C/man5/rcS.5:104
+#: C/man5/rcS.5:103
 msgid ""
 "Miquel van Smoorenburg E<lt>miquels@cistron.nlE<gt> Roger Leigh "
 "E<lt>rleigh@debian.orgE<gt>"
 msgstr ""
 
 #. type: Plain text
-#: C/man5/rcS.5:112
+#: C/man5/rcS.5:111
 msgid ""
 "B<hwclock>(5), B<hwclock>(8), B<inetd>(8), B<init>(8), B<inittab>(5), "
 "B<login>(1), B<tmpfs>(5)."
@@ -2911,7 +2910,7 @@ msgstr ""
 #. type: TH
 #: C/man8/invoke-rc.d.8:3
 #, no-wrap
-msgid "Debian/GNU Linux"
+msgid "Debian GNU/Linux"
 msgstr ""
 
 #. type: Plain text
@@ -3898,7 +3897,7 @@ msgstr ""
 #: C/man8/shutdown.8:128
 msgid ""
 "If shutdown is called with a delay, it will create the advisory file "
-"I</etc/nologin> which causes programs such as I<login(1)> to not allow new "
+"I</run/nologin> which causes programs such as I<login(1)> to not allow new "
 "user logins. This file is created five minutes before the shutdown sequence "
 "starts. Shutdown removes this file if it is stopped before it can signal "
 "init (i.e. it is cancelled or something goes wrong).  It also removes it "
