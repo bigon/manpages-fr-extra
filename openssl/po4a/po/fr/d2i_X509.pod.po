@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-04-17 16:50+0300\n"
-"PO-Revision-Date: 2009-09-06 18:48+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"Project-Id-Version: openssl\n"
+"POT-Creation-Date: 2010-08-25 15:03-0400\n"
+"PO-Revision-Date: 2013-02-04 23:46-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -912,6 +913,8 @@ msgid ""
 "d2i_X509, i2d_X509, d2i_X509_bio, d2i_X509_fp, i2d_X509_bio, i2d_X509_fp - "
 "X509 encode and decode functions"
 msgstr ""
+"d2i_X509, i2d_X509, d2i_X509_bio, d2i_X509_fp, i2d_X509_bio, i2d_X509_fp - "
+"Fonctions d'encodage et décodage X509"
 
 #. type: verbatim
 #: C/crypto/d2i_X509.pod:12
@@ -939,18 +942,14 @@ msgstr ""
 
 #. type: verbatim
 #: C/crypto/d2i_X509.pod:18
-#, fuzzy, no-wrap
-#| msgid ""
-#| " X509 *d2i_X509_bio(BIO *bp, X509 **x);\n"
-#| " X509 *d2i_X509_fp(FILE *fp, X509 **x);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int i2d_X509_bio(BIO *bp, X509 *x);\n"
 " int i2d_X509_fp(FILE *fp, X509 *x);\n"
 "\n"
 msgstr ""
-" X509 *d2i_X509_bio(BIO *bp, X509 **x);\n"
-" X509 *d2i_X509_fp(FILE *fp, X509 **x);\n"
+" int i2d_X509_bio(BIO *bp, X509 *x);\n"
+" int i2d_X509_fp(FILE *fp, X509 *x);\n"
 "\n"
 
 #. type: textblock
@@ -959,6 +958,8 @@ msgid ""
 "The X509 encode and decode routines encode and parse an B<X509> structure, "
 "which represents an X509 certificate."
 msgstr ""
+"Les routines d'encodage et décodage X509 encodent et analysent une structure "
+"B<X509>, qui représente un certificat X509."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:26
@@ -971,7 +972,15 @@ msgid ""
 "the call is successful B<*in> is incremented to the byte following the "
 "parsed data."
 msgstr ""
+"B<d2i_X509>() essaye de décoder I<len> octets à I<*in>. En cas de réussite, "
+"un pointeur vers la structure B<X509> est renvoyé. Si une erreur survient, "
+"alors B<NULL> est renvoyé. Si I<px> n'est pas B<NULL>, alors la structure "
+"renvoyée est écrite en I<*px>. Si I<*px> n'est pas B<NULL>, alors il est "
+"supposé que I<*px> contient une structure B<X509> valable et une tentative "
+"est faite pour la réutiliser. Si l'appel a réussi, I<*in> est incrémenté à "
+"l'octet qui suit les données analysées."
 
+# NOTE: s/is writes/it writes/
 #. type: textblock
 #: C/crypto/d2i_X509.pod:35
 msgid ""
@@ -981,6 +990,11 @@ msgid ""
 "return value is negative an error occurred, otherwise it returns the length "
 "of the encoded data."
 msgstr ""
+"B<i2d_X509>() encode la structure pointée par I<x> au format DER. Si I<out> "
+"n'est pas B<NULL>, les données encodées en DER sont écrites dans le tampon à "
+"I<*out>, et il est incrémenté pour pointer après les données qui viennent "
+"d'être écrites. Si la valeur de retour est négative, une erreur est "
+"survenue, sinon la taille des données encodées est renvoyée."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:41
@@ -989,6 +1003,10 @@ msgid ""
 "for a buffer and the encoded data written to it. In this case B<*out> is not "
 "incremented and it points to the start of the data just written."
 msgstr ""
+"Depuis OpenSSL 0.9.7, si I<*out> est B<NULL>, la mémoire sera allouée pour "
+"un tampon et les données encodées y seront écrites. Dans ce cas, I<*out> "
+"n'est pas incrémenté et il pointe au début des données qui viennent d'être "
+"écrites."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:46
@@ -996,6 +1014,8 @@ msgid ""
 "d2i_X509_bio() is similar to d2i_X509() except it attempts to parse data "
 "from BIO B<bp>."
 msgstr ""
+"B<d2i_X509_bio>() est similaire à B<d2i_X509>(), à la différence qu'elle "
+"essaye d'analyser les données du BIO I<bp>."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:49
@@ -1003,6 +1023,8 @@ msgid ""
 "d2i_X509_fp() is similar to d2i_X509() except it attempts to parse data from "
 "FILE pointer B<fp>."
 msgstr ""
+"B<d2i_X509_fp>() est similaire à B<d2i_X509>(), à la différence qu'elle "
+"essaye d'analyser les données du pointeur FILE I<fp>."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:52
@@ -1010,13 +1032,20 @@ msgid ""
 "i2d_X509_bio() is similar to i2d_X509() except it writes the encoding of the "
 "structure B<x> to BIO B<bp> and it returns 1 for success and 0 for failure."
 msgstr ""
+"B<i2d_X509_bio>() est similaire à B<i2d_X509>(), à la différence qu'elle "
+"écrit l'encodage de la structure I<x> dans le BIO I<bp> et renvoie B<1> en "
+"cas de réussite et B<0> en cas d'échec."
 
+# NOTE: s/BIO B<bp>/FILE pointer B<fp>/
 #. type: textblock
 #: C/crypto/d2i_X509.pod:56
 msgid ""
 "i2d_X509_fp() is similar to i2d_X509() except it writes the encoding of the "
 "structure B<x> to BIO B<bp> and it returns 1 for success and 0 for failure."
 msgstr ""
+"B<i2d_X509_fp>() est similaire à B<i2d_X509>(), à la différence qu'elle "
+"écrit l'encodage de la structure I<x> dans le pointeur FILE I<fp> et renvoie "
+"B<1> en cas de réussite et B<0> en cas d'échec."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:62
@@ -1025,11 +1054,14 @@ msgid ""
 "\" (that is an internal C structure) and \"DER\". So that B<i2d_X509> "
 "converts from internal to DER."
 msgstr ""
+"Les lettres I<i> et I<d>, dans par exemple B<i2d_X509>, signifient "
+"« interne » (c'est-à-dire une structure C interne) et « DER ». Ainsi, "
+"B<i2d_X509> convertit de l'interne en DER."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:66
 msgid "The functions can also understand B<BER> forms."
-msgstr ""
+msgstr "Les fonctions peuvent aussi comprendre les formes B<BER>."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:68
@@ -1038,6 +1070,9 @@ msgid ""
 "B<X509> structure it can B<not> simply be fed with an empty structure such "
 "as that returned by X509_new()."
 msgstr ""
+"La structure X509 vraiment passée à B<i2d_X509>() doit être une structure "
+"B<X509> peuplée valable. Elle ne peut B<pas> être simplement alimentée par "
+"une structure vide comme celle renvoyée par B<X509_new>()."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:72
@@ -1047,6 +1082,10 @@ msgid ""
 "Functions such as B<strlen()> will B<not> return the correct length of the "
 "encoded structure."
 msgstr ""
+"Les données encodées sont en forme binaire et peuvent contenir des zéros "
+"embarqués. Ainsi tous les pointeurs FILE ou BIO devraient être ouverts en "
+"mode binaire. Les fonctions comme B<strlen>() ne renverront B<pas> la taille "
+"adéquate de structure encodée."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:77
@@ -1054,6 +1093,9 @@ msgid ""
 "The ways that B<*in> and B<*out> are incremented after the operation can "
 "trap the unwary. See the B<WARNINGS> section for some common errors."
 msgstr ""
+"Les façons d'incrémenter I<*in> et I<*out> après l'opération peuvent piéger "
+"les imprudents. Consulter la section B<AVERTISSEMENTS> qui indique quelques "
+"erreurs habituelles."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:81
@@ -1062,11 +1104,14 @@ msgid ""
 "ASN1 functions: after one structure is encoded or decoded another will "
 "processed after it."
 msgstr ""
+"Le comportement de l'incrément automatique sert à refléter une utilisation "
+"typique des fonctions ASN1 : après qu'une structure soit encodée ou décodée, "
+"une autre sera traitée à sa suite."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:87
 msgid "Allocate and encode the DER encoding of an X509 structure:"
-msgstr ""
+msgstr "Allouer et encoder l'encodage DER d'une structure X509 :"
 
 #. type: verbatim
 #: C/crypto/d2i_X509.pod:89
@@ -1109,7 +1154,7 @@ msgid ""
 "\n"
 msgstr ""
 " if (buf == NULL)\n"
-"\t/* error */\n"
+"\t/* erreur */\n"
 "\n"
 
 #. type: verbatim
@@ -1136,7 +1181,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/d2i_X509.pod:103
 msgid "If you are using OpenSSL 0.9.7 or later then this can be simplified to:"
-msgstr ""
+msgstr "À partir d'OpenSSL 0.9.7, cela peut être simplifié en :"
 
 #. type: verbatim
 #: C/crypto/d2i_X509.pod:107 C/crypto/d2i_X509.pod:157
@@ -1179,13 +1224,13 @@ msgid ""
 "\n"
 msgstr ""
 " if (len < 0)\n"
-"\t/* error */\n"
+"\t/* erreur */\n"
 "\n"
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:117
 msgid "Attempt to decode a buffer:"
-msgstr ""
+msgstr "Essayer de décoder un tampon :"
 
 #. type: verbatim
 #: C/crypto/d2i_X509.pod:119 C/crypto/d2i_X509.pod:136
@@ -1225,7 +1270,7 @@ msgid ""
 " /* Something to setup buf and len */\n"
 "\n"
 msgstr ""
-" /* Something to setup buf and len */\n"
+" /* Quelque chose pour définir buf et len */\n"
 "\n"
 
 #. type: verbatim
@@ -1247,7 +1292,7 @@ msgid ""
 "\n"
 msgstr ""
 " if (x == NULL)\n"
-"    /* Some error */\n"
+"    /* Quelques erreurs */\n"
 "\n"
 
 #. type: verbatim
@@ -1269,7 +1314,7 @@ msgid ""
 "\n"
 msgstr ""
 " if(!d2i_X509(&x, &p, len))\n"
-"    /* Some error */\n"
+"    /* Quelques erreurs */\n"
 "\n"
 
 #. type: textblock
@@ -1278,6 +1323,8 @@ msgid ""
 "The use of temporary variable is mandatory. A common mistake is to attempt "
 "to use a buffer directly as follows:"
 msgstr ""
+"L'utilisation d'une variable temporaire est obligatoire. Une erreur "
+"habituelle est d'essayer d'utiliser un tampon directement comme ceci :"
 
 #. type: verbatim
 #: C/crypto/d2i_X509.pod:167
@@ -1296,7 +1343,7 @@ msgid ""
 " /* Other stuff ... */\n"
 "\n"
 msgstr ""
-" /* Other stuff ... */\n"
+" /* Autres choses… */\n"
 "\n"
 
 #. type: verbatim
@@ -1317,6 +1364,11 @@ msgid ""
 "B<buf> will no longer contain the pointer allocated by B<OPENSSL_malloc()> "
 "and the subsequent call to B<OPENSSL_free()> may well crash."
 msgstr ""
+"Ce code aura pour résultat un I<buf> contenant apparemment n'importe quoi "
+"parce qu'il a été incrémenté après l'appel pour pointer après les données "
+"qui viennent d'être écrites. Ainsi I<buf> ne contiendra plus le pointeur "
+"alloué par B<OPENSSL_malloc>() et l'appel suivant de B<OPENSSL_malloc>() "
+"pourrait sans doute planter."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:178
@@ -1325,11 +1377,16 @@ msgid ""
 "0.9.7 and later. Attempts to use it on earlier versions will typically cause "
 "a segmentation violation."
 msgstr ""
+"La fonctionnalité d'allocation automatique (configurant I<buf> à B<NULL>) ne "
+"fonctionne qu'à partir d'OpenSSL 0.9.7. Essayer de l'utiliser avec des "
+"versions précédentes provoquera typiquement une violation de segmentation."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:182
 msgid "Another trap to avoid is misuse of the B<xp> argument to B<d2i_X509()>:"
 msgstr ""
+"Un autre piège à éviter est la mauvaise utilisation de l'argument I<xp> de "
+"B<d2i_X509>() :"
 
 #. type: verbatim
 #: C/crypto/d2i_X509.pod:186
@@ -1340,7 +1397,7 @@ msgid ""
 "\n"
 msgstr ""
 " if (!d2i_X509(&x, &p, len))\n"
-"\t/* Some error */\n"
+"\t/* Quelques erreurs */\n"
 "\n"
 
 #. type: textblock
@@ -1352,6 +1409,11 @@ msgid ""
 "segmentation violation. If B<x> is set to NULL first then this will not "
 "happen."
 msgstr ""
+"Cela plantera probablement quelque part dans B<d2i_X509>(). La raison à cela "
+"et que la variable I<x> est désinitialisée et qu'il y aura une tentative "
+"d'interpréter sa valeur (incorrecte) comme une structure B<X509>, provoquant "
+"typiquement une violation de segmentation. Si I<x> est définie à NULL "
+"d'abord, alors ça n'arrivera pas."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:197
@@ -1361,6 +1423,11 @@ msgid ""
 "if they are not present in the new one. As a result the use of this \"reuse"
 "\" behaviour is strongly discouraged."
 msgstr ""
+"Dans certaines version d'OpenSSL, le comportement de « réutilisation » de "
+"B<d2i_X509>(), quand I<*px> est correct, est cassé et certaines parties de "
+"la structure réutilisée pourraient persister si elles ne sont pas présentes "
+"dans la nouvelle. Par conséquent, l'utilisation de ce comportement de "
+"« réutilisation » est fortement déconseillée."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:202
@@ -1371,6 +1438,12 @@ msgid ""
 "will not be parsed by d2i_X509(). This may be fixed in future so code should "
 "not assume that i2d_X509() will always succeed."
 msgstr ""
+"B<i2d_X509>() ne renverra pas d'erreur dans plusieurs versions d'OpenSSL : "
+"si des champs obligatoires ne sont pas initialisés à cause d'une erreur de "
+"programmation, alors la structure encodée pourrait contenir des données "
+"incorrectes ou omettre les champs complètement et ne sera pas analysée par "
+"B<d2i_X509>(). Cela pourrait être corrigé plus tard, de telle sorte que le "
+"code ne devrait pas supposer pas que B<i2d_X509>() réussira toujours."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:211
@@ -1379,36 +1452,32 @@ msgid ""
 "structure or B<NULL> if an error occurs. The error code that can be obtained "
 "by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgstr ""
+"B<d2i_X509>(), B<d2i_X509_bio>() et B<d2i_X509_fp>() renvoient une structure "
+"B<X509> valable en cas de réussite et B<NULL> en cas d'erreur. Le code "
+"d'erreur peut être obtenu à l'aide de L<ERR_get_error(3)|ERR_get_error(3)>."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:215
-#, fuzzy
-#| msgid ""
-#| "DSA_dup_DH() returns the new B<DH> structure, and NULL on error. The "
-#| "error codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgid ""
 "i2d_X509() returns the number of bytes successfully encoded or a negative "
 "value if an error occurs. The error code can be obtained by L<ERR_get_error"
 "(3)|ERR_get_error(3)>."
 msgstr ""
-"DSA_dup_DH() renvoie la nouvelle structure B<DH> et NULL en cas d'erreur. "
-"Les codes d'erreur peuvent être obtenus à l'aide de L<ERR_get_error(3)|"
-"ERR_get_error(3)>."
+"B<i2d_X509>() renvoie le nombre d'octets encodés ou une valeur négative en "
+"cas d'erreur. Le code d'erreur peut être obtenu à l'aide de L<ERR_get_error"
+"(3)|ERR_get_error(3)>."
 
+# NOTE: s/occurs The/occurs. The/
 #. type: textblock
 #: C/crypto/d2i_X509.pod:219
-#, fuzzy
-#| msgid ""
-#| "For the other functions, 1 is returned for success, 0 on error.  The "
-#| "error codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgid ""
 "i2d_X509_bio() and i2d_X509_fp() return 1 for success and 0 if an error "
 "occurs The error code can be obtained by L<ERR_get_error(3)|ERR_get_error(3)"
 ">."
 msgstr ""
-"Pour les autres fonctions, 1 est renvoyé est cas de succès et 0 en cas "
-"d'erreur. Les codes d'erreur peuvent être obtenus avec L<ERR_get_error(3)|"
-"ERR_get_error(3)>."
+"B<i2d_X509_bio>() et B<i2d_X509_fp>() renvoient B<1> en cas de réussite et "
+"B<0> en cas d'erreur. Le code d'erreur peut être obtenu à l'aide de "
+"L<ERR_get_error(3)|ERR_get_error(3)>."
 
 #. type: textblock
 #: C/crypto/d2i_X509.pod:228

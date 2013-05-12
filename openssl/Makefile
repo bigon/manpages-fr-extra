@@ -23,7 +23,7 @@ man1:
 	sec=`$(PERL) ./extract-section.pl 1 < $$m`; \
 		man=$$(basename $$m); \
 		man=$${man%.pod}; \
-		$(P2M) --section=$${sec}SSL $$m > fr/man$$sec/$$man.$$secssl; \
+		$(P2M) --section=$${sec}SSL $$m > fr/man$$sec/$$man.$${sec}ssl; \
 	done
 
 man3:

@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-02-01 16:26-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1055,6 +1056,8 @@ msgid ""
 " CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType - get and set CMS content types\n"
 "\n"
 msgstr ""
+" CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType - Obtenir et définir les types de contenu CMS\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/CMS_get0_type.pod:11
@@ -1065,7 +1068,12 @@ msgid ""
 " const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);\n"
 "\n"
 msgstr ""
+" const ASN1_OBJECT *CMS_get0_type(CMS_ContentInfo *cms);\n"
+" int CMS_set1_eContentType(CMS_ContentInfo *cms, const ASN1_OBJECT *oid);\n"
+" const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);\n"
+"\n"
 
+# NOTE: s/and/an/
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:17
 msgid ""
@@ -1073,6 +1081,10 @@ msgid ""
 "and ASN1_OBJECT pointer. An application can then decide how to process the "
 "CMS_ContentInfo structure based on this value."
 msgstr ""
+"B<CMS_get0_type>() renvoie le type de contenu d'une structure "
+"CMS_ContentInfo comme un pointeur ASN1_OBJECT. Une application peut alors "
+"décider de la façon de traiter la structure CMS_ContentInfo en fonction de "
+"cette valeur."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:21
@@ -1082,6 +1094,10 @@ msgid ""
 "flag and B<before> the structure is finalised, otherwise the results are "
 "undefined."
 msgstr ""
+"B<CMS_set1_eContentType>() définit le type de contenu embarqué d'une "
+"structure CMS_ContentInfo. Elle devrait être appelée avec des fonctions CMS "
+"avec l'attribut B<CMS_PARTIAL> et B<avant> de finaliser la structure, sinon "
+"le résultat est indéfini."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:26
@@ -1089,6 +1105,8 @@ msgid ""
 "ASN1_OBJECT *CMS_get0_eContentType() returns a pointer to the embedded "
 "content type."
 msgstr ""
+"B<CMS_get0_eContentType>() renvoie un pointeur vers le type de contenu "
+"embarqué."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:31
@@ -1097,6 +1115,10 @@ msgid ""
 "internal pointers which should B<not> be freed up. CMS_set1_eContentType() "
 "copies the supplied OID and it B<should> be freed up after use."
 msgstr ""
+"Comme le B<0> implique que B<CMS_get0_type>() et B<CMS_get0_eContentType>() "
+"renvoient des pointeurs internes qui ne devraient B<pas> être libérés, "
+"B<CMS_set1_eContentType>() copie l'OID fourni et il B<devrait> être libéré "
+"après utilisation."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:35
@@ -1105,6 +1127,9 @@ msgid ""
 "value using OBJ_obj2nid(). For the currently supported content types the "
 "following values are returned:"
 msgstr ""
+"Les valeurs B<ASN1_OBJECT> renvoyées peuvent être converties vers une valeur "
+"entière B<NID> en utilisant B<OBJ_obj2nid>(). Pour les types de contenu "
+"actuellement pris en charge, les valeurs suivantes sont renvoyées :"
 
 #. type: verbatim
 #: C/crypto/CMS_get0_type.pod:39
@@ -1118,35 +1143,37 @@ msgid ""
 " NID_pkcs7_enveloped\n"
 "\n"
 msgstr ""
+" NID_pkcs7_data\n"
+" NID_pkcs7_signed\n"
+" NID_pkcs7_digest\n"
+" NID_id_smime_ct_compressedData:\n"
+" NID_pkcs7_encrypted\n"
+" NID_pkcs7_enveloped\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:49
 msgid ""
 "CMS_get0_type() and CMS_get0_eContentType() return and ASN1_OBJECT structure."
 msgstr ""
+"B<CMS_get0_type>() et B<CMS_get0_eContentType>() renvoient une structure "
+"ASN1_OBJECT."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:51
-#, fuzzy
-#| msgid ""
-#| "For the other functions, 1 is returned for success, 0 on error.  The "
-#| "error codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgid ""
 "CMS_set1_eContentType() returns 1 for success or 0 if an error occurred.  "
 "The error can be obtained from ERR_get_error(3)."
 msgstr ""
-"Pour les autres fonctions, 1 est renvoyé est cas de succès et 0 en cas "
-"d'erreur. Les codes d'erreur peuvent être obtenus avec L<ERR_get_error(3)|"
-"ERR_get_error(3)>."
+"B<CMS_set1_eContentType>() renvoie B<1> en cas de réussite et B<0> en cas "
+"d'erreur. L'erreur peut être obtenue avec L<ERR_get_error(3)|ERR_get_error(3)"
+">."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:60
-#, fuzzy
-#| msgid ""
-#| "ASN1_generate_nconf() and ASN1_generate_v3() were added to OpenSSL 0.9.8"
 msgid ""
 "CMS_get0_type(), CMS_set1_eContentType() and CMS_get0_eContentType() were "
 "all first added to OpenSSL 0.9.8"
 msgstr ""
-"ASN1_generate_nconf() et ASN1_generate_v3() ont été ajoutées dans la version "
-"0.9.8 d'OpenSSL."
+"B<CMS_get0_type>(), B<CMS_set1_eContentType>() et B<CMS_get0_eContentType>() "
+"ont toutes été ajoutées la première fois à OpenSSL 0.9.8"

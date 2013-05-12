@@ -1,20 +1,21 @@
-# French translations for GRUB package
-# Copyright (C) 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GRUB package.
-# Automatically generated, 2012.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: GRUB 1.98+20100804-10\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2013-01-31 22:29-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -1048,6 +1049,8 @@ msgid ""
 " CMS_ReceiptRequest_create0, CMS_add1_ReceiptRequest, CMS_get1_ReceiptRequest, CMS_ReceiptRequest_get0_values - CMS signed receipt request functions.\n"
 "\n"
 msgstr ""
+" CMS_ReceiptRequest_create0, CMS_add1_ReceiptRequest, CMS_get1_ReceiptRequest, CMS_ReceiptRequest_get0_values - Fonctions de demande de reçu CMS signé\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/CMS_get1_ReceiptRequest.pod:11
@@ -1059,6 +1062,11 @@ msgid ""
 " void CMS_ReceiptRequest_get0_values(CMS_ReceiptRequest *rr, ASN1_STRING **pcid, int *pallorfirst, STACK_OF(GENERAL_NAMES) **plist, STACK_OF(GENERAL_NAMES) **prto);\n"
 "\n"
 msgstr ""
+" CMS_ReceiptRequest *CMS_ReceiptRequest_create0(unsigned char *id, int idlen, int allorfirst, STACK_OF(GENERAL_NAMES) *receiptList, STACK_OF(GENERAL_NAMES) *receiptsTo);\n"
+" int CMS_add1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest *rr);\n"
+" int CMS_get1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest **prr);\n"
+" void CMS_ReceiptRequest_get0_values(CMS_ReceiptRequest *rr, ASN1_STRING **pcid, int *pallorfirst, STACK_OF(GENERAL_NAMES) **plist, STACK_OF(GENERAL_NAMES) **prto);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:18
@@ -1071,6 +1079,14 @@ msgid ""
 "B<receiptList> option in B<receiptsFrom> is used. The B<receiptsTo> "
 "parameter specifies the B<receiptsTo> field value."
 msgstr ""
+"B<CMS_ReceiptRequest_create0>() crée une structure de demande de reçu CMS "
+"signé. Le champ B<signedContentIdentifier> est défini en utilisant I<id> et "
+"I<idlen>, ou il est défini à des données pseudoaléatoires de 32 octets si "
+"I<id> est NULL. Si I<receiptList> est NULL, l'option B<allOrFirstTier> de "
+"B<receiptsFrom> est utilisée et définie à la valeur du paramètre "
+"I<allorfirst>. Si I<receiptList> n'est pas NULL, l'option B<receiptList> de "
+"B<receiptsFrom> est utilisée. Le paramètre I<receiptsTo> indique la valeur "
+"du champ B<receiptsTo>."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:26
@@ -1078,13 +1094,18 @@ msgid ""
 "The CMS_add1_ReceiptRequest() function adds a signed receipt request B<rr> "
 "to SignerInfo structure B<si>."
 msgstr ""
+"La fonction B<CMS_add1_ReceiptRequest>() ajoute une demande de reçu signé "
+"I<rr> à la structure SignerInfo I<si>."
 
+# NOTE: s/int //
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:29
 msgid ""
 "int CMS_get1_ReceiptRequest() looks for a signed receipt request in B<si>, "
 "if any is found it is decoded and written to B<prr>."
 msgstr ""
+"B<CMS_get1_ReceiptRequest>() recherche une demande de reçu signé dans I<si>, "
+"si une est trouvée, elle est décodée et écrite dans I<prr>."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:32
@@ -1095,11 +1116,18 @@ msgid ""
 "otherwise the B<receiptList> field is copied to B<plist>. The B<receiptsTo> "
 "parameter is copied to B<prto>."
 msgstr ""
+"B<CMS_ReceiptRequest_get0_values>() récupère les valeurs d'une demande de "
+"reçu. B<signedContentIdentifier> est copié vers I<pcid>. Si l'option "
+"B<allOrFirstTier> de B<receiptsFrom> est utilisée, sa valeur est copiée vers "
+"I<pallorfirst>, sinon le champ B<receiptList> est copié vers I<plist>. Le "
+"paramètre B<receiptsTo> est copié vers I<prto>."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:40
 msgid "For more details of the meaning of the fields see RFC2634."
 msgstr ""
+"Pour obtenir des précisions complémentaires sur la signification des champs, "
+"consultez la RFC 2634."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:42
@@ -1108,28 +1136,26 @@ msgid ""
 "corresponding CMS_ContentInfo structure can be successfully verified using "
 "CMS_verify()."
 msgstr ""
+"Le contenu d'un reçu signé ne devrait être considéré significatif que si la "
+"structure CMS_ContentInfo correspondante peut effectivement être vérifiée en "
+"utilisant B<CMS_verify>()."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:48
-#, fuzzy
-#| msgid ""
-#| "ASN1_generate_nconf() and ASN1_generate_v3() return the encoded data as "
-#| "an B<ASN1_TYPE> structure or B<NULL> if an error occurred."
 msgid ""
 "CMS_ReceiptRequest_create0() returns a signed receipt request structure or "
 "NULL if an error occurred."
 msgstr ""
-"ASN1_generate_nconf() et ASN1_generate_v3() renvoient les données encodées "
-"sous la forme d'une structure B<ASN1_TYPE> ou B<NULL> si une erreur est "
-"survenue."
+"B<CMS_ReceiptRequest_create0>() renvoie une structure de demande de reçu "
+"signé ou B<NULL> si une erreur est survenue."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:51
-#, fuzzy
-#| msgid "PKCS12_parse() returns 1 for success and zero if an error occurred."
 msgid ""
 "CMS_add1_ReceiptRequest() returns 1 for success or 0 is an error occurred."
-msgstr "B<PKCS12_parse>() retourne 1 en cas de succès et zéro en cas d'erreur."
+msgstr ""
+"B<CMS_add1_ReceiptRequest>() renvoie B<1> si elle réussit et B<0> en cas "
+"d'erreur."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:53
@@ -1138,20 +1164,20 @@ msgid ""
 "decoded. It returns 0 if a signed receipt request is not present and -1 if "
 "it is present but malformed."
 msgstr ""
+"B<CMS_get1_ReceiptRequest>() renvoie B<1> si une demande de reçu signé est "
+"trouvée et décodée. Elle renvoie B<0> en absence de reçu signé et B<-1> s'il "
+"est présent mais malformé."
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:59
-#, fuzzy
-#| msgid ""
-#| "L<ERR_get_error(3)|ERR_get_error(3)>, L<rsa(3)|rsa(3)>, L<RSA_generate_key"
-#| "(3)|RSA_generate_key(3)>, L<RSA_new_method(3)|RSA_new_method(3)>"
 msgid ""
 "L<ERR_get_error(3)|ERR_get_error(3)>, L<CMS_sign(3)|CMS_sign(3)>, "
 "L<CMS_sign_receipt(3)|CMS_sign_receipt(3)>, L<CMS_verify(3)|CMS_verify(3)> "
 "L<CMS_verify_receipt(3)|CMS_verify_receipt(3)>"
 msgstr ""
-"L<ERR_get_error(3)|ERR_get_error(3)>, L<rsa(3)|rsa(3)>, L<RSA_generate_key"
-"(3)|RSA_generate_key(3)>, L<RSA_new_method(3)|RSA_new_method(3)>"
+"L<ERR_get_error(3)|ERR_get_error(3)>, L<CMS_sign(3)|CMS_sign(3)>, "
+"L<CMS_sign_receipt(3)|CMS_sign_receipt(3)>, L<CMS_verify(3)|CMS_verify(3)> "
+"L<CMS_verify_receipt(3)|CMS_verify_receipt(3)>"
 
 #. type: textblock
 #: C/crypto/CMS_get1_ReceiptRequest.pod:65
@@ -1160,3 +1186,6 @@ msgid ""
 "CMS_get1_ReceiptRequest() and CMS_ReceiptRequest_get0_values() were added to "
 "OpenSSL 0.9.8"
 msgstr ""
+"B<CMS_ReceiptRequest_create0>(), B<CMS_add1_ReceiptRequest>(), "
+"B<CMS_get1_ReceiptRequest>() et B<CMS_ReceiptRequest_get0_values>() ont été "
+"ajoutées à OpenSSL 0.9.8"

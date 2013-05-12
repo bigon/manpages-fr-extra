@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2009-09-06 17:08+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2013-03-05 21:53-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -783,6 +784,8 @@ msgstr ""
 #: C/crypto/BIO_read.pod:5
 msgid "BIO_read, BIO_write, BIO_gets, BIO_puts - BIO I/O functions"
 msgstr ""
+"BIO_read, BIO_write, BIO_gets, BIO_puts - Fonctions d'entrées et sorties de "
+"BIO"
 
 #. type: verbatim
 #: C/crypto/BIO_read.pod:11
@@ -794,6 +797,11 @@ msgid ""
 " int\tBIO_puts(BIO *b,const char *buf);\n"
 "\n"
 msgstr ""
+" int\tBIO_read(BIO *b, void *buf, int len);\n"
+" int\tBIO_gets(BIO *b,char *buf, int size);\n"
+" int\tBIO_write(BIO *b, const void *buf, int len);\n"
+" int\tBIO_puts(BIO *b,const char *buf);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:18
@@ -801,6 +809,8 @@ msgid ""
 "BIO_read() attempts to read B<len> bytes from BIO B<b> and places the data "
 "in B<buf>."
 msgstr ""
+"B<BIO_read>() essaye de lire I<len> octets du BIO I<b> et place les données "
+"dans I<buf>."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:21
@@ -811,17 +821,26 @@ msgid ""
 "example BIO_gets() on a digest BIO will calculate and return the digest and "
 "other BIOs may not support BIO_gets() at all."
 msgstr ""
+"B<BIO_gets>() réalise l'opération « gets » des BIO et place les données dans "
+"I<buf>. Normalement, cette opération essayera de lire une ligne de données "
+"de taille maximale I<len> du BIO. Il y a cependant des exceptions à cela, "
+"par exemple B<BIO_gets>() sur un BIO de signature calculera et renverra la "
+"signature mais d'autres BIO pourraient ne pas prendre B<BIO_gets>() en "
+"charge du tout."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:27
 msgid "BIO_write() attempts to write B<len> bytes from B<buf> to BIO B<b>."
 msgstr ""
+"B<BIO_write>() essaye d'écrire I<len> octets de I<buf> sur le BIO I<b>."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:29
 msgid ""
 "BIO_puts() attempts to write a null terminated string B<buf> to BIO B<b>"
 msgstr ""
+"B<BIO_puts>() essaye d'écrire une chaîne I<buf> terminée par null sur le BIO "
+"I<b>."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:33
@@ -831,6 +850,10 @@ msgid ""
 "read or written if the result is 0 or -1. If the return value is -2 then the "
 "operation is not implemented in the specific BIO type."
 msgstr ""
+"Toutes ces fonctions renvoient soit la quantité de données lues ou écrites "
+"correctement (si la valeur de retour est positive), soit 0 ou -1 si aucune "
+"donnée n'a été lue ou écrite, soit -2 si l'opération n'est pas implémentée "
+"dans ce type de BIO en particulier."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:40
@@ -840,6 +863,11 @@ msgid ""
 "an indication that no data is currently available and that the application "
 "should retry the operation later."
 msgstr ""
+"Une valeur de retour de 0 ou -1 n'est pas forcément une indication d'erreur. "
+"En particulier quand la source ou la destination sont non bloquantes ou d'un "
+"certain type, cela pourrait juste être une indication qu'aucune donnée n'est "
+"actuellement disponible et que l'application devrait réessayer l'opération "
+"plus tard."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:45
@@ -854,6 +882,17 @@ msgid ""
 "equivalent)  should be combined with non blocking I/O so successive reads "
 "will request a retry instead of blocking."
 msgstr ""
+"Une technique parfois utilisée avec les sockets bloquantes est d'utiliser un "
+"appel système (comme B<select>(), B<poll>() ou équivalent) pour déterminer "
+"quand les données sont disponibles et ensuite d'appeler B<read>() pour lire "
+"les données. L'équivalent avec les BIO (c'est-à-dire appeler B<select>() sur "
+"la structure d'entrées et sorties sous-jacente et ensuite d'appeler "
+"B<BIO_read>() pour lire les données) ne devrait B<pas> être utilisé parce "
+"qu'un simple appel de B<BIO_read>() peut provoquer plusieurs lectures (et "
+"écritures dans le cas des BIO SSL) sur la structure d'entrées et sorties "
+"sous-jacente et pourrait par conséquent bloquer. À la place, B<select>() (ou "
+"équivalent) devrait être combiné avec des entrées et sorties non bloquantes "
+"pour que les lectures successives demandent à réessayer au lieu de bloquer."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:55
@@ -861,6 +900,9 @@ msgid ""
 "See L<BIO_should_retry(3)|BIO_should_retry(3)> for details of how to "
 "determine the cause of a retry and other I/O issues."
 msgstr ""
+"Consultez L<BIO_should_retry(3)|BIO_should_retry(3)> pour des précisions sur "
+"la façon de déterminer la cause d'un réessai ou tout autre problème "
+"d'entrées et sorties."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:58
@@ -869,6 +911,9 @@ msgid ""
 "work around this by adding a buffering BIO L<BIO_f_buffer(3)|BIO_f_buffer(3)"
 "> to the chain."
 msgstr ""
+"Si la fonction B<BIO_gets>() n'est pas prise en charge par un BIO, alors "
+"contourner cela est possible en ajoutant un BIO tampon L<BIO_f_buffer(3)|"
+"BIO_f_buffer(3)> à la chaîne."
 
 #. type: textblock
 #: C/crypto/BIO_read.pod:64

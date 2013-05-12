@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2012-10-13 10:47-0400\n"
-"PO-Revision-Date: 2008-03-31 00:01+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2013-01-31 19:37-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -867,6 +868,7 @@ msgstr "Les valeurs suivantes peuvent être renvoyées."
 #: C/ssl/SSL_clear.pod:5
 msgid "SSL_clear - reset SSL object to allow another connection"
 msgstr ""
+"SSL_clear - Réinitialiser un objet SSL pour permettre une autre connexion"
 
 #. type: verbatim
 #: C/ssl/SSL_clear.pod:11
@@ -875,6 +877,8 @@ msgid ""
 " int SSL_clear(SSL *ssl);\n"
 "\n"
 msgstr ""
+" int SSL_clear(SSL *ssl);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_clear.pod:15
@@ -882,6 +886,8 @@ msgid ""
 "Reset B<ssl> to allow another connection. All settings (method, ciphers, "
 "BIOs) are kept."
 msgstr ""
+"Réinitialiser B<ssl> pour permettre une autre connexion. Tous les réglages "
+"(méthode, algorithmes, BIO) sont gardés."
 
 #. type: textblock
 #: C/ssl/SSL_clear.pod:20
@@ -894,6 +900,14 @@ msgid ""
 "the connection or at least L<SSL_set_shutdown(3)|SSL_set_shutdown(3)> was "
 "used to set the SSL_SENT_SHUTDOWN state."
 msgstr ""
+"SSL_clear est utilisée pour préparer un objet SSL pour une nouvelle "
+"connexion. Alors que tous les réglages sont gardés, un effet de bord est le "
+"traitement de la session SSL actuelle. Si une session est encore B<ouverte>, "
+"elle est considérée mauvaise et sera supprimée du cache de session, comme "
+"exigé par la RFC 2246. Une session est considérée ouverte si L<SSL_shutdown"
+"(3)|SSL_shutdown(3)> n'a pas été appelée pour la connexion ou en tout cas si "
+"L<SSL_set_shutdown(3)|SSL_set_shutdown(3)> a été utilisée pour envoyer "
+"l'état SSL_SENT_SHUTDOWN."
 
 #. type: textblock
 #: C/ssl/SSL_clear.pod:28
@@ -907,6 +921,15 @@ msgid ""
 "might lead to connection failures (see L<SSL_new(3)|SSL_new(3)>)  for a "
 "description of the method's properties."
 msgstr ""
+"Si une session a été fermée proprement, l'objet de session sera gardé avec "
+"tous les réglages correspondants. Cela signifie explicitement que, par "
+"exemple, la méthode spécifiquement utilisée pendant la session sera gardée "
+"pour la nouvelle initialisation. Donc s'il s'agissait d'une session TLSv1, "
+"un objet client SSL utilisera une méthode client TLSv1 pour l'initialisation "
+"suivante et un objet serveur SSL utilisera une méthode serveur TLSv1, même "
+"si SSLv23_*_methods avaient été choisies au démarrage. Cela pourrait "
+"conduire à des échecs de connexion (consultez L<SSL_new(3)|SSL_new(3)>) pour "
+"une description des propriétés de la méthode."
 
 #. type: textblock
 #: C/ssl/SSL_clear.pod:39
@@ -922,6 +945,17 @@ msgid ""
 "L<SSL_free(3)|SSL_free(3)>; L<SSL_new(3)|SSL_new(3)> if session reuse is not "
 "desired)."
 msgstr ""
+"B<SSL_clear>() réinitialise l'objet SSL pour permettre une autre connexion. "
+"L'opération de réinitialisation garde cependant plusieurs réglages de la "
+"session précédente (certains de ces réglages ont été faits automatiquement "
+"pendant l'initialisation précédente). Cela n'a de sens que pour une nouvelle "
+"connexion avec un pair aux réglages parfaitement identiques, et pourrait "
+"échouer si ce pair modifie ses réglages entre les connexions. Utilisez la "
+"séquence L<SSL_get_session(3)|SSL_get_session(3)> ; L<SSL_new(3)|SSL_new(3)"
+"> ; L<SSL_set_session(3)|SSL_set_session(3)> ; L<SSL_free(3)|SSL_free(3)> à "
+"la place pour éviter ces types d'échecs (ou simplement L<SSL_free(3)|SSL_free"
+"(3)> ; L<SSL_new(3)|SSL_new(3)> si la réutilisation de session n'est pas "
+"voulue)."
 
 #. type: textblock
 #: C/ssl/SSL_clear.pod:61
@@ -929,11 +963,13 @@ msgid ""
 "The SSL_clear() operation could not be performed. Check the error stack to "
 "find out the reason."
 msgstr ""
+"L'opération B<SSL_clear>() n'a pas pu être réalisée. Vérifiez la pile "
+"d'erreur pour découvrir la raison."
 
 #. type: textblock
 #: C/ssl/SSL_clear.pod:66
 msgid "The SSL_clear() operation was successful."
-msgstr ""
+msgstr "L'opération B<SSL_clear>() a réussi."
 
 #. type: textblock
 #: C/ssl/SSL_clear.pod:70
@@ -943,3 +979,7 @@ msgid ""
 "L<SSL_CTX_set_options(3)|SSL_CTX_set_options(3)>, L<ssl(3)|ssl(3)>, "
 "L<SSL_CTX_set_client_cert_cb(3)|SSL_CTX_set_client_cert_cb(3)>"
 msgstr ""
+"L<SSL_new(3)|SSL_new(3)>, L<SSL_free(3)|SSL_free(3)>, L<SSL_shutdown(3)|"
+"SSL_shutdown(3)>, L<SSL_set_shutdown(3)|SSL_set_shutdown(3)>, "
+"L<SSL_CTX_set_options(3)|SSL_CTX_set_options(3)>, L<ssl(3)|ssl(3)>, "
+"L<SSL_CTX_set_client_cert_cb(3)|SSL_CTX_set_client_cert_cb(3)>"

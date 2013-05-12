@@ -1,20 +1,21 @@
-# French translations for PACKAGE package
-# Copyright (C) 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2008.
+# French translations for the openssl package
+# Copyright (C) 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
 #
+# David Prévot <david@tilapin.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2010-08-25 15:03-0400\n"
-"PO-Revision-Date: 2009-09-06 17:07+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2013-03-07 17:55-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
 #: C/apps/CA.pl.pod:4 C/apps/asn1parse.pod:3 C/apps/ca.pod:4
@@ -795,6 +796,8 @@ msgid ""
 "BIO_new, BIO_set, BIO_free, BIO_vfree, BIO_free_all - BIO allocation and "
 "freeing functions"
 msgstr ""
+"BIO_new, BIO_set, BIO_free, BIO_vfree, BIO_free_all - Fonctions d'allocation "
+"et libération de BIO"
 
 #. type: verbatim
 #: C/crypto/BIO_new.pod:11
@@ -807,16 +810,23 @@ msgid ""
 " void\tBIO_free_all(BIO *a);\n"
 "\n"
 msgstr ""
+" BIO *\tBIO_new(BIO_METHOD *type);\n"
+" int\tBIO_set(BIO *a,BIO_METHOD *type);\n"
+" int\tBIO_free(BIO *a);\n"
+" void\tBIO_vfree(BIO *a);\n"
+" void\tBIO_free_all(BIO *a);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:19
 msgid "The BIO_new() function returns a new BIO using method B<type>."
 msgstr ""
+"La fonction B<BIO_new>() renvoie un nouveau BIO utilisant la méthode B<type>."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:21
 msgid "BIO_set() sets the method of an already existing BIO."
-msgstr ""
+msgstr "B<BIO_set>() définit la méthode d'un BIO déjà existant."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:23
@@ -827,6 +837,12 @@ msgid ""
 "referred to under certain circumstances. For more details see the individual "
 "BIO_METHOD descriptions."
 msgstr ""
+"B<BIO_free>() libère un seul BIO, B<BIO_vfree>() libère aussi un seul BIO "
+"mais ne renvoie pas de valeur. Appeler B<BIO_free>() pourrait aussi avoir un "
+"certain effet sur la structure d'entrées et sorties sous-jacente, par "
+"exemple elle pourrait fermer le fichier référencé dans certaines "
+"circonstances. Consultez les descriptions de chaque BIO_METHOD pour plus de "
+"précisions."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:29
@@ -834,21 +850,26 @@ msgid ""
 "BIO_free_all() frees up an entire BIO chain, it does not halt if an error "
 "occurs freeing up an individual BIO in the chain."
 msgstr ""
+"B<BIO_free_all>() libère toute une chaîne de BIO, elle ne s'arrête pas en "
+"cas d'erreur de libération d'un BIO de la chaîne."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:34
 msgid "BIO_new() returns a newly created BIO or NULL if the call fails."
 msgstr ""
+"B<BIO_new>() renvoie un BIO nouvellement créé ou NULL si l'appel échoue."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:36
 msgid "BIO_set(), BIO_free() return 1 for success and 0 for failure."
 msgstr ""
+"B<BIO_set>() et B<BIO_free>() renvoient 1 si elles réussissent et 0 si elles "
+"échouent."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:38
 msgid "BIO_free_all() and BIO_vfree() do not return values."
-msgstr ""
+msgstr "B<BIO_free_all>() et B<BIO_vfree>() ne renvoient pas de valeur."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:42
@@ -857,6 +878,10 @@ msgid ""
 "(). Others (such as file BIOs) need some additional initialization, and "
 "frequently a utility function exists to create and initialize such BIOs."
 msgstr ""
+"Certains BIO (comme les BIO mémoire) peuvent être utilisés immédiatement "
+"après avoir appelé B<BIO_new>(). D'autres (comme les BIO fichier) ont besoin "
+"d'initialisation supplémentaire et une fonction utilitaire existe souvent "
+"pour créer et initialiser ce genre de BIO."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:46
@@ -864,6 +889,8 @@ msgid ""
 "If BIO_free() is called on a BIO chain it will only free one BIO resulting "
 "in a memory leak."
 msgstr ""
+"Si B<BIO_free>() est appelée sur une chaîne de BIO, elle ne libérera qu'un "
+"seul BIO avec pour conséquence une fuite de mémoire."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:49
@@ -871,6 +898,8 @@ msgid ""
 "Calling BIO_free_all() a single BIO has the same effect as calling BIO_free"
 "()  on it other than the discarded return value."
 msgstr ""
+"Appeler B<BIO_free_all>() sur un seul BIO a le même effet que d'appeler "
+"B<BIO_free>() dessus à part l'absence de valeur de retour."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:52
@@ -879,11 +908,15 @@ msgid ""
 "pointer to a BIO_METHOD. There is a naming convention for such functions: a "
 "source/sink BIO is normally called BIO_s_*() and a filter BIO BIO_f_*();"
 msgstr ""
+"L'argument I<type> est normalement fourni par une fonction qui renvoie un "
+"pointeur vers une BIO_METHOD. Une convention de nommage existe pour ce genre "
+"de fonction : un BIO source ou destination s'appelle B<BIO_s_>I<*>() et un "
+"BIO filtre B<BIO_f_>I<*>()."
 
 #. type: textblock
 #: C/crypto/BIO_new.pod:59
 msgid "Create a memory BIO:"
-msgstr ""
+msgstr "Créer un BIO mémoire :"
 
 #. type: verbatim
 #: C/crypto/BIO_new.pod:61
@@ -892,3 +925,5 @@ msgid ""
 " BIO *mem = BIO_new(BIO_s_mem());\n"
 "\n"
 msgstr ""
+" BIO *mem = BIO_new(BIO_s_mem());\n"
+"\n"
