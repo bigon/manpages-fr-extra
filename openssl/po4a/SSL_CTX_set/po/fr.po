@@ -1,0 +1,4435 @@
+# French translations for the openssl package
+# Copyright (C) 2008, 2012, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
+#
+# Nicolas François <nicolas.francois@centraliens.net>, 2008.
+# David Prévot <david@tilapin.org>, 2012, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: openssl\n"
+"POT-Creation-Date: 2013-05-29 22:17-0400\n"
+"PO-Revision-Date: 2013-02-05 19:59-0400\n"
+"Last-Translator: none yet\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_store.pod:3
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:3
+#: C/ssl/SSL_CTX_set_cipher_list.pod:3 C/ssl/SSL_CTX_set_client_CA_list.pod:3
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:3
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:3
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:3
+#: C/ssl/SSL_CTX_set_info_callback.pod:3 C/ssl/SSL_CTX_set_max_cert_list.pod:3
+#: C/ssl/SSL_CTX_set_mode.pod:3 C/ssl/SSL_CTX_set_msg_callback.pod:3
+#: C/ssl/SSL_CTX_set_options.pod:3
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:32
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:3
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:3
+#: C/ssl/SSL_CTX_set_session_id_context.pod:3
+#: C/ssl/SSL_CTX_set_ssl_version.pod:3 C/ssl/SSL_CTX_set_timeout.pod:3
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:3
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:3 C/ssl/SSL_CTX_set_verify.pod:3
+msgid "NAME"
+msgstr "NOM"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:5
+msgid ""
+"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - manipulate X509 certificate "
+"verification storage"
+msgstr ""
+"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - Manipuler le stockage de "
+"vérification de certificats X509"
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_store.pod:7
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:7
+#: C/ssl/SSL_CTX_set_cipher_list.pod:7 C/ssl/SSL_CTX_set_client_CA_list.pod:9
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:7
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:7
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:7
+#: C/ssl/SSL_CTX_set_info_callback.pod:7 C/ssl/SSL_CTX_set_max_cert_list.pod:7
+#: C/ssl/SSL_CTX_set_mode.pod:7 C/ssl/SSL_CTX_set_msg_callback.pod:7
+#: C/ssl/SSL_CTX_set_options.pod:7
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:36
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:7
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:7
+#: C/ssl/SSL_CTX_set_session_id_context.pod:7
+#: C/ssl/SSL_CTX_set_ssl_version.pod:8 C/ssl/SSL_CTX_set_timeout.pod:7
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:7
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:7 C/ssl/SSL_CTX_set_verify.pod:7
+msgid "SYNOPSIS"
+msgstr "SYNOPSIS"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_cert_store.pod:9
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:9
+#: C/ssl/SSL_CTX_set_cipher_list.pod:9 C/ssl/SSL_CTX_set_client_cert_cb.pod:9
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:9
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:9
+#: C/ssl/SSL_CTX_set_info_callback.pod:9 C/ssl/SSL_CTX_set_max_cert_list.pod:9
+#: C/ssl/SSL_CTX_set_mode.pod:9 C/ssl/SSL_CTX_set_msg_callback.pod:9
+#: C/ssl/SSL_CTX_set_options.pod:9
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:38
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:9
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:9
+#: C/ssl/SSL_CTX_set_session_id_context.pod:9
+#: C/ssl/SSL_CTX_set_ssl_version.pod:10 C/ssl/SSL_CTX_set_timeout.pod:9
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:9
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:9 C/ssl/SSL_CTX_set_verify.pod:9
+#, no-wrap
+msgid ""
+" #include <openssl/ssl.h>\n"
+"\n"
+msgstr ""
+" #include <openssl/ssl.h>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_cert_store.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_cert_store(SSL_CTX *ctx, X509_STORE *store);\n"
+" X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *ctx);\n"
+"\n"
+msgstr ""
+" void SSL_CTX_set_cert_store(SSL_CTX *ctx, X509_STORE *store);\n"
+" X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *ctx);\n"
+"\n"
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_store.pod:14
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:13
+#: C/ssl/SSL_CTX_set_cipher_list.pod:14
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:18
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:15
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:16
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:19
+#: C/ssl/SSL_CTX_set_info_callback.pod:17
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:17 C/ssl/SSL_CTX_set_mode.pod:17
+#: C/ssl/SSL_CTX_set_msg_callback.pod:17 C/ssl/SSL_CTX_set_options.pod:22
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:50
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:17
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:14
+#: C/ssl/SSL_CTX_set_session_id_context.pod:16
+#: C/ssl/SSL_CTX_set_ssl_version.pod:16 C/ssl/SSL_CTX_set_timeout.pod:14
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:21
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:23 C/ssl/SSL_CTX_set_verify.pod:20
+msgid "DESCRIPTION"
+msgstr "DESCRIPTION"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:16
+msgid ""
+"SSL_CTX_set_cert_store() sets/replaces the certificate verification storage "
+"of B<ctx> to/with B<store>. If another X509_STORE object is currently set in "
+"B<ctx>, it will be X509_STORE_free()ed."
+msgstr ""
+"B<SSL_CTX_set_cert_store>() définit et remplace le stockage de vérification "
+"de certificats de I<ctx> en I<store>. Si un autre objet X509_STORE est "
+"actuellement défini dans I<ctx>, il sera libéré avec B<X509_STORE_free>()."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:20
+msgid ""
+"SSL_CTX_get_cert_store() returns a pointer to the current certificate "
+"verification storage."
+msgstr ""
+"B<SSL_CTX_set_cert_store>() renvoie un pointeur vers le stockage de "
+"vérification de certificats actuel."
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_store.pod:23
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:19
+#: C/ssl/SSL_CTX_set_cipher_list.pod:23
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:35
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:38
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:32
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:31
+#: C/ssl/SSL_CTX_set_info_callback.pod:36
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:32 C/ssl/SSL_CTX_set_mode.pod:29
+#: C/ssl/SSL_CTX_set_msg_callback.pod:74 C/ssl/SSL_CTX_set_options.pod:44
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:67
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:33
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:21
+#: C/ssl/SSL_CTX_set_session_id_context.pod:24
+#: C/ssl/SSL_CTX_set_ssl_version.pod:29 C/ssl/SSL_CTX_set_timeout.pod:21
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:36
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:48 C/ssl/SSL_CTX_set_verify.pod:40
+msgid "NOTES"
+msgstr "NOTES"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:25
+msgid ""
+"In order to verify the certificates presented by the peer, trusted CA "
+"certificates must be accessed. These CA certificates are made available via "
+"lookup methods, handled inside the X509_STORE. From the X509_STORE the "
+"X509_STORE_CTX used when verifying certificates is created."
+msgstr ""
+"Afin de vérifier les certificats présentés par le pair, il faut accéder aux "
+"certificats d'autorité de certification. Ces certificats d'autorité de "
+"certification sont rendus disponibles par des méthodes de recherche, "
+"traitées à l'intérieur de X509_STORE. Le X509_STORE_CTX utilisé lors de la "
+"vérification de certificats est créé à partir de X509_STORE."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:30
+msgid ""
+"Typically the trusted certificate store is handled indirectly via using "
+"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>.  Using "
+"the SSL_CTX_set_cert_store() and SSL_CTX_get_cert_store() functions it is "
+"possible to manipulate the X509_STORE object beyond the "
+"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)> call."
+msgstr ""
+"L'emplacement de stockage des certificats de confiance est typiquement géré "
+"en utilisant L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations"
+"(3)>. L'utilisation des fonctions B<SSL_CTX_set_cert_store>() et "
+"B<SSL_CTX_get_cert_store>() est possible pour manipuler l'objet X509_STORE "
+"au delà de l'appel L<SSL_CTX_load_verify_locations(3)|"
+"SSL_CTX_load_verify_locations(3)>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:37
+msgid ""
+"Currently no detailed documentation on how to use the X509_STORE object is "
+"available. Not all members of the X509_STORE are used when the verification "
+"takes place. So will e.g. the verify_callback() be overridden with the "
+"verify_callback() set via the L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify(3)> "
+"family of functions.  This document must therefore be updated when "
+"documentation about the X509_STORE object and its handling becomes available."
+msgstr ""
+"Aucune documentation détaillée du mode d'utilisation de l'objet X509_STORE "
+"n'est pour l'instant disponible. Les éléments du X509_STORE ne sont pas tous "
+"utilisés au moment de la vérification. Ainsi, par exemple, le "
+"B<verify_callback>() sera écrasé par le B<verify_callback>() défini par la "
+"famille de fonctions L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify(3)>. Ce "
+"document devra par conséquent être mis à jour lorsque la documentation de "
+"l'objet X509_STORE et de son traitement sera disponible."
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_store.pod:45
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:57
+#: C/ssl/SSL_CTX_set_cipher_list.pod:57
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:59
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:52
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:132
+#: C/ssl/SSL_CTX_set_info_callback.pod:101
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:60 C/ssl/SSL_CTX_set_mode.pod:76
+#: C/ssl/SSL_CTX_set_options.pod:304
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:71
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:49
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:113
+#: C/ssl/SSL_CTX_set_session_id_context.pod:60
+#: C/ssl/SSL_CTX_set_ssl_version.pod:38 C/ssl/SSL_CTX_set_timeout.pod:45
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:155
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:148 C/ssl/SSL_CTX_set_verify.pod:161
+msgid "RETURN VALUES"
+msgstr "VALEURS DE RETOUR"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:47
+msgid "SSL_CTX_set_cert_store() does not return diagnostic output."
+msgstr "B<SSL_CTX_set_cert_store>() ne renvoie pas la sortie de diagnostic."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:49
+msgid "SSL_CTX_get_cert_store() returns the current setting."
+msgstr "B<SSL_CTX_set_cert_store>() renvoie la configuration actuelle."
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_store.pod:51
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:61
+#: C/ssl/SSL_CTX_set_cipher_list.pod:62
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:91
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:87
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:71
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:140
+#: C/ssl/SSL_CTX_set_info_callback.pod:148
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:68 C/ssl/SSL_CTX_set_mode.pod:83
+#: C/ssl/SSL_CTX_set_msg_callback.pod:90 C/ssl/SSL_CTX_set_options.pod:317
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:57
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:120
+#: C/ssl/SSL_CTX_set_session_id_context.pod:79
+#: C/ssl/SSL_CTX_set_ssl_version.pod:55 C/ssl/SSL_CTX_set_timeout.pod:51
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:163
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:159 C/ssl/SSL_CTX_set_verify.pod:283
+msgid "SEE ALSO"
+msgstr "VOIR AUSSI"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:53
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_load_verify_locations(3)|"
+"SSL_CTX_load_verify_locations(3)>, L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify"
+"(3)>"
+msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_load_verify_locations(3)|"
+"SSL_CTX_load_verify_locations(3)>, L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify"
+"(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:5
+msgid ""
+"SSL_CTX_set_cert_verify_callback - set peer certificate verification "
+"procedure"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_cert_verify_callback(SSL_CTX *ctx, int (*callback)(X509_STORE_CTX *,void *), void *arg);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:15
+msgid ""
+"SSL_CTX_set_cert_verify_callback() sets the verification callback function "
+"for I<ctx>. SSL objects that are created from I<ctx> inherit the setting "
+"valid at the time when L<SSL_new(3)|SSL_new(3)> is called."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:21
+msgid ""
+"Whenever a certificate is verified during a SSL/TLS handshake, a "
+"verification function is called. If the application does not explicitly "
+"specify a verification callback function, the built-in verification function "
+"is used.  If a verification callback I<callback> is specified via "
+"SSL_CTX_set_cert_verify_callback(), the supplied callback function is called "
+"instead. By setting I<callback> to NULL, the default behaviour is restored."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:28
+msgid ""
+"When the verification must be performed, I<callback> will be called with the "
+"arguments callback(X509_STORE_CTX *x509_store_ctx, void *arg). The argument "
+"I<arg> is specified by the application when setting I<callback>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:32
+msgid ""
+"I<callback> should return 1 to indicate verification success and 0 to "
+"indicate verification failure. If SSL_VERIFY_PEER is set and I<callback> "
+"returns 0, the handshake will fail. As the verification procedure may allow "
+"to continue the connection in case of failure (by always returning 1)  the "
+"verification result must be set in any case using the B<error> member of "
+"I<x509_store_ctx> so that the calling application will be informed about the "
+"detailed result of the verification procedure!"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:40
+msgid ""
+"Within I<x509_store_ctx>, I<callback> has access to the I<verify_callback> "
+"function set using L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify(3)>."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:43
+#: C/ssl/SSL_CTX_set_session_id_context.pod:47
+msgid "WARNINGS"
+msgstr "AVERTISSEMENTS"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:45
+msgid ""
+"Do not mix the verification callback described in this function with the "
+"B<verify_callback> function called during the verification process. The "
+"latter is set using the L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify(3)> "
+"family of functions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:50
+msgid ""
+"Providing a complete verification procedure including certificate purpose "
+"settings etc is a complex task. The built-in procedure is quite powerful and "
+"in most cases it should be sufficient to modify its behaviour using the "
+"B<verify_callback> function."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:55
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:63 C/ssl/SSL_CTX_set_verify.pod:149
+msgid "BUGS"
+msgstr "BOGUES"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:59
+msgid ""
+"SSL_CTX_set_cert_verify_callback() does not provide diagnostic information."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:63
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify(3)>, "
+"L<SSL_get_verify_result(3)|SSL_get_verify_result(3)>, "
+"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>"
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:67
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:144
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:73 C/ssl/SSL_CTX_set_mode.pod:87
+#: C/ssl/SSL_CTX_set_msg_callback.pod:94 C/ssl/SSL_CTX_set_options.pod:324
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:132
+msgid "HISTORY"
+msgstr "HISTORIQUE"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:69
+#, no-wrap
+msgid ""
+"Previous to OpenSSL 0.9.7, the I<arg> argument to B<SSL_CTX_set_cert_verify_callback>\n"
+"was ignored, and I<callback> was called simply as\n"
+" int (*callback)(X509_STORE_CTX *)\n"
+"To compile software written for previous versions of OpenSSL, a dummy\n"
+"argument will have to be added to I<callback>.\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:5
+msgid ""
+"SSL_CTX_set_cipher_list, SSL_set_cipher_list - choose list of available "
+"SSL_CIPHERs"
+msgstr ""
+"SSL_CTX_set_cipher_list, SSL_set_cipher_list - Choisir la liste des "
+"SSL_CIPHER disponibles"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_cipher_list.pod:11
+#, no-wrap
+msgid ""
+" int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
+" int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
+"\n"
+msgstr ""
+" int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
+" int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:16
+msgid ""
+"SSL_CTX_set_cipher_list() sets the list of available ciphers for B<ctx> "
+"using the control string B<str>. The format of the string is described in "
+"L<ciphers(1)|ciphers(1)>. The list of ciphers is inherited by all B<ssl> "
+"objects created from B<ctx>."
+msgstr ""
+"B<SSL_CTX_set_cipher_list>() définit la liste des algorithmes de chiffrement "
+"disponibles pour I<ctx> en utilisant la chaîne de contrôle I<str>. Le format "
+"de la chaîne est décrit dans L<ciphers(1)|ciphers(1)>. La liste "
+"d'algorithmes de chiffrement est héritée par tous les objets I<ssl> créés à "
+"partir de I<ctx>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:21
+msgid "SSL_set_cipher_list() sets the list of ciphers only for B<ssl>."
+msgstr ""
+"B<SSL_set_cipher_list>() ne définit la liste des algorithmes de chiffrement "
+"que pour I<ssl>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:25
+msgid ""
+"The control string B<str> should be universally usable and not depend on "
+"details of the library configuration (ciphers compiled in). Thus no syntax "
+"checking takes place. Items that are not recognized, because the "
+"corresponding ciphers are not compiled in or because they are mistyped, are "
+"simply ignored. Failure is only flagged if no ciphers could be collected at "
+"all."
+msgstr ""
+"La chaîne de contrôle I<str> devrait être universellement utilisable sans "
+"dépendre de détails de la configuration de bibliothèques (algorithmes de "
+"chiffrement compilés à l'intérieur). Ainsi, aucune vérification de syntaxe "
+"n'est effectuée. Les éléments qui ne sont pas reconnus, parce que les "
+"algorithmes de chiffrement correspondants ne sont pas compilés à "
+"l'intérieur, ou parce qu'ils n'ont pas été écrits correctement, sont "
+"simplement ignorés. Les échecs ne sont attribués que si aucun algorithme de "
+"chiffrement n'a pu être collecté."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:32
+msgid ""
+"It should be noted, that inclusion of a cipher to be used into the list is a "
+"necessary condition. On the client side, the inclusion into the list is also "
+"sufficient. On the server side, additional restrictions apply. All ciphers "
+"have additional requirements. ADH ciphers don't need a certificate, but DH-"
+"parameters must have been set. All other ciphers need a corresponding "
+"certificate and key."
+msgstr ""
+"Précision importante : l'inclusion d'un algorithme de chiffrement à utiliser "
+"dans la liste est une condition nécessaire. Du côté client, l'inclusion dans "
+"la liste est aussi suffisante. Du côté serveur, des restrictions "
+"supplémentaires s'appliquent. Tous les algorithmes de chiffrement ont des "
+"conditions nécessaires supplémentaires. Les algorithmes de chiffrement ADH "
+"n'ont pas besoin d'un certificat, mais les paramètres DH doivent avoir été "
+"définis. Tous les autres algorithmes de chiffrement ont besoin d'un "
+"certificat et d'une clef correspondants"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:39
+msgid ""
+"A RSA cipher can only be chosen, when a RSA certificate is available.  RSA "
+"export ciphers with a keylength of 512 bits for the RSA key require a "
+"temporary 512 bit RSA key, as typically the supplied key has a length of "
+"1024 bit (see L<SSL_CTX_set_tmp_rsa_callback(3)|SSL_CTX_set_tmp_rsa_callback"
+"(3)>).  RSA ciphers using EDH need a certificate and key and additional DH-"
+"parameters (see L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback"
+"(3)>)."
+msgstr ""
+"Seul un algorithme de chiffrement RSA peut être choisi quand un certificat "
+"RSA est disponible. Les algorithmes de chiffrement RSA exportés avec une "
+"taille de clef de 512 bits pour la clef RSA ont besoin d'une clef RSA "
+"temporaire de 512 bits, puisque les clefs typiquement fournies ont une "
+"taille de 1024 bits (consultez L<SSL_CTX_set_tmp_rsa_callback(3)|"
+"SSL_CTX_set_tmp_rsa_callback(3)>). Les algorithmes de chiffrement RSA "
+"utilisant EDH ont besoin d'un certificat et d'une clef et de paramètres DH "
+"supplémentaires (consultez L<SSL_CTX_set_tmp_dh_callback(3)|"
+"SSL_CTX_set_tmp_dh_callback(3)>)."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:47
+msgid ""
+"A DSA cipher can only be chosen, when a DSA certificate is available.  DSA "
+"ciphers always use DH key exchange and therefore need DH-parameters (see "
+"L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>)."
+msgstr ""
+"Seul un algorithme de chiffrement DSA peut être choisi quand un certificat "
+"DSA est disponible. Les algorithmes de chiffrement DSA utilisent toujours un "
+"échange de clef DH, et ont par conséquent besoin de paramètres DH (consultez "
+"L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>)."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:51
+msgid ""
+"When these conditions are not met for any cipher in the list (e.g. a client "
+"only supports export RSA ciphers with a asymmetric key length of 512 bits "
+"and the server is not configured to use temporary RSA keys), the \"no shared "
+"cipher\" (SSL_R_NO_SHARED_CIPHER) error is generated and the handshake will "
+"fail."
+msgstr ""
+"Quand ces conditions ne sont pas réunies pour un algorithme de chiffrement "
+"de la liste (par exemple un client qui ne gère que l'exportation "
+"d'algorithmes de chiffrement RSA avec une taille de clef asymétrique de "
+"512 bits et que le serveur n'est pas configuré pour utiliser des clefs RSA "
+"temporaires), l'erreur « pas d'algorithme de chiffrement "
+"partagé » (SSL_R_NO_SHARED_CIPHER) est générée, et l'initialisation échouera."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:59
+msgid ""
+"SSL_CTX_set_cipher_list() and SSL_set_cipher_list() return 1 if any cipher "
+"could be selected and 0 on complete failure."
+msgstr ""
+"B<SSL_CTX_set_cipher_list>() et B<SSL_set_cipher_list>() renvoient B<1> si "
+"un algorithme de chiffrement a pu être sélectionné et B<0> en cas d'échec "
+"complet."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cipher_list.pod:64
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_get_ciphers(3)|SSL_get_ciphers(3)>, "
+"L<SSL_CTX_use_certificate(3)|SSL_CTX_use_certificate(3)>, "
+"L<SSL_CTX_set_tmp_rsa_callback(3)|SSL_CTX_set_tmp_rsa_callback(3)>, "
+"L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>, L<ciphers"
+"(1)|ciphers(1)>"
+msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_get_ciphers(3)|SSL_get_ciphers(3)>, "
+"L<SSL_CTX_use_certificate(3)|SSL_CTX_use_certificate(3)>, "
+"L<SSL_CTX_set_tmp_rsa_callback(3)|SSL_CTX_set_tmp_rsa_callback(3)>, "
+"L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>, L<ciphers"
+"(1)|ciphers(1)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:5
+msgid ""
+"SSL_CTX_set_client_CA_list, SSL_set_client_CA_list, SSL_CTX_add_client_CA, "
+"SSL_add_client_CA - set list of CAs sent to the client when requesting a "
+"client certificate"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:11
+#, no-wrap
+msgid ""
+" #include <openssl/ssl.h>\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:13
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);\n"
+" void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *list);\n"
+" int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *cacert);\n"
+" int SSL_add_client_CA(SSL *ssl, X509 *cacert);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:20
+msgid ""
+"SSL_CTX_set_client_CA_list() sets the B<list> of CAs sent to the client when "
+"requesting a client certificate for B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:23
+msgid ""
+"SSL_set_client_CA_list() sets the B<list> of CAs sent to the client when "
+"requesting a client certificate for the chosen B<ssl>, overriding the "
+"setting valid for B<ssl>'s SSL_CTX object."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:27
+msgid ""
+"SSL_CTX_add_client_CA() adds the CA name extracted from B<cacert> to the "
+"list of CAs sent to the client when requesting a client certificate for "
+"B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:31
+msgid ""
+"SSL_add_client_CA() adds the CA name extracted from B<cacert> to the list of "
+"CAs sent to the client when requesting a client certificate for the chosen "
+"B<ssl>, overriding the setting valid for B<ssl>'s SSL_CTX object."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:37
+msgid ""
+"When a TLS/SSL server requests a client certificate (see "
+"B<SSL_CTX_set_verify_options()>), it sends a list of CAs, for which it will "
+"accept certificates, to the client."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:41
+msgid ""
+"This list must explicitly be set using SSL_CTX_set_client_CA_list() for "
+"B<ctx> and SSL_set_client_CA_list() for the specific B<ssl>. The list "
+"specified overrides the previous setting. The CAs listed do not become "
+"trusted (B<list> only contains the names, not the complete certificates); "
+"use L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)> to "
+"additionally load them for verification."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:48
+msgid ""
+"If the list of acceptable CAs is compiled in a file, the "
+"L<SSL_load_client_CA_file(3)|SSL_load_client_CA_file(3)> function can be "
+"used to help importing the necessary data."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:52
+msgid ""
+"SSL_CTX_add_client_CA() and SSL_add_client_CA() can be used to add "
+"additional items the list of client CAs. If no list was specified before "
+"using SSL_CTX_set_client_CA_list() or SSL_set_client_CA_list(), a new client "
+"CA list for B<ctx> or B<ssl> (as appropriate) is opened."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:57
+msgid "These functions are only useful for TLS/SSL servers."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:61
+msgid ""
+"SSL_CTX_set_client_CA_list() and SSL_set_client_CA_list() do not return "
+"diagnostic information."
+msgstr ""
+"B<SSL_CTX_set_client_CA_list>() et B<SSL_set_client_CA_list>() ne renvoient "
+"pas de renseignements de diagnostic."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:64
+msgid ""
+"SSL_CTX_add_client_CA() and SSL_add_client_CA() have the following return "
+"values:"
+msgstr ""
+"B<SSL_CTX_add_client_CA>() et B<SSL_add_client_CA>() ont les valeurs de "
+"retour suivantes."
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:69
+#: C/ssl/SSL_CTX_set_session_id_context.pod:73
+#: C/ssl/SSL_CTX_set_ssl_version.pod:49
+msgid "1"
+msgstr "1"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:71
+#: C/ssl/SSL_CTX_set_session_id_context.pod:75
+#: C/ssl/SSL_CTX_set_ssl_version.pod:51
+msgid "The operation succeeded."
+msgstr "L'opération a réussi."
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:77
+#: C/ssl/SSL_CTX_set_session_id_context.pod:67
+#: C/ssl/SSL_CTX_set_ssl_version.pod:45
+msgid "0"
+msgstr "0"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:79
+msgid ""
+"A failure while manipulating the STACK_OF(X509_NAME) object occurred or the "
+"X509_NAME could not be extracted from B<cacert>. Check the error stack to "
+"find out the reason."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:85
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:57
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:95
+#: C/ssl/SSL_CTX_set_info_callback.pod:107
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:103
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:97 C/ssl/SSL_CTX_set_verify.pod:165
+msgid "EXAMPLES"
+msgstr "EXEMPLES"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:87
+msgid "Scan all certificates in B<CAfile> and list them as acceptable CAs:"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:89
+#, no-wrap
+msgid ""
+"  SSL_CTX_set_client_CA_list(ctx,SSL_load_client_CA_file(CAfile));\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:93
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_get_client_CA_list(3)|SSL_get_client_CA_list(3)>, "
+"L<SSL_load_client_CA_file(3)|SSL_load_client_CA_file(3)>, "
+"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:5
+msgid ""
+"SSL_CTX_set_client_cert_cb, SSL_CTX_get_client_cert_cb - handle client "
+"certificate callback function"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_client_cert_cb(SSL_CTX *ctx, int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey));\n"
+" int (*SSL_CTX_get_client_cert_cb(SSL_CTX *ctx))(SSL *ssl, X509 **x509, EVP_PKEY **pkey);\n"
+" int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:17
+msgid ""
+"SSL_CTX_set_client_cert_cb() sets the B<client_cert_cb()> callback, that is "
+"called when a client certificate is requested by a server and no certificate "
+"was yet set for the SSL object."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:21
+msgid "When B<client_cert_cb()> is NULL, no callback function is used."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:23
+msgid ""
+"SSL_CTX_get_client_cert_cb() returns a pointer to the currently set callback "
+"function."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:26
+msgid ""
+"client_cert_cb() is the application defined callback. If it wants to set a "
+"certificate, a certificate/private key combination must be set using the "
+"B<x509> and B<pkey> arguments and \"1\" must be returned. The certificate "
+"will be installed into B<ssl>, see the NOTES and BUGS sections.  If no "
+"certificate should be set, \"0\" has to be returned and no certificate will "
+"be sent. A negative return value will suspend the handshake and the "
+"handshake function will return immediatly. L<SSL_get_error(3)|SSL_get_error"
+"(3)> will return SSL_ERROR_WANT_X509_LOOKUP to indicate, that the handshake "
+"was suspended. The next call to the handshake function will again lead to "
+"the call of client_cert_cb(). It is the job of the client_cert_cb() to store "
+"information about the state of the last call, if required to continue."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:40
+msgid ""
+"During a handshake (or renegotiation) a server may request a certificate "
+"from the client. A client certificate must only be sent, when the server did "
+"send the request."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:44
+msgid ""
+"When a certificate was set using the L<SSL_CTX_use_certificate(3)|"
+"SSL_CTX_use_certificate(3)> family of functions, it will be sent to the "
+"server. The TLS standard requires that only a certificate is sent, if it "
+"matches the list of acceptable CAs sent by the server. This constraint is "
+"violated by the default behavior of the OpenSSL library. Using the callback "
+"function it is possible to implement a proper selection routine or to allow "
+"a user interaction to choose the certificate to be sent."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:53
+msgid ""
+"If a callback function is defined and no certificate was yet defined for the "
+"SSL object, the callback function will be called.  If the callback function "
+"returns a certificate, the OpenSSL library will try to load the private key "
+"and certificate data into the SSL object using the SSL_use_certificate() and "
+"SSL_use_private_key() functions.  Thus it will permanently install the "
+"certificate and key for this SSL object. It will not be reset by calling "
+"L<SSL_clear(3)|SSL_clear(3)>.  If the callback returns no certificate, the "
+"OpenSSL library will not send a certificate."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:65
+msgid ""
+"The client_cert_cb() cannot return a complete certificate chain, it can only "
+"return one client certificate. If the chain only has a length of 2, the root "
+"CA certificate may be omitted according to the TLS standard and thus a "
+"standard conforming answer can be sent to the server. For a longer chain, "
+"the client must send the complete chain (with the option to leave out the "
+"root CA certificate). This can only be accomplished by either adding the "
+"intermediate CA certificates into the trusted certificate store for the "
+"SSL_CTX object (resulting in having to add CA certificates that otherwise "
+"maybe would not be trusted), or by adding the chain certificates using the "
+"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)> function, "
+"which is only available for the SSL_CTX object as a whole and that therefore "
+"probably can only apply for one client certificate, making the concept of "
+"the callback function (to allow the choice from several certificates) "
+"questionable."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:81
+msgid ""
+"Once the SSL object has been used in conjunction with the callback function, "
+"the certificate will be set for the SSL object and will not be cleared even "
+"when L<SSL_clear(3)|SSL_clear(3)> is being called. It is therefore mandatory "
+"to destroy the SSL object using L<SSL_free(3)|SSL_free(3)> and create a new "
+"one to return to the previous state."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:89
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_use_certificate(3)|SSL_CTX_use_certificate(3)>, "
+"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>, "
+"L<SSL_get_client_CA_list(3)|SSL_get_client_CA_list(3)>, L<SSL_clear(3)|"
+"SSL_clear(3)>, L<SSL_free(3)|SSL_free(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:5
+msgid ""
+"SSL_CTX_set_default_passwd_cb, SSL_CTX_set_default_passwd_cb_userdata - set "
+"passwd callback for encrypted PEM file handling"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_default_passwd_cb(SSL_CTX *ctx, pem_password_cb *cb);\n"
+" void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:14
+#, no-wrap
+msgid ""
+" int pem_passwd_cb(char *buf, int size, int rwflag, void *userdata);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:18
+msgid ""
+"SSL_CTX_set_default_passwd_cb() sets the default password callback called "
+"when loading/storing a PEM certificate with encryption."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:21
+msgid ""
+"SSL_CTX_set_default_passwd_cb_userdata() sets a pointer to B<userdata> which "
+"will be provided to the password callback on invocation."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:24
+msgid ""
+"The pem_passwd_cb(), which must be provided by the application, hands back "
+"the password to be used during decryption. On invocation a pointer to "
+"B<userdata> is provided. The pem_passwd_cb must write the password into the "
+"provided buffer B<buf> which is of size B<size>. The actual length of the "
+"password must be returned to the calling function. B<rwflag> indicates "
+"whether the callback is used for reading/decryption (rwflag=0) or writing/"
+"encryption (rwflag=1)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:34
+msgid ""
+"When loading or storing private keys, a password might be supplied to "
+"protect the private key. The way this password can be supplied may depend on "
+"the application. If only one private key is handled, it can be practical to "
+"have pem_passwd_cb() handle the password dialog interactively. If several "
+"keys have to be handled, it can be practical to ask for the password once, "
+"then keep it in memory and use it several times. In the last case, the "
+"password could be stored into the B<userdata> storage and the pem_passwd_cb"
+"() only returns the password already stored."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:43
+msgid ""
+"When asking for the password interactively, pem_passwd_cb() can use "
+"B<rwflag> to check, whether an item shall be encrypted (rwflag=1).  In this "
+"case the password dialog may ask for the same password twice for comparison "
+"in order to catch typos, that would make decryption impossible."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:49
+msgid ""
+"Other items in PEM formatting (certificates) can also be encrypted, it is "
+"however not usual, as certificate information is considered public."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:54
+msgid ""
+"SSL_CTX_set_default_passwd_cb() and SSL_CTX_set_default_passwd_cb_userdata"
+"()  do not provide diagnostic information."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:59
+msgid ""
+"The following example returns the password provided as B<userdata> to the "
+"calling function. The password is considered to be a '\\0' terminated "
+"string. If the password does not fit into the buffer, the password is "
+"truncated."
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:64
+#, no-wrap
+msgid ""
+" int pem_passwd_cb(char *buf, int size, int rwflag, void *password)\n"
+" {\n"
+"  strncpy(buf, (char *)(password), size);\n"
+"  buf[size - 1] = '\\0';\n"
+"  return(strlen(buf));\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:73
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_use_certificate(3)|SSL_CTX_use_certificate(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:5
+msgid ""
+"SSL_CTX_set_generate_session_id, SSL_set_generate_session_id, "
+"SSL_has_matching_session_id - manipulate generation of SSL session IDs "
+"(server only)"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:11
+#, no-wrap
+msgid ""
+" typedef int (*GEN_SESSION_CB)(const SSL *ssl, unsigned char *id,\n"
+"                               unsigned int *id_len);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:14
+#, no-wrap
+msgid ""
+" int SSL_CTX_set_generate_session_id(SSL_CTX *ctx, GEN_SESSION_CB cb);\n"
+" int SSL_set_generate_session_id(SSL *ssl, GEN_SESSION_CB, cb);\n"
+" int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,\n"
+"\t\t\t\t unsigned int id_len);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:21
+msgid ""
+"SSL_CTX_set_generate_session_id() sets the callback function for generating "
+"new session ids for SSL/TLS sessions for B<ctx> to be B<cb>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:24
+msgid ""
+"SSL_set_generate_session_id() sets the callback function for generating new "
+"session ids for SSL/TLS sessions for B<ssl> to be B<cb>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:27
+msgid ""
+"SSL_has_matching_session_id() checks, whether a session with id B<id> (of "
+"length B<id_len>) is already contained in the internal session cache of the "
+"parent context of B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:33
+msgid ""
+"When a new session is established between client and server, the server "
+"generates a session id. The session id is an arbitrary sequence of bytes.  "
+"The length of the session id is 16 bytes for SSLv2 sessions and between 1 "
+"and 32 bytes for SSLv3/TLSv1. The session id is not security critical but "
+"must be unique for the server. Additionally, the session id is transmitted "
+"in the clear when reusing the session so it must not contain sensitive "
+"information."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:41
+msgid ""
+"Without a callback being set, an OpenSSL server will generate a unique "
+"session id from pseudo random numbers of the maximum possible length.  Using "
+"the callback function, the session id can be changed to contain additional "
+"information like e.g. a host id in order to improve load balancing or "
+"external caching techniques."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:47
+msgid ""
+"The callback function receives a pointer to the memory location to put B<id> "
+"into and a pointer to the maximum allowed length B<id_len>. The buffer at "
+"location B<id> is only guaranteed to have the size B<id_len>.  The callback "
+"is only allowed to generate a shorter id and reduce B<id_len>; the callback "
+"B<must never> increase B<id_len> or write to the location B<id> exceeding "
+"the given limit."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:54
+msgid ""
+"If a SSLv2 session id is generated and B<id_len> is reduced, it will be "
+"restored after the callback has finished and the session id will be padded "
+"with 0x00. It is not recommended to change the B<id_len> for SSLv2 "
+"sessions.  The callback can use the L<SSL_get_version(3)|SSL_get_version(3)> "
+"function to check, whether the session is of type SSLv2."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:60
+msgid ""
+"The location B<id> is filled with 0x00 before the callback is called, so the "
+"callback may only fill part of the possible length and leave B<id_len> "
+"untouched while maintaining reproducibility."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:64
+msgid ""
+"Since the sessions must be distinguished, session ids must be unique.  "
+"Without the callback a random number is used, so that the probability of "
+"generating the same session id is extremely small (2^128 possible ids for an "
+"SSLv2 session, 2^256 for SSLv3/TLSv1). In order to assure the uniqueness of "
+"the generated session id, the callback must call SSL_has_matching_session_id"
+"() and generate another id if a conflict occurs.  If an id conflict is not "
+"resolved, the handshake will fail.  If the application codes e.g. a unique "
+"host id, a unique process number, and a unique sequence number into the "
+"session id, uniqueness could easily be achieved without randomness added (it "
+"should however be taken care that no confidential information is leaked this "
+"way). If the application can not guarantee uniqueness, it is recommended to "
+"use the maximum B<id_len> and fill in the bytes not used to code special "
+"information with random data to avoid collisions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:79
+msgid ""
+"SSL_has_matching_session_id() will only query the internal session cache, "
+"not the external one. Since the session id is generated before the handshake "
+"is completed, it is not immediately added to the cache. If another thread is "
+"using the same internal session cache, a race condition can occur in that "
+"another thread generates the same session id.  Collisions can also occur "
+"when using an external session cache, since the external cache is not tested "
+"with SSL_has_matching_session_id()  and the same race condition applies."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:88
+msgid ""
+"When calling SSL_has_matching_session_id() for an SSLv2 session with reduced "
+"B<id_len>, the match operation will be performed using the fixed length "
+"required and with a 0x00 padded id."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:92
+msgid ""
+"The callback must return 0 if it cannot generate a session id for whatever "
+"reason and return 1 on success."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:97
+msgid ""
+"The callback function listed will generate a session id with the server id "
+"given, and will fill the rest with pseudo random bytes:"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:100
+#, no-wrap
+msgid ""
+" const char session_id_prefix = \"www-18\";\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:102
+#, no-wrap
+msgid ""
+" #define MAX_SESSION_ID_ATTEMPTS 10\n"
+" static int generate_session_id(const SSL *ssl, unsigned char *id,\n"
+"                              unsigned int *id_len)\n"
+"      {\n"
+"      unsigned int count = 0;\n"
+"      const char *version;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:109
+#, no-wrap
+msgid ""
+"      version = SSL_get_version(ssl);\n"
+"      if (!strcmp(version, \"SSLv2\"))\n"
+"\t  /* we must not change id_len */;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:113
+#, no-wrap
+msgid ""
+"      do      {\n"
+"              RAND_pseudo_bytes(id, *id_len);\n"
+"              /* Prefix the session_id with the required prefix. NB: If our\n"
+"               * prefix is too long, clip it - but there will be worse effects\n"
+"               * anyway, eg. the server could only possibly create 1 session\n"
+"               * ID (ie. the prefix!) so all future session negotiations will\n"
+"               * fail due to conflicts. */\n"
+"              memcpy(id, session_id_prefix,\n"
+"                      (strlen(session_id_prefix) < *id_len) ?\n"
+"                      strlen(session_id_prefix) : *id_len);\n"
+"              }\n"
+"      while(SSL_has_matching_session_id(ssl, id, *id_len) &&\n"
+"              (++count < MAX_SESSION_ID_ATTEMPTS));\n"
+"      if(count >= MAX_SESSION_ID_ATTEMPTS)\n"
+"              return 0;\n"
+"      return 1;\n"
+"      }\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:134
+msgid ""
+"SSL_CTX_set_generate_session_id() and SSL_set_generate_session_id()  always "
+"return 1."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:137
+msgid ""
+"SSL_has_matching_session_id() returns 1 if another session with the same id "
+"is already in the cache."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:142
+msgid "L<ssl(3)|ssl(3)>, L<SSL_get_version(3)|SSL_get_version(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:146
+msgid ""
+"SSL_CTX_set_generate_session_id(), SSL_set_generate_session_id()  and "
+"SSL_has_matching_session_id() have been introduced in OpenSSL 0.9.7."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:5
+msgid ""
+"SSL_CTX_set_info_callback, SSL_CTX_get_info_callback, SSL_set_info_callback, "
+"SSL_get_info_callback - handle information callback for SSL connections"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_info_callback.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_info_callback(SSL_CTX *ctx, void (*callback)());\n"
+" void (*SSL_CTX_get_info_callback(const SSL_CTX *ctx))();\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_info_callback.pod:14
+#, no-wrap
+msgid ""
+" void SSL_set_info_callback(SSL *ssl, void (*callback)());\n"
+" void (*SSL_get_info_callback(const SSL *ssl))();\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:19
+msgid ""
+"SSL_CTX_set_info_callback() sets the B<callback> function, that can be used "
+"to obtain state information for SSL objects created from B<ctx> during "
+"connection setup and use. The setting for B<ctx> is overridden from the "
+"setting for a specific SSL object, if specified.  When B<callback> is NULL, "
+"not callback function is used."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:25
+msgid ""
+"SSL_set_info_callback() sets the B<callback> function, that can be used to "
+"obtain state information for B<ssl> during connection setup and use.  When "
+"B<callback> is NULL, the callback setting currently valid for B<ctx> is used."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:30
+msgid ""
+"SSL_CTX_get_info_callback() returns a pointer to the currently set "
+"information callback function for B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:33
+msgid ""
+"SSL_get_info_callback() returns a pointer to the currently set information "
+"callback function for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:38
+msgid ""
+"When setting up a connection and during use, it is possible to obtain state "
+"information from the SSL/TLS engine. When set, an information callback "
+"function is called whenever the state changes, an alert appears, or an error "
+"occurs."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:42
+msgid ""
+"The callback function is called as B<callback(SSL *ssl, int where, int ret)"
+">.  The B<where> argument specifies information about where (in which "
+"context)  the callback function was called. If B<ret> is 0, an error "
+"condition occurred.  If an alert is handled, SSL_CB_ALERT is set and B<ret> "
+"specifies the alert information."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:48
+msgid "B<where> is a bitmask made up of the following bits:"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:52
+msgid "SSL_CB_LOOP"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:54
+msgid "Callback has been called to indicate state change inside a loop."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:56
+msgid "SSL_CB_EXIT"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:58
+msgid ""
+"Callback has been called to indicate error exit of a handshake function.  "
+"(May be soft error with retry option for non-blocking setups.)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:61
+msgid "SSL_CB_READ"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:63
+msgid "Callback has been called during read operation."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:65
+msgid "SSL_CB_WRITE"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:67
+msgid "Callback has been called during write operation."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:69
+msgid "SSL_CB_ALERT"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:71
+msgid "Callback has been called due to an alert being sent or received."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:73
+msgid "SSL_CB_READ_ALERT (SSL_CB_ALERT|SSL_CB_READ)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:75
+msgid "SSL_CB_WRITE_ALERT (SSL_CB_ALERT|SSL_CB_WRITE)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:77
+msgid "SSL_CB_ACCEPT_LOOP (SSL_ST_ACCEPT|SSL_CB_LOOP)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:79
+msgid "SSL_CB_ACCEPT_EXIT (SSL_ST_ACCEPT|SSL_CB_EXIT)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:81
+msgid "SSL_CB_CONNECT_LOOP (SSL_ST_CONNECT|SSL_CB_LOOP)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:83
+msgid "SSL_CB_CONNECT_EXIT (SSL_ST_CONNECT|SSL_CB_EXIT)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:85
+msgid "SSL_CB_HANDSHAKE_START"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:87
+msgid "Callback has been called because a new handshake is started."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_info_callback.pod:89
+msgid "SSL_CB_HANDSHAKE_DONE 0x20"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:91
+msgid "Callback has been called because a handshake is finished."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:95
+msgid ""
+"The current state information can be obtained using the L<SSL_state_string"
+"(3)|SSL_state_string(3)> family of functions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:98
+msgid ""
+"The B<ret> information can be evaluated using the L<SSL_alert_type_string(3)|"
+"SSL_alert_type_string(3)> family of functions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:103
+msgid "SSL_set_info_callback() does not provide diagnostic information."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:105
+msgid "SSL_get_info_callback() returns the current setting."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:109
+msgid ""
+"The following example callback function prints state strings, information "
+"about alerts being handled and error messages to the B<bio_err> BIO."
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_info_callback.pod:112
+#, no-wrap
+msgid ""
+" void apps_ssl_info_callback(SSL *s, int where, int ret)\n"
+"\t{\n"
+"\tconst char *str;\n"
+"\tint w;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_info_callback.pod:117
+#, no-wrap
+msgid ""
+"\tw=where& ~SSL_ST_MASK;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_info_callback.pod:119
+#, no-wrap
+msgid ""
+"\tif (w & SSL_ST_CONNECT) str=\"SSL_connect\";\n"
+"\telse if (w & SSL_ST_ACCEPT) str=\"SSL_accept\";\n"
+"\telse str=\"undefined\";\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_info_callback.pod:123
+#, no-wrap
+msgid ""
+"\tif (where & SSL_CB_LOOP)\n"
+"\t\t{\n"
+"\t\tBIO_printf(bio_err,\"%s:%s\\n\",str,SSL_state_string_long(s));\n"
+"\t\t}\n"
+"\telse if (where & SSL_CB_ALERT)\n"
+"\t\t{\n"
+"\t\tstr=(where & SSL_CB_READ)?\"read\":\"write\";\n"
+"\t\tBIO_printf(bio_err,\"SSL3 alert %s:%s:%s\\n\",\n"
+"\t\t\tstr,\n"
+"\t\t\tSSL_alert_type_string_long(ret),\n"
+"\t\t\tSSL_alert_desc_string_long(ret));\n"
+"\t\t}\n"
+"\telse if (where & SSL_CB_EXIT)\n"
+"\t\t{\n"
+"\t\tif (ret == 0)\n"
+"\t\t\tBIO_printf(bio_err,\"%s:failed in %s\\n\",\n"
+"\t\t\t\tstr,SSL_state_string_long(s));\n"
+"\t\telse if (ret < 0)\n"
+"\t\t\t{\n"
+"\t\t\tBIO_printf(bio_err,\"%s:error in %s\\n\",\n"
+"\t\t\t\tstr,SSL_state_string_long(s));\n"
+"\t\t\t}\n"
+"\t\t}\n"
+"\t}\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_info_callback.pod:150
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_state_string(3)|SSL_state_string(3)>, "
+"L<SSL_alert_type_string(3)|SSL_alert_type_string(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:5
+msgid ""
+"SSL_CTX_set_max_cert_list, SSL_CTX_get_max_cert_list, SSL_set_max_cert_list, "
+"SSL_get_max_cert_list, - manipulate allowed for the peer's certificate chain"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:11
+#, no-wrap
+msgid ""
+" long SSL_CTX_set_max_cert_list(SSL_CTX *ctx, long size);\n"
+" long SSL_CTX_get_max_cert_list(SSL_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:14
+#, no-wrap
+msgid ""
+" long SSL_set_max_cert_list(SSL *ssl, long size);\n"
+" long SSL_get_max_cert_list(SSL *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:19
+msgid ""
+"SSL_CTX_set_max_cert_list() sets the maximum size allowed for the peer's "
+"certificate chain for all SSL objects created from B<ctx> to be <size> "
+"bytes.  The SSL objects inherit the setting valid for B<ctx> at the time "
+"L<SSL_new(3)|SSL_new(3)> is being called."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:24
+msgid ""
+"SSL_CTX_get_max_cert_list() returns the currently set maximum size for "
+"B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:26
+msgid ""
+"SSL_set_max_cert_list() sets the maximum size allowed for the peer's "
+"certificate chain for B<ssl> to be <size> bytes. This setting stays valid "
+"until a new value is set."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:30
+msgid ""
+"SSL_get_max_cert_list() returns the currently set maximum size for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:34
+msgid ""
+"During the handshake process, the peer may send a certificate chain.  The "
+"TLS/SSL standard does not give any maximum size of the certificate chain.  "
+"The OpenSSL library handles incoming data by a dynamically allocated "
+"buffer.  In order to prevent this buffer from growing without bounds due to "
+"data received from a faulty or malicious peer, a maximum size for the "
+"certificate chain is set."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:41
+msgid ""
+"The default value for the maximum certificate chain size is 100kB (30kB on "
+"the 16bit DOS platform). This should be sufficient for usual certificate "
+"chains (OpenSSL's default maximum chain length is 10, see "
+"L<SSL_CTX_set_verify(3)|SSL_CTX_set_verify(3)>, and certificates without "
+"special extensions have a typical size of 1-2kB)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:47
+msgid ""
+"For special applications it can be necessary to extend the maximum "
+"certificate chain size allowed to be sent by the peer, see e.g. the work on "
+"\"Internet X.509 Public Key Infrastructure Proxy Certificate Profile\" and "
+"\"TLS Delegation Protocol\" at http://www.ietf.org/ and http://www.globus."
+"org/ ."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:53
+msgid ""
+"Under normal conditions it should never be necessary to set a value smaller "
+"than the default, as the buffer is handled dynamically and only uses the "
+"memory actually required by the data sent by the peer."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:57
+msgid ""
+"If the maximum certificate chain size allowed is exceeded, the handshake "
+"will fail with a SSL_R_EXCESSIVE_MESSAGE_SIZE error."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:62
+msgid ""
+"SSL_CTX_set_max_cert_list() and SSL_set_max_cert_list() return the "
+"previously set value."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:65
+msgid ""
+"SSL_CTX_get_max_cert_list() and SSL_get_max_cert_list() return the currently "
+"set value."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:70
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_CTX_set_verify(3)|"
+"SSL_CTX_set_verify(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:75
+msgid "SSL*_set/get_max_cert_list() have been introduced in OpenSSL 0.9.7."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:5
+msgid ""
+"SSL_CTX_set_mode, SSL_set_mode, SSL_CTX_get_mode, SSL_get_mode - manipulate "
+"SSL engine mode"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_mode.pod:11
+#, no-wrap
+msgid ""
+" long SSL_CTX_set_mode(SSL_CTX *ctx, long mode);\n"
+" long SSL_set_mode(SSL *ssl, long mode);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_mode.pod:14
+#, no-wrap
+msgid ""
+" long SSL_CTX_get_mode(SSL_CTX *ctx);\n"
+" long SSL_get_mode(SSL *ssl);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:19
+msgid ""
+"SSL_CTX_set_mode() adds the mode set via bitmask in B<mode> to B<ctx>.  "
+"Options already set before are not cleared."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:22
+msgid ""
+"SSL_set_mode() adds the mode set via bitmask in B<mode> to B<ssl>.  Options "
+"already set before are not cleared."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:25
+msgid "SSL_CTX_get_mode() returns the mode set for B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:27
+msgid "SSL_get_mode() returns the mode set for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:31
+msgid "The following mode changes are available:"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_mode.pod:35
+msgid "SSL_MODE_ENABLE_PARTIAL_WRITE"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:37
+msgid ""
+"Allow SSL_write(..., n) to return r with 0 < r < n (i.e. report success when "
+"just a single record has been written). When not set (the default), SSL_write"
+"() will only report success once the complete chunk was written.  Once "
+"SSL_write() returns with r, r bytes have been successfully written and the "
+"next call to SSL_write() must only send the n-r bytes left, imitating the "
+"behaviour of write()."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_mode.pod:44
+msgid "SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:46
+msgid ""
+"Make it possible to retry SSL_write() with changed buffer location (the "
+"buffer contents must stay the same). This is not the default to avoid the "
+"misconception that non-blocking SSL_write() behaves like non-blocking write"
+"()."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_mode.pod:51
+msgid "SSL_MODE_AUTO_RETRY"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:53
+msgid ""
+"Never bother the application with retries if the transport is blocking.  If "
+"a renegotiation take place during normal operation, a L<SSL_read(3)|SSL_read"
+"(3)> or L<SSL_write(3)|SSL_write(3)> would return with -1 and indicate the "
+"need to retry with SSL_ERROR_WANT_READ.  In a non-blocking environment "
+"applications must be prepared to handle incomplete read/write operations.  "
+"In a blocking environment, applications are not always prepared to deal with "
+"read/write operations returning without success report. The flag "
+"SSL_MODE_AUTO_RETRY will cause read/write operations to only return after "
+"the handshake and successful completion."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_mode.pod:64
+msgid "SSL_MODE_RELEASE_BUFFERS"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:66
+msgid ""
+"When we no longer need a read buffer or a write buffer for a given SSL, then "
+"release the memory we were using to hold it.  Released memory is either "
+"appended to a list of unused RAM chunks on the SSL_CTX, or simply freed if "
+"the list of unused chunks would become longer than SSL_CTX-"
+">freelist_max_len, which defaults to 32.  Using this flag can save around "
+"34k per idle SSL connection.  This flag has no effect on SSL v2 connections, "
+"or on DTLS connections."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:78
+msgid ""
+"SSL_CTX_set_mode() and SSL_set_mode() return the new mode bitmask after "
+"adding B<mode>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:81
+msgid "SSL_CTX_get_mode() and SSL_get_mode() return the current bitmask."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:85
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_read(3)|SSL_read(3)>, L<SSL_write(3)|SSL_write(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_mode.pod:89
+msgid "SSL_MODE_AUTO_RETRY as been added in OpenSSL 0.9.6."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:5
+msgid ""
+"SSL_CTX_set_msg_callback, SSL_CTX_set_msg_callback_arg, "
+"SSL_set_msg_callback, SSL_get_msg_callback_arg - install callback for "
+"observing protocol messages"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_msg_callback.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_msg_callback(SSL_CTX *ctx, void (*cb)(int write_p, int version, int content_type, const void *buf, size_t len, SSL *ssl, void *arg));\n"
+" void SSL_CTX_set_msg_callback_arg(SSL_CTX *ctx, void *arg);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_msg_callback.pod:14
+#, no-wrap
+msgid ""
+" void SSL_set_msg_callback(SSL_CTX *ctx, void (*cb)(int write_p, int version, int content_type, const void *buf, size_t len, SSL *ssl, void *arg));\n"
+" void SSL_set_msg_callback_arg(SSL_CTX *ctx, void *arg);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:19
+msgid ""
+"SSL_CTX_set_msg_callback() or SSL_set_msg_callback() can be used to define a "
+"message callback function I<cb> for observing all SSL/TLS protocol messages "
+"(such as handshake messages) that are received or sent.  "
+"SSL_CTX_set_msg_callback_arg() and SSL_set_msg_callback_arg()  can be used "
+"to set argument I<arg> to the callback function, which is available for "
+"arbitrary application use."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:26
+msgid ""
+"SSL_CTX_set_msg_callback() and SSL_CTX_set_msg_callback_arg() specify "
+"default settings that will be copied to new B<SSL> objects by L<SSL_new(3)|"
+"SSL_new(3)>. SSL_set_msg_callback() and SSL_set_msg_callback_arg() modify "
+"the actual settings of an B<SSL> object. Using a B<0> pointer for I<cb> "
+"disables the message callback."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:32
+msgid ""
+"When I<cb> is called by the SSL/TLS library for a protocol message, the "
+"function arguments have the following meaning:"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_msg_callback.pod:37
+msgid "I<write_p>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:39
+msgid ""
+"This flag is B<0> when a protocol message has been received and B<1> when a "
+"protocol message has been sent."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_msg_callback.pod:42
+msgid "I<version>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:44
+msgid ""
+"The protocol version according to which the protocol message is interpreted "
+"by the library. Currently, this is one of B<SSL2_VERSION>, B<SSL3_VERSION> "
+"and B<TLS1_VERSION> (for SSL 2.0, SSL 3.0 and TLS 1.0, respectively)."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_msg_callback.pod:49
+msgid "I<content_type>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:51
+msgid ""
+"In the case of SSL 2.0, this is always B<0>.  In the case of SSL 3.0 or TLS "
+"1.0, this is one of the B<ContentType> values defined in the protocol "
+"specification (B<change_cipher_spec(20)>, B<alert(21)>, B<handshake(22)>; "
+"but never B<application_data(23)> because the callback will only be called "
+"for protocol messages)."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_msg_callback.pod:57
+msgid "I<buf>, I<len>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:59
+msgid ""
+"I<buf> points to a buffer containing the protocol message, which consists of "
+"I<len> bytes. The buffer is no longer valid after the callback function has "
+"returned."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_msg_callback.pod:63
+msgid "I<ssl>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:65
+msgid "The B<SSL> object that received or sent the message."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_msg_callback.pod:67
+msgid "I<arg>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:69
+msgid ""
+"The user-defined argument optionally defined by SSL_CTX_set_msg_callback_arg"
+"() or SSL_set_msg_callback_arg()."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:76
+msgid ""
+"Protocol messages are passed to the callback function after decryption and "
+"fragment collection where applicable. (Thus record boundaries are not "
+"visible.)"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:80
+msgid ""
+"If processing a received protocol message results in an error, the callback "
+"function may not be called.  For example, the callback function will never "
+"see messages that are considered too large to be processed."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:85
+msgid ""
+"Due to automatic protocol version negotiation, I<version> is not necessarily "
+"the protocol version used by the sender of the message: If a TLS 1.0 "
+"ClientHello message is received by an SSL 3.0-only server, I<version> will "
+"be B<SSL3_VERSION>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:92
+msgid "L<ssl(3)|ssl(3)>, L<SSL_new(3)|SSL_new(3)>"
+msgstr "L<ssl(3)|ssl(3)>, L<SSL_new(3)|SSL_new(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_msg_callback.pod:96
+msgid ""
+"SSL_CTX_set_msg_callback(), SSL_CTX_set_msg_callback_arg(), "
+"SSL_set_msg_callback() and SSL_get_msg_callback_arg() were added in OpenSSL "
+"0.9.7."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:5
+msgid ""
+"SSL_CTX_set_options, SSL_set_options, SSL_CTX_clear_options, "
+"SSL_clear_options, SSL_CTX_get_options, SSL_get_options, "
+"SSL_get_secure_renegotiation_support - manipulate SSL options"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_options.pod:11
+#, no-wrap
+msgid ""
+" long SSL_CTX_set_options(SSL_CTX *ctx, long options);\n"
+" long SSL_set_options(SSL *ssl, long options);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_options.pod:14
+#, fuzzy, no-wrap
+#| msgid ""
+#| " long SSL_CTX_sess_set_cache_size(SSL_CTX *ctx, long t);\n"
+#| " long SSL_CTX_sess_get_cache_size(SSL_CTX *ctx);\n"
+#| "\n"
+msgid ""
+" long SSL_CTX_clear_options(SSL_CTX *ctx, long options);\n"
+" long SSL_clear_options(SSL *ssl, long options);\n"
+"\n"
+msgstr ""
+" long SSL_CTX_sess_set_cache_size(SSL_CTX *ctx, long t);\n"
+" long SSL_CTX_sess_get_cache_size(SSL_CTX *ctx);\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_options.pod:17
+#, no-wrap
+msgid ""
+" long SSL_CTX_get_options(SSL_CTX *ctx);\n"
+" long SSL_get_options(SSL *ssl);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_options.pod:20
+#, fuzzy, no-wrap
+#| msgid ""
+#| " X509 *SSL_get_peer_certificate(const SSL *ssl);\n"
+#| "\n"
+msgid ""
+" long SSL_get_secure_renegotiation_support(SSL *ssl);\n"
+"\n"
+msgstr ""
+" X509 *SSL_get_peer_certificate(const SSL *ssl);\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:24
+msgid "Note: all these functions are implemented using macros."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:26
+msgid ""
+"SSL_CTX_set_options() adds the options set via bitmask in B<options> to "
+"B<ctx>.  Options already set before are not cleared!"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:29
+msgid ""
+"SSL_set_options() adds the options set via bitmask in B<options> to B<ssl>.  "
+"Options already set before are not cleared!"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:32
+msgid ""
+"SSL_CTX_clear_options() clears the options set via bitmask in B<options> to "
+"B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:35
+msgid ""
+"SSL_clear_options() clears the options set via bitmask in B<options> to "
+"B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:37
+msgid "SSL_CTX_get_options() returns the options set for B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:39
+msgid "SSL_get_options() returns the options set for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:41
+msgid ""
+"SSL_get_secure_renegotiation_support() indicates whether the peer supports "
+"secure renegotiation."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:46
+msgid ""
+"The behaviour of the SSL library can be changed by setting several options.  "
+"The options are coded as bitmasks and can be combined by a logical B<or> "
+"operation (|)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:50
+msgid ""
+"SSL_CTX_set_options() and SSL_set_options() affect the (external)  protocol "
+"behaviour of the SSL library. The (internal) behaviour of the API can be "
+"changed by using the similar L<SSL_CTX_set_mode(3)|SSL_CTX_set_mode(3)> and "
+"SSL_set_mode() functions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:55
+msgid ""
+"During a handshake, the option settings of the SSL object are used. When a "
+"new SSL object is created from a context using SSL_new(), the current option "
+"setting is copied. Changes to B<ctx> do not affect already created SSL "
+"objects. SSL_clear() does not affect the settings."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:60
+msgid "The following B<bug workaround> options are available:"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:64
+msgid "SSL_OP_MICROSOFT_SESS_ID_BUG"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:66
+msgid ""
+"www.microsoft.com - when talking SSLv2, if session-id reuse is performed, "
+"the session-id passed back in the server-finished message is different from "
+"the one decided upon."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:70
+msgid "SSL_OP_NETSCAPE_CHALLENGE_BUG"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:72
+msgid ""
+"Netscape-Commerce/1.12, when talking SSLv2, accepts a 32 byte challenge but "
+"then appears to only use 16 bytes when generating the encryption keys.  "
+"Using 16 bytes is ok but it should be ok to use 32.  According to the SSLv3 "
+"spec, one should use 32 bytes for the challenge when operating in SSLv2/v3 "
+"compatibility mode, but as mentioned above, this breaks this server so 16 "
+"bytes is the way to go."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:79
+msgid "SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:81
+msgid "As of OpenSSL 0.9.8q and 1.0.0c, this option has no effect."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:83
+msgid "SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:85 C/ssl/SSL_CTX_set_options.pod:89
+#: C/ssl/SSL_CTX_set_options.pod:97 C/ssl/SSL_CTX_set_options.pod:101
+#: C/ssl/SSL_CTX_set_options.pod:105 C/ssl/SSL_CTX_set_options.pod:174
+#: C/ssl/SSL_CTX_set_options.pod:178 C/ssl/SSL_CTX_set_options.pod:188
+msgid "..."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:87
+msgid "SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:91
+msgid "SSL_OP_MSIE_SSLV2_RSA_PADDING"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:93
+msgid "As of OpenSSL 0.9.7h and 0.9.8a, this option has no effect."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:95
+msgid "SSL_OP_SSLEAY_080_CLIENT_DH_BUG"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:99
+msgid "SSL_OP_TLS_D5_BUG"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:103
+msgid "SSL_OP_TLS_BLOCK_PADDING_BUG"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:107
+msgid "SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:109
+msgid ""
+"Disables a countermeasure against a SSL 3.0/TLS 1.0 protocol vulnerability "
+"affecting CBC ciphers, which cannot be handled by some broken SSL "
+"implementations.  This option has no effect for connections using other "
+"ciphers."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:114
+msgid "SSL_OP_ALL"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:116
+msgid "All of the above bug workarounds."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:120
+msgid ""
+"It is usually safe to use B<SSL_OP_ALL> to enable the bug workaround options "
+"if compatibility with somewhat broken implementations is desired."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:124
+msgid "The following B<modifying> options are available:"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:128
+msgid "SSL_OP_TLS_ROLLBACK_BUG"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:130
+msgid "Disable version rollback attack detection."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:132
+msgid ""
+"During the client key exchange, the client must send the same information "
+"about acceptable SSL/TLS protocol levels as during the first hello. Some "
+"clients violate this rule by adapting to the server's answer. (Example: the "
+"client sends a SSLv2 hello and accepts up to SSLv3.1=TLSv1, the server only "
+"understands up to SSLv3. In this case the client must still use the same "
+"SSLv3.1=TLSv1 announcement. Some clients step down to SSLv3 with respect to "
+"the server's answer and violate the version rollback protection.)"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:140
+msgid "SSL_OP_SINGLE_DH_USE"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:142
+msgid ""
+"Always create a new key when using temporary/ephemeral DH parameters (see "
+"L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>).  This "
+"option must be used to prevent small subgroup attacks, when the DH "
+"parameters were not generated using \"strong\" primes (e.g. when using DSA-"
+"parameters, see L<dhparam(1)|dhparam(1)>).  If \"strong\" primes were used, "
+"it is not strictly necessary to generate a new DH key during each handshake "
+"but it is also recommended.  B<SSL_OP_SINGLE_DH_USE> should therefore be "
+"enabled whenever temporary/ephemeral DH parameters are used."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:152
+msgid "SSL_OP_EPHEMERAL_RSA"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:154
+msgid ""
+"Always use ephemeral (temporary) RSA key when doing RSA operations (see "
+"L<SSL_CTX_set_tmp_rsa_callback(3)|SSL_CTX_set_tmp_rsa_callback(3)>).  "
+"According to the specifications this is only done, when a RSA key can only "
+"be used for signature operations (namely under export ciphers with "
+"restricted RSA keylength). By setting this option, ephemeral RSA keys are "
+"always used. This option breaks compatibility with the SSL/TLS "
+"specifications and may lead to interoperability problems with clients and "
+"should therefore never be used. Ciphers with EDH (ephemeral Diffie-Hellman) "
+"key exchange should be used instead."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:164
+msgid "SSL_OP_CIPHER_SERVER_PREFERENCE"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:166
+msgid ""
+"When choosing a cipher, use the server's preferences instead of the client "
+"preferences. When not set, the SSL server will always follow the clients "
+"preferences. When set, the SSLv3/TLSv1 server will choose following its own "
+"preferences. Because of the different protocol, for SSLv2 the server will "
+"send its list of preferences to the client and the client chooses."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:172
+msgid "SSL_OP_PKCS1_CHECK_1"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:176
+msgid "SSL_OP_PKCS1_CHECK_2"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:180
+msgid "SSL_OP_NETSCAPE_CA_DN_BUG"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:182
+msgid ""
+"If we accept a netscape connection, demand a client cert, have a non-self-"
+"signed CA which does not have its CA in netscape, and the browser has a "
+"cert, it will crash/hang.  Works for 3.x and 4.xbeta"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:186
+msgid "SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:190
+msgid "SSL_OP_NO_SSLv2"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:192
+msgid "Do not use the SSLv2 protocol."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:194
+msgid "SSL_OP_NO_SSLv3"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:196
+msgid "Do not use the SSLv3 protocol."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:198
+msgid "SSL_OP_NO_TLSv1"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:200
+msgid "Do not use the TLSv1 protocol."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:202
+msgid "SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:204
+msgid ""
+"When performing renegotiation as a server, always start a new session (i.e., "
+"session resumption requests are only accepted in the initial handshake). "
+"This option is not needed for clients."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:208
+msgid "SSL_OP_NO_TICKET"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:210
+msgid ""
+"Normally clients and servers will, where possible, transparently make use of "
+"RFC4507bis tickets for stateless session resumption."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:213
+msgid ""
+"If this option is set this functionality is disabled and tickets will not be "
+"used by clients or servers."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:216
+msgid "SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:218
+msgid ""
+"Allow legacy insecure renegotiation between OpenSSL and unpatched clients or "
+"servers. See the B<SECURE RENEGOTIATION> section for more details."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_options.pod:221
+msgid "SSL_OP_LEGACY_SERVER_CONNECT"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:223
+msgid ""
+"Allow legacy insecure renegotiation between OpenSSL and unpatched servers "
+"B<only>: this option is currently set by default. See the B<SECURE "
+"RENEGOTIATION> section for more details."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_options.pod:229
+msgid "SECURE RENEGOTIATION"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:231
+msgid ""
+"OpenSSL 0.9.8m and later always attempts to use secure renegotiation as "
+"described in RFC5746. This counters the prefix attack described in "
+"CVE-2009-3555 and elsewhere."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:235
+msgid ""
+"The deprecated and highly broken SSLv2 protocol does not support "
+"renegotiation at all: its use is B<strongly> discouraged."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:238
+msgid ""
+"This attack has far reaching consequences which application writers should "
+"be aware of. In the description below an implementation supporting secure "
+"renegotiation is referred to as I<patched>. A server not supporting secure "
+"renegotiation is referred to as I<unpatched>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:243
+msgid ""
+"The following sections describe the operations permitted by OpenSSL's secure "
+"renegotiation implementation."
+msgstr ""
+
+#. type: =head2
+#: C/ssl/SSL_CTX_set_options.pod:246
+msgid "Patched client and server"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:248
+msgid ""
+"Connections and renegotiation are always permitted by OpenSSL "
+"implementations."
+msgstr ""
+
+#. type: =head2
+#: C/ssl/SSL_CTX_set_options.pod:250
+msgid "Unpatched client and patched OpenSSL server"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:252
+msgid ""
+"The initial connection suceeds but client renegotiation is denied by the "
+"server with a B<no_renegotiation> warning alert if TLS v1.0 is used or a "
+"fatal B<handshake_failure> alert in SSL v3.0."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:256
+msgid ""
+"If the patched OpenSSL server attempts to renegotiate a fatal "
+"B<handshake_failure> alert is sent. This is because the server code may be "
+"unaware of the unpatched nature of the client."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:260
+msgid ""
+"If the option B<SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION> is set then "
+"renegotiation B<always> succeeds."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:263
+msgid ""
+"B<NB:> a bug in OpenSSL clients earlier than 0.9.8m (all of which are "
+"unpatched) will result in the connection hanging if it receives a "
+"B<no_renegotiation> alert. OpenSSL versions 0.9.8m and later will regard a "
+"B<no_renegotiation> alert as fatal and respond with a fatal "
+"B<handshake_failure> alert. This is because the OpenSSL API currently has no "
+"provision to indicate to an application that a renegotiation attempt was "
+"refused."
+msgstr ""
+
+#. type: =head2
+#: C/ssl/SSL_CTX_set_options.pod:271
+msgid "Patched OpenSSL client and unpatched server."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:273
+msgid ""
+"If the option B<SSL_OP_LEGACY_SERVER_CONNECT> or "
+"B<SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION> is set then initial connections "
+"and renegotiation between patched OpenSSL clients and unpatched servers "
+"succeeds. If neither option is set then initial connections to unpatched "
+"servers will fail."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:279
+msgid ""
+"The option B<SSL_OP_LEGACY_SERVER_CONNECT> is currently set by default even "
+"though it has security implications: otherwise it would be impossible to "
+"connect to unpatched servers (i.e. all of them initially) and this is "
+"clearly not acceptable. Renegotiation is permitted because this does not add "
+"any additional security issues: during an attack clients do not see any "
+"renegotiations anyway."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:286
+msgid ""
+"As more servers become patched the option B<SSL_OP_LEGACY_SERVER_CONNECT> "
+"will B<not> be set by default in a future version of OpenSSL."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:289
+msgid ""
+"OpenSSL client applications wishing to ensure they can connect to unpatched "
+"servers should always B<set> B<SSL_OP_LEGACY_SERVER_CONNECT>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:292
+msgid ""
+"OpenSSL client applications that want to ensure they can B<not> connect to "
+"unpatched servers (and thus avoid any security issues) should always "
+"B<clear> B<SSL_OP_LEGACY_SERVER_CONNECT> using SSL_CTX_clear_options() or "
+"SSL_clear_options()."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:297
+msgid ""
+"The difference between the B<SSL_OP_LEGACY_SERVER_CONNECT> and "
+"B<SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION> options is that "
+"B<SSL_OP_LEGACY_SERVER_CONNECT> enables initial connections and secure "
+"renegotiation between OpenSSL clients and unpatched servers B<only>, while "
+"B<SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION> allows initial connections and "
+"renegotiation between OpenSSL and unpatched clients or servers."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:306
+msgid ""
+"SSL_CTX_set_options() and SSL_set_options() return the new options bitmask "
+"after adding B<options>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:309
+msgid ""
+"SSL_CTX_clear_options() and SSL_clear_options() return the new options "
+"bitmask after clearing B<options>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:312
+msgid "SSL_CTX_get_options() and SSL_get_options() return the current bitmask."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:314
+msgid ""
+"SSL_get_secure_renegotiation_support() returns 1 is the peer supports secure "
+"renegotiation and 0 if it does not."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:319
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_clear(3)|SSL_clear(3)>, "
+"L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>, "
+"L<SSL_CTX_set_tmp_rsa_callback(3)|SSL_CTX_set_tmp_rsa_callback(3)>, L<dhparam"
+"(1)|dhparam(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:326
+msgid ""
+"B<SSL_OP_CIPHER_SERVER_PREFERENCE> and "
+"B<SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION> have been added in OpenSSL "
+"0.9.7."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:330
+msgid ""
+"B<SSL_OP_TLS_ROLLBACK_BUG> has been added in OpenSSL 0.9.6 and was "
+"automatically enabled with B<SSL_OP_ALL>. As of 0.9.7, it is no longer "
+"included in B<SSL_OP_ALL> and must be explicitly set."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:334
+msgid ""
+"B<SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS> has been added in OpenSSL 0.9.6e.  "
+"Versions up to OpenSSL 0.9.6c do not include the countermeasure that can be "
+"disabled with this option (in OpenSSL 0.9.6d, it was always enabled)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:339
+#, fuzzy
+#| msgid ""
+#| "BN_CTX_start(), BN_CTX_get() and BN_CTX_end() were added in OpenSSL 0.9.5."
+msgid ""
+"SSL_CTX_clear_options() and SSL_clear_options() were first added in OpenSSL "
+"0.9.8m."
+msgstr ""
+"BN_CTX_start(), BN_CTX_get() et BN_CTX_end() ont été ajoutées dans OpenSSL "
+"0.9.5."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_options.pod:342
+msgid ""
+"B<SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION>, B<SSL_OP_LEGACY_SERVER_CONNECT> "
+"and the function SSL_get_secure_renegotiation_support() were first added in "
+"OpenSSL 0.9.8m."
+msgstr ""
+
+#. type: =end
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:3
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:30
+msgid "comment"
+msgstr "comment"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:5
+msgid "Copyright 2005 Nokia. All rights reserved."
+msgstr "Copyright 2005 Nokia. All rights reserved."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:7
+msgid ""
+"The portions of the attached software (\"Contribution\") is developed by "
+"Nokia Corporation and is licensed pursuant to the OpenSSL open source "
+"license."
+msgstr ""
+"The portions of the attached software (\"Contribution\") is developed by "
+"Nokia Corporation and is licensed pursuant to the OpenSSL open source "
+"license."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:11
+msgid ""
+"The Contribution, originally written by Mika Kousa and Pasi Eronen of Nokia "
+"Corporation, consists of the \"PSK\" (Pre-Shared Key) ciphersuites support "
+"(see RFC 4279) to OpenSSL."
+msgstr ""
+"The Contribution, originally written by Mika Kousa and Pasi Eronen of Nokia "
+"Corporation, consists of the \"PSK\" (Pre-Shared Key) ciphersuites support "
+"(see RFC 4279) to OpenSSL."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:15
+msgid ""
+"No patent licenses or other rights except those expressly stated in the "
+"OpenSSL open source license shall be deemed granted or received expressly, "
+"by implication, estoppel, or otherwise."
+msgstr ""
+"No patent licenses or other rights except those expressly stated in the "
+"OpenSSL open source license shall be deemed granted or received expressly, "
+"by implication, estoppel, or otherwise."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:19
+msgid ""
+"No assurances are provided by Nokia that the Contribution does not infringe "
+"the patent or other intellectual property rights of any third party or that "
+"the license provides you with all the necessary rights to make use of the "
+"Contribution."
+msgstr ""
+"No assurances are provided by Nokia that the Contribution does not infringe "
+"the patent or other intellectual property rights of any third party or that "
+"the license provides you with all the necessary rights to make use of the "
+"Contribution."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:24
+msgid ""
+"THE SOFTWARE IS PROVIDED \"AS IS\" WITHOUT WARRANTY OF ANY KIND. IN ADDITION "
+"TO THE DISCLAIMERS INCLUDED IN THE LICENSE, NOKIA SPECIFICALLY DISCLAIMS ANY "
+"LIABILITY FOR CLAIMS BROUGHT BY YOU OR ANY OTHER ENTITY BASED ON "
+"INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS OR OTHERWISE."
+msgstr ""
+"THE SOFTWARE IS PROVIDED \"AS IS\" WITHOUT WARRANTY OF ANY KIND. IN ADDITION "
+"TO THE DISCLAIMERS INCLUDED IN THE LICENSE, NOKIA SPECIFICALLY DISCLAIMS ANY "
+"LIABILITY FOR CLAIMS BROUGHT BY YOU OR ANY OTHER ENTITY BASED ON "
+"INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS OR OTHERWISE."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:34
+msgid ""
+"SSL_CTX_set_psk_client_callback, SSL_set_psk_client_callback - set PSK "
+"client callback"
+msgstr ""
+"SSL_CTX_set_psk_client_callback, SSL_set_psk_client_callback - Définir un "
+"rappel client PSK"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:40
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_psk_client_callback(SSL_CTX *ctx,\n"
+"\tunsigned int (*callback)(SSL *ssl, const char *hint,\n"
+"\tchar *identity, unsigned int max_identity_len,\n"
+"\tunsigned char *psk, unsigned int max_psk_len));\n"
+" void SSL_set_psk_client_callback(SSL *ssl,\n"
+"\tunsigned int (*callback)(SSL *ssl, const char *hint,\n"
+"\tchar *identity, unsigned int max_identity_len,\n"
+" \tunsigned char *psk, unsigned int max_psk_len));\n"
+"\n"
+msgstr ""
+" void SSL_CTX_set_psk_client_callback(SSL_CTX *ctx,\n"
+"\tunsigned int (*callback)(SSL *ssl, const char *hint,\n"
+"\tchar *identity, unsigned int max_identity_len,\n"
+"\tunsigned char *psk, unsigned int max_psk_len));\n"
+" void SSL_set_psk_client_callback(SSL *ssl,\n"
+"\tunsigned int (*callback)(SSL *ssl, const char *hint,\n"
+"\tchar *identity, unsigned int max_identity_len,\n"
+" \tunsigned char *psk, unsigned int max_psk_len));\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:52
+msgid ""
+"A client application must provide a callback function which is called when "
+"the client is sending the ClientKeyExchange message to the server."
+msgstr ""
+"Une application cliente doit fournir une fonction de rappel qui est appelée "
+"quand le client envoie le message ClientKeyExchange au serveur."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:55
+msgid ""
+"The purpose of the callback function is to select the PSK identity and the "
+"pre-shared key to use during the connection setup phase."
+msgstr ""
+"Le but de cette fonction de rappel est de sélectionner l'identité PSK et la "
+"clef prépartagée à utiliser pendant la phase de configuration de connexion."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:58
+msgid ""
+"The callback is set using functions SSL_CTX_set_psk_client_callback()  or "
+"SSL_set_psk_client_callback(). The callback function is given the connection "
+"in parameter B<ssl>, a B<NULL>-terminated PSK identity hint sent by the "
+"server in parameter B<hint>, a buffer B<identity> of length "
+"B<max_identity_len> bytes where the the resulting B<NULL>-terminated "
+"identity is to be stored, and a buffer B<psk> of length B<max_psk_len> bytes "
+"where the resulting pre-shared key is to be stored."
+msgstr ""
+"Le rappel est défini en utilisant les fonctions "
+"B<SSL_CTX_set_psk_client_callback>() ou B<SSL_set_psk_client_callback>(). À "
+"la fonction de rappel, sont fournis : la connexion dans le paramètre I<ssl>, "
+"un indice d'identité PSK terminé par B<NULL> envoyé par le serveur dans le "
+"paramètre I<hint>, un tampon I<identity> de taille "
+"I<max_identity_len> octets où l'identité terminée par B<NULL> résultante "
+"sera stockée, et un tampon I<psk> de taille I<max_psk_len> octets où la clef "
+"prépartagée résultante sera stockée."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:69
+msgid "Note that parameter B<hint> given to the callback may be B<NULL>."
+msgstr ""
+"Remarquez que le paramètre I<hint> donné au rappel pourrait être B<NULL>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:73
+msgid "Return values from the client callback are interpreted as follows:"
+msgstr "Les valeurs de retour du rappel client sont interprétées comme suit."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:75
+msgid ""
+"On success (callback found a PSK identity and a pre-shared key to use)  the "
+"length (> 0) of B<psk> in bytes is returned."
+msgstr ""
+"En cas de réussite (le rappel a trouvé une identité PSK et une clef "
+"prépartagée à utiliser), la taille (> 0) de I<psk> en octet est renvoyée."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:78
+msgid ""
+"Otherwise or on errors callback should return 0. In this case the connection "
+"setup fails."
+msgstr ""
+"Sinon, ou en cas d'erreur, le rappel devrait renvoyer 0. Dans ce cas, la "
+"configuration de connexion échoue."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:5
+msgid ""
+"SSL_CTX_set_quiet_shutdown, SSL_CTX_get_quiet_shutdown, "
+"SSL_set_quiet_shutdown, SSL_get_quiet_shutdown - manipulate shutdown "
+"behaviour"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_quiet_shutdown(SSL_CTX *ctx, int mode);\n"
+" int SSL_CTX_get_quiet_shutdown(const SSL_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:14
+#, no-wrap
+msgid ""
+" void SSL_set_quiet_shutdown(SSL *ssl, int mode);\n"
+" int SSL_get_quiet_shutdown(const SSL *ssl);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:19
+msgid ""
+"SSL_CTX_set_quiet_shutdown() sets the \"quiet shutdown\" flag for B<ctx> to "
+"be B<mode>. SSL objects created from B<ctx> inherit the B<mode> valid at the "
+"time L<SSL_new(3)|SSL_new(3)> is called. B<mode> may be 0 or 1."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:23
+msgid ""
+"SSL_CTX_get_quiet_shutdown() returns the \"quiet shutdown\" setting of "
+"B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:25
+msgid ""
+"SSL_set_quiet_shutdown() sets the \"quiet shutdown\" flag for B<ssl> to be "
+"B<mode>. The setting stays valid until B<ssl> is removed with L<SSL_free(3)|"
+"SSL_free(3)> or SSL_set_quiet_shutdown() is called again.  It is not changed "
+"when L<SSL_clear(3)|SSL_clear(3)> is called.  B<mode> may be 0 or 1."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:31
+msgid ""
+"SSL_get_quiet_shutdown() returns the \"quiet shutdown\" setting of B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:35
+msgid ""
+"Normally when a SSL connection is finished, the parties must send out "
+"\"close notify\" alert messages using L<SSL_shutdown(3)|SSL_shutdown(3)> for "
+"a clean shutdown."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:39
+msgid ""
+"When setting the \"quiet shutdown\" flag to 1, L<SSL_shutdown(3)|SSL_shutdown"
+"(3)> will set the internal flags to SSL_SENT_SHUTDOWN|"
+"SSL_RECEIVED_SHUTDOWN.  (L<SSL_shutdown(3)|SSL_shutdown(3)> then behaves "
+"like L<SSL_set_shutdown(3)|SSL_set_shutdown(3)> called with "
+"SSL_SENT_SHUTDOWN|SSL_RECEIVED_SHUTDOWN.)  The session is thus considered to "
+"be shutdown, but no \"close notify\" alert is sent to the peer. This "
+"behaviour violates the TLS standard."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:47
+msgid ""
+"The default is normal shutdown behaviour as described by the TLS standard."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:51
+msgid ""
+"SSL_CTX_set_quiet_shutdown() and SSL_set_quiet_shutdown() do not return "
+"diagnostic information."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:54
+msgid ""
+"SSL_CTX_get_quiet_shutdown() and SSL_get_quiet_shutdown return the current "
+"setting."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:59
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_shutdown(3)|SSL_shutdown(3)>, L<SSL_set_shutdown(3)|"
+"SSL_set_shutdown(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_clear(3)|SSL_clear(3)"
+">, L<SSL_free(3)|SSL_free(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:5
+msgid ""
+"SSL_CTX_set_session_cache_mode, SSL_CTX_get_session_cache_mode - enable/"
+"disable session caching"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:11
+#, no-wrap
+msgid ""
+" long SSL_CTX_set_session_cache_mode(SSL_CTX ctx, long mode);\n"
+" long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:16
+msgid ""
+"SSL_CTX_set_session_cache_mode() enables/disables session caching by setting "
+"the operational mode for B<ctx> to <mode>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:19
+msgid "SSL_CTX_get_session_cache_mode() returns the currently used cache mode."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:23
+msgid ""
+"The OpenSSL library can store/retrieve SSL/TLS sessions for later reuse.  "
+"The sessions can be held in memory for each B<ctx>, if more than one SSL_CTX "
+"object is being maintained, the sessions are unique for each SSL_CTX object."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:28
+msgid ""
+"In order to reuse a session, a client must send the session's id to the "
+"server. It can only send exactly one id.  The server then either agrees to "
+"reuse the session or it starts a full handshake (to create a new session)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:33
+msgid ""
+"A server will lookup up the session in its internal session storage. If the "
+"session is not found in internal storage or lookups for the internal storage "
+"have been deactivated (SSL_SESS_CACHE_NO_INTERNAL_LOOKUP), the server will "
+"try the external storage if available."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:38
+msgid ""
+"Since a client may try to reuse a session intended for use in a different "
+"context, the session id context must be set by the server (see "
+"L<SSL_CTX_set_session_id_context(3)|SSL_CTX_set_session_id_context(3)>)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:42
+msgid "The following session cache modes and modifiers are available:"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:46
+msgid "SSL_SESS_CACHE_OFF"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:48
+msgid "No session caching for client or server takes place."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:50
+msgid "SSL_SESS_CACHE_CLIENT"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:52
+msgid ""
+"Client sessions are added to the session cache. As there is no reliable way "
+"for the OpenSSL library to know whether a session should be reused or which "
+"session to choose (due to the abstract BIO layer the SSL engine does not "
+"have details about the connection), the application must select the session "
+"to be reused by using the L<SSL_set_session(3)|SSL_set_session(3)> function. "
+"This option is not activated by default."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:59
+msgid "SSL_SESS_CACHE_SERVER"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:61
+msgid ""
+"Server sessions are added to the session cache. When a client proposes a "
+"session to be reused, the server looks for the corresponding session in "
+"(first)  the internal session cache (unless "
+"SSL_SESS_CACHE_NO_INTERNAL_LOOKUP is set), then (second) in the external "
+"cache if available. If the session is found, the server will try to reuse "
+"the session.  This is the default."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:67
+msgid "SSL_SESS_CACHE_BOTH"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:69
+msgid ""
+"Enable both SSL_SESS_CACHE_CLIENT and SSL_SESS_CACHE_SERVER at the same time."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:71
+msgid "SSL_SESS_CACHE_NO_AUTO_CLEAR"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:73
+msgid ""
+"Normally the session cache is checked for expired sessions every 255 "
+"connections using the L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> "
+"function. Since this may lead to a delay which cannot be controlled, the "
+"automatic flushing may be disabled and L<SSL_CTX_flush_sessions(3)|"
+"SSL_CTX_flush_sessions(3)> can be called explicitly by the application."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:81
+msgid "SSL_SESS_CACHE_NO_INTERNAL_LOOKUP"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:83
+msgid ""
+"By setting this flag, session-resume operations in an SSL/TLS server will "
+"not automatically look up sessions in the internal cache, even if sessions "
+"are automatically stored there. If external session caching callbacks are in "
+"use, this flag guarantees that all lookups are directed to the external "
+"cache.  As automatic lookup only applies for SSL/TLS servers, the flag has "
+"no effect on clients."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:90
+msgid "SSL_SESS_CACHE_NO_INTERNAL_STORE"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:92
+msgid ""
+"Depending on the presence of SSL_SESS_CACHE_CLIENT and/or "
+"SSL_SESS_CACHE_SERVER, sessions negotiated in an SSL/TLS handshake may be "
+"cached for possible reuse.  Normally a new session is added to the internal "
+"cache as well as any external session caching (callback) that is configured "
+"for the SSL_CTX. This flag will prevent sessions being stored in the "
+"internal cache (though the application can add them manually using "
+"L<SSL_CTX_add_session(3)|SSL_CTX_add_session(3)>). Note: in any SSL/TLS "
+"servers where external caching is configured, any successful session lookups "
+"in the external cache (ie. for session-resume requests) would normally be "
+"copied into the local cache before processing continues - this flag prevents "
+"these additions to the internal cache as well."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:103
+msgid "SSL_SESS_CACHE_NO_INTERNAL"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:105
+msgid ""
+"Enable both SSL_SESS_CACHE_NO_INTERNAL_LOOKUP and "
+"SSL_SESS_CACHE_NO_INTERNAL_STORE at the same time."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:111
+msgid "The default mode is SSL_SESS_CACHE_SERVER."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:115
+msgid "SSL_CTX_set_session_cache_mode() returns the previously set cache mode."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:117
+msgid "SSL_CTX_get_session_cache_mode() returns the currently set cache mode."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:122
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_set_session(3)|SSL_set_session(3)>, "
+"L<SSL_session_reused(3)|SSL_session_reused(3)>, L<SSL_CTX_add_session(3)|"
+"SSL_CTX_add_session(3)>, L<SSL_CTX_sess_number(3)|SSL_CTX_sess_number(3)>, "
+"L<SSL_CTX_sess_set_cache_size(3)|SSL_CTX_sess_set_cache_size(3)>, "
+"L<SSL_CTX_sess_set_get_cb(3)|SSL_CTX_sess_set_get_cb(3)>, "
+"L<SSL_CTX_set_session_id_context(3)|SSL_CTX_set_session_id_context(3)>, "
+"L<SSL_CTX_set_timeout(3)|SSL_CTX_set_timeout(3)>, L<SSL_CTX_flush_sessions"
+"(3)|SSL_CTX_flush_sessions(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:134
+msgid ""
+"SSL_SESS_CACHE_NO_INTERNAL_STORE and SSL_SESS_CACHE_NO_INTERNAL were "
+"introduced in OpenSSL 0.9.6h."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:5
+msgid ""
+"SSL_CTX_set_session_id_context, SSL_set_session_id_context - set context "
+"within which session can be reused (server side only)"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_session_id_context.pod:11
+#, no-wrap
+msgid ""
+" int SSL_CTX_set_session_id_context(SSL_CTX *ctx, const unsigned char *sid_ctx,\n"
+"                                    unsigned int sid_ctx_len);\n"
+" int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,\n"
+"                                unsigned int sid_ctx_len);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:18
+msgid ""
+"SSL_CTX_set_session_id_context() sets the context B<sid_ctx> of length "
+"B<sid_ctx_len> within which a session can be reused for the B<ctx> object."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:21
+msgid ""
+"SSL_set_session_id_context() sets the context B<sid_ctx> of length "
+"B<sid_ctx_len> within which a session can be reused for the B<ssl> object."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:26
+msgid ""
+"Sessions are generated within a certain context. When exporting/importing "
+"sessions with B<i2d_SSL_SESSION>/B<d2i_SSL_SESSION> it would be possible, to "
+"re-import a session generated from another context (e.g. another "
+"application), which might lead to malfunctions. Therefore each application "
+"must set its own session id context B<sid_ctx> which is used to distinguish "
+"the contexts and is stored in exported sessions. The B<sid_ctx> can be any "
+"kind of binary data with a given length, it is therefore possible to use e."
+"g. the name of the application and/or the hostname and/or service name ..."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:36
+msgid ""
+"The session id context becomes part of the session. The session id context "
+"is set by the SSL/TLS server. The SSL_CTX_set_session_id_context() and "
+"SSL_set_session_id_context() functions are therefore only useful on the "
+"server side."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:41
+msgid ""
+"OpenSSL clients will check the session id context returned by the server "
+"when reusing a session."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:44
+msgid ""
+"The maximum length of the B<sid_ctx> is limited to "
+"B<SSL_MAX_SSL_SESSION_ID_LENGTH>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:49
+msgid ""
+"If the session id context is not set on an SSL/TLS server and client "
+"certificates are used, stored sessions will not be reused but a fatal error "
+"will be flagged and the handshake will fail."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:54
+msgid ""
+"If a server returns a different session id context to an OpenSSL client when "
+"reusing a session, an error will be flagged and the handshake will fail. "
+"OpenSSL servers will always return the correct session id context, as an "
+"OpenSSL server checks the session id context itself before reusing a session "
+"as described above."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:62
+msgid ""
+"SSL_CTX_set_session_id_context() and SSL_set_session_id_context()  return "
+"the following values:"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:69
+msgid ""
+"The length B<sid_ctx_len> of the session id context B<sid_ctx> exceeded the "
+"maximum allowed length of B<SSL_MAX_SSL_SESSION_ID_LENGTH>. The error is "
+"logged to the error stack."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_session_id_context.pod:81
+msgid "L<ssl(3)|ssl(3)>"
+msgstr "L<ssl(3)|ssl(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:5
+msgid ""
+"SSL_CTX_set_ssl_version, SSL_set_ssl_method, SSL_get_ssl_method - choose a "
+"new TLS/SSL method"
+msgstr ""
+"SSL_CTX_set_ssl_version, SSL_set_ssl_method, SSL_get_ssl_method - Choisir "
+"une nouvelle méthode TLS ou SSL"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_ssl_version.pod:12
+#, no-wrap
+msgid ""
+" int SSL_CTX_set_ssl_version(SSL_CTX *ctx, const SSL_METHOD *method);\n"
+" int SSL_set_ssl_method(SSL *s, const SSL_METHOD *method);\n"
+" const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);\n"
+"\n"
+msgstr ""
+" int SSL_CTX_set_ssl_version(SSL_CTX *ctx, const SSL_METHOD *method);\n"
+" int SSL_set_ssl_method(SSL *s, const SSL_METHOD *method);\n"
+" const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:18
+msgid ""
+"SSL_CTX_set_ssl_version() sets a new default TLS/SSL B<method> for SSL "
+"objects newly created from this B<ctx>. SSL objects already created with "
+"L<SSL_new(3)|SSL_new(3)> are not affected, except when L<SSL_clear(3)|"
+"SSL_clear(3)> is being called."
+msgstr ""
+"B<SSL_CTX_set_ssl_version>() définit une nouvelle I<method> TLS ou SSL par "
+"défaut pour les objets SSL nouvellement créés à partir de ce I<ctx>. Les "
+"objets SSL déjà créés avec L<SSL_new(3)|SSL_new(3)> ne sont pas concernés, "
+"sauf si L<SSL_clear(3)|SSL_clear(3)> est appelée."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:23
+msgid ""
+"SSL_set_ssl_method() sets a new TLS/SSL B<method> for a particular B<ssl> "
+"object. It may be reset, when SSL_clear() is called."
+msgstr ""
+"B<SSL_set_ssl_method>() définit une nouvelle I<method> TLS ou SSL pour un "
+"objet I<ssl> spécifique. Elle pourrait être redéfinie si B<SSL_clear>() est "
+"appelé."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:26
+msgid ""
+"SSL_get_ssl_method() returns a function pointer to the TLS/SSL method set in "
+"B<ssl>."
+msgstr ""
+"B<SSL_get_ssl_method>() renvoie un pointeur de fonction vers la méthode TLS "
+"ou SSL définie en I<ssl>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:31
+msgid ""
+"The available B<method> choices are described in L<SSL_CTX_new(3)|SSL_CTX_new"
+"(3)>."
+msgstr ""
+"Les possibilités de I<method> disponibles sont décrites en L<SSL_CTX_new(3)|"
+"SSL_CTX_new(3)>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:34
+msgid ""
+"When L<SSL_clear(3)|SSL_clear(3)> is called and no session is connected to "
+"an SSL object, the method of the SSL object is reset to the method currently "
+"set in the corresponding SSL_CTX object."
+msgstr ""
+"Quand L<SSL_clear(3)|SSL_clear(3)> est appelée et qu'aucune session n'est "
+"connectée à un objet SSL, la méthode de l'objet SSL est redéfinie à la "
+"méthode actuellement définie dans l'objet SSL_CTX correspondant."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:40
+msgid ""
+"The following return values can occur for SSL_CTX_set_ssl_version()  and "
+"SSL_set_ssl_method():"
+msgstr ""
+"Les valeurs suivantes peuvent être renvoyées pour B<SSL_CTX_set_ssl_version>"
+"() et B<SSL_set_ssl_method>()."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:47
+msgid "The new choice failed, check the error stack to find out the reason."
+msgstr ""
+"Le nouveau choix a échoué, vérifiez la pile d'erreur pour découvrir la "
+"raison."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_ssl_version.pod:57
+msgid ""
+"L<SSL_CTX_new(3)|SSL_CTX_new(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_clear(3)|"
+"SSL_clear(3)>, L<ssl(3)|ssl(3)>, L<SSL_set_connect_state(3)|"
+"SSL_set_connect_state(3)>"
+msgstr ""
+"L<SSL_CTX_new(3)|SSL_CTX_new(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_clear(3)|"
+"SSL_clear(3)>, L<ssl(3)|ssl(3)>, L<SSL_set_connect_state(3)|"
+"SSL_set_connect_state(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:5
+msgid ""
+"SSL_CTX_set_timeout, SSL_CTX_get_timeout - manipulate timeout values for "
+"session caching"
+msgstr ""
+"SSL_CTX_set_timeout, SSL_CTX_get_timeout - Manipuler les valeurs de délai "
+"d'expiration pour le cache de sessions"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_timeout.pod:11
+#, no-wrap
+msgid ""
+" long SSL_CTX_set_timeout(SSL_CTX *ctx, long t);\n"
+" long SSL_CTX_get_timeout(SSL_CTX *ctx);\n"
+"\n"
+msgstr ""
+" long SSL_CTX_set_timeout(SSL_CTX *ctx, long t);\n"
+" long SSL_CTX_get_timeout(SSL_CTX *ctx);\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:16
+msgid ""
+"SSL_CTX_set_timeout() sets the timeout for newly created sessions for B<ctx> "
+"to B<t>. The timeout value B<t> must be given in seconds."
+msgstr ""
+"B<SSL_CTX_set_timeout>() définit le délai d'expiration pour les sessions "
+"nouvellement créées pour I<ctx> à I<t>. La valeur de délai d'expiration I<t> "
+"doit être donnée en seconde."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:19
+msgid ""
+"SSL_CTX_get_timeout() returns the currently set timeout value for B<ctx>."
+msgstr ""
+"B<SSL_CTX_get_timeout>() renvoie la valeur de délai d'expiration "
+"actuellement définie pour I<ctx>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:23
+msgid ""
+"Whenever a new session is created, it is assigned a maximum lifetime. This "
+"lifetime is specified by storing the creation time of the session and the "
+"timeout value valid at this time. If the actual time is later than creation "
+"time plus timeout, the session is not reused."
+msgstr ""
+"À chaque fois qu'une nouvelle session est créée, une durée de vie maximale "
+"lui est attribuée. Cette durée de vie est indiquée en gardant la date de "
+"création de la session et la valeur de délai d'expiration valable à ce "
+"moment. Si la date réelle est au delà du délai d'expiration ajouté à la date "
+"de création, la session n'est pas réutilisée."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:28
+msgid ""
+"Due to this realization, all sessions behave according to the timeout value "
+"valid at the time of the session negotiation. Changes of the timeout value "
+"do not affect already established sessions."
+msgstr ""
+"À cause de cette actualisation, toutes les sessions se comportent d'après la "
+"valeur de délai d'expiration valable au moment de la négociation de session. "
+"Les modifications à la valeur de délai d'expiration n'affectent pas les "
+"sessions déjà établies."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:32
+msgid ""
+"The expiration time of a single session can be modified using the "
+"L<SSL_SESSION_get_time(3)|SSL_SESSION_get_time(3)> family of functions."
+msgstr ""
+"La date d'expiration d'une seule session peut être modifiée en utilisant la "
+"famille de fonctions L<SSL_SESSION_get_time(3)|SSL_SESSION_get_time(3)>."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:35
+msgid ""
+"Expired sessions are removed from the internal session cache, whenever "
+"L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> is called, either "
+"directly by the application or automatically (see "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>)"
+msgstr ""
+"Les sessions expirées sont supprimées du cache de sessions interne, à chaque "
+"fois que L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> est appelée, "
+"soit directement par l'application, soit automatiquement (consultez "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>)"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:40
+msgid ""
+"The default value for session timeout is decided on a per protocol basis, "
+"see L<SSL_get_default_timeout(3)|SSL_get_default_timeout(3)>.  All currently "
+"supported protocols have the same default timeout value of 300 seconds."
+msgstr ""
+"La valeur par défaut pour le délai d'expiration de la session est décidée en "
+"fonction du protocole, consultez L<SSL_get_default_timeout(3)|"
+"SSL_get_default_timeout(3)>. Tous les protocoles actuellement pris en charge "
+"ont la même valeur de délai d'expiration par défaut de 300 secondes."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:47
+msgid "SSL_CTX_set_timeout() returns the previously set timeout value."
+msgstr ""
+"B<SSL_CTX_set_timeout>() renvoie la valeur de délai d'expiration "
+"précédemment définie."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:49
+msgid "SSL_CTX_get_timeout() returns the currently set timeout value."
+msgstr ""
+"B<SSL_CTX_get_timeout>() renvoie la valeur de délai d'expiration "
+"actuellement définie."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_timeout.pod:53
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_session_cache_mode(3)|"
+"SSL_CTX_set_session_cache_mode(3)>, L<SSL_SESSION_get_time(3)|"
+"SSL_SESSION_get_time(3)>, L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions"
+"(3)>, L<SSL_get_default_timeout(3)|SSL_get_default_timeout(3)>"
+msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_session_cache_mode(3)|"
+"SSL_CTX_set_session_cache_mode(3)>, L<SSL_SESSION_get_time(3)|"
+"SSL_SESSION_get_time(3)>, L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions"
+"(3)>, L<SSL_get_default_timeout(3)|SSL_get_default_timeout(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:5
+msgid ""
+"SSL_CTX_set_tmp_dh_callback, SSL_CTX_set_tmp_dh, SSL_set_tmp_dh_callback, "
+"SSL_set_tmp_dh - handle DH keys for ephemeral key exchange"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_tmp_dh_callback(SSL_CTX *ctx,\n"
+"            DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));\n"
+" long SSL_CTX_set_tmp_dh(SSL_CTX *ctx, DH *dh);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:15
+#, no-wrap
+msgid ""
+" void SSL_set_tmp_dh_callback(SSL_CTX *ctx,\n"
+"            DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));\n"
+" long SSL_set_tmp_dh(SSL *ssl, DH *dh)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:19
+#, no-wrap
+msgid ""
+" DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:23
+msgid ""
+"SSL_CTX_set_tmp_dh_callback() sets the callback function for B<ctx> to be "
+"used when a DH parameters are required to B<tmp_dh_callback>.  The callback "
+"is inherited by all B<ssl> objects created from B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:27
+msgid ""
+"SSL_CTX_set_tmp_dh() sets DH parameters to be used to be B<dh>.  The key is "
+"inherited by all B<ssl> objects created from B<ctx>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:30
+msgid "SSL_set_tmp_dh_callback() sets the callback only for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:32
+msgid "SSL_set_tmp_dh() sets the parameters only for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:34
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:46
+msgid "These functions apply to SSL/TLS servers only."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:38
+msgid ""
+"When using a cipher with RSA authentication, an ephemeral DH key exchange "
+"can take place. Ciphers with DSA keys always use ephemeral DH keys as well.  "
+"In these cases, the session data are negotiated using the ephemeral/"
+"temporary DH key and the key supplied and certified by the certificate chain "
+"is only used for signing.  Anonymous ciphers (without a permanent server "
+"key) also use ephemeral DH keys."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:45
+msgid ""
+"Using ephemeral DH key exchange yields forward secrecy, as the connection "
+"can only be decrypted, when the DH key is known. By generating a temporary "
+"DH key inside the server application that is lost when the application is "
+"left, it becomes impossible for an attacker to decrypt past sessions, even "
+"if he gets hold of the normal (certified) key, as this key was only used for "
+"signing."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:52
+msgid ""
+"In order to perform a DH key exchange the server must use a DH group (DH "
+"parameters) and generate a DH key. The server will always generate a new DH "
+"key during the negotiation, when the DH parameters are supplied via callback "
+"and/or when the SSL_OP_SINGLE_DH_USE option of L<SSL_CTX_set_options(3)|"
+"SSL_CTX_set_options(3)> is set. It will immediately create a DH key, when DH "
+"parameters are supplied via SSL_CTX_set_tmp_dh() and SSL_OP_SINGLE_DH_USE is "
+"not set. In this case, it may happen that a key is generated on "
+"initialization without later being needed, while on the other hand the "
+"computer time during the negotiation is being saved."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:63
+msgid ""
+"If \"strong\" primes were used to generate the DH parameters, it is not "
+"strictly necessary to generate a new key for each handshake but it does "
+"improve forward secrecy. If it is not assured, that \"strong\" primes were "
+"used (see especially the section about DSA parameters below), "
+"SSL_OP_SINGLE_DH_USE must be used in order to prevent small subgroup "
+"attacks. Always using SSL_OP_SINGLE_DH_USE has an impact on the computer "
+"time needed during negotiation, but it is not very large, so application "
+"authors/users should consider to always enable this option."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:72
+msgid ""
+"As generating DH parameters is extremely time consuming, an application "
+"should not generate the parameters on the fly but supply the parameters.  DH "
+"parameters can be reused, as the actual key is newly generated during the "
+"negotiation. The risk in reusing DH parameters is that an attacker may "
+"specialize on a very often used DH group. Applications should therefore "
+"generate their own DH parameters during the installation process using the "
+"openssl L<dhparam(1)|dhparam(1)> application. In order to reduce the "
+"computer time needed for this generation, it is possible to use DSA "
+"parameters instead (see L<dhparam(1)|dhparam(1)>), but in this case "
+"SSL_OP_SINGLE_DH_USE is mandatory."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:83
+msgid ""
+"Application authors may compile in DH parameters. Files dh512.pem, dh1024."
+"pem, dh2048.pem, and dh4096 in the 'apps' directory of current version of "
+"the OpenSSL distribution contain the 'SKIP' DH parameters, which use safe "
+"primes and were generated verifiably pseudo-randomly.  These files can be "
+"converted into C code using the B<-C> option of the L<dhparam(1)|dhparam(1)> "
+"application.  Authors may also generate their own set of parameters using "
+"L<dhparam(1)|dhparam(1)>, but a user may not be sure how the parameters were "
+"generated. The generation of DH parameters during installation is therefore "
+"recommended."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:94
+msgid ""
+"An application may either directly specify the DH parameters or can supply "
+"the DH parameters via a callback function. The callback approach has the "
+"advantage, that the callback may supply DH parameters for different key "
+"lengths."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:99
+msgid ""
+"The B<tmp_dh_callback> is called with the B<keylength> needed and the "
+"B<is_export> information. The B<is_export> flag is set, when the ephemeral "
+"DH key exchange is performed with an export cipher."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:105
+msgid ""
+"Handle DH parameters for key lengths of 512 and 1024 bits. (Error handling "
+"partly left out.)"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:108
+#, no-wrap
+msgid ""
+" ...\n"
+" /* Set up ephemeral DH stuff */\n"
+" DH *dh_512 = NULL;\n"
+" DH *dh_1024 = NULL;\n"
+" FILE *paramfile;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:114
+#, no-wrap
+msgid ""
+" ...\n"
+" /* \"openssl dhparam -out dh_param_512.pem -2 512\" */\n"
+" paramfile = fopen(\"dh_param_512.pem\", \"r\");\n"
+" if (paramfile) {\n"
+"   dh_512 = PEM_read_DHparams(paramfile, NULL, NULL, NULL);\n"
+"   fclose(paramfile);\n"
+" }\n"
+" /* \"openssl dhparam -out dh_param_1024.pem -2 1024\" */\n"
+" paramfile = fopen(\"dh_param_1024.pem\", \"r\");\n"
+" if (paramfile) {\n"
+"   dh_1024 = PEM_read_DHparams(paramfile, NULL, NULL, NULL);\n"
+"   fclose(paramfile);\n"
+" }\n"
+" ...\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:129
+#, no-wrap
+msgid ""
+" /* \"openssl dhparam -C -2 512\" etc... */\n"
+" DH *get_dh512() { ... }\n"
+" DH *get_dh1024() { ... }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:133
+#, no-wrap
+msgid ""
+" DH *tmp_dh_callback(SSL *s, int is_export, int keylength)\n"
+" {\n"
+"    DH *dh_tmp=NULL;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:137
+#, no-wrap
+msgid ""
+"    switch (keylength) {\n"
+"    case 512:\n"
+"      if (!dh_512)\n"
+"        dh_512 = get_dh512();\n"
+"      dh_tmp = dh_512;\n"
+"      break;\n"
+"    case 1024:\n"
+"      if (!dh_1024) \n"
+"        dh_1024 = get_dh1024();\n"
+"      dh_tmp = dh_1024;\n"
+"      break;\n"
+"    default:\n"
+"      /* Generating a key on the fly is very costly, so use what is there */\n"
+"      setup_dh_parameters_like_above();\n"
+"    }\n"
+"    return(dh_tmp);\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:157
+msgid ""
+"SSL_CTX_set_tmp_dh_callback() and SSL_set_tmp_dh_callback() do not return "
+"diagnostic output."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:160
+msgid ""
+"SSL_CTX_set_tmp_dh() and SSL_set_tmp_dh() do return 1 on success and 0 on "
+"failure. Check the error queue to find out the reason of failure."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:165
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>, "
+"L<SSL_CTX_set_tmp_rsa_callback(3)|SSL_CTX_set_tmp_rsa_callback(3)>, "
+"L<SSL_CTX_set_options(3)|SSL_CTX_set_options(3)>, L<ciphers(1)|ciphers(1)>, "
+"L<dhparam(1)|dhparam(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:5
+msgid ""
+"SSL_CTX_set_tmp_rsa_callback, SSL_CTX_set_tmp_rsa, SSL_CTX_need_tmp_rsa, "
+"SSL_set_tmp_rsa_callback, SSL_set_tmp_rsa, SSL_need_tmp_rsa - handle RSA "
+"keys for ephemeral key exchange"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_tmp_rsa_callback(SSL_CTX *ctx,\n"
+"            RSA *(*tmp_rsa_callback)(SSL *ssl, int is_export, int keylength));\n"
+" long SSL_CTX_set_tmp_rsa(SSL_CTX *ctx, RSA *rsa);\n"
+" long SSL_CTX_need_tmp_rsa(SSL_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:16
+#, no-wrap
+msgid ""
+" void SSL_set_tmp_rsa_callback(SSL_CTX *ctx,\n"
+"            RSA *(*tmp_rsa_callback)(SSL *ssl, int is_export, int keylength));\n"
+" long SSL_set_tmp_rsa(SSL *ssl, RSA *rsa)\n"
+" long SSL_need_tmp_rsa(SSL *ssl)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:21
+#, no-wrap
+msgid ""
+" RSA *(*tmp_rsa_callback)(SSL *ssl, int is_export, int keylength);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:25
+msgid ""
+"SSL_CTX_set_tmp_rsa_callback() sets the callback function for B<ctx> to be "
+"used when a temporary/ephemeral RSA key is required to B<tmp_rsa_callback>.  "
+"The callback is inherited by all SSL objects newly created from B<ctx> with "
+"<SSL_new(3)|SSL_new(3)>. Already created SSL objects are not affected."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:30
+msgid ""
+"SSL_CTX_set_tmp_rsa() sets the temporary/ephemeral RSA key to be used to be "
+"B<rsa>. The key is inherited by all SSL objects newly created from B<ctx> "
+"with <SSL_new(3)|SSL_new(3)>. Already created SSL objects are not affected."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:34
+msgid ""
+"SSL_CTX_need_tmp_rsa() returns 1, if a temporary/ephemeral RSA key is needed "
+"for RSA-based strength-limited 'exportable' ciphersuites because a RSA key "
+"with a keysize larger than 512 bits is installed."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:38
+msgid "SSL_set_tmp_rsa_callback() sets the callback only for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:40
+msgid "SSL_set_tmp_rsa() sets the key only for B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:42
+msgid ""
+"SSL_need_tmp_rsa() returns 1, if a temporary/ephemeral RSA key is needed, "
+"for RSA-based strength-limited 'exportable' ciphersuites because a RSA key "
+"with a keysize larger than 512 bits is installed."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:50
+msgid ""
+"When using a cipher with RSA authentication, an ephemeral RSA key exchange "
+"can take place. In this case the session data are negotiated using the "
+"ephemeral/temporary RSA key and the RSA key supplied and certified by the "
+"certificate chain is only used for signing."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:55
+msgid ""
+"Under previous export restrictions, ciphers with RSA keys shorter (512 "
+"bits)  than the usual key length of 1024 bits were created. To use these "
+"ciphers with RSA keys of usual length, an ephemeral key exchange must be "
+"performed, as the normal (certified) key cannot be directly used."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:60
+msgid ""
+"Using ephemeral RSA key exchange yields forward secrecy, as the connection "
+"can only be decrypted, when the RSA key is known. By generating a temporary "
+"RSA key inside the server application that is lost when the application is "
+"left, it becomes impossible for an attacker to decrypt past sessions, even "
+"if he gets hold of the normal (certified) RSA key, as this key was used for "
+"signing only. The downside is that creating a RSA key is computationally "
+"expensive."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:68
+msgid ""
+"Additionally, the use of ephemeral RSA key exchange is only allowed in the "
+"TLS standard, when the RSA key can be used for signing only, that is for "
+"export ciphers. Using ephemeral RSA key exchange for other purposes violates "
+"the standard and can break interoperability with clients.  It is therefore "
+"strongly recommended to not use ephemeral RSA key exchange and use EDH "
+"(Ephemeral Diffie-Hellman) key exchange instead in order to achieve forward "
+"secrecy (see L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)"
+">)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:77
+msgid ""
+"On OpenSSL servers ephemeral RSA key exchange is therefore disabled by "
+"default and must be explicitly enabled using the SSL_OP_EPHEMERAL_RSA option "
+"of L<SSL_CTX_set_options(3)|SSL_CTX_set_options(3)>, violating the TLS/SSL "
+"standard. When ephemeral RSA key exchange is required for export ciphers, it "
+"will automatically be used without this option!"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:83
+msgid ""
+"An application may either directly specify the key or can supply the key via "
+"a callback function. The callback approach has the advantage, that the "
+"callback may generate the key only in case it is actually needed. As the "
+"generation of a RSA key is however costly, it will lead to a significant "
+"delay in the handshake procedure.  Another advantage of the callback "
+"function is that it can supply keys of different size (e.g. for "
+"SSL_OP_EPHEMERAL_RSA usage) while the explicit setting of the key is only "
+"useful for key size of 512 bits to satisfy the export restricted ciphers and "
+"does give away key length if a longer key would be allowed."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:93
+msgid ""
+"The B<tmp_rsa_callback> is called with the B<keylength> needed and the "
+"B<is_export> information. The B<is_export> flag is set, when the ephemeral "
+"RSA key exchange is performed with an export cipher."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:99
+msgid ""
+"Generate temporary RSA keys to prepare ephemeral RSA key exchange. As the "
+"generation of a RSA key costs a lot of computer time, they saved for later "
+"reuse. For demonstration purposes, two keys for 512 bits and 1024 bits "
+"respectively are generated."
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:104
+#, no-wrap
+msgid ""
+" ...\n"
+" /* Set up ephemeral RSA stuff */\n"
+" RSA *rsa_512 = NULL;\n"
+" RSA *rsa_1024 = NULL;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:109
+#, no-wrap
+msgid ""
+" rsa_512 = RSA_generate_key(512,RSA_F4,NULL,NULL);\n"
+" if (rsa_512 == NULL)\n"
+"     evaluate_error_queue();\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:113
+#, no-wrap
+msgid ""
+" rsa_1024 = RSA_generate_key(1024,RSA_F4,NULL,NULL);\n"
+" if (rsa_1024 == NULL)\n"
+"   evaluate_error_queue();\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:117
+#, no-wrap
+msgid ""
+" ...\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:119
+#, no-wrap
+msgid ""
+" RSA *tmp_rsa_callback(SSL *s, int is_export, int keylength)\n"
+" {\n"
+"    RSA *rsa_tmp=NULL;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:123
+#, no-wrap
+msgid ""
+"    switch (keylength) {\n"
+"    case 512:\n"
+"      if (rsa_512)\n"
+"        rsa_tmp = rsa_512;\n"
+"      else { /* generate on the fly, should not happen in this example */\n"
+"        rsa_tmp = RSA_generate_key(keylength,RSA_F4,NULL,NULL);\n"
+"        rsa_512 = rsa_tmp; /* Remember for later reuse */\n"
+"      }\n"
+"      break;\n"
+"    case 1024:\n"
+"      if (rsa_1024)\n"
+"        rsa_tmp=rsa_1024;\n"
+"      else\n"
+"        should_not_happen_in_this_example();\n"
+"      break;\n"
+"    default:\n"
+"      /* Generating a key on the fly is very costly, so use what is there */\n"
+"      if (rsa_1024)\n"
+"        rsa_tmp=rsa_1024;\n"
+"      else\n"
+"        rsa_tmp=rsa_512; /* Use at least a shorter key */\n"
+"    }\n"
+"    return(rsa_tmp);\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:150
+msgid ""
+"SSL_CTX_set_tmp_rsa_callback() and SSL_set_tmp_rsa_callback() do not return "
+"diagnostic output."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:153
+msgid ""
+"SSL_CTX_set_tmp_rsa() and SSL_set_tmp_rsa() do return 1 on success and 0 on "
+"failure. Check the error queue to find out the reason of failure."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:156
+msgid ""
+"SSL_CTX_need_tmp_rsa() and SSL_need_tmp_rsa() return 1 if a temporary RSA "
+"key is needed and 0 otherwise."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:161
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>, "
+"L<SSL_CTX_set_options(3)|SSL_CTX_set_options(3)>, "
+"L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>, L<SSL_new"
+"(3)|SSL_new(3)>, L<ciphers(1)|ciphers(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:5
+msgid ""
+"SSL_CTX_set_verify, SSL_set_verify, SSL_CTX_set_verify_depth, "
+"SSL_set_verify_depth - set peer certificate verification parameters"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:11
+#, no-wrap
+msgid ""
+" void SSL_CTX_set_verify(SSL_CTX *ctx, int mode,\n"
+"                         int (*verify_callback)(int, X509_STORE_CTX *));\n"
+" void SSL_set_verify(SSL *s, int mode,\n"
+"                     int (*verify_callback)(int, X509_STORE_CTX *));\n"
+" void SSL_CTX_set_verify_depth(SSL_CTX *ctx,int depth);\n"
+" void SSL_set_verify_depth(SSL *s, int depth);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:18
+#, no-wrap
+msgid ""
+" int verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:22
+msgid ""
+"SSL_CTX_set_verify() sets the verification flags for B<ctx> to be B<mode> "
+"and specifies the B<verify_callback> function to be used. If no callback "
+"function shall be specified, the NULL pointer can be used for "
+"B<verify_callback>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:26
+msgid ""
+"SSL_set_verify() sets the verification flags for B<ssl> to be B<mode> and "
+"specifies the B<verify_callback> function to be used. If no callback "
+"function shall be specified, the NULL pointer can be used for "
+"B<verify_callback>. In this case last B<verify_callback> set specifically "
+"for this B<ssl> remains. If no special B<callback> was set before, the "
+"default callback for the underlying B<ctx> is used, that was valid at the "
+"time B<ssl> was created with L<SSL_new(3)|SSL_new(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:34
+msgid ""
+"SSL_CTX_set_verify_depth() sets the maximum B<depth> for the certificate "
+"chain verification that shall be allowed for B<ctx>. (See the BUGS section.)"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:37
+msgid ""
+"SSL_set_verify_depth() sets the maximum B<depth> for the certificate chain "
+"verification that shall be allowed for B<ssl>. (See the BUGS section.)"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:42
+msgid ""
+"The verification of certificates can be controlled by a set of logically "
+"or'ed B<mode> flags:"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_verify.pod:47
+msgid "SSL_VERIFY_NONE"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:49
+msgid ""
+"B<Server mode:> the server will not send a client certificate request to the "
+"client, so the client will not send a certificate."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:52
+msgid ""
+"B<Client mode:> if not using an anonymous cipher (by default disabled), the "
+"server will send a certificate which will be checked. The result of the "
+"certificate verification process can be checked after the TLS/SSL handshake "
+"using the L<SSL_get_verify_result(3)|SSL_get_verify_result(3)> function.  "
+"The handshake will be continued regardless of the verification result."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_verify.pod:58
+msgid "SSL_VERIFY_PEER"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:60
+msgid ""
+"B<Server mode:> the server sends a client certificate request to the "
+"client.  The certificate returned (if any) is checked. If the verification "
+"process fails, the TLS/SSL handshake is immediately terminated with an alert "
+"message containing the reason for the verification failure.  The behaviour "
+"can be controlled by the additional SSL_VERIFY_FAIL_IF_NO_PEER_CERT and "
+"SSL_VERIFY_CLIENT_ONCE flags."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:68
+msgid ""
+"B<Client mode:> the server certificate is verified. If the verification "
+"process fails, the TLS/SSL handshake is immediately terminated with an alert "
+"message containing the reason for the verification failure. If no server "
+"certificate is sent, because an anonymous cipher is used, SSL_VERIFY_PEER is "
+"ignored."
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_verify.pod:74
+msgid "SSL_VERIFY_FAIL_IF_NO_PEER_CERT"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:76
+msgid ""
+"B<Server mode:> if the client did not return a certificate, the TLS/SSL "
+"handshake is immediately terminated with a \"handshake failure\" alert.  "
+"This flag must be used together with SSL_VERIFY_PEER."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:80 C/ssl/SSL_CTX_set_verify.pod:88
+msgid "B<Client mode:> ignored"
+msgstr ""
+
+#. type: =item
+#: C/ssl/SSL_CTX_set_verify.pod:82
+msgid "SSL_VERIFY_CLIENT_ONCE"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:84
+msgid ""
+"B<Server mode:> only request a client certificate on the initial TLS/SSL "
+"handshake. Do not ask for a client certificate again in case of a "
+"renegotiation. This flag must be used together with SSL_VERIFY_PEER."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:92
+msgid ""
+"Exactly one of the B<mode> flags SSL_VERIFY_NONE and SSL_VERIFY_PEER must be "
+"set at any time."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:95
+msgid ""
+"The actual verification procedure is performed either using the built-in "
+"verification procedure or using another application provided verification "
+"function set with L<SSL_CTX_set_cert_verify_callback(3)|"
+"SSL_CTX_set_cert_verify_callback(3)>.  The following descriptions apply in "
+"the case of the built-in procedure. An application provided procedure also "
+"has access to the verify depth information and the verify_callback() "
+"function, but the way this information is used may be different."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:104
+msgid ""
+"SSL_CTX_set_verify_depth() and SSL_set_verify_depth() set the limit up to "
+"which depth certificates in a chain are used during the verification "
+"procedure. If the certificate chain is longer than allowed, the certificates "
+"above the limit are ignored. Error messages are generated as if these "
+"certificates would not be present, most likely a "
+"X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY will be issued.  The depth "
+"count is \"level 0:peer certificate\", \"level 1: CA certificate\", \"level "
+"2: higher level CA certificate\", and so on. Setting the maximum depth to 2 "
+"allows the levels 0, 1, and 2. The default depth limit is 9, allowing for "
+"the peer certificate and additional 9 CA certificates."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:115
+msgid ""
+"The B<verify_callback> function is used to control the behaviour when the "
+"SSL_VERIFY_PEER flag is set. It must be supplied by the application and "
+"receives two arguments: B<preverify_ok> indicates, whether the verification "
+"of the certificate in question was passed (preverify_ok=1) or not "
+"(preverify_ok=0). B<x509_ctx> is a pointer to the complete context used for "
+"the certificate chain verification."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:122
+msgid ""
+"The certificate chain is checked starting with the deepest nesting level "
+"(the root CA certificate) and worked upward to the peer's certificate.  At "
+"each level signatures and issuer attributes are checked. Whenever a "
+"verification error is found, the error number is stored in B<x509_ctx> and "
+"B<verify_callback> is called with B<preverify_ok>=0. By applying "
+"X509_CTX_store_* functions B<verify_callback> can locate the certificate in "
+"question and perform additional steps (see EXAMPLES). If no error is found "
+"for a certificate, B<verify_callback> is called with B<preverify_ok>=1 "
+"before advancing to the next level."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:132
+msgid ""
+"The return value of B<verify_callback> controls the strategy of the further "
+"verification process. If B<verify_callback> returns 0, the verification "
+"process is immediately stopped with \"verification failed\" state. If "
+"SSL_VERIFY_PEER is set, a verification failure alert is sent to the peer and "
+"the TLS/SSL handshake is terminated. If B<verify_callback> returns 1, the "
+"verification process is continued. If B<verify_callback> always returns 1, "
+"the TLS/SSL handshake will not be terminated with respect to verification "
+"failures and the connection will be established. The calling process can "
+"however retrieve the error code of the last verification error using "
+"L<SSL_get_verify_result(3)|SSL_get_verify_result(3)> or by maintaining its "
+"own error storage managed by B<verify_callback>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:144
+msgid ""
+"If no B<verify_callback> is specified, the default callback will be used.  "
+"Its return value is identical to B<preverify_ok>, so that any verification "
+"failure will lead to a termination of the TLS/SSL handshake with an alert "
+"message, if SSL_VERIFY_PEER is set."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:151
+msgid ""
+"In client mode, it is not checked whether the SSL_VERIFY_PEER flag is set, "
+"but whether SSL_VERIFY_NONE is not set. This can lead to unexpected "
+"behaviour, if the SSL_VERIFY_PEER and SSL_VERIFY_NONE are not used as "
+"required (exactly one must be set at any time)."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:156
+msgid ""
+"The certificate verification depth set with SSL[_CTX]_verify_depth()  stops "
+"the verification at a certain depth. The error message produced will be that "
+"of an incomplete certificate chain and not X509_V_ERR_CERT_CHAIN_TOO_LONG as "
+"may be expected."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:163
+msgid "The SSL*_set_verify*() functions do not provide diagnostic information."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:167
+msgid ""
+"The following code sequence realizes an example B<verify_callback> function "
+"that will always continue the TLS/SSL handshake regardless of verification "
+"failure, if wished. The callback realizes a verification depth limit with "
+"more informational output."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:172
+msgid ""
+"All verification errors are printed; information about the certificate chain "
+"is printed on request.  The example is realized for a server that does allow "
+"but not require client certificates."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:177
+msgid ""
+"The example makes use of the ex_data technique to store application data "
+"into/retrieve application data from the SSL structure (see "
+"L<SSL_get_ex_new_index(3)|SSL_get_ex_new_index(3)>, "
+"L<SSL_get_ex_data_X509_STORE_CTX_idx(3)|SSL_get_ex_data_X509_STORE_CTX_idx(3)"
+">)."
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:182
+#, no-wrap
+msgid ""
+" ...\n"
+" typedef struct {\n"
+"   int verbose_mode;\n"
+"   int verify_depth;\n"
+"   int always_continue;\n"
+" } mydata_t;\n"
+" int mydata_index;\n"
+" ...\n"
+" static int verify_callback(int preverify_ok, X509_STORE_CTX *ctx)\n"
+" {\n"
+"    char    buf[256];\n"
+"    X509   *err_cert;\n"
+"    int     err, depth;\n"
+"    SSL    *ssl;\n"
+"    mydata_t *mydata;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:198
+#, no-wrap
+msgid ""
+"    err_cert = X509_STORE_CTX_get_current_cert(ctx);\n"
+"    err = X509_STORE_CTX_get_error(ctx);\n"
+"    depth = X509_STORE_CTX_get_error_depth(ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:202
+#, no-wrap
+msgid ""
+"    /*\n"
+"     * Retrieve the pointer to the SSL of the connection currently treated\n"
+"     * and the application specific data stored into the SSL object.\n"
+"     */\n"
+"    ssl = X509_STORE_CTX_get_ex_data(ctx, SSL_get_ex_data_X509_STORE_CTX_idx());\n"
+"    mydata = SSL_get_ex_data(ssl, mydata_index);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:209
+#, no-wrap
+msgid ""
+"    X509_NAME_oneline(X509_get_subject_name(err_cert), buf, 256);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:211
+#, no-wrap
+msgid ""
+"    /*\n"
+"     * Catch a too long certificate chain. The depth limit set using\n"
+"     * SSL_CTX_set_verify_depth() is by purpose set to \"limit+1\" so\n"
+"     * that whenever the \"depth>verify_depth\" condition is met, we\n"
+"     * have violated the limit and want to log this error condition.\n"
+"     * We must do it here, because the CHAIN_TOO_LONG error would not\n"
+"     * be found explicitly; only errors introduced by cutting off the\n"
+"     * additional certificates would be logged.\n"
+"     */\n"
+"    if (depth > mydata->verify_depth) {\n"
+"        preverify_ok = 0;\n"
+"        err = X509_V_ERR_CERT_CHAIN_TOO_LONG;\n"
+"        X509_STORE_CTX_set_error(ctx, err);\n"
+"    } \n"
+"    if (!preverify_ok) {\n"
+"        printf(\"verify error:num=%d:%s:depth=%d:%s\\n\", err,\n"
+"                 X509_verify_cert_error_string(err), depth, buf);\n"
+"    }\n"
+"    else if (mydata->verbose_mode)\n"
+"    {\n"
+"        printf(\"depth=%d:%s\\n\", depth, buf);\n"
+"    }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:234
+#, no-wrap
+msgid ""
+"    /*\n"
+"     * At this point, err contains the last verification error. We can use\n"
+"     * it for something special\n"
+"     */\n"
+"    if (!preverify_ok && (err == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT))\n"
+"    {\n"
+"      X509_NAME_oneline(X509_get_issuer_name(ctx->current_cert), buf, 256);\n"
+"      printf(\"issuer= %s\\n\", buf);\n"
+"    }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:244
+#, no-wrap
+msgid ""
+"    if (mydata->always_continue)\n"
+"      return 1;\n"
+"    else\n"
+"      return preverify_ok;\n"
+" }\n"
+" ...\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:251
+#, no-wrap
+msgid ""
+" mydata_t mydata;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:253
+#, no-wrap
+msgid ""
+" ...\n"
+" mydata_index = SSL_get_ex_new_index(0, \"mydata index\", NULL, NULL, NULL);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:256
+#, no-wrap
+msgid ""
+" ...\n"
+" SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER|SSL_VERIFY_CLIENT_ONCE,\n"
+"                    verify_callback);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:260
+#, no-wrap
+msgid ""
+" /*\n"
+"  * Let the verify_callback catch the verify_depth error so that we get\n"
+"  * an appropriate error in the logfile.\n"
+"  */\n"
+" SSL_CTX_set_verify_depth(verify_depth + 1);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:266
+#, no-wrap
+msgid ""
+" /*\n"
+"  * Set up the SSL specific data into \"mydata\" and store it into th SSL\n"
+"  * structure.\n"
+"  */\n"
+" mydata.verify_depth = verify_depth; ...\n"
+" SSL_set_ex_data(ssl, mydata_index, &mydata);\n"
+"\t\t\t\t\t     \n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_verify.pod:273
+#, no-wrap
+msgid ""
+" ...\n"
+" SSL_accept(ssl);\t/* check of success left out for clarity */\n"
+" if (peer = SSL_get_peer_certificate(ssl))\n"
+" {\n"
+"   if (SSL_get_verify_result(ssl) == X509_V_OK)\n"
+"   {\n"
+"     /* The client sent a certificate which verified OK */\n"
+"   }\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_verify.pod:285
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_CTX_get_verify_mode(3)|"
+"SSL_CTX_get_verify_mode(3)>, L<SSL_get_verify_result(3)|SSL_get_verify_result"
+"(3)>, L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>, "
+"L<SSL_get_peer_certificate(3)|SSL_get_peer_certificate(3)>, "
+"L<SSL_CTX_set_cert_verify_callback(3)|SSL_CTX_set_cert_verify_callback(3)>, "
+"L<SSL_get_ex_data_X509_STORE_CTX_idx(3)|SSL_get_ex_data_X509_STORE_CTX_idx(3)"
+">, L<SSL_get_ex_new_index(3)|SSL_get_ex_new_index(3)>"
+msgstr ""

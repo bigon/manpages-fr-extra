@@ -1,0 +1,485 @@
+# French translations for the openssl package
+# Copyright (C) 2008, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# This file is distributed under the same license as the openssl package.
+#
+# Nicolas François <nicolas.francois@centraliens.net>, 2008.
+# David Prévot <david@tilapin.org>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: openssl\n"
+"POT-Creation-Date: 2013-05-29 22:47-0400\n"
+"PO-Revision-Date: 2013-02-05 22:01-0400\n"
+"Last-Translator: David Prévot <david@tilapin.org>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: VirTaal 0.1\n"
+
+#. type: =head1
+#: C/ssl/SSL_SESSION_free.pod:3 C/ssl/SSL_SESSION_get_ex_new_index.pod:3
+#: C/ssl/SSL_SESSION_get_time.pod:3 C/ssl/SSL_session_reused.pod:3
+msgid "NAME"
+msgstr "NOM"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_free.pod:5
+msgid "SSL_SESSION_free - free an allocated SSL_SESSION structure"
+msgstr "SSL_SESSION_free - Libérer une structure SSL_SESSION allouée"
+
+#. type: =head1
+#: C/ssl/SSL_SESSION_free.pod:7 C/ssl/SSL_SESSION_get_ex_new_index.pod:7
+#: C/ssl/SSL_SESSION_get_time.pod:7 C/ssl/SSL_session_reused.pod:7
+msgid "SYNOPSIS"
+msgstr "SYNOPSIS"
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_free.pod:9 C/ssl/SSL_SESSION_get_ex_new_index.pod:9
+#: C/ssl/SSL_SESSION_get_time.pod:9 C/ssl/SSL_session_reused.pod:9
+#, no-wrap
+msgid ""
+" #include <openssl/ssl.h>\n"
+"\n"
+msgstr ""
+" #include <openssl/ssl.h>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_free.pod:11
+#, no-wrap
+msgid ""
+" void SSL_SESSION_free(SSL_SESSION *session);\n"
+"\n"
+msgstr ""
+" void SSL_SESSION_free(SSL_SESSION *session);\n"
+"\n"
+
+#. type: =head1
+#: C/ssl/SSL_SESSION_free.pod:13 C/ssl/SSL_SESSION_get_ex_new_index.pod:27
+#: C/ssl/SSL_SESSION_get_time.pod:21 C/ssl/SSL_session_reused.pod:13
+msgid "DESCRIPTION"
+msgstr "DESCRIPTION"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_free.pod:15
+msgid ""
+"SSL_SESSION_free() decrements the reference count of B<session> and removes "
+"the B<SSL_SESSION> structure pointed to by B<session> and frees up the "
+"allocated memory, if the reference count has reached 0."
+msgstr ""
+"SSL_SESSION_free() décrémente le décompte de références de B<session> et "
+"retire la structure B<SSL_SESSION> pointée par B<session> et libère la "
+"mémoire allouée, si le décompte de références atteint 0."
+
+#. type: =head1
+#: C/ssl/SSL_SESSION_free.pod:19 C/ssl/SSL_SESSION_get_time.pod:39
+#: C/ssl/SSL_session_reused.pod:17
+msgid "NOTES"
+msgstr "NOTES"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_free.pod:21
+msgid ""
+"SSL_SESSION objects are allocated, when a TLS/SSL handshake operation is "
+"successfully completed. Depending on the settings, see "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>, the "
+"SSL_SESSION objects are internally referenced by the SSL_CTX and linked into "
+"its session cache. SSL objects may be using the SSL_SESSION object; as a "
+"session may be reused, several SSL objects may be using one SSL_SESSION "
+"object at the same time. It is therefore crucial to keep the reference count "
+"(usage information) correct and not delete a SSL_SESSION object that is "
+"still used, as this may lead to program failures due to dangling pointers. "
+"These failures may also appear delayed, e.g.  when an SSL_SESSION object was "
+"completely freed as the reference count incorrectly became 0, but it is "
+"still referenced in the internal session cache and the cache list is "
+"processed during a L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> "
+"operation."
+msgstr ""
+"Les objets SSL_SESSION sont allouées quand une poignée de main TLS/SSL se "
+"termine avec succès. En fonction de la configuration, consultez "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>, les "
+"objets SSL_SESSION sont référencés en interne par le SSL_CTX et attachés son "
+"cache de sessions. Les objets SSL peuvent utiliser l'objet SSL_SESSION ; "
+"comme une session peut être réutilisée, plusieurs objets SSL peuvent "
+"utiliser le même objet SSL_SESSION en même temps. Il est donc important de "
+"garder un compte des références (informations sur l'utilisation) correct et "
+"de ne pas supprimer un objet SSL_SESSION qui est encore utilisé, ce qui "
+"pourrait conduire à des erreurs du programme du fait de pointeurs pointant "
+"en l'air. Ces échecs peuvent aussi apparaître à retardement, par exemple "
+"quand un objet SSL_SESSION a été libéré parce son décompte de références est "
+"passé à zéro de façon erronée, mais est toujours référencé dans le cache de "
+"sessions interne et que la liste du cache est analysée lors d'une opération "
+"L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)>."
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_free.pod:36
+msgid ""
+"SSL_SESSION_free() must only be called for SSL_SESSION objects, for which "
+"the reference count was explicitly incremented (e.g.  by calling "
+"SSL_get1_session(), see L<SSL_get_session(3)|SSL_get_session(3)>)  or when "
+"the SSL_SESSION object was generated outside a TLS handshake operation, e.g. "
+"by using L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>.  It must not be called on "
+"other SSL_SESSION objects, as this would cause incorrect reference counts "
+"and therefore program failures."
+msgstr ""
+"SSL_SESSION_free() doit uniquement être appelée pour des objets SSL_SESSION, "
+"pour lesquels le décompte de référence a été incrémenté explicitement (par "
+"exemple en appelant SSL_get1_session(), consultez L<SSL_get_session(3)|"
+"SSL_get_session(3)>) ou si l'objet SSL_SESSION a été généré en dehors de "
+"l'opération de poignée de main TLS, par exemple en utilisant "
+"L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>. Elle ne doit pas être appelée avec "
+"les autres objets SSL_SESSION, puisque ça résultera en des décompte de "
+"référence erronés, et donc en des erreurs du programme."
+
+#. type: =head1
+#: C/ssl/SSL_SESSION_free.pod:44 C/ssl/SSL_SESSION_get_time.pod:48
+#: C/ssl/SSL_session_reused.pod:24
+msgid "RETURN VALUES"
+msgstr "VALEURS DE RETOUR"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_free.pod:46
+msgid "SSL_SESSION_free() does not provide diagnostic information."
+msgstr "SSL_SESSION_free() ne fournit pas d'information de diagnostic."
+
+#. type: =head1
+#: C/ssl/SSL_SESSION_free.pod:48 C/ssl/SSL_SESSION_get_ex_new_index.pod:55
+#: C/ssl/SSL_SESSION_get_time.pod:58 C/ssl/SSL_session_reused.pod:40
+msgid "SEE ALSO"
+msgstr "VOIR AUSSI"
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_free.pod:50
+#, no-wrap
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_get_session(3)|SSL_get_session(3)>,\n"
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>,\n"
+"L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)>,\n"
+" L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>\n"
+"\n"
+msgstr "L<ssl(3)|ssl(3)>, L<SSL_get_session(3)|SSL_get_session(3)>, L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>, L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)>, L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>\n"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:5
+msgid ""
+"SSL_SESSION_get_ex_new_index, SSL_SESSION_set_ex_data, "
+"SSL_SESSION_get_ex_data - internal application specific data functions"
+msgstr ""
+"SSL_SESSION_get_ex_new_index, SSL_SESSION_set_ex_data, "
+"SSL_SESSION_get_ex_data - Fonctions internes pour données spécifiques aux "
+"applications"
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:11
+#, no-wrap
+msgid ""
+" int SSL_SESSION_get_ex_new_index(long argl, void *argp,\n"
+"                CRYPTO_EX_new *new_func,\n"
+"                CRYPTO_EX_dup *dup_func,\n"
+"                CRYPTO_EX_free *free_func);\n"
+"\n"
+msgstr ""
+" int SSL_SESSION_get_ex_new_index(long argl, void *argp,\n"
+"                CRYPTO_EX_new *new_func,\n"
+"                CRYPTO_EX_dup *dup_func,\n"
+"                CRYPTO_EX_free *free_func);\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:16
+#, no-wrap
+msgid ""
+" int SSL_SESSION_set_ex_data(SSL_SESSION *session, int idx, void *arg);\n"
+"\n"
+msgstr ""
+" int SSL_SESSION_set_ex_data(SSL_SESSION *session, int idx, void *arg);\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:18
+#, no-wrap
+msgid ""
+" void *SSL_SESSION_get_ex_data(const SSL_SESSION *session, int idx);\n"
+"\n"
+msgstr ""
+" void *SSL_SESSION_get_ex_data(const SSL_SESSION *session, int idx);\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:20
+#, no-wrap
+msgid ""
+" typedef int new_func(void *parent, void *ptr, CRYPTO_EX_DATA *ad,\n"
+"                int idx, long argl, void *argp);\n"
+" typedef void free_func(void *parent, void *ptr, CRYPTO_EX_DATA *ad,\n"
+"                int idx, long argl, void *argp);\n"
+" typedef int dup_func(CRYPTO_EX_DATA *to, CRYPTO_EX_DATA *from, void *from_d,\n"
+"                int idx, long argl, void *argp);\n"
+"\n"
+msgstr ""
+" typedef int new_func(void *parent, void *ptr, CRYPTO_EX_DATA *ad,\n"
+"                int idx, long argl, void *argp);\n"
+" typedef void free_func(void *parent, void *ptr, CRYPTO_EX_DATA *ad,\n"
+"                int idx, long argl, void *argp);\n"
+" typedef int dup_func(CRYPTO_EX_DATA *to, CRYPTO_EX_DATA *from, void *from_d,\n"
+"                int idx, long argl, void *argp);\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:29
+msgid ""
+"Several OpenSSL structures can have application specific data attached to "
+"them.  These functions are used internally by OpenSSL to manipulate "
+"application specific data attached to a specific structure."
+msgstr ""
+"Plusieurs structures OpenSSL peuvent avoir des données spécifiques aux "
+"applications attachées. Ces fonctions sont utilisées en interne par OpenSSL "
+"pour manipuler des données spécifiques aux applications attachées aux "
+"structures."
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:33
+msgid ""
+"SSL_SESSION_get_ex_new_index() is used to register a new index for "
+"application specific data."
+msgstr ""
+"B<SSL_SESSION_get_ex_new_index>() est utilisée pour enregistrer un nouvel "
+"indice de données spécifiques aux applications."
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:36
+msgid ""
+"SSL_SESSION_set_ex_data() is used to store application data at B<arg> for "
+"B<idx> into the B<session> object."
+msgstr ""
+"B<SSL_SESSION_set_ex_data>() est utilisée pour enregistrer des données "
+"d'applications en I<arg> pour I<idx> dans l'objet I<session>."
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:39
+msgid ""
+"SSL_SESSION_get_ex_data() is used to retrieve the information for B<idx> "
+"from B<session>."
+msgstr ""
+"B<SSL_SESSION_get_ex_data>() est utilisée pour récupérer les informations "
+"pour I<idx> de I<session>."
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:42
+msgid ""
+"A detailed description for the B<*_get_ex_new_index()> functionality can be "
+"found in L<RSA_get_ex_new_index(3)|RSA_get_ex_new_index(3)>.  The "
+"B<*_get_ex_data()> and B<*_set_ex_data()> functionality is described in "
+"L<CRYPTO_set_ex_data(3)|CRYPTO_set_ex_data(3)>."
+msgstr ""
+"Une description détaillée de la fonctionnalité I<*>B<_get_ex_new_index>() "
+"est disponible dans L<RSA_get_ex_new_index(3)|RSA_get_ex_new_index(3)>. Les "
+"fonctionnalités I<*>B<_get_ex_data>() et I<*>B<_set_ex_data>() sont décrites "
+"dans L<CRYPTO_set_ex_data(3)|CRYPTO_set_ex_data(3)>."
+
+#. type: =head1
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:47
+msgid "WARNINGS"
+msgstr "AVERTISSEMENTS"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:49
+msgid ""
+"The application data is only maintained for sessions held in memory. The "
+"application data is not included when dumping the session with "
+"i2d_SSL_SESSION() (and all functions indirectly calling the dump functions "
+"like PEM_write_SSL_SESSION() and PEM_write_bio_SSL_SESSION()) and can "
+"therefore not be restored."
+msgstr ""
+"Les données d'application ne sont conservées que pour les sessions gardées "
+"en mémoire. Les données d'application ne sont pas incluses quand la session "
+"est convertie avec B<i2d_SSL_SESSION>() (et toutes les fonctions appelant "
+"indirectement les fonctions de conversion comme B<PEM_write_SSL_SESSION>() "
+"et B<PEM_write_bio_SSL_SESSION>()) et ne peuvent donc pas être restaurées."
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_ex_new_index.pod:57
+msgid ""
+"L<ssl(3)|ssl(3)>, L<RSA_get_ex_new_index(3)|RSA_get_ex_new_index(3)>, "
+"L<CRYPTO_set_ex_data(3)|CRYPTO_set_ex_data(3)>"
+msgstr ""
+"L<ssl(3)|ssl(3)>, L<RSA_get_ex_new_index(3)|RSA_get_ex_new_index(3)>, "
+"L<CRYPTO_set_ex_data(3)|CRYPTO_set_ex_data(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:5
+msgid ""
+"SSL_SESSION_get_time, SSL_SESSION_set_time, SSL_SESSION_get_timeout, "
+"SSL_SESSION_set_timeout - retrieve and manipulate session time and timeout "
+"settings"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_get_time.pod:11
+#, no-wrap
+msgid ""
+" long SSL_SESSION_get_time(const SSL_SESSION *s);\n"
+" long SSL_SESSION_set_time(SSL_SESSION *s, long tm);\n"
+" long SSL_SESSION_get_timeout(const SSL_SESSION *s);\n"
+" long SSL_SESSION_set_timeout(SSL_SESSION *s, long tm);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_SESSION_get_time.pod:16
+#, no-wrap
+msgid ""
+" long SSL_get_time(const SSL_SESSION *s);\n"
+" long SSL_set_time(SSL_SESSION *s, long tm);\n"
+" long SSL_get_timeout(const SSL_SESSION *s);\n"
+" long SSL_set_timeout(SSL_SESSION *s, long tm);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:23
+msgid ""
+"SSL_SESSION_get_time() returns the time at which the session B<s> was "
+"established. The time is given in seconds since the Epoch and therefore "
+"compatible to the time delivered by the time() call."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:27
+msgid ""
+"SSL_SESSION_set_time() replaces the creation time of the session B<s> with "
+"the chosen value B<tm>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:30
+msgid ""
+"SSL_SESSION_get_timeout() returns the timeout value set for session B<s> in "
+"seconds."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:33
+msgid ""
+"SSL_SESSION_set_timeout() sets the timeout value for session B<s> in seconds "
+"to B<tm>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:36
+msgid ""
+"The SSL_get_time(), SSL_set_time(), SSL_get_timeout(), and SSL_set_timeout"
+"()  functions are synonyms for the SSL_SESSION_*() counterparts."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:41
+msgid ""
+"Sessions are expired by examining the creation time and the timeout value.  "
+"Both are set at creation time of the session to the actual time and the "
+"default timeout value at creation, respectively, as set by "
+"L<SSL_CTX_set_timeout(3)|SSL_CTX_set_timeout(3)>.  Using these functions it "
+"is possible to extend or shorten the lifetime of the session."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:50
+msgid ""
+"SSL_SESSION_get_time() and SSL_SESSION_get_timeout() return the currently "
+"valid values."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:53
+msgid ""
+"SSL_SESSION_set_time() and SSL_SESSION_set_timeout() return 1 on success."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:55
+msgid ""
+"If any of the function is passed the NULL pointer for the session B<s>, 0 is "
+"returned."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_SESSION_get_time.pod:60
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_timeout(3)|SSL_CTX_set_timeout(3)>, "
+"L<SSL_get_default_timeout(3)|SSL_get_default_timeout(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_session_reused.pod:5
+msgid ""
+"SSL_session_reused - query whether a reused session was negotiated during "
+"handshake"
+msgstr ""
+"SSL_session_reused - Demander si la réutilisation d'une session a été "
+"négociée pendant la poignée de main"
+
+#. type: verbatim
+#: C/ssl/SSL_session_reused.pod:11
+#, no-wrap
+msgid ""
+" int SSL_session_reused(SSL *ssl);\n"
+"\n"
+msgstr ""
+" int SSL_session_reused(SSL *ssl);\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_session_reused.pod:15
+msgid "Query, whether a reused session was negotiated during the handshake."
+msgstr ""
+"Demander si la réutilisation d'une session a été négociée pendant la poignée "
+"de main."
+
+#. type: textblock
+#: C/ssl/SSL_session_reused.pod:19
+msgid ""
+"During the negotiation, a client can propose to reuse a session. The server "
+"then looks up the session in its cache. If both client and server agree on "
+"the session, it will be reused and a flag is being set that can be queried "
+"by the application."
+msgstr ""
+"Pendant la négociation, un client peut proposer de réutiliser une session. "
+"Le serveur cherche alors la session dans son cache. Si le client et le "
+"serveur sont d'accord sur la session, elle sera réutilisée et un drapeau, "
+"qui pourra être interrogé par l'application, est positionné."
+
+#. type: textblock
+#: C/ssl/SSL_session_reused.pod:26
+msgid "The following return values can occur:"
+msgstr "Les valeurs suivantes peuvent être renvoyées."
+
+#. type: =item
+#: C/ssl/SSL_session_reused.pod:30
+msgid "0"
+msgstr "0"
+
+#. type: textblock
+#: C/ssl/SSL_session_reused.pod:32
+msgid "A new session was negotiated."
+msgstr "Une nouvelle session a été négociée."
+
+#. type: =item
+#: C/ssl/SSL_session_reused.pod:34
+msgid "1"
+msgstr "1"
+
+#. type: textblock
+#: C/ssl/SSL_session_reused.pod:36
+msgid "A session was reused."
+msgstr "Une session a été réutilisée."
+
+#. type: textblock
+#: C/ssl/SSL_session_reused.pod:42
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_set_session(3)|SSL_set_session(3)>, "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>"
+msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_set_session(3)|SSL_set_session(3)>, "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>"
