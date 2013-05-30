@@ -2,15 +2,15 @@ PACKAGE=openssl
 VERSION=$(shell cat VERSION | sed -e 's/-[0-9]*$$//')
 
 PO4ADIR=po4a
-PODIR=$(PO4ADIR)/po
-PO4ACONFIGFILE=$(PO4ADIR)/$(PACKAGE).cfg
 
 all: build
 
 pre-build:
 
 po4a-build:
-	po4a --previous -L UTF-8 $(PO4ACONFIGFILE)
+	for i in $(PO4ADIR)/*.cfg; do \
+		po4a --previous -L UTF-8 $$i; \
+	done
 
 P2M = pod2man --utf8 --center="OpenSSL" --release="$(VERSION)"
 
@@ -39,18 +39,20 @@ man3:
 build: pre-build po4a-build post-build
 
 clean:
-	po4a --previous --rm-translations $(PO4ACONFIGFILE)
+	for i in $(PO4ADIR)/*.cfg; do \
+		po4a --previous --rm-translations $$i; \
+	done
 	-rm -rf fr
-	-rm -f $(PODIR)/*/*~
+	-rm -f $(PO4ADIR)/*/po/*~
 
 stats-all:
 	@echo -n "$(PACKAGE): "
 	@set -e; \
-	for f in $(PODIR)/fr/*.pod.po; do \
+	for f in $(PO4ADIR)/*/po/fr.po; do \
 		echo "  $$f"; \
 		msgfmt --statistics -c -o /dev/null $$f; \
 	done
 
 stats:
 	@echo -n "$(PACKAGE): "
-	@msgcat --use-first $(PODIR)/fr/*.pod.po | msgfmt --statistics -c -o /dev/null -
+	@msgcat --use-first $(PO4ADIR)/*/po/fr.po | msgfmt --statistics -c -o /dev/null -
