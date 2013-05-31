@@ -1,15 +1,15 @@
 # French translations for the openssl package
-# Copyright (C) 2002, 2008, 2009, 2012 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# Copyright (C) 2002, 2008, 2009, 2012, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
 # stolck, 2002.
 # Nicolas François <nicolas.francois@centraliens.net>, 2008, 2009.
-# David Prévot <david@tilapin.org>, 2012.
+# David Prévot <david@tilapin.org>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-05-26 15:51-0400\n"
-"PO-Revision-Date: 2012-10-13 18:54-0400\n"
+"PO-Revision-Date: 2013-05-30 22:45-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -45,10 +45,10 @@ msgid ""
 "filename>] [B<-noout>] [B<-offset number>] [B<-length number>] [B<-i>] [B<-"
 "oid filename>] [B<-strparse offset>] [B<-genstr string>] [B<-genconf file>]"
 msgstr ""
-"B<openssl> B<asn1parse> [B<-inform PEM>|B<DER>] [B<-in> I<nom_fichier>] [B<-"
-"out> I<nom_fichier>] [B<-noout>] [B<-offset> I<nombre>] [B<-length> "
-"I<nombre>] [B<-i>] [B<-oid> I<nom_fichier>] [B<-strparse> I<déplacement>] "
-"[B<-genstr> I<chaîne>] [B<-genconf> I<fichier>]"
+"B<openssl> B<asn1parse> [B<-inform PEM>|B<DER>] [B<-in> I<fichier>] [B<-out> "
+"I<fichier>] [B<-noout>] [B<-offset> I<nombre>] [B<-length> I<nombre>] [B<-"
+"i>] [B<-oid> I<fichier>] [B<-strparse> I<position>] [B<-genstr> I<chaîne>] "
+"[B<-genconf> I<fichier>]"
 
 #. type: =head1
 #: C/apps/asn1parse.pod:22 C/crypto/ASN1_OBJECT_new.pod:14
@@ -89,7 +89,7 @@ msgstr ""
 #. type: =item
 #: C/apps/asn1parse.pod:36
 msgid "B<-in filename>"
-msgstr "B<-in> I<nom_fichier>"
+msgstr "B<-in> I<fichier>"
 
 #. type: textblock
 #: C/apps/asn1parse.pod:38
@@ -99,7 +99,7 @@ msgstr "Le fichier d'entrée, par défaut l'entrée standard."
 #. type: =item
 #: C/apps/asn1parse.pod:40
 msgid "B<-out filename>"
-msgstr "B<-out> I<nom_fichier>"
+msgstr "B<-out> I<fichier>"
 
 #. type: textblock
 #: C/apps/asn1parse.pod:42
@@ -108,9 +108,9 @@ msgid ""
 "present then no data will be output. This is most useful when combined with "
 "the B<-strparse> option."
 msgstr ""
-"Le fichier de sortie où les données encodée au format DER sont stockées. "
-"Sans cette option, aucune donnée ne sera générée. Ceci est en particulier "
-"utile en combinaison avec l'option B<-strparse>."
+"Le fichier de sortie où les données encodées au format DER sont stockées. "
+"Sans cette option, aucune donnée ne sera créée. C'est en particulier utile "
+"en combinaison avec l'option B<-strparse>."
 
 #. type: =item
 #: C/apps/asn1parse.pod:46
@@ -131,8 +131,8 @@ msgstr "B<-offset> I<nombre>"
 #: C/apps/asn1parse.pod:52
 msgid "starting offset to begin parsing, default is start of file."
 msgstr ""
-"Décalage initial avant le début de l'interprétation, par défaut on commence "
-"au début du fichier."
+"Position initiale avant le début de l'interprétation, par défaut c'est le "
+"début du fichier."
 
 #. type: =item
 #: C/apps/asn1parse.pod:54
@@ -159,7 +159,7 @@ msgstr ""
 #. type: =item
 #: C/apps/asn1parse.pod:62
 msgid "B<-oid filename>"
-msgstr "B<-oid> I<nom_fichier>"
+msgstr "B<-oid> I<fichier>"
 
 #. type: textblock
 #: C/apps/asn1parse.pod:64
@@ -169,12 +169,12 @@ msgid ""
 msgstr ""
 "Fichier contenant des identifiants d'objets (« OBJECT IDENTIFIER », OID) "
 "supplémentaires. Le format utilisé pour ce fichier est décrit dans la "
-"section NOTES ci-dessous."
+"section B<NOTES> ci-dessous."
 
 #. type: =item
 #: C/apps/asn1parse.pod:67
 msgid "B<-strparse offset>"
-msgstr "B<-strparse> I<déplacement>"
+msgstr "B<-strparse> I<position>"
 
 #. type: textblock
 #: C/apps/asn1parse.pod:69
@@ -182,9 +182,9 @@ msgid ""
 "parse the contents octets of the ASN.1 object starting at B<offset>. This "
 "option can be used multiple times to \"drill down\" into a nested structure."
 msgstr ""
-"interprète le contenu de l'objet ASN.1 à partir de l'octet spécifié par "
-"I<déplacement>. On peut faire appel à cette option plusieurs fois afin de "
-"descendre dans une structure imbriquée."
+"Interpréter le contenu de l'objet ASN.1 à partir de l'octet indiqué par "
+"I<position>. Cette option peut être appelée plusieurs fois afin de descendre "
+"dans une structure imbriquée."
 
 #. type: =item
 #: C/apps/asn1parse.pod:72
@@ -202,13 +202,12 @@ msgid ""
 "as though it came from a file, the contents can thus be examined and written "
 "to a file using the B<out> option."
 msgstr ""
-"génère des données encodées à partir de I<chaîne>, de I<fichier> ou des "
-"deux, en utilisant le format de L<ASN1_generate_nconf(3)|ASN1_generate_nconf"
-"(3)>. Si seul I<fichier> est présent, alors la chaîne est obtenue dans la "
-"section par défaut en utilisant le nom B<asn1>. Les données encodées sont "
-"passées à un analyseur ASN1 et affichées même si elles proviennent d'un "
-"fichier. Le contenu peut ainsi être examinées et écrite dans un fichier en "
-"utilisant l'option B<-out>."
+"Créer des données encodées à partir de I<chaîne>, de I<fichier> ou des deux, "
+"en utilisant le format de B<ASN1_generate_nconf>(3). Si seul I<fichier> est "
+"présent, alors la chaîne est obtenue dans la section par défaut en utilisant "
+"le nom B<asn1>. Les données encodées sont passées à un analyseur ASN1 et "
+"affichées même si elles proviennent d'un fichier. Le contenu peut ainsi être "
+"examiné et écrit dans un fichier en utilisant l'option B<-out>."
 
 #. type: =head2
 #: C/apps/asn1parse.pod:83
@@ -273,15 +272,15 @@ msgid ""
 "of the contents octets."
 msgstr ""
 "Cet exemple est une partie d'un certificat autosigné. Chaque ligne débute "
-"avec le déplacement en décimal. B<d=XX> désigne le niveau de profondeur "
+"avec la position en décimal. B<d=>I<XX> désigne le niveau de profondeur "
 "actuel. Cette profondeur est incrémentée pour chaque SET ou SEQUENCE. "
-"B<hl=XX> donne la longueur de l'en-tête (octets de la balise et de l'en-"
-"tête) du type en cours. B<l=XX> précise la longueur du contenu."
+"B<hl=>I<XX> donne la longueur de l'en-tête (octets de la balise et de l'en-"
+"tête) du type en cours. B<l=>I<XX> précise la longueur du contenu."
 
 #. type: textblock
 #: C/apps/asn1parse.pod:110
 msgid "The B<-i> option can be used to make the output more readable."
-msgstr "Avec l'option -i l'affichage est plus lisible."
+msgstr "Avec l'option B<-i> l'affichage est plus lisible."
 
 #. type: textblock
 #: C/apps/asn1parse.pod:112
@@ -298,10 +297,10 @@ msgid ""
 "The contents octets of this will contain the public key information. This "
 "can be examined using the option B<-strparse 229> to yield:"
 msgstr ""
-"Dans cet exemple, la clé publique du certificat est le BIT STRING avec un "
-"déplacement de 229. Les octets du contenu contiennent l'information de la "
-"clé publique. Ceci peut être examiné en utilisant l'option B<-strparse 229> "
-"pour obtenir :"
+"Dans cet exemple, la clef publique du certificat est le BIT STRING à la "
+"position 229. Les octets du contenu contiennent l'information de la clef "
+"publique. Cela peut être examiné en utilisant l'option B<-strparse 229> pour "
+"obtenir :"
 
 #. type: verbatim
 #: C/apps/asn1parse.pod:118
@@ -337,12 +336,12 @@ msgid ""
 msgstr ""
 "Si un identifiant d'objet (OID) ne figure pas dans la table interne "
 "d'OpenSSL, il sera représenté sous forme numérique (par exemple 1.2.3.4). Le "
-"fichier fourni avec l'option B<-oid> permet d'inclure des OIDs "
+"fichier fourni avec l'option B<-oid> permet d'inclure des OID "
 "supplémentaires. Chaque ligne contient trois colonnes, la première étant "
-"l'OID sous forme numérique et doit être suivi d'espaces. La deuxième colonne "
-"est le « short name » (libellé court), un seul mot suivi d'espaces. La "
+"l'OID sous forme numérique et doit être suivi d'espace. La deuxième colonne "
+"est le « short name » (libellé court), un seul mot suivi d'espace. La "
 "dernière colonne est le reste de la ligne contenant le libellé long (« long "
-"name »), affiché par B<asn1parse>. Exemple :"
+"name »), affiché par B<asn1parse>. Exemple :"
 
 #. type: textblock
 #: C/apps/asn1parse.pod:132
@@ -387,7 +386,7 @@ msgstr ""
 #. type: textblock
 #: C/apps/asn1parse.pod:144
 msgid "Generate a simple UTF8String:"
-msgstr "Générer une UTF8String simple :"
+msgstr "Créer une UTF8String simple :"
 
 #. type: verbatim
 #: C/apps/asn1parse.pod:146
@@ -402,7 +401,7 @@ msgstr ""
 #. type: textblock
 #: C/apps/asn1parse.pod:148
 msgid "Generate and write out a UTF8String, don't print parsed output:"
-msgstr "Générer et écrire une UTF8String, sans afficher la sortie analysée :"
+msgstr "Créer et écrire une UTF8String, sans afficher la sortie analysée :"
 
 #. type: verbatim
 #: C/apps/asn1parse.pod:150
@@ -417,7 +416,7 @@ msgstr ""
 #. type: textblock
 #: C/apps/asn1parse.pod:152
 msgid "Generate using a config file:"
-msgstr "Générer en utilisant un fichier de configuration :"
+msgstr "Créer en utilisant un fichier de configuration :"
 
 #. type: verbatim
 #: C/apps/asn1parse.pod:154
@@ -491,7 +490,7 @@ msgstr "VOIR AUSSI"
 #. type: textblock
 #: C/apps/asn1parse.pod:173
 msgid "L<ASN1_generate_nconf(3)|ASN1_generate_nconf(3)>"
-msgstr "L<ASN1_generate_nconf(3)|ASN1_generate_nconf(3)>"
+msgstr "B<ASN1_generate_nconf>(3)"
 
 #. type: textblock
 #: C/crypto/ASN1_OBJECT_new.pod:5
@@ -507,7 +506,8 @@ msgid ""
 " #include <openssl/asn1.h>\n"
 "\n"
 msgstr ""
-" #include <openssl/asn1.h>\n"
+"Z<>\n"
+" B<#include E<lt>openssl/asn1.hE<gt>>\n"
 "\n"
 
 #. type: verbatim
@@ -518,8 +518,9 @@ msgid ""
 " void ASN1_OBJECT_free(ASN1_OBJECT *a);\n"
 "\n"
 msgstr ""
-" ASN1_OBJECT *ASN1_OBJECT_new(void);\n"
-" void ASN1_OBJECT_free(ASN1_OBJECT *a);\n"
+"Z<>\n"
+" B<ASN1_OBJECT *ASN1_OBJECT_new(void);>\n"
+" B<void ASN1_OBJECT_free(ASN1_OBJECT *>I<a>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -528,18 +529,18 @@ msgid ""
 "The ASN1_OBJECT allocation routines, allocate and free an ASN1_OBJECT "
 "structure, which represents an ASN1 OBJECT IDENTIFIER."
 msgstr ""
-"Les routines d'allocation de ASN1_OBJECT allouennt et libèrent une structure "
+"Les routines d'allocation de ASN1_OBJECT allouent et libèrent une structure "
 "ASN1_OBJECT qui représente un identifiant d'objet ASN1."
 
 #. type: textblock
 #: C/crypto/ASN1_OBJECT_new.pod:19
 msgid "ASN1_OBJECT_new() allocates and initializes a ASN1_OBJECT structure."
-msgstr "ASN1_OBJECT_new() alloue et initialise une structure ASN1_OBJECT."
+msgstr "B<ASN1_OBJECT_new>() alloue et initialise une structure ASN1_OBJECT."
 
 #. type: textblock
 #: C/crypto/ASN1_OBJECT_new.pod:21
 msgid "ASN1_OBJECT_free() frees up the B<ASN1_OBJECT> structure B<a>."
-msgstr "ASN1_OBJECT_free() libère la structure B<ASN1_OBJECT> B<a>."
+msgstr "B<ASN1_OBJECT_free>() libère la structure B<ASN1_OBJECT> I<a>."
 
 #. type: textblock
 #: C/crypto/ASN1_OBJECT_new.pod:25
@@ -548,9 +549,9 @@ msgid ""
 "almost never used in applications. The ASN1 object utility functions such as "
 "OBJ_nid2obj() are used instead."
 msgstr ""
-"Bien que ASN1_OBJECT_new() alloue une nouvelle structure ASN1_OBJECT, elle "
-"n'est presque jamais utilisée dans les applications. Les fonctions "
-"utilitaires des objets ASN1 comme OBJ_nid2obj() sont utilisées à la place."
+"Bien que B<ASN1_OBJECT_new>() alloue une nouvelle structure ASN1_OBJECT, "
+"elle n'est presque jamais utilisée dans les applications. Les fonctions "
+"utilitaires des objets ASN1 comme B<OBJ_nid2obj>() sont utilisées à la place."
 
 #. type: =head1
 #: C/crypto/ASN1_OBJECT_new.pod:29 C/crypto/ASN1_STRING_length.pod:75
@@ -565,23 +566,21 @@ msgid ""
 "code that can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>.  "
 "Otherwise it returns a pointer to the newly allocated structure."
 msgstr ""
-"Si l'allocation échoue, ASN1_OBJECT_new() renvoie B<NULL> et positionne une "
-"erreur qui peut être obtenue à l'aide de L<ERR_get_error(3)|ERR_get_error(3)"
-">. Sinon, elle renvoie un pointeur vers la nouvelle structure allouée."
+"Si l'allocation échoue, B<ASN1_OBJECT_new>() renvoie B<NULL> et positionne "
+"une erreur qui peut être obtenue à l'aide de B<ERR_get_error>(3). Sinon, "
+"elle renvoie un pointeur vers la nouvelle structure allouée."
 
 #. type: textblock
 #: C/crypto/ASN1_OBJECT_new.pod:35
 msgid "ASN1_OBJECT_free() returns no value."
-msgstr "ASN1_OBJECT_free() ne renvoie rien."
+msgstr "B<ASN1_OBJECT_free>() ne renvoie rien."
 
 #. type: textblock
 #: C/crypto/ASN1_OBJECT_new.pod:39
 msgid ""
-"L<ERR_get_error(3)|ERR_get_error(3)>, L<d2i_ASN1_OBJECT(3)|d2i_ASN1_OBJECT(3)"
-">"
-msgstr ""
-"L<ERR_get_error(3)|ERR_get_error(3)>, L<d2i_ASN1_OBJECT(3)|d2i_ASN1_OBJECT(3)"
-">"
+"L<ERR_get_error(3)|ERR_get_error(3)>, L<d2i_ASN1_OBJECT(3)|"
+"d2i_ASN1_OBJECT(3)>"
+msgstr "B<ERR_get_error>(3), B<d2i_ASN1_OBJECT>(3)"
 
 #. type: =head1
 #: C/crypto/ASN1_OBJECT_new.pod:41 C/crypto/ASN1_STRING_length.pod:81
@@ -596,8 +595,8 @@ msgid ""
 "ASN1_OBJECT_new() and ASN1_OBJECT_free() are available in all versions of "
 "SSLeay and OpenSSL."
 msgstr ""
-"ASN1_OBJECT_new() et ASN1_OBJECT_free() sont disponibles dans toutes les "
-"versions de SSLeay et OpenSSL."
+"B<ASN1_OBJECT_new>() et B<ASN1_OBJECT_free>() sont disponibles dans toutes "
+"les versions de SSLeay et OpenSSL."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:5
@@ -606,6 +605,9 @@ msgid ""
 "ASN1_STRING_length_set, ASN1_STRING_type, ASN1_STRING_data - ASN1_STRING "
 "utility functions"
 msgstr ""
+"ASN1_STRING_dup, ASN1_STRING_cmp, ASN1_STRING_set, ASN1_STRING_length, "
+"ASN1_STRING_length_set, ASN1_STRING_type, ASN1_STRING_data - Fonctions "
+"utilitaires ASN1_STRING"
 
 #. type: verbatim
 #: C/crypto/ASN1_STRING_length.pod:13
@@ -615,8 +617,9 @@ msgid ""
 " unsigned char * ASN1_STRING_data(ASN1_STRING *x);\n"
 "\n"
 msgstr ""
-" int ASN1_STRING_length(ASN1_STRING *x);\n"
-" unsigned char * ASN1_STRING_data(ASN1_STRING *x);\n"
+"Z<>\n"
+" B<int ASN1_STRING_length(ASN1_STRING *>I<x>B<);>\n"
+" B<unsigned char * ASN1_STRING_data(ASN1_STRING *>I<x>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -626,7 +629,8 @@ msgid ""
 " ASN1_STRING * ASN1_STRING_dup(ASN1_STRING *a);\n"
 "\n"
 msgstr ""
-" ASN1_STRING * ASN1_STRING_dup(ASN1_STRING *a);\n"
+"Z<>\n"
+" B<ASN1_STRING * ASN1_STRING_dup(ASN1_STRING *>I<a>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -636,7 +640,8 @@ msgid ""
 " int ASN1_STRING_cmp(ASN1_STRING *a, ASN1_STRING *b);\n"
 "\n"
 msgstr ""
-" int ASN1_STRING_cmp(ASN1_STRING *a, ASN1_STRING *b);\n"
+"Z<>\n"
+" B<int ASN1_STRING_cmp(ASN1_STRING *>I<a>B<, ASN1_STRING *>I<b>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -646,7 +651,8 @@ msgid ""
 " int ASN1_STRING_set(ASN1_STRING *str, const void *data, int len);\n"
 "\n"
 msgstr ""
-" int ASN1_STRING_set(ASN1_STRING *str, const void *data, int len);\n"
+"Z<>\n"
+" B<int ASN1_STRING_set(ASN1_STRING *>I<str>B<, const void *>I<data>B<, int> I<len>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -656,7 +662,8 @@ msgid ""
 " int ASN1_STRING_type(ASN1_STRING *x);\n"
 "\n"
 msgstr ""
-" int ASN1_STRING_type(ASN1_STRING *x);\n"
+"Z<>\n"
+" B<int ASN1_STRING_type(ASN1_STRING *>I<x>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -666,18 +673,20 @@ msgid ""
 " int ASN1_STRING_to_UTF8(unsigned char **out, ASN1_STRING *in);\n"
 "\n"
 msgstr ""
-" int ASN1_STRING_to_UTF8(unsigned char **out, ASN1_STRING *in);\n"
+"Z<>\n"
+" B<int ASN1_STRING_to_UTF8(unsigned char **>I<out>B<, ASN1_STRING *>I<in>B<);>\n"
 "\n"
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:28
 msgid "These functions allow an B<ASN1_STRING> structure to be manipulated."
 msgstr ""
+"Ces fonctions permettent à une structure B<ASN1_STRING> d’être manipulée."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:30
 msgid "ASN1_STRING_length() returns the length of the content of B<x>."
-msgstr ""
+msgstr "B<ASN1_STRING_length>() renvoie la taille du contenu de I<x>."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:32
@@ -685,11 +694,14 @@ msgid ""
 "ASN1_STRING_data() returns an internal pointer to the data of B<x>.  Since "
 "this is an internal pointer it should B<not> be freed or modified in any way."
 msgstr ""
+"B<ASN1_STRING_data>() renvoie un pointeur interne vers les données de I<x>. "
+"Puisqu’il s’agit d’un pointeur interne, il ne devrait être libéré ou modifié "
+"en B<aucune> façon."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:36
 msgid "ASN1_STRING_dup() returns a copy of the structure B<a>."
-msgstr ""
+msgstr "B<ASN1_STRING_dup>() renvoie une copie de la structure I<a>."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:38
@@ -697,6 +709,8 @@ msgid ""
 "ASN1_STRING_cmp() compares B<a> and B<b> returning 0 if the two are "
 "identical. The string types and content are compared."
 msgstr ""
+"B<ASN1_STRING_cmp>() compare I<a> et I<b> en renvoyant B<0> si les deux sont "
+"identiques. Les types et contenus des chaînes sont comparés."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:41
@@ -705,6 +719,9 @@ msgid ""
 "length B<len>. The supplied data is copied. If B<len> is -1 then the length "
 "is determined by strlen(data)."
 msgstr ""
+"B<ASN1_STRING_set>() définit les données de la chaîne I<str> au tampon "
+"I<data> ou à la taille I<len>. Les données fournies sont copiées. Si I<len> "
+"est B<-1> alors la taille est déterminée par B<strlen>(I<data>)."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:45
@@ -712,6 +729,8 @@ msgid ""
 "ASN1_STRING_type() returns the type of B<x>, using standard constants such "
 "as B<V_ASN1_OCTET_STRING>."
 msgstr ""
+"B<ASN1_STRING_type>() renvoie le type de I<x>, en utilisant des constantes "
+"normalisées comme B<V_ASN1_OCTET_STRING>."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:48
@@ -721,6 +740,10 @@ msgid ""
 "returned or a negative error code. The buffer B<*out> should be free using "
 "OPENSSL_free()."
 msgstr ""
+"B<ASN1_STRING_to_UTF8>() convertit la chaîne I<in> au format UTF-8, les "
+"données converties sont allouées dans un tampon de I<*out>. La taille de "
+"I<out> est renvoyée, ou un code d’erreur négatif. Le tampon I<*out> devrait "
+"être libéré en utilisant B<OPENSSL_free>()."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:55
@@ -731,6 +754,12 @@ msgid ""
 "B<ASN1_STRING> is also used for some B<CHOICE> types which consist entirely "
 "of primitive string types such as B<DirectoryString> and B<Time>."
 msgstr ""
+"Presque tous les types ASN1 dans OpenSSL sont représentés comme une "
+"structure B<ASN1_STRING>. Les autre types comme B<ASN1_OCTET_STRING> ont "
+"simplement leur type défini en B<ASN1_STRING> et les fonctions appellent les "
+"équivalents B<ASN1_STRING>. B<ASN1_STRING> est aussi utilisée pour certains "
+"types B<CHOICE> de types primitif de chaîne comme B<DirectoryString> et "
+"B<Time>."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:62
@@ -739,16 +768,26 @@ msgid ""
 "or B<ASN1_ENUMERATED> types: the relevant B<INTEGER> or B<ENUMERATED> "
 "utility functions should be used instead."
 msgstr ""
+"Ces fonctions ne devraient B<pas> être utilisées pour examiner ou modifier "
+"des types B<ASN1_INTEGER> ou B<ASN1_ENUMERATED> : les fonctions utilitaires "
+"B<INTEGER> ou B<ENUMERATED> appropriées devraient être utilisées à la place."
 
+# NOTE: s/and/an/
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:66
 msgid ""
-"In general it cannot be assumed that the data returned by ASN1_STRING_data"
-"()  is null terminated or does not contain embedded nulls. The actual format "
-"of the data will depend on the actual string type itself: for example for "
-"and IA5String the data will be ASCII, for a BMPString two bytes per "
-"character in big endian format, UTF8String will be in UTF8 format."
+"In general it cannot be assumed that the data returned by "
+"ASN1_STRING_data()  is null terminated or does not contain embedded nulls. "
+"The actual format of the data will depend on the actual string type itself: "
+"for example for and IA5String the data will be ASCII, for a BMPString two "
+"bytes per character in big endian format, UTF8String will be in UTF8 format."
 msgstr ""
+"En général, les données renvoyées par B<ASN1_STRING_data>() ne peuvent pas "
+"être supposées se terminer par B<NULL> ou ne pas contenir de B<NULL> "
+"incorporé. Le véritable format des données dépendra du type de chaîne "
+"présent : par exemple, pour un IA5String, les données seront ASCII, pour un "
+"BMPString, deux octets par caractère au format grand-boutiste, UTF8String "
+"sera au format UTF-8."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:72
@@ -756,12 +795,14 @@ msgid ""
 "Similar care should be take to ensure the data is in the correct format when "
 "calling ASN1_STRING_set()."
 msgstr ""
+"Une attention similaire devrait être prise pour s’assurer que les données "
+"sont au format correct en appelant B<ASN1_STRING_set>()."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_length.pod:79 C/crypto/ASN1_STRING_new.pod:40
 #: C/crypto/ASN1_generate_nconf.pod:259
 msgid "L<ERR_get_error(3)|ERR_get_error(3)>"
-msgstr "L<ERR_get_error(3)|ERR_get_error(3)>"
+msgstr "B<ERR_get_error>(3)"
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_new.pod:5
@@ -781,9 +822,10 @@ msgid ""
 " void ASN1_STRING_free(ASN1_STRING *a);\n"
 "\n"
 msgstr ""
-" ASN1_STRING * ASN1_STRING_new(void);\n"
-" ASN1_STRING * ASN1_STRING_type_new(int type);\n"
-" void ASN1_STRING_free(ASN1_STRING *a);\n"
+"Z<>\n"
+" B<ASN1_STRING * ASN1_STRING_new(void);>\n"
+" B<ASN1_STRING * ASN1_STRING_type_new(int> I<type>B<);>\n"
+" B<void ASN1_STRING_free(ASN1_STRING *>I<a>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -792,7 +834,7 @@ msgid ""
 "ASN1_STRING_new() returns an allocated B<ASN1_STRING> structure. Its type is "
 "undefined."
 msgstr ""
-"ASN1_STRING_new() renvoie une structure B<ASN1_STRING> allouée. Son type "
+"B<ASN1_STRING_new>() renvoie une structure B<ASN1_STRING> allouée. Son type "
 "n'est pas défini."
 
 #. type: textblock
@@ -801,13 +843,13 @@ msgid ""
 "ASN1_STRING_type_new() returns an allocated B<ASN1_STRING> structure of type "
 "B<type>."
 msgstr ""
-"ASN1_STRING_type_new() renvoie une structure B<ASN1_STRING> allouée, de type "
-"B<type>."
+"B<ASN1_STRING_type_new>() renvoie une structure B<ASN1_STRING> allouée, de "
+"type I<type>."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_new.pod:24
 msgid "ASN1_STRING_free() frees up B<a>."
-msgstr "ASN1_STRING_free() libère B<a>."
+msgstr "B<ASN1_STRING_free>() libère I<a>."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_new.pod:28
@@ -816,8 +858,8 @@ msgid ""
 "ASN1_OCTET_STRING_new() calls ASN1_STRING_type(V_ASN1_OCTET_STRING)."
 msgstr ""
 "Les autres types de chaîne appellent les fonctions B<ASN1_STRING>. Par "
-"exemple, ASN1_OCTET_STRING_new() appelle ASN1_STRING_type"
-"(V_ASN1_OCTET_STRING)."
+"exemple, B<ASN1_OCTET_STRING_new>() appelle "
+"B<ASN1_STRING_type>(B<V_ASN1_OCTET_STRING>)."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_new.pod:33
@@ -825,13 +867,13 @@ msgid ""
 "ASN1_STRING_new() and ASN1_STRING_type_new() return a valid ASN1_STRING "
 "structure or B<NULL> if an error occurred."
 msgstr ""
-"ASN1_STRING_new() et ASN1_STRING_type_new() renvoient une structure "
-"ASN1_STRING valable, ou NULL si une erreur est survenue."
+"B<ASN1_STRING_new>() et B<ASN1_STRING_type_new>() renvoient une structure "
+"B<ASN1_STRING> valable, ou B<NULL> si une erreur est survenue."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_new.pod:36
 msgid "ASN1_STRING_free() does not return a value."
-msgstr "ASN1_STRING_free() ne renvoie aucune valeur."
+msgstr "B<ASN1_STRING_free>() ne renvoie aucune valeur."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_new.pod:44 C/crypto/ASN1_STRING_print_ex.pod:94
@@ -843,6 +885,8 @@ msgstr "À préciser"
 msgid ""
 "ASN1_STRING_print_ex, ASN1_STRING_print_ex_fp - ASN1_STRING output routines."
 msgstr ""
+"ASN1_STRING_print_ex, ASN1_STRING_print_ex_fp - Routines de sortie "
+"ASN1_STRING"
 
 #. type: verbatim
 #: C/crypto/ASN1_STRING_print_ex.pod:11
@@ -853,6 +897,11 @@ msgid ""
 " int ASN1_STRING_print(BIO *out, ASN1_STRING *str);\n"
 "\n"
 msgstr ""
+"Z<>\n"
+" B<int ASN1_STRING_print_ex(BIO *>I<out>B<, ASN1_STRING *>I<str>B<, unsigned long> I<flags>B<);>\n"
+" B<int ASN1_STRING_print_ex_fp(FILE *>I<fp>B<, ASN1_STRING *>I<str>B<, unsigned long> I<flags>B<);>\n"
+" B<int ASN1_STRING_print(BIO *>I<out>B<, ASN1_STRING *>I<str>B<);>\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:18
@@ -860,6 +909,8 @@ msgid ""
 "These functions output an B<ASN1_STRING> structure. B<ASN1_STRING> is used "
 "to represent all the ASN1 string types."
 msgstr ""
+"Ces fonctions renvoient une structure B<ASN1_STRING>. B<ASN1_STRING> est "
+"utilisée pour représenter tous les types de chaîne ASN1."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:21
@@ -868,6 +919,9 @@ msgid ""
 "the options B<flags>. ASN1_STRING_print_ex_fp() is identical except it "
 "outputs to B<fp> instead."
 msgstr ""
+"B<ASN1_STRING_print_ex>() renvoie I<str> vers I<out>, le format est "
+"déterminé par les options I<flags>. B<ASN1_STRING_print_ex_fp>() est "
+"identique à part qu’elle renvoie à la place vers I<fp>."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:25
@@ -876,6 +930,9 @@ msgid ""
 "ASN1_STRING_print_ex(). It replaces unprintable characters (other than CR, "
 "LF)  with '.'."
 msgstr ""
+"B<ASN1_STRING_print>() affiche I<str> vers I<out> mais en utilisant un "
+"format différent de B<ASN1_STRING_print_ex>(). Elle remplace les caractères "
+"non imprimables (autres que RC et PAL — CR et LF en anglais) par « . »."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:31
@@ -883,6 +940,8 @@ msgid ""
 "ASN1_STRING_print() is a legacy function which should be avoided in new "
 "applications."
 msgstr ""
+"B<ASN1_STRING_print>() est une fonction obsolète qui devrait être évitée "
+"dans les nouvelles applications."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:33
@@ -891,11 +950,14 @@ msgid ""
 "B<ASN1_STRFLGS_RFC2253> is suitable, or on UTF8 terminals "
 "B<ASN1_STRFLGS_RFC2253 & ~ASN1_STRFLGS_ESC_MSB>."
 msgstr ""
+"Malgré un grand nombre d’options, B<ASN1_STRFLGS_RFC2253> convient souvent, "
+"ou B<ASN1_STRFLGS_RFC2253 & ~ASN1_STRFLGS_ESC_MSB> sur les terminaux UTF-8."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:36
 msgid "The complete set of supported options for B<flags> is listed below."
 msgstr ""
+"La totalité des options acceptées pour I<flags> est décrite ci-dessous."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:38
@@ -906,11 +968,17 @@ msgid ""
 "characters with the MSB set are escaped: this option should B<not> be used "
 "if the terminal correctly interprets UTF8 sequences."
 msgstr ""
+"Plusieurs caractères peuvent être protégés. Si B<ASN1_STRFLGS_ESC_2253> est "
+"définie, les caractères déterminés par la RFC 2253 sont protégés. Si "
+"B<ASN1_STRFLGS_ESC_CTRL> est définie, les caractères de contrôle sont "
+"protégés. Si B<ASN1_STRFLGS_ESC_MSB> est définie, les caractères avec le bit "
+"de poids fort défini sont protégés : cette option ne devrait B<pas> être "
+"utilisée si le terminal interprète correctement les suites UTF-8."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:44
 msgid "Escaping takes several forms."
-msgstr ""
+msgstr "Les protections prennent différentes formes."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:46
@@ -921,6 +989,12 @@ msgid ""
 "representation. These forms will only be used if UTF8 conversion is not set "
 "(see below)."
 msgstr ""
+"Si le caractère à protéger est un caractère de 16 bits, alors la forme "
+"« \\UXXXX » est utilisée avec exactement quatre caractères pour la "
+"représentation hexadécimale. Si c’est en 32 bits, alors « \\WXXXXXXXX » est "
+"utilisée avec huit caractères pour sa représentation hexadécimale. Ces "
+"formes ne sont utilisées que si la conversion en UTF-8 n’est pas définie "
+"(voir ci-dessous)."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:51
@@ -931,6 +1005,12 @@ msgid ""
 "readable than the backslash notation. Other characters use the \"\\XX\" "
 "using exactly two characters of the hex representation."
 msgstr ""
+"Les caractères imprimables sont normalement protégés à l’aide d’une barre "
+"oblique inversée « \\ ». Si B<ASN1_STRFLGS_ESC_QUOTE> est définie, alors "
+"toute la chaîne est à la place entourée de guillemets : ce peut être "
+"considéré plus lisible que la notation en barre oblique inversée. D’autres "
+"caractères utilisent « \\XX » avec exactement deux caractères de la "
+"représentation hexadécimale."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:57
@@ -939,6 +1019,10 @@ msgid ""
 "format first. If the terminal supports the display of UTF8 sequences then "
 "this option will correctly display multi byte characters."
 msgstr ""
+"Si B<ASN1_STRFLGS_UTF8_CONVERT> est définie, alors les caractères sont "
+"d’abord convertis au format UTF-8. Si le terminal permet d’afficher les "
+"suites UTF-8, alors cette option permettra d’afficher correctement les "
+"caractères multioctets."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:61
@@ -948,6 +1032,10 @@ msgid ""
 "is primarily for debugging purposes and can result in confusing output in "
 "multi character strings."
 msgstr ""
+"Si B<ASN1_STRFLGS_IGNORE_TYPE> est définie, alors le type de chaîne n’est "
+"pas interprété du tout : tout est supposé être un octet par caractère. C’est "
+"surtout pour le débogage et peut résulter en affichage déroutant pour les "
+"chaînes multicaractères."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:65
@@ -956,6 +1044,9 @@ msgid ""
 "out before its value (for example \"BMPSTRING\"), this actually uses "
 "ASN1_tag2str()."
 msgstr ""
+"Si B<ASN1_STRFLGS_SHOW_TYPE> est définie, alors le type de chaîne lui-même "
+"est affiché avant sa valeur (par exemple « BMPSTRING »), cela utilise en "
+"fait B<ASN1_tag2str>()."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:68
@@ -964,11 +1055,15 @@ msgid ""
 "just outputs the value of the string using the form #XXXX using hex format "
 "for each octet."
 msgstr ""
+"Le contenu d’une chaîne, au lieu d’être interprété, peut être « déversé » : "
+"cela n’affiche que la valeur de la chaîne utilisant la forme #XXXX avec un "
+"format hexadécimal pour chaque octet."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:72
 msgid "If B<ASN1_STRFLGS_DUMP_ALL> is set then any type is dumped."
 msgstr ""
+"Si B<ASN1_STRFLGS_DUMP_ALL> est définie, alors tous les types sont déversés."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:74
@@ -977,6 +1072,9 @@ msgid ""
 "one byte per character, if B<ASN1_STRFLGS_DUMP_UNKNOWN> is set then they "
 "will be dumped instead."
 msgstr ""
+"Normalement, les types de chaîne de non caractères (comme OCTET STRING) sont "
+"supposés être d’un octet par caractère, si B<ASN1_STRFLGS_DUMP_UNKNOWN> est "
+"définie, alors elles seront déversées à la place."
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:78
@@ -985,6 +1083,9 @@ msgid ""
 "B<ASN1_STRFLGS_DUMP_DER> is set then the complete encoding is dumped instead "
 "(including tag and length octets)."
 msgstr ""
+"Quand un type est déversé normalement, seul les octets du contenu sont "
+"affichés, si B<ASN1_STRFLGS_DUMP_DER> est définie, alors l’encodage complet "
+"est déversé à la place (y compris les octets d’étiquette et de taille)."
 
 #. type: verbatim
 #: C/crypto/ASN1_STRING_print_ex.pod:82
@@ -996,15 +1097,18 @@ msgid ""
 " ASN1_STRFLGS_UTF8_CONVERT | ASN1_STRFLGS_DUMP_UNKNOWN ASN1_STRFLGS_DUMP_DER\n"
 "\n"
 msgstr ""
+"B<ASN1_STRFLGS_RFC2253> contient tous les attributs requis par la RFC 2253.\n"
+"C’est équivalent à :\n"
+" ASN1_STRFLGS_ESC_2253 | ASN1_STRFLGS_ESC_CTRL | ASN1_STRFLGS_ESC_MSB |\n"
+" ASN1_STRFLGS_UTF8_CONVERT | ASN1_STRFLGS_DUMP_UNKNOWN ASN1_STRFLGS_DUMP_DER\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ASN1_STRING_print_ex.pod:89
 msgid ""
 "L<X509_NAME_print_ex(3)|X509_NAME_print_ex(3)>, L<ASN1_tag2str(3)|"
 "ASN1_tag2str(3)>"
-msgstr ""
-"L<X509_NAME_print_ex(3)|X509_NAME_print_ex(3)>, L<ASN1_tag2str(3)|"
-"ASN1_tag2str(3)>"
+msgstr "B<X509_NAME_print_ex>(3), B<ASN1_tag2str>(3)"
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:5
@@ -1019,8 +1123,9 @@ msgid ""
 " ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);\n"
 "\n"
 msgstr ""
-" ASN1_TYPE *ASN1_generate_nconf(char *str, CONF *nconf);\n"
-" ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);\n"
+"Z<>\n"
+" B<ASN1_TYPE *ASN1_generate_nconf(char *>I<str>B<, CONF *>I<nconf>B<);>\n"
+" B<ASN1_TYPE *ASN1_generate_v3(char *>I<str>B<, X509V3_CTX *>I<cnf>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -1042,13 +1147,13 @@ msgid ""
 "X509 v3 certificate extension functions. B<cnf> or B<nconf> can be set to "
 "B<NULL> if no additional configuration will be used."
 msgstr ""
-"B<str> contient la chaîne à encoder. B<nconf> ou B<cnf> contient les "
-"informations optionnelles de configuration dans lesquelles d'autres chaînes "
-"seront lues. B<nconf> proviendra typiquement d'un fichier de configuration "
-"tandis que B<cnf> est obtenu dans une structure B<X509V3_CTX> qui sera "
+"I<str> contient la chaîne à encoder. I<nconf> ou I<cnf> contiennent les "
+"renseignements facultatifs de configuration dans lesquelles d'autres chaînes "
+"seront lues. I<nconf> proviendra typiquement d'un fichier de configuration "
+"tandis que I<cnf> est obtenu dans une structure B<X509V3_CTX> qui sera "
 "typiquement utilisée par les fonctions d'extension de certificats X509 v3. "
-"B<cnf> ou B<nconf> peuvent valoir B<NULL> si aucune configuration "
-"additionnelle ne sera utilisée."
+"I<cnf> ou I<nconf> peuvent valoir B<NULL> si aucune configuration "
+"supplémentaire n'est utilisée."
 
 #. type: =head1
 #: C/crypto/ASN1_generate_nconf.pod:27
@@ -1061,13 +1166,13 @@ msgid ""
 "The actual data encoded is determined by the string B<str> and the "
 "configuration information. The general format of the string is:"
 msgstr ""
-"Les données effectivement encodées sont déterminées par la chaîne B<str> et "
+"Les données effectivement encodées sont déterminées par la chaîne I<str> et "
 "les informations de configuration. Le format général de la chaîne est :"
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:35
 msgid "B<[modifier,]type[:value]>"
-msgstr "B<[modificateur,]type[:valeur]>"
+msgstr "[I<modificateur>B<,>]I<type>[B<:>I<valeur>]"
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:39
@@ -1076,9 +1181,9 @@ msgid ""
 "by an optional colon and a value. The formats of B<type>, B<value> and "
 "B<modifier> are explained below."
 msgstr ""
-"C'est-à-dire zéro modificateur ou plus séparés par des virgules suivit d'un "
-"type, lui-même suivit de façon optionnelle par un signe deux-point et une "
-"valeur. Les formats de B<type>, B<valeur> et B<modificateur> sont décrits ci-"
+"C'est-à-dire zéro modificateur ou plus, séparés par des virgules, suivis "
+"d'un type, lui-même suivi de façon facultative par un deux-points et une "
+"valeur. Les formats de I<type>, I<valeur> et I<modificateur> sont décrits ci-"
 "dessous."
 
 #. type: =head2
@@ -1092,7 +1197,7 @@ msgid ""
 "The supported types are listed below. Unless otherwise specified only the "
 "B<ASCII> format is permissible."
 msgstr ""
-"Les types pris en charge sont listés ci-dessous. À moins que ce ne soit "
+"Les types pris en charge sont décrits ci-dessous. À moins que ce ne soit "
 "indiqué explicitement, seul le format B<ASCII> est autorisé."
 
 #. type: =item
@@ -1107,9 +1212,9 @@ msgid ""
 "B<TRUE> or B<FALSE>. Additionally B<TRUE>, B<true>, B<Y>, B<y>, B<YES>, "
 "B<yes>, B<FALSE>, B<false>, B<N>, B<n>, B<NO> and B<no> are acceptable."
 msgstr ""
-"Encoder un type booléen. La chaîne B<valeur> est obligatoire et devrait "
-"valoir soit B<TRUE> soit B<FALSE>. Les valeurs B<TRUE>, B<true>, B<Y>, B<y>, "
-"B<YES>, B<yes>, B<FALSE>, B<false>, B<N>, B<n>, B<NO> et B<no> sont "
+"Encoder un type booléen. La chaîne I<valeur> est obligatoire et devrait "
+"valoir soit B<TRUE>, soit B<FALSE>. Les valeurs B<TRUE>, B<true>, B<Y>, "
+"B<y>, B<YES>, B<yes>, B<FALSE>, B<false>, B<N>, B<n>, B<NO> et B<no> sont "
 "acceptées."
 
 #. type: =item
@@ -1121,7 +1226,7 @@ msgstr "B<NULL>"
 #: C/crypto/ASN1_generate_nconf.pod:59
 msgid "Encode the B<NULL> type, the B<value> string must not be present."
 msgstr ""
-"Encoder le type B<NULL>, la chaîne B<valeur> ne doit pas être présente."
+"Encoder le type B<NULL>, la chaîne I<valeur> ne doit pas être présente."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:61
@@ -1135,7 +1240,7 @@ msgid ""
 "the integer, it can be preceded by a minus sign and is normally interpreted "
 "as a decimal value unless the prefix B<0x> is included."
 msgstr ""
-"Encoder un type ASN1 B<INTEGER>. La chaîne B<valeur> représente la valeur de "
+"Encoder un type ASN1 B<INTEGER>. La chaîne I<valeur> représente la valeur de "
 "l'entier. Elle peut être précédée d'un signe moins et est normalement "
 "interprétée comme une valeur décimale à moins que le préfixe B<0x> soit "
 "inclus."
@@ -1150,7 +1255,7 @@ msgstr "B<ENUMERATED>, B<ENUM>"
 msgid ""
 "Encodes the ASN1 B<ENUMERATED> type, it is otherwise identical to B<INTEGER>."
 msgstr ""
-"Encoder un type ASN1 B<ENUMERATED>, par ailleur identique à B<INTEGER>."
+"Encoder un type ASN1 B<ENUMERATED>, par ailleurs identique à B<INTEGER>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:73
@@ -1163,7 +1268,7 @@ msgid ""
 "Encodes an ASN1 B<OBJECT IDENTIFIER>, the B<value> string can be a short "
 "name, a long name or numerical format."
 msgstr ""
-"Encoder un type ASN1 B<OBJECT IDENTIFIER>, la chaîne B<valeur> peut être un "
+"Encoder un type ASN1 B<OBJECT IDENTIFIER>, la chaîne I<valeur> peut être un "
 "nom court, un nom long ou un format numérique."
 
 #. type: =item
@@ -1177,8 +1282,8 @@ msgid ""
 "Encodes an ASN1 B<UTCTime> structure, the value should be in the format "
 "B<YYMMDDHHMMSSZ>."
 msgstr ""
-"Encoder une structure ASN1 B<UTCTime>. La B<valeur> doit être au format "
-"B<AAMMDDHHMMSSZ>."
+"Encoder une structure ASN1 B<UTCTime>. La I<valeur> doit être au format "
+"I<AAMMDDHHMMSSZ>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:83
@@ -1191,8 +1296,8 @@ msgid ""
 "Encodes an ASN1 B<GeneralizedTime> structure, the value should be in the "
 "format B<YYYYMMDDHHMMSSZ>."
 msgstr ""
-"Encoder une structure ASN1 B<GeneralizedTime>. La B<valeur> doit être au "
-"format B<AAAAMMDDHHMMSSZ>."
+"Encoder une structure ASN1 B<GeneralizedTime>. La I<valeur> doit être au "
+"format I<AAAAMMDDHHMMSSZ>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:88
@@ -1206,9 +1311,9 @@ msgid ""
 "structure, the format strings B<ASCII> and B<HEX> can be used to specify the "
 "format of B<value>."
 msgstr ""
-"Encoder un type ASN1 B<OCTET STRING>. La B<valeur> représente le contenu de "
+"Encoder un type ASN1 B<OCTET STRING>. La I<valeur> représente le contenu de "
 "cette structure. Les chaînes de format B<ASCII> et B<HEX> peuvent être "
-"utilisées pour indiquer le format de B<valeur>."
+"utilisées pour indiquer le format de I<valeur>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:94
@@ -1222,9 +1327,9 @@ msgid ""
 "structure, the format strings B<ASCII>, B<HEX> and B<BITLIST> can be used to "
 "specify the format of B<value>."
 msgstr ""
-"Encoder un type ASN1 B<BIT STRING>. La B<valeur> représente le contenu de "
+"Encoder un type ASN1 B<BIT STRING>. La I<valeur> représente le contenu de "
 "cette structure. Les chaînes de format B<ASCII>, B<HEX> et B<BITLIST> "
-"peuvent être utilisées pour indiquer le format de B<valeur>."
+"peuvent être utilisées pour indiquer le format de I<valeur>."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:100
@@ -1254,8 +1359,8 @@ msgid ""
 "These encode the corresponding string types. B<value> represents the "
 "contents of this structure. The format can be B<ASCII> or B<UTF8>."
 msgstr ""
-"Encoder les types de chaîne correspondant. La B<valeur> représente le "
-"contenu de cette structure.Le format peut être B<ASCII> ou B<UTF8>."
+"Encoder les types de chaîne correspondant. La I<valeur> représente le "
+"contenu de cette structure. Le format peut être B<ASCII> ou B<UTF8>."
 
 #. type: =item
 #: C/crypto/ASN1_generate_nconf.pod:112
@@ -1271,10 +1376,9 @@ msgid ""
 "B<value> is absent then an empty SEQUENCE will be encoded."
 msgstr ""
 "Formater le résultat en tant que type ASN1 B<SEQUENCE> ou B<SET>. La "
-"B<valeur> devrait être un nom de section qui contiendra le contenu. Les noms "
+"I<valeur> devrait être un nom de section qui contiendra le contenu. Les noms "
 "des champs de la section sont ignorés et les valeurs sont au format de la "
-"chaîne générée. Si B<valeur> est absent, alors une SEQUENCE vide sera "
-"encodée."
+"chaîne créée. Si I<valeur> est absent, alors une SEQUENCE vide sera encodée."
 
 #. type: =head2
 #: C/crypto/ASN1_generate_nconf.pod:122
@@ -1359,8 +1463,8 @@ msgid ""
 "This specifies the format of the ultimate value. It should be followed by a "
 "colon and one of the strings B<ASCII>, B<UTF8>, B<HEX> or B<BITLIST>."
 msgstr ""
-"Indique le format de la valeur finale. Il devrait être suivi par un signe "
-"deux-points et une des chaînes B<ASCII>, B<UTF8>, B<HEX> ou B<BITLIST>."
+"Indique le format de la valeur finale. Il devrait être suivi par un deux-"
+"points et une des chaînes B<ASCII>, B<UTF8>, B<HEX> ou B<BITLIST>."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:157
@@ -1371,9 +1475,9 @@ msgid ""
 "a BIT STRING) is a comma separated list of the indices of the set bits, all "
 "other bits are zero."
 msgstr ""
-"Si aucune chaîne de format n'est incluse alors B<ASCII> est utilisée. Si "
-"B<UTF8> est indiqué alors la chaîne B<valeur> doit être une chaîne B<UTF8> "
-"correcte. Pour le format B<HEX> la sortie doit être un ensemble de chiffres "
+"Si aucune chaîne de format n'est incluse, B<ASCII> est utilisée. Si B<UTF8> "
+"est indiquée, alors la chaîne I<valeur> doit être une chaîne B<UTF8> "
+"correcte. Pour le format B<HEX>, la sortie doit être un ensemble de chiffres "
 "hexadécimaux. B<BITLIST> (qui n'est correct que pour une BIT STRING) est la "
 "liste des index des bits positionnés séparés par des virgules, tous les "
 "autres bits valent zéro."
@@ -1491,9 +1595,9 @@ msgid ""
 "such as 'coeff' are ignored and are present just for clarity):"
 msgstr ""
 "Cet exemple produit une structure RSAPrivateKey. Il s'agit de la clef "
-"contenue dans le fichier client.pem de toute distribution OpenSSL (note : "
-"les noms des champs comme « coeff » sont ignorés et ne sont présent que pour "
-"des raisons de clarté."
+"contenue dans le fichier client.pem de toute distribution OpenSSL "
+"(remarque : les noms des champs comme « coeff » sont ignorés et ne sont "
+"présents que par souci de clarté."
 
 #. type: verbatim
 #: C/crypto/ASN1_generate_nconf.pod:199
@@ -1668,7 +1772,7 @@ msgid ""
 " D4D2C6D000430DEC66ABF47829E74B8C5108623A1C0EE8BE217B3AD8D36D5EB4FCA1D9\n"
 "\n"
 msgstr ""
-" # Véritable clef publique : module et exposant\n"
+" # Véritable clef publique : module et exposant\n"
 " [rsapubkey]\n"
 " n=INTEGER:0xBB6FE79432CC6EA2D8F970675A5A87BFBE1AFF0BE63E879F2AFFB93644\\\n"
 " D4D2C6D000430DEC66ABF47829E74B8C5108623A1C0EE8BE217B3AD8D36D5EB4FCA1D9\n"
@@ -1688,9 +1792,7 @@ msgstr ""
 #: C/crypto/ASN1_generate_nconf.pod:255
 msgid ""
 "The error codes that can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
-msgstr ""
-"Les codes d'erreur peuvent être obtenus avec L<ERR_get_error(3)|ERR_get_error"
-"(3)>."
+msgstr "Les codes d'erreur peuvent être obtenus avec B<ERR_get_error>(3)."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:263
