@@ -4,12 +4,13 @@
 #
 # Nicolas François <nicolas.francois@centraliens.net>, 2008.
 # David Prévot <david@tilapin.org>, 2013.
+# Bastien Scher <bastien0705@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-05-29 22:47-0400\n"
-"PO-Revision-Date: 2013-02-05 22:01-0400\n"
-"Last-Translator: David Prévot <david@tilapin.org>\n"
+"PO-Revision-Date: 2013-06-04 22:21+0200\n"
+"Last-Translator: Bastien Scher <bastien0705@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -97,10 +98,10 @@ msgid ""
 "processed during a L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> "
 "operation."
 msgstr ""
-"Les objets SSL_SESSION sont allouées quand une poignée de main TLS/SSL se "
+"Les objets SSL_SESSION sont alloués quand une poignée de main TLS/SSL se "
 "termine avec succès. En fonction de la configuration, consultez "
 "L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>, les "
-"objets SSL_SESSION sont référencés en interne par le SSL_CTX et attachés son "
+"objets SSL_SESSION sont référencés en interne par le SSL_CTX et attachés dans son "
 "cache de sessions. Les objets SSL peuvent utiliser l'objet SSL_SESSION ; "
 "comme une session peut être réutilisée, plusieurs objets SSL peuvent "
 "utiliser le même objet SSL_SESSION en même temps. Il est donc important de "
@@ -108,7 +109,7 @@ msgstr ""
 "de ne pas supprimer un objet SSL_SESSION qui est encore utilisé, ce qui "
 "pourrait conduire à des erreurs du programme du fait de pointeurs pointant "
 "en l'air. Ces échecs peuvent aussi apparaître à retardement, par exemple "
-"quand un objet SSL_SESSION a été libéré parce son décompte de références est "
+"quand un objet SSL_SESSION a été libéré parce que son décompte de références est "
 "passé à zéro de façon erronée, mais est toujours référencé dans le cache de "
 "sessions interne et que la liste du cache est analysée lors d'une opération "
 "L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)>."
@@ -130,7 +131,7 @@ msgstr ""
 "SSL_get_session(3)>) ou si l'objet SSL_SESSION a été généré en dehors de "
 "l'opération de poignée de main TLS, par exemple en utilisant "
 "L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>. Elle ne doit pas être appelée avec "
-"les autres objets SSL_SESSION, puisque ça résultera en des décompte de "
+"les autres objets SSL_SESSION, puisque cela résulterait en des décomptes de "
 "référence erronés, et donc en des erreurs du programme."
 
 #. type: =head1
@@ -315,6 +316,9 @@ msgid ""
 "SSL_SESSION_set_timeout - retrieve and manipulate session time and timeout "
 "settings"
 msgstr ""
+"SSL_SESSION_get_time, SSL_SESSION_set_time, SSL_SESSION_get_timeout, "
+"SSL_SESSION_set_timeout - récupérer et modifier la date de création d'une "
+"session et le délai d'expiration"
 
 #. type: verbatim
 #: C/ssl/SSL_SESSION_get_time.pod:11
@@ -326,6 +330,11 @@ msgid ""
 " long SSL_SESSION_set_timeout(SSL_SESSION *s, long tm);\n"
 "\n"
 msgstr ""
+" long SSL_SESSION_get_time(const SSL_SESSION *s);\n"
+" long SSL_SESSION_set_time(SSL_SESSION *s, long tm);\n"
+" long SSL_SESSION_get_timeout(const SSL_SESSION *s);\n"
+" long SSL_SESSION_set_timeout(SSL_SESSION *s, long tm);\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_SESSION_get_time.pod:16
@@ -337,6 +346,11 @@ msgid ""
 " long SSL_set_timeout(SSL_SESSION *s, long tm);\n"
 "\n"
 msgstr ""
+" long SSL_get_time(const SSL_SESSION *s);\n"
+" long SSL_set_time(SSL_SESSION *s, long tm);\n"
+" long SSL_get_timeout(const SSL_SESSION *s);\n"
+" long SSL_set_timeout(SSL_SESSION *s, long tm);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:23
@@ -345,6 +359,10 @@ msgid ""
 "established. The time is given in seconds since the Epoch and therefore "
 "compatible to the time delivered by the time() call."
 msgstr ""
+"SSL_SESSION_get_time() renvoie la date à laquelle la session B<s> a été "
+"établie. Cette date est donnée sous forme du nombre de secondes depuis le "
+"temps zéro de l'ordinateur ; elle est donc compatible avec la date renvoyée "
+"par un appel à time()."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:27
@@ -352,6 +370,8 @@ msgid ""
 "SSL_SESSION_set_time() replaces the creation time of the session B<s> with "
 "the chosen value B<tm>."
 msgstr ""
+"SSL_SESSION_set_time() remplace la date de création de la session B<s> par "
+"la valeur B<tm>."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:30
@@ -359,6 +379,8 @@ msgid ""
 "SSL_SESSION_get_timeout() returns the timeout value set for session B<s> in "
 "seconds."
 msgstr ""
+"SSL_SESSION_get_timeout() renvoie le délai d'expiration de la session B<s> "
+"en secondes."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:33
@@ -366,6 +388,8 @@ msgid ""
 "SSL_SESSION_set_timeout() sets the timeout value for session B<s> in seconds "
 "to B<tm>."
 msgstr ""
+"SSL_SESSION_set_timeout() remplace le délai d'expiration de la session B<s> "
+"par la valeur B<tm> en secondes."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:36
@@ -373,6 +397,8 @@ msgid ""
 "The SSL_get_time(), SSL_set_time(), SSL_get_timeout(), and SSL_set_timeout"
 "()  functions are synonyms for the SSL_SESSION_*() counterparts."
 msgstr ""
+"Les fonctions SSL_get_time(), SSL_set_time(), SSL_get_timeout() et "
+"SSL_set_timeout() sont des synonymes des fonctions SSL_SESSION_*()."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:41
@@ -383,6 +409,12 @@ msgid ""
 "L<SSL_CTX_set_timeout(3)|SSL_CTX_set_timeout(3)>.  Using these functions it "
 "is possible to extend or shorten the lifetime of the session."
 msgstr ""
+"Les sessions expirent en fonction de leur date de création et de leur délai "
+"d'expiration. Ces valeurs sont définies lors de la création de la session, "
+"respectivement à la date courante et au délai courant d'expiration par "
+"défaut, comme spécifié par L<SSL_CTX_set_timeout(3)|SSL_CTX_set_timeout(3)>. "
+"Grâce à ces fonctions, il est possible d'allonger ou de réduire la durée de "
+"vie d'une session."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:50
@@ -390,12 +422,16 @@ msgid ""
 "SSL_SESSION_get_time() and SSL_SESSION_get_timeout() return the currently "
 "valid values."
 msgstr ""
+"SSL_SESSION_get_time() et SSL_SESSION_get_timeout() renvoient les valeurs "
+"courantes."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:53
 msgid ""
 "SSL_SESSION_set_time() and SSL_SESSION_set_timeout() return 1 on success."
 msgstr ""
+"SSL_SESSION_set_time() et SSL_SESSION_set_timeout() renvoient 1 en cas de "
+"succès."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:55
@@ -403,6 +439,8 @@ msgid ""
 "If any of the function is passed the NULL pointer for the session B<s>, 0 is "
 "returned."
 msgstr ""
+"Pour chacune de ces fonctions, si un pointeur NULL est passé pour la session "
+"B<s>, 0 est renvoyé."
 
 #. type: textblock
 #: C/ssl/SSL_SESSION_get_time.pod:60
@@ -410,6 +448,8 @@ msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_CTX_set_timeout(3)|SSL_CTX_set_timeout(3)>, "
 "L<SSL_get_default_timeout(3)|SSL_get_default_timeout(3)>"
 msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_timeout(3)|SSL_CTX_set_timeout(3)>, "
+"L<SSL_get_default_timeout(3)|SSL_get_default_timeout(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_session_reused.pod:5
