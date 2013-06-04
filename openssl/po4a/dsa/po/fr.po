@@ -1,15 +1,15 @@
 # French translations for the openssl package
-# Copyright (C) 2002, 2008, 2009, 2012 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# Copyright (C) 2002, 2008, 2009, 2012, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
 # arne, 2002.
 # Nicolas François <nicolas.francois@centraliens.net>, 2008, 2009.
-# David Prévot <david@tilapin.org>, 2012.
+# David Prévot <david@tilapin.org>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2013-05-26 17:42-0400\n"
-"PO-Revision-Date: 2012-10-13 16:15-0400\n"
+"PO-Revision-Date: 2013-06-09 15:28-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -55,7 +55,7 @@ msgid ""
 "pubout>] [B<-engine id>]"
 msgstr ""
 "B<openssl> B<dsa> [B<-inform PEM>|B<DER>] [B<-outform PEM>|B<DER>] [B<-in> "
-"I<nom_fichier>] [B<-passin> I<param>] [B<-out> I<nom_fichier>] [B<-passout> "
+"I<fichier>] [B<-passin> I<param>] [B<-out> I<fichier>] [B<-passout> "
 "I<param>] [B<-des>] [B<-des3>] [B<-idea>] [B<-text>] [B<-noout>] [B<-"
 "modulus>] [B<-pubin>] [B<-pubout>] [B<-engine> I<id>]"
 
@@ -81,7 +81,7 @@ msgstr ""
 "La commande B<dsa> gère les clefs DSA. Elles peuvent être converties vers et "
 "à partir de plusieurs formes et leurs composants peuvent être affichés. "
 "B<Remarque> : cette commande utilise le format compatible SSLeay pour le "
-"chiffrement des clefs privées. Des applications plus récentes devraient "
+"chiffrement des clefs privées. Les applications plus récentes devraient "
 "utiliser le format plus sûr PKCS#8 en utilisant la commande B<pkcs8>."
 
 #. type: =head1
@@ -103,12 +103,13 @@ msgid ""
 "respectively as ASN.1 INTEGERs. When used with a public key it uses a "
 "SubjectPublicKeyInfo structure: it is an error if the key is not DSA."
 msgstr ""
-"Indique le format d'entrée. L'option B<DER> avec une clef privée utilise une "
-"version encodée ASN1 DER d'une SEQUENCE ASN.1 qui contient les informations "
-"de version (zéro actuellement), p, q, g, les composants des clefs publiques "
-"et privées respectivement comme entiers INTEGER ASN.1. Lors d'une "
-"utilisation avec clef publique, une structure SubjectPublicKeyInfo est "
-"utilisée, et c'est une erreur si la clef n'est pas de type DSA."
+"Indique le format d'entrée. Avec une clef privée, l'option B<DER> utilise "
+"une version encodée ASN1 DER d'une SEQUENCE ASN.1 qui contient les "
+"informations de version (zéro actuellement), p, q, g, les composants des "
+"clefs publiques et privées respectivement comme entiers INTEGER ASN.1. Lors "
+"d'une utilisation avec clef publique, c'est une structure "
+"SubjectPublicKeyInfo qui est utilisée, et c'est une erreur si la clef n'est "
+"pas de type DSA."
 
 #. type: textblock
 #: C/apps/dsa.pod:45
@@ -138,7 +139,7 @@ msgstr ""
 #. type: =item
 #: C/apps/dsa.pod:54 C/apps/dsaparam.pod:42
 msgid "B<-in filename>"
-msgstr "B<-in> I<nom_fichier>"
+msgstr "B<-in> I<fichier>"
 
 #. type: textblock
 #: C/apps/dsa.pod:56
@@ -147,9 +148,9 @@ msgid ""
 "this option is not specified. If the key is encrypted a pass phrase will be "
 "prompted for."
 msgstr ""
-"Indique le nom du fichier d'entrée à partir duquel la clef sera lue. Par "
-"défaut, la clef est lue depuis l'entrée standard si cette option est omise. "
-"Si la clef est chiffrée, un mot de passe sera demandé à l'invite de commande."
+"Indique le nom du fichier d'entrée d'où sera lue la clef, ou l'entrée "
+"standard si cette option est omise. Si la clef est chiffrée, un mot de passe "
+"sera demandé."
 
 #. type: =item
 #: C/apps/dsa.pod:60
@@ -164,12 +165,12 @@ msgid ""
 msgstr ""
 "La source de mot de passe d'entrée. Pour plus de renseignements sur le "
 "format de I<param>, consultez la section B<PARAMÈTRES DE PHRASE SECRÈTE> "
-"d'L<openssl(1)|openssl(1)>."
+"d'L<B<openssl>(1)|openssl(1)>."
 
 #. type: =item
 #: C/apps/dsa.pod:65 C/apps/dsaparam.pod:48
 msgid "B<-out filename>"
-msgstr "B<-out> I<nom_fichier>"
+msgstr "B<-out> I<fichier>"
 
 # NOTE: "or standard output by is not specified"
 #. type: textblock
@@ -180,10 +181,10 @@ msgid ""
 "be prompted for. The output filename should B<not> be the same as the input "
 "filename."
 msgstr ""
-"Indique le nom du fichier de sortie où sera écrite la clef. Par défaut, la "
-"clef est écrite sur la sortie standard si cette option est omise. Si des "
-"options de chiffrement ont été indiquées, un mot de passe sera demandé. Le "
-"fichier de sortie ne devra B<pas> être le même que le fichier d'entrée."
+"Indique le nom du fichier de sortie où sera écrite la clef. La sortie "
+"standard est utilisée si cette option est omise. Si des options de "
+"chiffrement ont été indiquées, un mot de passe sera demandé. Le fichier de "
+"sortie ne doit B<pas> être identique au fichier d'entrée."
 
 #. type: =item
 #: C/apps/dsa.pod:72
@@ -198,7 +199,7 @@ msgid ""
 msgstr ""
 "La source de mot de passe pour le fichier de sortie. Pour plus de "
 "renseignements sur le format de I<param>, consultez la section B<PARAMÈTRES "
-"DE PHRASE SECRÈTE> d'L<openssl(1)|openssl(1)>."
+"DE PHRASE SECRÈTE> d'L<B<openssl>(1)|openssl(1)>."
 
 #. type: =item
 #: C/apps/dsa.pod:77 C/apps/gendsa.pod:27
@@ -218,12 +219,12 @@ msgid ""
 msgstr ""
 "Ces options chiffrent la clef privée produite avec l'algorithme de "
 "chiffrement DES, DES triple ou IDEA respectivement. Un mot de passe (ou une "
-"phrase) sera demandé. Si aucune de ces options n'est indiquée, la clef sera "
-"écrite en texte brut. Ainsi une clef chiffrée pourra être lue avec "
-"l'utilitaire B<dsa>, afin de supprimer le mot de passe (sans option de "
-"chiffrement) ou encore d'ajouter ou modifier un mot de passe avec les "
-"options de chiffrement appropriées. Cette option n'est disponible qu'avec le "
-"format PEM pour les fichiers de sortie."
+"phrase secrète) sera demandé. Si aucune de ces options n'est indiquée, la "
+"clef sera écrite en texte brut. Cela implique qu'une clef chiffrée, sans "
+"aucune option, pourra être lue avec l'utilitaire B<dsa> afin de supprimer le "
+"mot de passe ou, en indiquant une option, d'ajouter ou modifier un mot de "
+"passe.Cette option n'est disponible qu'avec le format PEM pour les fichiers "
+"de sortie."
 
 #. type: =item
 #: C/apps/dsa.pod:87 C/apps/dsaparam.pod:58
@@ -233,7 +234,8 @@ msgstr "B<-text>"
 #. type: textblock
 #: C/apps/dsa.pod:89
 msgid "prints out the public, private key components and parameters."
-msgstr "Affiche les composants des clefs publiques, privées et les paramètres."
+msgstr ""
+"Affiche les composants et les paramètres des clefs publiques et privées ."
 
 #. type: =item
 #: C/apps/dsa.pod:91 C/apps/dsaparam.pod:54
@@ -301,8 +303,8 @@ msgid ""
 msgstr ""
 "Indique un moteur (en utilisant son identifiant unique I<id>), et force "
 "B<dsa> à essayer d'obtenir une référence fonctionnelle pour le moteur "
-"indiqué, et l'initialiser si nécessaire. Le moteur sera ensuite utilisé par "
-"défaut pour tous les algorithmes disponibles."
+"indiqué, et à l'initialiser si nécessaire. Le moteur sera ensuite utilisé "
+"par défaut pour tous les algorithmes disponibles."
 
 #. type: =head1
 #: C/apps/dsa.pod:119 C/apps/dsaparam.pod:95 C/apps/gendsa.pod:56
@@ -446,8 +448,8 @@ msgid ""
 "L<dsaparam(1)|dsaparam(1)>, L<gendsa(1)|gendsa(1)>, L<rsa(1)|rsa(1)>, "
 "L<genrsa(1)|genrsa(1)>"
 msgstr ""
-"L<dsaparam(1)|dsaparam(1)>, L<gendsa(1)|gendsa(1)>, L<rsa(1)|rsa(1)>, "
-"L<genrsa(1)|genrsa(1)>"
+"L<B<dsaparam>(1)|dsaparam(1)>, L<B<gendsa>(1)|gendsa(1)>, L<B<genrsa>(1)|"
+"genrsa(1)>, L<B<rsa>(1)|rsa(1)>,"
 
 #. type: textblock
 #: C/apps/dsaparam.pod:5
@@ -458,12 +460,12 @@ msgstr "dsaparam - Manipulation et génération de paramètres DSA"
 #: C/apps/dsaparam.pod:9
 msgid ""
 "B<openssl dsaparam> [B<-inform DER|PEM>] [B<-outform DER|PEM>] [B<-in "
-"filename>] [B<-out filename>] [B<-noout>] [B<-text>] [B<-C>] [B<-rand file(s)"
-">] [B<-genkey>] [B<-engine id>] [B<numbits>]"
+"filename>] [B<-out filename>] [B<-noout>] [B<-text>] [B<-C>] [B<-rand "
+"file(s)>] [B<-genkey>] [B<-engine id>] [B<numbits>]"
 msgstr ""
 "B<openssl dsaparam> [B<-inform DER>|B<PEM>] [B<-outform DER>|B<PEM>] [B<-in> "
-"I<nom_fichier>] [B<-out> I<nom_fichier>] [B<-noout>] [B<-text>] [B<-C>] [B<-"
-"rand> I<fichier(s)>] [B<-genkey>] [B<-engine> I<id>] [B<nombre_bits>]"
+"I<fichier>] [B<-out> I<fichier>] [B<-noout>] [B<-text>] [B<-C>] [B<-rand> "
+"I<fichier(s)>] [B<-genkey>] [B<-engine> I<id>] [B<nombre_bits>]"
 
 #. type: textblock
 #: C/apps/dsaparam.pod:24
@@ -486,7 +488,7 @@ msgid ""
 "of the B<DER> format base64 encoded with additional header and footer lines."
 msgstr ""
 "Indique le format d'entrée. L'option B<DER> utilise une forme encodée ASN1 "
-"DER compatible avec les paramètres DSS selon RFC2459 (PKIX) qui sont une "
+"DER compatible avec les paramètres DSS selon la RFC 2459 (PKIX) qui sont une "
 "SEQUENCE comprenant p, q, et g respectivement. La forme PEM est le format "
 "par défaut : il s'agit d'un format B<DER> encodé en base64 avec des lignes "
 "supplémentaires au début et à la fin."
@@ -567,7 +569,7 @@ msgid ""
 msgstr ""
 "Un ou plusieurs fichiers contenant des données aléatoires utilisées pour "
 "initialiser le générateur de nombres pseudoaléatoires, ou une socket EGD "
-"(consultez L<RAND_egd(3)|RAND_egd(3)>). Plusieurs fichiers peuvent être "
+"(consultez L<B<RAND_egd>(3)|RAND_egd(3)>). Plusieurs fichiers peuvent être "
 "indiqués en les séparant par le séparateur du système d'exploitation : « B<;"
 "> » pour Windows, « B<,> » pour OpenVMS et « B<:> » pour tous les autres."
 
@@ -583,10 +585,9 @@ msgid ""
 "B<numbits>. It must be the last option. If this option is included then the "
 "input file (if any) is ignored."
 msgstr ""
-"Cette option indique qu'un jeu de paramètres de taille B<nombre_bits> doit "
-"être généré. Cette option doit être placée en dernier. Si cette option est "
-"présente, le fichier d'entrée (s'il y en a un) est ignoré et des paramètres "
-"sont générés à la place."
+"Cette option indique qu'un ensemble de paramètres de taille B<nombre_bits> "
+"doit être généré. Cette option doit être placée en dernier. Si cette option "
+"est présente, le fichier d'entrée (s'il y en a un) est ignoré."
 
 #. type: textblock
 #: C/apps/dsaparam.pod:88
@@ -598,8 +599,8 @@ msgid ""
 msgstr ""
 "Indique un moteur (en utilisant son identifiant unique I<id>), et force "
 "B<dsaparam> à essayer d'obtenir une référence fonctionnelle pour le moteur "
-"indiqué, et l'initialiser si nécessaire. Le moteur sera ensuite utilisé par "
-"défaut pour tous les algorithmes disponibles."
+"indiqué, et à l'initialiser si nécessaire. Le moteur sera ensuite utilisé "
+"par défaut pour tous les algorithmes disponibles."
 
 #. type: textblock
 #: C/apps/dsaparam.pod:97
@@ -626,9 +627,9 @@ msgid ""
 "DSA parameter generation is a slow process and as a result the same set of "
 "DSA parameters is often used to generate several distinct keys."
 msgstr ""
-"La génération de paramètres DSA est un processus lent et ainsi un jeu de "
-"paramètres DSA est souvent utilisé pour la génération de plusieurs clefs "
-"distinctes."
+"La génération de paramètres DSA est un processus lent et ainsi un même "
+"ensemble de paramètres DSA est souvent utilisé pour la génération de "
+"plusieurs clefs distinctes."
 
 #. type: textblock
 #: C/apps/dsaparam.pod:107
@@ -636,13 +637,14 @@ msgid ""
 "L<gendsa(1)|gendsa(1)>, L<dsa(1)|dsa(1)>, L<genrsa(1)|genrsa(1)>, L<rsa(1)|"
 "rsa(1)>"
 msgstr ""
-"L<gendsa(1)|gendsa(1)>, L<dsa(1)|dsa(1)>, L<genrsa(1)|genrsa(1)>, L<rsa(1)|"
-"rsa(1)>"
+"L<B<dsa>(1)|dsa(1)>, L<B<gendsa>(1)|gendsa(1)>, L<B<genrsa>(1)|genrsa(1)>, "
+"L<B<rsa>(1)|rsa(1)>"
 
 #. type: textblock
 #: C/apps/gendsa.pod:5
 msgid "gendsa - generate a DSA private key from a set of parameters"
-msgstr "gendsa - Générer une clef privée DSA à partir d'un jeu de paramètres"
+msgstr ""
+"gendsa - Générer une clef privée DSA à partir d'un ensemble de paramètres"
 
 #. type: textblock
 #: C/apps/gendsa.pod:9
@@ -650,8 +652,8 @@ msgid ""
 "B<openssl> B<gendsa> [B<-out filename>] [B<-des>] [B<-des3>] [B<-idea>] [B<-"
 "rand file(s)>] [B<-engine id>] [B<paramfile>]"
 msgstr ""
-"B<openssl> B<gendsa> [B<-out> I<nom_fichier>] [B<-des>] [B<-des3>] [B<-"
-"idea>] [B<-rand> I<fichier(s)>] [B<-engine> I<id>] [B<fichier_param>]"
+"B<openssl> B<gendsa> [B<-out> I<fichier>] [B<-des>] [B<-des3>] [B<-idea>] "
+"[B<-rand> I<fichier(s)>] [B<-engine> I<id>] [B<fichier_param>]"
 
 #. type: textblock
 #: C/apps/gendsa.pod:20
@@ -685,8 +687,8 @@ msgid ""
 msgstr ""
 "Indique un moteur (en utilisant son identifiant unique I<id>), et force "
 "B<gendsa> à essayer d'obtenir une référence fonctionnelle pour le moteur "
-"indiqué, et l'initialiser si nécessaire. Le moteur sera ensuite utilisé par "
-"défaut pour tous les algorithmes disponibles."
+"indiqué, et à l'initialiser si nécessaire. Le moteur sera ensuite utilisé "
+"par défaut pour tous les algorithmes disponibles."
 
 #. type: =item
 #: C/apps/gendsa.pod:48
@@ -717,11 +719,11 @@ msgstr ""
 #. type: textblock
 #: C/apps/gendsa.pod:63
 msgid ""
-"L<dsaparam(1)|dsaparam(1)>, L<dsa(1)|dsa(1)>, L<genrsa(1)|genrsa(1)>, L<rsa"
-"(1)|rsa(1)>"
+"L<dsaparam(1)|dsaparam(1)>, L<dsa(1)|dsa(1)>, L<genrsa(1)|genrsa(1)>, "
+"L<rsa(1)|rsa(1)>"
 msgstr ""
-"L<dsaparam(1)|dsaparam(1)>, L<dsa(1)|dsa(1)>, L<genrsa(1)|genrsa(1)>, L<rsa"
-"(1)|rsa(1)>"
+"L<B<dsaparam>(1)|dsaparam(1)>, L<B<dsa>(1)|dsa(1)>, L<B<genrsa>(1)|"
+"genrsa(1)>, L<B<rsa>(1)|rsa(1)>"
 
 #. type: textblock
 #: C/crypto/DSA_SIG_new.pod:5
@@ -739,7 +741,7 @@ msgid ""
 " #include <openssl/dsa.h>\n"
 "\n"
 msgstr ""
-" #include <openssl/dsa.h>\n"
+"B< #include B<lt>openssl/dsa.hE<gt>>\n"
 "\n"
 
 #. type: verbatim
@@ -749,7 +751,7 @@ msgid ""
 " DSA_SIG *DSA_SIG_new(void);\n"
 "\n"
 msgstr ""
-" DSA_SIG *DSA_SIG_new(void);\n"
+"B< DSA_SIG *DSA_SIG_new(void);>\n"
 "\n"
 
 #. type: verbatim
@@ -759,7 +761,7 @@ msgid ""
 " void\tDSA_SIG_free(DSA_SIG *a);\n"
 "\n"
 msgstr ""
-" void\tDSA_SIG_free(DSA_SIG *a);\n"
+"B< void\tDSA_SIG_free(DSA_SIG *>I<a>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -791,7 +793,7 @@ msgid ""
 "it returns a pointer to the newly allocated structure."
 msgstr ""
 "Si l'allocation échoue, B<DSA_SIG_new>() renvoie B<NULL> et définit un code "
-"d'erreur qui peut être obtenu par L<ERR_get_error(3)|ERR_get_error(3)>. "
+"d'erreur qui peut être obtenu par L<B<ERR_get_error>(3)|ERR_get_error(3)>. "
 "Sinon, elle renvoie un pointeur vers la structure nouvellement allouée."
 
 #. type: textblock
@@ -805,8 +807,8 @@ msgid ""
 "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<DSA_do_sign(3)|"
 "DSA_do_sign(3)>"
 msgstr ""
-"L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<DSA_do_sign(3)|"
-"DSA_do_sign(3)>"
+"L<B<dsa>(3)|dsa(3)>, L<B<DSA_do_sign>(3)|DSA_do_sign(3)>, "
+"L<B<ERR_get_error>(3)|ERR_get_error(3)>"
 
 #. type: =head1
 #: C/crypto/DSA_SIG_new.pod:36 C/crypto/DSA_do_sign.pod:43
@@ -836,7 +838,7 @@ msgid ""
 " DSA_SIG *DSA_do_sign(const unsigned char *dgst, int dlen, DSA *dsa);\n"
 "\n"
 msgstr ""
-" DSA_SIG *DSA_do_sign(const unsigned char *dgst, int dlen, DSA *dsa);\n"
+"B< DSA_SIG *DSA_do_sign(const unsigned char *>I<dgst>B<, int dlen, DSA *>I<dsa>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -847,8 +849,8 @@ msgid ""
 "\t     DSA_SIG *sig, DSA *dsa);\n"
 "\n"
 msgstr ""
-" int DSA_do_verify(const unsigned char *dgst, int dgst_len,\n"
-"\t     DSA_SIG *sig, DSA *dsa);\n"
+"B< int DSA_do_verify(const unsigned char *>I<dgst>B<, int> I<dgst_len>B<,>\n"
+" \t     B<DSA_SIG *>I<sig>B<, DSA *>I<dsa>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -858,9 +860,9 @@ msgid ""
 "B<dgst> using the private key B<dsa> and returns it in a newly allocated "
 "B<DSA_SIG> structure."
 msgstr ""
-"B<DSA_do_sign>() calcule une signature numérique sur le message de "
-"I<len> octets avec l'algorithme I<dgst> en utilisant la clef privée I<dsa> "
-"et la renvoie dans une structure B<DSA_SIG> nouvellement allouée."
+"B<DSA_do_sign>() calcule une signature numérique sur le condensé de message "
+"de I<len> octets, I<dgst>, en utilisant la clef privée I<dsa>, et la renvoie "
+"dans une structure B<DSA_SIG> nouvellement allouée."
 
 #. type: textblock
 #: C/crypto/DSA_do_sign.pod:22
@@ -868,32 +870,33 @@ msgid ""
 "L<DSA_sign_setup(3)|DSA_sign_setup(3)> may be used to precompute part of the "
 "signing operation in case signature generation is time-critical."
 msgstr ""
-"L<DSA_sign_setup(3)|DSA_sign_setup(3)> peut être utilisée pour précalculer "
-"un morceau de l'opération de signature dans les cas où la génération de "
+"L<B<DSA_sign_setup>(3)|DSA_sign_setup(3)> peut être utilisée pour "
+"précalculer un morceau de l'opération de signature lorsque la génération de "
 "signature doit absolument être rapide."
 
+# NOTE: s/len/dgst_len/
 #. type: textblock
 #: C/crypto/DSA_do_sign.pod:26
 msgid ""
 "DSA_do_verify() verifies that the signature B<sig> matches a given message "
 "digest B<dgst> of size B<len>.  B<dsa> is the signer's public key."
 msgstr ""
-"B<DSA_do_verify>() vérifie que la signature I<sig> correspond à l'algorithme "
-"I<dgst> d'un message donné de taille I<len>. I<dsa> est la clef publique du "
-"signataire."
+"B<DSA_do_verify>() vérifie que la signature I<sig> correspond à un condensé "
+"de message donné I<dgst>, de taille I<dgst_len>. I<dsa> est la clef publique "
+"du signataire."
 
 #. type: textblock
 #: C/crypto/DSA_do_sign.pod:32
 msgid ""
 "DSA_do_sign() returns the signature, NULL on error.  DSA_do_verify()  "
 "returns 1 for a valid signature, 0 for an incorrect signature and -1 on "
-"error. The error codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)"
-">."
+"error. The error codes can be obtained by L<ERR_get_error(3)|"
+"ERR_get_error(3)>."
 msgstr ""
 "B<DSA_do_sign>() renvoie la signature, ou NULL en cas d'erreur. "
 "B<DSA_do_verify>() renvoie B<1> pour une signature correcte, B<0> pour une "
-"signature incorrecte et B<-1> en cas d'erreur. Les codes d'erreur peuvent "
-"être obtenus par L<ERR_get_error(3)|ERR_get_error(3)>."
+"signature incorrecte ou B<-1> en cas d'erreur. Les codes d'erreur peuvent "
+"être obtenus par L<B<ERR_get_error>(3)|ERR_get_error(3)>."
 
 #. type: textblock
 #: C/crypto/DSA_do_sign.pod:39
@@ -901,8 +904,8 @@ msgid ""
 "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
 "L<DSA_SIG_new(3)|DSA_SIG_new(3)>, L<DSA_sign(3)|DSA_sign(3)>"
 msgstr ""
-"L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
-"L<DSA_SIG_new(3)|DSA_SIG_new(3)>, L<DSA_sign(3)|DSA_sign(3)>"
+"L<B<dsa>(3)|dsa(3)>, L<B<DSA_SIG_new>(3)|DSA_SIG_new(3)>, L<B<DSA_sign>(3)|"
+"DSA_sign(3)>, L<B<ERR_get_error>(3)|ERR_get_error(3)>, L<B<rand>(3)|rand(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_do_sign.pod:45
@@ -922,7 +925,7 @@ msgid ""
 " DH * DSA_dup_DH(const DSA *r);\n"
 "\n"
 msgstr ""
-" DH * DSA_dup_DH(const DSA *r);\n"
+"B< DH * DSA_dup_DH(const DSA *>I<r>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -931,9 +934,9 @@ msgid ""
 "DSA_dup_DH() duplicates DSA parameters/keys as DH parameters/keys. q is lost "
 "during that conversion, but the resulting DH parameters contain its length."
 msgstr ""
-"DSA_dup_DH() duplique les paramètres / clés DSA en des paramètres / clés DH. "
-"q est perdu lors de cette conversion, mais les paramètres DH résultant "
-"contienent sa longueur."
+"B<DSA_dup_DH>() duplique les paramètres ou clefs DSA en paramètres ou clefs "
+"DH. I<q> est perdu lors de cette conversion, mais les paramètres DH "
+"résultants contiennent sa taille."
 
 #. type: =head1
 #: C/crypto/DSA_dup_DH.pod:19 C/crypto/DSA_generate_key.pod:20
@@ -947,8 +950,8 @@ msgid ""
 "DSA_dup_DH() returns the new B<DH> structure, and NULL on error. The error "
 "codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgstr ""
-"DSA_dup_DH() renvoie la nouvelle structure B<DH> et NULL en cas d'erreur. "
-"Les codes d'erreur peuvent être obtenus à l'aide de L<ERR_get_error(3)|"
+"B<DSA_dup_DH>() renvoie la nouvelle structure B<DH> ou NULL en cas d'erreur. "
+"Les codes d'erreur peuvent être obtenus à l'aide de L<B<ERR_get_error>(3)|"
 "ERR_get_error(3)>."
 
 #. type: =head1
@@ -960,23 +963,25 @@ msgstr "NOTE"
 #: C/crypto/DSA_dup_DH.pod:26
 msgid "Be careful to avoid small subgroup attacks when using this."
 msgstr ""
-"Faites attention d'éviter les attaques de petits sous-groupes lorsque vous "
-"utilisez cette fonction."
+"Faites attention d'éviter les attaques par petits sous-groupes (« small "
+"subgroup ») en utilisant cette fonction."
 
 #. type: textblock
 #: C/crypto/DSA_dup_DH.pod:30
 msgid "L<dh(3)|dh(3)>, L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>"
-msgstr "L<dh(3)|dh(3)>, L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>"
+msgstr ""
+"L<B<dh>(3)|dh(3)>, L<B<dsa>(3)|dsa(3)>, L<B<ERR_get_error>(3)|"
+"ERR_get_error(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_dup_DH.pod:34
 msgid "DSA_dup_DH() was added in OpenSSL 0.9.4."
-msgstr "DSA_dup_DH() a été ajoutée dans OpenSSL 0.9.4."
+msgstr "B<DSA_dup_DH>() a été ajoutée dans OpenSSL 0.9.4."
 
 #. type: textblock
 #: C/crypto/DSA_generate_key.pod:5
 msgid "DSA_generate_key - generate DSA key pair"
-msgstr "DSA_generate_key - Générer une paire de clés DSA"
+msgstr "DSA_generate_key - Créer une paire de clefs DSA"
 
 #. type: verbatim
 #: C/crypto/DSA_generate_key.pod:11
@@ -985,7 +990,7 @@ msgid ""
 " int DSA_generate_key(DSA *a);\n"
 "\n"
 msgstr ""
-" int DSA_generate_key(DSA *a);\n"
+"B< int DSA_generate_key(DSA *>I<a>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -994,16 +999,16 @@ msgid ""
 "DSA_generate_key() expects B<a> to contain DSA parameters. It generates a "
 "new key pair and stores it in B<a-E<gt>pub_key> and B<a-E<gt>priv_key>."
 msgstr ""
-"DSA_generate_key() attend dans B<a> des paramètres DSA. Elle génère une "
-"nouvelle paire de clés et la stocke dans B<a-E<gt>pub_key> et B<a-"
+"B<DSA_generate_key>() attend dans I<a> des paramètres DSA. Elle crée une "
+"nouvelle paire de clefs et la stocke dans I<a>B<-E<gt>pub_key> et I<a>B<-"
 "E<gt>priv_key>."
 
 #. type: textblock
 #: C/crypto/DSA_generate_key.pod:18
 msgid "The PRNG must be seeded prior to calling DSA_generate_key()."
 msgstr ""
-"Le générateur de nombres pseudoaléatoires doit avoir reçu une graine avant "
-"d'appeler DSA_generate_key()."
+"Le générateur de nombres pseudoaléatoires doit avoir été initialisé avant "
+"d'appeler B<DSA_generate_key>()."
 
 #. type: textblock
 #: C/crypto/DSA_generate_key.pod:22
@@ -1011,8 +1016,9 @@ msgid ""
 "DSA_generate_key() returns 1 on success, 0 otherwise.  The error codes can "
 "be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgstr ""
-"DSA_generate_key() renvoie 1 en cas de succès et 0 sinon. Les codes d'erreur "
-"peuvent être obtenus à l'aide de L<ERR_get_error(3)|ERR_get_error(3)>."
+"B<DSA_generate_key>() renvoie B<1> si elle réussit et B<0> sinon. Les codes "
+"d'erreur peuvent être obtenus à l'aide de L<B<ERR_get_error>(3)|"
+"ERR_get_error(3)>."
 
 #. type: textblock
 #: C/crypto/DSA_generate_key.pod:27
@@ -1020,18 +1026,19 @@ msgid ""
 "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
 "L<DSA_generate_parameters(3)|DSA_generate_parameters(3)>"
 msgstr ""
-"L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
-"L<DSA_generate_parameters(3)|DSA_generate_parameters(3)>"
+"L<B<dsa>(3)|dsa(3)>, L<B<DSA_generate_parameters>(3)|"
+"DSA_generate_parameters(3)>, L<B<ERR_get_error>(3)|ERR_get_error(3)>, "
+"L<B<rand>(3)|rand(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_generate_key.pod:32
 msgid "DSA_generate_key() is available since SSLeay 0.8."
-msgstr "DSA_generate_key() a été ajoutée dans SSLeay 0.8."
+msgstr "B<DSA_generate_key>() a été ajoutée dans SSLeay 0.8."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:5
 msgid "DSA_generate_parameters - generate DSA parameters"
-msgstr ""
+msgstr "DSA_generate_parameters - Créer des paramètres DSA"
 
 #. type: verbatim
 #: C/crypto/DSA_generate_parameters.pod:11
@@ -1042,6 +1049,10 @@ msgid ""
 "\t\tvoid (*callback)(int, int, void *), void *cb_arg);\n"
 "\n"
 msgstr ""
+"B< DSA *DSA_generate_parameters(int> I<bits>B<, unsigned char *>I<seed>B<,>\n"
+"                B<int> I<seed_len>B< int *>I<counter_ret>B<, unsigned long *>I<h_ret>B<,>\n"
+" \t\tB<void (*>I<callback>B<)(int, int, void *), void *>I<cb_arg>B<);>\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:17
@@ -1049,6 +1060,8 @@ msgid ""
 "DSA_generate_parameters() generates primes p and q and a generator g for use "
 "in the DSA."
 msgstr ""
+"B<DSA_generate_parameters>() crée des nombres premiers I<p> et I<q> et un "
+"générateur I<g> pour utiliser dans le DSA."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:20
@@ -1056,6 +1069,8 @@ msgid ""
 "B<bits> is the length of the prime to be generated; the DSS allows a maximum "
 "of 1024 bits."
 msgstr ""
+"I<bits> est la taille du nombre premier à générer ; la DSS permet 1024 bits "
+"au maximum."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:23
@@ -1064,6 +1079,10 @@ msgid ""
 "at random. Otherwise, the seed is used to generate them. If the given seed "
 "does not yield a prime q, a new random seed is chosen and placed at B<seed>."
 msgstr ""
+"Si I<seed> est B<NULL> ou I<seed_len> E<lt> 20, les nombres premiers seront "
+"créés de façon aléatoire. Sinon, ils seront initialisés avec I<seed>. Si la "
+"valeur de départ donnée ne renvoie pas de nombre premier I<q>, une nouvelle "
+"initialisation aléatoire est choisie et placée dans I<seed>."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:28
@@ -1072,6 +1091,9 @@ msgid ""
 "a counter used for finding a generator in *B<h_ret>, unless these are "
 "B<NULL>."
 msgstr ""
+"B<DSA_generate_parameters>() place le décompte d’itérations dans "
+"B<*>I<counter_ret> et un compteur utilisé pour trouver un générateur dans "
+"B<*>I<h_ret>, sauf s’ils sont B<NULL>."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:32
@@ -1080,6 +1102,9 @@ msgid ""
 "the key generation. If B<callback> is not B<NULL>, it will be called as "
 "follows:"
 msgstr ""
+"Une fonction de rappel pourrait être utilisée pour fournir un retour sur "
+"l’avancement de la création de clef. Si I<callback> n’est pas B<NULL>, elle "
+"sera appelée comme suit."
 
 #. type: =item
 #: C/crypto/DSA_generate_parameters.pod:38
@@ -1098,6 +1123,8 @@ msgid ""
 "When a candidate for q is generated, B<callback(0, m++, cb_arg)> is called "
 "(m is 0 for the first candidate)."
 msgstr ""
+"Quand un candidat pour I<q> est créé, I<callback>B<(0,> I<m>B<++, "
+">I<cb_arg>B<)> est appelée (I<m> est B<0> pour le premier candidat)."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:45
@@ -1108,6 +1135,12 @@ msgid ""
 "for each witness that confirms that the candidate may be prime); i is the "
 "loop counter (starting at 0)."
 msgstr ""
+"Quand un candidat pour I<q> a passé un test par divisions successives, "
+"I<callback>B<(1, -1, >I<cb_arg>B<)> est appelée. Alors qu’un candidat pour "
+"I<q> est testé par les tests de primalité de Miller-Rabin, I<callback>B<(1,> "
+"I<i>B<, >I<cb_arg>B<)> est appelée dans la boucle externe (une fois pour "
+"chaque témoin confirmant que le candidat pourrait être premier) ; I<i> est "
+"le compteur de boucles (commençant à B<0>)."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:54
@@ -1115,6 +1148,8 @@ msgid ""
 "When a prime q has been found, B<callback(2, 0, cb_arg)> and B<callback(3, "
 "0, cb_arg)> are called."
 msgstr ""
+"Quand un nombre premier I<q> a été trouvé, I<callback>B<(2, 0,> "
+"I<cb_arg>B<)> et I<callback>B<(3, 0,> I<cb_arg>B<)> sont appelées."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:59
@@ -1122,6 +1157,8 @@ msgid ""
 "Before a candidate for p (other than the first) is generated and tested, "
 "B<callback(0, counter, cb_arg)> is called."
 msgstr ""
+"Avant qu’un candidat pour I<p> (autre que le premier) ne soit créé et testé, "
+"I<callback>B<(0,> I<counter>B<, >I<cb_arg>B<)> est appelée."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:64
@@ -1132,16 +1169,25 @@ msgid ""
 "witness that confirms that the candidate may be prime).  i is the loop "
 "counter (starting at 0)."
 msgstr ""
+"Quand un candidat pour I<p> a passé un test par divisions successives, "
+"I<callback>B<(1, -1, >I<cb_arg>B<)> est appelée. Alors qu’il est testé par "
+"les tests de primalité de Miller-Rabin, I<callback>B<(1,> I<i>B<, "
+">I<cb_arg>B<)> est appelée dans la boucle externe (une fois pour chaque "
+"témoin confirmant que le candidat pourrait être premier). I<i> est le "
+"compteur de boucle (commençant à B<0>)."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:73
 msgid "When p has been found, B<callback(2, 1, cb_arg)> is called."
 msgstr ""
+"Quand I<p> a été trouvé, I<callback>B<(2, 1,> I<cb_arg>B<)> est appelée."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:77
 msgid "When the generator has been found, B<callback(3, 1, cb_arg)> is called."
 msgstr ""
+"Quand le générateur a été trouvé, I<callback>B<(3, 1,> I<cb_arg>B<)> est "
+"appelée."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:83
@@ -1150,6 +1196,9 @@ msgid ""
 "if the parameter generation fails. The error codes can be obtained by "
 "L<ERR_get_error(3)|ERR_get_error(3)>."
 msgstr ""
+"B<DSA_generate_parameters>() renvoie un pointeur vers la structure DSA ou "
+"B<NULL> en cas d’échec de création de paramètre. Les codes d’erreur peuvent "
+"être obtenus par L<B<ERR_get_error>(3)|ERR_get_error(3)>."
 
 #. type: =head1
 #: C/crypto/DSA_generate_parameters.pod:87
@@ -1159,7 +1208,7 @@ msgstr "BOGUES"
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:89
 msgid "Seed lengths E<gt> 20 are not supported."
-msgstr ""
+msgstr "Les tailles de I<seed> E<gt> 20 ne sont pas prises en charge."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:93
@@ -1167,9 +1216,10 @@ msgid ""
 "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
 "L<DSA_free(3)|DSA_free(3)>"
 msgstr ""
-"L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
-"L<DSA_free(3)|DSA_free(3)>"
+"L<B<dsa>(3)|dsa(3)>, L<B<DSA_free>(3)|DSA_free(3)>, L<B<ERR_get_error>(3)|"
+"ERR_get_error(3)>, L<B<rand>(3)|rand(3)>"
 
+# NOTE:  =cut not separated
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:98
 msgid ""
@@ -1180,6 +1230,15 @@ msgid ""
 "witnesses had been tested); since OpenSSL 0.9.5, B<callback(1, ...)> is "
 "called as in BN_is_prime(3), i.e. once for each witness.  =cut"
 msgstr ""
+"B<DSA_generate_parameters>() est apparue dans SSLeay 0.8. L’argument "
+"I<cb_arg> a été ajouté dans SSLeay 0.9.0. Dans OpenSSL jusqu’à la "
+"version 0.9.4, I<callback>B<(1, ...)> était appelée dans la boucle interne "
+"du test de Miller-Rabin à chaque fois qu’elle atteignait l’étape du carré "
+"(les paramètres de I<callback> n’indiquaient pas le nombre de témoins qui "
+"avaient été essayés) ; depuis OpenSSL 0.9.5, I<callback>B<(1, ...)> est "
+"appelée comme dans B<BN_is_prime>(3), c’est-à-dire une fois par témoin.\n"
+"\n"
+"=cut"
 
 #. type: textblock
 #: C/crypto/DSA_get_ex_new_index.pod:5
@@ -1200,10 +1259,10 @@ msgid ""
 "\t\tCRYPTO_EX_free *free_func);\n"
 "\n"
 msgstr ""
-" int DSA_get_ex_new_index(long argl, void *argp,\n"
-"\t\tCRYPTO_EX_new *new_func,\n"
-"\t\tCRYPTO_EX_dup *dup_func,\n"
-"\t\tCRYPTO_EX_free *free_func);\n"
+"B< int DSA_get_ex_new_index(long> I<argl>B<, void *>I<argp>B<,>\n"
+" \t\tB<CRYPTO_EX_new *>I<new_func>B<,>\n"
+" \t\tB<CRYPTO_EX_dup *>I<dup_func>B<,>\n"
+" \t\tB<CRYPTO_EX_free *f>I<ree_func>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -1213,7 +1272,7 @@ msgid ""
 " int DSA_set_ex_data(DSA *d, int idx, void *arg);\n"
 "\n"
 msgstr ""
-" int DSA_set_ex_data(DSA *d, int idx, void *arg);\n"
+"B< int DSA_set_ex_data(DSA *>I<d>B<, int> I<idx>B<, void *>I<arg>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -1223,7 +1282,7 @@ msgid ""
 " char *DSA_get_ex_data(DSA *d, int idx);\n"
 "\n"
 msgstr ""
-" char *DSA_get_ex_data(DSA *d, int idx);\n"
+"B< char *DSA_get_ex_data(DSA *>I<d>B<, int> I<idx>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -1236,12 +1295,13 @@ msgstr ""
 "Ces fonctions prennent en charge des données spécifiques aux applications "
 "dans les structures DSA. Leur utilisation est identique à celle de "
 "B<RSA_get_ex_new_index>(), B<RSA_set_ex_data>() et B<RSA_get_ex_data>(), "
-"comme décrit dans L<RSA_get_ex_new_index(3)>."
+"comme décrit dans L<B<RSA_get_ex_new_index>(3)>."
 
 #. type: textblock
 #: C/crypto/DSA_get_ex_new_index.pod:29
 msgid "L<RSA_get_ex_new_index(3)|RSA_get_ex_new_index(3)>, L<dsa(3)|dsa(3)>"
-msgstr "L<RSA_get_ex_new_index(3)|RSA_get_ex_new_index(3)>, L<dsa(3)|dsa(3)>"
+msgstr ""
+"L<B<dsa>(3)|dsa(3)>, L<B<RSA_get_ex_new_index>(3)|RSA_get_ex_new_index(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_get_ex_new_index.pod:33
@@ -1264,7 +1324,7 @@ msgid ""
 " DSA* DSA_new(void);\n"
 "\n"
 msgstr ""
-" DSA* DSA_new(void);\n"
+"B< DSA* DSA_new(void);>\n"
 "\n"
 
 #. type: verbatim
@@ -1274,7 +1334,7 @@ msgid ""
 " void DSA_free(DSA *dsa);\n"
 "\n"
 msgstr ""
-" void DSA_free(DSA *dsa);\n"
+"B< void DSA_free(DSA *>I<dsa>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -1283,8 +1343,8 @@ msgid ""
 "DSA_new() allocates and initializes a B<DSA> structure. It is equivalent to "
 "calling DSA_new_method(NULL)."
 msgstr ""
-"DSA_new() alloue et initialise une structure B<DSA>. Elle équivaut à un "
-"appel à DSA_new_method(NULL)."
+"B<DSA_new>() alloue et initialise une structure B<DSA>. Elle équivaut à un "
+"appel de B<DSA_new_method>(B<NULL>)."
 
 #. type: textblock
 #: C/crypto/DSA_new.pod:20
@@ -1292,7 +1352,7 @@ msgid ""
 "DSA_free() frees the B<DSA> structure and its components. The values are "
 "erased before the memory is returned to the system."
 msgstr ""
-"DSA_free() libère la structure B<DSA> et ses composants. Les valeurs sont "
+"B<DSA_free>() libère la structure B<DSA> et ses composants. Les valeurs sont "
 "effacées avant que la mémoire soit rendue au système."
 
 #. type: textblock
@@ -1302,33 +1362,34 @@ msgid ""
 "that can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>. Otherwise it "
 "returns a pointer to the newly allocated structure."
 msgstr ""
-"Si l'allocation de mémoire échoue, DSA_new() renvoie NULL et positionne un "
-"code d'erreur qui peut être récupéré avec L<ERR_get_error(3)|ERR_get_error(3)"
-">. Sinon, elle renvoie un pointeur vers la structure nouvellement allouée."
+"Si l'allocation de mémoire échoue, B<DSA_new>() renvoie B<NULL> et "
+"positionne un code d'erreur qui peut être récupéré avec "
+"L<B<ERR_get_error>(3)|ERR_get_error(3)>. Sinon, elle renvoie un pointeur "
+"vers la structure nouvellement allouée."
 
 #. type: textblock
 #: C/crypto/DSA_new.pod:30
 msgid "DSA_free() returns no value."
-msgstr "DSA_free() ne renvoie rien."
+msgstr "B<DSA_free>() ne renvoie rien."
 
 #. type: textblock
 #: C/crypto/DSA_new.pod:34
 msgid ""
 "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, "
-"L<DSA_generate_parameters(3)|DSA_generate_parameters(3)>, L<DSA_generate_key"
-"(3)|DSA_generate_key(3)>"
+"L<DSA_generate_parameters(3)|DSA_generate_parameters(3)>, "
+"L<DSA_generate_key(3)|DSA_generate_key(3)>"
 msgstr ""
-"L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, "
-"L<DSA_generate_parameters(3)|DSA_generate_parameters(3)>, L<DSA_generate_key"
-"(3)|DSA_generate_key(3)>"
+"L<B<dsa>(3)|dsa(3)>, L<B<DSA_generate_parameters>(3)|"
+"DSA_generate_parameters(3)>, L<B<DSA_generate_key>(3)|DSA_generate_key(3)>, "
+"L<B<ERR_get_error>(3)|ERR_get_error(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_new.pod:40
 msgid ""
 "DSA_new() and DSA_free() are available in all versions of SSLeay and OpenSSL."
 msgstr ""
-"DSA_new() et DSA_free() sont disponibles dans toutes les versions de SSLeay "
-"et d'OpenSSL."
+"B<DSA_new>() et B<DSA_free>() sont disponibles dans toutes les versions de "
+"SSLeay et d'OpenSSL."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:5
@@ -1336,6 +1397,8 @@ msgid ""
 "DSA_set_default_method, DSA_get_default_method, DSA_set_method, "
 "DSA_new_method, DSA_OpenSSL - select DSA method"
 msgstr ""
+"DSA_set_default_method, DSA_get_default_method, DSA_set_method, "
+"DSA_new_method, DSA_OpenSSL - Sélectionner la méthode DSA"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:10 C/crypto/dsa.pod:9
@@ -1345,6 +1408,9 @@ msgid ""
 " #include <openssl/engine.h>\n"
 "\n"
 msgstr ""
+"B< #include E<lt>openssl/dsa.hE<gt>>\n"
+" B<#include E<lt>openssl/engine.hE<gt>>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:13
@@ -1353,6 +1419,8 @@ msgid ""
 " void DSA_set_default_method(const DSA_METHOD *meth);\n"
 "\n"
 msgstr ""
+"B< void DSA_set_default_method(const DSA_METHOD *>I<meth>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:15
@@ -1361,6 +1429,8 @@ msgid ""
 " const DSA_METHOD *DSA_get_default_method(void);\n"
 "\n"
 msgstr ""
+"B< const DSA_METHOD *DSA_get_default_method(void);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:17
@@ -1369,6 +1439,8 @@ msgid ""
 " int DSA_set_method(DSA *dsa, const DSA_METHOD *meth);\n"
 "\n"
 msgstr ""
+"B< int DSA_set_method(DSA *>I<dsa>B<, const DSA_METHOD *>I<meth>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:19
@@ -1377,6 +1449,8 @@ msgid ""
 " DSA *DSA_new_method(ENGINE *engine);\n"
 "\n"
 msgstr ""
+"B< DSA *DSA_new_method(ENGINE *>I<engine>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:21
@@ -1385,6 +1459,8 @@ msgid ""
 " DSA_METHOD *DSA_OpenSSL(void);\n"
 "\n"
 msgstr ""
+"B< DSA_METHOD *DSA_OpenSSL(void);>\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:25
@@ -1395,6 +1471,12 @@ msgid ""
 "important information about how these DSA API functions are affected by the "
 "use of B<ENGINE> API calls."
 msgstr ""
+"Une B<DSA_METHOD> indique les fonctions qu’OpenSSL utilise pour les "
+"opérations DSA. En modifiant la méthode, les implémentations alternatives "
+"comme les accélérateurs matériels pourraient être utilisés. B<Important> : "
+"consultez la section B<NOTES> qui contient des renseignements importants sur "
+"la façon dont ces fonctions d’interface de programmation DSA sont concernées "
+"par l’utilisation des appels d’interface de programmation B<ENGINE>."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:31
@@ -1402,6 +1484,8 @@ msgid ""
 "Initially, the default DSA_METHOD is the OpenSSL internal implementation, as "
 "returned by DSA_OpenSSL()."
 msgstr ""
+"Initialement, la DSA_METHOD par défaut est l’implémentation interne "
+"d’OpenSSL, telle que renvoyée par B<DSA_OpenSSL>()."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:34
@@ -1410,6 +1494,10 @@ msgid ""
 "structures created later. B<NB>: This is true only whilst no ENGINE has been "
 "set as a default for DSA, so this function is no longer recommended."
 msgstr ""
+"B<DSA_set_default_method>() fait de I<meth> la méthode par défaut pour "
+"toutes les structures DSA créées ensuite. B<Remarque> : ce n’est vrai que "
+"tant qu’aucun ENGINE n’a été défini par défaut pour DSA, donc cette fonction "
+"n’est plus recommandée."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:38
@@ -1419,7 +1507,12 @@ msgid ""
 "whether the ENGINE API is being used, so this function is no longer "
 "recommended."
 msgstr ""
+"B<DSA_get_default_method>() renvoie un pointeur vers la DSA_METHOD par "
+"défaut actuelle. Cependant, la signification de ce résultat dépend de "
+"l’utilisation ou non de l’interface de programmation ENGINE, donc cette "
+"fonction n’est plus recommandée."
 
+# NOTE: s/rsa/dsa/ and s/eg./e.g./
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:43
 msgid ""
@@ -1431,6 +1524,14 @@ msgid ""
 "supports embedded hardware-protected keys), and in such cases attempting to "
 "change the DSA_METHOD for the key can have unexpected results."
 msgstr ""
+"B<DSA_set_method>() sélectionne I<meth> pour réaliser toutes les opérations "
+"utilisant la clef I<dsa>. Cela remplacera la DSA_METHOD utilisée par la clef "
+"DSA et, si la méthode précédente a été fournie par un ENGINE, le traitement "
+"par cet ENGINE sera abandonné pendant la modification. Certaines clefs "
+"pourraient ne fonctionner qu’avec certaines implémentations de DSA_METHOD "
+"(par exemple à partir d’un module ENGINE qui prend en charge les clefs "
+"protégées matériellement) et, dans ces cas, essayer de modifier la "
+"DSA_METHOD pour la clef peut avoir des résultats inattendus."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:52
@@ -1440,11 +1541,16 @@ msgid ""
 "engine for DSA operations is used, and if no default ENGINE is set, the "
 "DSA_METHOD controlled by DSA_set_default_method() is used."
 msgstr ""
+"B<DSA_new_method>() alloue et initialise une structure DSA de telle sorte "
+"qu’I<engine> sera utilisé pour les opérations DSA. Si I<engine> est B<NULL>, "
+"l’ENGINE par défaut pour les opérations DSA est utilisé, et si aucun ENGINE "
+"par défaut n’est défini, la DSA_METHOD contrôlée par "
+"B<DSA_set_default_method>() est utilisée."
 
 #. type: =head1
 #: C/crypto/DSA_set_method.pod:57
 msgid "THE DSA_METHOD STRUCTURE"
-msgstr ""
+msgstr "LA STRUCTURE DSA_METHOD"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:59
@@ -1456,6 +1562,11 @@ msgid ""
 "        const char *name;\n"
 "\n"
 msgstr ""
+"struct\n"
+" {\n"
+"     /* nom de l’implémentation */\n"
+"        const char *name;\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:64
@@ -1466,6 +1577,10 @@ msgid ""
 "                                 DSA *dsa);\n"
 "\n"
 msgstr ""
+"     /* signer */\n"
+"\tDSA_SIG *(*dsa_do_sign)(const unsigned char *dgst, int dlen,\n"
+"                                 DSA *dsa);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:68
@@ -1476,6 +1591,10 @@ msgid ""
 "                                 BIGNUM **rp);\n"
 "\n"
 msgstr ""
+"     /* précalculer k^-1 et r */\n"
+"\tint (*dsa_sign_setup)(DSA *dsa, BN_CTX *ctx_in, BIGNUM **kinvp,\n"
+"                                 BIGNUM **rp);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:72
@@ -1486,6 +1605,10 @@ msgid ""
 "                                 DSA_SIG *sig, DSA *dsa);\n"
 "\n"
 msgstr ""
+"     /* vérifier */\n"
+"\tint (*dsa_do_verify)(const unsigned char *dgst, int dgst_len,\n"
+"                                 DSA_SIG *sig, DSA *dsa);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:76
@@ -1498,6 +1621,12 @@ msgid ""
 "                                 BN_CTX *ctx, BN_MONT_CTX *in_mont);\n"
 "\n"
 msgstr ""
+"     /* calculer rr = a1^p1 * a2^p2 mod m (pourrait être NULL pour\n"
+"                                           certaines implémentations) */\n"
+"\tint (*dsa_mod_exp)(DSA *dsa, BIGNUM *rr, BIGNUM *a1, BIGNUM *p1,\n"
+"                                 BIGNUM *a2, BIGNUM *p2, BIGNUM *m,\n"
+"                                 BN_CTX *ctx, BN_MONT_CTX *in_mont);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:82
@@ -1509,6 +1638,12 @@ msgid ""
 "                                 BN_CTX *ctx, BN_MONT_CTX *m_ctx);\n"
 "\n"
 msgstr ""
+"     /* calculer r = a ^ p mod m (pourrait être NULL pour\n"
+"                                  certaines implémentations) */\n"
+"        int (*bn_mod_exp)(DSA *dsa, BIGNUM *r, BIGNUM *a,\n"
+"                                 const BIGNUM *p, const BIGNUM *m,\n"
+"                                 BN_CTX *ctx, BN_MONT_CTX *m_ctx);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:87
@@ -1518,6 +1653,9 @@ msgid ""
 "        int (*init)(DSA *DSA);\n"
 "\n"
 msgstr ""
+"     /* appelée à DSA_new */\n"
+"        int (*init)(DSA *DSA);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:90
@@ -1527,6 +1665,9 @@ msgid ""
 "        int (*finish)(DSA *DSA);\n"
 "\n"
 msgstr ""
+"     /* appelée à DSA_free */\n"
+"        int (*finish)(DSA *DSA);\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_set_method.pod:93
@@ -1555,6 +1696,8 @@ msgid ""
 " } DSA_METHOD;\n"
 "\n"
 msgstr ""
+" } DSA_METHOD;\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:101
@@ -1562,11 +1705,13 @@ msgid ""
 "DSA_OpenSSL() and DSA_get_default_method() return pointers to the respective "
 "B<DSA_METHOD>s."
 msgstr ""
+"B<DSA_OpenSSL>() et B<DSA_get_default_method>() renvoient des pointeurs vers "
+"les B<DSA_METHOD> respectives."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:104
 msgid "DSA_set_default_method() returns no value."
-msgstr ""
+msgstr "B<DSA_set_default_method>() ne renvoie rien."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:106
@@ -1575,6 +1720,9 @@ msgid ""
 "set as the method for B<dsa> (including unloading the ENGINE handle if the "
 "previous method was supplied by an ENGINE)."
 msgstr ""
+"B<DSA_set_method>() renvoie une valeur non nulle si la I<meth> a été définie "
+"correctement comme la méthode pour I<dsa> (y compris le déchargement du "
+"traitement de l’ENGINE si la méthode précédente était fournie par un ENGINE)."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:110
@@ -1583,7 +1731,12 @@ msgid ""
 "L<ERR_get_error(3)|ERR_get_error(3)> if the allocation fails. Otherwise it "
 "returns a pointer to the newly allocated structure."
 msgstr ""
+"B<DSA_new_method>() renvoie B<NULL> et positionne un code d'erreur qui peut "
+"être récupéré avec L<B<ERR_get_error>(3)|ERR_get_error(3)> si l'allocation "
+"échoue. Sinon, elle renvoie un pointeur vers la structure nouvellement "
+"allouée."
 
+# NOTE: s/eg./e.g./, s/etc/etc./ and s/ie./i.e./
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:116
 msgid ""
@@ -1595,11 +1748,21 @@ msgid ""
 "recommended way to control default implementations for use in DSA and other "
 "cryptographic algorithms."
 msgstr ""
+"Depuis la version 0.9.7, les implémentations DSA_METHOD sont regroupées avec "
+"d’autres interfaces de programmation algorithmiques (par exemple RSA_METHOD, "
+"EVP_CIPHER, etc.) dans les modules B<ENGINE>. Si un ENGINE par défaut est "
+"indiqué pour la fonctionnalité DSA utilisant une fonction d’interface de "
+"programmation ENGINE, cela remplacera tous les DSA par défaut définis en "
+"utilisant l’interface de programmation DSA (c’est-à-dire "
+"B<DSA_set_default_method>()). Pour cette raison, l’interface de "
+"programmation ENGINE est la façon recommandée de contrôler les "
+"implémentations par défaut à utiliser dans les algorithmes cryptographiques "
+"DSA et autres."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:126
 msgid "L<dsa(3)|dsa(3)>, L<DSA_new(3)|DSA_new(3)>"
-msgstr "L<dsa(3)|dsa(3)>, L<DSA_new(3)|DSA_new(3)>"
+msgstr "L<B<dsa>(3)|dsa(3)>, L<B<DSA_new>(3)|DSA_new(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:130
@@ -1607,6 +1770,9 @@ msgid ""
 "DSA_set_default_method(), DSA_get_default_method(), DSA_set_method(), "
 "DSA_new_method() and DSA_OpenSSL() were added in OpenSSL 0.9.4."
 msgstr ""
+"B<DSA_set_default_method>(), B<DSA_get_default_method>(), "
+"B<DSA_set_method>(), B<DSA_new_method>() et B<DSA_OpenSSL>() ont été "
+"ajoutées dans OpenSSL 0.9.4."
 
 #. type: textblock
 #: C/crypto/DSA_set_method.pod:133
@@ -1621,11 +1787,23 @@ msgid ""
 "defaults in the ENGINE API now transparently overrides the behaviour of "
 "defaults in the DSA API without requiring changing these function prototypes."
 msgstr ""
+"B<DSA_set_default_openssl_method>() et B<DSA_get_default_openssl_method>() "
+"ont respectivement remplacé B<DSA_set_default_method>() et "
+"B<DSA_get_default_method>(), et B<DSA_set_method>() et B<DSA_new_method>() "
+"ont été modifiées pour utiliser des B<ENGINE> plutôt que des B<DSA_METHOD> "
+"pendant le développement de la version ENGINE d’OpenSSL 0.9.6. Pour 0.9.7, "
+"le traitement des valeurs par défaut dans l’interface de programmation "
+"ENGINE a été restructuré en revenant sur cette modification, pour que le "
+"comportement des autres fonctions ressemble plus au comportement précédent. "
+"Le comportement des valeurs par défaut dans l’interface de programmation "
+"ENGINE remplace maintenant de façon transparente le comportement des valeurs "
+"par défaut dans l’interface de programmation DSA sans modification "
+"nécessaire de ces prototypes de fonctions."
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:5
 msgid "DSA_sign, DSA_sign_setup, DSA_verify - DSA signatures"
-msgstr ""
+msgstr "DSA_sign, DSA_sign_setup, DSA_verify - Signatures DSA"
 
 #. type: verbatim
 #: C/crypto/DSA_sign.pod:11
@@ -1635,6 +1813,9 @@ msgid ""
 "\t\tunsigned char *sigret, unsigned int *siglen, DSA *dsa);\n"
 "\n"
 msgstr ""
+"B< int\tDSA_sign(int> I<type>B<, const unsigned char *>I<dgst>B<, int> I<len>B<,>\n"
+" \t\tB<unsigned char *>I<sigret>B<, unsigned int *>I<siglen>B<, DSA *>I<dsa>B<);>ZZ\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_sign.pod:14
@@ -1644,6 +1825,9 @@ msgid ""
 "                BIGNUM **rp);\n"
 "\n"
 msgstr ""
+"B< int\tDSA_sign_setup(DSA *>I<dsa>B<, BN_CTX *>I<ctx>B<, BIGNUM **>I<kinvp>B<,>\n"
+"                B<BIGNUM **>I<rp>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/DSA_sign.pod:17
@@ -1653,7 +1837,11 @@ msgid ""
 "\t\tunsigned char *sigbuf, int siglen, DSA *dsa);\n"
 "\n"
 msgstr ""
+"B< int\tDSA_verify(int> I<type>B<, const unsigned char *>I<dgst>B<, int> I<len>B<,>\n"
+" \t\tB<unsigned char *>I<sigbuf>B<, int> I<siglen>B<, DSA *>I<dsa>B<);>\n"
+"\n"
 
+# NOTE: s/places/placed/
 #. type: textblock
 #: C/crypto/DSA_sign.pod:22
 msgid ""
@@ -1662,6 +1850,11 @@ msgid ""
 "B<sigret>. The length of the signature is places in *B<siglen>. B<sigret> "
 "must point to DSA_size(B<dsa>) bytes of memory."
 msgstr ""
+"B<DSA_sign>() calcule une signature numérique du condensé de message I<dgst> "
+"de I<len> octets en utilisant la clef privée I<dsa> et place son encodage "
+"DER ASN.1 en I<sigret>. La taille de la signature est placée en "
+"B<*>I<siglen>. I<sigret> doit pointer vers B<DSA_size>(I<dsa>) octets de "
+"mémoire."
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:27
@@ -1673,6 +1866,14 @@ msgid ""
 "*B<rp> are NULL. These values may be passed to DSA_sign() in B<dsa-"
 "E<gt>kinv> and B<dsa-E<gt>r>.  B<ctx> is a pre-allocated B<BN_CTX> or NULL."
 msgstr ""
+"B<DSA_sign_setup>() pourrait être utilisée pour précalculer une partie de "
+"l’opération de signature quand le temps de création de la signature est "
+"critique. Elle attend dans I<dsa> les paramètres DSA. Elle place les valeurs "
+"précalculées dans les B<BIGNUM> nouvellement alloués en B<*>I<kinvp> et "
+"B<*>I<rp>, après la libération des anciens sauf si B<*>I<kinvp> et B<*>I<rp> "
+"sont B<NULL>. Ces valeurs pourraient être passées à B<DSA_sign>() dans "
+"I<dsa>B<-E<gt>kinv> et I<dsa>B<-E<gt>r>. I<ctx> est un B<BN_CTX> préalloué "
+"ou B<NULL>."
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:35
@@ -1681,26 +1882,36 @@ msgid ""
 "a given message digest B<dgst> of size B<len>.  B<dsa> is the signer's "
 "public key."
 msgstr ""
+"B<DSA_verify>() vérifie que la signature I<sigbuf> de taille I<siglen> "
+"correspond à un condensé de message donné I<dgst> de taille I<len>. I<dsa> "
+"est la clef publique du signataire."
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:39
 msgid "The B<type> parameter is ignored."
-msgstr ""
+msgstr "Le paramètre I<type> est ignoré."
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:41
 msgid ""
 "The PRNG must be seeded before DSA_sign() (or DSA_sign_setup())  is called."
 msgstr ""
+"Le générateur de nombres pseudoaléatoires doit être initialisé avant "
+"d’appeler B<DSA_sign>() (ou B<DSA_sign_setup>())."
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:46
 msgid ""
-"DSA_sign() and DSA_sign_setup() return 1 on success, 0 on error.  DSA_verify"
-"() returns 1 for a valid signature, 0 for an incorrect signature and -1 on "
-"error. The error codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)"
-">."
+"DSA_sign() and DSA_sign_setup() return 1 on success, 0 on error.  "
+"DSA_verify() returns 1 for a valid signature, 0 for an incorrect signature "
+"and -1 on error. The error codes can be obtained by L<ERR_get_error(3)|"
+"ERR_get_error(3)>."
 msgstr ""
+"B<DSA_sign>() et B<DSA_sign_setup>() renvoient B<1> en cas de réussite et "
+"B<0> en cas d’erreur.  B<DSA_verify>() renvoie B<1> pour une signature "
+"valable, B<0> pour une signature incorrecte ou B<-1> en cas d’erreur. Les "
+"codes d’erreur peuvent être obtenus par L<B<ERR_get_error>(3)|"
+"ERR_get_error(3)>."
 
 #. type: =head1
 #: C/crypto/DSA_sign.pod:51 C/crypto/dsa.pod:96 C/crypto/ecdsa.pod:193
@@ -1713,6 +1924,8 @@ msgid ""
 "US Federal Information Processing Standard FIPS 186 (Digital Signature "
 "Standard, DSS), ANSI X9.30"
 msgstr ""
+"US Federal Information Processing Standard FIPS 186 (Digital Signature "
+"Standard, DSS), ANSI X9.30"
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:58
@@ -1720,8 +1933,8 @@ msgid ""
 "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
 "L<DSA_do_sign(3)|DSA_do_sign(3)>"
 msgstr ""
-"L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
-"L<DSA_do_sign(3)|DSA_do_sign(3)>"
+"L<B<dsa>(3)|dsa(3)>, L<B<DSA_do_sign>(3)|DSA_do_sign(3)>, "
+"L<B<ERR_get_error>(3)|ERR_get_error(3)>, L<B<rand>(3)|rand(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_sign.pod:63
@@ -1729,6 +1942,8 @@ msgid ""
 "DSA_sign() and DSA_verify() are available in all versions of SSLeay.  "
 "DSA_sign_setup() was added in SSLeay 0.8."
 msgstr ""
+"B<DSA_sign>() et B<DSA_verify>() sont disponibles dans toutes les versions "
+"de SSLeay. B<DSA_sign_setup>() a été ajoutée dans SSLeay 0.8."
 
 #. type: textblock
 #: C/crypto/DSA_size.pod:5
@@ -1742,7 +1957,7 @@ msgid ""
 " int DSA_size(const DSA *dsa);\n"
 "\n"
 msgstr ""
-" int DSA_size(const DSA *dsa);\n"
+"B< int DSA_size(const DSA *>I<dsa>B<);>\n"
 "\n"
 
 #. type: textblock
@@ -1759,7 +1974,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/DSA_size.pod:19
 msgid "B<dsa-E<gt>q> must not be B<NULL>."
-msgstr "B<dsa-E<gt>q> ne doit pas valloir B<NULL>."
+msgstr "I<dsa>B<-E<gt>q> ne doit pas valoir B<NULL>."
 
 #. type: textblock
 #: C/crypto/DSA_size.pod:23
@@ -1769,18 +1984,18 @@ msgstr "La taille en octets."
 #. type: textblock
 #: C/crypto/DSA_size.pod:27
 msgid "L<dsa(3)|dsa(3)>, L<DSA_sign(3)|DSA_sign(3)>"
-msgstr "L<dsa(3)|dsa(3)>, L<DSA_sign(3)|DSA_sign(3)>"
+msgstr "L<B<dsa>(3)|dsa(3)>, L<B<DSA_sign>(3)|DSA_sign(3)>"
 
 #. type: textblock
 #: C/crypto/DSA_size.pod:31
 msgid "DSA_size() is available in all versions of SSLeay and OpenSSL."
 msgstr ""
-"DSA_size() est disponible dans toutes les versions de SSLeay et d'OpenSSL."
+"B<DSA_size>() est disponible dans toutes les versions de SSLeay et d'OpenSSL."
 
 #. type: textblock
 #: C/crypto/dsa.pod:5
 msgid "dsa - Digital Signature Algorithm"
-msgstr ""
+msgstr "dsa - Algorithme de signature numérique"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:12
@@ -1790,6 +2005,9 @@ msgid ""
 " void\tDSA_free(DSA *dsa);\n"
 "\n"
 msgstr ""
+"B< DSA *\tDSA_new(void);>\n"
+" B<void\tDSA_free(DSA *>I<dsa>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:15
@@ -1798,6 +2016,8 @@ msgid ""
 " int\tDSA_size(const DSA *dsa);\n"
 "\n"
 msgstr ""
+"B< int\tDSA_size(const DSA *>I<dsa>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:17
@@ -1808,6 +2028,10 @@ msgid ""
 "\t\tvoid (*callback)(int, int, void *), void *cb_arg);\n"
 "\n"
 msgstr ""
+"B< DSA *\tDSA_generate_parameters(int> I<bits>B<, unsigned char *>I<seed>B<,>\n"
+"                B<int> I<seed_len>B< int *>I<counter_ret>B<, unsigned long *>I<h_ret>B<,>\n"
+" \t\tB<void (*>I<callback>B<)(int, int, void *), void *>I<cb_arg>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:21
@@ -1816,6 +2040,8 @@ msgid ""
 " DH *\tDSA_dup_DH(const DSA *r);\n"
 "\n"
 msgstr ""
+"B< DH *\tDSA_dup_DH(const DSA *>I<r>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:23
@@ -1824,6 +2050,8 @@ msgid ""
 " int\tDSA_generate_key(DSA *dsa);\n"
 "\n"
 msgstr ""
+"B< int\tDSA_generate_key(DSA *>I<dsa>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:25
@@ -1837,6 +2065,13 @@ msgid ""
 "\t\tconst unsigned char *sigbuf, int siglen, DSA *dsa);\n"
 "\n"
 msgstr ""
+"B< int\tDSA_sign(int> I<dummy>B<, const unsigned char *>I<dgst>B<, int> I<len>B<,>\n"
+" \t\tB<unsigned char *>I<sigret>B<, unsigned int *>I<siglen>B<, DSA *>I<dsa>B<);>\n"
+" B<int\tDSA_sign_setup(DSA *>I<dsa>B<, BN_CTX *>I<ctx>B<, BIGNUM **>I<kinvp>B<,>\n"
+" \t\tB<BIGNUM **>I<rp>B<);>\n"
+" B<int\tDSA_verify(int> I<dummy>B<, const unsigned char *>I<dgst>B<, int> I<len>B<,>\n"
+" \t\tB<const unsigned char *>I<sigbuf>B<, int> I<siglen>B<, DSA *>I<dsa>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:32
@@ -1849,6 +2084,12 @@ msgid ""
 " const DSA_METHOD *DSA_OpenSSL(void);\n"
 "\n"
 msgstr ""
+"B< void DSA_set_default_method(const DSA_METHOD *>I<meth>B<);>\n"
+" B<const DSA_METHOD *DSA_get_default_method(void);>\n"
+" B<int DSA_set_method(DSA *>I<dsa>B<, const DSA_METHOD *>I<meth>B<);>\n"
+" B<DSA *DSA_new_method(ENGINE *>I<engine>B<);>\n"
+" B<const DSA_METHOD *DSA_OpenSSL(void);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:38
@@ -1860,6 +2101,11 @@ msgid ""
 " char *DSA_get_ex_data(DSA *d, int idx);\n"
 "\n"
 msgstr ""
+"B< int DSA_get_ex_new_index(long> I<argl>B<, char *>I<argp>B<, int (*>I<new_func>B<)(),>\n"
+" \t     B<int (*>I<dup_func>B<)(), void (*>I<free_func>B<)());>\n"
+" B<int DSA_set_ex_data(DSA *>I<d>B<, int> I<idx>B<, char *>I<arg>B<);>\n"
+" B<char *DSA_get_ex_data(DSA *>I<d>B<, int> I<idx>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:43
@@ -1871,6 +2117,11 @@ msgid ""
 " DSA_SIG *d2i_DSA_SIG(DSA_SIG **v, unsigned char **pp, long length);\n"
 "\n"
 msgstr ""
+"B< DSA_SIG *DSA_SIG_new(void);>\n"
+" B<void\tDSA_SIG_free(DSA_SIG *>I<a>B<);>\n"
+" B<int\ti2d_DSA_SIG(const DSA_SIG *>I<a>B<, unsigned char **>I<pp>B<);>\n"
+" B<DSA_SIG *d2i_DSA_SIG(DSA_SIG **>I<v>B<, unsigned char **>I<pp>B<, long> I<length>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:48
@@ -1881,6 +2132,10 @@ msgid ""
 "\t     DSA_SIG *sig, DSA *dsa);\n"
 "\n"
 msgstr ""
+"B< DSA_SIG *DSA_do_sign(const unsigned char *>I<dgst>B<, int> I<dlen>B<, DSA *>I<dsa>B<);>\n"
+" B<int\tDSA_do_verify(const unsigned char *>I<dgst>B<, int> I<dgst_len>B<,>\n"
+" \t     B<DSA_SIG *>I<sig>B<, DSA *>I<dsa>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:52
@@ -1894,6 +2149,13 @@ msgid ""
 " int\ti2d_DSAparams(const DSA *a,unsigned char **pp);\n"
 "\n"
 msgstr ""
+"B< DSA *\td2i_DSAPublicKey(DSA **>I<a>B<, unsigned char **>I<pp>B<, long> I<length>B<);>\n"
+" B<DSA *\td2i_DSAPrivateKey(DSA **>I<a>B<, unsigned char **>I<pp>B<, long> I<length>B<);>\n"
+" B<DSA * \td2i_DSAparams(DSA **>I<a>B<, unsigned char **>I<pp>B<, long> I<length>B<);>\n"
+" B<int\ti2d_DSAPublicKey(const DSA *>I<a>B<, unsigned char **>I<pp>B<);>\n"
+" B<int \ti2d_DSAPrivateKey(const DSA *>I<a>B<, unsigned char **>I<pp>B<);>\n"
+" B<int\ti2d_DSAparams(const DSA *>I<a>B<,unsigned char **>I<pp>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/dsa.pod:59
@@ -1905,21 +2167,33 @@ msgid ""
 " int\tDSA_print_fp(FILE *bp, const DSA *x, int off);\n"
 "\n"
 msgstr ""
+"B< int\tDSAparams_print(BIO *>I<bp>B<, const DSA *>I<x>B<);>\n"
+" B<int\tDSAparams_print_fp(FILE *>I<fp>B<, const DSA *>I<x>B<);>\n"
+" B<int\tDSA_print(BIO *>I<bp>B<, const DSA *>I<x>B<, int> I<off>B<);>\n"
+" B<int\tDSA_print_fp(FILE *>I<bp>B<, const DSA *>I<x>B<, int> I<off>B<);>\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/dsa.pod:66
 msgid ""
 "These functions implement the Digital Signature Algorithm (DSA).  The "
-"generation of shared DSA parameters is described in L<DSA_generate_parameters"
-"(3)|DSA_generate_parameters(3)>; L<DSA_generate_key(3)|DSA_generate_key(3)> "
-"describes how to generate a signature key. Signature generation and "
-"verification are described in L<DSA_sign(3)|DSA_sign(3)>."
+"generation of shared DSA parameters is described in "
+"L<DSA_generate_parameters(3)|DSA_generate_parameters(3)>; "
+"L<DSA_generate_key(3)|DSA_generate_key(3)> describes how to generate a "
+"signature key. Signature generation and verification are described in "
+"L<DSA_sign(3)|DSA_sign(3)>."
 msgstr ""
+"Ces fonctions implémentent l’algorithme de signature numérique (DSA). La "
+"création de paramètres DSA partagés est décrite dans "
+"L<B<DSA_generate_parameters>(3)|DSA_generate_parameters(3)> ; "
+"L<B<DSA_generate_key>(3)|DSA_generate_key(3)> décrit la façon de créer une "
+"signature de clef. La création et la vérification de signature sont décrites "
+"dans L<B<DSA_sign>(3)|DSA_sign(3)>."
 
 #. type: textblock
 #: C/crypto/dsa.pod:73
 msgid "The B<DSA> structure consists of several BIGNUM components."
-msgstr ""
+msgstr "La structure B<DSA> est constituée de plusieurs composants BIGNUM."
 
 #. type: verbatim
 #: C/crypto/dsa.pod:75
@@ -1937,11 +2211,23 @@ msgid ""
 " DSA;\n"
 "\n"
 msgstr ""
+" struct\n"
+"        {\n"
+"        BIGNUM *p;\t\t// nombre premier (public)\n"
+"        BIGNUM *q;\t\t// sous-premier (p-1) 160 bits,\n"
+"                  \t\t// q | p-1 (public)\n"
+"        BIGNUM *g;\t\t// générateur de sous-groupe (public)\n"
+"        BIGNUM *priv_key;\t// clef privée x\n"
+"        BIGNUM *pub_key;\t// clef privée y = g^x\n"
+"        // ...\n"
+"        }\n"
+" DSA;\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/dsa.pod:86
 msgid "In public keys, B<priv_key> is NULL."
-msgstr ""
+msgstr "Dans les clefs publiques, I<priv_key> est B<NULL>."
 
 #. type: textblock
 #: C/crypto/dsa.pod:88
@@ -1954,23 +2240,41 @@ msgid ""
 "structure elements directly and instead use API functions to query or modify "
 "keys."
 msgstr ""
+"Remarquez que les clefs DSA pourraient utiliser des implémentations de "
+"B<DSA_METHOD> non standards, soit directement, soit en utilisant des modules "
+"B<ENGINE>. Dans certains cas (par exemple un ENGINE prenant en charge les "
+"clefs protégées matériellement), ces valeurs de BIGNUM ne seront pas "
+"utilisées par l’implémentation ou pourraient être utilisées pour le stockage "
+"de données alternatives. Pour cette raison, les applications devraient "
+"normalement éviter d’utiliser directement des éléments de structure DSA et "
+"utiliser à la place les fonctions d’interface de programmation pour demander "
+"ou modifier des clefs."
 
 #. type: textblock
 #: C/crypto/dsa.pod:103
 msgid ""
-"L<bn(3)|bn(3)>, L<dh(3)|dh(3)>, L<err(3)|err(3)>, L<rand(3)|rand(3)>, L<rsa"
-"(3)|rsa(3)>, L<sha(3)|sha(3)>, L<engine(3)|engine(3)>, L<DSA_new(3)|DSA_new"
-"(3)>, L<DSA_size(3)|DSA_size(3)>, L<DSA_generate_parameters(3)|"
+"L<bn(3)|bn(3)>, L<dh(3)|dh(3)>, L<err(3)|err(3)>, L<rand(3)|rand(3)>, "
+"L<rsa(3)|rsa(3)>, L<sha(3)|sha(3)>, L<engine(3)|engine(3)>, L<DSA_new(3)|"
+"DSA_new(3)>, L<DSA_size(3)|DSA_size(3)>, L<DSA_generate_parameters(3)|"
 "DSA_generate_parameters(3)>, L<DSA_dup_DH(3)|DSA_dup_DH(3)>, "
 "L<DSA_generate_key(3)|DSA_generate_key(3)>, L<DSA_sign(3)|DSA_sign(3)>, "
 "L<DSA_set_method(3)|DSA_set_method(3)>, L<DSA_get_ex_new_index(3)|"
 "DSA_get_ex_new_index(3)>, L<RSA_print(3)|RSA_print(3)>"
 msgstr ""
+"L<B<bn>(3)|bn(3)>, L<B<dh>(3)|dh(3)>, L<B<engine>(3)|engine(3)>, L<B<err>(3)|"
+"err(3)>, L<B<rand>(3)|rand(3)>, L<B<rsa>(3)|rsa(3)>, L<B<sha>(3)|sha(3)>, "
+"L<B<DSA_new>(3)|DSA_new(3)>, L<B<DSA_size>(3)|DSA_size(3)>, "
+"L<B<DSA_generate_parameters>(3)|DSA_generate_parameters(3)>, "
+"L<B<DSA_dup_DH>(3)|DSA_dup_DH(3)>, L<B<DSA_generate_key>(3)|"
+"DSA_generate_key(3)>, L<B<DSA_sign>(3)|DSA_sign(3)>, L<B<DSA_set_method>(3)|"
+"DSA_set_method(3)>, L<B<DSA_get_ex_new_index>(3)|DSA_get_ex_new_index(3)>, "
+"L<B<RSA_print>(3)|RSA_print(3)>"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:5
 msgid "ecdsa - Elliptic Curve Digital Signature Algorithm"
 msgstr ""
+"ecdsa - Algorithme de signature numérique utilisant les courbes elliptiques"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:9
@@ -1979,6 +2283,8 @@ msgid ""
 " #include <openssl/ecdsa.h>\n"
 "\n"
 msgstr ""
+"B< #include E<lt>openssl/ecdsa.hE<gt>>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:11
@@ -1991,6 +2297,12 @@ msgid ""
 "\t\tlong len);\n"
 "\n"
 msgstr ""
+"B< ECDSA_SIG*\tECDSA_SIG_new(void);>\n"
+" B<void\t\tECDSA_SIG_free(ECDSA_SIG *>I<sig>B<);>\n"
+" B<int\t\ti2d_ECDSA_SIG(const ECDSA_SIG *>I<sig>B<, unsigned char **>I<pp>B<);>\n"
+" B<ECDSA_SIG*\td2i_ECDSA_SIG(ECDSA_SIG **>I<sig>B<, const unsigned char **>I<pp>B<,>\n"
+" \t\tB<long> I<len>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:17
@@ -2018,6 +2330,27 @@ msgid ""
 " int\t\tECDSA_size(const EC_KEY *eckey);\n"
 "\n"
 msgstr ""
+"B< ECDSA_SIG*\tECDSA_do_sign(const unsigned char *>I<dgst>B<, int> I<dgst_len>B<,>\n"
+" \t\t\tB<EC_KEY *>I<eckey>B<);>\n"
+" B<ECDSA_SIG*\tECDSA_do_sign_ex(const unsigned char *>I<dgst>B<, int> I<dgstlen>B<,>\n"
+" \t\t\tB<const BIGNUM *>I<kinv>B<, const BIGNUM *>I<rp>B<,>\n"
+" \t\t\tB<EC_KEY *>I<eckey>B<);>\n"
+" B<int\t\tECDSA_do_verify(const unsigned char *>I<dgst>B<, int> I<dgst_len>B<,>\n"
+" \t\t\tB<const ECDSA_SIG *>I<sig>B<, EC_KEY *>I<eckey>B<);>\n"
+" B<int\t\tECDSA_sign_setup(EC_KEY *>I<eckey>B<, BN_CTX *>I<ctx>B<,>\n"
+" \t\t\tB<BIGNUM **>I<kinv>B<, BIGNUM **>I<rp>B<);>\n"
+" B<int\t\tECDSA_sign(int> I<type>B<, const unsigned char *>I<dgst>B<,>\n"
+" \t\t\tB<int> I<dgstlen>B<, unsigned char *>I<sig>B<,>\n"
+" \t\t\tB<unsigned> I<int *>I<siglen>B<, EC_KEY *>I<eckey>B<);>\n"
+" B<int\t\tECDSA_sign_ex(int> I<type>B<, const unsigned char *>I<dgst>B<,>\n"
+" \t\t\tB<int> I<dgstlen>B<, unsigned char *>I<sig>B<,>\n"
+" \t\t\tB<unsigned int *>I<siglen>B<, const BIGNUM *>I<kinv>B<,>\n"
+" \t\t\tB<const BIGNUM *>I<rp>B<, EC_KEY *>I<eckey>B<);>\n"
+" B<int\t\tECDSA_verify(int> I<type>B<, const unsigned char *>I<dgst>B<,>\n"
+" \t\t\tB<int> I<dgstlen>B<, const unsigned char *>I<sig>B<,>\n"
+" \t\t\tB<int> I<siglen>B<, EC_KEY *>I<eckey>B<);>\n"
+" B<int\t\tECDSA_size(const EC_KEY *>I<eckey>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:38
@@ -2029,6 +2362,11 @@ msgid ""
 " int\t\tECDSA_set_method(EC_KEY *eckey,const ECDSA_METHOD *meth);\n"
 "\n"
 msgstr ""
+"B< const ECDSA_METHOD*\tECDSA_OpenSSL(void);>\n"
+" B<void\t\tECDSA_set_default_method(const ECDSA_METHOD *>I<meth>B<);>\n"
+" B<const ECDSA_METHOD*\tECDSA_get_default_method(void);>\n"
+" B<int\t\tECDSA_set_method(EC_KEY *>I<eckey>B<,const ECDSA_METHOD *>I<meth>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:43
@@ -2042,6 +2380,13 @@ msgid ""
 " void*\t\tECDSA_get_ex_data(EC_KEY *d, int idx);\n"
 "\n"
 msgstr ""
+"B< int\t\tECDSA_get_ex_new_index(long argl, void *>I<argp>B<,>\n"
+" \t\t\tB<CRYPTO_EX_new *>I<new_func>B<,>\n"
+" \t\t\tB<CRYPTO_EX_dup *>I<dup_func>B<,>\n"
+" \t\t\tB<CRYPTO_EX_free *>I<free_func>B<);>\n"
+" B<int\t\tECDSA_set_ex_data(EC_KEY *>I<d>B<, int> I<idx>B<, void *>I<arg>B<);>\n"
+" B<void*\t\tECDSA_get_ex_data(EC_KEY *>I<d>B<, int> I<idx>B<);>\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:52
@@ -2049,6 +2394,8 @@ msgid ""
 "The B<ECDSA_SIG> structure consists of two BIGNUMs for the r and s value of "
 "a ECDSA signature (see X9.62 or FIPS 186-2)."
 msgstr ""
+"La structure B<ECDSA_SIG> est constituée de deux BIGNUM pour les valeurs "
+"I<r> et I<s> d’une signature ECDSA (consultez X9.62 ou FIPS 186-2)."
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:55
@@ -2061,6 +2408,12 @@ msgid ""
 " } ECDSA_SIG;\n"
 "\n"
 msgstr ""
+" struct\n"
+"\t{\n"
+"\tBIGNUM *r;\n"
+"\tBIGNUM *s;\n"
+" } ECDSA_SIG;\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:61
@@ -2068,12 +2421,15 @@ msgid ""
 "ECDSA_SIG_new() allocates a new B<ECDSA_SIG> structure (note: this function "
 "also allocates the BIGNUMs) and initialize it."
 msgstr ""
+"B<ECDSA_SIG_new>() alloue une nouvelle structure B<ECDSA_SIG> (remarque : "
+"cette fonction alloue aussi les BIGNUM) et l’initialise."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:64
 msgid "ECDSA_SIG_free() frees the B<ECDSA_SIG> structure B<sig>."
-msgstr ""
+msgstr "B<ECDSA_SIG_free>() libère la structure B<ECDSA_SIG> I<sig>."
 
+# NOTE: s/. B<i2d_ECDSA_SIG> returns the length of the DER encoded signature //
 #. type: textblock
 #: C/crypto/ecdsa.pod:66
 msgid ""
@@ -2083,6 +2439,10 @@ msgid ""
 "signature). B<i2d_ECDSA_SIG> returns the length of the DER encoded signature "
 "(or 0 on error)."
 msgstr ""
+"B<i2d_ECDSA_SIG>() crée l’encodage DER de la signature ECDSA I<sig> et écrit "
+"la signature encodée dans B<*>I<pp> (remarque : si I<pp> est B<NULL>, "
+"B<i2d_ECDSA_SIG> renvoie la taille attendue en octet de la signature encodée "
+"DER (ou B<0> en cas d’erreur)."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:72
@@ -2091,6 +2451,10 @@ msgid ""
 "decoded signature in a newly allocated B<ECDSA_SIG> structure.  B<*sig> "
 "points to the buffer containing the DER encoded signature of size B<len>."
 msgstr ""
+"B<d2i_ECDSA_SIG>() décode une signature ECDSA encodée DER et renvoie la "
+"signature décodée dans une structure B<ECDSA_SIG> nouvellement allouée. "
+"B<*>I<sig> pointe vers le tampon contenant la signature encodée DER de "
+"taille I<len>."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:77
@@ -2098,6 +2462,8 @@ msgid ""
 "ECDSA_size() returns the maximum length of a DER encoded ECDSA signature "
 "created with the private EC key B<eckey>."
 msgstr ""
+"B<ECDSA_size>() renvoie la taille maximale d’une signature ECDSA encodée DER "
+"créée avec la clef privée I<eckey>."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:80
@@ -2107,6 +2473,11 @@ msgid ""
 "structure (or NULL). The precomputed values or returned in B<kinv> and B<rp> "
 "and can be used in a later call to B<ECDSA_sign_ex> or B<ECDSA_do_sign_ex>."
 msgstr ""
+"B<ECDSA_sign_setup>() pourrait être utilisée pour précalculer des parties de "
+"l’opération de signature. I<eckey> est la clef privée EC et I<ctx> est un "
+"pointeur vers la structure I<BN_CTX> (ou B<NULL>). Les valeurs précalculées "
+"ou renvoyées dans I<kinv> et I<rp> peuvent être utilisées dans un appel "
+"suivant de B<ECDSA_sign_ex> ou B<ECDSA_do_sign_ex>."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:86
@@ -2114,6 +2485,8 @@ msgid ""
 "ECDSA_sign() is wrapper function for ECDSA_sign_ex with B<kinv> and B<rp> "
 "set to NULL."
 msgstr ""
+"B<ECDSA_sign>() est une fonction enveloppe pour B<ECDSA_sign_ex> avec "
+"I<kinv> et I<rp> définies à B<NULL>."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:89
@@ -2124,6 +2497,12 @@ msgid ""
 "B<sig> and it's length is returned in B<sig_len>. Note: B<sig> must point to "
 "B<ECDSA_size> bytes of memory. The parameter B<type> is ignored."
 msgstr ""
+"B<ECDSA_sign_ex>() calcule une signature numérique de la valeur de hachage "
+"I<dgst>, de I<dgstlen> octets, en utilisant la clef privée EC I<eckey> et "
+"les valeurs précalculées facultatives I<kinv> et I<rp>. La signature encodée "
+"DER est stockée dans I<sig> et sa taille est renvoyée dans I<sig_len>. "
+"Remarque : I<sig> doit pointer vers B<ECDSA_size> octets de mémoire. Le "
+"paramètre I<type> est ignoré."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:96
@@ -2132,6 +2511,10 @@ msgid ""
 "valid ECDSA signature of the hash value value B<dgst> of size B<dgstlen> "
 "using the public key B<eckey>.  The parameter B<type> is ignored."
 msgstr ""
+"B<ECDSA_verify>() vérifie que la signature dans I<sig> de taille I<siglen> "
+"est une signature ECDSA valable de la valeur de hachage I<dgst> de taille "
+"I<dgstlen> en utilisant la clef publique I<eckey>. Le paramètre I<type> est "
+"ignoré."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:101
@@ -2139,6 +2522,8 @@ msgid ""
 "ECDSA_do_sign() is wrapper function for ECDSA_do_sign_ex with B<kinv> and "
 "B<rp> set to NULL."
 msgstr ""
+"B<ECDSA_do_sign>() est une fonction enveloppe pour B<ECDSA_do_sign_ex> avec "
+"I<kinv> et I<rp> définies à B<NULL>."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:104
@@ -2148,6 +2533,11 @@ msgid ""
 "computed values B<kinv> and B<rp>. The signature is returned in a newly "
 "allocated B<ECDSA_SIG> structure (or NULL on error)."
 msgstr ""
+"B<ECDSA_do_sign_ex>() calcule une signature numérique de la valeur de "
+"hachage I<dgst>, de I<dgstlen> octets, en utilisant la clef privée I<eckey> "
+"et les valeurs précalculées facultatives I<kinv> et I<rp>. La signature est "
+"renvoyée dans une structure B<ECDSA_SIG> nouvellement allouée (ou B<NULL> en "
+"cas d’erreur)."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:109
@@ -2156,23 +2546,24 @@ msgid ""
 "signature of the hash value B<dgst> of size B<dgst_len> using the public key "
 "B<eckey>."
 msgstr ""
+"B<ECDSA_do_verify>() vérifie que la signature I<sig> est une signature ECDSA "
+"valable de la valeur de hachage I<dgst> de taille I<dgst_len> en utilisant "
+"la clef publique I<eckey>."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:115
 msgid "ECDSA_size() returns the maximum length signature or 0 on error."
 msgstr ""
+"B<ECDSA_size>() renvoie la taille maximale de signature ou B<0> en cas "
+"d’erreur."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:117
-#, fuzzy
-#| msgid ""
-#| "SHA1_Init(), SHA1_Update() and SHA1_Final() return 1 for success, 0 "
-#| "otherwise."
 msgid ""
 "ECDSA_sign_setup() and ECDSA_sign() return 1 if successful or 0 on error."
 msgstr ""
-"SHA1_Init(), SHA1_Update() et SHA1_Final() renvoie 1 en cas de succès et 0 "
-"sinon."
+"B<ECDSA_sign_setup>() et B<ECDSA_sign>() renvoient B<1> en cas de réussite "
+"ou B<0> en cas d’erreur."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:120
@@ -2181,6 +2572,10 @@ msgid ""
 "an invalid signature and -1 on error.  The error codes can be obtained by "
 "L<ERR_get_error(3)|ERR_get_error(3)>."
 msgstr ""
+"B<ECDSA_verify>() et B<ECDSA_do_verify>() renvoient B<1> pour une signature "
+"valable, B<0> pour une signature incorrecte ou B<-1> en cas d’erreur. Les "
+"codes d’erreur peuvent être obtenus par L<B<ERR_get_error>(3)|"
+"ERR_get_error(3)>."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:126
@@ -2188,12 +2583,16 @@ msgid ""
 "Creating a ECDSA signature of given SHA-1 hash value using the named curve "
 "secp192k1."
 msgstr ""
+"Création d’une signature ECDSA d’une valeur de hachage SHA-1 donnée en "
+"utilisant la courbe secp192k1 donnée."
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:129
 msgid ""
 "First step: create a EC_KEY object (note: this part is B<not> ECDSA specific)"
 msgstr ""
+"Première étape : créer un objet EC_KEY (remarque : cette partie n’est B<pas> "
+"spécifique à ECDSA)"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:132
@@ -2217,6 +2616,23 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+" int        ret;\n"
+" ECDSA_SIG *sig;\n"
+" EC_KEY    *eckey = EC_KEY_new();\n"
+" if (eckey == NULL)\n"
+"\t{\n"
+"\t/* erreur */\n"
+"\t}\n"
+" key->group = EC_GROUP_new_by_nid(NID_secp192k1);\n"
+" if (key->group == NULL)\n"
+"\t{\n"
+"\t/* erreur */\n"
+"\t}\n"
+" if (!EC_KEY_generate_key(eckey))\n"
+"\t{\n"
+"\t/* erreur */\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:149
@@ -2224,6 +2640,8 @@ msgid ""
 "Second step: compute the ECDSA signature of a SHA-1 hash value using "
 "B<ECDSA_do_sign>"
 msgstr ""
+"Deuxième étape : calculer la signature ECDSA d’une valeur de hachage SHA-1 "
+"en utilisant B<ECDSA_do_sign>"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:152
@@ -2236,11 +2654,17 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+" sig = ECDSA_do_sign(digest, 20, eckey);\n"
+" if (sig == NULL)\n"
+"\t{\n"
+"\t/* erreur */\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:158
 msgid "or using B<ECDSA_sign>"
-msgstr ""
+msgstr "ou en utilisant B<ECDSA_sign>"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:160
@@ -2257,11 +2681,23 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+" unsigned char *buffer, *pp;\n"
+" int            buf_len;\n"
+" buf_len = ECDSA_size(eckey);\n"
+" buffer  = OPENSSL_malloc(buf_len);\n"
+" pp = buffer;\n"
+" if (!ECDSA_sign(0, dgst, dgstlen, pp, &buf_len, eckey);\n"
+"\t{\n"
+"\t/* erreur */\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:170
 msgid "Third step: verify the created ECDSA signature using B<ECDSA_do_verify>"
 msgstr ""
+"Troisième étape : vérifier la signature ECDSA créée en utilisant "
+"B<ECDSA_do_verify>"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:172
@@ -2270,11 +2706,13 @@ msgid ""
 " ret = ECDSA_do_verify(digest, 20, sig, eckey);\n"
 "\n"
 msgstr ""
+" ret = ECDSA_do_verify(digest, 20, sig, eckey);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:174
 msgid "or using B<ECDSA_verify>"
-msgstr ""
+msgstr "ou en utilisant B<ECDSA_verify>"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:176
@@ -2283,11 +2721,13 @@ msgid ""
 " ret = ECDSA_verify(0, digest, 20, buffer, buf_len, eckey);\n"
 "\n"
 msgstr ""
+" ret = ECDSA_verify(0, digest, 20, buffer, buf_len, eckey);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:178
 msgid "and finally evaluate the return value:"
-msgstr ""
+msgstr "et enfin évaluer la valeur de retour :"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:180
@@ -2307,6 +2747,19 @@ msgid ""
 "\t}\n"
 "\n"
 msgstr ""
+" if (ret == -1)\n"
+"\t{\n"
+"\t/* erreur */\n"
+"\t}\n"
+" else if (ret == 0)\n"
+"\t{\n"
+"\t/* signature incorrecte */\n"
+"\t}\n"
+" else\t/* ret == 1 */\n"
+"\t{\n"
+"\t/* signature correcte*/\n"
+"\t}\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:195
@@ -2314,16 +2767,20 @@ msgid ""
 "ANSI X9.62, US Federal Information Processing Standard FIPS 186-2 (Digital "
 "Signature Standard, DSS)"
 msgstr ""
+"ANSI X9.62, US Federal Information Processing Standard FIPS 186-2 (Digital "
+"Signature Standard, DSS)"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:200
 msgid "L<dsa(3)|dsa(3)>, L<rsa(3)|rsa(3)>"
-msgstr "L<dsa(3)|dsa(3)>, L<rsa(3)|rsa(3)>"
+msgstr "L<B<dsa>(3)|dsa(3)>, L<B<rsa>(3)|rsa(3)>"
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:204
 msgid "The ecdsa implementation was first introduced in OpenSSL 0.9.8"
 msgstr ""
+"L’implémentation ecdsa a été introduite pour la première fois dans "
+"OpenSSL 0.9.8"
 
 #. type: =head1
 #: C/crypto/ecdsa.pod:206
