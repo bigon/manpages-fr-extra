@@ -1,5 +1,5 @@
 '\" t
-.\" @(#)lilo.conf.5 1.0 950728 aeb
+.\" @(#)lilo.conf.5
 .\" This page is based on the lilo docs, which carry the following
 .\" COPYING condition:
 .\"
@@ -7,6 +7,9 @@
 .\" Copyright 1992-1998 Werner Almesberger.
 .\" Extensions to LILO, documentation and auxiliary programs are
 .\" Copyright 1999-2005 John Coffman.
+.\" Extensions to LILO, documentation and auxiliary programs are
+.\" Copyright 2009-2011 Joachim Wiedorn.
+.\"
 .\" All rights reserved by the respective copyright holders.
 .\" 
 .\" Redistribution and use in source and binary forms of parts of or the
@@ -16,7 +19,7 @@
 .\" this software without specific prior written permission. This work
 .\" is provided "as is" and without any express or implied warranties.
 .\"
-.TH LILO.CONF 5 "April 2011"
+.TH LILO.CONF 5 "June 2013"
 .SH NAME
 lilo.conf \- configuration file for lilo
 .SH DESCRIPTION
@@ -69,7 +72,7 @@ other=/dev/hdb5
 This configuration file specifies that lilo uses the Master
 Boot Record on /dev/hda. (For a discussion of the various ways
 to use lilo, and the interaction with other operating systems,
-see user.pdf / user.html from the lilo documentation.)
+see html/user_21-5.html inside the old documentation.)
 .LP
 When booting, the boot loader will issue its 
 .I "boot:"
@@ -94,8 +97,9 @@ An option in an image description will override a global option.
 Comment lines may appear anywhere, and begin with the "#" character.
 
 .SH "GLOBAL OPTIONS"
-There are many possible keywords. The description below is
-almost literally from user.pdf / user.html (just slightly abbreviated).
+There are many possible keywords. The description below is almost
+literally from html/user_21-5.html inside the old documentation 
+(just slightly abbreviated).
 .TP
 .BI "backup=" <backup-file>
 Specifies the location where a copy of any modified boot sector will be
@@ -228,7 +232,8 @@ rules are sufficient.  The strings which define the partition types
 are used in a
 .I change
 section (see below), with the suffixes "_normal" or "_hidden" appended.
-See section "Partition type change rules" of user.pdf / user.html for more details.
+See section "Partition type change rules" of html/user_21-5.html inside 
+the old documentation for more details.
 .TP
 .BI "compact"
 Tries to merge read requests for adjacent sectors into a single 
@@ -257,8 +262,8 @@ keys ALT, CTRL, or SHIFT, when held down, are taken as interrupts.
 This action is modified by specifying `prompt' (see below).
 .TP
 .BI "disk=" <device-name>
-Defines non-standard parameters for the specified disk.
-See section "Disk geometry" of user.pdf / user.html for details.
+Defines non-standard parameters for the specified disk. See section 
+"Disk geometry" of html/user_21-5.html inside the old documentation for details.
 For versions of LILO prior to 22.5, the `bios=' parameter
 is quite useful for specifying how the BIOS has assigned
 device codes to your disks.
@@ -862,11 +867,6 @@ E.g., MS-DOS usually stores the geometry of the boot disk or partition
 in its boot sector.)
 Note that /sbin/lilo must be re-run if a partition table mapped referenced
 with `table' is modified.
-.TP
-.BI "table=" <drive-letter>
-This option is obsolete. It were used in the special case with the obsolete
-.I os2_d
-chain loader.
 .TP
 .BI "change"
 This keyword starts a section which describes how primary partition IDs are

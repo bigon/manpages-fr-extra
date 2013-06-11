@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 #
 #       pod2manpage  -  convert pod file into manual page
 #       
-#       Copyright 2009-2010 Joachim Wiedorn <ad_debian at joonet.de>
+#       Copyright 2009-2013 Joachim Wiedorn <ad_debian at joonet.de>
 #       
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -54,15 +54,15 @@ fi
 
 # read file header
 SUCH=manpage
-manpage=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+manpage=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=section
-section=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+section=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=title
-title=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+title=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=version
-version=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+version=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=datum
-datum=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+datum=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 
 # check for utf8 encoding
 mycoding=""
