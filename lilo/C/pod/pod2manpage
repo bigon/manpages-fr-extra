@@ -54,15 +54,15 @@ fi
 
 # read file header
 SUCH=manpage
-manpage=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+manpage=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=section
-section=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+section=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=title
-title=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+title=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=version
-version=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+version=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 SUCH=datum
-datum=$(head -n7 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
+datum=$(head -n20 "$1" | grep $SUCH | sed -e "s/\.*${SUCH}\:\ *\(.*\)/\1/")
 
 # check for utf8 encoding
 mycoding=""
