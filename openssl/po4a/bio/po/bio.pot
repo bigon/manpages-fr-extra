@@ -1,0 +1,4410 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-05-27 23:32-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: =head1
+#: C/crypto/BIO_ctrl.pod:3 C/crypto/BIO_f_base64.pod:3 C/crypto/BIO_f_buffer.pod:3 C/crypto/BIO_f_cipher.pod:3 C/crypto/BIO_f_md.pod:3 C/crypto/BIO_f_null.pod:3 C/crypto/BIO_f_ssl.pod:3 C/crypto/BIO_find_type.pod:3 C/crypto/BIO_new.pod:3 C/crypto/BIO_new_CMS.pod:3 C/crypto/BIO_push.pod:3 C/crypto/BIO_read.pod:3 C/crypto/BIO_s_accept.pod:3 C/crypto/BIO_s_bio.pod:3 C/crypto/BIO_s_connect.pod:3 C/crypto/BIO_s_fd.pod:3 C/crypto/BIO_s_file.pod:3 C/crypto/BIO_s_mem.pod:3 C/crypto/BIO_s_null.pod:3 C/crypto/BIO_s_socket.pod:3 C/crypto/BIO_set_callback.pod:3 C/crypto/BIO_should_retry.pod:3 C/crypto/bio.pod:3
+msgid "NAME"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:5
+msgid ""
+"BIO_ctrl, BIO_callback_ctrl, BIO_ptr_ctrl, BIO_int_ctrl, BIO_reset, "
+"BIO_seek, BIO_tell, BIO_flush, BIO_eof, BIO_set_close, BIO_get_close, "
+"BIO_pending, BIO_wpending, BIO_ctrl_pending, BIO_ctrl_wpending, "
+"BIO_get_info_callback, BIO_set_info_callback - BIO control operations"
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_ctrl.pod:10 C/crypto/BIO_f_base64.pod:7 C/crypto/BIO_f_buffer.pod:7 C/crypto/BIO_f_cipher.pod:7 C/crypto/BIO_f_md.pod:7 C/crypto/BIO_f_null.pod:7 C/crypto/BIO_f_ssl.pod:10 C/crypto/BIO_find_type.pod:7 C/crypto/BIO_new.pod:7 C/crypto/BIO_new_CMS.pod:7 C/crypto/BIO_push.pod:7 C/crypto/BIO_read.pod:7 C/crypto/BIO_s_accept.pod:9 C/crypto/BIO_s_bio.pod:10 C/crypto/BIO_s_connect.pod:10 C/crypto/BIO_s_fd.pod:7 C/crypto/BIO_s_file.pod:9 C/crypto/BIO_s_mem.pod:8 C/crypto/BIO_s_null.pod:7 C/crypto/BIO_s_socket.pod:7 C/crypto/BIO_set_callback.pod:8 C/crypto/BIO_should_retry.pod:9 C/crypto/bio.pod:7
+msgid "SYNOPSIS"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_ctrl.pod:12 C/crypto/BIO_f_buffer.pod:9 C/crypto/BIO_f_null.pod:9 C/crypto/BIO_find_type.pod:9 C/crypto/BIO_new.pod:9 C/crypto/BIO_push.pod:9 C/crypto/BIO_read.pod:9 C/crypto/BIO_s_accept.pod:11 C/crypto/BIO_s_bio.pod:12 C/crypto/BIO_s_connect.pod:12 C/crypto/BIO_s_fd.pod:9 C/crypto/BIO_s_file.pod:11 C/crypto/BIO_s_mem.pod:10 C/crypto/BIO_s_null.pod:9 C/crypto/BIO_s_socket.pod:9 C/crypto/BIO_set_callback.pod:10 C/crypto/BIO_should_retry.pod:11 C/crypto/bio.pod:9
+#, no-wrap
+msgid ""
+" #include <openssl/bio.h>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_ctrl.pod:14
+#, no-wrap
+msgid ""
+" long BIO_ctrl(BIO *bp,int cmd,long larg,void *parg);\n"
+" long BIO_callback_ctrl(BIO *b, int cmd, void (*fp)(struct bio_st *, int, "
+"const char *, int, long, long));\n"
+" char *\tBIO_ptr_ctrl(BIO *bp,int cmd,long larg);\n"
+" long BIO_int_ctrl(BIO *bp,int cmd,long larg,int iarg);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_ctrl.pod:19
+#, no-wrap
+msgid ""
+" int BIO_reset(BIO *b);\n"
+" int BIO_seek(BIO *b, int ofs);\n"
+" int BIO_tell(BIO *b);\n"
+" int BIO_flush(BIO *b);\n"
+" int BIO_eof(BIO *b);\n"
+" int BIO_set_close(BIO *b,long flag);\n"
+" int BIO_get_close(BIO *b);\n"
+" int BIO_pending(BIO *b);\n"
+" int BIO_wpending(BIO *b);\n"
+" size_t BIO_ctrl_pending(BIO *b);\n"
+" size_t BIO_ctrl_wpending(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_ctrl.pod:31
+#, no-wrap
+msgid ""
+" int BIO_get_info_callback(BIO *b,bio_info_cb **cbp);\n"
+" int BIO_set_info_callback(BIO *b,bio_info_cb *cb);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_ctrl.pod:34
+#, no-wrap
+msgid ""
+" typedef void bio_info_cb(BIO *b, int oper, const char *ptr, int arg1, long "
+"arg2, long arg3);\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_ctrl.pod:36 C/crypto/BIO_f_base64.pod:14 C/crypto/BIO_f_buffer.pod:19 C/crypto/BIO_f_cipher.pod:18 C/crypto/BIO_f_md.pod:17 C/crypto/BIO_f_null.pod:13 C/crypto/BIO_f_ssl.pod:35 C/crypto/BIO_find_type.pod:41 C/crypto/BIO_new.pod:17 C/crypto/BIO_new_CMS.pod:13 C/crypto/BIO_push.pod:14 C/crypto/BIO_read.pod:16 C/crypto/BIO_s_accept.pod:32 C/crypto/BIO_s_bio.pod:34 C/crypto/BIO_s_connect.pod:31 C/crypto/BIO_s_fd.pod:18 C/crypto/BIO_s_file.pod:25 C/crypto/BIO_s_mem.pod:21 C/crypto/BIO_s_null.pod:13 C/crypto/BIO_s_socket.pod:18 C/crypto/BIO_set_callback.pod:23 C/crypto/BIO_should_retry.pod:28 C/crypto/bio.pod:14
+msgid "DESCRIPTION"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:38
+msgid ""
+"BIO_ctrl(), BIO_callback_ctrl(), BIO_ptr_ctrl() and BIO_int_ctrl()  are BIO "
+"\"control\" operations taking arguments of various types.  These functions "
+"are not normally called directly, various macros are used instead. The "
+"standard macros are described below, macros specific to a particular type of "
+"BIO are described in the specific BIOs manual page as well as any special "
+"features of the standard calls."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:46
+msgid ""
+"BIO_reset() typically resets a BIO to some initial state, in the case of "
+"file related BIOs for example it rewinds the file pointer to the start of "
+"the file."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:50
+msgid ""
+"BIO_seek() resets a file related BIO's (that is file descriptor and FILE "
+"BIOs) file position pointer to B<ofs> bytes from start of file."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:53
+msgid "BIO_tell() returns the current file position of a file related BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:55
+msgid ""
+"BIO_flush() normally writes out any internally buffered data, in some cases "
+"it is used to signal EOF and that no more data will be written."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:58
+msgid ""
+"BIO_eof() returns 1 if the BIO has read EOF, the precise meaning of \"EOF\" "
+"varies according to the BIO type."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:61
+msgid ""
+"BIO_set_close() sets the BIO B<b> close flag to B<flag>. B<flag> can take "
+"the value BIO_CLOSE or BIO_NOCLOSE. Typically BIO_CLOSE is used in a "
+"source/sink BIO to indicate that the underlying I/O stream should be closed "
+"when the BIO is freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:66
+msgid "BIO_get_close() returns the BIOs close flag."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:68
+msgid ""
+"BIO_pending(), BIO_ctrl_pending(), BIO_wpending() and BIO_ctrl_wpending()  "
+"return the number of pending characters in the BIOs read and write buffers.  "
+"Not all BIOs support these calls. BIO_ctrl_pending() and BIO_ctrl_wpending()  "
+"return a size_t type and are functions, BIO_pending() and BIO_wpending() are "
+"macros which call BIO_ctrl()."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_ctrl.pod:74 C/crypto/BIO_f_base64.pod:35 C/crypto/BIO_f_buffer.pod:55 C/crypto/BIO_f_cipher.pod:59 C/crypto/BIO_f_md.pod:67 C/crypto/BIO_f_null.pod:26 C/crypto/BIO_f_ssl.pod:127 C/crypto/BIO_find_type.pod:58 C/crypto/BIO_new.pod:32 C/crypto/BIO_new_CMS.pod:52 C/crypto/BIO_push.pod:60 C/crypto/BIO_read.pod:31 C/crypto/BIO_s_accept.pod:144 C/crypto/BIO_s_bio.pod:123 C/crypto/BIO_s_connect.pod:136 C/crypto/BIO_s_fd.pod:57 C/crypto/BIO_s_file.pod:116 C/crypto/BIO_s_null.pod:31 C/crypto/BIO_s_socket.pod:49
+msgid "RETURN VALUES"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:76
+msgid ""
+"BIO_reset() normally returns 1 for success and 0 or -1 for failure. File "
+"BIOs are an exception, they return 0 for success and -1 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:79
+msgid ""
+"BIO_seek() and BIO_tell() both return the current file position on success "
+"and -1 for failure, except file BIOs which for BIO_seek() always return 0 "
+"for success and -1 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:83
+msgid "BIO_flush() returns 1 for success and 0 or -1 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:85
+msgid "BIO_eof() returns 1 if EOF has been reached 0 otherwise."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:87
+msgid "BIO_set_close() always returns 1."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:89
+msgid "BIO_get_close() returns the close flag value: BIO_CLOSE or BIO_NOCLOSE."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:91
+msgid ""
+"BIO_pending(), BIO_ctrl_pending(), BIO_wpending() and BIO_ctrl_wpending()  "
+"return the amount of pending data."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_ctrl.pod:94 C/crypto/BIO_f_base64.pod:30 C/crypto/BIO_f_buffer.pod:42 C/crypto/BIO_f_cipher.pod:45 C/crypto/BIO_f_md.pod:42 C/crypto/BIO_f_null.pod:22 C/crypto/BIO_f_ssl.pod:105 C/crypto/BIO_find_type.pod:66 C/crypto/BIO_new.pod:40 C/crypto/BIO_new_CMS.pod:19 C/crypto/BIO_push.pod:24 C/crypto/BIO_read.pod:38 C/crypto/BIO_s_accept.pod:97 C/crypto/BIO_s_bio.pod:104 C/crypto/BIO_s_connect.pod:101 C/crypto/BIO_s_fd.pod:46 C/crypto/BIO_s_file.pod:71 C/crypto/BIO_s_mem.pod:71 C/crypto/BIO_s_null.pod:18 C/crypto/BIO_s_socket.pod:37 C/crypto/BIO_should_retry.pod:62
+msgid "NOTES"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:96
+msgid ""
+"BIO_flush(), because it can write data may return 0 or -1 indicating that "
+"the call should be retried later in a similar manner to BIO_write().  The "
+"BIO_should_retry() call should be used and appropriate action taken is the "
+"call fails."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:101
+msgid ""
+"The return values of BIO_pending() and BIO_wpending() may not reliably "
+"determine the amount of pending data in all cases. For example in the case "
+"of a file BIO some data may be available in the FILE structures internal "
+"buffers but it is not possible to determine this in a portably way. For "
+"other types of BIO they may not be supported."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:107
+msgid ""
+"Filter BIOs if they do not internally handle a particular BIO_ctrl()  "
+"operation usually pass the operation to the next BIO in the chain.  This "
+"often means there is no need to locate the required BIO for a particular "
+"operation, it can be called on a chain and it will be automatically passed "
+"to the relevant BIO. However this can cause unexpected results: for example "
+"no current filter BIOs implement BIO_seek(), but this may still succeed if "
+"the chain ends in a FILE or file descriptor BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:116
+msgid ""
+"Source/sink BIOs return an 0 if they do not recognize the BIO_ctrl()  "
+"operation."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_ctrl.pod:119 C/crypto/BIO_f_base64.pod:71 C/crypto/BIO_f_md.pod:134 C/crypto/BIO_f_ssl.pod:311 C/crypto/BIO_find_type.pod:74 C/crypto/BIO_new_CMS.pod:47 C/crypto/BIO_s_file.pod:134 C/crypto/BIO_s_mem.pod:82 C/crypto/BIO_should_retry.pod:105
+msgid "BUGS"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:121
+msgid ""
+"Some of the return values are ambiguous and care should be taken. In "
+"particular a return value of 0 can be returned if an operation is not "
+"supported, if an error occurred, if EOF has not been reached and in the case "
+"of BIO_seek() on a file BIO for a successful operation."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_ctrl.pod:126 C/crypto/BIO_f_base64.pod:79 C/crypto/BIO_f_buffer.pod:67 C/crypto/BIO_f_cipher.pod:74 C/crypto/BIO_f_md.pod:142 C/crypto/BIO_f_null.pod:30 C/crypto/BIO_f_ssl.pod:320 C/crypto/BIO_find_type.pod:96 C/crypto/BIO_new.pod:63 C/crypto/BIO_new_CMS.pod:57 C/crypto/BIO_push.pod:67 C/crypto/BIO_read.pod:62 C/crypto/BIO_s_accept.pod:193 C/crypto/BIO_s_bio.pod:177 C/crypto/BIO_s_connect.pod:190 C/crypto/BIO_s_fd.pod:83 C/crypto/BIO_s_file.pod:141 C/crypto/BIO_s_mem.pod:113 C/crypto/BIO_s_null.pod:35 C/crypto/BIO_s_socket.pod:61 C/crypto/BIO_set_callback.pod:106 C/crypto/BIO_should_retry.pod:112 C/crypto/bio.pod:40
+msgid "SEE ALSO"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_ctrl.pod:128 C/crypto/BIO_f_base64.pod:81 C/crypto/BIO_f_cipher.pod:72 C/crypto/BIO_f_cipher.pod:76 C/crypto/BIO_f_md.pod:144 C/crypto/BIO_f_null.pod:32 C/crypto/BIO_f_ssl.pod:129 C/crypto/BIO_f_ssl.pod:322 C/crypto/BIO_find_type.pod:98 C/crypto/BIO_new.pod:65 C/crypto/BIO_push.pod:69 C/crypto/BIO_read.pod:66 C/crypto/BIO_s_accept.pod:146 C/crypto/BIO_s_accept.pod:195 C/crypto/BIO_s_connect.pod:192 C/crypto/BIO_s_mem.pod:115 C/crypto/BIO_s_null.pod:37 C/crypto/BIO_s_socket.pod:63 C/crypto/BIO_set_callback.pod:108 C/crypto/BIO_should_retry.pod:114 C/crypto/bio.pod:11
+msgid "TBA"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:5
+msgid "BIO_f_base64 - base64 BIO filter"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:9 C/crypto/BIO_f_cipher.pod:9 C/crypto/BIO_f_md.pod:9
+#, no-wrap
+msgid ""
+" #include <openssl/bio.h>\n"
+" #include <openssl/evp.h>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:12
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_f_base64(void);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:16
+msgid ""
+"BIO_f_base64() returns the base64 BIO method. This is a filter BIO that "
+"base64 encodes any data written through it and decodes any data read through "
+"it."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:20
+msgid "Base64 BIOs do not support BIO_gets() or BIO_puts()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:22
+msgid ""
+"BIO_flush() on a base64 BIO that is being written through is used to signal "
+"that no more data is to be encoded: this is used to flush the final block "
+"through the BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:26
+msgid ""
+"The flag BIO_FLAGS_BASE64_NO_NL can be set with BIO_set_flags()  to encode "
+"the data all on one line or expect the data to be all on one line."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:32
+msgid ""
+"Because of the format of base64 encoding the end of the encoded block cannot "
+"always be reliably determined."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:37
+msgid "BIO_f_base64() returns the base64 BIO method."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_f_base64.pod:39 C/crypto/BIO_f_cipher.pod:70 C/crypto/BIO_f_md.pod:74 C/crypto/BIO_push.pod:34 C/crypto/BIO_s_file.pod:83
+msgid "EXAMPLES"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:41
+msgid ""
+"Base64 encode the string \"Hello World\\n\" and write the result to standard "
+"output:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:44
+#, no-wrap
+msgid ""
+" BIO *bio, *b64;\n"
+" char message[] = \"Hello World \\n\";\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:47
+#, no-wrap
+msgid ""
+" b64 = BIO_new(BIO_f_base64());\n"
+" bio = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+" bio = BIO_push(b64, bio);\n"
+" BIO_write(bio, message, strlen(message));\n"
+" BIO_flush(bio);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:53 C/crypto/BIO_f_base64.pod:69 C/crypto/BIO_f_md.pod:132
+#, no-wrap
+msgid ""
+" BIO_free_all(bio);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:55
+msgid ""
+"Read Base64 encoded data from standard input and write the decoded data to "
+"standard output:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:58
+#, no-wrap
+msgid ""
+" BIO *bio, *b64, *bio_out;\n"
+" char inbuf[512];\n"
+" int inlen;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:62
+#, no-wrap
+msgid ""
+" b64 = BIO_new(BIO_f_base64());\n"
+" bio = BIO_new_fp(stdin, BIO_NOCLOSE);\n"
+" bio_out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+" bio = BIO_push(b64, bio);\n"
+" while((inlen = BIO_read(bio, inbuf, 512)) > 0) \n"
+"\tBIO_write(bio_out, inbuf, inlen);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:73
+msgid ""
+"The ambiguity of EOF in base64 encoded data can cause additional data "
+"following the base64 encoded block to be misinterpreted."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_base64.pod:76
+msgid ""
+"There should be some way of specifying a test that the BIO can perform to "
+"reliably determine EOF (for example a MIME boundary)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:5
+msgid "BIO_f_buffer - buffering BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_buffer.pod:11
+#, no-wrap
+msgid ""
+" BIO_METHOD * BIO_f_buffer(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_buffer.pod:13
+#, no-wrap
+msgid ""
+" #define "
+"BIO_get_buffer_num_lines(b)\tBIO_ctrl(b,BIO_C_GET_BUFF_NUM_LINES,0,NULL)\n"
+" #define BIO_set_read_buffer_size(b,size) "
+"BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,0)\n"
+" #define BIO_set_write_buffer_size(b,size) "
+"BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,1)\n"
+" #define "
+"BIO_set_buffer_size(b,size)\tBIO_ctrl(b,BIO_C_SET_BUFF_SIZE,size,NULL)\n"
+" #define BIO_set_buffer_read_data(b,buf,num) "
+"BIO_ctrl(b,BIO_C_SET_BUFF_READ_DATA,num,buf)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:21 C/crypto/BIO_f_buffer.pod:57
+msgid "BIO_f_buffer() returns the buffering BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:23
+msgid ""
+"Data written to a buffering BIO is buffered and periodically written to the "
+"next BIO in the chain. Data read from a buffering BIO comes from an internal "
+"buffer which is filled from the next BIO in the chain.  Both BIO_gets() and "
+"BIO_puts() are supported."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:28
+msgid "Calling BIO_reset() on a buffering BIO clears any buffered data."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:30
+msgid "BIO_get_buffer_num_lines() returns the number of lines currently buffered."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:32
+msgid ""
+"BIO_set_read_buffer_size(), BIO_set_write_buffer_size() and "
+"BIO_set_buffer_size()  set the read, write or both read and write buffer "
+"sizes to B<size>. The initial buffer size is DEFAULT_BUFFER_SIZE, currently "
+"4096. Any attempt to reduce the buffer size below DEFAULT_BUFFER_SIZE is "
+"ignored. Any buffered data is cleared when the buffer is resized."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:38
+msgid ""
+"BIO_set_buffer_read_data() clears the read buffer and fills it with B<num> "
+"bytes of B<buf>. If B<num> is larger than the current buffer size the buffer "
+"is expanded."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:44
+msgid ""
+"Buffering BIOs implement BIO_gets() by using BIO_read() operations on the "
+"next BIO in the chain. By prepending a buffering BIO to a chain it is "
+"therefore possible to provide BIO_gets() functionality if the following BIOs "
+"do not support it (for example SSL BIOs)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:49
+msgid ""
+"Data is only written to the next BIO in the chain when the write buffer "
+"fills or when BIO_flush() is called. It is therefore important to call "
+"BIO_flush()  whenever any pending data should be written such as when "
+"removing a buffering BIO using BIO_pop(). BIO_flush() may need to be retried "
+"if the ultimate source/sink BIO is non blocking."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:59
+msgid "BIO_get_buffer_num_lines() returns the number of lines buffered (may be 0)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:61
+msgid ""
+"BIO_set_read_buffer_size(), BIO_set_write_buffer_size() and "
+"BIO_set_buffer_size()  return 1 if the buffer was successfully resized or 0 "
+"for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:64
+msgid ""
+"BIO_set_buffer_read_data() returns 1 if the data was set correctly or 0 if "
+"there was an error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_buffer.pod:69
+msgid ""
+"L<BIO(3)|BIO(3)>, L<BIO_reset(3)|BIO_reset(3)>, "
+"L<BIO_flush(3)|BIO_flush(3)>, L<BIO_pop(3)|BIO_pop(3)>, "
+"L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_int_ctrl(3)|BIO_ctrl(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:5
+msgid ""
+"BIO_f_cipher, BIO_set_cipher, BIO_get_cipher_status, BIO_get_cipher_ctx - "
+"cipher BIO filter"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_cipher.pod:12
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_f_cipher(void);\n"
+" void BIO_set_cipher(BIO *b,const EVP_CIPHER *cipher,\n"
+"\t\tunsigned char *key, unsigned char *iv, int enc);\n"
+" int BIO_get_cipher_status(BIO *b)\n"
+" int BIO_get_cipher_ctx(BIO *b, EVP_CIPHER_CTX **pctx)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:20
+msgid ""
+"BIO_f_cipher() returns the cipher BIO method. This is a filter BIO that "
+"encrypts any data written through it, and decrypts any data read from it. It "
+"is a BIO wrapper for the cipher routines EVP_CipherInit(), "
+"EVP_CipherUpdate() and EVP_CipherFinal()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:25
+msgid "Cipher BIOs do not support BIO_gets() or BIO_puts()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:27
+msgid ""
+"BIO_flush() on an encryption BIO that is being written through is used to "
+"signal that no more data is to be encrypted: this is used to flush and "
+"possibly pad the final block through the BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:31
+msgid ""
+"BIO_set_cipher() sets the cipher of BIO B<b> to B<cipher> using key B<key> "
+"and IV B<iv>. B<enc> should be set to 1 for encryption and zero for "
+"decryption."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:35
+msgid ""
+"When reading from an encryption BIO the final block is automatically "
+"decrypted and checked when EOF is detected. BIO_get_cipher_status()  is a "
+"BIO_ctrl() macro which can be called to determine whether the decryption "
+"operation was successful."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:40
+msgid ""
+"BIO_get_cipher_ctx() is a BIO_ctrl() macro which retrieves the internal BIO "
+"cipher context. The retrieved context can be used in conjunction with the "
+"standard cipher routines to set it up. This is useful when BIO_set_cipher() "
+"is not flexible enough for the applications needs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:47
+msgid ""
+"When encrypting BIO_flush() B<must> be called to flush the final block "
+"through the BIO. If it is not then the final block will fail a subsequent "
+"decrypt."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:51
+msgid ""
+"When decrypting an error on the final block is signalled by a zero return "
+"value from the read operation. A successful decrypt followed by EOF will "
+"also return zero for the final read. BIO_get_cipher_status()  should be "
+"called to determine if the decrypt was successful."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:56
+msgid ""
+"As always, if BIO_gets() or BIO_puts() support is needed then it can be "
+"achieved by preceding the cipher BIO with a buffering BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:61
+msgid "BIO_f_cipher() returns the cipher BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:63
+msgid "BIO_set_cipher() does not return a value."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:65
+msgid ""
+"BIO_get_cipher_status() returns 1 for a successful decrypt and 0 for "
+"failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_cipher.pod:68
+msgid "BIO_get_cipher_ctx() currently always returns 1."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:5
+msgid "BIO_f_md, BIO_set_md, BIO_get_md, BIO_get_md_ctx - message digest BIO filter"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_md.pod:12
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_f_md(void);\n"
+" int BIO_set_md(BIO *b,EVP_MD *md);\n"
+" int BIO_get_md(BIO *b,EVP_MD **mdp);\n"
+" int BIO_get_md_ctx(BIO *b,EVP_MD_CTX **mdcp);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:19
+msgid ""
+"BIO_f_md() returns the message digest BIO method. This is a filter BIO that "
+"digests any data passed through it, it is a BIO wrapper for the digest "
+"routines EVP_DigestInit(), EVP_DigestUpdate()  and EVP_DigestFinal()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:24
+msgid ""
+"Any data written or read through a digest BIO using BIO_read() and "
+"BIO_write() is digested."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:27
+msgid ""
+"BIO_gets(), if its B<size> parameter is large enough finishes the digest "
+"calculation and returns the digest value. BIO_puts() is not supported."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:31
+msgid "BIO_reset() reinitialises a digest BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:33
+msgid ""
+"BIO_set_md() sets the message digest of BIO B<b> to B<md>: this must be "
+"called to initialize a digest BIO before any data is passed through it. It "
+"is a BIO_ctrl() macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:37
+msgid ""
+"BIO_get_md() places the a pointer to the digest BIOs digest method in "
+"B<mdp>, it is a BIO_ctrl() macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:40
+msgid "BIO_get_md_ctx() returns the digest BIOs context into B<mdcp>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:44
+msgid ""
+"The context returned by BIO_get_md_ctx() can be used in calls to "
+"EVP_DigestFinal() and also the signature routines EVP_SignFinal()  and "
+"EVP_VerifyFinal()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:48
+msgid ""
+"The context returned by BIO_get_md_ctx() is an internal context "
+"structure. Changes made to this context will affect the digest BIO itself "
+"and the context pointer will become invalid when the digest BIO is freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:53
+msgid ""
+"After the digest has been retrieved from a digest BIO it must be "
+"reinitialized by calling BIO_reset(), or BIO_set_md() before any more data "
+"is passed through it."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:57
+msgid ""
+"If an application needs to call BIO_gets() or BIO_puts() through a chain "
+"containing digest BIOs then this can be done by prepending a buffering BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:61
+msgid ""
+"Before OpenSSL 1.0.0 the call to BIO_get_md_ctx() would only work if the BIO "
+"had been initialized for example by calling BIO_set_md() ). In OpenSSL 1.0.0 "
+"and later the context is always returned and the BIO is state is set to "
+"initialized. This allows applications to initialize the context externally "
+"if the standard calls such as BIO_set_md() are not sufficiently flexible."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:69
+msgid "BIO_f_md() returns the digest BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:71
+msgid ""
+"BIO_set_md(), BIO_get_md() and BIO_md_ctx() return 1 for success and 0 for "
+"failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:76
+msgid ""
+"The following example creates a BIO chain containing an SHA1 and MD5 digest "
+"BIO and passes the string \"Hello World\" through it. Error checking has "
+"been omitted for clarity."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_md.pod:80
+#, no-wrap
+msgid ""
+" BIO *bio, *mdtmp;\n"
+" char message[] = \"Hello World\";\n"
+" bio = BIO_new(BIO_s_null());\n"
+" mdtmp = BIO_new(BIO_f_md());\n"
+" BIO_set_md(mdtmp, EVP_sha1());\n"
+" /* For BIO_push() we want to append the sink BIO and keep a note of\n"
+"  * the start of the chain.\n"
+"  */\n"
+" bio = BIO_push(mdtmp, bio);\n"
+" mdtmp = BIO_new(BIO_f_md());\n"
+" BIO_set_md(mdtmp, EVP_md5());\n"
+" bio = BIO_push(mdtmp, bio);\n"
+" /* Note: mdtmp can now be discarded */\n"
+" BIO_write(bio, message, strlen(message));\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:95
+msgid "The next example digests data by reading through a chain instead:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_md.pod:97
+#, no-wrap
+msgid ""
+" BIO *bio, *mdtmp;\n"
+" char buf[1024];\n"
+" int rdlen;\n"
+" bio = BIO_new_file(file, \"rb\");\n"
+" mdtmp = BIO_new(BIO_f_md());\n"
+" BIO_set_md(mdtmp, EVP_sha1());\n"
+" bio = BIO_push(mdtmp, bio);\n"
+" mdtmp = BIO_new(BIO_f_md());\n"
+" BIO_set_md(mdtmp, EVP_md5());\n"
+" bio = BIO_push(mdtmp, bio);\n"
+" do {\n"
+" \trdlen = BIO_read(bio, buf, sizeof(buf));\n"
+"        /* Might want to do something with the data here */\n"
+" } while(rdlen > 0);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:112
+msgid ""
+"This next example retrieves the message digests from a BIO chain and outputs "
+"them. This could be used with the examples above."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_md.pod:115
+#, no-wrap
+msgid ""
+" BIO *mdtmp;\n"
+" unsigned char mdbuf[EVP_MAX_MD_SIZE];\n"
+" int mdlen;\n"
+" int i;\n"
+" mdtmp = bio;\t/* Assume bio has previously been set up */\n"
+" do {\n"
+"\tEVP_MD *md;\n"
+" \tmdtmp = BIO_find_type(mdtmp, BIO_TYPE_MD);\n"
+"        if(!mdtmp) break;\n"
+"\tBIO_get_md(mdtmp, &md);\n"
+"        printf(\"%s digest\", OBJ_nid2sn(EVP_MD_type(md)));\n"
+"\tmdlen = BIO_gets(mdtmp, mdbuf, EVP_MAX_MD_SIZE);\n"
+"\tfor(i = 0; i < mdlen; i++) printf(\":%02X\", mdbuf[i]);\n"
+"\tprintf(\"\\n\");\n"
+"\tmdtmp = BIO_next(mdtmp);\n"
+" } while(mdtmp);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_md.pod:136
+msgid ""
+"The lack of support for BIO_puts() and the non standard behaviour of "
+"BIO_gets() could be regarded as anomalous. It could be argued that "
+"BIO_gets()  and BIO_puts() should be passed to the next BIO in the chain and "
+"digest the data passed through and that digests should be retrieved using a "
+"separate BIO_ctrl() call."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_null.pod:5
+msgid "BIO_f_null - null filter"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_null.pod:11
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_f_null(void);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_null.pod:15
+msgid ""
+"BIO_f_null() returns the null filter BIO method. This is a filter BIO that "
+"does nothing."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_null.pod:18
+msgid ""
+"All requests to a null filter BIO are passed through to the next BIO in the "
+"chain: this means that a BIO chain containing a null filter BIO behaves just "
+"as though the BIO was not there."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_null.pod:24
+msgid "As may be apparent a null filter BIO is not particularly useful."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_null.pod:28
+msgid "BIO_f_null() returns the null filter BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:5
+msgid ""
+"BIO_f_ssl, BIO_set_ssl, BIO_get_ssl, BIO_set_ssl_mode, "
+"BIO_set_ssl_renegotiate_bytes, BIO_get_num_renegotiates, "
+"BIO_set_ssl_renegotiate_timeout, BIO_new_ssl, BIO_new_ssl_connect, "
+"BIO_new_buffer_ssl_connect, BIO_ssl_copy_session_id, BIO_ssl_shutdown - SSL "
+"BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:12
+#, no-wrap
+msgid ""
+" #include <openssl/bio.h>\n"
+" #include <openssl/ssl.h>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:15
+#, no-wrap
+msgid ""
+" BIO_METHOD *BIO_f_ssl(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:17
+#, no-wrap
+msgid ""
+" #define BIO_set_ssl(b,ssl,c)\tBIO_ctrl(b,BIO_C_SET_SSL,c,(char *)ssl)\n"
+" #define BIO_get_ssl(b,sslp)\tBIO_ctrl(b,BIO_C_GET_SSL,0,(char *)sslp)\n"
+" #define "
+"BIO_set_ssl_mode(b,client)\tBIO_ctrl(b,BIO_C_SSL_MODE,client,NULL)\n"
+" #define BIO_set_ssl_renegotiate_bytes(b,num) \\\n"
+"\tBIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_BYTES,num,NULL);\n"
+" #define BIO_set_ssl_renegotiate_timeout(b,seconds) \\\n"
+"\tBIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT,seconds,NULL);\n"
+" #define BIO_get_num_renegotiates(b) \\\n"
+"\tBIO_ctrl(b,BIO_C_SET_SSL_NUM_RENEGOTIATES,0,NULL);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:27
+#, no-wrap
+msgid ""
+" BIO *BIO_new_ssl(SSL_CTX *ctx,int client);\n"
+" BIO *BIO_new_ssl_connect(SSL_CTX *ctx);\n"
+" BIO *BIO_new_buffer_ssl_connect(SSL_CTX *ctx);\n"
+" int BIO_ssl_copy_session_id(BIO *to,BIO *from);\n"
+" void BIO_ssl_shutdown(BIO *bio);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:33
+#, no-wrap
+msgid ""
+" #define BIO_do_handshake(b)\tBIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:37
+msgid ""
+"BIO_f_ssl() returns the SSL BIO method. This is a filter BIO which is a "
+"wrapper round the OpenSSL SSL routines adding a BIO \"flavour\" to SSL I/O."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:41
+msgid ""
+"I/O performed on an SSL BIO communicates using the SSL protocol with the "
+"SSLs read and write BIOs. If an SSL connection is not established then an "
+"attempt is made to establish one on the first I/O call."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:45
+msgid ""
+"If a BIO is appended to an SSL BIO using BIO_push() it is automatically used "
+"as the SSL BIOs read and write BIOs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:48
+msgid ""
+"Calling BIO_reset() on an SSL BIO closes down any current SSL connection by "
+"calling SSL_shutdown(). BIO_reset() is then sent to the next BIO in the "
+"chain: this will typically disconnect the underlying transport.  The SSL BIO "
+"is then reset to the initial accept or connect state."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:53
+msgid ""
+"If the close flag is set when an SSL BIO is freed then the internal SSL "
+"structure is also freed using SSL_free()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:56
+msgid ""
+"BIO_set_ssl() sets the internal SSL pointer of BIO B<b> to B<ssl> using the "
+"close flag B<c>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:59
+msgid ""
+"BIO_get_ssl() retrieves the SSL pointer of BIO B<b>, it can then be "
+"manipulated using the standard SSL library functions."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:62
+msgid ""
+"BIO_set_ssl_mode() sets the SSL BIO mode to B<client>. If B<client> is 1 "
+"client mode is set. If B<client> is 0 server mode is set."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:65
+msgid ""
+"BIO_set_ssl_renegotiate_bytes() sets the renegotiate byte count to "
+"B<num>. When set after every B<num> bytes of I/O (read and write)  the SSL "
+"session is automatically renegotiated. B<num> must be at least 512 bytes."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:70
+msgid ""
+"BIO_set_ssl_renegotiate_timeout() sets the renegotiate timeout to "
+"B<seconds>. When the renegotiate timeout elapses the session is "
+"automatically renegotiated."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:74
+msgid ""
+"BIO_get_num_renegotiates() returns the total number of session "
+"renegotiations due to I/O or timeout."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:77
+msgid ""
+"BIO_new_ssl() allocates an SSL BIO using SSL_CTX B<ctx> and using client "
+"mode if B<client> is non zero."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:80
+msgid ""
+"BIO_new_ssl_connect() creates a new BIO chain consisting of an SSL BIO "
+"(using B<ctx>) followed by a connect BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:83
+msgid ""
+"BIO_new_buffer_ssl_connect() creates a new BIO chain consisting of a "
+"buffering BIO, an SSL BIO (using B<ctx>) and a connect BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:87
+msgid ""
+"BIO_ssl_copy_session_id() copies an SSL session id between BIO chains "
+"B<from> and B<to>. It does this by locating the SSL BIOs in each chain and "
+"calling SSL_copy_session_id() on the internal SSL pointer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:92
+msgid ""
+"BIO_ssl_shutdown() closes down an SSL connection on BIO chain B<bio>. It "
+"does this by locating the SSL BIO in the chain and calling SSL_shutdown() on "
+"its internal SSL pointer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:97
+msgid ""
+"BIO_do_handshake() attempts to complete an SSL handshake on the supplied BIO "
+"and establish the SSL connection. It returns 1 if the connection was "
+"established successfully. A zero or negative value is returned if the "
+"connection could not be established, the call BIO_should_retry() should be "
+"used for non blocking connect BIOs to determine if the call should be "
+"retried. If an SSL connection has already been established this call has no "
+"effect."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:107
+msgid ""
+"SSL BIOs are exceptional in that if the underlying transport is non blocking "
+"they can still request a retry in exceptional circumstances. Specifically "
+"this will happen if a session renegotiation takes place during a BIO_read() "
+"operation, one case where this happens is when SGC or step up occurs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:113
+msgid ""
+"In OpenSSL 0.9.6 and later the SSL flag SSL_AUTO_RETRY can be set to disable "
+"this behaviour. That is when this flag is set an SSL BIO using a blocking "
+"transport will never request a retry."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:118
+msgid ""
+"Since unknown BIO_ctrl() operations are sent through filter BIOs the servers "
+"name and port can be set using BIO_set_host()  on the BIO returned by "
+"BIO_new_ssl_connect() without having to locate the connect BIO first."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:123
+msgid ""
+"Applications do not have to call BIO_do_handshake() but may wish to do so to "
+"separate the handshake process from other I/O processing."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_f_ssl.pod:131 C/crypto/BIO_find_type.pod:79 C/crypto/BIO_new.pod:57 C/crypto/BIO_s_accept.pod:148 C/crypto/BIO_s_bio.pod:131 C/crypto/BIO_s_connect.pod:163 C/crypto/BIO_s_fd.pod:74 C/crypto/BIO_s_mem.pod:92 C/crypto/BIO_set_callback.pod:101
+msgid "EXAMPLE"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:133
+msgid ""
+"This SSL/TLS client example, attempts to retrieve a page from an SSL/TLS web "
+"server. The I/O routines are identical to those of the unencrypted example "
+"in L<BIO_s_connect(3)|BIO_s_connect(3)>."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:137
+#, no-wrap
+msgid ""
+" BIO *sbio, *out;\n"
+" int len;\n"
+" char tmpbuf[1024];\n"
+" SSL_CTX *ctx;\n"
+" SSL *ssl;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:143 C/crypto/BIO_f_ssl.pod:209
+#, no-wrap
+msgid ""
+" ERR_load_crypto_strings();\n"
+" ERR_load_SSL_strings();\n"
+" OpenSSL_add_all_algorithms();\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:147
+#, no-wrap
+msgid ""
+" /* We would seed the PRNG here if the platform didn't\n"
+"  * do it automatically\n"
+"  */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:151
+#, no-wrap
+msgid ""
+" ctx = SSL_CTX_new(SSLv23_client_method());\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:153
+#, no-wrap
+msgid ""
+" /* We'd normally set some stuff like the verify paths and\n"
+"  * mode here because as things stand this will connect to\n"
+"  * any server whose certificate is signed by any CA.\n"
+"  */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:158
+#, no-wrap
+msgid ""
+" sbio = BIO_new_ssl_connect(ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:160 C/crypto/BIO_f_ssl.pod:233
+#, no-wrap
+msgid ""
+" BIO_get_ssl(sbio, &ssl);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:162 C/crypto/BIO_f_ssl.pod:235
+#, no-wrap
+msgid ""
+" if(!ssl) {\n"
+"   fprintf(stderr, \"Can't locate SSL pointer\\n\");\n"
+"   /* whatever ... */\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:167 C/crypto/BIO_f_ssl.pod:240
+#, no-wrap
+msgid ""
+" /* Don't want any retries */\n"
+" SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:170
+#, no-wrap
+msgid ""
+" /* We might want to do other things with ssl here */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:172
+#, no-wrap
+msgid ""
+" BIO_set_conn_hostname(sbio, \"localhost:https\");\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:174
+#, no-wrap
+msgid ""
+" out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+" if(BIO_do_connect(sbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error connecting to server\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\t/* whatever ... */\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:181
+#, no-wrap
+msgid ""
+" if(BIO_do_handshake(sbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error establishing SSL connection\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\t/* whatever ... */\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:187
+#, no-wrap
+msgid ""
+" /* Could examine ssl here to get connection info */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:189
+#, no-wrap
+msgid ""
+" BIO_puts(sbio, \"GET / HTTP/1.0\\n\\n\");\n"
+" for(;;) {\t\n"
+"\tlen = BIO_read(sbio, tmpbuf, 1024);\n"
+"\tif(len <= 0) break;\n"
+"\tBIO_write(out, tmpbuf, len);\n"
+" }\n"
+" BIO_free_all(sbio);\n"
+" BIO_free(out);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:198
+msgid ""
+"Here is a simple server example. It makes use of a buffering BIO to allow "
+"lines to be read from the SSL BIO using BIO_gets.  It creates a pseudo web "
+"page containing the actual request from a client and also echoes the request "
+"to standard output."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:203
+#, no-wrap
+msgid ""
+" BIO *sbio, *bbio, *acpt, *out;\n"
+" int len;\n"
+" char tmpbuf[1024];\n"
+" SSL_CTX *ctx;\n"
+" SSL *ssl;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:213
+#, no-wrap
+msgid ""
+" /* Might seed PRNG here */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:215
+#, no-wrap
+msgid ""
+" ctx = SSL_CTX_new(SSLv23_server_method());\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:217
+#, no-wrap
+msgid ""
+" if (!SSL_CTX_use_certificate_file(ctx,\"server.pem\",SSL_FILETYPE_PEM)\n"
+"\t|| !SSL_CTX_use_PrivateKey_file(ctx,\"server.pem\",SSL_FILETYPE_PEM)\n"
+"\t|| !SSL_CTX_check_private_key(ctx)) {\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:221
+#, no-wrap
+msgid ""
+"\tfprintf(stderr, \"Error setting up SSL_CTX\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:226
+#, no-wrap
+msgid ""
+" /* Might do other things here like setting verify locations and\n"
+"  * DH and/or RSA temporary key callbacks\n"
+"  */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:230
+#, no-wrap
+msgid ""
+" /* New SSL BIO setup as server */\n"
+" sbio=BIO_new_ssl(ctx,0);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:243
+#, no-wrap
+msgid ""
+" /* Create the buffering BIO */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:245
+#, no-wrap
+msgid ""
+" bbio = BIO_new(BIO_f_buffer());\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:247
+#, no-wrap
+msgid ""
+" /* Add to chain */\n"
+" sbio = BIO_push(bbio, sbio);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:250
+#, no-wrap
+msgid ""
+" acpt=BIO_new_accept(\"4433\");\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:252
+#, no-wrap
+msgid ""
+" /* By doing this when a new connection is established\n"
+"  * we automatically have sbio inserted into it. The\n"
+"  * BIO chain is now 'swallowed' by the accept BIO and\n"
+"  * will be freed when the accept BIO is freed. \n"
+"  */\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:258
+#, no-wrap
+msgid ""
+" BIO_set_accept_bios(acpt,sbio);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:260
+#, no-wrap
+msgid ""
+" out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:262
+#, no-wrap
+msgid ""
+" /* Setup accept BIO */\n"
+" if(BIO_do_accept(acpt) <= 0) {\n"
+"\tfprintf(stderr, \"Error setting up accept BIO\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:269
+#, no-wrap
+msgid ""
+" /* Now wait for incoming connection */\n"
+" if(BIO_do_accept(acpt) <= 0) {\n"
+"\tfprintf(stderr, \"Error in connection\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:276
+#, no-wrap
+msgid ""
+" /* We only want one connection so remove and free\n"
+"  * accept BIO\n"
+"  */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:280
+#, no-wrap
+msgid ""
+" sbio = BIO_pop(acpt);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:282
+#, no-wrap
+msgid ""
+" BIO_free_all(acpt);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:284
+#, no-wrap
+msgid ""
+" if(BIO_do_handshake(sbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error in SSL handshake\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\treturn 0;\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:290
+#, no-wrap
+msgid ""
+" BIO_puts(sbio, \"HTTP/1.0 200 OK\\r\\nContent-type: "
+"text/plain\\r\\n\\r\\n\");\n"
+" BIO_puts(sbio, \"\\r\\nConnection Established\\r\\nRequest "
+"headers:\\r\\n\");\n"
+" BIO_puts(sbio, "
+"\"--------------------------------------------------\\r\\n\");\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:294
+#, no-wrap
+msgid ""
+" for(;;) {\n"
+" \tlen = BIO_gets(sbio, tmpbuf, 1024);\n"
+"        if(len <= 0) break;\n"
+"\tBIO_write(sbio, tmpbuf, len);\n"
+"\tBIO_write(out, tmpbuf, len);\n"
+"\t/* Look for blank line signifying end of headers*/\n"
+"\tif((tmpbuf[0] == '\\r') || (tmpbuf[0] == '\\n')) break;\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:303
+#, no-wrap
+msgid ""
+" BIO_puts(sbio, "
+"\"--------------------------------------------------\\r\\n\");\n"
+" BIO_puts(sbio, \"\\r\\n\");\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:306
+#, no-wrap
+msgid ""
+" /* Since there is a buffering BIO present we had better flush it */\n"
+" BIO_flush(sbio);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_f_ssl.pod:309
+#, no-wrap
+msgid ""
+" BIO_free_all(sbio);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_f_ssl.pod:313
+msgid ""
+"In OpenSSL versions before 1.0.0 the BIO_pop() call was handled incorrectly, "
+"the I/O BIO reference count was incorrectly incremented (instead of "
+"decremented) and dissociated with the SSL BIO even if the SSL BIO was not "
+"explicitly being popped (e.g. a pop higher up the chain). Applications which "
+"included workarounds for this bug (e.g. freeing BIOs more than once) should "
+"be modified to handle this fix or they may free up an already freed BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:5
+msgid "BIO_find_type, BIO_next - BIO chain traversal"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:11
+#, no-wrap
+msgid ""
+" BIO *\tBIO_find_type(BIO *b,int bio_type);\n"
+" BIO *\tBIO_next(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:14
+#, no-wrap
+msgid ""
+" #define BIO_method_type(b)\t\t((b)->method->type)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:16
+#, no-wrap
+msgid ""
+" #define BIO_TYPE_NONE\t\t0\n"
+" #define BIO_TYPE_MEM\t\t(1|0x0400)\n"
+" #define BIO_TYPE_FILE\t\t(2|0x0400)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:20
+#, no-wrap
+msgid ""
+" #define BIO_TYPE_FD\t\t(4|0x0400|0x0100)\n"
+" #define BIO_TYPE_SOCKET\t\t(5|0x0400|0x0100)\n"
+" #define BIO_TYPE_NULL\t\t(6|0x0400)\n"
+" #define BIO_TYPE_SSL\t\t(7|0x0200)\n"
+" #define BIO_TYPE_MD\t\t(8|0x0200)\n"
+" #define BIO_TYPE_BUFFER\t\t(9|0x0200)\n"
+" #define BIO_TYPE_CIPHER\t\t(10|0x0200)\n"
+" #define BIO_TYPE_BASE64\t\t(11|0x0200)\n"
+" #define BIO_TYPE_CONNECT\t(12|0x0400|0x0100)\n"
+" #define BIO_TYPE_ACCEPT\t\t(13|0x0400|0x0100)\n"
+" #define BIO_TYPE_PROXY_CLIENT\t(14|0x0200)\n"
+" #define BIO_TYPE_PROXY_SERVER\t(15|0x0200)\n"
+" #define BIO_TYPE_NBIO_TEST\t(16|0x0200)\n"
+" #define BIO_TYPE_NULL_FILTER\t(17|0x0200)\n"
+" #define BIO_TYPE_BER\t\t(18|0x0200)\n"
+" #define BIO_TYPE_BIO\t\t(19|0x0400)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:37
+#, no-wrap
+msgid ""
+" #define BIO_TYPE_DESCRIPTOR\t0x0100\n"
+" #define BIO_TYPE_FILTER\t\t0x0200\n"
+" #define BIO_TYPE_SOURCE_SINK\t0x0400\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:43
+msgid ""
+"The BIO_find_type() searches for a BIO of a given type in a chain, starting "
+"at BIO B<b>. If B<type> is a specific type (such as BIO_TYPE_MEM) then a "
+"search is made for a BIO of that type. If B<type> is a general type (such as "
+"B<BIO_TYPE_SOURCE_SINK>) then the next matching BIO of the given general "
+"type is searched for. BIO_find_type() returns the next matching BIO or NULL "
+"if none is found."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:50
+msgid ""
+"Note: not all the B<BIO_TYPE_*> types above have corresponding BIO "
+"implementations."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:52
+msgid ""
+"BIO_next() returns the next BIO in a chain. It can be used to traverse all "
+"BIOs in a chain or used in conjunction with BIO_find_type() to find all BIOs "
+"of a certain type."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:56
+msgid "BIO_method_type() returns the type of a BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:60
+msgid "BIO_find_type() returns a matching BIO or NULL for no match."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:62
+msgid "BIO_next() returns the next BIO in a chain."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:64
+msgid "BIO_method_type() returns the type of the BIO B<b>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:68
+msgid ""
+"BIO_next() was added to OpenSSL 0.9.6 to provide a 'clean' way to traverse a "
+"BIO chain or find multiple matches using BIO_find_type(). Previous versions "
+"had to use:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:72
+#, no-wrap
+msgid ""
+" next = bio->next_bio;\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:76
+msgid ""
+"BIO_find_type() in OpenSSL 0.9.5a and earlier could not be safely passed a "
+"NULL pointer for the B<b> argument."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_find_type.pod:81
+msgid "Traverse a chain looking for digest BIOs:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:83
+#, no-wrap
+msgid ""
+" BIO *btmp;\n"
+" btmp = in_bio;\t/* in_bio is chain to search through */\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:86
+#, no-wrap
+msgid ""
+" do {\n"
+" \tbtmp = BIO_find_type(btmp, BIO_TYPE_MD);\n"
+"\tif(btmp == NULL) break;\t/* Not found */\n"
+"\t/* btmp is a digest BIO, do something with it ...*/\n"
+"   \t...\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_find_type.pod:92
+#, no-wrap
+msgid ""
+"\tbtmp = BIO_next(btmp);\n"
+" } while(btmp);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:5
+msgid ""
+"BIO_new, BIO_set, BIO_free, BIO_vfree, BIO_free_all - BIO allocation and "
+"freeing functions"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_new.pod:11
+#, no-wrap
+msgid ""
+" BIO *\tBIO_new(BIO_METHOD *type);\n"
+" int\tBIO_set(BIO *a,BIO_METHOD *type);\n"
+" int\tBIO_free(BIO *a);\n"
+" void\tBIO_vfree(BIO *a);\n"
+" void\tBIO_free_all(BIO *a);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:19
+msgid "The BIO_new() function returns a new BIO using method B<type>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:21
+msgid "BIO_set() sets the method of an already existing BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:23
+msgid ""
+"BIO_free() frees up a single BIO, BIO_vfree() also frees up a single BIO but "
+"it does not return a value. Calling BIO_free() may also have some effect on "
+"the underlying I/O structure, for example it may close the file being "
+"referred to under certain circumstances. For more details see the individual "
+"BIO_METHOD descriptions."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:29
+msgid ""
+"BIO_free_all() frees up an entire BIO chain, it does not halt if an error "
+"occurs freeing up an individual BIO in the chain."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:34
+msgid "BIO_new() returns a newly created BIO or NULL if the call fails."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:36
+msgid "BIO_set(), BIO_free() return 1 for success and 0 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:38
+msgid "BIO_free_all() and BIO_vfree() do not return values."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:42
+msgid ""
+"Some BIOs (such as memory BIOs) can be used immediately after calling "
+"BIO_new(). Others (such as file BIOs) need some additional initialization, "
+"and frequently a utility function exists to create and initialize such BIOs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:46
+msgid ""
+"If BIO_free() is called on a BIO chain it will only free one BIO resulting "
+"in a memory leak."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:49
+msgid ""
+"Calling BIO_free_all() a single BIO has the same effect as calling "
+"BIO_free()  on it other than the discarded return value."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:52
+msgid ""
+"Normally the B<type> argument is supplied by a function which returns a "
+"pointer to a BIO_METHOD. There is a naming convention for such functions: a "
+"source/sink BIO is normally called BIO_s_*() and a filter BIO BIO_f_*();"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new.pod:59
+msgid "Create a memory BIO:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_new.pod:61
+#, no-wrap
+msgid ""
+" BIO *mem = BIO_new(BIO_s_mem());\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_new_CMS.pod:5
+#, no-wrap
+msgid ""
+" BIO_new_CMS - CMS streaming filter BIO\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_new_CMS.pod:9
+#, no-wrap
+msgid ""
+" #include <openssl/cms.h>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_new_CMS.pod:11
+#, no-wrap
+msgid ""
+" BIO *BIO_new_CMS(BIO *out, CMS_ContentInfo *cms);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:15
+msgid ""
+"BIO_new_CMS() returns a streaming filter BIO chain based on B<cms>. The "
+"output of the filter is written to B<out>. Any data written to the chain is "
+"automatically translated to a BER format CMS structure of the appropriate "
+"type."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:21
+msgid ""
+"The chain returned by this function behaves like a standard filter BIO. It "
+"supports non blocking I/O. Content is processed and streamed on the fly and "
+"not all held in memory at once: so it is possible to encode very large "
+"structures.  After all content has been written through the chain "
+"BIO_flush() must be called to finalise the structure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:27
+msgid ""
+"The B<CMS_STREAM> flag must be included in the corresponding B<flags> "
+"parameter of the B<cms> creation function."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:30
+msgid ""
+"If an application wishes to write additional data to B<out> BIOs should be "
+"removed from the chain using BIO_pop() and freed with BIO_free() until "
+"B<out> is reached. If no additional data needs to be written BIO_free_all() "
+"can be called to free up the whole chain."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:35
+msgid ""
+"Any content written through the filter is used verbatim: no canonical "
+"translation is performed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:38
+msgid ""
+"It is possible to chain multiple BIOs to, for example, create a triple "
+"wrapped signed, enveloped, signed structure. In this case it is the "
+"applications responsibility to set the inner content type of any outer "
+"CMS_ContentInfo structures."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:43
+msgid ""
+"Large numbers of small writes through the chain should be avoided as this "
+"will produce an output consisting of lots of OCTET STRING "
+"structures. Prepending a BIO_f_buffer() buffering BIO will prevent this."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:49
+msgid ""
+"There is currently no corresponding inverse BIO: i.e. one which can decode a "
+"CMS structure on the fly."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:54
+msgid ""
+"BIO_new_CMS() returns a BIO chain when successful or NULL if an error "
+"occurred. The error can be obtained from ERR_get_error(3)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:59
+msgid ""
+"L<ERR_get_error(3)|ERR_get_error(3)>, L<CMS_sign(3)|CMS_sign(3)>, "
+"L<CMS_encrypt(3)|CMS_encrypt(3)>"
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_new_CMS.pod:62
+msgid "HISTORY"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_new_CMS.pod:64
+msgid "BIO_new_CMS() was added to OpenSSL 1.0.0"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:5
+msgid "BIO_push, BIO_pop - add and remove BIOs from a chain."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_push.pod:11
+#, no-wrap
+msgid ""
+" BIO *\tBIO_push(BIO *b,BIO *append);\n"
+" BIO *\tBIO_pop(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:16
+msgid "The BIO_push() function appends the BIO B<append> to B<b>, it returns B<b>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:19
+msgid ""
+"BIO_pop() removes the BIO B<b> from a chain and returns the next BIO in the "
+"chain, or NULL if there is no next BIO. The removed BIO then becomes a "
+"single BIO with no association with the original chain, it can thus be freed "
+"or attached to a different chain."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:26
+msgid ""
+"The names of these functions are perhaps a little misleading. BIO_push()  "
+"joins two BIO chains whereas BIO_pop() deletes a single BIO from a chain, "
+"the deleted BIO does not need to be at the end of a chain."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:30
+msgid ""
+"The process of calling BIO_push() and BIO_pop() on a BIO may have additional "
+"consequences (a control call is made to the affected BIOs) any effects will "
+"be noted in the descriptions of individual BIOs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:36
+msgid ""
+"For these examples suppose B<md1> and B<md2> are digest BIOs, B<b64> is a "
+"base64 BIO and B<f> is a file BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:39
+msgid "If the call:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_push.pod:41
+#, no-wrap
+msgid ""
+" BIO_push(b64, f);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:43
+msgid "is made then the new chain will be B<b64-chain>. After making the calls"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_push.pod:45
+#, no-wrap
+msgid ""
+" BIO_push(md2, b64);\n"
+" BIO_push(md1, md2);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:48
+msgid ""
+"the new chain is B<md1-md2-b64-f>. Data written to B<md1> will be digested "
+"by B<md1> and B<md2>, B<base64> encoded and written to B<f>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:51
+msgid ""
+"It should be noted that reading causes data to pass in the reverse "
+"direction, that is data is read from B<f>, base64 B<decoded> and digested by "
+"B<md1> and B<md2>. If the call:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_push.pod:55
+#, no-wrap
+msgid ""
+" BIO_pop(md2);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:57
+msgid ""
+"The call will return B<b64> and the new chain will be B<md1-b64-f> data can "
+"be written to B<md1> as before."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:62
+msgid "BIO_push() returns the end of the chain, B<b>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_push.pod:64
+msgid ""
+"BIO_pop() returns the next BIO in the chain, or NULL if there is no next "
+"BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:5
+msgid "BIO_read, BIO_write, BIO_gets, BIO_puts - BIO I/O functions"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_read.pod:11
+#, no-wrap
+msgid ""
+" int\tBIO_read(BIO *b, void *buf, int len);\n"
+" int\tBIO_gets(BIO *b,char *buf, int size);\n"
+" int\tBIO_write(BIO *b, const void *buf, int len);\n"
+" int\tBIO_puts(BIO *b,const char *buf);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:18
+msgid ""
+"BIO_read() attempts to read B<len> bytes from BIO B<b> and places the data "
+"in B<buf>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:21
+msgid ""
+"BIO_gets() performs the BIOs \"gets\" operation and places the data in "
+"B<buf>. Usually this operation will attempt to read a line of data from the "
+"BIO of maximum length B<len>. There are exceptions to this however, for "
+"example BIO_gets() on a digest BIO will calculate and return the digest and "
+"other BIOs may not support BIO_gets() at all."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:27
+msgid "BIO_write() attempts to write B<len> bytes from B<buf> to BIO B<b>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:29
+msgid "BIO_puts() attempts to write a null terminated string B<buf> to BIO B<b>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:33
+msgid ""
+"All these functions return either the amount of data successfully read or "
+"written (if the return value is positive) or that no data was successfully "
+"read or written if the result is 0 or -1. If the return value is -2 then the "
+"operation is not implemented in the specific BIO type."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:40
+msgid ""
+"A 0 or -1 return is not necessarily an indication of an error. In particular "
+"when the source/sink is non-blocking or of a certain type it may merely be "
+"an indication that no data is currently available and that the application "
+"should retry the operation later."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:45
+msgid ""
+"One technique sometimes used with blocking sockets is to use a system call "
+"(such as select(), poll() or equivalent) to determine when data is available "
+"and then call read() to read the data. The equivalent with BIOs (that is "
+"call select() on the underlying I/O structure and then call BIO_read() to "
+"read the data) should B<not> be used because a single call to BIO_read()  "
+"can cause several reads (and writes in the case of SSL BIOs) on the "
+"underlying I/O structure and may block as a result. Instead select() (or "
+"equivalent)  should be combined with non blocking I/O so successive reads "
+"will request a retry instead of blocking."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:55
+msgid ""
+"See L<BIO_should_retry(3)|BIO_should_retry(3)> for details of how to "
+"determine the cause of a retry and other I/O issues."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:58
+msgid ""
+"If the BIO_gets() function is not supported by a BIO then it possible to "
+"work around this by adding a buffering BIO "
+"L<BIO_f_buffer(3)|BIO_f_buffer(3)> to the chain."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_read.pod:64
+msgid "L<BIO_should_retry(3)|BIO_should_retry(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:5
+msgid ""
+"BIO_s_accept, BIO_set_accept_port, BIO_get_accept_port, BIO_set_nbio_accept, "
+"BIO_set_accept_bios, BIO_set_bind_mode, BIO_get_bind_mode, BIO_do_accept - "
+"accept BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:13
+#, no-wrap
+msgid ""
+" BIO_METHOD *BIO_s_accept(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:15
+#, no-wrap
+msgid ""
+" long BIO_set_accept_port(BIO *b, char *name);\n"
+" char *BIO_get_accept_port(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:18
+#, no-wrap
+msgid ""
+" BIO *BIO_new_accept(char *host_port);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:20
+#, no-wrap
+msgid ""
+" long BIO_set_nbio_accept(BIO *b, int n);\n"
+" long BIO_set_accept_bios(BIO *b, char *bio);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:23
+#, no-wrap
+msgid ""
+" long BIO_set_bind_mode(BIO *b, long mode);\n"
+" long BIO_get_bind_mode(BIO *b, long dummy);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:26
+#, no-wrap
+msgid ""
+" #define BIO_BIND_NORMAL\t\t0\n"
+" #define BIO_BIND_REUSEADDR_IF_UNUSED\t1\n"
+" #define BIO_BIND_REUSEADDR\t\t2\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:30
+#, no-wrap
+msgid ""
+" int BIO_do_accept(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:34
+msgid ""
+"BIO_s_accept() returns the accept BIO method. This is a wrapper round the "
+"platform's TCP/IP socket accept routines."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:37
+msgid ""
+"Using accept BIOs, TCP/IP connections can be accepted and data transferred "
+"using only BIO routines. In this way any platform specific operations are "
+"hidden by the BIO abstraction."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:41
+msgid ""
+"Read and write operations on an accept BIO will perform I/O on the "
+"underlying connection. If no connection is established and the port (see "
+"below) is set up properly then the BIO waits for an incoming connection."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:46
+msgid "Accept BIOs support BIO_puts() but not BIO_gets()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:48
+msgid ""
+"If the close flag is set on an accept BIO then any active connection on that "
+"chain is shutdown and the socket closed when the BIO is freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:52
+msgid ""
+"Calling BIO_reset() on a accept BIO will close any active connection and "
+"reset the BIO into a state where it awaits another incoming connection."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:56
+msgid ""
+"BIO_get_fd() and BIO_set_fd() can be called to retrieve or set the accept "
+"socket. See L<BIO_s_fd(3)|BIO_s_fd(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:59
+msgid ""
+"BIO_set_accept_port() uses the string B<name> to set the accept port. The "
+"port is represented as a string of the form \"host:port\", where \"host\" is "
+"the interface to use and \"port\" is the port.  Either or both values can be "
+"\"*\" which is interpreted as meaning any interface or port "
+"respectively. \"port\" has the same syntax as the port specified in "
+"BIO_set_conn_port() for connect BIOs, that is it can be a numerical port "
+"string or a string to lookup using getservbyname() and a string table."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:68
+msgid ""
+"BIO_new_accept() combines BIO_new() and BIO_set_accept_port() into a single "
+"call: that is it creates a new accept BIO with port B<host_port>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:72
+msgid ""
+"BIO_set_nbio_accept() sets the accept socket to blocking mode (the default) "
+"if B<n> is 0 or non blocking mode if B<n> is 1."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:75
+msgid ""
+"BIO_set_accept_bios() can be used to set a chain of BIOs which will be "
+"duplicated and prepended to the chain when an incoming connection is "
+"received. This is useful if, for example, a buffering or SSL BIO is required "
+"for each connection. The chain of BIOs must not be freed after this call, "
+"they will be automatically freed when the accept BIO is freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:82
+msgid ""
+"BIO_set_bind_mode() and BIO_get_bind_mode() set and retrieve the current "
+"bind mode. If BIO_BIND_NORMAL (the default) is set then another socket "
+"cannot be bound to the same port. If BIO_BIND_REUSEADDR is set then other "
+"sockets can bind to the same port. If BIO_BIND_REUSEADDR_IF_UNUSED is set "
+"then and attempt is first made to use BIO_BIN_NORMAL, if this fails and the "
+"port is not in use then a second attempt is made using BIO_BIND_REUSEADDR."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:91
+msgid ""
+"BIO_do_accept() serves two functions. When it is first called, after the "
+"accept BIO has been setup, it will attempt to create the accept socket and "
+"bind an address to it. Second and subsequent calls to BIO_do_accept() will "
+"await an incoming connection, or request a retry in non blocking mode."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:99
+msgid ""
+"When an accept BIO is at the end of a chain it will await an incoming "
+"connection before processing I/O calls. When an accept BIO is not at then "
+"end of a chain it passes I/O calls to the next BIO in the chain."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:104
+msgid ""
+"When a connection is established a new socket BIO is created for the "
+"connection and appended to the chain. That is the chain is now "
+"accept->socket. This effectively means that attempting I/O on an initial "
+"accept socket will await an incoming connection then perform I/O on it."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:110
+msgid ""
+"If any additional BIOs have been set using BIO_set_accept_bios()  then they "
+"are placed between the socket and the accept BIO, that is the chain will be "
+"accept->otherbios->socket."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:114
+msgid ""
+"If a server wishes to process multiple connections (as is normally the case) "
+"then the accept BIO must be made available for further incoming "
+"connections. This can be done by waiting for a connection and then calling:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:119
+#, no-wrap
+msgid ""
+" connection = BIO_pop(accept);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:121
+msgid ""
+"After this call B<connection> will contain a BIO for the recently "
+"established connection and B<accept> will now be a single BIO again which "
+"can be used to await further incoming connections.  If no further "
+"connections will be accepted the B<accept> can be freed using BIO_free()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:127
+msgid ""
+"If only a single connection will be processed it is possible to perform I/O "
+"using the accept BIO itself. This is often undesirable however because the "
+"accept BIO will still accept additional incoming connections. This can be "
+"resolved by using BIO_pop() (see above)  and freeing up the accept BIO after "
+"the initial connection."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:133
+msgid ""
+"If the underlying accept socket is non-blocking and BIO_do_accept() is "
+"called to await an incoming connection it is possible for "
+"BIO_should_io_special() with the reason BIO_RR_ACCEPT. If this happens then "
+"it is an indication that an accept attempt would block: the application "
+"should take appropriate action to wait until the underlying socket has "
+"accepted a connection and retry the call."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:140
+msgid ""
+"BIO_set_accept_port(), BIO_get_accept_port(), BIO_set_nbio_accept(), "
+"BIO_set_accept_bios(), BIO_set_bind_mode(), BIO_get_bind_mode() and "
+"BIO_do_accept() are macros."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_accept.pod:150
+msgid ""
+"This example accepts two connections on port 4444, sends messages down each "
+"and finally closes both down."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:153
+#, no-wrap
+msgid ""
+" BIO *abio, *cbio, *cbio2;\n"
+" ERR_load_crypto_strings();\n"
+" abio = BIO_new_accept(\"4444\");\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:157
+#, no-wrap
+msgid ""
+" /* First call to BIO_accept() sets up accept BIO */\n"
+" if(BIO_do_accept(abio) <= 0) {\n"
+"\tfprintf(stderr, \"Error setting up accept\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\texit(0);\t\t\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:164
+#, no-wrap
+msgid ""
+" /* Wait for incoming connection */\n"
+" if(BIO_do_accept(abio) <= 0) {\n"
+"\tfprintf(stderr, \"Error accepting connection\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\texit(0);\t\t\n"
+" }\n"
+" fprintf(stderr, \"Connection 1 established\\n\");\n"
+" /* Retrieve BIO for connection */\n"
+" cbio = BIO_pop(abio);\n"
+" BIO_puts(cbio, \"Connection 1: Sending out Data on initial "
+"connection\\n\");\n"
+" fprintf(stderr, \"Sent out data on connection 1\\n\");\n"
+" /* Wait for another connection */\n"
+" if(BIO_do_accept(abio) <= 0) {\n"
+"\tfprintf(stderr, \"Error accepting connection\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\texit(0);\t\t\n"
+" }\n"
+" fprintf(stderr, \"Connection 2 established\\n\");\n"
+" /* Close accept BIO to refuse further connections */\n"
+" cbio2 = BIO_pop(abio);\n"
+" BIO_free(abio);\n"
+" BIO_puts(cbio2, \"Connection 2: Sending out Data on second\\n\");\n"
+" fprintf(stderr, \"Sent out data on connection 2\\n\");\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_accept.pod:188
+#, no-wrap
+msgid ""
+" BIO_puts(cbio, \"Connection 1: Second connection established\\n\");\n"
+" /* Close the two established connections */\n"
+" BIO_free(cbio);\n"
+" BIO_free(cbio2);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:5
+msgid ""
+"BIO_s_bio, BIO_make_bio_pair, BIO_destroy_bio_pair, BIO_shutdown_wr, "
+"BIO_set_write_buf_size, BIO_get_write_buf_size, BIO_new_bio_pair, "
+"BIO_get_write_guarantee, BIO_ctrl_get_write_guarantee, BIO_get_read_request, "
+"BIO_ctrl_get_read_request, BIO_ctrl_reset_read_request - BIO pair BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:14
+#, no-wrap
+msgid ""
+" BIO_METHOD *BIO_s_bio(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:16
+#, no-wrap
+msgid ""
+" #define BIO_make_bio_pair(b1,b2)   "
+"(int)BIO_ctrl(b1,BIO_C_MAKE_BIO_PAIR,0,b2)\n"
+" #define BIO_destroy_bio_pair(b)    "
+"(int)BIO_ctrl(b,BIO_C_DESTROY_BIO_PAIR,0,NULL)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:19
+#, no-wrap
+msgid ""
+" #define BIO_shutdown_wr(b) (int)BIO_ctrl(b, BIO_C_SHUTDOWN_WR, 0, NULL)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:21
+#, no-wrap
+msgid ""
+" #define BIO_set_write_buf_size(b,size) "
+"(int)BIO_ctrl(b,BIO_C_SET_WRITE_BUF_SIZE,size,NULL)\n"
+" #define BIO_get_write_buf_size(b,size) "
+"(size_t)BIO_ctrl(b,BIO_C_GET_WRITE_BUF_SIZE,size,NULL)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:24
+#, no-wrap
+msgid ""
+" int BIO_new_bio_pair(BIO **bio1, size_t writebuf1, BIO **bio2, size_t "
+"writebuf2);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:26
+#, no-wrap
+msgid ""
+" #define BIO_get_write_guarantee(b) "
+"(int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)\n"
+" size_t BIO_ctrl_get_write_guarantee(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:29
+#, no-wrap
+msgid ""
+" #define BIO_get_read_request(b)    "
+"(int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)\n"
+" size_t BIO_ctrl_get_read_request(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:32
+#, no-wrap
+msgid ""
+" int BIO_ctrl_reset_read_request(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:36
+msgid ""
+"BIO_s_bio() returns the method for a BIO pair. A BIO pair is a pair of "
+"source/sink BIOs where data written to either half of the pair is buffered "
+"and can be read from the other half. Both halves must usually by handled by "
+"the same application thread since no locking is done on the internal data "
+"structures."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:41
+msgid ""
+"Since BIO chains typically end in a source/sink BIO it is possible to make "
+"this one half of a BIO pair and have all the data processed by the chain "
+"under application control."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:45
+msgid ""
+"One typical use of BIO pairs is to place TLS/SSL I/O under application "
+"control, this can be used when the application wishes to use a non standard "
+"transport for TLS/SSL or the normal socket routines are inappropriate."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:49
+msgid ""
+"Calls to BIO_read() will read data from the buffer or request a retry if no "
+"data is available."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:52
+msgid ""
+"Calls to BIO_write() will place data in the buffer or request a retry if the "
+"buffer is full."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:55
+msgid ""
+"The standard calls BIO_ctrl_pending() and BIO_ctrl_wpending() can be used to "
+"determine the amount of pending data in the read or write buffer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:58
+msgid "BIO_reset() clears any data in the write buffer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:60
+msgid "BIO_make_bio_pair() joins two separate BIOs into a connected pair."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:62
+msgid ""
+"BIO_destroy_pair() destroys the association between two connected "
+"BIOs. Freeing up any half of the pair will automatically destroy the "
+"association."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:65
+msgid ""
+"BIO_shutdown_wr() is used to close down a BIO B<b>. After this call no "
+"further writes on BIO B<b> are allowed (they will return an error). Reads on "
+"the other half of the pair will return any pending data or EOF when all "
+"pending data has been read."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:70
+msgid ""
+"BIO_set_write_buf_size() sets the write buffer size of BIO B<b> to B<size>.  "
+"If the size is not initialized a default value is used. This is currently "
+"17K, sufficient for a maximum size TLS record."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:74
+msgid "BIO_get_write_buf_size() returns the size of the write buffer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:76
+msgid ""
+"BIO_new_bio_pair() combines the calls to BIO_new(), BIO_make_bio_pair() and "
+"BIO_set_write_buf_size() to create a connected pair of BIOs B<bio1>, B<bio2> "
+"with write buffer sizes B<writebuf1> and B<writebuf2>. If either size is "
+"zero then the default size is used.  BIO_new_bio_pair() does not check "
+"whether B<bio1> or B<bio2> do point to some other BIO, the values are "
+"overwritten, BIO_free() is not called."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:83
+msgid ""
+"BIO_get_write_guarantee() and BIO_ctrl_get_write_guarantee() return the "
+"maximum length of data that can be currently written to the BIO. Writes "
+"larger than this value will return a value from BIO_write() less than the "
+"amount requested or if the buffer is full request a "
+"retry. BIO_ctrl_get_write_guarantee() is a function whereas "
+"BIO_get_write_guarantee() is a macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:89
+msgid ""
+"BIO_get_read_request() and BIO_ctrl_get_read_request() return the amount of "
+"data requested, or the buffer size if it is less, if the last read attempt "
+"at the other half of the BIO pair failed due to an empty buffer.  This can "
+"be used to determine how much data should be written to the BIO so the next "
+"read will succeed: this is most useful in TLS/SSL applications where the "
+"amount of data read is usually meaningful rather than just a buffer "
+"size. After a successful read this call will return zero.  It also will "
+"return zero once new data has been written satisfying the read request or "
+"part of it.  Note that BIO_get_read_request() never returns an amount larger "
+"than that returned by BIO_get_write_guarantee()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:101
+msgid ""
+"BIO_ctrl_reset_read_request() can also be used to reset the value returned "
+"by BIO_get_read_request() to zero."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:106
+msgid ""
+"Both halves of a BIO pair should be freed. That is even if one half is "
+"implicit freed due to a BIO_free_all() or SSL_free() call the other half "
+"needs to be freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:109
+msgid ""
+"When used in bidirectional applications (such as TLS/SSL) care should be "
+"taken to flush any data in the write buffer. This can be done by calling "
+"BIO_pending()  on the other half of the pair and, if any data is pending, "
+"reading it and sending it to the underlying transport. This must be done "
+"before any normal processing (such as calling select() ) due to a request "
+"and BIO_should_read() being true."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:115
+msgid ""
+"To see why this is important consider a case where a request is sent using "
+"BIO_write() and a response read with BIO_read(), this can occur during an "
+"TLS/SSL handshake for example. BIO_write() will succeed and place data in "
+"the write buffer. BIO_read() will initially fail and BIO_should_read() will "
+"be true. If the application then waits for data to be available on the "
+"underlying transport before flushing the write buffer it will never succeed "
+"because the request was never sent!"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:125
+msgid ""
+"BIO_new_bio_pair() returns 1 on success, with the new BIOs available in "
+"B<bio1> and B<bio2>, or 0 on failure, with NULL pointers stored into the "
+"locations for B<bio1> and B<bio2>. Check the error stack for more "
+"information."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:129
+msgid "[XXXXX: More return values need to be added here]"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:133
+msgid ""
+"The BIO pair can be used to have full control over the network access of an "
+"application. The application can call select() on the socket as required "
+"without having to go through the SSL-interface."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:137
+#, no-wrap
+msgid ""
+" BIO *internal_bio, *network_bio;\n"
+" ...\n"
+" BIO_new_bio_pair(internal_bio, 0, network_bio, 0);\n"
+" SSL_set_bio(ssl, internal_bio, internal_bio);\n"
+" SSL_operations();\n"
+" ...\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:144
+#, no-wrap
+msgid ""
+" application |   TLS-engine\n"
+"    |        |\n"
+"    +----------> SSL_operations()\n"
+"             |     /\\    ||\n"
+"             |     ||    \\/\n"
+"             |   BIO-pair (internal_bio)\n"
+"    +----------< BIO-pair (network_bio)\n"
+"    |        |\n"
+"  socket     |\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_bio.pod:154
+#, no-wrap
+msgid ""
+"  ...\n"
+"  SSL_free(ssl);\t\t/* implicitly frees internal_bio */\n"
+"  BIO_free(network_bio);\n"
+"  ...\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:159
+msgid ""
+"As the BIO pair will only buffer the data and never directly access the "
+"connection, it behaves non-blocking and will return as soon as the write "
+"buffer is full or the read buffer is drained. Then the application has to "
+"flush the write buffer and/or fill the read buffer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:164
+msgid ""
+"Use the BIO_ctrl_pending(), to find out whether data is buffered in the BIO "
+"and must be transfered to the network. Use BIO_ctrl_get_read_request() to "
+"find out, how many bytes must be written into the buffer before the "
+"SSL_operation() can successfully be continued."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_s_bio.pod:169
+msgid "WARNING"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:171
+msgid ""
+"As the data is buffered, SSL_operation() may return with a "
+"ERROR_SSL_WANT_READ condition, but there is still data in the write "
+"buffer. An application must not rely on the error value of SSL_operation() "
+"but must assure that the write buffer is always flushed first. Otherwise a "
+"deadlock may occur as the peer might be waiting for the data before being "
+"able to continue."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_bio.pod:179
+msgid ""
+"L<SSL_set_bio(3)|SSL_set_bio(3)>, L<ssl(3)|ssl(3)>, L<bio(3)|bio(3)>, "
+"L<BIO_should_retry(3)|BIO_should_retry(3)>, L<BIO_read(3)|BIO_read(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:5
+msgid ""
+"BIO_s_connect, BIO_set_conn_hostname, BIO_set_conn_port, BIO_set_conn_ip, "
+"BIO_set_conn_int_port, BIO_get_conn_hostname, BIO_get_conn_port, "
+"BIO_get_conn_ip, BIO_get_conn_int_port, BIO_set_nbio, BIO_do_connect - "
+"connect BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_connect.pod:14
+#, no-wrap
+msgid ""
+" BIO_METHOD * BIO_s_connect(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_connect.pod:16
+#, no-wrap
+msgid ""
+" BIO *BIO_new_connect(char *name);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_connect.pod:18
+#, no-wrap
+msgid ""
+" long BIO_set_conn_hostname(BIO *b, char *name);\n"
+" long BIO_set_conn_port(BIO *b, char *port);\n"
+" long BIO_set_conn_ip(BIO *b, char *ip);\n"
+" long BIO_set_conn_int_port(BIO *b, char *port);\n"
+" char *BIO_get_conn_hostname(BIO *b);\n"
+" char *BIO_get_conn_port(BIO *b);\n"
+" char *BIO_get_conn_ip(BIO *b, dummy);\n"
+" long BIO_get_conn_int_port(BIO *b, int port);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_connect.pod:27
+#, no-wrap
+msgid ""
+" long BIO_set_nbio(BIO *b, long n);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_connect.pod:29
+#, no-wrap
+msgid ""
+" int BIO_do_connect(BIO *b);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:33
+msgid ""
+"BIO_s_connect() returns the connect BIO method. This is a wrapper round the "
+"platform's TCP/IP socket connection routines."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:36
+msgid ""
+"Using connect BIOs, TCP/IP connections can be made and data transferred "
+"using only BIO routines. In this way any platform specific operations are "
+"hidden by the BIO abstraction."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:40
+msgid ""
+"Read and write operations on a connect BIO will perform I/O on the "
+"underlying connection. If no connection is established and the port and "
+"hostname (see below) is set up properly then a connection is established "
+"first."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:45
+msgid "Connect BIOs support BIO_puts() but not BIO_gets()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:47
+msgid ""
+"If the close flag is set on a connect BIO then any active connection is "
+"shutdown and the socket closed when the BIO is freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:51
+msgid ""
+"Calling BIO_reset() on a connect BIO will close any active connection and "
+"reset the BIO into a state where it can connect to the same host again."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:55
+msgid ""
+"BIO_get_fd() places the underlying socket in B<c> if it is not NULL, it also "
+"returns the socket . If B<c> is not NULL it should be of type (int *)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:59
+msgid ""
+"BIO_set_conn_hostname() uses the string B<name> to set the hostname.  The "
+"hostname can be an IP address. The hostname can also include the port in the "
+"form hostname:port . It is also acceptable to use the form "
+"\"hostname/any/other/path\" or \"hostname:port/any/other/path\"."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:64
+msgid ""
+"BIO_set_conn_port() sets the port to B<port>. B<port> can be the numerical "
+"form or a string such as \"http\". A string will be looked up first using "
+"getservbyname() on the host platform but if that fails a standard table of "
+"port names will be used. Currently the list is http, telnet, socks, https, "
+"ssl, ftp, gopher and wais."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:70
+msgid ""
+"BIO_set_conn_ip() sets the IP address to B<ip> using binary form, that is "
+"four bytes specifying the IP address in big-endian form."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:73
+msgid ""
+"BIO_set_conn_int_port() sets the port using B<port>. B<port> should be of "
+"type (int *)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:76
+msgid ""
+"BIO_get_conn_hostname() returns the hostname of the connect BIO or NULL if "
+"the BIO is initialized but no hostname is set.  This return value is an "
+"internal pointer which should not be modified."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:80
+msgid "BIO_get_conn_port() returns the port as a string."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:82
+msgid "BIO_get_conn_ip() returns the IP address in binary form."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:84
+msgid "BIO_get_conn_int_port() returns the port as an int."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:86
+msgid ""
+"BIO_set_nbio() sets the non blocking I/O flag to B<n>. If B<n> is zero then "
+"blocking I/O is set. If B<n> is 1 then non blocking I/O is set. Blocking I/O "
+"is the default. The call to BIO_set_nbio()  should be made before the "
+"connection is established because non blocking I/O is set during the connect "
+"process."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:92
+msgid ""
+"BIO_new_connect() combines BIO_new() and BIO_set_conn_hostname() into a "
+"single call: that is it creates a new connect BIO with B<name>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:95
+msgid ""
+"BIO_do_connect() attempts to connect the supplied BIO. It returns 1 if the "
+"connection was established successfully. A zero or negative value is "
+"returned if the connection could not be established, the call "
+"BIO_should_retry() should be used for non blocking connect BIOs to determine "
+"if the call should be retried."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:103
+msgid ""
+"If blocking I/O is set then a non positive return value from any I/O call is "
+"caused by an error condition, although a zero return will normally mean that "
+"the connection was closed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:107
+msgid ""
+"If the port name is supplied as part of the host name then this will "
+"override any value set with BIO_set_conn_port(). This may be undesirable if "
+"the application does not wish to allow connection to arbitrary ports. This "
+"can be avoided by checking for the presence of the ':' character in the "
+"passed hostname and either indicating an error or truncating the string at "
+"that point."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:114
+msgid ""
+"The values returned by BIO_get_conn_hostname(), BIO_get_conn_port(), "
+"BIO_get_conn_ip() and BIO_get_conn_int_port() are updated when a connection "
+"attempt is made. Before any connection attempt the values returned are those "
+"set by the application itself."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:119
+msgid ""
+"Applications do not have to call BIO_do_connect() but may wish to do so to "
+"separate the connection process from other I/O processing."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:122
+msgid "If non blocking I/O is set then retries will be requested as appropriate."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:124
+msgid ""
+"It addition to BIO_should_read() and BIO_should_write() it is also possible "
+"for BIO_should_io_special() to be true during the initial connection process "
+"with the reason BIO_RR_CONNECT. If this is returned then this is an "
+"indication that a connection attempt would block, the application should "
+"then take appropriate action to wait until the underlying socket has "
+"connected and retry the call."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:131
+msgid ""
+"BIO_set_conn_hostname(), BIO_set_conn_port(), BIO_set_conn_ip(), "
+"BIO_set_conn_int_port(), BIO_get_conn_hostname(), BIO_get_conn_port(), "
+"BIO_get_conn_ip(), BIO_get_conn_int_port(), BIO_set_nbio() and "
+"BIO_do_connect() are macros."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:138
+msgid "BIO_s_connect() returns the connect BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:140 C/crypto/BIO_s_socket.pod:55
+msgid "BIO_get_fd() returns the socket or -1 if the BIO has not been initialized."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:143
+msgid ""
+"BIO_set_conn_hostname(), BIO_set_conn_port(), BIO_set_conn_ip() and "
+"BIO_set_conn_int_port() always return 1."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:146
+msgid ""
+"BIO_get_conn_hostname() returns the connected hostname or NULL is none was "
+"set."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:149
+msgid ""
+"BIO_get_conn_port() returns a string representing the connected port or NULL "
+"if not set."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:152
+msgid ""
+"BIO_get_conn_ip() returns a pointer to the connected IP address in binary "
+"form or all zeros if not set."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:155
+msgid "BIO_get_conn_int_port() returns the connected port or 0 if none was set."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:158
+msgid "BIO_set_nbio() always returns 1."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:160
+msgid ""
+"BIO_do_connect() returns 1 if the connection was successfully established "
+"and 0 or -1 if the connection failed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_connect.pod:165
+msgid ""
+"This is example connects to a webserver on the local host and attempts to "
+"retrieve a page and copy the result to standard output."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_connect.pod:169
+#, no-wrap
+msgid ""
+" BIO *cbio, *out;\n"
+" int len;\n"
+" char tmpbuf[1024];\n"
+" ERR_load_crypto_strings();\n"
+" cbio = BIO_new_connect(\"localhost:http\");\n"
+" out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+" if(BIO_do_connect(cbio) <= 0) {\n"
+"\tfprintf(stderr, \"Error connecting to server\\n\");\n"
+"\tERR_print_errors_fp(stderr);\n"
+"\t/* whatever ... */\n"
+"\t}\n"
+" BIO_puts(cbio, \"GET / HTTP/1.0\\n\\n\");\n"
+" for(;;) {\t\n"
+"\tlen = BIO_read(cbio, tmpbuf, 1024);\n"
+"\tif(len <= 0) break;\n"
+"\tBIO_write(out, tmpbuf, len);\n"
+" }\n"
+" BIO_free(cbio);\n"
+" BIO_free(out);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:5
+msgid "BIO_s_fd, BIO_set_fd, BIO_get_fd, BIO_new_fd - file descriptor BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_fd.pod:11
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_s_fd(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_fd.pod:13
+#, no-wrap
+msgid ""
+" #define BIO_set_fd(b,fd,c)\tBIO_int_ctrl(b,BIO_C_SET_FD,c,fd)\n"
+" #define BIO_get_fd(b,c)\tBIO_ctrl(b,BIO_C_GET_FD,0,(char *)c)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_fd.pod:16
+#, no-wrap
+msgid ""
+" BIO *BIO_new_fd(int fd, int close_flag);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:20
+msgid ""
+"BIO_s_fd() returns the file descriptor BIO method. This is a wrapper round "
+"the platforms file descriptor routines such as read() and write()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:23
+msgid ""
+"BIO_read() and BIO_write() read or write the underlying descriptor.  "
+"BIO_puts() is supported but BIO_gets() is not."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:26
+msgid ""
+"If the close flag is set then then close() is called on the underlying file "
+"descriptor when the BIO is freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:29
+msgid ""
+"BIO_reset() attempts to change the file pointer to the start of file using "
+"lseek(fd, 0, 0)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:32
+msgid ""
+"BIO_seek() sets the file pointer to position B<ofs> from start of file using "
+"lseek(fd, ofs, 0)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:35
+msgid "BIO_tell() returns the current file position by calling lseek(fd, 0, 1)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:37
+msgid ""
+"BIO_set_fd() sets the file descriptor of BIO B<b> to B<fd> and the close "
+"flag to B<c>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:40
+msgid ""
+"BIO_get_fd() places the file descriptor in B<c> if it is not NULL, it also "
+"returns the file descriptor. If B<c> is not NULL it should be of type (int "
+"*)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:44
+msgid "BIO_new_fd() returns a file descriptor BIO using B<fd> and B<close_flag>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:48
+msgid ""
+"The behaviour of BIO_read() and BIO_write() depends on the behavior of the "
+"platforms read() and write() calls on the descriptor. If the underlying file "
+"descriptor is in a non blocking mode then the BIO will behave in the manner "
+"described in the L<BIO_read(3)|BIO_read(3)> and "
+"L<BIO_should_retry(3)|BIO_should_retry(3)> manual pages."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:54
+msgid ""
+"File descriptor BIOs should not be used for socket I/O. Use socket BIOs "
+"instead."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:59
+msgid "BIO_s_fd() returns the file descriptor BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:61
+msgid ""
+"BIO_reset() returns zero for success and -1 if an error occurred.  "
+"BIO_seek() and BIO_tell() return the current file position or -1 is an error "
+"occurred. These values reflect the underlying lseek()  behaviour."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:66 C/crypto/BIO_s_socket.pod:53
+msgid "BIO_set_fd() always returns 1."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:68
+msgid ""
+"BIO_get_fd() returns the file descriptor or -1 if the BIO has not been "
+"initialized."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:71
+msgid "BIO_new_fd() returns the newly allocated BIO or NULL is an error occurred."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:76
+msgid "This is a file descriptor BIO version of \"Hello World\":"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_fd.pod:78
+#, no-wrap
+msgid ""
+" BIO *out;\n"
+" out = BIO_new_fd(fileno(stdout), BIO_NOCLOSE);\n"
+" BIO_printf(out, \"Hello World\\n\");\n"
+" BIO_free(out);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_fd.pod:85
+msgid ""
+"L<BIO_seek(3)|BIO_seek(3)>, L<BIO_tell(3)|BIO_tell(3)>, "
+"L<BIO_reset(3)|BIO_reset(3)>, L<BIO_read(3)|BIO_read(3)>, "
+"L<BIO_write(3)|BIO_write(3)>, L<BIO_puts(3)|BIO_puts(3)>, "
+"L<BIO_gets(3)|BIO_gets(3)>, L<BIO_printf(3)|BIO_printf(3)>, "
+"L<BIO_set_close(3)|BIO_set_close(3)>, L<BIO_get_close(3)|BIO_get_close(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:5
+msgid ""
+"BIO_s_file, BIO_new_file, BIO_new_fp, BIO_set_fp, BIO_get_fp, "
+"BIO_read_filename, BIO_write_filename, BIO_append_filename, BIO_rw_filename "
+"- FILE bio"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_file.pod:13
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_s_file(void);\n"
+" BIO *BIO_new_file(const char *filename, const char *mode);\n"
+" BIO *BIO_new_fp(FILE *stream, int flags);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_file.pod:17
+#, no-wrap
+msgid ""
+" BIO_set_fp(BIO *b,FILE *fp, int flags);\n"
+" BIO_get_fp(BIO *b,FILE **fpp);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_file.pod:20
+#, no-wrap
+msgid ""
+" int BIO_read_filename(BIO *b, char *name)\n"
+" int BIO_write_filename(BIO *b, char *name)\n"
+" int BIO_append_filename(BIO *b, char *name)\n"
+" int BIO_rw_filename(BIO *b, char *name)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:27
+msgid ""
+"BIO_s_file() returns the BIO file method. As its name implies it is a "
+"wrapper round the stdio FILE structure and it is a source/sink BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:31
+msgid ""
+"Calls to BIO_read() and BIO_write() read and write data to the underlying "
+"stream. BIO_gets() and BIO_puts() are supported on file BIOs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:34
+msgid "BIO_flush() on a file BIO calls the fflush() function on the wrapped stream."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:37
+msgid ""
+"BIO_reset() attempts to change the file pointer to the start of file using "
+"fseek(stream, 0, 0)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:40
+msgid ""
+"BIO_seek() sets the file pointer to position B<ofs> from start of file using "
+"fseek(stream, ofs, 0)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:43
+msgid "BIO_eof() calls feof()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:45
+msgid ""
+"Setting the BIO_CLOSE flag calls fclose() on the stream when the BIO is "
+"freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:48
+msgid ""
+"BIO_new_file() creates a new file BIO with mode B<mode> the meaning of "
+"B<mode> is the same as the stdio function fopen(). The BIO_CLOSE flag is set "
+"on the returned BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:52
+msgid ""
+"BIO_new_fp() creates a file BIO wrapping B<stream>. Flags can be: BIO_CLOSE, "
+"BIO_NOCLOSE (the close flag) BIO_FP_TEXT (sets the underlying stream to text "
+"mode, default is binary: this only has any effect under Win32)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:57
+msgid ""
+"BIO_set_fp() set the fp of a file BIO to B<fp>. B<flags> has the same "
+"meaning as in BIO_new_fp(), it is a macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:60
+msgid "BIO_get_fp() retrieves the fp of a file BIO, it is a macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:62
+msgid ""
+"BIO_seek() is a macro that sets the position pointer to B<offset> bytes from "
+"the start of file."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:65
+msgid "BIO_tell() returns the value of the position pointer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:67
+msgid ""
+"BIO_read_filename(), BIO_write_filename(), BIO_append_filename() and "
+"BIO_rw_filename() set the file BIO B<b> to use file B<name> for reading, "
+"writing, append or read write respectively."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:73
+msgid ""
+"When wrapping stdout, stdin or stderr the underlying stream should not "
+"normally be closed so the BIO_NOCLOSE flag should be set."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:76
+msgid ""
+"Because the file BIO calls the underlying stdio functions any quirks in "
+"stdio behaviour will be mirrored by the corresponding BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:79
+msgid ""
+"On Windows BIO_new_files reserves for the filename argument to be UTF-8 "
+"encoded. In other words if you have to make it work in multi- lingual "
+"environment, encode file names in UTF-8."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:85
+msgid "File BIO \"hello world\":"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_file.pod:87
+#, no-wrap
+msgid ""
+" BIO *bio_out;\n"
+" bio_out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+" BIO_printf(bio_out, \"Hello World\\n\");\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:91 C/crypto/BIO_s_file.pod:107
+msgid "Alternative technique:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_file.pod:93
+#, no-wrap
+msgid ""
+" BIO *bio_out;\n"
+" bio_out = BIO_new(BIO_s_file());\n"
+" if(bio_out == NULL) /* Error ... */\n"
+" if(!BIO_set_fp(bio_out, stdout, BIO_NOCLOSE)) /* Error ... */\n"
+" BIO_printf(bio_out, \"Hello World\\n\");\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:99
+msgid "Write to a file:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_file.pod:101
+#, no-wrap
+msgid ""
+" BIO *out;\n"
+" out = BIO_new_file(\"filename.txt\", \"w\");\n"
+" if(!out) /* Error occurred */\n"
+" BIO_printf(out, \"Hello World\\n\");\n"
+" BIO_free(out);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_file.pod:109
+#, no-wrap
+msgid ""
+" BIO *out;\n"
+" out = BIO_new(BIO_s_file());\n"
+" if(out == NULL) /* Error ... */\n"
+" if(!BIO_write_filename(out, \"filename.txt\")) /* Error ... */\n"
+" BIO_printf(out, \"Hello World\\n\");\n"
+" BIO_free(out);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:118
+msgid "BIO_s_file() returns the file BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:120
+msgid ""
+"BIO_new_file() and BIO_new_fp() return a file BIO or NULL if an error "
+"occurred."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:123
+msgid ""
+"BIO_set_fp() and BIO_get_fp() return 1 for success or 0 for failure "
+"(although the current implementation never return 0)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:126
+msgid ""
+"BIO_seek() returns the same value as the underlying fseek() function: 0 for "
+"success or -1 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:129
+msgid "BIO_tell() returns the current file position."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:131
+msgid ""
+"BIO_read_filename(), BIO_write_filename(), BIO_append_filename() and "
+"BIO_rw_filename() return 1 for success or 0 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:136
+msgid ""
+"BIO_reset() and BIO_seek() are implemented using fseek() on the underlying "
+"stream. The return value for fseek() is 0 for success or -1 if an error "
+"occurred this differs from other types of BIO which will typically return 1 "
+"for success and a non positive value if an error occurred."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_file.pod:143
+msgid ""
+"L<BIO_seek(3)|BIO_seek(3)>, L<BIO_tell(3)|BIO_tell(3)>, "
+"L<BIO_reset(3)|BIO_reset(3)>, L<BIO_flush(3)|BIO_flush(3)>, "
+"L<BIO_read(3)|BIO_read(3)>, L<BIO_write(3)|BIO_write(3)>, "
+"L<BIO_puts(3)|BIO_puts(3)>, L<BIO_gets(3)|BIO_gets(3)>, "
+"L<BIO_printf(3)|BIO_printf(3)>, L<BIO_set_close(3)|BIO_set_close(3)>, "
+"L<BIO_get_close(3)|BIO_get_close(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:5
+msgid ""
+"BIO_s_mem, BIO_set_mem_eof_return, BIO_get_mem_data, BIO_set_mem_buf, "
+"BIO_get_mem_ptr, BIO_new_mem_buf - memory BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_mem.pod:12
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_s_mem(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_mem.pod:14
+#, no-wrap
+msgid ""
+" BIO_set_mem_eof_return(BIO *b,int v)\n"
+" long BIO_get_mem_data(BIO *b, char **pp)\n"
+" BIO_set_mem_buf(BIO *b,BUF_MEM *bm,int c)\n"
+" BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_mem.pod:19
+#, no-wrap
+msgid ""
+" BIO *BIO_new_mem_buf(void *buf, int len);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:23
+msgid "BIO_s_mem() return the memory BIO method function."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:25
+msgid ""
+"A memory BIO is a source/sink BIO which uses memory for its I/O. Data "
+"written to a memory BIO is stored in a BUF_MEM structure which is extended "
+"as appropriate to accommodate the stored data."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:29
+msgid ""
+"Any data written to a memory BIO can be recalled by reading from it.  Unless "
+"the memory BIO is read only any data read from it is deleted from the BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:33
+msgid "Memory BIOs support BIO_gets() and BIO_puts()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:35
+msgid ""
+"If the BIO_CLOSE flag is set when a memory BIO is freed then the underlying "
+"BUF_MEM structure is also freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:38
+msgid ""
+"Calling BIO_reset() on a read write memory BIO clears any data in it. On a "
+"read only BIO it restores the BIO to its original state and the read only "
+"data can be read again."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:42
+msgid "BIO_eof() is true if no data is in the BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:44
+msgid "BIO_ctrl_pending() returns the number of bytes currently stored."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:46
+msgid ""
+"BIO_set_mem_eof_return() sets the behaviour of memory BIO B<b> when it is "
+"empty. If the B<v> is zero then an empty memory BIO will return EOF (that is "
+"it will return zero and BIO_should_retry(b) will be false. If B<v> is non "
+"zero then it will return B<v> when it is empty and it will set the read "
+"retry flag (that is BIO_read_retry(b) is true). To avoid ambiguity with a "
+"normal positive return value B<v> should be set to a negative value, "
+"typically -1."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:53
+msgid ""
+"BIO_get_mem_data() sets B<pp> to a pointer to the start of the memory BIOs "
+"data and returns the total amount of data available. It is implemented as a "
+"macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:56
+msgid ""
+"BIO_set_mem_buf() sets the internal BUF_MEM structure to B<bm> and sets the "
+"close flag to B<c>, that is B<c> should be either BIO_CLOSE or BIO_NOCLOSE.  "
+"It is a macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:60
+msgid ""
+"BIO_get_mem_ptr() places the underlying BUF_MEM structure in B<pp>. It is a "
+"macro."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:63
+msgid ""
+"BIO_new_mem_buf() creates a memory BIO using B<len> bytes of data at B<buf>, "
+"if B<len> is -1 then the B<buf> is assumed to be null terminated and its "
+"length is determined by B<strlen>. The BIO is set to a read only state and "
+"as a result cannot be written to. This is useful when some data needs to be "
+"made available from a static area of memory in the form of a BIO. The "
+"supplied data is read directly from the supplied buffer: it is B<not> copied "
+"first, so the supplied area of memory must be unchanged until the BIO is "
+"freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:73
+msgid ""
+"Writes to memory BIOs will always succeed if memory is available: that is "
+"their size can grow indefinitely."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:76
+msgid ""
+"Every read from a read write memory BIO will remove the data just read with "
+"an internal copy operation, if a BIO contains a lot of data and it is read "
+"in small chunks the operation can be very slow. The use of a read only "
+"memory BIO avoids this problem. If the BIO must be read write then adding a "
+"buffering BIO to the chain will speed up the process."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:84
+msgid "There should be an option to set the maximum size of a memory BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:86
+msgid ""
+"There should be a way to \"rewind\" a read write BIO without destroying its "
+"contents."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:89
+msgid ""
+"The copying operation should not occur after every small read of a large BIO "
+"to improve efficiency."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:94
+msgid "Create a memory BIO and write some data to it:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_mem.pod:96
+#, no-wrap
+msgid ""
+" BIO *mem = BIO_new(BIO_s_mem());\n"
+" BIO_puts(mem, \"Hello World\\n\"); \n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:99
+msgid "Create a read only memory BIO:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_mem.pod:101
+#, no-wrap
+msgid ""
+" char data[] = \"Hello World\";\n"
+" BIO *mem;\n"
+" mem = BIO_new_mem_buf(data, -1);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_mem.pod:105
+msgid "Extract the BUF_MEM structure from a memory BIO and then free up the BIO:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_mem.pod:107
+#, no-wrap
+msgid ""
+" BUF_MEM *bptr;\n"
+" BIO_get_mem_ptr(mem, &bptr);\n"
+" BIO_set_close(mem, BIO_NOCLOSE); /* So BIO_free() leaves BUF_MEM alone */\n"
+" BIO_free(mem);\n"
+" \n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_null.pod:5
+msgid "BIO_s_null - null data sink"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_null.pod:11
+#, no-wrap
+msgid ""
+" BIO_METHOD *\tBIO_s_null(void);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_null.pod:15
+msgid ""
+"BIO_s_null() returns the null sink BIO method. Data written to the null sink "
+"is discarded, reads return EOF."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_null.pod:20
+msgid "A null sink BIO behaves in a similar manner to the Unix /dev/null device."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_null.pod:23
+msgid ""
+"A null bio can be placed on the end of a chain to discard any data passed "
+"through it."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_null.pod:26
+msgid ""
+"A null sink is useful if, for example, an application wishes to digest some "
+"data by writing through a digest bio but not send the digested data "
+"anywhere.  Since a BIO chain must normally include a source/sink BIO this "
+"can be achieved by adding a null sink BIO to the end of the chain"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_null.pod:33
+msgid "BIO_s_null() returns the null sink BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:5
+msgid "BIO_s_socket, BIO_new_socket - socket BIO"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_socket.pod:11
+#, no-wrap
+msgid ""
+" BIO_METHOD *BIO_s_socket(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_socket.pod:13
+#, no-wrap
+msgid ""
+" long BIO_set_fd(BIO *b, int fd, long close_flag);\n"
+" long BIO_get_fd(BIO *b, int *c);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_s_socket.pod:16
+#, no-wrap
+msgid ""
+" BIO *BIO_new_socket(int sock, int close_flag);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:20
+msgid ""
+"BIO_s_socket() returns the socket BIO method. This is a wrapper round the "
+"platform's socket routines."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:23
+msgid ""
+"BIO_read() and BIO_write() read or write the underlying socket.  BIO_puts() "
+"is supported but BIO_gets() is not."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:26
+msgid ""
+"If the close flag is set then the socket is shut down and closed when the "
+"BIO is freed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:29
+msgid ""
+"BIO_set_fd() sets the socket of BIO B<b> to B<fd> and the close flag to "
+"B<close_flag>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:32
+msgid ""
+"BIO_get_fd() places the socket in B<c> if it is not NULL, it also returns "
+"the socket. If B<c> is not NULL it should be of type (int *)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:35
+msgid "BIO_new_socket() returns a socket BIO using B<sock> and B<close_flag>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:39
+msgid "Socket BIOs also support any relevant functionality of file descriptor BIOs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:42
+msgid ""
+"The reason for having separate file descriptor and socket BIOs is that on "
+"some platforms sockets are not file descriptors and use distinct I/O "
+"routines, Windows is one such platform. Any code mixing the two will not "
+"work on all platforms."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:47
+msgid "BIO_set_fd() and BIO_get_fd() are macros."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:51
+msgid "BIO_s_socket() returns the socket BIO method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_s_socket.pod:58
+msgid ""
+"BIO_new_socket() returns the newly allocated BIO or NULL is an error "
+"occurred."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:5
+msgid ""
+"BIO_set_callback, BIO_get_callback, BIO_set_callback_arg, "
+"BIO_get_callback_arg, BIO_debug_callback - BIO callback functions"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_set_callback.pod:12
+#, no-wrap
+msgid ""
+" #define BIO_set_callback(b,cb)\t\t((b)->callback=(cb))\n"
+" #define BIO_get_callback(b)\t\t((b)->callback)\n"
+" #define BIO_set_callback_arg(b,arg)\t((b)->cb_arg=(char *)(arg))\n"
+" #define BIO_get_callback_arg(b)\t\t((b)->cb_arg)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_set_callback.pod:17
+#, no-wrap
+msgid ""
+" long BIO_debug_callback(BIO *bio,int cmd,const char *argp,int argi,\n"
+"\tlong argl,long ret);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_set_callback.pod:20
+#, no-wrap
+msgid ""
+" typedef long (*callback)(BIO *b, int oper, const char *argp,\n"
+"\t\t\tint argi, long argl, long retvalue);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:25
+msgid ""
+"BIO_set_callback() and BIO_get_callback() set and retrieve the BIO callback, "
+"they are both macros. The callback is called during most high level BIO "
+"operations. It can be used for debugging purposes to trace operations on a "
+"BIO or to modify its operation."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:30
+msgid ""
+"BIO_set_callback_arg() and BIO_get_callback_arg() are macros which can be "
+"used to set and retrieve an argument for use in the callback."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:33
+msgid ""
+"BIO_debug_callback() is a standard debugging callback which prints out "
+"information relating to each BIO operation. If the callback argument is set "
+"if is interpreted as a BIO to send the information to, otherwise stderr is "
+"used."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:38
+msgid ""
+"callback() is the callback function itself. The meaning of each argument is "
+"described below."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:41
+msgid "The BIO the callback is attached to is passed in B<b>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:43
+msgid ""
+"B<oper> is set to the operation being performed. For some operations the "
+"callback is called twice, once before and once after the actual operation, "
+"the latter case has B<oper> or'ed with BIO_CB_RETURN."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:47
+msgid ""
+"The meaning of the arguments B<argp>, B<argi> and B<argl> depends on the "
+"value of B<oper>, that is the operation being performed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:50
+msgid ""
+"B<retvalue> is the return value that would be returned to the application if "
+"no callback were present. The actual value returned is the return value of "
+"the callback itself. In the case of callbacks called before the actual BIO "
+"operation 1 is placed in retvalue, if the return value is not positive it "
+"will be immediately returned to the application and the BIO operation will "
+"not be performed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:57
+msgid ""
+"The callback should normally simply return B<retvalue> when it has finished "
+"processing, unless if specifically wishes to modify the value returned to "
+"the application."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/BIO_set_callback.pod:61
+msgid "CALLBACK OPERATIONS"
+msgstr ""
+
+#. type: =item
+#: C/crypto/BIO_set_callback.pod:65
+msgid "B<BIO_free(b)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:67
+msgid ""
+"callback(b, BIO_CB_FREE, NULL, 0L, 0L, 1L) is called before the free "
+"operation."
+msgstr ""
+
+#. type: =item
+#: C/crypto/BIO_set_callback.pod:70
+msgid "B<BIO_read(b, out, outl)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:72
+msgid ""
+"callback(b, BIO_CB_READ, out, outl, 0L, 1L) is called before the read and "
+"callback(b, BIO_CB_READ|BIO_CB_RETURN, out, outl, 0L, retvalue)  after."
+msgstr ""
+
+#. type: =item
+#: C/crypto/BIO_set_callback.pod:76
+msgid "B<BIO_write(b, in, inl)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:78
+msgid ""
+"callback(b, BIO_CB_WRITE, in, inl, 0L, 1L) is called before the write and "
+"callback(b, BIO_CB_WRITE|BIO_CB_RETURN, in, inl, 0L, retvalue)  after."
+msgstr ""
+
+#. type: =item
+#: C/crypto/BIO_set_callback.pod:82
+msgid "B<BIO_gets(b, out, outl)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:84
+msgid ""
+"callback(b, BIO_CB_GETS, out, outl, 0L, 1L) is called before the operation "
+"and callback(b, BIO_CB_GETS|BIO_CB_RETURN, out, outl, 0L, retvalue)  after."
+msgstr ""
+
+#. type: =item
+#: C/crypto/BIO_set_callback.pod:88
+msgid "B<BIO_puts(b, in)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:90
+msgid ""
+"callback(b, BIO_CB_WRITE, in, 0, 0L, 1L) is called before the operation and "
+"callback(b, BIO_CB_WRITE|BIO_CB_RETURN, in, 0, 0L, retvalue)  after."
+msgstr ""
+
+#. type: =item
+#: C/crypto/BIO_set_callback.pod:94
+msgid "B<BIO_ctrl(BIO *b, int cmd, long larg, void *parg)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:96
+msgid ""
+"callback(b,BIO_CB_CTRL,parg,cmd,larg,1L) is called before the call and "
+"callback(b,BIO_CB_CTRL|BIO_CB_RETURN,parg,cmd, larg,ret) after."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_set_callback.pod:103
+msgid ""
+"The BIO_debug_callback() function is a good example, its source is in "
+"crypto/bio/bio_cb.c"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:5
+msgid ""
+"BIO_should_retry, BIO_should_read, BIO_should_write, BIO_should_io_special, "
+"BIO_retry_type, BIO_should_retry, BIO_get_retry_BIO, BIO_get_retry_reason - "
+"BIO retry functions"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_should_retry.pod:13
+#, no-wrap
+msgid ""
+" #define BIO_should_read(a)\t\t((a)->flags & BIO_FLAGS_READ)\n"
+" #define BIO_should_write(a)\t\t((a)->flags & BIO_FLAGS_WRITE)\n"
+" #define BIO_should_io_special(a)\t((a)->flags & BIO_FLAGS_IO_SPECIAL)\n"
+" #define BIO_retry_type(a)\t\t((a)->flags & BIO_FLAGS_RWS)\n"
+" #define BIO_should_retry(a)\t\t((a)->flags & BIO_FLAGS_SHOULD_RETRY)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_should_retry.pod:19
+#, no-wrap
+msgid ""
+" #define BIO_FLAGS_READ\t\t0x01\n"
+" #define BIO_FLAGS_WRITE\t0x02\n"
+" #define BIO_FLAGS_IO_SPECIAL\t0x04\n"
+" #define BIO_FLAGS_RWS "
+"(BIO_FLAGS_READ|BIO_FLAGS_WRITE|BIO_FLAGS_IO_SPECIAL)\n"
+" #define BIO_FLAGS_SHOULD_RETRY\t0x08\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/BIO_should_retry.pod:25
+#, no-wrap
+msgid ""
+" BIO *\tBIO_get_retry_BIO(BIO *bio, int *reason);\n"
+" int\tBIO_get_retry_reason(BIO *bio);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:30
+msgid ""
+"These functions determine why a BIO is not able to read or write data.  They "
+"will typically be called after a failed BIO_read() or BIO_write()  call."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:34
+msgid ""
+"BIO_should_retry() is true if the call that produced this condition should "
+"then be retried at a later time."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:37
+msgid "If BIO_should_retry() is false then the cause is an error condition."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:39
+msgid ""
+"BIO_should_read() is true if the cause of the condition is that a BIO needs "
+"to read data."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:42
+msgid ""
+"BIO_should_write() is true if the cause of the condition is that a BIO needs "
+"to read data."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:45
+msgid ""
+"BIO_should_io_special() is true if some \"special\" condition, that is a "
+"reason other than reading or writing is the cause of the condition."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:48
+msgid ""
+"BIO_retry_type() returns a mask of the cause of a retry condition consisting "
+"of the values B<BIO_FLAGS_READ>, B<BIO_FLAGS_WRITE>, B<BIO_FLAGS_IO_SPECIAL> "
+"though current BIO types will only set one of these."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:53
+msgid ""
+"BIO_get_retry_BIO() determines the precise reason for the special condition, "
+"it returns the BIO that caused this condition and if B<reason> is not NULL "
+"it contains the reason code. The meaning of the reason code and the action "
+"that should be taken depends on the type of BIO that resulted in this "
+"condition."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:59
+msgid ""
+"BIO_get_retry_reason() returns the reason for a special condition if passed "
+"the relevant BIO, for example as returned by BIO_get_retry_BIO()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:64
+msgid ""
+"If BIO_should_retry() returns false then the precise \"error condition\" "
+"depends on the BIO type that caused it and the return code of the BIO "
+"operation. For example if a call to BIO_read() on a socket BIO returns 0 and "
+"BIO_should_retry() is false then the cause will be that the connection "
+"closed. A similar condition on a file BIO will mean that it has reached "
+"EOF. Some BIO types may place additional information on the error queue. For "
+"more details see the individual BIO type manual pages."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:73
+msgid ""
+"If the underlying I/O structure is in a blocking mode almost all current BIO "
+"types will not request a retry, because the underlying I/O calls will "
+"not. If the application knows that the BIO type will never signal a retry "
+"then it need not call BIO_should_retry() after a failed BIO I/O call. This "
+"is typically done with file BIOs."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:79
+msgid ""
+"SSL BIOs are the only current exception to this rule: they can request a "
+"retry even if the underlying I/O structure is blocking, if a handshake "
+"occurs during a call to BIO_read(). An application can retry the failed call "
+"immediately or avoid this situation by setting SSL_MODE_AUTO_RETRY on the "
+"underlying SSL structure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:85
+msgid ""
+"While an application may retry a failed non blocking call immediately this "
+"is likely to be very inefficient because the call will fail repeatedly until "
+"data can be processed or is available. An application will normally wait "
+"until the necessary condition is satisfied. How this is done depends on the "
+"underlying I/O structure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:91
+msgid ""
+"For example if the cause is ultimately a socket and BIO_should_read()  is "
+"true then a call to select() may be made to wait until data is available and "
+"then retry the BIO operation. By combining the retry conditions of several "
+"non blocking BIOs in a single select() call it is possible to service "
+"several BIOs in a single thread, though the performance may be poor if SSL "
+"BIOs are present because long delays can occur during the initial handshake "
+"process."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:99
+msgid ""
+"It is possible for a BIO to block indefinitely if the underlying I/O "
+"structure cannot process or return any data. This depends on the behaviour "
+"of the platforms I/O functions. This is often not desirable: one solution is "
+"to use non blocking I/O and use a timeout on the select() (or equivalent) "
+"call."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/BIO_should_retry.pod:107
+msgid ""
+"The OpenSSL ASN1 functions cannot gracefully deal with non blocking I/O: "
+"that is they cannot retry after a partial read or write. This is usually "
+"worked around by only passing the relevant data to ASN1 functions when the "
+"entire structure can be read or written."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/bio.pod:5
+msgid "bio - I/O abstraction"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/bio.pod:16
+msgid ""
+"A BIO is an I/O abstraction, it hides many of the underlying I/O details "
+"from an application. If an application uses a BIO for its I/O it can "
+"transparently handle SSL connections, unencrypted network connections and "
+"file I/O."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/bio.pod:21
+msgid "There are two type of BIO, a source/sink BIO and a filter BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/bio.pod:23
+msgid ""
+"As its name implies a source/sink BIO is a source and/or sink of data, "
+"examples include a socket BIO and a file BIO."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/bio.pod:26
+msgid ""
+"A filter BIO takes data from one BIO and passes it through to another, or "
+"the application. The data may be left unmodified (for example a message "
+"digest BIO) or translated (for example an encryption BIO). The effect of a "
+"filter BIO may change according to the I/O operation it is performing: for "
+"example an encryption BIO will encrypt data if it is being written to and "
+"decrypt data if it is being read from."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/bio.pod:34
+msgid ""
+"BIOs can be joined together to form a chain (a single BIO is a chain with "
+"one component). A chain normally consist of one source/sink BIO and one or "
+"more filter BIOs. Data read from or written to the first BIO then traverses "
+"the chain to the end (normally a source/sink BIO)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/bio.pod:42
+msgid ""
+"L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_f_base64(3)|BIO_f_base64(3)>, "
+"L<BIO_f_buffer(3)|BIO_f_buffer(3)>, L<BIO_f_cipher(3)|BIO_f_cipher(3)>, "
+"L<BIO_f_md(3)|BIO_f_md(3)>, L<BIO_f_null(3)|BIO_f_null(3)>, "
+"L<BIO_f_ssl(3)|BIO_f_ssl(3)>, L<BIO_find_type(3)|BIO_find_type(3)>, "
+"L<BIO_new(3)|BIO_new(3)>, L<BIO_new_bio_pair(3)|BIO_new_bio_pair(3)>, "
+"L<BIO_push(3)|BIO_push(3)>, L<BIO_read(3)|BIO_read(3)>, "
+"L<BIO_s_accept(3)|BIO_s_accept(3)>, L<BIO_s_bio(3)|BIO_s_bio(3)>, "
+"L<BIO_s_connect(3)|BIO_s_connect(3)>, L<BIO_s_fd(3)|BIO_s_fd(3)>, "
+"L<BIO_s_file(3)|BIO_s_file(3)>, L<BIO_s_mem(3)|BIO_s_mem(3)>, "
+"L<BIO_s_null(3)|BIO_s_null(3)>, L<BIO_s_socket(3)|BIO_s_socket(3)>, "
+"L<BIO_set_callback(3)|BIO_set_callback(3)>, "
+"L<BIO_should_retry(3)|BIO_should_retry(3)>"
+msgstr ""

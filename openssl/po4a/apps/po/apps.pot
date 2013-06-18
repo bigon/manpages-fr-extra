@@ -1,0 +1,6715 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-05-29 23:09-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: =for
+#: C/apps/config.pod:4
+msgid "comment openssl_manual_section:5"
+msgstr ""
+
+#. type: =head1
+#: C/apps/config.pod:6 C/apps/c_rehash.pod:4 C/apps/dgst.pod:3 C/apps/enc.pod:3 C/apps/nseq.pod:3 C/apps/ocsp.pod:3 C/apps/passwd.pod:3 C/apps/req.pod:4 C/apps/sess_id.pod:4 C/apps/speed.pod:3 C/apps/spkac.pod:3 C/apps/ts.pod:3 C/apps/tsget.pod:3 C/apps/verify.pod:3 C/apps/version.pod:3
+msgid "NAME"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:8
+msgid "config - OpenSSL CONF library configuration files"
+msgstr ""
+
+#. type: =head1
+#: C/apps/config.pod:10 C/apps/c_rehash.pod:13 C/apps/dgst.pod:32 C/apps/enc.pod:34 C/apps/nseq.pod:14 C/apps/ocsp.pod:56 C/apps/passwd.pod:21 C/apps/req.pod:52 C/apps/sess_id.pod:19 C/apps/speed.pod:37 C/apps/spkac.pod:22 C/apps/ts.pod:51 C/apps/tsget.pod:24 C/apps/verify.pod:33 C/apps/version.pod:17
+msgid "DESCRIPTION"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:12
+msgid ""
+"The OpenSSL CONF library can be used to read configuration files.  It is "
+"used for the OpenSSL master configuration file B<openssl.cnf> and in a few "
+"other places like B<SPKAC> files and certificate extension files for the "
+"B<x509> utility. OpenSSL applications can also use the CONF library for "
+"their own purposes."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:18
+msgid ""
+"A configuration file is divided into a number of sections. Each section "
+"starts with a line B<[ section_name ]> and ends when a new section is "
+"started or end of file is reached. A section name can consist of "
+"alphanumeric characters and underscores."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:23
+msgid ""
+"The first section of a configuration file is special and is referred to as "
+"the B<default> section this is usually unnamed and is from the start of file "
+"until the first named section. When a name is being looked up it is first "
+"looked up in a named section (if any) and then the default section."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:29
+msgid "The environment is mapped onto a section called B<ENV>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:31
+msgid "Comments can be included by preceding them with the B<#> character"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:33
+msgid ""
+"Each section in a configuration file consists of a number of name and value "
+"pairs of the form B<name=value>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:36
+msgid ""
+"The B<name> string can contain any alphanumeric characters as well as a few "
+"punctuation symbols such as B<.> B<,> B<;> and B<_>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:39
+msgid ""
+"The B<value> string consists of the string following the B<=> character "
+"until end of line with any leading and trailing white space removed."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:42
+msgid ""
+"The value string undergoes variable expansion. This can be done by including "
+"the form B<$var> or B<${var}>: this will substitute the value of the named "
+"variable in the current section. It is also possible to substitute a value "
+"from another section using the syntax B<$section::name> or "
+"B<${section::name}>. By using the form B<$ENV::name> environment variables "
+"can be substituted. It is also possible to assign values to environment "
+"variables by using the name B<ENV::name>, this will work if the program "
+"looks up environment variables using the B<CONF> library instead of calling "
+"B<getenv()> directly."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:52
+msgid ""
+"It is possible to escape certain characters by using any kind of quote or "
+"the B<\\> character. By making the last character of a line a B<\\> a "
+"B<value> string can be spread across multiple lines. In addition the "
+"sequences B<\\n>, B<\\r>, B<\\b> and B<\\t> are recognized."
+msgstr ""
+
+#. type: =head1
+#: C/apps/config.pod:57
+msgid "OPENSSL LIBRARY CONFIGURATION"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:59
+msgid ""
+"In OpenSSL 0.9.7 and later applications can automatically configure certain "
+"aspects of OpenSSL using the master OpenSSL configuration file, or "
+"optionally an alternative configuration file. The B<openssl> utility "
+"includes this functionality: any sub command uses the master OpenSSL "
+"configuration file unless an option is used in the sub command to use an "
+"alternative configuration file."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:66
+msgid ""
+"To enable library configuration the default section needs to contain an "
+"appropriate line which points to the main configuration section. The default "
+"name is B<openssl_conf> which is used by the B<openssl> utility. Other "
+"applications may use an alternative name such as B<myapplicaton_conf>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:71
+msgid ""
+"The configuration section should consist of a set of name value pairs which "
+"contain specific module configuration information. The B<name> represents "
+"the name of the I<configuration module> the meaning of the B<value> is "
+"module specific: it may, for example, represent a further configuration "
+"section containing configuration module specific information. E.g."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:77
+#, no-wrap
+msgid ""
+" openssl_conf = openssl_init\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:79
+#, no-wrap
+msgid ""
+" [openssl_init]\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:81
+#, no-wrap
+msgid ""
+" oid_section = new_oids\n"
+" engines = engine_section\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:84
+#, no-wrap
+msgid ""
+" [new_oids]\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:86
+#, no-wrap
+msgid ""
+" ... new oids here ...\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:88 C/apps/config.pod:132 C/apps/config.pod:179
+#, no-wrap
+msgid ""
+" [engine_section]\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:90
+#, no-wrap
+msgid ""
+" ... engine stuff here ...\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:92
+msgid ""
+"Currently there are two configuration modules. One for ASN1 objects another "
+"for ENGINE configuration."
+msgstr ""
+
+#. type: =head2
+#: C/apps/config.pod:95
+msgid "ASN1 OBJECT CONFIGURATION MODULE"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:97
+msgid ""
+"This module has the name B<oid_section>. The value of this variable points "
+"to a section containing name value pairs of OIDs: the name is the OID short "
+"and long name, the value is the numerical form of the OID. Although some of "
+"the B<openssl> utility sub commands already have their own ASN1 OBJECT "
+"section functionality not all do. By using the ASN1 OBJECT configuration "
+"module B<all> the B<openssl> utility sub commands can see the new objects as "
+"well as any compliant applications. For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:105
+#, no-wrap
+msgid ""
+" [new_oids]\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:107
+#, no-wrap
+msgid ""
+" some_new_oid = 1.2.3.4\n"
+" some_other_oid = 1.2.3.5\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:110
+msgid ""
+"In OpenSSL 0.9.8 it is also possible to set the value to the long name "
+"followed by a comma and the numerical OID form. For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:113
+#, no-wrap
+msgid ""
+" shortName = some object long name, 1.2.3.4\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: C/apps/config.pod:115
+msgid "ENGINE CONFIGURATION MODULE"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:117
+msgid ""
+"This ENGINE configuration module has the name B<engines>. The value of this "
+"variable points to a section containing further ENGINE configuration "
+"information."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:121
+msgid ""
+"The section pointed to by B<engines> is a table of engine names (though see "
+"B<engine_id> below) and further sections containing configuration "
+"information specific to each ENGINE."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:125
+msgid ""
+"Each ENGINE specific section is used to set default algorithms, load "
+"dynamic, perform initialization and send ctrls. The actual operation "
+"performed depends on the I<command> name which is the name of the name value "
+"pair. The currently supported commands are listed below."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:130 C/apps/config.pod:176
+msgid "For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:134
+#, no-wrap
+msgid ""
+" # Configure ENGINE named \"foo\"\n"
+" foo = foo_section\n"
+" # Configure ENGINE named \"bar\"\n"
+" bar = bar_section\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:139
+#, no-wrap
+msgid ""
+" [foo_section]\n"
+" ... foo ENGINE specific commands ...\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:142
+#, no-wrap
+msgid ""
+" [bar_section]\n"
+" ... \"bar\" ENGINE specific commands ...\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:145
+msgid ""
+"The command B<engine_id> is used to give the ENGINE name. If used this "
+"command must be first. For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:148
+#, no-wrap
+msgid ""
+" [engine_section]\n"
+" # This would normally handle an ENGINE named \"foo\"\n"
+" foo = foo_section\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:152
+#, no-wrap
+msgid ""
+" [foo_section]\n"
+" # Override default name and use \"myfoo\" instead.\n"
+" engine_id = myfoo\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:156
+msgid ""
+"The command B<dynamic_path> loads and adds an ENGINE from the given path. It "
+"is equivalent to sending the ctrls B<SO_PATH> with the path argument "
+"followed by B<LIST_ADD> with value 2 and B<LOAD> to the dynamic ENGINE. If "
+"this is not the required behaviour then alternative ctrls can be sent "
+"directly to the dynamic ENGINE using ctrl commands."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:162
+msgid ""
+"The command B<init> determines whether to initialize the ENGINE. If the "
+"value is B<0> the ENGINE will not be initialized, if B<1> and attempt it "
+"made to initialized the ENGINE immediately. If the B<init> command is not "
+"present then an attempt will be made to initialize the ENGINE after all "
+"commands in its section have been processed."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:168
+msgid ""
+"The command B<default_algorithms> sets the default algorithms an ENGINE will "
+"supply using the functions B<ENGINE_set_default_string()>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:171
+msgid ""
+"If the name matches none of the above command names it is assumed to be a "
+"ctrl command which is sent to the ENGINE. The value of the command is the "
+"argument to the ctrl command. If the value is the string B<EMPTY> then no "
+"value is sent to the command."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:181
+#, no-wrap
+msgid ""
+" # Configure ENGINE named \"foo\"\n"
+" foo = foo_section\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:184
+#, no-wrap
+msgid ""
+" [foo_section]\n"
+" # Load engine from DSO\n"
+" dynamic_path = /some/path/fooengine.so\n"
+" # A foo specific ctrl.\n"
+" some_ctrl = some_value\n"
+" # Another ctrl that doesn't take a value.\n"
+" other_ctrl = EMPTY\n"
+" # Supply all default algorithms\n"
+" default_algorithms = ALL\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/apps/config.pod:194 C/apps/dgst.pod:158 C/apps/enc.pod:163 C/apps/nseq.pod:53 C/apps/ocsp.pod:318 C/apps/req.pod:595 C/apps/sess_id.pod:131 C/apps/spkac.pod:113 C/apps/version.pod:55
+msgid "NOTES"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:196
+msgid ""
+"If a configuration file attempts to expand a variable that doesn't exist "
+"then an error is flagged and the file will not load. This can happen if an "
+"attempt is made to expand an environment variable that doesn't exist. For "
+"example in a previous version of OpenSSL the default OpenSSL master "
+"configuration file used the value of B<HOME> which may not be defined on non "
+"Unix systems and would cause an error."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:203
+msgid ""
+"This can be worked around by including a B<default> section to provide a "
+"default value: then if the environment lookup fails the default value will "
+"be used instead. For this to work properly the default value must be defined "
+"earlier in the configuration file than the expansion. See the B<EXAMPLES> "
+"section for an example of how to do this."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:209
+msgid ""
+"If the same variable exists in the same section then all but the last value "
+"will be silently ignored. In certain circumstances such as with DNs the same "
+"field may occur multiple times. This is usually worked around by ignoring "
+"any characters before an initial B<.> e.g."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:214
+#, no-wrap
+msgid ""
+" 1.OU=\"My first OU\"\n"
+" 2.OU=\"My Second OU\"\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/apps/config.pod:217 C/apps/enc.pod:288 C/apps/nseq.pod:43 C/apps/ocsp.pod:335 C/apps/passwd.pod:74 C/apps/req.pod:501 C/apps/spkac.pod:91 C/apps/ts.pod:458 C/apps/tsget.pod:138
+msgid "EXAMPLES"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:219
+msgid ""
+"Here is a sample configuration file using some of the features mentioned "
+"above."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:222
+#, no-wrap
+msgid ""
+" # This is the default section.\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:224
+#, no-wrap
+msgid ""
+" HOME=/temp\n"
+" RANDFILE= ${ENV::HOME}/.rnd\n"
+" configdir=$ENV::HOME/config\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:228
+#, no-wrap
+msgid ""
+" [ section_one ]\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:230
+#, no-wrap
+msgid ""
+" # We are now in section one.\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:232
+#, no-wrap
+msgid ""
+" # Quotes permit leading and trailing whitespace\n"
+" any = \" any variable name \"\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:235
+#, no-wrap
+msgid ""
+" other = A string that can \\\n"
+" cover several lines \\\n"
+" by including \\\\ characters\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:239
+#, no-wrap
+msgid ""
+" message = Hello World\\n\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:241
+#, no-wrap
+msgid ""
+" [ section_two ]\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:243
+#, no-wrap
+msgid ""
+" greeting = $section_one::message\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:245
+msgid "This next example shows how to expand environment variables safely."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:247
+msgid ""
+"Suppose you want a variable called B<tmpfile> to refer to a temporary "
+"filename. The directory it is placed in can determined by the the B<TEMP> or "
+"B<TMP> environment variables but they may not be set to any value at all. If "
+"you just include the environment variable names and the variable doesn't "
+"exist then this will cause an error when an attempt is made to load the "
+"configuration file. By making use of the default section both values can be "
+"looked up with B<TEMP> taking priority and B</tmp> used if neither is "
+"defined:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:256
+#, no-wrap
+msgid ""
+" TMP=/tmp\n"
+" # The above value is used if TMP isn't in the environment\n"
+" TEMP=$ENV::TMP\n"
+" # The above value is used if TEMP isn't in the environment\n"
+" tmpfile=${ENV::TEMP}/tmp.filename\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/apps/config.pod:262 C/apps/c_rehash.pod:51 C/apps/enc.pod:319 C/apps/nseq.pod:65 C/apps/req.pod:655 C/apps/sess_id.pod:143 C/apps/ts.pod:554 C/apps/verify.pod:387
+msgid "BUGS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:264
+msgid ""
+"Currently there is no way to include characters using the octal B<\\nnn> "
+"form. Strings are all null terminated so nulls cannot form part of the "
+"value."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:268
+msgid ""
+"The escaping isn't quite right: if you want to use sequences like B<\\n> you "
+"can't use any quote escaping on the same line."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:271
+msgid ""
+"Files are loaded in a single pass. This means that an variable expansion "
+"will only work if the variables referenced are defined earlier in the file."
+msgstr ""
+
+#. type: =head1
+#: C/apps/config.pod:275 C/apps/c_rehash.pod:47 C/apps/req.pod:672 C/apps/sess_id.pod:147 C/apps/spkac.pod:129 C/apps/ts.pod:588 C/apps/tsget.pod:189 C/apps/verify.pod:402
+msgid "SEE ALSO"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:277
+msgid "L<x509(1)|x509(1)>, L<req(1)|req(1)>, L<ca(1)|ca(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:6
+msgid "c_rehash - Create symbolic links to files named by the hash values"
+msgstr ""
+
+#. type: =head1
+#: C/apps/c_rehash.pod:8 C/apps/dgst.pod:7 C/apps/enc.pod:7 C/apps/nseq.pod:7 C/apps/ocsp.pod:7 C/apps/passwd.pod:7 C/apps/req.pod:8 C/apps/sess_id.pod:8 C/apps/speed.pod:7 C/apps/spkac.pod:7 C/apps/ts.pod:7 C/apps/tsget.pod:7 C/apps/verify.pod:7 C/apps/version.pod:7
+msgid "SYNOPSIS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:10
+msgid "B<c_rehash> [directory] ..."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:15
+msgid ""
+"c_rehash scans directories and takes a hash value of each .pem and .crt file "
+"in the directory. It then creates symbolic links for each of the files named "
+"by the hash value. This is useful as many programs require directories to be "
+"set up like this in order to find the certificates they require."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:17
+msgid ""
+"If any directories are named on the command line then these directories are "
+"processed in turn. If not then and the environment variable SSL_CERT_DIR is "
+"defined then that is consulted. This variable should be a colon (:) "
+"separated list of directories, all of which will be processed. If neither of "
+"these conditions are true then /usr/lib/ssl/certs is processed."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:19
+msgid ""
+"For each directory that is to be processed he user must have write "
+"permissions on the directory, if they do not then nothing will be printed "
+"for that directory."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:21
+msgid ""
+"Note that this program deletes all the symbolic links that look like ones "
+"that it creates before processing a directory. Beware that if you run the "
+"program on a directory that contains symbolic links for other purposes that "
+"are named in the same format as those created by this program they will be "
+"lost."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:23
+msgid ""
+"The hashes for certificate files are of the form <hash>.<n> where n is an "
+"integer. If the hash value already exists then n will be incremented, unless "
+"the file is a duplicate. Duplicates are detected using the fingerprint of "
+"the certificate. A warning will be printed if a duplicate is detected. The "
+"hashes for CRL files are of the form <hash>.r<n> and have the same behavior."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:25
+msgid ""
+"The program will also warn if there are files with extension .pem which are "
+"not certificate or CRL files."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:27
+msgid ""
+"The program uses the openssl program to compute the hashes and "
+"fingerprints. It expects the executable to be named openssl and be on the "
+"PATH, or in the /usr/lib/ssl/bin directory. If the OPENSSL environment "
+"variable is defined then this is used instead as the executable that "
+"provides the hashes and fingerprints. When called as $OPENSSL x509 -hash "
+"-fingerprint -noout -in $file it must output the hash of $file on the first "
+"line followed by the fingerprint on the second line, optionally prefixed "
+"with some text and an equals sign (=)."
+msgstr ""
+
+#. type: =head1
+#: C/apps/c_rehash.pod:29 C/apps/dgst.pod:37 C/apps/enc.pod:41 C/apps/passwd.pod:30 C/apps/speed.pod:41 C/apps/ts.pod:92 C/apps/tsget.pod:49 C/apps/version.pod:21
+msgid "OPTIONS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:31
+msgid "None"
+msgstr ""
+
+#. type: =head1
+#: C/apps/c_rehash.pod:33
+msgid "ENVIRONMENT"
+msgstr ""
+
+#. type: =item
+#: C/apps/c_rehash.pod:37
+msgid "B<OPENSSL>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:39
+msgid ""
+"The name (and path) of an executable to use to generate hashes and "
+"fingerprints (see above)."
+msgstr ""
+
+#. type: =item
+#: C/apps/c_rehash.pod:41
+msgid "B<SSL_CERT_DIR>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:43
+msgid ""
+"Colon separated list of directories to operate on. Ignored if directories "
+"are listed on the command line."
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:49
+msgid "L<openssl(1)|openssl(1)>, L<x509(1)|x509(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/c_rehash.pod:53
+msgid "No known bugs"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:5
+msgid "dgst, md5, md4, md2, sha1, sha, mdc2, ripemd160 - message digests"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:9
+msgid ""
+"B<openssl> B<dgst> [B<-md5|-md4|-md2|-sha1|-sha|-mdc2|-ripemd160|-dss1>] "
+"[B<-c>] [B<-d>] [B<-hex>] [B<-binary>] [B<-hmac arg>] [B<-non-fips-allow>] "
+"[B<-out filename>] [B<-sign filename>] [B<-keyform arg>] [B<-passin arg>] "
+"[B<-verify filename>] [B<-prverify filename>] [B<-signature filename>] "
+"[B<-hmac key>] [B<file...>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:27
+msgid "[B<md5|md4|md2|sha1|sha|mdc2|ripemd160>] [B<-c>] [B<-d>] [B<file...>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:34
+msgid ""
+"The digest functions output the message digest of a supplied file or files "
+"in hexadecimal form. They can also be used for digital signing and "
+"verification."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:41 C/apps/version.pod:41
+msgid "B<-c>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:43
+msgid ""
+"print out the digest in two digit groups separated by colons, only relevant "
+"if B<hex> format output is used."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:46 C/apps/enc.pod:72 C/apps/tsget.pod:76 C/apps/version.pod:49
+msgid "B<-d>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:48
+msgid "print out BIO debugging information."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:50
+msgid "B<-hex>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:52
+msgid ""
+"digest is to be output as a hex dump. This is the default case for a "
+"\"normal\" digest as opposed to a digital signature."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:55
+msgid "B<-binary>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:57
+msgid "output the digest or signature in binary form."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:59
+msgid "B<-hmac arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:61
+msgid "set the HMAC key to \"arg\"."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:63
+msgid "B<-non-fips-allow>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:65
+msgid "allow use of non FIPS digest."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:67 C/apps/enc.pod:49 C/apps/nseq.pod:30 C/apps/ocsp.pod:69 C/apps/req.pod:85 C/apps/sess_id.pod:46 C/apps/spkac.pod:37
+msgid "B<-out filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:69
+msgid "filename to output to, or standard output by default."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:71
+msgid "B<-sign filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:73
+msgid "digitally sign the digest using the private key in \"filename\"."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:75
+msgid "B<-keyform arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:77
+msgid ""
+"Specifies the key format to sign digest with. Only PEM and ENGINE formats "
+"are supported by the B<dgst> command."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:80 C/apps/req.pod:317 C/apps/speed.pod:45 C/apps/spkac.pod:82
+msgid "B<-engine id>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:82
+msgid ""
+"Use engine B<id> for operations (including private key storage).  This "
+"engine is not used as source for digest algorithms, unless it is also "
+"specified in the configuration file."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:86
+msgid "B<-sigopt nm:v>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:88
+msgid ""
+"Pass options to the signature algorithm during sign or verify operations.  "
+"Names and values of these options are algorithm-specific."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:92 C/apps/req.pod:80
+msgid "B<-passin arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:94
+msgid ""
+"the private key password source. For more information about the format of "
+"B<arg> see the B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:97
+msgid "B<-verify filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:99
+msgid ""
+"verify the signature using the the public key in \"filename\".  The output "
+"is either \"Verification OK\" or \"Verification Failure\"."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:102
+msgid "B<-prverify filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:104
+msgid "verify the signature using the the private key in \"filename\"."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:106
+msgid "B<-signature filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:108
+msgid "the actual signature to verify."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:110
+msgid "B<-hmac key>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:112
+msgid "create a hashed MAC using \"key\"."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:114
+msgid "B<-mac alg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:116
+msgid ""
+"create MAC (keyed Message Authentication Code). The most popular MAC "
+"algorithm is HMAC (hash-based MAC), but there are other MAC algorithms which "
+"are not based on hash, for instance B<gost-mac> algorithm, supported by "
+"B<ccgost> engine. MAC keys and other options should be set via B<-macopt> "
+"parameter."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:122
+msgid "B<-macopt nm:v>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:124
+msgid ""
+"Passes options to MAC algorithm, specified by B<-mac> key.  Following "
+"options are supported by both by B<HMAC> and B<gost-mac>:"
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:129
+msgid "B<key:string>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:131
+msgid ""
+"Specifies MAC key as alphnumeric string (use if key contain printable "
+"characters only). String length must conform to any restrictions of the MAC "
+"algorithm for example exactly 32 chars for gost-mac."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:135
+msgid "B<hexkey:string>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:137
+msgid ""
+"Specifies MAC key in hexadecimal form (two hex digits per byte).  Key length "
+"must conform to any restrictions of the MAC algorithm for example exactly 32 "
+"chars for gost-mac."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:143 C/apps/req.pod:138
+msgid "B<-rand file(s)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:145 C/apps/req.pod:140
+msgid ""
+"a file or files containing random data used to seed the random number "
+"generator, or an EGD socket (see L<RAND_egd(3)|RAND_egd(3)>).  Multiple "
+"files can be specified separated by a OS-dependent character.  The separator "
+"is B<;> for MS-Windows, B<,> for OpenVMS, and B<:> for all others."
+msgstr ""
+
+#. type: =item
+#: C/apps/dgst.pod:151
+msgid "B<file...>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:153
+msgid ""
+"file or files to digest. If no files are specified then standard input is "
+"used."
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:160
+msgid ""
+"The digest of choice for all new applications is SHA1. Other digests are "
+"however still widely used."
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:163
+msgid ""
+"If you wish to sign or verify data using the DSA algorithm then the dss1 "
+"digest must be used."
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:166
+msgid ""
+"A source of random numbers is required for certain signing algorithms, in "
+"particular DSA."
+msgstr ""
+
+#. type: textblock
+#: C/apps/dgst.pod:169
+msgid ""
+"The signing and verify options should only be used if a single file is being "
+"signed or verified."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:5
+msgid "enc - symmetric cipher routines"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:9
+msgid ""
+"B<openssl enc -ciphername> [B<-in filename>] [B<-out filename>] [B<-pass "
+"arg>] [B<-e>] [B<-d>] [B<-a/-base64>] [B<-A>] [B<-k password>] [B<-kfile "
+"filename>] [B<-K key>] [B<-iv IV>] [B<-S salt>] [B<-salt>] [B<-nosalt>] "
+"[B<-z>] [B<-md>] [B<-p>] [B<-P>] [B<-bufsize number>] [B<-nopad>] "
+"[B<-debug>] [B<-none>] [B<-engine id>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:36
+msgid ""
+"The symmetric cipher commands allow data to be encrypted or decrypted using "
+"various block and stream ciphers using keys based on passwords or explicitly "
+"provided. Base64 encoding or decoding can also be performed either by itself "
+"or in addition to the encryption or decryption."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:45 C/apps/nseq.pod:25 C/apps/req.pod:74 C/apps/sess_id.pod:41 C/apps/spkac.pod:32
+msgid "B<-in filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:47
+msgid "the input filename, standard input by default."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:51
+msgid "the output filename, standard output by default."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:53
+msgid "B<-pass arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:55
+msgid ""
+"the password source. For more information about the format of B<arg> see the "
+"B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:58 C/apps/enc.pod:105
+msgid "B<-salt>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:60
+msgid "use a salt in the key derivation routines. This is the default."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:62 C/apps/enc.pod:101
+msgid "B<-nosalt>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:64
+msgid ""
+"don't use a salt in the key derivation routines. This option B<SHOULD NOT> "
+"be used except for test purposes or compatibility with ancient versions of "
+"OpenSSL and SSLeay."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:68
+msgid "B<-e>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:70
+msgid "encrypt the input data: this is the default."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:74
+msgid "decrypt the input data."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:76 C/apps/version.pod:25
+msgid "B<-a>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:78
+msgid ""
+"base64 process the data. This means that if encryption is taking place the "
+"data is base64 encoded after encryption. If decryption is set then the input "
+"data is base64 decoded before being decrypted."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:82
+msgid "B<-base64>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:84
+msgid "same as B<-a>"
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:86
+msgid "B<-A>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:88
+msgid "if the B<-a> option is set then base64 process the data on one line."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:90
+msgid "B<-k password>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:92
+msgid ""
+"the password to derive the key from. This is for compatibility with previous "
+"versions of OpenSSL. Superseded by the B<-pass> argument."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:95
+msgid "B<-kfile filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:97
+msgid ""
+"read the password to derive the key from the first line of B<filename>.  "
+"This is for compatibility with previous versions of OpenSSL. Superseded by "
+"the B<-pass> argument."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:103
+msgid "do not use a salt"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:107
+msgid ""
+"use salt (randomly generated or provide with B<-S> option) when encrypting "
+"(this is the default)."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:110
+msgid "B<-S salt>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:112
+msgid "the actual salt to use: this must be represented as a string of hex digits."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:114
+msgid "B<-K key>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:116
+msgid ""
+"the actual key to use: this must be represented as a string comprised only "
+"of hex digits. If only the key is specified, the IV must additionally "
+"specified using the B<-iv> option. When both a key and a password are "
+"specified, the key given with the B<-K> option will be used and the IV "
+"generated from the password will be taken. It probably does not make much "
+"sense to specify both key and password."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:123
+msgid "B<-iv IV>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:125
+msgid ""
+"the actual IV to use: this must be represented as a string comprised only of "
+"hex digits. When only the key is specified using the B<-K> option, the IV "
+"must explicitly be defined. When a password is being specified using one of "
+"the other options, the IV is generated from this password."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:130 C/apps/version.pod:45
+msgid "B<-p>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:132
+msgid "print out the key and IV used."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:134
+msgid "B<-P>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:136
+msgid ""
+"print out the key and IV used then immediately exit: don't do any encryption "
+"or decryption."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:139
+msgid "B<-bufsize number>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:141
+msgid "set the buffer size for I/O"
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:143
+msgid "B<-nopad>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:145
+msgid "disable standard block padding"
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:147
+msgid "B<-debug>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:149
+msgid "debug the BIOs used for I/O."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:151
+msgid "B<-z>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:153
+msgid ""
+"Compress or decompress clear text using zlib before encryption or after "
+"decryption. This option exists only if OpenSSL with compiled with zlib or "
+"zlib-dynamic option."
+msgstr ""
+
+#. type: =item
+#: C/apps/enc.pod:157
+msgid "B<-none>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:159
+msgid "Use NULL cipher (no encryption or decryption of input)."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:165
+msgid ""
+"The program can be called either as B<openssl ciphername> or B<openssl enc "
+"-ciphername>. But the first form doesn't work with engine-provided ciphers, "
+"because this form is processed before the configuration file is read and any "
+"ENGINEs loaded."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:170
+msgid ""
+"Engines which provide entirely new encryption algorithms (such as ccgost "
+"engine which provides gost89 algorithm) should be configured in the "
+"configuration file. Engines, specified in the command line using -engine "
+"options can only be used for hadrware-assisted implementations of ciphers, "
+"which are supported by OpenSSL core or other engine, specified in the "
+"configuration file."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:177
+msgid ""
+"When enc command lists supported ciphers, ciphers provided by engines, "
+"specified in the configuration files are listed too."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:180
+msgid "A password will be prompted for to derive the key and IV if necessary."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:182
+msgid ""
+"The B<-salt> option should B<ALWAYS> be used if the key is being derived "
+"from a password unless you want compatibility with previous versions of "
+"OpenSSL and SSLeay."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:186
+msgid ""
+"Without the B<-salt> option it is possible to perform efficient dictionary "
+"attacks on the password and to attack stream cipher encrypted data. The "
+"reason for this is that without the salt the same password always generates "
+"the same encryption key. When the salt is being used the first eight bytes "
+"of the encrypted data are reserved for the salt: it is generated at random "
+"when encrypting a file and read from the encrypted file when it is "
+"decrypted."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:193
+msgid ""
+"Some of the ciphers do not have large keys and others have security "
+"implications if not used correctly. A beginner is advised to just use a "
+"strong block cipher in CBC mode such as bf or des3."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:197
+msgid ""
+"All the block ciphers normally use PKCS#5 padding also known as standard "
+"block padding: this allows a rudimentary integrity or password check to be "
+"performed. However since the chance of random data passing the test is "
+"better than 1 in 256 it isn't a very good test."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:202
+msgid ""
+"If padding is disabled then the input data must be a multiple of the cipher "
+"block length."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:205
+msgid "All RC2 ciphers have the same key and effective key length."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:207
+msgid "Blowfish and RC5 algorithms use a 128 bit key."
+msgstr ""
+
+#. type: =head1
+#: C/apps/enc.pod:209
+msgid "SUPPORTED CIPHERS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:211
+msgid ""
+"Note that some of these ciphers can be disabled at compile time and some are "
+"available only if an appropriate engine is configured in the configuration "
+"file. The output of the B<enc> command run with unsupported options (for "
+"example B<openssl enc -help>) includes a list of ciphers, supported by your "
+"versesion of OpenSSL, including ones provided by configured engines."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:219
+#, no-wrap
+msgid ""
+" base64             Base 64\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:221
+#, no-wrap
+msgid ""
+" bf-cbc             Blowfish in CBC mode\n"
+" bf                 Alias for bf-cbc\n"
+" bf-cfb             Blowfish in CFB mode\n"
+" bf-ecb             Blowfish in ECB mode\n"
+" bf-ofb             Blowfish in OFB mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:227
+#, no-wrap
+msgid ""
+" cast-cbc           CAST in CBC mode\n"
+" cast               Alias for cast-cbc\n"
+" cast5-cbc          CAST5 in CBC mode\n"
+" cast5-cfb          CAST5 in CFB mode\n"
+" cast5-ecb          CAST5 in ECB mode\n"
+" cast5-ofb          CAST5 in OFB mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:234
+#, no-wrap
+msgid ""
+" des-cbc            DES in CBC mode\n"
+" des                Alias for des-cbc\n"
+" des-cfb            DES in CBC mode\n"
+" des-ofb            DES in OFB mode\n"
+" des-ecb            DES in ECB mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:240
+#, no-wrap
+msgid ""
+" des-ede-cbc        Two key triple DES EDE in CBC mode\n"
+" des-ede            Two key triple DES EDE in ECB mode\n"
+" des-ede-cfb        Two key triple DES EDE in CFB mode\n"
+" des-ede-ofb        Two key triple DES EDE in OFB mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:245
+#, no-wrap
+msgid ""
+" des-ede3-cbc       Three key triple DES EDE in CBC mode\n"
+" des-ede3           Three key triple DES EDE in ECB mode\n"
+" des3               Alias for des-ede3-cbc\n"
+" des-ede3-cfb       Three key triple DES EDE CFB mode\n"
+" des-ede3-ofb       Three key triple DES EDE in OFB mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:251
+#, no-wrap
+msgid ""
+" desx               DESX algorithm.\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:253
+#, no-wrap
+msgid ""
+" gost89             GOST 28147-89 in CFB mode (provided by ccgost engine)\n"
+" gost89-cnt        `GOST 28147-89 in CNT mode (provided by ccgost engine) \n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:256
+#, no-wrap
+msgid ""
+" idea-cbc           IDEA algorithm in CBC mode\n"
+" idea               same as idea-cbc\n"
+" idea-cfb           IDEA in CFB mode\n"
+" idea-ecb           IDEA in ECB mode\n"
+" idea-ofb           IDEA in OFB mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:262
+#, no-wrap
+msgid ""
+" rc2-cbc            128 bit RC2 in CBC mode\n"
+" rc2                Alias for rc2-cbc\n"
+" rc2-cfb            128 bit RC2 in CFB mode\n"
+" rc2-ecb            128 bit RC2 in ECB mode\n"
+" rc2-ofb            128 bit RC2 in OFB mode\n"
+" rc2-64-cbc         64 bit RC2 in CBC mode\n"
+" rc2-40-cbc         40 bit RC2 in CBC mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:270
+#, no-wrap
+msgid ""
+" rc4                128 bit RC4\n"
+" rc4-64             64 bit RC4\n"
+" rc4-40             40 bit RC4\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:274
+#, no-wrap
+msgid ""
+" rc5-cbc            RC5 cipher in CBC mode\n"
+" rc5                Alias for rc5-cbc\n"
+" rc5-cfb            RC5 cipher in CFB mode\n"
+" rc5-ecb            RC5 cipher in ECB mode\n"
+" rc5-ofb            RC5 cipher in OFB mode\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:280
+#, no-wrap
+msgid ""
+" aes-[128|192|256]-cbc\t128/192/256 bit AES in CBC mode\n"
+" aes-[128|192|256]\tAlias for aes-[128|192|256]-cbc\n"
+" aes-[128|192|256]-cfb\t128/192/256 bit AES in 128 bit CFB mode\n"
+" aes-[128|192|256]-cfb1\t128/192/256 bit AES in 1 bit CFB mode\n"
+" aes-[128|192|256]-cfb8\t128/192/256 bit AES in 8 bit CFB mode\n"
+" aes-[128|192|256]-ecb\t128/192/256 bit AES in ECB mode\n"
+" aes-[128|192|256]-ofb\t128/192/256 bit AES in OFB mode\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:290
+msgid "Just base64 encode a binary file:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:292
+#, no-wrap
+msgid ""
+" openssl base64 -in file.bin -out file.b64\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:294
+msgid "Decode the same file"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:296
+#, no-wrap
+msgid ""
+" openssl base64 -d -in file.b64 -out file.bin \n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:298
+msgid "Encrypt a file using triple DES in CBC mode using a prompted password:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:300
+#, no-wrap
+msgid ""
+" openssl des3 -salt -in file.txt -out file.des3 \n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:302
+msgid "Decrypt a file using a supplied password:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:304
+#, no-wrap
+msgid ""
+" openssl des3 -d -salt -in file.des3 -out file.txt -k mypassword\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:306
+msgid ""
+"Encrypt a file then base64 encode it (so it can be sent via mail for "
+"example)  using Blowfish in CBC mode:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:309
+#, no-wrap
+msgid ""
+" openssl bf -a -salt -in file.txt -out file.bf\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:311
+msgid "Base64 decode a file then decrypt it:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:313
+#, no-wrap
+msgid ""
+" openssl bf -d -salt -a -in file.bf -out file.txt\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:315
+msgid "Decrypt some data using a supplied 40 bit RC4 key:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/enc.pod:317
+#, no-wrap
+msgid ""
+" openssl rc4-40 -in file.rc4 -out file.txt -K 0102030405\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:321
+msgid "The B<-A> option when used with large files doesn't work properly."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:323
+msgid "There should be an option to allow an iteration count to be included."
+msgstr ""
+
+#. type: textblock
+#: C/apps/enc.pod:325
+msgid ""
+"The B<enc> program only supports a fixed number of algorithms with certain "
+"parameters. So if, for example, you want to use RC2 with a 76 bit key or RC4 "
+"with an 84 bit key you can't use this program."
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:5
+msgid "nseq - create or examine a netscape certificate sequence"
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:9
+msgid "B<openssl> B<nseq> [B<-in filename>] [B<-out filename>] [B<-toseq>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:16
+msgid ""
+"The B<nseq> command takes a file containing a Netscape certificate sequence "
+"and prints out the certificates contained in it or takes a file of "
+"certificates and converts it into a Netscape certificate sequence."
+msgstr ""
+
+#. type: =head1
+#: C/apps/nseq.pod:21 C/apps/req.pod:58 C/apps/spkac.pod:28 C/apps/verify.pod:37
+msgid "COMMAND OPTIONS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:27
+msgid ""
+"This specifies the input filename to read or standard input if this option "
+"is not specified."
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:32
+msgid "specifies the output filename or standard output by default."
+msgstr ""
+
+#. type: =item
+#: C/apps/nseq.pod:34
+msgid "B<-toseq>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:36
+msgid ""
+"normally a Netscape certificate sequence will be input and the output is the "
+"certificates contained in it. With the B<-toseq> option the situation is "
+"reversed: a Netscape certificate sequence is created from a file of "
+"certificates."
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:45
+msgid "Output the certificates in a Netscape certificate sequence"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/nseq.pod:47
+#, no-wrap
+msgid ""
+" openssl nseq -in nseq.pem -out certs.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:49
+msgid "Create a Netscape certificate sequence"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/nseq.pod:51
+#, no-wrap
+msgid ""
+" openssl nseq -in certs.pem -toseq -out nseq.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:55
+msgid "The B<PEM> encoded form uses the same headers and footers as a certificate:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/nseq.pod:57
+#, no-wrap
+msgid ""
+" -----BEGIN CERTIFICATE-----\n"
+" -----END CERTIFICATE-----\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:60
+msgid ""
+"A Netscape certificate sequence is a Netscape specific form that can be sent "
+"to browsers as an alternative to the standard PKCS#7 format when several "
+"certificates are sent to the browser: for example during certificate "
+"enrollment.  It is used by Netscape certificate server for example."
+msgstr ""
+
+#. type: textblock
+#: C/apps/nseq.pod:67
+msgid ""
+"This program needs a few more options: like allowing DER or PEM input and "
+"output files and allowing multiple certificate files to be used."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:5
+msgid "ocsp - Online Certificate Status Protocol utility"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:9
+msgid ""
+"B<openssl> B<ocsp> [B<-out file>] [B<-issuer file>] [B<-cert file>] "
+"[B<-serial n>] [B<-signer file>] [B<-signkey file>] [B<-sign_other file>] "
+"[B<-no_certs>] [B<-req_text>] [B<-resp_text>] [B<-text>] [B<-reqout file>] "
+"[B<-respout file>] [B<-reqin file>] [B<-respin file>] [B<-nonce>] "
+"[B<-no_nonce>] [B<-url URL>] [B<-host host:n>] [B<-path>] [B<-CApath dir>] "
+"[B<-CAfile file>] [B<-VAfile file>] [B<-validity_period n>] [B<-status_age "
+"n>] [B<-noverify>] [B<-verify_other file>] [B<-trust_other>] [B<-no_intern>] "
+"[B<-no_signature_verify>] [B<-no_cert_verify>] [B<-no_chain>] "
+"[B<-no_cert_checks>] [B<-port num>] [B<-index file>] [B<-CA file>] "
+"[B<-rsigner file>] [B<-rkey file>] [B<-rother file>] [B<-resp_no_certs>] "
+"[B<-nmin n>] [B<-ndays n>] [B<-resp_key_id>] [B<-nrequest n>] "
+"[B<-md5|-sha1|...>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:58
+msgid ""
+"The Online Certificate Status Protocol (OCSP) enables applications to "
+"determine the (revocation) state of an identified certificate (RFC 2560)."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:61
+msgid ""
+"The B<ocsp> command performs many common OCSP tasks. It can be used to print "
+"out requests and responses, create requests and send queries to an OCSP "
+"responder and behave like a mini OCSP server itself."
+msgstr ""
+
+#. type: =head1
+#: C/apps/ocsp.pod:65
+msgid "OCSP CLIENT OPTIONS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:71
+msgid "specify output filename, default is standard output."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:73
+msgid "B<-issuer filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:75
+msgid ""
+"This specifies the current issuer certificate. This option can be used "
+"multiple times. The certificate specified in B<filename> must be in PEM "
+"format. This option B<MUST> come before any B<-cert> options."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:79
+msgid "B<-cert filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:81
+msgid ""
+"Add the certificate B<filename> to the request. The issuer certificate is "
+"taken from the previous B<issuer> option, or an error occurs if no issuer "
+"certificate is specified."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:85
+msgid "B<-serial num>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:87
+msgid ""
+"Same as the B<cert> option except the certificate with serial number B<num> "
+"is added to the request. The serial number is interpreted as a decimal "
+"integer unless preceded by B<0x>. Negative integers can also be specified by "
+"preceding the value by a B<-> sign."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:92
+msgid "B<-signer filename>, B<-signkey filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:94
+msgid ""
+"Sign the OCSP request using the certificate specified in the B<signer> "
+"option and the private key specified by the B<signkey> option. If the "
+"B<signkey> option is not present then the private key is read from the same "
+"file as the certificate. If neither option is specified then the OCSP "
+"request is not signed."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:100
+msgid "B<-sign_other filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:102
+msgid "Additional certificates to include in the signed request."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:104
+msgid "B<-nonce>, B<-no_nonce>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:106
+msgid ""
+"Add an OCSP nonce extension to a request or disable OCSP nonce addition.  "
+"Normally if an OCSP request is input using the B<respin> option no nonce is "
+"added: using the B<nonce> option will force addition of a nonce.  If an OCSP "
+"request is being created (using B<cert> and B<serial> options)  a nonce is "
+"automatically added specifying B<no_nonce> overrides this."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:112
+msgid "B<-req_text>, B<-resp_text>, B<-text>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:114
+msgid "print out the text form of the OCSP request, response or both respectively."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:116
+msgid "B<-reqout file>, B<-respout file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:118
+msgid "write out the DER encoded certificate request or response to B<file>."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:120
+msgid "B<-reqin file>, B<-respin file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:122
+msgid ""
+"read OCSP request or response file from B<file>. These option are ignored if "
+"OCSP request or response creation is implied by other options (for example "
+"with B<serial>, B<cert> and B<host> options)."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:126
+msgid "B<-url responder_url>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:128
+msgid ""
+"specify the responder URL. Both HTTP and HTTPS (SSL/TLS) URLs can be "
+"specified."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:130
+msgid "B<-host hostname:port>, B<-path pathname>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:132
+msgid ""
+"if the B<host> option is present then the OCSP request is sent to the host "
+"B<hostname> on port B<port>. B<path> specifies the HTTP path name to use or "
+"\"/\" by default."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:136
+msgid "B<-CAfile file>, B<-CApath pathname>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:138
+msgid ""
+"file or pathname containing trusted CA certificates. These are used to "
+"verify the signature on the OCSP response."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:141
+msgid "B<-verify_other file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:143
+msgid ""
+"file containing additional certificates to search when attempting to locate "
+"the OCSP response signing certificate. Some responders omit the actual "
+"signer's certificate from the response: this option can be used to supply "
+"the necessary certificate in such cases."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:148
+msgid "B<-trust_other>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:150
+msgid ""
+"the certificates specified by the B<-verify_other> option should be "
+"explicitly trusted and no additional checks will be performed on them. This "
+"is useful when the complete responder certificate chain is not available or "
+"trusting a root CA is not appropriate."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:155
+msgid "B<-VAfile file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:157
+msgid ""
+"file containing explicitly trusted responder certificates. Equivalent to the "
+"B<-verify_other> and B<-trust_other> options."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:160 C/apps/passwd.pod:59
+msgid "B<-noverify>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:162
+msgid ""
+"don't attempt to verify the OCSP response signature or the nonce "
+"values. This option will normally only be used for debugging since it "
+"disables all verification of the responders certificate."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:166
+msgid "B<-no_intern>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:168
+msgid ""
+"ignore certificates contained in the OCSP response when searching for the "
+"signers certificate. With this option the signers certificate must be "
+"specified with either the B<-verify_other> or B<-VAfile> options."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:172
+msgid "B<-no_signature_verify>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:174
+msgid ""
+"don't check the signature on the OCSP response. Since this option tolerates "
+"invalid signatures on OCSP responses it will normally only be used for "
+"testing purposes."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:177
+msgid "B<-no_cert_verify>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:179
+msgid ""
+"don't verify the OCSP response signers certificate at all. Since this option "
+"allows the OCSP response to be signed by any certificate it should only be "
+"used for testing purposes."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:183
+msgid "B<-no_chain>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:185
+msgid ""
+"do not use certificates in the response as additional untrusted CA "
+"certificates."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:188
+msgid "B<-no_cert_checks>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:190
+msgid ""
+"don't perform any additional checks on the OCSP response signers "
+"certificate.  That is do not make any checks to see if the signers "
+"certificate is authorised to provide the necessary status information: as a "
+"result this option should only be used for testing purposes."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:195
+msgid "B<-validity_period nsec>, B<-status_age age>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:197
+msgid ""
+"these options specify the range of times, in seconds, which will be "
+"tolerated in an OCSP response. Each certificate status response includes a "
+"B<notBefore> time and an optional B<notAfter> time. The current time should "
+"fall between these two values, but the interval between the two times may be "
+"only a few seconds. In practice the OCSP responder and clients clocks may "
+"not be precisely synchronised and so such a check may fail. To avoid this "
+"the B<-validity_period> option can be used to specify an acceptable error "
+"range in seconds, the default value is 5 minutes."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:205
+msgid ""
+"If the B<notAfter> time is omitted from a response then this means that new "
+"status information is immediately available. In this case the age of the "
+"B<notBefore> field is checked to see it is not older than B<age> seconds "
+"old. By default this additional check is not performed."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:210
+msgid "B<-md5|-sha1|-sha256|-ripemod160|...>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:212
+msgid ""
+"this option sets digest algorithm to use for certificate identification in "
+"the OCSP request. By default SHA-1 is used."
+msgstr ""
+
+#. type: =head1
+#: C/apps/ocsp.pod:217
+msgid "OCSP SERVER OPTIONS"
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:221
+msgid "B<-index indexfile>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:223
+msgid ""
+"B<indexfile> is a text index file in B<ca> format containing certificate "
+"revocation information."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:226
+msgid ""
+"If the B<index> option is specified the B<ocsp> utility is in responder "
+"mode, otherwise it is in client mode. The request(s) the responder processes "
+"can be either specified on the command line (using B<issuer> and B<serial> "
+"options), supplied in a file (using the B<respin> option) or via external "
+"OCSP clients (if B<port> or B<url> is specified)."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:231
+msgid ""
+"If the B<index> option is present then the B<CA> and B<rsigner> options must "
+"also be present."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:234
+msgid "B<-CA file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:236
+msgid "CA certificate corresponding to the revocation information in B<indexfile>."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:238
+msgid "B<-rsigner file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:240
+msgid "The certificate to sign OCSP responses with."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:242
+msgid "B<-rother file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:244
+msgid "Additional certificates to include in the OCSP response."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:246
+msgid "B<-resp_no_certs>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:248
+msgid "Don't include any certificates in the OCSP response."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:250
+msgid "B<-resp_key_id>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:252
+msgid ""
+"Identify the signer certificate using the key ID, default is to use the "
+"subject name."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:254
+msgid "B<-rkey file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:256
+msgid ""
+"The private key to sign OCSP responses with: if not present the file "
+"specified in the B<rsigner> option is used."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:259
+msgid "B<-port portnum>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:261
+msgid ""
+"Port to listen for OCSP requests on. The port may also be specified using "
+"the B<url> option."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:264
+msgid "B<-nrequest number>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:266
+msgid ""
+"The OCSP server will exit after receiving B<number> requests, default "
+"unlimited."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:268
+msgid "B<-nmin minutes>, B<-ndays days>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:270
+msgid ""
+"Number of minutes or days when fresh revocation information is available: "
+"used in the B<nextUpdate> field. If neither option is present then the "
+"B<nextUpdate> field is omitted meaning fresh revocation information is "
+"immediately available."
+msgstr ""
+
+#. type: =head1
+#: C/apps/ocsp.pod:276
+msgid "OCSP Response verification."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:278
+msgid "OCSP Response follows the rules specified in RFC2560."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:280
+msgid ""
+"Initially the OCSP responder certificate is located and the signature on the "
+"OCSP request checked using the responder certificate's public key."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:283
+msgid ""
+"Then a normal certificate verify is performed on the OCSP responder "
+"certificate building up a certificate chain in the process. The locations of "
+"the trusted certificates used to build the chain can be specified by the "
+"B<CAfile> and B<CApath> options or they will be looked for in the standard "
+"OpenSSL certificates directory."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:289
+msgid ""
+"If the initial verify fails then the OCSP verify process halts with an "
+"error."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:292
+msgid ""
+"Otherwise the issuing CA certificate in the request is compared to the OCSP "
+"responder certificate: if there is a match then the OCSP verify succeeds."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:295
+msgid ""
+"Otherwise the OCSP responder certificate's CA is checked against the issuing "
+"CA certificate in the request. If there is a match and the OCSPSigning "
+"extended key usage is present in the OCSP responder certificate then the "
+"OCSP verify succeeds."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:300
+msgid ""
+"Otherwise the root CA of the OCSP responders CA is checked to see if it is "
+"trusted for OCSP signing. If it is the OCSP verify succeeds."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:303
+msgid "If none of these checks is successful then the OCSP verify fails."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:305
+msgid ""
+"What this effectively means if that if the OCSP responder certificate is "
+"authorised directly by the CA it is issuing revocation information about "
+"(and it is correctly configured) then verification will succeed."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:309
+msgid ""
+"If the OCSP responder is a \"global responder\" which can give details about "
+"multiple CAs and has its own separate certificate chain then its root CA can "
+"be trusted for OCSP signing. For example:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:313
+#, no-wrap
+msgid ""
+" openssl x509 -in ocspCA.pem -addtrust OCSPSigning -out trustedCA.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:315
+msgid ""
+"Alternatively the responder certificate itself can be explicitly trusted "
+"with the B<-VAfile> option."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:320
+msgid ""
+"As noted, most of the verify options are for testing or debugging purposes.  "
+"Normally only the B<-CApath>, B<-CAfile> and (if the responder is a 'global "
+"VA') B<-VAfile> options need to be used."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:324
+msgid ""
+"The OCSP server is only useful for test and demonstration purposes: it is "
+"not really usable as a full OCSP responder. It contains only a very simple "
+"HTTP request handling and can only handle the POST form of OCSP queries. It "
+"also handles requests serially meaning it cannot respond to new requests "
+"until it has processed the current one. The text index file format of "
+"revocation is also inefficient for large quantities of revocation data."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:332
+msgid ""
+"It is possible to run the B<ocsp> application in responder mode via a CGI "
+"script using the B<respin> and B<respout> options."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:337
+msgid "Create an OCSP request and write it to a file:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:339
+#, no-wrap
+msgid ""
+" openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem -reqout req.der\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:341
+msgid ""
+"Send a query to an OCSP responder with URL http://ocsp.myhost.com/ save the "
+"response to a file and print it out in text form"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:344
+#, no-wrap
+msgid ""
+" openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem \\\n"
+"     -url http://ocsp.myhost.com/ -resp_text -respout resp.der\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:347
+msgid "Read in an OCSP response and print out text form:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:349
+#, no-wrap
+msgid ""
+" openssl ocsp -respin resp.der -text\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:351
+msgid ""
+"OCSP server on port 8888 using a standard B<ca> configuration, and a "
+"separate responder certificate. All requests and responses are printed to a "
+"file."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:354
+#, no-wrap
+msgid ""
+" openssl ocsp -index demoCA/index.txt -port 8888 -rsigner rcert.pem -CA "
+"demoCA/cacert.pem\n"
+"\t-text -out log.txt\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:357
+msgid "As above but exit after processing one request:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:359
+#, no-wrap
+msgid ""
+" openssl ocsp -index demoCA/index.txt -port 8888 -rsigner rcert.pem -CA "
+"demoCA/cacert.pem\n"
+"     -nrequest 1\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:362
+msgid "Query status information using internally generated request:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:364
+#, no-wrap
+msgid ""
+" openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA "
+"demoCA/cacert.pem\n"
+"     -issuer demoCA/cacert.pem -serial 1\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:367
+msgid ""
+"Query status information using request read from a file, write response to a "
+"second file."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ocsp.pod:370
+#, no-wrap
+msgid ""
+" openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA "
+"demoCA/cacert.pem\n"
+"     -reqin req.der -respout resp.der\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:5
+msgid "passwd - compute password hashes"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:9
+msgid ""
+"B<openssl passwd> [B<-crypt>] [B<-1>] [B<-apr1>] [B<-salt> I<string>] "
+"[B<-in> I<file>] [B<-stdin>] [B<-noverify>] [B<-quiet>] [B<-table>] "
+"{I<password>}"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:23
+msgid ""
+"The B<passwd> command computes the hash of a password typed at run-time or "
+"the hash of each password in a list.  The password list is taken from the "
+"named file for option B<-in file>, from stdin for option B<-stdin>, or from "
+"the command line, or from the terminal otherwise.  The Unix standard "
+"algorithm B<crypt> and the MD5-based BSD password algorithm B<1> and its "
+"Apache variant B<apr1> are available."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:34
+msgid "B<-crypt>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:36
+msgid "Use the B<crypt> algorithm (default)."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:38
+msgid "B<-1>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:40
+msgid "Use the MD5 based BSD password algorithm B<1>."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:42
+msgid "B<-apr1>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:44
+msgid "Use the B<apr1> algorithm (Apache variant of the BSD algorithm)."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:46
+msgid "B<-salt> I<string>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:48
+msgid ""
+"Use the specified salt.  When reading a password from the terminal, this "
+"implies B<-noverify>."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:51
+msgid "B<-in> I<file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:53
+msgid "Read passwords from I<file>."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:55
+msgid "B<-stdin>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:57
+msgid "Read passwords from B<stdin>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:61
+msgid "Don't verify when reading a password from the terminal."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:63
+msgid "B<-quiet>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:65
+msgid ""
+"Don't output warnings when passwords given at the command line are "
+"truncated."
+msgstr ""
+
+#. type: =item
+#: C/apps/passwd.pod:67
+msgid "B<-table>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:69
+msgid ""
+"In the output list, prepend the cleartext password and a TAB character to "
+"each password hash."
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:76
+msgid "B<openssl passwd -crypt -salt xx password> prints B<xxj31ZMTZzkVA>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:78
+msgid ""
+"B<openssl passwd -1 -salt xxxxxxxx password> prints "
+"B<$1$xxxxxxxx$UYCIxa628.9qXjpQCjM4a.>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/passwd.pod:80
+msgid ""
+"B<openssl passwd -apr1 -salt xxxxxxxx password> prints "
+"B<$apr1$xxxxxxxx$dxHfLAsjHkDRmG83UXe8K0>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:6
+msgid "req - PKCS#10 certificate request and certificate generating utility."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:10
+msgid ""
+"B<openssl> B<req> [B<-inform PEM|DER>] [B<-outform PEM|DER>] [B<-in "
+"filename>] [B<-passin arg>] [B<-out filename>] [B<-passout arg>] [B<-text>] "
+"[B<-pubkey>] [B<-noout>] [B<-verify>] [B<-modulus>] [B<-new>] [B<-rand "
+"file(s)>] [B<-newkey rsa:bits>] [B<-newkey alg:file>] [B<-nodes>] [B<-key "
+"filename>] [B<-keyform PEM|DER>] [B<-keyout filename>] [B<-keygen_engine "
+"id>] [B<-[digest]>] [B<-config filename>] [B<-subj arg>] "
+"[B<-multivalue-rdn>] [B<-x509>] [B<-days n>] [B<-set_serial n>] "
+"[B<-asn1-kludge>] [B<-no-asn1-kludge>] [B<-newhdr>] [B<-extensions section>] "
+"[B<-reqexts section>] [B<-utf8>] [B<-nameopt>] [B<-reqopt>] [B<-subject>] "
+"[B<-subj arg>] [B<-batch>] [B<-verbose>] [B<-engine id>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:54
+msgid ""
+"The B<req> command primarily creates and processes certificate requests in "
+"PKCS#10 format. It can additionally create self signed certificates for use "
+"as root CAs for example."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:62 C/apps/sess_id.pod:29
+msgid "B<-inform DER|PEM>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:64
+msgid ""
+"This specifies the input format. The B<DER> option uses an ASN1 DER encoded "
+"form compatible with the PKCS#10. The B<PEM> form is the default format: it "
+"consists of the B<DER> format base64 encoded with additional header and "
+"footer lines."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:69 C/apps/sess_id.pod:36
+msgid "B<-outform DER|PEM>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:71 C/apps/sess_id.pod:38
+msgid ""
+"This specifies the output format, the options have the same meaning as the "
+"B<-inform> option."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:76
+msgid ""
+"This specifies the input filename to read a request from or standard input "
+"if this option is not specified. A request is only read if the creation "
+"options (B<-new> and B<-newkey>) are not specified."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:82 C/apps/spkac.pod:50
+msgid ""
+"the input file password source. For more information about the format of "
+"B<arg> see the B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:87
+msgid ""
+"This specifies the output filename to write to or standard output by "
+"default."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:90
+msgid "B<-passout arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:92
+msgid ""
+"the output file password source. For more information about the format of "
+"B<arg> see the B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:95 C/apps/sess_id.pod:51 C/apps/ts.pod:165 C/apps/ts.pod:261
+msgid "B<-text>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:97
+msgid "prints out the certificate request in text form."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:99
+msgid "B<-subject>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:101
+msgid ""
+"prints out the request subject (or certificate subject if B<-x509> is "
+"specified)"
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:104 C/apps/spkac.pod:73
+msgid "B<-pubkey>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:106
+msgid "outputs the public key."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:108 C/apps/sess_id.pod:61 C/apps/spkac.pod:68
+msgid "B<-noout>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:110
+msgid "this option prevents output of the encoded version of the request."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:112
+msgid "B<-modulus>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:114
+msgid ""
+"this option prints out the value of the modulus of the public key contained "
+"in the request."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:117 C/apps/spkac.pod:78
+msgid "B<-verify>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:119
+msgid "verifies the signature on the request."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:121
+msgid "B<-new>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:123
+msgid ""
+"this option generates a new certificate request. It will prompt the user for "
+"the relevant field values. The actual fields prompted for and their maximum "
+"and minimum sizes are specified in the configuration file and any requested "
+"extensions."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:128
+msgid ""
+"If the B<-key> option is not used it will generate a new RSA private key "
+"using information specified in the configuration file."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:131 C/apps/req.pod:216
+msgid "B<-subj arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:133
+msgid ""
+"Replaces subject field of input request with specified data and outputs "
+"modified request. The arg must be formatted as "
+"I</type0=value0/type1=value1/type2=...>, characters may be escaped by \\ "
+"(backslash), no spaces are skipped."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:146
+msgid "B<-newkey arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:148
+msgid ""
+"this option creates a new certificate request and a new private key. The "
+"argument takes one of several forms. B<rsa:nbits>, where B<nbits> is the "
+"number of bits, generates an RSA key B<nbits> in size. If B<nbits> is "
+"omitted, i.e. B<-newkey rsa> specified, the default key size, specified in "
+"the configuration file is used."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:154
+msgid ""
+"All other algorithms support the B<-newkey alg:file> form, where file may be "
+"an algorithm parameter file, created by the B<genpkey -genparam> command or "
+"and X.509 certificate for a key with approriate algorithm."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:158
+msgid ""
+"B<param:file> generates a key using the parameter file or certificate "
+"B<file>, the algorithm is determined by the parameters. B<algname:file> use "
+"algorithm B<algname> and parameter file B<file>: the two algorithms must "
+"match or an error occurs. B<algname> just uses algorithm B<algname>, and "
+"parameters, if necessary should be specified via B<-pkeyopt> parameter."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:164
+msgid ""
+"B<dsa:filename> generates a DSA key using the parameters in the file "
+"B<filename>. B<ec:filename> generates EC key (usable both with ECDSA or ECDH "
+"algorithms), B<gost2001:filename> generates GOST R 34.10-2001 key (requires "
+"B<ccgost> engine configured in the configuration file). If just B<gost2001> "
+"is specified a parameter set should be specified by B<-pkeyopt paramset:X>"
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:172
+msgid "B<-pkeyopt opt:value>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:174
+msgid ""
+"set the public key algorithm option B<opt> to B<value>. The precise set of "
+"options supported depends on the public key algorithm used and its "
+"implementation. See B<KEY GENERATION OPTIONS> in the B<genpkey> manual page "
+"for more details."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:179
+msgid "B<-key filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:181
+msgid ""
+"This specifies the file to read the private key from. It also accepts PKCS#8 "
+"format private keys for PEM format files."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:184
+msgid "B<-keyform PEM|DER>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:186
+msgid ""
+"the format of the private key file specified in the B<-key> argument. PEM is "
+"the default."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:189
+msgid "B<-keyout filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:191
+msgid ""
+"this gives the filename to write the newly created private key to.  If this "
+"option is not specified then the filename present in the configuration file "
+"is used."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:195
+msgid "B<-nodes>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:197
+msgid ""
+"if this option is specified then if a private key is created it will not be "
+"encrypted."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:200
+msgid "B<-[digest]>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:202
+msgid ""
+"this specifies the message digest to sign the request with (such as B<-md5>, "
+"B<-sha1>). This overrides the digest algorithm specified in the "
+"configuration file."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:206
+msgid ""
+"Some public key algorithms may override this choice. For instance, DSA "
+"signatures always use SHA1, GOST R 34.10 signatures always use GOST R "
+"34.11-94 (B<-md_gost94>)."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:210
+msgid "B<-config filename>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:212
+msgid ""
+"this allows an alternative configuration file to be specified, this "
+"overrides the compile time filename or any specified in the B<OPENSSL_CONF> "
+"environment variable."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:218
+msgid ""
+"sets subject name for new request or supersedes the subject name when "
+"processing a request.  The arg must be formatted as "
+"I</type0=value0/type1=value1/type2=...>, characters may be escaped by \\ "
+"(backslash), no spaces are skipped."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:223
+msgid "B<-multivalue-rdn>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:225
+msgid ""
+"this option causes the -subj argument to be interpreted with full support "
+"for multivalued RDNs. Example:"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:228
+msgid "I</DC=org/DC=OpenSSL/DC=users/UID=123456+CN=John Doe>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:230
+msgid "If -multi-rdn is not used then the UID value is I<123456+CN=John Doe>."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:232
+msgid "B<-x509>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:234
+msgid ""
+"this option outputs a self signed certificate instead of a certificate "
+"request. This is typically used to generate a test certificate or a self "
+"signed root CA. The extensions added to the certificate (if any) are "
+"specified in the configuration file. Unless specified using the "
+"B<set_serial> option B<0> will be used for the serial number."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:241
+msgid "B<-days n>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:243
+msgid ""
+"when the B<-x509> option is being used this specifies the number of days to "
+"certify the certificate for. The default is 30 days."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:246
+msgid "B<-set_serial n>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:248
+msgid ""
+"serial number to use when outputting a self signed certificate. This may be "
+"specified as a decimal value or a hex value if preceded by B<0x>.  It is "
+"possible to use negative serial numbers but this is not recommended."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:252
+msgid "B<-extensions section>"
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:254
+msgid "B<-reqexts section>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:256
+msgid ""
+"these options specify alternative sections to include certificate extensions "
+"(if the B<-x509> option is present) or certificate request extensions. This "
+"allows several different sections to be used in the same configuration file "
+"to specify requests for a variety of purposes."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:262
+msgid "B<-utf8>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:264
+msgid ""
+"this option causes field values to be interpreted as UTF8 strings, by "
+"default they are interpreted as ASCII. This means that the field values, "
+"whether prompted from a terminal or obtained from a configuration file, must "
+"be valid UTF8 strings."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:269
+msgid "B<-nameopt option>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:271
+msgid ""
+"option which determines how the subject or issuer names are displayed. The "
+"B<option> argument can be a single option or multiple options separated by "
+"commas.  Alternatively the B<-nameopt> switch may be used more than once to "
+"set multiple options. See the L<x509(1)|x509(1)> manual page for details."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:276
+msgid "B<-reqopt>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:278
+msgid ""
+"customise the output format used with B<-text>. The B<option> argument can "
+"be a single option or multiple options separated by commas."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:281
+msgid ""
+"See discission of the B<-certopt> parameter in the L<B<x509>|x509(1)> "
+"command."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:285
+msgid "B<-asn1-kludge>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:287
+msgid ""
+"by default the B<req> command outputs certificate requests containing no "
+"attributes in the correct PKCS#10 format. However certain CAs will only "
+"accept requests containing no attributes in an invalid form: this option "
+"produces this invalid format."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:292
+msgid ""
+"More precisely the B<Attributes> in a PKCS#10 certificate request are "
+"defined as a B<SET OF Attribute>. They are B<not OPTIONAL> so if no "
+"attributes are present then they should be encoded as an empty B<SET "
+"OF>. The invalid form does not include the empty B<SET OF> whereas the "
+"correct form does."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:298
+msgid "It should be noted that very few CAs still require the use of this option."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:300
+msgid "B<-no-asn1-kludge>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:302
+msgid "Reverses effect of B<-asn1-kludge>"
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:304
+msgid "B<-newhdr>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:306
+msgid ""
+"Adds the word B<NEW> to the PEM file header and footer lines on the "
+"outputted request. Some software (Netscape certificate server) and some CAs "
+"need this."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:309
+msgid "B<-batch>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:311
+msgid "non-interactive mode."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:313 C/apps/verify.pod:71
+msgid "B<-verbose>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:315
+msgid "print extra details about the operations being performed."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:319
+msgid ""
+"specifying an engine (by its unique B<id> string) will cause B<req> to "
+"attempt to obtain a functional reference to the specified engine, thus "
+"initialising it if needed. The engine will then be set as the default for "
+"all available algorithms."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:324
+msgid "B<-keygen_engine id>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:326
+msgid ""
+"specifies an engine (by its unique B<id> string) which would be used for key "
+"generation operations."
+msgstr ""
+
+#. type: =head1
+#: C/apps/req.pod:331
+msgid "CONFIGURATION FILE FORMAT"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:333
+msgid ""
+"The configuration options are specified in the B<req> section of the "
+"configuration file. As with all configuration files if no value is specified "
+"in the specific section (i.e. B<req>) then the initial unnamed or B<default> "
+"section is searched too."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:338
+msgid "The options available are described in detail below."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:342
+msgid "B<input_password output_password>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:344
+msgid ""
+"The passwords for the input private key file (if present) and the output "
+"private key file (if one will be created). The command line options "
+"B<passin> and B<passout> override the configuration file values."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:349
+msgid "B<default_bits>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:351
+msgid ""
+"This specifies the default key size in bits. If not specified then 512 is "
+"used. It is used if the B<-new> option is used. It can be overridden by "
+"using the B<-newkey> option."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:355
+msgid "B<default_keyfile>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:357
+msgid ""
+"This is the default filename to write a private key to. If not specified the "
+"key is written to standard output. This can be overridden by the B<-keyout> "
+"option."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:361 C/apps/ts.pod:357
+msgid "B<oid_file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:363
+msgid ""
+"This specifies a file containing additional B<OBJECT IDENTIFIERS>.  Each "
+"line of the file should consist of the numerical form of the object "
+"identifier followed by white space then the short name followed by white "
+"space and finally the long name."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:368 C/apps/ts.pod:361
+msgid "B<oid_section>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:370
+msgid ""
+"This specifies a section in the configuration file containing extra object "
+"identifiers. Each line should consist of the short name of the object "
+"identifier followed by B<=> and the numerical form. The short and long names "
+"are the same when this option is used."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:375 C/apps/ts.pod:365
+msgid "B<RANDFILE>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:377
+msgid ""
+"This specifies a filename in which random number seed information is placed "
+"and read from, or an EGD socket (see L<RAND_egd(3)|RAND_egd(3)>).  It is "
+"used for private key generation."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:381
+msgid "B<encrypt_key>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:383
+msgid ""
+"If this is set to B<no> then if a private key is generated it is B<not> "
+"encrypted. This is equivalent to the B<-nodes> command line option. For "
+"compatibility B<encrypt_rsa_key> is an equivalent option."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:387
+msgid "B<default_md>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:389
+msgid ""
+"This option specifies the digest algorithm to use. Possible values include "
+"B<md5 sha1 mdc2>. If not present then MD5 is used. This option can be "
+"overridden on the command line."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:393
+msgid "B<string_mask>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:395
+msgid ""
+"This option masks out the use of certain string types in certain "
+"fields. Most users will not need to change this option."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:398
+msgid ""
+"It can be set to several values B<default> which is also the default option "
+"uses PrintableStrings, T61Strings and BMPStrings if the B<pkix> value is "
+"used then only PrintableStrings and BMPStrings will be used. This follows "
+"the PKIX recommendation in RFC2459. If the B<utf8only> option is used then "
+"only UTF8Strings will be used: this is the PKIX recommendation in RFC2459 "
+"after 2003. Finally the B<nombstr> option just uses PrintableStrings and "
+"T61Strings: certain software has problems with BMPStrings and UTF8Strings: "
+"in particular Netscape."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:407
+msgid "B<req_extensions>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:409
+msgid ""
+"this specifies the configuration file section containing a list of "
+"extensions to add to the certificate request. It can be overridden by the "
+"B<-reqexts> command line switch. See the "
+"L<x509v3_config(5)|x509v3_config(5)> manual page for details of the "
+"extension section format."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:415
+msgid "B<x509_extensions>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:417
+msgid ""
+"this specifies the configuration file section containing a list of "
+"extensions to add to certificate generated when the B<-x509> switch is "
+"used. It can be overridden by the B<-extensions> command line switch."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:421
+msgid "B<prompt>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:423
+msgid ""
+"if set to the value B<no> this disables prompting of certificate fields and "
+"just takes values from the config file directly. It also changes the "
+"expected format of the B<distinguished_name> and B<attributes> sections."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:427
+msgid "B<utf8>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:429
+msgid ""
+"if set to the value B<yes> then field values to be interpreted as UTF8 "
+"strings, by default they are interpreted as ASCII. This means that the field "
+"values, whether prompted from a terminal or obtained from a configuration "
+"file, must be valid UTF8 strings."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:434
+msgid "B<attributes>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:436
+msgid ""
+"this specifies the section containing any request attributes: its format is "
+"the same as B<distinguished_name>. Typically these may contain the "
+"challengePassword or unstructuredName types. They are currently ignored by "
+"OpenSSL's request signing utilities but some CAs might want them."
+msgstr ""
+
+#. type: =item
+#: C/apps/req.pod:441
+msgid "B<distinguished_name>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:443
+msgid ""
+"This specifies the section containing the distinguished name fields to "
+"prompt for when generating a certificate or certificate request. The format "
+"is described in the next section."
+msgstr ""
+
+#. type: =head1
+#: C/apps/req.pod:449
+msgid "DISTINGUISHED NAME AND ATTRIBUTE SECTION FORMAT"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:451
+msgid ""
+"There are two separate formats for the distinguished name and attribute "
+"sections. If the B<prompt> option is set to B<no> then these sections just "
+"consist of field names and values: for example,"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:455
+#, no-wrap
+msgid ""
+" CN=My Name\n"
+" OU=My Organization\n"
+" emailAddress=someone@somewhere.org\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:459
+msgid ""
+"This allows external programs (e.g. GUI based) to generate a template file "
+"with all the field names and values and just pass it to B<req>. An example "
+"of this kind of configuration file is contained in the B<EXAMPLES> section."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:463
+msgid ""
+"Alternatively if the B<prompt> option is absent or not set to B<no> then the "
+"file contains field prompting information. It consists of lines of the form:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:466
+#, no-wrap
+msgid ""
+" fieldName=\"prompt\"\n"
+" fieldName_default=\"default field value\"\n"
+" fieldName_min= 2\n"
+" fieldName_max= 4\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:471
+msgid ""
+"\"fieldName\" is the field name being used, for example commonName (or CN).  "
+"The \"prompt\" string is used to ask the user to enter the relevant "
+"details. If the user enters nothing then the default value is used if no "
+"default value is present then the field is omitted. A field can still be "
+"omitted if a default value is present if the user just enters the '.' "
+"character."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:478
+msgid ""
+"The number of characters entered must be between the fieldName_min and "
+"fieldName_max limits: there may be additional restrictions based on the "
+"field being used (for example countryName can only ever be two characters "
+"long and must fit in a PrintableString)."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:483
+msgid ""
+"Some fields (such as organizationName) can be used more than once in a "
+"DN. This presents a problem because configuration files will not recognize "
+"the same name occurring twice. To avoid this problem if the fieldName "
+"contains some characters followed by a full stop they will be ignored. So "
+"for example a second organizationName can be input by calling it "
+"\"1.organizationName\"."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:490
+msgid ""
+"The actual permitted field names are any object identifier short or long "
+"names. These are compiled into OpenSSL and include the usual values such as "
+"commonName, countryName, localityName, organizationName, "
+"organizationUnitName, stateOrProvinceName. Additionally emailAddress is "
+"include as well as name, surname, givenName initials and dnQualifier."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:496
+msgid ""
+"Additional object identifiers can be defined with the B<oid_file> or "
+"B<oid_section> options in the configuration file. Any additional fields will "
+"be treated as though they were a DirectoryString."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:503
+msgid "Examine and verify certificate request:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:505
+#, no-wrap
+msgid ""
+" openssl req -in req.pem -text -verify -noout\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:507
+msgid "Create a private key and then generate a certificate request from it:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:509
+#, no-wrap
+msgid ""
+" openssl genrsa -out key.pem 1024\n"
+" openssl req -new -key key.pem -out req.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:512
+msgid "The same but just using req:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:514
+#, no-wrap
+msgid ""
+" openssl req -newkey rsa:1024 -keyout key.pem -out req.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:516
+msgid "Generate a self signed root certificate:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:518
+#, no-wrap
+msgid ""
+" openssl req -x509 -newkey rsa:1024 -keyout key.pem -out req.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:520
+msgid "Example of a file pointed to by the B<oid_file> option:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:522
+#, no-wrap
+msgid ""
+" 1.2.3.4\tshortName\tA longer Name\n"
+" 1.2.3.6\totherName\tOther longer Name\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:525
+msgid ""
+"Example of a section pointed to by B<oid_section> making use of variable "
+"expansion:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:528
+#, no-wrap
+msgid ""
+" testoid1=1.2.3.5\n"
+" testoid2=${testoid1}.6\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:531
+msgid "Sample configuration file prompting for field values:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:533
+#, no-wrap
+msgid ""
+" [ req ]\n"
+" default_bits\t\t= 1024\n"
+" default_keyfile \t= privkey.pem\n"
+" distinguished_name\t= req_distinguished_name\n"
+" attributes\t\t= req_attributes\n"
+" x509_extensions\t= v3_ca\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:540
+#, no-wrap
+msgid ""
+" dirstring_type = nobmp\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:542
+#, no-wrap
+msgid ""
+" [ req_distinguished_name ]\n"
+" countryName\t\t\t= Country Name (2 letter code)\n"
+" countryName_default\t\t= AU\n"
+" countryName_min\t\t= 2\n"
+" countryName_max\t\t= 2\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:548
+#, no-wrap
+msgid ""
+" localityName\t\t\t= Locality Name (eg, city)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:550
+#, no-wrap
+msgid ""
+" organizationalUnitName\t\t= Organizational Unit Name (eg, section)\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:552
+#, no-wrap
+msgid ""
+" commonName\t\t\t= Common Name (eg, YOUR name)\n"
+" commonName_max\t\t\t= 64\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:555
+#, no-wrap
+msgid ""
+" emailAddress\t\t\t= Email Address\n"
+" emailAddress_max\t\t= 40\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:558
+#, no-wrap
+msgid ""
+" [ req_attributes ]\n"
+" challengePassword\t\t= A challenge password\n"
+" challengePassword_min\t\t= 4\n"
+" challengePassword_max\t\t= 20\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:563
+#, no-wrap
+msgid ""
+" [ v3_ca ]\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:565
+#, no-wrap
+msgid ""
+" subjectKeyIdentifier=hash\n"
+" authorityKeyIdentifier=keyid:always,issuer:always\n"
+" basicConstraints = CA:true\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:569
+msgid "Sample configuration containing all field values:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:572
+#, no-wrap
+msgid ""
+" RANDFILE\t\t= $ENV::HOME/.rnd\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:574
+#, no-wrap
+msgid ""
+" [ req ]\n"
+" default_bits\t\t= 1024\n"
+" default_keyfile \t= keyfile.pem\n"
+" distinguished_name\t= req_distinguished_name\n"
+" attributes\t\t= req_attributes\n"
+" prompt\t\t\t= no\n"
+" output_password\t= mypass\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:582
+#, no-wrap
+msgid ""
+" [ req_distinguished_name ]\n"
+" C\t\t\t= GB\n"
+" ST\t\t\t= Test State or Province\n"
+" L\t\t\t= Test Locality\n"
+" O\t\t\t= Organization Name\n"
+" OU\t\t\t= Organizational Unit Name\n"
+" CN\t\t\t= Common Name\n"
+" emailAddress\t\t= test@email.address\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:591
+#, no-wrap
+msgid ""
+" [ req_attributes ]\n"
+" challengePassword\t\t= A challenge password\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:597
+msgid "The header and footer lines in the B<PEM> format are normally:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:599
+#, no-wrap
+msgid ""
+" -----BEGIN CERTIFICATE REQUEST-----\n"
+" -----END CERTIFICATE REQUEST-----\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:602
+msgid "some software (some versions of Netscape certificate server) instead needs:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:604
+#, no-wrap
+msgid ""
+" -----BEGIN NEW CERTIFICATE REQUEST-----\n"
+" -----END NEW CERTIFICATE REQUEST-----\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:607
+msgid ""
+"which is produced with the B<-newhdr> option but is otherwise compatible.  "
+"Either form is accepted transparently on input."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:610
+msgid ""
+"The certificate requests generated by B<Xenroll> with MSIE have extensions "
+"added. It includes the B<keyUsage> extension which determines the type of "
+"key (signature only or general purpose) and any additional OIDs entered by "
+"the script in an extendedKeyUsage extension."
+msgstr ""
+
+#. type: =head1
+#: C/apps/req.pod:615 C/apps/verify.pod:215
+msgid "DIAGNOSTICS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:617
+msgid "The following messages are frequently asked about:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:619
+#, no-wrap
+msgid ""
+"\tUsing configuration from /some/path/openssl.cnf\n"
+"\tUnable to load config info\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:622
+msgid "This is followed some time later by..."
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:624
+#, no-wrap
+msgid ""
+"\tunable to find 'distinguished_name' in config\n"
+"\tproblems making Certificate Request\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:627
+msgid ""
+"The first error message is the clue: it can't find the configuration file! "
+"Certain operations (like examining a certificate request) don't need a "
+"configuration file so its use isn't enforced. Generation of certificates or "
+"requests however does need a configuration file. This could be regarded as a "
+"bug."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:633
+msgid "Another puzzling message is this:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:635
+#, no-wrap
+msgid ""
+"        Attributes:\n"
+"            a0:00\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:638
+msgid ""
+"this is displayed when no attributes are present and the request includes "
+"the correct empty B<SET OF> structure (the DER encoding of which is 0xa0 "
+"0x00). If you just see:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/req.pod:642
+#, no-wrap
+msgid ""
+"        Attributes:\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:644
+msgid ""
+"then the B<SET OF> is missing and the encoding is technically invalid (but "
+"it is tolerated). See the description of the command line option "
+"B<-asn1-kludge> for more information."
+msgstr ""
+
+#. type: =head1
+#: C/apps/req.pod:648 C/apps/ts.pod:453 C/apps/tsget.pod:132
+msgid "ENVIRONMENT VARIABLES"
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:650
+msgid ""
+"The variable B<OPENSSL_CONF> if defined allows an alternative configuration "
+"file location to be specified, it will be overridden by the B<-config> "
+"command line switch if it is present. For compatibility reasons the "
+"B<SSLEAY_CONF> environment variable serves the same purpose but its use is "
+"discouraged."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:657
+msgid ""
+"OpenSSL's handling of T61Strings (aka TeletexStrings) is broken: it "
+"effectively treats them as ISO-8859-1 (Latin 1), Netscape and MSIE have "
+"similar behaviour.  This can cause problems if you need characters that "
+"aren't available in PrintableStrings and you don't want to or can't use "
+"BMPStrings."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:662
+msgid ""
+"As a consequence of the T61String handling the only correct way to represent "
+"accented characters in OpenSSL is to use a BMPString: unfortunately Netscape "
+"currently chokes on these. If you have to use accented characters with "
+"Netscape and MSIE then you currently need to use the invalid T61String form."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:667
+msgid ""
+"The current prompting is not very friendly. It doesn't allow you to confirm "
+"what you've just entered. Other things like extensions in certificate "
+"requests are statically defined in the configuration file. Some of these: "
+"like an email address in subjectAltName should be input by the user."
+msgstr ""
+
+#. type: textblock
+#: C/apps/req.pod:674
+msgid ""
+"L<x509(1)|x509(1)>, L<ca(1)|ca(1)>, L<genrsa(1)|genrsa(1)>, "
+"L<gendsa(1)|gendsa(1)>, L<config(5)|config(5)>, "
+"L<x509v3_config(5)|x509v3_config(5)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:6
+msgid "sess_id - SSL/TLS session handling utility"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:10
+msgid ""
+"B<openssl> B<sess_id> [B<-inform PEM|DER>] [B<-outform PEM|DER>] [B<-in "
+"filename>] [B<-out filename>] [B<-text>] [B<-noout>] [B<-context ID>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:21
+msgid ""
+"The B<sess_id> process the encoded version of the SSL session structure and "
+"optionally prints out SSL session details (for example the SSL session "
+"master key) in human readable format. Since this is a diagnostic tool that "
+"needs some knowledge of the SSL protocol to use properly, most users will "
+"not need to use it."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:31
+msgid ""
+"This specifies the input format. The B<DER> option uses an ASN1 DER encoded "
+"format containing session details. The precise format can vary from one "
+"version to the next.  The B<PEM> form is the default format: it consists of "
+"the B<DER> format base64 encoded with additional header and footer lines."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:43
+msgid ""
+"This specifies the input filename to read session information from or "
+"standard input by default."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:48
+msgid ""
+"This specifies the output filename to write session information to or "
+"standard output if this option is not specified."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:53
+msgid ""
+"prints out the various public or private key components in plain text in "
+"addition to the encoded version."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:56 C/apps/ts.pod:147
+msgid "B<-cert>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:58
+msgid ""
+"if a certificate is present in the session it will be output using this "
+"option, if the B<-text> option is also present then it will be printed out "
+"in text form."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:63
+msgid "this option prevents output of the encoded version of the session."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:65
+msgid "B<-context ID>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:67
+msgid ""
+"this option can set the session id so the output session information uses "
+"the supplied ID. The ID can be any string of characters. This option wont "
+"normally be used."
+msgstr ""
+
+#. type: =head1
+#: C/apps/sess_id.pod:73
+msgid "OUTPUT"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:75
+msgid "Typical output:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/sess_id.pod:77
+#, no-wrap
+msgid ""
+" SSL-Session:\n"
+"     Protocol  : TLSv1\n"
+"     Cipher    : 0016\n"
+"     Session-ID: "
+"871E62626C554CE95488823752CBD5F3673A3EF3DCE9C67BD916C809914B40ED\n"
+"     Session-ID-ctx: 01000000\n"
+"     Master-Key: "
+"A7CEFC571974BE02CAC305269DC59F76EA9F0B180CB6642697A68251F2D2BB57E51DBBB4C7885573192AE9AEE220FACD\n"
+"     Key-Arg   : None\n"
+"     Start Time: 948459261\n"
+"     Timeout   : 300 (sec)\n"
+"     Verify return code 0 (ok)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:88
+msgid "Theses are described below in more detail."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:92
+msgid "B<Protocol>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:94
+msgid "this is the protocol in use TLSv1, SSLv3 or SSLv2."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:96
+msgid "B<Cipher>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:98
+msgid ""
+"the cipher used this is the actual raw SSL or TLS cipher code, see the SSL "
+"or TLS specifications for more information."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:101
+msgid "B<Session-ID>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:103
+msgid "the SSL session ID in hex format."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:105
+msgid "B<Session-ID-ctx>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:107
+msgid "the session ID context in hex format."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:109
+msgid "B<Master-Key>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:111
+msgid "this is the SSL session master key."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:113
+msgid "B<Key-Arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:115
+msgid "the key argument, this is only used in SSL v2."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:117
+msgid "B<Start Time>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:119
+msgid ""
+"this is the session start time represented as an integer in standard Unix "
+"format."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:121
+msgid "B<Timeout>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:123
+msgid "the timeout in seconds."
+msgstr ""
+
+#. type: =item
+#: C/apps/sess_id.pod:125
+msgid "B<Verify return code>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:127
+msgid "this is the return code when an SSL client certificate is verified."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:133
+msgid "The PEM encoded session format uses the header and footer lines:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/sess_id.pod:135
+#, no-wrap
+msgid ""
+" -----BEGIN SSL SESSION PARAMETERS-----\n"
+" -----END SSL SESSION PARAMETERS-----\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:138
+msgid ""
+"Since the SSL session output contains the master key it is possible to read "
+"the contents of an encrypted session using this information. Therefore "
+"appropriate security precautions should be taken if the information is being "
+"output by a \"real\" application. This is however strongly discouraged and "
+"should only be used for debugging purposes."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:145
+msgid "The cipher and start time should be printed out in human readable form."
+msgstr ""
+
+#. type: textblock
+#: C/apps/sess_id.pod:149
+msgid "L<ciphers(1)|ciphers(1)>, L<s_server(1)|s_server(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/speed.pod:5
+msgid "speed - test library performance"
+msgstr ""
+
+#. type: textblock
+#: C/apps/speed.pod:9
+msgid ""
+"B<openssl speed> [B<-engine id>] [B<md2>] [B<mdc2>] [B<md5>] [B<hmac>] "
+"[B<sha1>] [B<rmd160>] [B<idea-cbc>] [B<rc2-cbc>] [B<rc5-cbc>] [B<bf-cbc>] "
+"[B<des-cbc>] [B<des-ede3>] [B<rc4>] [B<rsa512>] [B<rsa1024>] [B<rsa2048>] "
+"[B<rsa4096>] [B<dsa512>] [B<dsa1024>] [B<dsa2048>] [B<idea>] [B<rc2>] "
+"[B<des>] [B<rsa>] [B<blowfish>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/speed.pod:39
+msgid "This command is used to test the performance of cryptographic algorithms."
+msgstr ""
+
+#. type: textblock
+#: C/apps/speed.pod:47
+msgid ""
+"specifying an engine (by its unique B<id> string) will cause B<speed> to "
+"attempt to obtain a functional reference to the specified engine, thus "
+"initialising it if needed. The engine will then be set as the default for "
+"all available algorithms."
+msgstr ""
+
+#. type: =item
+#: C/apps/speed.pod:52
+msgid "B<[zero or more test algorithms]>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/speed.pod:54
+msgid ""
+"If any options are given, B<speed> tests those algorithms, otherwise all of "
+"the above are tested."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:5
+msgid "spkac - SPKAC printing and generating utility"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:9
+msgid ""
+"B<openssl> B<spkac> [B<-in filename>] [B<-out filename>] [B<-key keyfile>] "
+"[B<-passin arg>] [B<-challenge string>] [B<-pubkey>] [B<-spkac spkacname>] "
+"[B<-spksect section>] [B<-noout>] [B<-verify>] [B<-engine id>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:24
+msgid ""
+"The B<spkac> command processes Netscape signed public key and challenge "
+"(SPKAC) files. It can print out their contents, verify the signature and "
+"produce its own SPKACs from a supplied private key."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:34
+msgid ""
+"This specifies the input filename to read from or standard input if this "
+"option is not specified. Ignored if the B<-key> option is used."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:39
+msgid "specifies the output filename to write to or standard output by default."
+msgstr ""
+
+#. type: =item
+#: C/apps/spkac.pod:42
+msgid "B<-key keyfile>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:44
+msgid ""
+"create an SPKAC file using the private key in B<keyfile>. The B<-in>, "
+"B<-noout>, B<-spksect> and B<-verify> options are ignored if present."
+msgstr ""
+
+#. type: =item
+#: C/apps/spkac.pod:48
+msgid "B<-passin password>"
+msgstr ""
+
+#. type: =item
+#: C/apps/spkac.pod:53
+msgid "B<-challenge string>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:55
+msgid "specifies the challenge string if an SPKAC is being created."
+msgstr ""
+
+#. type: =item
+#: C/apps/spkac.pod:57
+msgid "B<-spkac spkacname>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:59
+msgid ""
+"allows an alternative name form the variable containing the SPKAC. The "
+"default is \"SPKAC\". This option affects both generated and input SPKAC "
+"files."
+msgstr ""
+
+#. type: =item
+#: C/apps/spkac.pod:63
+msgid "B<-spksect section>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:65
+msgid ""
+"allows an alternative name form the section containing the SPKAC. The "
+"default is the default section."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:70
+msgid ""
+"don't output the text version of the SPKAC (not used if an SPKAC is being "
+"created)."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:75
+msgid "output the public key of an SPKAC (not used if an SPKAC is being created)."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:80
+msgid "verifies the digital signature on the supplied SPKAC."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:84
+msgid ""
+"specifying an engine (by its unique B<id> string) will cause B<spkac> to "
+"attempt to obtain a functional reference to the specified engine, thus "
+"initialising it if needed. The engine will then be set as the default for "
+"all available algorithms."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:93
+msgid "Print out the contents of an SPKAC:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/spkac.pod:95
+#, no-wrap
+msgid ""
+" openssl spkac -in spkac.cnf\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:97
+msgid "Verify the signature of an SPKAC:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/spkac.pod:99
+#, no-wrap
+msgid ""
+" openssl spkac -in spkac.cnf -noout -verify\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:101
+msgid "Create an SPKAC using the challenge string \"hello\":"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/spkac.pod:103
+#, no-wrap
+msgid ""
+" openssl spkac -key key.pem -challenge hello -out spkac.cnf\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:105
+msgid "Example of an SPKAC, (long lines split up for clarity):"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/spkac.pod:107
+#, no-wrap
+msgid ""
+" SPKAC=MIG5MGUwXDANBgkqhkiG9w0BAQEFAANLADBIAkEA1cCoq2Wa3Ixs47uI7F\\\n"
+" PVwHVIPDx5yso105Y6zpozam135a8R0CpoRvkkigIyXfcCjiVi5oWk+6FfPaD03u\\\n"
+" PFoQIDAQABFgVoZWxsbzANBgkqhkiG9w0BAQQFAANBAFpQtY/FojdwkJh1bEIYuc\\\n"
+" 2EeM2KHTWPEepWYeawvHD0gQ3DngSC75YCWnnDdq+NQ3F+X4deMx9AaEglZtULwV\\\n"
+" 4=\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:115
+msgid ""
+"A created SPKAC with suitable DN components appended can be fed into the "
+"B<ca> utility."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:118
+msgid ""
+"SPKACs are typically generated by Netscape when a form is submitted "
+"containing the B<KEYGEN> tag as part of the certificate enrollment process."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:122
+msgid ""
+"The challenge string permits a primitive form of proof of possession of "
+"private key. By checking the SPKAC signature and a random challenge string "
+"some guarantee is given that the user knows the private key corresponding to "
+"the public key being certified. This is important in some "
+"applications. Without this it is possible for a previous SPKAC to be used in "
+"a \"replay attack\"."
+msgstr ""
+
+#. type: textblock
+#: C/apps/spkac.pod:131
+msgid "L<ca(1)|ca(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:5
+msgid "ts - Time Stamping Authority tool (client/server)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:9
+msgid ""
+"B<openssl> B<ts> B<-query> [B<-rand> file:file...] [B<-config> configfile] "
+"[B<-data> file_to_hash] [B<-digest> digest_bytes] "
+"[B<-md2>|B<-md4>|B<-md5>|B<-sha>|B<-sha1>|B<-mdc2>|B<-ripemd160>|B<...>] "
+"[B<-policy> object_id] [B<-no_nonce>] [B<-cert>] [B<-in> request.tsq] "
+"[B<-out> request.tsq] [B<-text>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:23
+msgid ""
+"B<openssl> B<ts> B<-reply> [B<-config> configfile] [B<-section> tsa_section] "
+"[B<-queryfile> request.tsq] [B<-passin> password_src] [B<-signer> "
+"tsa_cert.pem] [B<-inkey> private.pem] [B<-chain> certs_file.pem] [B<-policy> "
+"object_id] [B<-in> response.tsr] [B<-token_in>] [B<-out> response.tsr] "
+"[B<-token_out>] [B<-text>] [B<-engine> id]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:40
+msgid ""
+"B<openssl> B<ts> B<-verify> [B<-data> file_to_hash] [B<-digest> "
+"digest_bytes] [B<-queryfile> request.tsq] [B<-in> response.tsr] "
+"[B<-token_in>] [B<-CApath> trusted_cert_path] [B<-CAfile> trusted_certs.pem] "
+"[B<-untrusted> cert_file.pem]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:53
+msgid ""
+"The B<ts> command is a basic Time Stamping Authority (TSA) client and server "
+"application as specified in RFC 3161 (Time-Stamp Protocol, TSP). A TSA can "
+"be part of a PKI deployment and its role is to provide long term proof of "
+"the existence of a certain datum before a particular time. Here is a brief "
+"description of the protocol:"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:61
+msgid "1."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:63
+msgid ""
+"The TSA client computes a one-way hash value for a data file and sends the "
+"hash to the TSA."
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:66
+msgid "2."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:68
+msgid ""
+"The TSA attaches the current date and time to the received hash value, signs "
+"them and sends the time stamp token back to the client. By creating this "
+"token the TSA certifies the existence of the original data file at the time "
+"of response generation."
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:73
+msgid "3."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:75
+msgid ""
+"The TSA client receives the time stamp token and verifies the signature on "
+"it. It also checks if the token contains the same hash value that it had "
+"sent to the TSA."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:81
+msgid ""
+"There is one DER encoded protocol data unit defined for transporting a time "
+"stamp request to the TSA and one for sending the time stamp response back to "
+"the client. The B<ts> command has three main functions: creating a time "
+"stamp request based on a data file, creating a time stamp response based on "
+"a request, verifying if a response corresponds to a particular request or a "
+"data file."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:88
+msgid ""
+"There is no support for sending the requests/responses automatically over "
+"HTTP or TCP yet as suggested in RFC 3161. The users must send the requests "
+"either by ftp or e-mail."
+msgstr ""
+
+#. type: =head2
+#: C/apps/ts.pod:94
+msgid "Time Stamp Request generation"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:96
+msgid ""
+"The B<-query> switch can be used for creating and printing a time stamp "
+"request with the following options:"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:101 C/apps/tsget.pod:114
+msgid "B<-rand> file:file..."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:103 C/apps/tsget.pod:116
+msgid ""
+"The files containing random data for seeding the random number "
+"generator. Multiple files can be specified, the separator is B<;> for "
+"MS-Windows, B<,> for VMS and B<:> for all other platforms. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:107 C/apps/ts.pod:184
+msgid "B<-config> configfile"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:109
+msgid ""
+"The configuration file to use, this option overrides the B<OPENSSL_CONF> "
+"environment variable. Only the OID section of the config file is used with "
+"the B<-query> command. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:113 C/apps/ts.pod:283
+msgid "B<-data> file_to_hash"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:115
+msgid ""
+"The data file for which the time stamp request needs to be created. stdin is "
+"the default if neither the B<-data> nor the B<-digest> parameter is "
+"specified. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:119 C/apps/ts.pod:290
+msgid "B<-digest> digest_bytes"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:121
+msgid ""
+"It is possible to specify the message imprint explicitly without the data "
+"file. The imprint must be specified in a hexadecimal format, two characters "
+"per byte, the bytes optionally separated by colons (e.g. 1A:F6:01:... or "
+"1AF601...). The number of bytes must match the message digest algorithm in "
+"use. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:127
+msgid "B<-md2>|B<-md4>|B<-md5>|B<-sha>|B<-sha1>|B<-mdc2>|B<-ripemd160>|B<...>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:129
+msgid ""
+"The message digest to apply to the data file, it supports all the message "
+"digest algorithms that are supported by the openssl B<dgst> command.  The "
+"default is SHA-1. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:133 C/apps/ts.pod:227
+msgid "B<-policy> object_id"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:135
+msgid ""
+"The policy that the client expects the TSA to use for creating the time "
+"stamp token. Either the dotted OID notation or OID names defined in the "
+"config file can be used. If no policy is requested the TSA will use its own "
+"default policy. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:140
+msgid "B<-no_nonce>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:142
+msgid ""
+"No nonce is specified in the request if this option is given. Otherwise a 64 "
+"bit long pseudo-random none is included in the request. It is recommended to "
+"use nonce to protect against replay-attacks. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:149
+msgid ""
+"The TSA is expected to include its signing certificate in the "
+"response. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:152
+msgid "B<-in> request.tsq"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:154
+msgid ""
+"This option specifies a previously created time stamp request in DER format "
+"that will be printed into the output file. Useful when you need to examine "
+"the content of a request in human-readable"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:158
+msgid "format. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:160
+msgid "B<-out> request.tsq"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:162
+msgid ""
+"Name of the output file to which the request will be written. Default is "
+"stdout. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:167 C/apps/ts.pod:263
+msgid ""
+"If this option is specified the output is human-readable text format instead "
+"of DER. (Optional)"
+msgstr ""
+
+#. type: =head2
+#: C/apps/ts.pod:172
+msgid "Time Stamp Response generation"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:174
+msgid ""
+"A time stamp response (TimeStampResp) consists of a response status and the "
+"time stamp token itself (ContentInfo), if the token generation was "
+"successful. The B<-reply> command is for creating a time stamp response or "
+"time stamp token based on a request and printing the response/token in "
+"human-readable format. If B<-token_out> is not specified the output is "
+"always a time stamp response (TimeStampResp), otherwise it is a time stamp "
+"token (ContentInfo)."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:186
+msgid ""
+"The configuration file to use, this option overrides the B<OPENSSL_CONF> "
+"environment variable. See B<CONFIGURATION FILE OPTIONS> for configurable "
+"variables. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:190
+msgid "B<-section> tsa_section"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:192
+msgid ""
+"The name of the config file section conatining the settings for the response "
+"generation. If not specified the default TSA section is used, see "
+"B<CONFIGURATION FILE OPTIONS> for details. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:196 C/apps/ts.pod:297
+msgid "B<-queryfile> request.tsq"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:198
+msgid "The name of the file containing a DER encoded time stamp request. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:200
+msgid "B<-passin> password_src"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:202
+msgid ""
+"Specifies the password source for the private key of the TSA. See B<PASS "
+"PHRASE ARGUMENTS> in L<openssl(1)|openssl(1)>. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:205
+msgid "B<-signer> tsa_cert.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:207
+msgid ""
+"The signer certificate of the TSA in PEM format. The TSA signing certificate "
+"must have exactly one extended key usage assigned to it: timeStamping. The "
+"extended key usage must also be critical, otherwise the certificate is going "
+"to be refused. Overrides the B<signer_cert> variable of the config "
+"file. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:213
+msgid "B<-inkey> private.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:215
+msgid ""
+"The signer private key of the TSA in PEM format. Overrides the B<signer_key> "
+"config file option. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:218
+msgid "B<-chain> certs_file.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:220
+msgid ""
+"The collection of certificates in PEM format that will all be included in "
+"the response in addition to the signer certificate if the B<-cert> option "
+"was used for the request. This file is supposed to contain the certificate "
+"chain for the signer certificate from its issuer upwards. The B<-reply> "
+"command does not build a certificate chain automatically. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:229
+msgid ""
+"The default policy to use for the response unless the client explicitly "
+"requires a particular TSA policy. The OID can be specified either in dotted "
+"notation or with its name. Overrides the B<default_policy> config file "
+"option. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:234 C/apps/ts.pod:302
+msgid "B<-in> response.tsr"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:236
+msgid ""
+"Specifies a previously created time stamp response or time stamp token (if "
+"B<-token_in> is also specified) in DER format that will be written to the "
+"output file. This option does not require a request, it is useful e.g. when "
+"you need to examine the content of a response or token or you want to "
+"extract the time stamp token from a response. If the input is a token and "
+"the output is a time stamp response a default 'granted' status info is added "
+"to the token. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:244 C/apps/ts.pod:306
+msgid "B<-token_in>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:246 C/apps/ts.pod:308
+msgid ""
+"This flag can be used together with the B<-in> option and indicates that the "
+"input is a DER encoded time stamp token (ContentInfo) instead of a time "
+"stamp response (TimeStampResp). (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:250
+msgid "B<-out> response.tsr"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:252
+msgid ""
+"The response is written to this file. The format and content of the file "
+"depends on other options (see B<-text>, B<-token_out>). The default is "
+"stdout. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:256
+msgid "B<-token_out>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:258
+msgid ""
+"The output is a time stamp token (ContentInfo) instead of time stamp "
+"response (TimeStampResp). (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:266
+msgid "B<-engine> id"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:268
+msgid ""
+"Specifying an engine (by its unique B<id> string) will cause B<ts> to "
+"attempt to obtain a functional reference to the specified engine, thus "
+"initialising it if needed. The engine will then be set as the default for "
+"all available algorithms. Default is builtin. (Optional)"
+msgstr ""
+
+#. type: =head2
+#: C/apps/ts.pod:275
+msgid "Time Stamp Response verification"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:277
+msgid ""
+"The B<-verify> command is for verifying if a time stamp response or time "
+"stamp token is valid and matches a particular time stamp request or data "
+"file. The B<-verify> command does not use the configuration file."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:285
+msgid ""
+"The response or token must be verified against file_to_hash. The file is "
+"hashed with the message digest algorithm specified in the token.  The "
+"B<-digest> and B<-queryfile> options must not be specified with this one.  "
+"(Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:292
+msgid ""
+"The response or token must be verified against the message digest specified "
+"with this option. The number of bytes must match the message digest "
+"algorithm specified in the token. The B<-data> and B<-queryfile> options "
+"must not be specified with this one. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:299
+msgid ""
+"The original time stamp request in DER format. The B<-data> and B<-digest> "
+"options must not be specified with this one. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:304
+msgid "The time stamp response that needs to be verified in DER format. (Mandatory)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:312
+msgid "B<-CApath> trusted_cert_path"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:314
+msgid ""
+"The name of the directory containing the trused CA certificates of the "
+"client. See the similar option of L<verify(1)|verify(1)> for additional "
+"details. Either this option or B<-CAfile> must be specified. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:319
+msgid "B<-CAfile> trusted_certs.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:321
+msgid ""
+"The name of the file containing a set of trusted self-signed CA certificates "
+"in PEM format. See the similar option of L<verify(1)|verify(1)> for "
+"additional details. Either this option or B<-CApath> must be specified.  "
+"(Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:327
+msgid "B<-untrusted> cert_file.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:329
+msgid ""
+"Set of additional untrusted certificates in PEM format which may be needed "
+"when building the certificate chain for the TSA's signing certificate. This "
+"file must contain the TSA signing certificate and all intermediate CA "
+"certificates unless the response includes them.  (Optional)"
+msgstr ""
+
+#. type: =head1
+#: C/apps/ts.pod:337
+msgid "CONFIGURATION FILE OPTIONS"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:339
+msgid ""
+"The B<-query> and B<-reply> commands make use of a configuration file "
+"defined by the B<OPENSSL_CONF> environment variable. See "
+"L<config(5)|config(5)> for a general description of the syntax of the config "
+"file. The B<-query> command uses only the symbolic OID names section and it "
+"can work without it. However, the B<-reply> command needs the config file "
+"for its operation."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:346
+msgid ""
+"When there is a command line switch equivalent of a variable the switch "
+"always overrides the settings in the config file."
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:351
+msgid "B<tsa> section, B<default_tsa>\t"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:353
+msgid ""
+"This is the main section and it specifies the name of another section that "
+"contains all the options for the B<-reply> command. This default section can "
+"be overridden with the B<-section> command line switch. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:359 C/apps/ts.pod:363 C/apps/ts.pod:367
+msgid "See L<ca(1)|ca(1)> for description. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:369
+msgid "B<serial>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:371
+msgid ""
+"The name of the file containing the hexadecimal serial number of the last "
+"time stamp response created. This number is incremented by 1 for each "
+"response. If the file does not exist at the time of response generation a "
+"new file is created with serial number 1. (Mandatory)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:376
+msgid "B<crypto_device>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:378
+msgid ""
+"Specifies the OpenSSL engine that will be set as the default for all "
+"available algorithms. The default value is builtin, you can specify any "
+"other engines supported by OpenSSL (e.g. use chil for the NCipher HSM).  "
+"(Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:383
+msgid "B<signer_cert>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:385
+msgid ""
+"TSA signing certificate in PEM format. The same as the B<-signer> command "
+"line option. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:388
+msgid "B<certs>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:390
+msgid ""
+"A file containing a set of PEM encoded certificates that need to be included "
+"in the response. The same as the B<-chain> command line option. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:394
+msgid "B<signer_key>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:396
+msgid ""
+"The private key of the TSA in PEM format. The same as the B<-inkey> command "
+"line option. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:399
+msgid "B<default_policy>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:401
+msgid ""
+"The default policy to use when the request does not mandate any policy. The "
+"same as the B<-policy> command line option. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:404
+msgid "B<other_policies>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:406
+msgid ""
+"Comma separated list of policies that are also acceptable by the TSA and "
+"used only if the request explicitly specifies one of them. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:409
+msgid "B<digests>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:411
+msgid ""
+"The list of message digest algorithms that the TSA accepts. At least one "
+"algorithm must be specified. (Mandatory)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:414
+msgid "B<accuracy>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:416
+msgid ""
+"The accuracy of the time source of the TSA in seconds, milliseconds and "
+"microseconds. E.g. secs:1, millisecs:500, microsecs:100. If any of the "
+"components is missing zero is assumed for that field. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:420
+msgid "B<clock_precision_digits>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:422
+msgid ""
+"Specifies the maximum number of digits, which represent the fraction of "
+"seconds, that need to be included in the time field. The trailing zeroes "
+"must be removed from the time, so there might actually be fewer digits, or "
+"no fraction of seconds at all. Supported only on UNIX platforms.  The "
+"maximum value is 6, default is 0.  (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:429
+msgid "B<ordering>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:431
+msgid ""
+"If this option is yes the responses generated by this TSA can always be "
+"ordered, even if the time difference between two responses is less than the "
+"sum of their accuracies. Default is no. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:435
+msgid "B<tsa_name>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:437
+msgid ""
+"Set this option to yes if the subject name of the TSA must be included in "
+"the TSA name field of the response. Default is no. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:440
+msgid "B<ess_cert_id_chain>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:442
+msgid ""
+"The SignedData objects created by the TSA always contain the certificate "
+"identifier of the signing certificate in a signed attribute (see RFC 2634, "
+"Enhanced Security Services). If this option is set to yes and either the "
+"B<certs> variable or the B<-chain> option is specified then the certificate "
+"identifiers of the chain will also be included in the SigningCertificate "
+"signed attribute. If this variable is set to no, only the signing "
+"certificate identifier is included. Default is no. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:455
+msgid ""
+"B<OPENSSL_CONF> contains the path of the configuration file and can be "
+"overridden by the B<-config> command line option."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:460
+msgid ""
+"All the examples below presume that B<OPENSSL_CONF> is set to a proper "
+"configuration file, e.g. the example configuration file "
+"openssl/apps/openssl.cnf will do."
+msgstr ""
+
+#. type: =head2
+#: C/apps/ts.pod:464
+msgid "Time Stamp Request"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:466
+msgid ""
+"To create a time stamp request for design1.txt with SHA-1 without nonce and "
+"policy and no certificate is required in the response:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:469
+#, no-wrap
+msgid ""
+"  openssl ts -query -data design1.txt -no_nonce \\\n"
+"\t-out design1.tsq\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:472
+msgid ""
+"To create a similar time stamp request with specifying the message imprint "
+"explicitly:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:475
+#, no-wrap
+msgid ""
+"  openssl ts -query -digest b7e5d3f93198b38379852f2c04e78d73abdd0f4b \\\n"
+"\t -no_nonce -out design1.tsq\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:478
+msgid "To print the content of the previous request in human readable format:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:480
+#, no-wrap
+msgid ""
+"  openssl ts -query -in design1.tsq -text\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:482
+msgid ""
+"To create a time stamp request which includes the MD-5 digest of "
+"design2.txt, requests the signer certificate and nonce, specifies a policy "
+"id (assuming the tsa_policy1 name is defined in the OID section of the "
+"config file):"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:487
+#, no-wrap
+msgid ""
+"  openssl ts -query -data design2.txt -md5 \\\n"
+"\t-policy tsa_policy1 -cert -out design2.tsq\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: C/apps/ts.pod:490
+msgid "Time Stamp Response"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:492
+msgid ""
+"Before generating a response a signing certificate must be created for the "
+"TSA that contains the B<timeStamping> critical extended key usage extension "
+"without any other key usage extensions. You can add the 'extendedKeyUsage = "
+"critical,timeStamping' line to the user certificate section of the config "
+"file to generate a proper certificate. See L<req(1)|req(1)>, L<ca(1)|ca(1)>, "
+"L<x509(1)|x509(1)> for instructions. The examples below assume that "
+"cacert.pem contains the certificate of the CA, tsacert.pem is the signing "
+"certificate issued by cacert.pem and tsakey.pem is the private key of the "
+"TSA."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:502
+msgid "To create a time stamp response for a request:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:504
+#, no-wrap
+msgid ""
+"  openssl ts -reply -queryfile design1.tsq -inkey tsakey.pem \\\n"
+"\t-signer tsacert.pem -out design1.tsr\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:507
+msgid "If you want to use the settings in the config file you could just write:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:509
+#, no-wrap
+msgid ""
+"  openssl ts -reply -queryfile design1.tsq -out design1.tsr\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:511
+msgid "To print a time stamp reply to stdout in human readable format:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:513
+#, no-wrap
+msgid ""
+"  openssl ts -reply -in design1.tsr -text\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:515
+msgid "To create a time stamp token instead of time stamp response:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:517
+#, no-wrap
+msgid ""
+"  openssl ts -reply -queryfile design1.tsq -out design1_token.der "
+"-token_out\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:519
+msgid "To print a time stamp token to stdout in human readable format:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:521
+#, no-wrap
+msgid ""
+"  openssl ts -reply -in design1_token.der -token_in -text -token_out\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:523
+msgid "To extract the time stamp token from a response:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:525
+#, no-wrap
+msgid ""
+"  openssl ts -reply -in design1.tsr -out design1_token.der -token_out\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:527
+msgid ""
+"To add 'granted' status info to a time stamp token thereby creating a valid "
+"response:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:530
+#, no-wrap
+msgid ""
+"  openssl ts -reply -in design1_token.der -token_in -out design1.tsr\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: C/apps/ts.pod:532
+msgid "Time Stamp Verification"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:534
+msgid "To verify a time stamp reply against a request:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:536
+#, no-wrap
+msgid ""
+"  openssl ts -verify -queryfile design1.tsq -in design1.tsr \\\n"
+"\t-CAfile cacert.pem -untrusted tsacert.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:539
+msgid "To verify a time stamp reply that includes the certificate chain:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:541
+#, no-wrap
+msgid ""
+"  openssl ts -verify -queryfile design2.tsq -in design2.tsr \\\n"
+"\t-CAfile cacert.pem\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:544
+#, no-wrap
+msgid ""
+"To verify a time stamp token against the original data file:\n"
+"  openssl ts -verify -data design2.txt -in design2.tsr \\\n"
+"\t-CAfile cacert.pem\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ts.pod:548
+#, no-wrap
+msgid ""
+"To verify a time stamp token against a message imprint:\n"
+"  openssl ts -verify -digest b7e5d3f93198b38379852f2c04e78d73abdd0f4b \\\n"
+"\t -in design2.tsr -CAfile cacert.pem\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:552
+msgid "You could also look at the 'test' directory for more examples."
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:556
+msgid ""
+"If you find any bugs or you have suggestions please write to Zoltan Glozik "
+"<zglozik@opentsa.org>. Known issues:"
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:561
+msgid ""
+"* No support for time stamps over SMTP, though it is quite easy to implement "
+"an automatic e-mail based TSA with L<procmail(1)|procmail(1)> and "
+"L<perl(1)|perl(1)>. HTTP server support is provided in the form of a "
+"separate apache module. HTTP client support is provided by "
+"L<tsget(1)|tsget(1)>. Pure TCP/IP protocol is not supported."
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:567
+msgid ""
+"* The file containing the last serial number of the TSA is not locked when "
+"being read or written. This is a problem if more than one instance of "
+"L<openssl(1)|openssl(1)> is trying to create a time stamp response at the "
+"same time. This is not an issue when using the apache server module, it does "
+"proper locking."
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:573
+msgid "* Look for the FIXME word in the source files."
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:575
+msgid "* The source code should really be reviewed by somebody else, too."
+msgstr ""
+
+#. type: =item
+#: C/apps/ts.pod:577
+msgid ""
+"* More testing is needed, I have done only some basic tests (see "
+"test/testtsa)."
+msgstr ""
+
+#. type: =head1
+#: C/apps/ts.pod:584 C/apps/tsget.pod:185
+msgid "AUTHOR"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:586 C/apps/tsget.pod:187
+msgid ""
+"Zoltan Glozik <zglozik@opentsa.org>, OpenTSA project "
+"(http://www.opentsa.org)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ts.pod:590
+msgid ""
+"L<tsget(1)|tsget(1)>, L<openssl(1)|openssl(1)>, L<req(1)|req(1)>, "
+"L<x509(1)|x509(1)>, L<ca(1)|ca(1)>, L<genrsa(1)|genrsa(1)>, "
+"L<config(5)|config(5)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:5
+msgid "tsget - Time Stamping HTTP/HTTPS client"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:9
+msgid ""
+"B<tsget> B<-h> server_url [B<-e> extension] [B<-o> output] [B<-v>] [B<-d>] "
+"[B<-k> private_key.pem] [B<-p> key_password] [B<-c> client_cert.pem] [B<-C> "
+"CA_certs.pem] [B<-P> CA_path] [B<-r> file:file...] [B<-g> EGD_socket] "
+"[request]..."
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:26
+msgid ""
+"The B<tsget> command can be used for sending a time stamp request, as "
+"specified in B<RFC 3161>, to a time stamp server over HTTP or HTTPS and "
+"storing the time stamp response in a file. This tool cannot be used for "
+"creating the requests and verifying responses, you can use the OpenSSL "
+"B<ts(1)> command to do that. B<tsget> can send several requests to the "
+"server without closing the TCP connection if more than one requests are "
+"specified on the command line."
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:34
+msgid "The tool sends the following HTTP request for each time stamp request:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:36
+#, no-wrap
+msgid ""
+"\tPOST url HTTP/1.1\n"
+"\tUser-Agent: OpenTSA tsget.pl/<version>\n"
+"\tHost: <host>:<port>\n"
+"\tPragma: no-cache\n"
+"\tContent-Type: application/timestamp-query\n"
+"\tAccept: application/timestamp-reply\n"
+"\tContent-Length: length of body\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:44
+#, no-wrap
+msgid ""
+"\t...binary request specified by the user...\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:46
+msgid ""
+"B<tsget> expects a response of type application/timestamp-reply, which is "
+"written to a file without any interpretation."
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:53
+msgid "B<-h> server_url"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:55
+msgid "The URL of the HTTP/HTTPS server listening for time stamp requests."
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:57
+msgid "B<-e> extension"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:59
+msgid ""
+"If the B<-o> option is not given this argument specifies the extension of "
+"the output files. The base name of the output file will be the same as those "
+"of the input files. Default extension is '.tsr'. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:63
+msgid "B<-o> output"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:65
+msgid ""
+"This option can be specified only when just one request is sent to the "
+"server. The time stamp response will be written to the given output "
+"file. '-' means standard output. In case of multiple time stamp requests or "
+"the absence of this argument the names of the output files will be derived "
+"from the names of the input files and the default or specified extension "
+"argument. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:71 C/apps/version.pod:29
+msgid "B<-v>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:73
+msgid ""
+"The name of the currently processed request is printed on standard "
+"error. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:78
+msgid ""
+"Switches on verbose mode for the underlying B<curl> library. You can see "
+"detailed debug messages for the connection. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:81
+msgid "B<-k> private_key.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:83
+msgid ""
+"(HTTPS) In case of certificate-based client authentication over HTTPS "
+"<private_key.pem> must contain the private key of the user. The private key "
+"file can optionally be protected by a passphrase. The B<-c> option must also "
+"be specified. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:88
+msgid "B<-p> key_password"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:90
+msgid ""
+"(HTTPS) Specifies the passphrase for the private key specified by the B<-k> "
+"argument. If this option is omitted and the key is passphrase protected "
+"B<tsget> will ask for it. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:94
+msgid "B<-c> client_cert.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:96
+msgid ""
+"(HTTPS) In case of certificate-based client authentication over HTTPS "
+"<client_cert.pem> must contain the X.509 certificate of the user.  The B<-k> "
+"option must also be specified. If this option is not specified no "
+"certificate-based client authentication will take place. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:101
+msgid "B<-C> CA_certs.pem"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:103
+msgid ""
+"(HTTPS) The trusted CA certificate store. The certificate chain of the "
+"peer's certificate must include one of the CA certificates specified in this "
+"file.  Either option B<-C> or option B<-P> must be given in case of "
+"HTTPS. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:107
+msgid "B<-P> CA_path"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:109
+msgid ""
+"(HTTPS) The path containing the trusted CA certificates to verify the peer's "
+"certificate. The directory must be prepared with the B<c_rehash> OpenSSL "
+"utility. Either option B<-C> or option B<-P> must be given in case of "
+"HTTPS. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:120
+msgid "B<-g> EGD_socket"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:122
+msgid "The name of an EGD socket to get random data from. (Optional)"
+msgstr ""
+
+#. type: =item
+#: C/apps/tsget.pod:124
+msgid "[request]..."
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:126
+msgid ""
+"List of files containing B<RFC 3161> DER-encoded time stamp requests. If no "
+"requests are specified only one request will be sent to the server and it "
+"will be read from the standard input. (Optional)"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:134
+msgid ""
+"The B<TSGET> environment variable can optionally contain default "
+"arguments. The content of this variable is added to the list of command line "
+"arguments."
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:140
+msgid ""
+"The examples below presume that B<file1.tsq> and B<file2.tsq> contain valid "
+"time stamp requests, tsa.opentsa.org listens at port 8080 for HTTP requests "
+"and at port 8443 for HTTPS requests, the TSA service is available at the "
+"/tsa absolute path."
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:145
+msgid ""
+"Get a time stamp response for file1.tsq over HTTP, output is written to "
+"file1.tsr:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:148
+#, no-wrap
+msgid ""
+"  tsget -h http://tsa.opentsa.org:8080/tsa file1.tsq\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:150
+msgid ""
+"Get a time stamp response for file1.tsq and file2.tsq over HTTP showing "
+"progress, output is written to file1.reply and file2.reply respectively:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:153
+#, no-wrap
+msgid ""
+"  tsget -h http://tsa.opentsa.org:8080/tsa -v -e .reply \\\n"
+"\tfile1.tsq file2.tsq\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:156
+msgid ""
+"Create a time stamp request, write it to file3.tsq, send it to the server "
+"and write the response to file3.tsr:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:159
+#, no-wrap
+msgid ""
+"  openssl ts -query -data file3.txt -cert | tee file3.tsq \\\n"
+"\t| tsget -h http://tsa.opentsa.org:8080/tsa \\\n"
+"\t-o file3.tsr\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:163
+msgid ""
+"Get a time stamp response for file1.tsq over HTTPS without client "
+"authentication:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:166
+#, no-wrap
+msgid ""
+"  tsget -h https://tsa.opentsa.org:8443/tsa \\\n"
+"\t-C cacerts.pem file1.tsq\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:169
+msgid ""
+"Get a time stamp response for file1.tsq over HTTPS with certificate-based "
+"client authentication (it will ask for the passphrase if client_key.pem is "
+"protected):"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:173
+#, no-wrap
+msgid ""
+"  tsget -h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \\\n"
+"\t-k client_key.pem -c client_cert.pem file1.tsq\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:176
+msgid ""
+"You can shorten the previous command line if you make use of the B<TSGET> "
+"environment variable. The following commands do the same as the previous "
+"example:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/tsget.pod:180
+#, no-wrap
+msgid ""
+"  TSGET='-h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \\\n"
+"\t-k client_key.pem -c client_cert.pem'\n"
+"  export TSGET\n"
+"  tsget file1.tsq\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/tsget.pod:191
+msgid "L<openssl(1)|openssl(1)>, L<ts(1)|ts(1)>, L<curl(1)|curl(1)>, B<RFC 3161>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:5
+msgid "verify - Utility to verify certificates."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:9
+msgid ""
+"B<openssl> B<verify> [B<-CApath directory>] [B<-CAfile file>] [B<-purpose "
+"purpose>] [B<-policy arg>] [B<-ignore_critical>] [B<-crl_check>] "
+"[B<-crl_check_all>] [B<-policy_check>] [B<-explicit_policy>] "
+"[B<-inhibit_any>] [B<-inhibit_map>] [B<-x509_strict>] [B<-extended_crl>] "
+"[B<-use_deltas>] [B<-policy_print>] [B<-untrusted file>] [B<-help>] "
+"[B<-issuer_checks>] [B<-verbose>] [B<->] [certificates]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:35
+msgid "The B<verify> command verifies certificate chains."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:41
+msgid "B<-CApath directory>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:43
+msgid ""
+"A directory of trusted certificates. The certificates should have names of "
+"the form: hash.0 or have symbolic links to them of this form (\"hash\" is "
+"the hashed certificate subject name: see the B<-hash> option of the B<x509> "
+"utility). Under Unix the B<c_rehash> script will automatically create "
+"symbolic links to a directory of certificates."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:49
+msgid "B<-CAfile file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:51
+msgid ""
+"A file of trusted certificates. The file should contain multiple "
+"certificates in PEM format concatenated together."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:54
+msgid "B<-untrusted file>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:56
+msgid ""
+"A file of untrusted certificates. The file should contain multiple "
+"certificates in PEM format concatenated together."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:59
+msgid "B<-purpose purpose>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:61
+msgid ""
+"The intended use for the certificate. If this option is not specified, "
+"B<verify> will not consider certificate purpose during chain verification.  "
+"Currently accepted uses are B<sslclient>, B<sslserver>, B<nssslserver>, "
+"B<smimesign>, B<smimeencrypt>. See the B<VERIFY OPERATION> section for more "
+"information."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:67
+msgid "B<-help>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:69
+msgid "Print out a usage message."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:73
+msgid "Print extra information about the operations being performed."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:75
+msgid "B<-issuer_checks>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:77
+msgid ""
+"Print out diagnostics relating to searches for the issuer certificate of the "
+"current certificate. This shows why each candidate issuer certificate was "
+"rejected. The presence of rejection messages does not itself imply that "
+"anything is wrong; during the normal verification process, several "
+"rejections may take place."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:83
+msgid "B<-policy arg>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:85
+msgid ""
+"Enable policy processing and add B<arg> to the user-initial-policy-set (see "
+"RFC5280). The policy B<arg> can be an object name an OID in numeric form.  "
+"This argument can appear more than once."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:89
+msgid "B<-policy_check>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:91
+msgid "Enables certificate policy processing."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:93
+msgid "B<-explicit_policy>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:95
+msgid "Set policy variable require-explicit-policy (see RFC5280)."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:97
+msgid "B<-inhibit_any>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:99
+msgid "Set policy variable inhibit-any-policy (see RFC5280)."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:101
+msgid "B<-inhibit_map>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:103
+msgid "Set policy variable inhibit-policy-mapping (see RFC5280)."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:105
+msgid "B<-policy_print>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:107
+msgid "Print out diagnostics related to policy processing."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:109
+msgid "B<-crl_check>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:111
+msgid ""
+"Checks end entity certificate validity by attempting to look up a valid "
+"CRL.  If a valid CRL cannot be found an error occurs."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:114
+msgid "B<-crl_check_all>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:116
+msgid ""
+"Checks the validity of B<all> certificates in the chain by attempting to "
+"look up valid CRLs."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:119
+msgid "B<-ignore_critical>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:121
+msgid ""
+"Normally if an unhandled critical extension is present which is not "
+"supported by OpenSSL the certificate is rejected (as required by RFC5280).  "
+"If this option is set critical extensions are ignored."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:125
+msgid "B<-x509_strict>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:127
+msgid ""
+"For strict X.509 compliance, disable non-compliant workarounds for broken "
+"certificates."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:130
+msgid "B<-extended_crl>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:132
+msgid ""
+"Enable extended CRL features such as indirect CRLs and alternate CRL signing "
+"keys."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:135
+msgid "B<-use_deltas>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:137
+msgid "Enable support for delta CRLs."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:139
+msgid "B<-check_ss_sig>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:141
+msgid ""
+"Verify the signature on the self-signed root CA. This is disabled by default "
+"because it doesn't add any security."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:144
+msgid "B<->"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:146
+msgid ""
+"Indicates the last option. All arguments following this are assumed to be "
+"certificate files. This is useful if the first certificate filename begins "
+"with a B<->."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:150
+msgid "B<certificates>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:152
+msgid ""
+"One or more certificates to verify. If no certificates are given, B<verify> "
+"will attempt to read a certificate from standard input. Certificates must be "
+"in PEM format."
+msgstr ""
+
+#. type: =head1
+#: C/apps/verify.pod:158
+msgid "VERIFY OPERATION"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:160
+msgid ""
+"The B<verify> program uses the same functions as the internal SSL and S/MIME "
+"verification, therefore this description applies to these verify operations "
+"too."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:164
+msgid ""
+"There is one crucial difference between the verify operations performed by "
+"the B<verify> program: wherever possible an attempt is made to continue "
+"after an error whereas normally the verify operation would halt on the first "
+"error. This allows all the problems with a certificate chain to be "
+"determined."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:170
+msgid "The verify operation consists of a number of separate steps."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:172
+msgid ""
+"Firstly a certificate chain is built up starting from the supplied "
+"certificate and ending in the root CA. It is an error if the whole chain "
+"cannot be built up. The chain is built up by looking up the issuers "
+"certificate of the current certificate. If a certificate is found which is "
+"its own issuer it is assumed to be the root CA."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:178
+msgid ""
+"The process of 'looking up the issuers certificate' itself involves a number "
+"of steps. In versions of OpenSSL before 0.9.5a the first certificate whose "
+"subject name matched the issuer of the current certificate was assumed to be "
+"the issuers certificate. In OpenSSL 0.9.6 and later all certificates whose "
+"subject name matches the issuer name of the current certificate are subject "
+"to further tests. The relevant authority key identifier components of the "
+"current certificate (if present) must match the subject key identifier (if "
+"present) and issuer and serial number of the candidate issuer, in addition "
+"the keyUsage extension of the candidate issuer (if present) must permit "
+"certificate signing."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:189
+msgid ""
+"The lookup first looks in the list of untrusted certificates and if no match "
+"is found the remaining lookups are from the trusted certificates. The root "
+"CA is always looked up in the trusted certificate list: if the certificate "
+"to verify is a root certificate then an exact match must be found in the "
+"trusted list."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:195
+msgid ""
+"The second operation is to check every untrusted certificate's extensions "
+"for consistency with the supplied purpose. If the B<-purpose> option is not "
+"included then no checks are done. The supplied or \"leaf\" certificate must "
+"have extensions compatible with the supplied purpose and all other "
+"certificates must also be valid CA certificates. The precise extensions "
+"required are described in more detail in the B<CERTIFICATE EXTENSIONS> "
+"section of the B<x509> utility."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:202
+msgid ""
+"The third operation is to check the trust settings on the root CA. The root "
+"CA should be trusted for the supplied purpose. For compatibility with "
+"previous versions of SSLeay and OpenSSL a certificate with no trust settings "
+"is considered to be valid for all purposes."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:207
+msgid ""
+"The final operation is to check the validity of the certificate chain. The "
+"validity period is checked against the current system time and the notBefore "
+"and notAfter dates in the certificate. The certificate signatures are also "
+"checked at this point."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:212
+msgid ""
+"If all operations complete successfully then certificate is considered "
+"valid. If any operation fails then the certificate is not valid."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:217
+msgid ""
+"When a verify operation fails the output messages can be somewhat "
+"cryptic. The general form of the error message is:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/verify.pod:220
+#, no-wrap
+msgid ""
+" server.pem: /C=AU/ST=Queensland/O=CryptSoft Pty Ltd/CN=Test CA (1024 bit)\n"
+" error 24 at 1 depth lookup:invalid CA certificate\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:223
+msgid ""
+"The first line contains the name of the certificate being verified followed "
+"by the subject name of the certificate. The second line contains the error "
+"number and the depth. The depth is number of the certificate being verified "
+"when a problem was detected starting with zero for the certificate being "
+"verified itself then 1 for the CA that signed the certificate and so "
+"on. Finally a text version of the error number is presented."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:230
+msgid ""
+"An exhaustive list of the error codes and messages is shown below, this also "
+"includes the name of the error code as defined in the header file x509_vfy.h "
+"Some of the error codes are defined but never returned: these are described "
+"as \"unused\"."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:237
+msgid "B<0 X509_V_OK: ok>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:239
+msgid "the operation was successful."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:241
+msgid "B<2 X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT: unable to get issuer certificate>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:243
+msgid ""
+"the issuer certificate of a looked up certificate could not be found. This "
+"normally means the list of trusted certificates is not complete."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:246
+msgid "B<3 X509_V_ERR_UNABLE_TO_GET_CRL: unable to get certificate CRL>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:248
+msgid "the CRL of a certificate could not be found."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:250
+msgid ""
+"B<4 X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE: unable to decrypt "
+"certificate's signature>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:252
+msgid ""
+"the certificate signature could not be decrypted. This means that the actual "
+"signature value could not be determined rather than it not matching the "
+"expected value, this is only meaningful for RSA keys."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:256
+msgid ""
+"B<5 X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE: unable to decrypt CRL's "
+"signature>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:258
+msgid ""
+"the CRL signature could not be decrypted: this means that the actual "
+"signature value could not be determined rather than it not matching the "
+"expected value. Unused."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:261
+msgid ""
+"B<6 X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY: unable to decode issuer "
+"public key>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:263
+msgid "the public key in the certificate SubjectPublicKeyInfo could not be read."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:265
+msgid "B<7 X509_V_ERR_CERT_SIGNATURE_FAILURE: certificate signature failure>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:267 C/apps/verify.pod:271
+msgid "the signature of the certificate is invalid."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:269
+msgid "B<8 X509_V_ERR_CRL_SIGNATURE_FAILURE: CRL signature failure>"
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:273
+msgid "B<9 X509_V_ERR_CERT_NOT_YET_VALID: certificate is not yet valid>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:275
+msgid ""
+"the certificate is not yet valid: the notBefore date is after the current "
+"time."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:277
+msgid "B<10 X509_V_ERR_CERT_HAS_EXPIRED: certificate has expired>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:279
+msgid ""
+"the certificate has expired: that is the notAfter date is before the current "
+"time."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:281
+msgid "B<11 X509_V_ERR_CRL_NOT_YET_VALID: CRL is not yet valid>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:283
+msgid "the CRL is not yet valid."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:285
+msgid "B<12 X509_V_ERR_CRL_HAS_EXPIRED: CRL has expired>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:287
+msgid "the CRL has expired."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:289
+msgid ""
+"B<13 X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD: format error in "
+"certificate's notBefore field>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:291
+msgid "the certificate notBefore field contains an invalid time."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:293
+msgid ""
+"B<14 X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD: format error in certificate's "
+"notAfter field>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:295
+msgid "the certificate notAfter field contains an invalid time."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:297
+msgid ""
+"B<15 X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD: format error in CRL's "
+"lastUpdate field>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:299
+msgid "the CRL lastUpdate field contains an invalid time."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:301
+msgid ""
+"B<16 X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD: format error in CRL's "
+"nextUpdate field>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:303
+msgid "the CRL nextUpdate field contains an invalid time."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:305
+msgid "B<17 X509_V_ERR_OUT_OF_MEM: out of memory>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:307
+msgid "an error occurred trying to allocate memory. This should never happen."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:309
+msgid "B<18 X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT: self signed certificate>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:311
+msgid ""
+"the passed certificate is self signed and the same certificate cannot be "
+"found in the list of trusted certificates."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:314
+msgid ""
+"B<19 X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN: self signed certificate in "
+"certificate chain>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:316
+msgid ""
+"the certificate chain could be built up using the untrusted certificates but "
+"the root could not be found locally."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:319
+msgid ""
+"B<20 X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY: unable to get local "
+"issuer certificate>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:321
+msgid ""
+"the issuer certificate could not be found: this occurs if the issuer "
+"certificate of an untrusted certificate cannot be found."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:324
+msgid ""
+"B<21 X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first "
+"certificate>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:326
+msgid ""
+"no signatures could be verified because the chain contains only one "
+"certificate and it is not self signed."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:329
+msgid "B<22 X509_V_ERR_CERT_CHAIN_TOO_LONG: certificate chain too long>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:331
+msgid ""
+"the certificate chain length is greater than the supplied maximum "
+"depth. Unused."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:333
+msgid "B<23 X509_V_ERR_CERT_REVOKED: certificate revoked>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:335
+msgid "the certificate has been revoked."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:337
+msgid "B<24 X509_V_ERR_INVALID_CA: invalid CA certificate>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:339
+msgid ""
+"a CA certificate is invalid. Either it is not a CA or its extensions are not "
+"consistent with the supplied purpose."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:342
+msgid "B<25 X509_V_ERR_PATH_LENGTH_EXCEEDED: path length constraint exceeded>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:344
+msgid "the basicConstraints pathlength parameter has been exceeded."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:346
+msgid "B<26 X509_V_ERR_INVALID_PURPOSE: unsupported certificate purpose>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:348
+msgid "the supplied certificate cannot be used for the specified purpose."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:350
+msgid "B<27 X509_V_ERR_CERT_UNTRUSTED: certificate not trusted>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:352
+msgid "the root CA is not marked as trusted for the specified purpose."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:354
+msgid "B<28 X509_V_ERR_CERT_REJECTED: certificate rejected>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:356
+msgid "the root CA is marked to reject the specified purpose."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:358
+msgid "B<29 X509_V_ERR_SUBJECT_ISSUER_MISMATCH: subject issuer mismatch>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:360
+msgid ""
+"the current candidate issuer certificate was rejected because its subject "
+"name did not match the issuer name of the current certificate. Only "
+"displayed when the B<-issuer_checks> option is set."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:364
+msgid ""
+"B<30 X509_V_ERR_AKID_SKID_MISMATCH: authority and subject key identifier "
+"mismatch>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:366
+msgid ""
+"the current candidate issuer certificate was rejected because its subject "
+"key identifier was present and did not match the authority key identifier "
+"current certificate. Only displayed when the B<-issuer_checks> option is "
+"set."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:370
+msgid ""
+"B<31 X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH: authority and issuer serial "
+"number mismatch>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:372
+msgid ""
+"the current candidate issuer certificate was rejected because its issuer "
+"name and serial number was present and did not match the authority key "
+"identifier of the current certificate. Only displayed when the "
+"B<-issuer_checks> option is set."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:376
+msgid ""
+"B<32 X509_V_ERR_KEYUSAGE_NO_CERTSIGN:key usage does not include certificate "
+"signing>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:378
+msgid ""
+"the current candidate issuer certificate was rejected because its keyUsage "
+"extension does not permit certificate signing."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:381
+msgid "B<50 X509_V_ERR_APPLICATION_VERIFICATION: application verification failure>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:383
+msgid "an application specific error. Unused."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:389
+msgid ""
+"Although the issuer checks are a considerably improvement over the old "
+"technique they still suffer from limitations in the underlying X509_LOOKUP "
+"API. One consequence of this is that trusted certificates with matching "
+"subject name must either appear in a file (as specified by the B<-CAfile> "
+"option) or a directory (as specified by B<-CApath>. If they occur in both "
+"then only the certificates in the file will be recognised."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:395
+msgid ""
+"Previous versions of OpenSSL assume certificates with matching subject name "
+"are identical and mishandled them."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:398
+msgid ""
+"Previous versions of this documentation swapped the meaning of the "
+"B<X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT> and B<20 "
+"X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY> error codes."
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:404
+msgid "L<x509(1)|x509(1)>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:5
+msgid "version - print OpenSSL version information"
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:9
+msgid "B<openssl version> [B<-a>] [B<-v>] [B<-b>] [B<-o>] [B<-f>] [B<-p>]"
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:19
+msgid "This command is used to print out version information about OpenSSL."
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:27
+msgid "all information, this is the same as setting all the other flags."
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:31
+msgid "the current OpenSSL version."
+msgstr ""
+
+#. type: =item
+#: C/apps/version.pod:33
+msgid "B<-b>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:35
+msgid "the date the current version of OpenSSL was built."
+msgstr ""
+
+#. type: =item
+#: C/apps/version.pod:37
+msgid "B<-o>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:39
+msgid "option information: various options set when the library was built."
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:43
+msgid "compilation flags."
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:47
+msgid "platform setting."
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:51
+msgid "OPENSSLDIR setting."
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:57
+msgid ""
+"The output of B<openssl version -a> would typically be used when sending in "
+"a bug report."
+msgstr ""
+
+#. type: =head1
+#: C/apps/version.pod:60
+msgid "HISTORY"
+msgstr ""
+
+#. type: textblock
+#: C/apps/version.pod:62
+msgid "The B<-d> option was added in OpenSSL 0.9.7."
+msgstr ""
