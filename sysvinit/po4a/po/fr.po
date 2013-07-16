@@ -16,12 +16,12 @@
 # Nicolas François <nicolas.francois@centraliens.net>, 2007.
 # David Prévot <david@tilapin.org>, 2010-2013.
 # Romain DOUMENC <rd6137@gmail.com>, 2011.
-# Thomas Vicent <thomas@vinc-net.fr>, 2012.
+# Thomas Vicent <thomas@vinc-net.fr>, 2012,2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra\n"
 "POT-Creation-Date: 2013-07-16 10:18-0400\n"
-"PO-Revision-Date: 2013-07-16 10:28-0400\n"
+"PO-Revision-Date: 2013-07-16 17:02+0200\n"
 "Last-Translator: Thomas Vicent <thomas@vinc-net.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -4523,7 +4523,6 @@ msgstr "B<service> B<--help> | B<-h> | B<--version>"
 
 #. type: Plain text
 #: C/man8/service.8:38
-#, fuzzy
 #| msgid ""
 #| "B<service> runs a System V init script in as predictable an environment "
 #| "as possible, removing most environment variables and with the current "
@@ -4533,14 +4532,14 @@ msgid ""
 "environment as possible, removing most environment variables and with the "
 "current working directory set to B</>."
 msgstr ""
-"B<service> exécute un script d'initialisation Système V dans un "
-"environnement aussi prévisible que possible, en supprimant la plupart des "
-"variables d'environnement et en utilisant B</> comme répertoire de travail."
+"B<service> exécute un script d'initialisation Système V ou une tâche "
+"upstart dans un environnement aussi prévisible que possible, en supprimant "
+"la plupart des variables d'environnement et en utilisant B</> comme "
+"répertoire de travail."
 
 # NOTE: s/B<service> passes I<COMMAND> and I<OPTIONS> it /B<service> passes I<COMMAND> and I<OPTIONS>/
 #. type: Plain text
 #: C/man8/service.8:59
-#, fuzzy
 #| msgid ""
 #| "The I<SCRIPT> parameter specifies a System V init script, located in B</"
 #| "etc/init.d/>I<SCRIPT>.  The supported values of I<COMMAND> depend on the "
@@ -4562,18 +4561,19 @@ msgid ""
 "command."
 msgstr ""
 "Le paramètre I<SCRIPT> indique un script d'initialisation Système V, se "
-"trouvant dans B</etc/init.d/>I<SCRIPT>. Les valeurs permises pour "
+"trouvant dans B</etc/init.d/>I<SCRIPT>, ou au nom d'une tâche upstart dans "
+"B</etc/init>. L'existence d'une tâche upstart ayant le nom d'un script de "
+"/etc/init.d donnera la priorité à la tâche upstart sur le script init.d. "
+"Les valeurs permises pour "
 "I<COMMANDE> dépendent du script appelé. B<service> fournit la I<COMMANDE> et "
-"les I<OPTIONS> au script, sans les modifier. Tous les scripts devraient au "
-"moins prendre en charge les commandes B<start> et B<stop>. Comme cas "
-"particulier, si I<COMMANDE> vaut B<--full-restart>, le script est exécuté "
-"deux fois, une première fois avec la commande B<stop>, puis une seconde fois "
-"avec la commande B<start>."
+"les I<OPTIONS> au script, sans les modifier. Pour les tâches upstart, start, "
+"stop, status et reload sont envoyés grâce à leurs équivalents pour upstart."
+"Restart appellera le 'stop' d'upstart pour la tâche, immédiatement suivi du "
+"'start' et quittera avec le code de retour de la commande start."
 
 # NOTE: s/B<service> passes I<COMMAND> and I<OPTIONS> it /B<service> passes I<COMMAND> and I<OPTIONS>/
 #. type: Plain text
 #: C/man8/service.8:72
-#, fuzzy
 #| msgid ""
 #| "The I<SCRIPT> parameter specifies a System V init script, located in B</"
 #| "etc/init.d/>I<SCRIPT>.  The supported values of I<COMMAND> depend on the "
@@ -4588,18 +4588,14 @@ msgid ""
 "first with the B<stop> command, then with the B<start> command. This option "
 "has no effect on upstart jobs."
 msgstr ""
-"Le paramètre I<SCRIPT> indique un script d'initialisation Système V, se "
-"trouvant dans B</etc/init.d/>I<SCRIPT>. Les valeurs permises pour "
-"I<COMMANDE> dépendent du script appelé. B<service> fournit la I<COMMANDE> et "
-"les I<OPTIONS> au script, sans les modifier. Tous les scripts devraient au "
+"Tous les scripts devraient au "
 "moins prendre en charge les commandes B<start> et B<stop>. Comme cas "
 "particulier, si I<COMMANDE> vaut B<--full-restart>, le script est exécuté "
 "deux fois, une première fois avec la commande B<stop>, puis une seconde fois "
-"avec la commande B<start>."
+"avec la commande B<start>. Cette option n'a aucun effet sur les tâches upstart."
 
 #. type: Plain text
 #: C/man8/service.8:79
-#, fuzzy
 #| msgid ""
 #| "B<service --status-all> runs all init scripts, in alphabetical order, "
 #| "with the B<status> command."
@@ -4609,7 +4605,9 @@ msgid ""
 "upstart jobs can be queried in a similar manner with B<initctl list>."
 msgstr ""
 "B<service --status-all> exécute tous les scripts d'initialisation, dans "
-"l'ordre alphabétique, en leur fournissant la commande B<status>."
+"l'ordre alphabétique, en leur fournissant la commande B<status>. Cette option "
+"n'appelle le statut que pour les tâches sysvinit ; les tâches upstart peuvent "
+"être consultées de façon similaire avec B<initctl list>."
 
 #. type: SH
 #: C/man8/service.8:80
@@ -4643,10 +4641,9 @@ msgstr "B</etc/init>"
 
 #. type: Plain text
 #: C/man8/service.8:91
-#, fuzzy
 #| msgid "The directory containing System V init scripts."
 msgid "The directory containing upstart jobs."
-msgstr "Le répertoire qui contient les scripts d'initialisation Système V."
+msgstr "Le répertoire qui contient les tâches upstart."
 
 #. type: TP
 #: C/man8/service.8:93
@@ -5561,10 +5558,13 @@ msgid ""
 "the init.d script LSB comment header of all init.d scripts.  See the "
 "insserv(8) manual page for details about the LSB header format."
 msgstr ""
+"update-rc.d nécessite que des informations de dépendance et de niveau de "
+"fonctionnement soient fournies dans l'en-tête de commentaire LSB de tous "
+"les scripts init.d. Consultez la page de manuel insserv(8) pour avoir plus "
+"de détails sur le format d'en-tête LSB."
 
 #. type: Plain text
 #: C/man8/update-rc.d.8:65
-#, fuzzy
 #| msgid ""
 #| "When run with either the B<defaults>, B<start>, or B<stop> options, "
 #| "B<update-rc.d> makes links B</etc/rc>I<runlevel>B<.d/[SK]>I<NNname> that "
@@ -5575,13 +5575,14 @@ msgid ""
 ">I<name>, using runlevel and dependency information from the init.d script "
 "LSB comment header."
 msgstr ""
-"Quand update-rc.d est lancé avec les options B<defaults>, B<start>, ou "
-"B<stop>, il crée les liens B</etc/rc>I<runlevel>B<.d/[SK]>I<NNname> qui "
-"pointent vers le script B</etc/init.d/>I<name>."
+"Quand B<update-rc.d> est lancé avec l'option B<defaults>, "
+"il crée les liens B</etc/rc>I<runlevel>B<.d/[SK]>I<NNname> qui "
+"pointent vers le script B</etc/init.d/>I<name> en utilisant l'information de "
+"niveau de fonctionnement et de dépendance de l'entête de commentaire LSB du "
+"script init.d."
 
 #. type: Plain text
 #: C/man8/update-rc.d.8:77
-#, fuzzy
 #| msgid ""
 #| "If any files B</etc/rc>I<runlevel>B<.d/[SK]??>I<name> already exist then "
 #| "B<update-rc.d> does nothing.  The program was written this way so that it "
@@ -5611,6 +5612,9 @@ msgid ""
 "options.  These options are no longer supported, and are now equivalent to "
 "the B<defaults> option."
 msgstr ""
+"Les anciennes versions de B<update-rc.d> prenaient également en charge les "
+"options B<start> et B<stop>. Ces options ne sont plus prises en charge et "
+"sont maintenant équivalentes à l'option B<defaults>."
 
 #. type: Plain text
 #: C/man8/update-rc.d.8:106
