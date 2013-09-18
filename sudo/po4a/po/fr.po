@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sudo manpages\n"
 "POT-Creation-Date: 2012-10-13 15:23+0300\n"
-"PO-Revision-Date: 2013-06-03 01:17+0200\n"
+"PO-Revision-Date: 2013-09-18 22:42+0200\n"
 "Last-Translator: Olivier Bonhomme <obonhomme@nerim.net>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -376,6 +376,7 @@ msgstr "B<sudoNotAfter>"
 # FIXME: to be reported to sudo: typo, read sudoNotAfter instead of sudoNotBefore
 #. type: textblock
 #: C/sudoers.ldap.pod:164
+#, fuzzy
 msgid ""
 "A timestamp in the form C<yyyymmddHHMMSSZ> that indicates an expiration date/"
 "time, after which the C<sudoRole> will no longer be valid.  If multiple "
@@ -3638,6 +3639,7 @@ msgstr ""
 msgid "SETENV and NOSETENV"
 msgstr "SETENV et NOSETENV"
 
+#. FIXME NOTE Simon: pas bien compris "If the command matched is B<ALL>"
 #. type: textblock
 #: C/sudoers.pod:556
 msgid ""
@@ -3650,6 +3652,15 @@ msgid ""
 "manner.  If the command matched is B<ALL>, the C<SETENV> tag is implied for "
 "that command; this default may be overridden by use of the C<NOSETENV> tag."
 msgstr ""
+"Ces drapeaux surchargent la valeur de l'option I<setenv> commande par "
+"commande. Si C<SETENV> est définie pour une commande, l'utilisateur peut "
+"désactiver l'option I<env_reset> avec l'option B<-E> de la ligne de "
+"commande. De plus, les variables d'environnement définies sur la ligne de "
+"commande ne sont pas sujettes aux restrictions imposées par I<env_check>, "
+"I<env_delete>, et I<env_keep>. C'est pourquoi seuls les utilisateurs dignes "
+"de confiance devraient être autorisés à définir des variables de cette "
+"manière. Si la commande correspond à B<ALL>, le drapeau C<SETENV> est imposé "
+"pour cette commande, sauf si le drapeau C<NOSETENV> est utilisé."
 
 #. type: =head3
 #: C/sudoers.pod:566
@@ -3663,6 +3674,9 @@ msgid ""
 "basis.  For more information, see the description of I<log_input> in the L<"
 "\"SUDOERS OPTIONS\"> section below."
 msgstr ""
+"Ces drapeaux surchargent la valeur de l'option I<log_input> commande par "
+"commande. Pour plus d'information, consultez la description de I<log_input> "
+"dans la section L<OPTIONS SUDOERS> ci-dessous."
 
 #. type: =head3
 #: C/sudoers.pod:572
@@ -3676,6 +3690,9 @@ msgid ""
 "basis.  For more information, see the description of I<log_output> in the L<"
 "\"SUDOERS OPTIONS\"> section below."
 msgstr ""
+"Ces drapeaux surchargent la valeur de l'option I<log_output> commande par "
+"commande. Pour plus d'information, consultez la description de I<log_output> "
+"dans la section L<OPTIONS SUDOERS> ci-dessous"
 
 #. type: =head2
 #: C/sudoers.pod:578
@@ -3690,6 +3707,11 @@ msgid ""
 "file.  Wildcard matching is done via the B<POSIX> L<glob(3)> and L<fnmatch(3)"
 "> routines.  Note that these are I<not> regular expressions."
 msgstr ""
+"B<sudo> permet d'utiliser les I<jokers> (aussi appelés caractères "
+"« wildcards », « meta » ou « glob ») dans les noms d'hôte, les chemins et "
+"les paramètres de ligne de commande du fichier I<sudoers>. La correspondance "
+"des motifs est effectuée par les routines B<POSIX> L<glob(3)> et L<fnmatch(3)"
+">. Notez qu'il ne s'agit I<pas> d'expression rationnelle."
 
 #. type: textblock
 #: C/sudoers.pod:590
@@ -3782,12 +3804,12 @@ msgstr ""
 #. type: =head2
 #: C/sudoers.pod:629
 msgid "Exceptions to wildcard rules"
-msgstr ""
+msgstr "Exceptions aux règles de caractère joker"
 
 #. type: textblock
 #: C/sudoers.pod:631
 msgid "The following exceptions apply to the above rules:"
-msgstr ""
+msgstr "Aux règles précédentes s'appliquent les exceptions suivantes :"
 
 #. type: =item
 #: C/sudoers.pod:635
@@ -3801,6 +3823,9 @@ msgid ""
 "I<sudoers> entry it means that command is not allowed to be run with B<any> "
 "arguments."
 msgstr ""
+"Si la chaîne vide C<\"\"> est le seul paramètre de ligne de commande de "
+"l'entrée I<sudoers>, cela signifie qu'B<aucun> paramètre n'est autorisé à "
+"l'exécution de la commande."
 
 #. type: =head2
 #: C/sudoers.pod:643
@@ -3814,6 +3839,9 @@ msgid ""
 "file currently being parsed using the C<#include> and C<#includedir> "
 "directives."
 msgstr ""
+"Il est possible d'inclure d'autres fichiers I<sudoers> depuis le fichier "
+"I<sudoers> en cours de traitement, en utilisant les directives C<#include> "
+"et C<#includedir>."
 
 #. type: textblock
 #: C/sudoers.pod:649
