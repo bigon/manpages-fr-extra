@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sudo manpages\n"
 "POT-Creation-Date: 2012-10-13 15:23+0300\n"
-"PO-Revision-Date: 2013-09-21 22:21+0200\n"
+"PO-Revision-Date: 2013-09-21 23:05+0200\n"
 "Last-Translator: Olivier Bonhomme <obonhomme@nerim.net>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -3999,6 +3999,13 @@ msgid ""
 "dangerous since in a command context, it allows the user to run B<any> "
 "command on the system."
 msgstr ""
+"Le mot réservé B<ALL> est un I<alias> intégré qui correspond à toutes les "
+"valeurs. Il peut être utilisé à la place de C<Cmnd_Alias>, C<User_Alias>, "
+"C<Runas_Alias>, ou C<Host_Alias>. Il ne faut pas essayer de définir son "
+"propre I<alias> appelé B<ALL>, l'alias intégré étant toujours prioritaire. "
+"L'utilisation de B<ALL> est dangereuse lors de la configuration de "
+"commandes, puisque l'utilisateur est alors autorisé à exécuter B<n'importe> "
+"quelle commande du système."
 
 #. type: textblock
 #: C/sudoers.pod:727
@@ -4009,6 +4016,11 @@ msgid ""
 "C<ALL> alias to allow a user to run \"all but a few\" commands rarely works "
 "as intended (see SECURITY NOTES below)."
 msgstr ""
+"Le point d'exclamation ('!') est un opérateur logique I<non> utilisable "
+"devant un I<alias> ou une C<commande>, permettant d'exclure certaines "
+"valeurs. Utiliser C<!> avec l'alias intégré C<ALL> pour permettre à un "
+"utilisateur d'exécuter « toutes sauf certaines » commandes fonctionne "
+"rarement comme prévu (consultez les NOTES DE SÉCURITÉ ci-dessous)."
 
 #. type: textblock
 #: C/sudoers.pod:734
@@ -4016,6 +4028,8 @@ msgid ""
 "Long lines can be continued with a backslash ('\\') as the last character on "
 "the line."
 msgstr ""
+"Le caractère de barre oblique inverse ('\\') en fin de ligne permet de "
+"découper une longue ligne de configuration."
 
 #. type: textblock
 #: C/sudoers.pod:737
@@ -4023,6 +4037,8 @@ msgid ""
 "Whitespace between elements in a list as well as special syntactic "
 "characters in a I<User Specification> ('=', ':', '(', ')') is optional."
 msgstr ""
+"Les espaces entre les éléments d'une liste sont optionnels, ainsi que les "
+"caractères spéciaux de I<Spécification utilisateur> ('=', ':', '(', ')')."
 
 #. type: textblock
 #: C/sudoers.pod:740
@@ -5129,7 +5145,7 @@ msgstr ""
 #. type: textblock
 #: C/sudoers.pod:1327
 msgid "The default value is C<@passprompt@>."
-msgstr ""
+msgstr "La valeur par défaut est C<@passprompt@>."
 
 #. type: =item
 #: C/sudoers.pod:1329
@@ -5156,6 +5172,9 @@ msgid ""
 "The default user to run commands as if the B<-u> option is not specified on "
 "the command line.  This defaults to C<@runas_default@>."
 msgstr ""
+"L'utilisateur par défaut sous le nom duquel exécuter les commandes, si "
+"l'option B<-u> n'est pas définie. La valeur par défaut est "
+"C<@runas_default@>."
 
 #. type: =item
 #: C/sudoers.pod:1341
@@ -5168,6 +5187,8 @@ msgid ""
 "Syslog priority to use when user authenticates unsuccessfully.  Defaults to "
 "C<@badpri@>."
 msgstr ""
+"La priorité syslog à utiliser lors d'un échec d'authentification. La valeur "
+"par défaut est C<@badpri@>."
 
 #. type: textblock
 #: C/sudoers.pod:1346
@@ -5175,6 +5196,8 @@ msgid ""
 "The following syslog priorities are supported: B<alert>, B<crit>, B<debug>, "
 "B<emerg>, B<err>, B<info>, B<notice>, and B<warning>."
 msgstr ""
+"Les priorités syslog suivantes sont prises en charge : B<alert>, B<crit>, "
+"B<debug>, B<emerg>, B<err>, B<info>, B<notice>, and B<warning>."
 
 #. type: =item
 #: C/sudoers.pod:1349
@@ -5187,11 +5210,15 @@ msgid ""
 "Syslog priority to use when user authenticates successfully.  Defaults to "
 "C<@goodpri@>."
 msgstr ""
+"La priorité syslog à utiliser lors d'un succès d'authentification. La valeur "
+"par défaut est C<@goodpri@>."
 
 #. type: textblock
 #: C/sudoers.pod:1354
 msgid "See L<syslog_badpri> for the list of supported syslog priorities."
 msgstr ""
+"Consultez L<syslog_badpri> pour la liste des priorités syslog prises en "
+"charge."
 
 #. type: =item
 #: C/sudoers.pod:1356
@@ -5205,6 +5232,10 @@ msgid ""
 "email.  Note that changing the locale may affect how sudoers is "
 "interpreted.  Defaults to C<\"C\">."
 msgstr ""
+"Locale à utiliser lors du traitement du fichier sudoers, de la "
+"journalisation, et de l'envoi de courriels. Notez que l'interprétation de la "
+"configuration sudoers peut dépendre de la locale. La valeur par défaut est C<"
+"\"C\">."
 
 #. type: =item
 #: C/sudoers.pod:1362
@@ -5217,6 +5248,8 @@ msgid ""
 "The directory in which B<sudo> stores its timestamp files.  The default is "
 "F<@timedir@>."
 msgstr ""
+"Le répertoire où B<sudo> stocke ses fichiers d'estampilles temporelles. La "
+"valeur par défaut est F<@timedir@>."
 
 #. type: =item
 #: C/sudoers.pod:1367
@@ -5229,6 +5262,8 @@ msgid ""
 "The owner of the timestamp directory and the timestamps stored therein.  The "
 "default is C<root>."
 msgstr ""
+"Le propriétaire du répertoire et de estampilles temporelles qui y sont "
+"stockées. La valeur par défaut est C<root>."
 
 #. type: =item
 #: C/sudoers.pod:1372
