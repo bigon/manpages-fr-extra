@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sudo manpages\n"
 "POT-Creation-Date: 2012-10-13 15:23+0300\n"
-"PO-Revision-Date: 2013-09-18 22:42+0200\n"
+"PO-Revision-Date: 2013-09-21 22:21+0200\n"
 "Last-Translator: Olivier Bonhomme <obonhomme@nerim.net>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -3639,7 +3639,6 @@ msgstr ""
 msgid "SETENV and NOSETENV"
 msgstr "SETENV et NOSETENV"
 
-#. FIXME NOTE Simon: pas bien compris "If the command matched is B<ALL>"
 #. type: textblock
 #: C/sudoers.pod:556
 msgid ""
@@ -3830,7 +3829,7 @@ msgstr ""
 #. type: =head2
 #: C/sudoers.pod:643
 msgid "Including other files from within sudoers"
-msgstr ""
+msgstr "Insertion de fichier dans la configuration sudoers"
 
 #. type: textblock
 #: C/sudoers.pod:645
@@ -3852,6 +3851,11 @@ msgid ""
 "F</etc/sudoers.local>.  To include F</etc/sudoers.local> from within F</etc/"
 "sudoers> we would use the following line in F</etc/sudoers>:"
 msgstr ""
+"Cela permet par exemple distinguer un fichier I<sudoers> global d'un fichier "
+"local spécifique à la machine. Dans cet exemple, la configuration globale "
+"sera dans F</etc/sudoers> et la configuration locale dans F</etc/sudoers."
+"local>. La ligne suivante dans F</etc/sudoers> permet d'inclure le fichier "
+"F</etc/sudoers.local> depuis F</etc/sudoers> :"
 
 #. type: textblock
 #: C/sudoers.pod:658
@@ -3868,6 +3872,11 @@ msgid ""
 "hard limit of 128 nested include files is enforced to prevent include file "
 "loops."
 msgstr ""
+"Lorsque B<sudo> atteint cette ligne, le traitement de F</etc/sudoers> est "
+"suspendu au profit de F</etc/sudoers.local>. À la fin de F</etc/sudoers."
+"local>, la suite de F</etc/sudoers> est traitée. Les fichiers inclus peuvent "
+"eux-mêmes inclure d'autres fichiers. Une limite dure de 128 imbrications est "
+"mise en œuvre pour éviter les boucles d'inclusions."
 
 #. type: textblock
 #: C/sudoers.pod:669
@@ -3876,6 +3885,9 @@ msgid ""
 "a F</>), it must be located in the same directory as the sudoers file it was "
 "included from.  For example, if F</etc/sudoers> contains the line:"
 msgstr ""
+"Si le chemin vers le fichier inclus est relatif (ne commence pas par F</>), "
+"il doit être présent dans le même répertoire que le fichier sudoers qui "
+"l'inclut. Par exemple, si F</etc/sudoers> contient :"
 
 #. type: textblock
 #: C/sudoers.pod:676
@@ -3893,6 +3905,8 @@ msgid ""
 "The file name may also include the C<%h> escape, signifying the short form "
 "of the host name.  I.e., if the machine's host name is \"xerxes\", then"
 msgstr ""
+"Le nom de fichier peut contenir le caractère spécial C<%h>, identifiant la "
+"forme courte du nom d'hôte. Par exemple, si le nom d'hôte est \"xerxes\" :"
 
 #. type: textblock
 #: C/sudoers.pod:685
@@ -3902,7 +3916,7 @@ msgstr "C<#include /etc/sudoers.%h>"
 #. type: textblock
 #: C/sudoers.pod:687
 msgid "will cause B<sudo> to include the file F</etc/sudoers.xerxes>."
-msgstr ""
+msgstr "le fichier F</etc/sudoers.xerxes> sera inclus par B<sudo>."
 
 #. type: textblock
 #: C/sudoers.pod:689
@@ -3911,6 +3925,9 @@ msgid ""
 "that the system package manager can drop I<sudoers> rules into as part of "
 "package installation.  For example, given:"
 msgstr ""
+"La directive C<#includedir> permet d'utiliser un répertoire F<sudo.d> dans "
+"lequel le gestionnaire de paquets peut placer des règles I<sudoers> lors de "
+"l'installation d'un paquet."
 
 #. type: textblock
 #: C/sudoers.pod:693
@@ -3929,6 +3946,14 @@ msgid ""
 "etc/sudoers.d/10_second>.  Using a consistent number of leading zeroes in "
 "the file names can be used to avoid such problems."
 msgstr ""
+"Chaque fichier de F</etc/sudoers.d/> sera lu, sauf les fichiers dont le nom "
+"termine par C<~> ou contient C<.>, afin d'éviter que les fichiers "
+"temporaires ou de sauvegarde ne posent des problèmes. Les fichiers sont "
+"traités dans l'ordre lexical : F</etc/sudoers.d/01_first> sera traité avant "
+"F</etc/sudoers.d/10_second>. L'ordre étant lexical et non numérique, F</etc/"
+"sudoers.d/1_whoops> sera traité B<après> F</etc/sudoers.d/10_second>. Il est "
+"conseillé d'utiliser un nombre constant de chiffres dans les noms des "
+"fichiers pour éviter ce genre de problèmes."
 
 #. type: textblock
 #: C/sudoers.pod:706
@@ -3938,11 +3963,15 @@ msgid ""
 "error.  It is still possible to run B<visudo> with the C<-f> flag to edit "
 "the files directly."
 msgstr ""
+"Contrairement aux fichiers inclus via C<#include>, B<visudo> n'éditera pas "
+"les fichiers issus d'un répertoire C<#includedir>, sauf si l'un d'entre eux "
+"contient une erreur de syntaxe. Il est toujours possible d'éditer "
+"directement les fichiers en utilisant l'option C<-f> de B<visudo>."
 
 #. type: =head2
 #: C/sudoers.pod:711
 msgid "Other special characters and reserved words"
-msgstr ""
+msgstr "Autres caractères et mots réservés"
 
 #. type: textblock
 #: C/sudoers.pod:713
@@ -3953,6 +3982,11 @@ msgid ""
 "the comment character and any text after it, up to the end of the line, are "
 "ignored."
 msgstr ""
+"Le caractère dièse (« # ») permet d'indiquer un commentaire : tous les "
+"caractères jusqu'à la fin de la ligne seront ignorés. Les cas suivants font "
+"exception : le caractère apparait en raison d'une directive #include ; ou "
+"dans le cadre d'un configuration de nom d'utilisateur, il est suivi de "
+"chiffres."
 
 #. type: textblock
 #: C/sudoers.pod:719
@@ -4001,7 +4035,7 @@ msgstr ""
 #. type: =head1
 #: C/sudoers.pod:744
 msgid "SUDOERS OPTIONS"
-msgstr ""
+msgstr "OPTIONS DE SUDOERS"
 
 #. type: textblock
 #: C/sudoers.pod:746
@@ -4014,7 +4048,7 @@ msgstr ""
 #. type: textblock
 #: C/sudoers.pod:750
 msgid "B<Boolean Flags>:"
-msgstr ""
+msgstr "B<Attributs booléens>:"
 
 #. type: =item
 #: C/sudoers.pod:754
