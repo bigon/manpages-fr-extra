@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: findutils manpages\n"
 "POT-Creation-Date: 2013-09-28 10:32-0400\n"
-"PO-Revision-Date: 2013-05-30 23:01+0200\n"
+"PO-Revision-Date: 2013-10-02 14:16-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. type: TH
@@ -45,15 +45,12 @@ msgstr "SYNOPSIS"
 
 #. type: Plain text
 #: C/man1/find.1:7
-#, fuzzy
-#| msgid ""
-#| "B<find> [-H] [-L] [-P] [-D debugopts] [-Olevel] [path...] [expression]"
 msgid ""
 "B<find> [-H] [-L] [-P] [-D debugopts] [-Olevel] [starting-point...] "
 "[expression]"
 msgstr ""
 "B<find> [B<-H>] [B<-L>] [B<-P>] [B<-D> I<option-débogage>] [B<-O>I<niveau>] "
-"[I<chemin>...] [I<expression>]"
+"[I<point-de-départ>...] [I<expression>]"
 
 #. type: SH
 #: C/man1/find.1:7 C/man1/locate.findutils.1:11 C/man1/oldfind.1:7
@@ -64,14 +61,6 @@ msgstr "DESCRIPTION"
 
 #. type: Plain text
 #: C/man1/find.1:21
-#, fuzzy
-#| msgid ""
-#| "This manual page documents the GNU version of B<find>.  GNU B<find> "
-#| "searches the directory tree rooted at each given file name by evaluating "
-#| "the given expression from left to right, according to the rules of "
-#| "precedence (see section OPERATORS), until the outcome is known (the left "
-#| "hand side is false for I<and> operations, true for I<or>), at which point "
-#| "B<find> moves on to the next file name."
 msgid ""
 "This manual page documents the GNU version of B<find>.  GNU B<find> searches "
 "the directory tree rooted at each given starting-point by evaluating the "
@@ -81,13 +70,14 @@ msgid ""
 "on to the next file name.  If no starting-point is specified, `.' is assumed."
 msgstr ""
 "Cette page de manuel documente la version GNU de B<find>. GNU B<find> "
-"parcourt les arborescences des répertoires de chacun des I<chemins> "
-"mentionnés, en évaluant les expressions fournies pour chaque fichier "
+"parcourt les arborescences des répertoires de chaque I<point-de-départ> "
+"mentionné, en évaluant les expressions fournies pour chaque fichier "
 "rencontré. L'évaluation de l'expression se fait de gauche à droite, en "
 "suivant les règles de priorité décrites dans la section B<OPÉRATEURS>, "
 "jusqu'à l'obtention du résultat (par exemple la partie gauche est fausse "
 "pour un opérateur I<et>, vraie pour un opérateur I<ou>), puis B<find> passe "
-"au nom de fichier suivant."
+"au nom de fichier suivant. Si aucun I<point-de-départ> n’est indiqué, il "
+"vaut « . »."
 
 # NOTE: La documentation Texinfo n'est toujours pas traduite. Ne pas
 # NOTE: traduire "Security Considerations"
@@ -200,7 +190,7 @@ msgid ""
 msgstr ""
 "Suivre les liens symboliques. Quand B<find> analyse ou affiche les "
 "informations concernant un fichier, ce sont celles extraites des "
-"caractéristiques du fichier vers lequel mène les liens, et non celle du lien "
+"caractéristiques du fichier vers lequel mène le lien, et non celle du lien "
 "lui-même (sauf s'il s'agit d'un lien cassé, ou si B<find> est incapable "
 "d'analyser le fichier vers lequel pointe le lien). L'utilisation de cette "
 "option implique B<-noleaf> qui sera toujours active pour les utilisations "
@@ -739,18 +729,13 @@ msgstr "B<-maxdepth> I<n>"
 # NOTE: typo: space
 #. type: Plain text
 #: C/man1/find.1:408
-#, fuzzy, no-wrap
-#| msgid ""
-#| "Descend at most I<levels> (a non-negative integer) levels of\n"
-#| "directories below the command line arguments.\n"
-#| "B<-maxdepth 0>\n"
-#| " means only apply the tests and actions to the command line arguments.\n"
+#, no-wrap
 msgid ""
 "Descend at most I<levels> (a non-negative integer) levels of\n"
 "directories below the starting-points.\n"
 "B<-maxdepth 0>\n"
 " means only apply the tests and actions to the starting-points themselves.\n"
-msgstr "Descendre au plus à I<n> niveaux de profondeur des répertoires (I<n> étant un entier positif ou nul) dans les paramètres fournis sur la ligne de commande. B<-maxdepth 0> signifie que les tests et les actions ne s'appliquent qu'aux paramètres de la ligne de commande.\n"
+msgstr "Descendre au plus à I<n> niveaux de profondeur des répertoires (I<n> étant un entier positif ou nul) sous chaque I<point-de-départ>. B<-maxdepth 0> signifie que les tests et les actions ne s'appliquent qu’à chaque I<point-de-départ>.\n"
 
 #. type: IP
 #: C/man1/find.1:409
@@ -760,11 +745,6 @@ msgstr "B<-mindepth> I<n>"
 
 #. type: Plain text
 #: C/man1/find.1:414
-#, fuzzy
-#| msgid ""
-#| "Do not apply any tests or actions at levels less than I<levels> (a non-"
-#| "negative integer).  B<-mindepth 1> means process all files except the "
-#| "command line arguments."
 msgid ""
 "Do not apply any tests or actions at levels less than I<levels> (a non-"
 "negative integer).  B<-mindepth 1> means process all files except the "
@@ -773,7 +753,7 @@ msgstr ""
 "Ne pas appliquer les tests ou les actions à des niveaux de profondeur "
 "inférieurs à I<n>. I<n> est un entier positif ou nul. B<-mindepth 1> "
 "signifie que les tests et les actions s'appliquent à tous les fichiers sauf "
-"aux paramètres de la ligne de commande."
+"à chaque I<point-de-départ>."
 
 #. type: IP
 #: C/man1/find.1:415
@@ -1634,6 +1614,8 @@ msgid ""
 "This is no longer supported (and has been deprecated since 2005).  Use B<-"
 "perm />I<mode> instead."
 msgstr ""
+"Ce n’est plus permis (et c’est obsolète depuis 2005). Utilisez plutôt B<-"
+"perm />I<mode>."
 
 #. type: IP
 #: C/man1/find.1:809
@@ -1706,14 +1688,12 @@ msgstr "B<-size> I<n>[B<cwbkMG>]"
 
 #. type: Plain text
 #: C/man1/find.1:840
-#, fuzzy
-#| msgid "File uses I<n> units of space.  The following suffixes can be used:"
 msgid ""
 "File uses I<n> units of space, rounding up.  The following suffixes can be "
 "used:"
 msgstr ""
-"Fichier utilisant I<n> unités d'espace. On pourra utiliser les suffixes "
-"suivants\\ : "
+"Fichier utilisant en tout I<n> unités d'espace. Les suffixes suivants "
+"peuvent être utilisés :"
 
 #. type: IP
 #: C/man1/find.1:841
@@ -1782,15 +1762,9 @@ msgstr "B<G>"
 msgid "for Gigabytes (units of 1073741824 bytes)"
 msgstr "Pour des gigaoctets (unités de 1\\ 073\\ 741\\ 824 octets)."
 
+# NOTE: s/signifiy/signify/
 #. type: Plain text
 #: C/man1/find.1:867
-#, fuzzy
-#| msgid ""
-#| "The size does not count indirect blocks, but it does count blocks in "
-#| "sparse files that are not actually allocated.  Bear in mind that the `%k' "
-#| "and `%b' format specifiers of B<-printf> handle sparse files "
-#| "differently.  The `b' suffix always denotes 512-byte blocks and never 1 "
-#| "Kilobyte blocks, which is different to the behaviour of B<-ls>."
 msgid ""
 "The size does not count indirect blocks, but it does count blocks in sparse "
 "files that are not actually allocated.  Bear in mind that the `%k' and `%b' "
@@ -1805,7 +1779,10 @@ msgstr ""
 "les spécifications de format «\\ %k\\ » et «\\ %b\\ » de B<-printf> gèrent "
 "différemment les fichiers éparpillés. Le suffixe «\\ b\\ » détermine "
 "toujours des blocs de 512 octets et jamais de 1 kilooctets, ce qui diffère "
-"du comportement de B<-ls>."
+"du comportement de B<-ls>. Les préfixes + et - signifient plus grand et plus "
+"petit, comme d’habitude, mais gardez à l’esprit que la taille est arrondie à "
+"l’unité supérieure (ainsi un fichier d’un octet ne correspondra pas à B<-"
+"size -1M>)."
 
 #. type: IP
 #: C/man1/find.1:867
@@ -2123,15 +2100,6 @@ msgstr "B<-exec> I<commande> B<{} +>"
 
 #. type: Plain text
 #: C/man1/find.1:1022
-#, fuzzy
-#| msgid ""
-#| "This variant of the B<-exec> action runs the specified command on the "
-#| "selected files, but the command line is built by appending each selected "
-#| "file name at the end; the total number of invocations of the command will "
-#| "be much less than the number of matched files.  The command line is built "
-#| "in much the same way that B<xargs> builds its command lines.  Only one "
-#| "instance of `{}' is allowed within the command.  The command is executed "
-#| "in the starting directory."
 msgid ""
 "This variant of the B<-exec> action runs the specified command on the "
 "selected files, but the command line is built by appending each selected "
@@ -2148,7 +2116,9 @@ msgstr ""
 "sera donc très inférieur au nombre de fichiers trouvés. La ligne de commande "
 "est construite à la manière de B<xargs>. Une seule instance de «\\ {}\\ » "
 "est permise à l'intérieur de la commande. La commande sera exécutée dans le "
-"répertoire de départ."
+"répertoire de départ. Si B<find> est victime d’une erreur, cela peut parfois "
+"provoquer une sortie immédiate du programme, donc certaines commandes en "
+"attente pourraient ne jamais être exécutées."
 
 #. type: IP
 #: C/man1/find.1:1023
@@ -2164,21 +2134,6 @@ msgstr "B<-execdir> I<commande> B<{} +>"
 
 #. type: Plain text
 #: C/man1/find.1:1055
-#, fuzzy
-#| msgid ""
-#| "Like B<-exec>, but the specified command is run from the subdirectory "
-#| "containing the matched file, which is not normally the directory in which "
-#| "you started B<find>.  This a much more secure method for invoking "
-#| "commands, as it avoids race conditions during resolution of the paths to "
-#| "the matched files.  As with the B<-exec> action, the `+' form of B<-"
-#| "execdir> will build a command line to process more than one matched file, "
-#| "but any given invocation of I<command> will only list files that exist in "
-#| "the same subdirectory.  If you use this option, you must ensure that your "
-#| "B<$PATH> environment variable does not reference `.'; otherwise, an "
-#| "attacker can run any commands they like by leaving an appropriately-named "
-#| "file in a directory in which you will run B<-execdir>.  The same applies "
-#| "to having entries in B<$PATH> which are empty or which are not absolute "
-#| "directory names."
 msgid ""
 "Like B<-exec>, but the specified command is run from the subdirectory "
 "containing the matched file, which is not normally the directory in which "
@@ -2209,7 +2164,9 @@ msgstr ""
 "pirate pourrait lancer toutes les commandes qu'il souhaite en mettant un "
 "fichier au nom adéquat dans les répertoires où vous allez lancer un B<-"
 "execdir>. De la même manière, évitez les références vides ou les noms de "
-"répertoires exprimés en relatif dans B<$PATH>."
+"répertoires exprimés en relatif dans B<$PATH>. Si B<find> est victime d’une "
+"erreur, cela peut parfois provoquer une sortie immédiate du programme, donc "
+"certaines commandes en attente pourraient ne jamais être exécutées."
 
 #. type: IP
 #: C/man1/find.1:1056
@@ -2999,15 +2956,11 @@ msgstr "B<%d>"
 
 #. type: Plain text
 #: C/man1/find.1:1297
-#, fuzzy
-#| msgid ""
-#| "File's depth in the directory tree; 0 means the file is a command line "
-#| "argument."
 msgid ""
 "File's depth in the directory tree; 0 means the file is a starting-point."
 msgstr ""
 "Profondeur du fichier dans l'arborescence des répertoires, 0 signifiant que "
-"le fichier est un paramètre de la ligne de commande."
+"le fichier est un I<point-de-départ>."
 
 #. type: IP
 #: C/man1/find.1:1297
@@ -3100,11 +3053,8 @@ msgstr "B<%H>"
 
 #. type: Plain text
 #: C/man1/find.1:1315
-#, fuzzy
-#| msgid "Command line argument under which file was found."
 msgid "Starting-point under which file was found."
-msgstr ""
-"Paramètre de la ligne de commande à partir duquel le fichier a été trouvé."
+msgstr "Point de départ dans lequel le fichier a été trouvé."
 
 #. type: IP
 #: C/man1/find.1:1315
@@ -3219,16 +3169,12 @@ msgstr "B<%P>"
 
 #. type: Plain text
 #: C/man1/find.1:1343
-#, fuzzy
-#| msgid ""
-#| "File's name with the name of the command line argument under which it was "
-#| "found removed."
 msgid ""
 "File's name with the name of the starting-point under which it was found "
 "removed."
 msgstr ""
-"Nom du fichier, en retirant le nom du paramètre de ligne de commande à "
-"partir duquel le fichier a été trouvé."
+"Nom du fichier, en retirant le nom du I<point-de-départ> dans lequel le "
+"fichier a été trouvé."
 
 #. type: IP
 #: C/man1/find.1:1343
@@ -3614,10 +3560,10 @@ msgid ""
 "normally need to quote them.  Many of the examples in this manual page use "
 "backslashes for this purpose: `\\e(...\\e)' instead of `(...)'."
 msgstr ""
-"Forcer la précédence. Comme les parenthèses risquent d'être interprétées par "
-"le shell, vous devriez normalement les protéger. De nombreux exemples de "
-"cette page de manuel utilise la barre oblique inverse dans ce but, par "
-"exemple « \\e(...\\e) » au lieu de « (...) »."
+"Forcer l’ordre de priorité. Comme les parenthèses ont un sens dans "
+"l’interpréteur de commandes, vous devriez normalement les protéger. De "
+"nombreux exemples de cette page de manuel utilise la barre oblique inverse "
+"dans ce but, par exemple « \\e(...\\e) » au lieu de « (...) »."
 
 #. type: IP
 #: C/man1/find.1:1508
@@ -3778,10 +3724,10 @@ msgid ""
 "This is a change from previous versions of findutils."
 msgstr ""
 "Cette option est gérée, mais la conformité à POSIX dépend de la conformité "
-"POSIX de la fonction B<fnmatch>(3) de la bibliothèque du système. À l'heure "
-"de findutils-4.2.2, les métacaractères du shell («\\ *\\ », «\\ ?\\ » ou «\\ "
-"[]\\ » par exemple) trouveront les fichiers commençant par «\\ .\\ "
-"» (l'interprétation d'IEEE PASC 126 l'impose). Cela diffère des versions "
+"POSIX de la fonction B<fnmatch>(3) de la bibliothèque du système. Depuis "
+"findutils-4.2.2, les métacaractères de l’interpréteur de commandes (« * », "
+"« ? » ou « [] » par exemple) trouveront les fichiers commençant par "
+"« . » (l'interprétation d'IEEE PASC 126 l'impose). Cela diffère des versions "
 "précédentes de findutils."
 
 #. type: IP
@@ -4580,6 +4526,7 @@ msgstr ""
 "Considérez simplement qu'en cas de valeur de retour différente de zéro, vous "
 "ne devez pas vous fier à l'exactitude des résultats fournis par B<find>."
 
+# NOTE: s/immeidately/immediately/
 #. type: Plain text
 #: C/man1/find.1:2040
 msgid ""
@@ -4588,6 +4535,11 @@ msgid ""
 "examined or some pending program invocations for B<-exec ... {} +> or B<-"
 "execdir ... {} +> may not have been performed."
 msgstr ""
+"Quand certaines erreurs se produisent, B<find> peut s’arrêter immédiatement, "
+"sans terminer toutes les actions indiquées. Par exemple, certains points de "
+"départ peuvent ne pas avoir été examinés ou certaines invocations de "
+"programme en attente pour B<-exec ... {} +> ou B<-execdir ... {} +> peuvent "
+"ne pas avoir été exécutées."
 
 #. type: SH
 #: C/man1/find.1:2042 C/man1/locate.findutils.1:196 C/man1/oldfind.1:30
@@ -4598,12 +4550,6 @@ msgstr "VOIR AUSSI"
 
 #. type: Plain text
 #: C/man1/find.1:2047
-#, fuzzy
-#| msgid ""
-#| "B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<chmod>(1), "
-#| "B<fnmatch>(3), B<regex>(7), B<stat>(2), B<lstat>(2), B<ls>(1), "
-#| "B<printf>(3), B<strftime>(3), B<ctime>(3), B<Finding Files> (on-line in "
-#| "Info, or printed)."
 msgid ""
 "B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<chmod>(1), "
 "B<fnmatch>(3), B<regex>(7), B<stat>(2), B<lstat>(2), B<ls>(1), B<printf>(3), "
@@ -4611,8 +4557,7 @@ msgid ""
 msgstr ""
 "B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<chmod>(1), "
 "B<fnmatch>(3), B<regex>(7), B<stat>(2), B<lstat>(2), B<ls>(1), B<printf>(3), "
-"B<strftime>(3), B<ctime>(3), B<Finding Files> (en ligne dans Info, ou en "
-"version imprimée)"
+"B<strftime>(3), B<ctime>(3)"
 
 #. type: Plain text
 #: C/man1/find.1:2057
@@ -4621,6 +4566,10 @@ msgid ""
 "the B<info> and B<find> programs are properly installed at your site, the "
 "command B<info find> should give you access to the complete manual."
 msgstr ""
+"La documentation complète de B<find> est maintenue dans un manuel Texinfo "
+"(en anglais). Si les programmes B<info> et B<find> sont correctement "
+"installés sur le système, la commande B<info find> donne accès au manuel "
+"complet (en anglais)."
 
 #. type: SH
 #: C/man1/find.1:2058 C/man1/locate.findutils.1:211
@@ -4635,23 +4584,17 @@ msgid ""
 "used in filename patterns will match a leading `.', because IEEE POSIX "
 "interpretation 126 requires this."
 msgstr ""
-"À l'heure de findutils-4.2.2, les métacaractères du shell («\\ *\\ », «\\ ?"
-"\\ » ou «\\ []\\ » par exemple) trouveront les fichiers commençant par «\\ ."
-"\\ » parce que l'interprétation d'IEEE POSIX 126 l'impose."
+"Depuis findutils-4.2.2, les métacaractères de l’interpréteur de commandes "
+"(« * », « ? » ou « [] » par exemple) trouveront les fichiers commençant par "
+"« . » parce que l'interprétation d'IEEE POSIX 126 l'impose."
 
 #. type: Plain text
 #: C/man1/find.1:2066
-#, fuzzy
-#| msgid ""
-#| "The syntax B<-perm +MODE> was deprecated in findutils-4.2.21, in favour "
-#| "of B<-perm> B</MODE>.  As of findutils-4.3.3, B<-perm /000> now matches "
-#| "all files instead of none."
 msgid ""
 "As of findutils-4.3.3, B<-perm /000> now matches all files instead of none."
 msgstr ""
-"B<-perm> B</MODE> remplace la syntaxe B<-perm +MODE>, qui est dépréciée "
-"depuis findutils-4.2.21. B<-perm /000> correspond maintenant à tous les "
-"fichiers plutôt qu'à aucun, comme dans findutils-4.3.3."
+"Depuis findutils-4.3.3, B<-perm /000> correspond maintenant à tous les "
+"fichiers plutôt qu'à aucun."
 
 #. type: Plain text
 #: C/man1/find.1:2069
@@ -4831,19 +4774,14 @@ msgstr "-iregex\t3.8\n"
 
 #. type: Plain text
 #: C/man1/find.1:2120
-#, fuzzy
-#| msgid ""
-#| "The syntax B<-perm +MODE> was deprecated in findutils-4.2.21, in favour "
-#| "of B<-perm> B</MODE>.  As of findutils-4.3.3, B<-perm /000> now matches "
-#| "all files instead of none."
 msgid ""
 "The syntax B<-perm +MODE> was removed in findutils-4.5.12, in favour of B<-"
 "perm> B</MODE>.  The B<+MODE> syntax had been deprecated since "
 "findutils-4.2.21 which was released in 2005."
 msgstr ""
-"B<-perm> B</MODE> remplace la syntaxe B<-perm +MODE>, qui est dépréciée "
-"depuis findutils-4.2.21. B<-perm /000> correspond maintenant à tous les "
-"fichiers plutôt qu'à aucun, comme dans findutils-4.3.3."
+"La syntaxe B<-perm +MODE> a été supprimée dans findutils-4.5.12, remplacée "
+"par B<-perm> B</MODE>. La syntaxe B<+MODE> est obsolète depuis "
+"findutils-4.2.21 qui a été publié en 2005."
 
 #. type: SH
 #: C/man1/find.1:2121
@@ -5429,14 +5367,8 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/locate.findutils.1:199
-#, fuzzy
-#| msgid ""
-#| "B<find>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<glob>(3), "
-#| "B<Finding Files> (on-line in Info, or printed)"
 msgid "B<find>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<glob>(3)"
-msgstr ""
-"B<find>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<glob>(3), "
-"B<Finding Files> (en ligne dans Info ou en version imprimée)"
+msgstr "B<find>(1), B<locatedb>(5), B<updatedb>(1), B<xargs>(1), B<glob>(3)"
 
 #. type: Plain text
 #: C/man1/locate.findutils.1:209
@@ -5445,6 +5377,10 @@ msgid ""
 "the B<info> and B<locate> programs are properly installed at your site, the "
 "command B<info locate> should give you access to the complete manual."
 msgstr ""
+"La documentation complète de B<locate> est maintenue dans un manuel Texinfo "
+"(en anglais). Si les programmes B<info> et B<locate> sont correctement "
+"installés sur le système, la commande B<info locate> donne accès au manuel "
+"complet (en anglais)."
 
 #. type: Plain text
 #: C/man1/locate.findutils.1:231
@@ -5921,14 +5857,8 @@ msgstr "Afficher un résumé des options de B<updatedb> et quitter."
 
 #. type: Plain text
 #: C/man1/updatedb.findutils.1:123
-#, fuzzy
-#| msgid ""
-#| "B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)  B<Finding Files> "
-#| "(on-line in Info, or printed)"
 msgid "B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)"
-msgstr ""
-"B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1), B<Finding Files> (en "
-"ligne avec info ou en version imprimée)"
+msgstr "B<find>(1), B<locate>(1), B<locatedb>(5), B<xargs>(1)"
 
 #. type: Plain text
 #: C/man1/updatedb.findutils.1:133
@@ -5937,6 +5867,10 @@ msgid ""
 "If the B<info> and B<updatedb> programs are properly installed at your site, "
 "the command B<info updatedb> should give you access to the complete manual."
 msgstr ""
+"La documentation complète de B<updatedb> est maintenue dans un manuel "
+"Texinfo (en anglais). Si les programmes B<info> et B<updatedb> sont "
+"correctement installés sur le système, la commande B<info updatedb> donne "
+"accès au manuel complet (en anglais)."
 
 #. type: Plain text
 #: C/man1/updatedb.findutils.1:146
@@ -6321,6 +6255,7 @@ msgstr ""
 "il attend juste que plus d'une commande existante se termine avant d'en "
 "commencer une autre."
 
+# NOTE: s/ouptut/output/
 #. type: Plain text
 #: C/man1/xargs.1:252
 msgid ""
@@ -6334,6 +6269,17 @@ msgid ""
 "performance difference, simply arrange for each process to produce a "
 "separate output file (or otherwise use separate resources)."
 msgstr ""
+"B<Notez bien> que c’est le rôle des processus appelés de gérer correctement "
+"l’accès en parallèle aux ressources partagées. Par exemple, si plusieurs "
+"d’entre eux essayent d’afficher sur la sortie standard, l’affichage se "
+"produira dans un ordre aléatoire (et très probablement mélangé) sauf si les "
+"processus collaborent de façon à éviter cela. L’utilisation d’un schéma de "
+"verrouillage est une façon d’éviter de tels problèmes. Habituellement, "
+"l’utilisation d’un schéma de verrouillage permet de s’assurer que "
+"l’affichage est correct mais au prix d’une baisse de performance. Si vous "
+"n’acceptez pas la différence de performance, assurez-vous simplement que "
+"chaque processus écrive dans un fichier de sortie qui lui est propre (ou "
+"sinon, utilisez des ressources séparées)."
 
 #. type: TP
 #: C/man1/xargs.1:252
@@ -6584,9 +6530,9 @@ msgid ""
 "have a logical end-of-file marker.  POSIX (IEEE Std 1003.1, 2004 Edition) "
 "allows this."
 msgstr ""
-"Depuis la version 4.2.9 de GNU xargs, le comportement par défaut de B<xargs> "
+"Depuis la version 4.2.9 de GNU xargs, le comportement par défaut de B<xargs> "
 "est de ne pas avoir de marqueur logique de fin de fichier. La norme POSIX "
-"(IEEE Std 1003.1, 2004 Edition) le permet."
+"(IEEE Std 1003.1, édition de 2004) le permet."
 
 #. type: Plain text
 #: C/man1/xargs.1:405
@@ -6620,18 +6566,12 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/xargs.1:422
-#, fuzzy
-#| msgid ""
-#| "B<find>(1), B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<fork>(2), "
-#| "B<execvp>(3), B<kill>(1), B<signal>(7), B<Finding Files> (on-line in "
-#| "Info, or printed)"
 msgid ""
 "B<find>(1), B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<fork>(2), "
 "B<execvp>(3), B<kill>(1), B<signal>(7),"
 msgstr ""
 "B<find>(1), B<locate>(1), B<locatedb>(5), B<updatedb>(1), B<fork>(2), "
-"B<execvp>(3), B<kill>(1), B<signal>(7), B<Finding Files> (en ligne dans "
-"Info, ou en version imprimée)"
+"B<execvp>(3), B<kill>(1), B<signal>(7),"
 
 #. type: Plain text
 #: C/man1/xargs.1:432
@@ -6640,6 +6580,10 @@ msgid ""
 "the B<info> and B<xargs> programs are properly installed at your site, the "
 "command B<info xargs> should give you access to the complete manual."
 msgstr ""
+"La documentation complète de B<xargs> est maintenue dans un manuel Texinfo "
+"(en anglais). Si les programmes B<info> et B<xargs> sont correctement "
+"installés sur le système, la commande B<info xargs> donne accès au manuel "
+"complet (en anglais)."
 
 #. type: Plain text
 #: C/man1/xargs.1:439
