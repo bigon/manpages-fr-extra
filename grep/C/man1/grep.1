@@ -21,7 +21,7 @@
 . \" ISO 8601 date, complete format, extended representation
 . ds Dt \\*(Yr-\\*(Mn-\\*(Dy
 ..
-.TH GREP 1 \*(Dt "GNU grep 2.14" "User Commands"
+.TH GREP 1 \*(Dt "GNU grep 2.14.54-37f7" "User Commands"
 .hy 0
 .
 .SH NAME
@@ -755,6 +755,12 @@ The preceding item is matched
 .I n
 or more times.
 .TP
+.BI {, m }
+The preceding item is matched at most
+.I m
+times.
+This is a \s-1GNU\s0 extension.
+.TP
 .BI { n , m }
 The preceding item is matched at least
 .I n
@@ -833,7 +839,7 @@ For example, the command
 searches for the two-character string
 .B {1
 instead of reporting a syntax error in the regular expression.
-\s-1POSIX.2\s0 allows this behavior as an extension, but portable scripts
+\s-1POSIX\s0 allows this behavior as an extension, but portable scripts
 should avoid it.
 .
 .SH "ENVIRONMENT VARIABLES"
@@ -1128,13 +1134,13 @@ The default C locale uses American English messages.
 .B POSIXLY_CORRECT
 If set,
 .B grep
-behaves as \s-1POSIX.2\s0 requires; otherwise,
+behaves as \s-1POSIX\s0 requires; otherwise,
 .B grep
 behaves more like other \s-1GNU\s0 programs.
-\s-1POSIX.2\s0 requires that options that follow file names must be
+\s-1POSIX\s0 requires that options that follow file names must be
 treated as file names; by default, such options are permuted to the
 front of the operand list and are treated as options.
-Also, \s-1POSIX.2\s0 requires that unrecognized options be diagnosed as
+Also, \s-1POSIX\s0 requires that unrecognized options be diagnosed as
 \*(lqillegal\*(rq, but since they are not really against the law the default
 is to diagnose them as \*(lqinvalid\*(rq.
 .B POSIXLY_CORRECT
@@ -1169,7 +1175,7 @@ If an error occurred the exit status is 2.  (Note: POSIX error
 handling code should check for '2' or greater.)
 .
 .SH COPYRIGHT
-Copyright 1998-2000, 2002, 2005-2012 Free Software Foundation, Inc.
+Copyright 1998-2000, 2002, 2005-2013 Free Software Foundation, Inc.
 .PP
 This is free software;
 see the source for copying conditions.
