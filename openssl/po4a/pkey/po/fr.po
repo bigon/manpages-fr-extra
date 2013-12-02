@@ -885,7 +885,7 @@ msgid ""
 "This specifies the input filename to read parameters from or standard input "
 "if this option is not specified."
 msgstr ""
-"Indiquer le nom du fichier d'où seront lus les paramètres. Par défaut, "
+"Indiquer le nom du fichier où seront lus les paramètres. Par défaut, "
 "l'entrée standard est utilisée."
 
 #. type: textblock
@@ -951,7 +951,7 @@ msgid ""
 "PEM format is supported because the key type is determined by the PEM "
 "headers."
 msgstr ""
-"Aucune option B<-inform> ni B<-outform> n’existe pour cette commande parce "
+"Aucune option B<-inform> ou B<-outform> n’existe pour cette commande parce "
 "que seul le format PEM est pris en charge car le type de clef est déterminé "
 "par les en-têtes PEM."
 
@@ -1081,7 +1081,7 @@ msgstr "B<-certin>"
 #. type: textblock
 #: C/apps/pkeyutl.pod:87
 msgid "the input is a certificate containing a public key."
-msgstr "Le fichier d'entrée est un certificat contenant la clef publique."
+msgstr "Le fichier d'entrée est un certificat contenant une clef publique."
 
 #. type: =item
 #: C/apps/pkeyutl.pod:89
@@ -1135,7 +1135,7 @@ msgstr "B<-verifyrecover>"
 #. type: textblock
 #: C/apps/pkeyutl.pod:106
 msgid "verify the input data and output the recovered data."
-msgstr "Vérifier les données d'entrée et fournir les données convertie."
+msgstr "Vérifier les données d'entrée et fournir les données récupérées."
 
 #. type: =item
 #: C/apps/pkeyutl.pod:108
@@ -1209,10 +1209,10 @@ msgid ""
 "operations.  The value B<alg> should represent a digest name as used in the "
 "EVP_get_digestbyname() function for example B<sha1>."
 msgstr ""
-"À moins d’être mentionné autrement, tous les algorithmes prennent en charge "
-"l’option B<digest:>I<alg> qui indique l’algorithme à utiliser pour les "
-"opérations de signature, vérification et verifyrecover. La valeur I<alg> "
-"devrait représenter un nom d’algorithme tel qu’utilisé dans la fonction "
+"Sauf mention contraire, tous les algorithmes prennent en charge l’option "
+"B<digest:>I<alg> qui indique l’algorithme à utiliser pour les opérations de "
+"signature, vérification et verifyrecover. La valeur I<alg> devrait "
+"représenter un nom d’algorithme tel qu’utilisé dans la fonction "
 "B<EVP_get_digestbyname>(), par exemple B<sha1>."
 
 #. type: =head1
@@ -1304,7 +1304,7 @@ msgid ""
 "verifying -2 causes the salt length to be automatically determined based on "
 "the B<PSS> block structure."
 msgstr ""
-"Pour le mode B<pss>, seul cette option indique la taille de sel. Deux "
+"Pour le mode B<pss>, seule cette option indique la taille de sel. Deux "
 "valeurs spéciales sont prises en charge : B<-1> définit la taille de sel à "
 "la taille de l’algorithme de signature. Lors de la vérification, B<-2> "
 "définit la taille de sel à la valeur maximale permise. Lors de la "
@@ -1324,9 +1324,9 @@ msgid ""
 "SHA1 digest can be used and this digest is assumed by default."
 msgstr ""
 "L’algorithme DSA ne permet que les opérations de signature et de "
-"vérification. Il n’y a actuellement aucune option supplémentaire à part "
-"B<digest>. Seul l’algorithme de signature SHA1 peut être utilisé et cet "
-"algorithme de signature est considéré par défaut."
+"vérification. La seule option supplémentaire actuellement est B<digest>. "
+"Seul l’algorithme de signature SHA1 peut être utilisé et cet algorithme de "
+"signature est considéré par défaut."
 
 #. type: =head1
 #: C/apps/pkeyutl.pod:185
@@ -1533,7 +1533,7 @@ msgid ""
 "\n"
 msgstr ""
 "B< int EVP_PKEY_CTX_set_rsa_padding(EVP_PKEY_CTX *>I<ctx>B<, int> I<pad>B<);>\n"
-" B<int EVP_PKEY_CTX_set_rsa_pss_saltlen(EVP_PKEY_CTX *>I<ctx>B<, int> B<len);>\n"
+" B<int EVP_PKEY_CTX_set_rsa_pss_saltlen(EVP_PKEY_CTX *>I<ctx>B<, int> I<len>B<);>\n"
 " B<int EVP_PKEY_CTX_set_rsa_rsa_keygen_bits(EVP_PKEY_CTX *>I<ctx>B<, int> I<mbits>B<);>\n"
 " B<int EVP_PKEY_CTX_set_rsa_keygen_pubexp(EVP_PKEY_CTX *>I<ctx>B<, BIGNUM *>I<pubexp>B<);>\n"
 "\n"
@@ -1616,8 +1616,8 @@ msgstr ""
 "opération de contrôle spécifique à l’algorithme vers un contexte I<ctx> sous "
 "forme de chaîne. C’est dans le but d’être utilisé pour des options indiquées "
 "sur la ligne de commande ou dans des fichiers texte. Les commandes permises "
-"sont documentées dans les pages de l’utilitaire openssl en ligne de commande "
-"pour l’option B<-pkeyopt> qui est prise en charge pour les commandes "
+"sont documentées dans les pages des lignes de commande de l’utilitaire "
+"openssl, pour l’option B<-pkeyopt> prise en charge par les commandes "
 "B<pkeyutl>, B<genpkey> et B<req>."
 
 #. type: textblock
@@ -1672,14 +1672,14 @@ msgstr ""
 "Deux modes de remplissage RSA se comportent différemment si "
 "B<EVP_PKEY_CTX_set_signature_md>() est utilisée. Si cette macro est appelée "
 "pour un remplissage PKCS#1, le tampon de texte en clair est une véritable "
-"valeur d’algorithme de signature et est encapsulée dans une structure "
-"DigestInfo d’après PKCS#1 lors de la signature et cette structure est "
-"attendue (et supprimée) lors de la vérification. Si ce contrôle n’est pas "
-"utilisé avec RSA et un remplissage PKCS#1, alors les données fournies sont "
-"utilisées directement et non encapsulées. Dans le cas de remplissage X9.31 "
-"pour RSA, l’octet identifiant l’algorithme est ajouté ou vérifié et supprimé "
-"si ce contrôle est appelé. S’il n’est pas appelé, alors le premier octet du "
-"tampon de texte en clair est supposé être l’octet identifiant l’algorithme."
+"valeur d’algorithme de signature encapsulée dans une structure DigestInfo "
+"d’après PKCS#1 lors de la signature et cette structure est attendue (et "
+"supprimée) lors de la vérification. Si ce contrôle n’est pas utilisé avec "
+"RSA et un remplissage PKCS#1, alors les données fournies sont utilisées "
+"directement et non encapsulées. Dans le cas de remplissage X9.31 pour RSA, "
+"l’octet identifiant l’algorithme est ajouté ou vérifié et supprimé si ce "
+"contrôle est appelé. S’il n’est pas appelé, alors le premier octet du tampon "
+"de texte en clair est supposé être l’octet identifiant l’algorithme."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_CTX_ctrl.pod:77
@@ -1722,11 +1722,10 @@ msgid ""
 "then 65537 is used."
 msgstr ""
 "La macro B<EVP_PKEY_CTX_set_rsa_keygen_pubexp>() définit la valeur "
-"d’exposant publique pour la génération de clef RSA à I<pubexp> ; "
-"actuellement, ce devrait être un entier impair. Le pointeur I<pubexp> est "
-"utilisé en interne par cette fonction donc il ne devrait pas être modifiée "
-"ni libérée après l’appel. Si cette macro n’est pas appelée, alors 65537 est "
-"utilisé."
+"d’exposant public pour la génération de clef RSA à I<pubexp> ; actuellement, "
+"ce devrait être un entier impair. Le pointeur I<pubexp> est utilisé en "
+"interne par cette fonction, et ne devrait donc pas être modifié ni libéré "
+"après l’appel. Si cette macro n’est pas appelée, alors 65537 est utilisé."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_CTX_ctrl.pod:93
@@ -3369,8 +3368,8 @@ msgid ""
 "the key is not of the correct type."
 msgstr ""
 "B<EVP_PKEY_get1_RSA>(), B<EVP_PKEY_get1_DSA>(), B<EVP_PKEY_get1_DH>() et "
-"B<EVP_PKEY_get1_EC_KEY>() revoient la clef référencée par I<pkey> ou B<NULL> "
-"si la clef n’est pas du type adéquat."
+"B<EVP_PKEY_get1_EC_KEY>() renvoient la clef référencée par I<pkey> ou "
+"B<NULL> si la clef n’est pas du type adéquat."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_set1_RSA.pod:40
@@ -3733,10 +3732,11 @@ msgid ""
 msgstr ""
 "B<EVP_PKEY_verify_init>() et B<EVP_PKEY_verify>() renvoient B<1> si la "
 "vérification a réussi et B<0> en cas d'échec. Contrairement aux autres "
-"fonctions, la valeur de retour B<0> de B<EVP_PKEY_verify>() n'indique que la "
-"signature n'a pas été vérifiée correctement (c'est-à-dire que I<tbs> ne "
-"correspondait pas aux données d'origine ou que la signature n'était pas de "
-"la forme adéquate), ce n'est pas une indication d'une erreur plus sérieuse."
+"fonctions, la valeur de retour B<0> de B<EVP_PKEY_verify>() indique "
+"seulement que la signature n'a pas été vérifiée correctement (c'est-à-dire "
+"que I<tbs> ne correspondait pas aux données d'origine ou que la signature "
+"n'était pas de la forme adéquate), ce n'est pas une indication d'une erreur "
+"plus sérieuse."
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_verify.pod:43
