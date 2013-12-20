@@ -18,14 +18,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra\n"
 "POT-Creation-Date: 2013-12-18 11:45-0400\n"
-"PO-Revision-Date: 2013-05-30 11:46-0400\n"
+"PO-Revision-Date: 2013-12-20 11:27-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. type: TH
@@ -97,11 +97,6 @@ msgstr "DESCRIPTION"
 
 #. type: Plain text
 #: C/man1/free.1:19
-#, fuzzy
-#| msgid ""
-#| "B<free> displays the total amount of free and used physical and swap "
-#| "memory in the system, as well as the buffers used by the kernel.  The "
-#| "shared memory column should be ignored; it is obsolete."
 msgid ""
 "B<free> displays the total amount of free and used physical and swap memory "
 "in the system, as well as the buffers used by the kernel.  The shared memory "
@@ -111,8 +106,10 @@ msgid ""
 msgstr ""
 "B<free> affiche la quantité totale de mémoire physique et d'espace d'échange "
 "libre et utilisée par le système, ainsi que les tampons utilisés par le "
-"noyau. La colonne de mémoire partagée devrait être ignorée car elle est "
-"obsolète."
+"noyau. La colonne de mémoire partagée représente soit la valeur MemShared "
+"(noyaux de la série 2.4), soit la valeur Shmem (noyaux à partir de la "
+"série 2.6), prise dans le fichier /proc/meminfo. La valeur est nulle si "
+"aucune des entrées n’est exportée par le noyau."
 
 #. type: SH
 #: C/man1/free.1:19 C/man1/kill.1:30 C/man1/pgrep.1:39 C/man1/pmap.1:16
@@ -219,7 +216,7 @@ msgid ""
 msgstr ""
 "En l'absence d'unité, pour des quantités de l'ordre du pétaoctet de RAM ou "
 "d'espace d'échange, le nombre est en téraoctet et les colonnes risquent de "
-"ne pas êtres alignées avec l'en-tête."
+"ne pas être alignées avec l'en-tête."
 
 #. type: TP
 #: C/man1/free.1:50
@@ -478,8 +475,8 @@ msgid ""
 "List signal names.  This option has optional argument, which will convert "
 "signal number to signal name, or other way round."
 msgstr ""
-"Afficher les noms de signaux. Cette option a un paramètre facultatif, qui "
-"sera converti en nom de signal s'il s'agit d'un numéro de signal, et vice "
+"Afficher les noms de signaux. Cette option a un paramètre facultatif qui "
+"sera converti en nom de signal, s'il s'agit d'un numéro de signal, et vice "
 "versa."
 
 #. type: TP
@@ -641,7 +638,7 @@ msgid ""
 "IDs which match the selection criteria to stdout.  All the criteria have to "
 "match.  For example,"
 msgstr ""
-"B<pgrep> parcourt les processus en cours d'exécution, et affiche sur la "
+"B<pgrep> parcourt les processus en cours d'exécution et affiche sur la "
 "sortie standard les identifiants des processus qui correspondent aux "
 "critères de sélection donnés. Tous les critères doivent correspondre. Par "
 "exemple\\ :"
@@ -913,7 +910,7 @@ msgid ""
 msgstr ""
 "Inverser la sélection. Cette option est normalement utilisée dans le "
 "contexte de B<pgrep>. Dans le contexte de B<pkill>, l'option courte est "
-"désactivée pour éviter d'être utilisée par accident."
+"désactivée pour éviter qu'elle soit utilisée par accident."
 
 #. type: TP
 #: C/man1/pgrep.1:124
@@ -975,10 +972,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/pgrep.1:148 C/man1/skill.1:80
-#, fuzzy, no-wrap
-#| msgid "B<--si>"
+#, no-wrap
 msgid "B<--ns >I<pid>"
-msgstr "B<--si>"
+msgstr "B<--ns> I<PID>"
 
 #. type: Plain text
 #: C/man1/pgrep.1:153
@@ -987,12 +983,16 @@ msgid ""
 "to match processes from other users. See --nslist for how to limit which "
 "namespaces to match."
 msgstr ""
+"Sélectionner les processus qui appartiennent aux mêmes espaces de nommage. "
+"Doit être exécuté en tant que superutilisateur pour sélectionner les "
+"processus d’autres utilisateurs. Consultez B<--nslist> pour une manière de "
+"limiter les espaces de nommage à sélectionner."
 
 #. type: TP
 #: C/man1/pgrep.1:153
 #, no-wrap
 msgid "B<--nslist >I<name>B<,...>"
-msgstr ""
+msgstr "B<--nslist> I<en>[B<,>I<en>]..."
 
 #. type: Plain text
 #: C/man1/pgrep.1:157
@@ -1000,6 +1000,8 @@ msgid ""
 "Match only the provided namespaces. Available namespaces: ipc, mnt, net, "
 "pid, user,uts."
 msgstr ""
+"Ne sélectionner que les espaces de nommage fournis. Les espaces de nommage "
+"disponibles sont : ipc, mnt, net, pid, user et uts."
 
 #. type: Plain text
 #: C/man1/pgrep.1:160 C/man1/pmap.1:62 C/man1/slabtop.1:38 C/man8/sysctl.8:125
@@ -1305,67 +1307,60 @@ msgstr "Afficher tout ce que le noyau fournit."
 
 #. type: TP
 #: C/man1/pmap.1:41
-#, fuzzy, no-wrap
-#| msgid "B<-s>, B<--short>"
+#, no-wrap
 msgid "B<-p>, B<--show-path>"
-msgstr "B<-s>, B<--short>"
+msgstr "B<-p>, B<--show-path>"
 
 #. type: Plain text
 #: C/man1/pmap.1:44
 msgid "Show full path to files in the mapping column"
 msgstr ""
+"Montrer le chemin complet vers les fichiers dans la colonne de "
+"correspondance."
 
 #. type: TP
 #: C/man1/pmap.1:44
-#, fuzzy, no-wrap
-#| msgid "B<-x>, B<--exact>"
+#, no-wrap
 msgid "B<-c>, B<--read-rc>"
-msgstr "B<-x>, B<--exact>"
+msgstr "B<-c>, B<--read-rc>"
 
 #. type: Plain text
 #: C/man1/pmap.1:47
 msgid "Read the default configuration"
-msgstr ""
+msgstr "Lire la configuration par défaut."
 
 #. type: TP
 #: C/man1/pmap.1:47
-#, fuzzy, no-wrap
-#| msgid "B<-F>, B<--pidfile> I<file>"
+#, no-wrap
 msgid "B<-C>, B<--read-rc-from> I<file>"
-msgstr "B<-F>, B<--pidfile> I<fichier>"
+msgstr "B<-C>, B<--read-rc-from> I<fichier>"
 
 #. type: Plain text
 #: C/man1/pmap.1:50
-#, fuzzy
-#| msgid "configuration file"
 msgid "Read the configuration from I<file>"
-msgstr "fichier de configuration"
+msgstr "Lire le fichier de configuration I<fichier>."
 
 #. type: TP
 #: C/man1/pmap.1:50
-#, fuzzy, no-wrap
-#| msgid "B<-x>, B<--exec>"
+#, no-wrap
 msgid "B<-n>, B<--create-rc>"
-msgstr "B<-x>, B<--exec>"
+msgstr "B<-n>, B<--create-rc>"
 
 #. type: Plain text
 #: C/man1/pmap.1:53
 msgid "Create new default configuration"
-msgstr ""
+msgstr "Créer une nouvelle configuration par défaut."
 
 #. type: TP
 #: C/man1/pmap.1:53
-#, fuzzy, no-wrap
-#| msgid "B<-F>, B<--pidfile> I<file>"
+#, no-wrap
 msgid "B<-N>, B<--create-rc-to> I<file>"
-msgstr "B<-F>, B<--pidfile> I<fichier>"
+msgstr "B<-N>, B<--create-rc-to> I<fichier>"
 
 #. type: Plain text
 #: C/man1/pmap.1:56
-#, fuzzy
-#| msgid "configuration file"
 msgid "Create new configuration to I<file>"
-msgstr "fichier de configuration"
+msgstr "Créer une nouvelle configuration dans I<fichier>."
 
 #. type: Plain text
 #: C/man1/pmap.1:59 C/man1/skill.1:61 C/man8/sysctl.8:122 C/man1/watch.1:69
@@ -1460,20 +1455,20 @@ msgstr "Cette version de B<ps> accepte plusieurs types d'options :"
 #: C/man1/ps.1:47
 msgid "UNIX options, which may be grouped and must be preceded by a dash."
 msgstr ""
-"les options UNIX, qui peuvent être regroupées, et qui doivent être précédées "
+"les options UNIX qui peuvent être regroupées et qui doivent être précédées "
 "d'un tiret ;"
 
 #. type: Plain text
 #: C/man1/ps.1:49
 msgid "BSD options, which may be grouped and must not be used with a dash."
 msgstr ""
-"les options BSD, qui peuvent être regroupées, et qui ne doivent pas être "
+"les options BSD qui peuvent être regroupées et qui ne doivent pas être "
 "utilisées avec un tiret ;"
 
 #. type: Plain text
 #: C/man1/ps.1:51
 msgid "GNU long options, which are preceded by two dashes."
-msgstr "les options étendues GNU, qui doivent être précédées de deux tirets."
+msgstr "les options étendues GNU qui doivent être précédées de deux tirets."
 
 #. type: Plain text
 #: C/man1/ps.1:60
@@ -1522,8 +1517,8 @@ msgstr ""
 "utilisateur effectif (euid=EUID) que l'utilisateur en cours et associés au "
 "même terminal que l'appelant. Il affiche l'identifiant de processus "
 "(pid=PID), le terminal associé au processus (tname=TTY), le temps CPU cumulé "
-"au format [JJ-]HH:MM:SS (time=TIME), et le nom de l'exécutable (ucmd=CMD). "
-"La sortie n'est pas ordonnée par défaut."
+"au format [JJ-]HH:MM:SS (time=TIME) et le nom de l'exécutable (ucmd=CMD). La "
+"sortie n'est pas ordonnée par défaut."
 
 #. type: Plain text
 #: C/man1/ps.1:92
@@ -2301,12 +2296,12 @@ msgid ""
 "and LWP (thread ID) columns will be added.  See the B<c> option, the format "
 "keyword B<args>, and the format keyword B<comm>."
 msgstr ""
-"Faire une liste tout format. Cette option peut être combinée aux nombreuses "
-"autres options « à la UNIX » pour ajouter des colonnes supplémentaires. Cela "
-"conduit également à afficher les paramètres de la commande. Lorsqu'elle est "
-"utilisée avec B<-L>, les colonnes NLWP (nombre de processus légers) et LWP "
-"(identifiant de processus léger) seront ajoutées. Consultez l'option B<c> et "
-"les mots-clés de format B<args> et B<comm>."
+"Faire une liste au format complet. Cette option peut être combinée aux "
+"nombreuses autres options « à la UNIX » pour ajouter des colonnes "
+"supplémentaires. Cela conduit également à afficher les paramètres de la "
+"commande. Lorsqu'elle est utilisée avec B<-L>, les colonnes NLWP (nombre de "
+"processus légers) et LWP (identifiant de processus léger) seront ajoutées. "
+"Consultez l'option B<c> et les mots-clés de format B<args> et B<comm>."
 
 #. type: TP
 #: C/man1/ps.1:418
@@ -2317,7 +2312,7 @@ msgstr "B<-F>"
 #. type: Plain text
 #: C/man1/ps.1:425
 msgid "Extra full format.  See the B<-f> option, which B<-F> implies."
-msgstr "Tout format étendu. Consultez l'option B<-f>, implicite avec B<-F>."
+msgstr "Format complet étendu. Consultez l'option B<-f>, implicite avec B<-F>."
 
 #. type: TP
 #: C/man1/ps.1:425
@@ -3102,7 +3097,7 @@ msgid ""
 "B<ps> any special permissions."
 msgstr ""
 "Ce B<ps> fonctionne en lisant les fichiers virtuels de I</proc>. Ce B<ps> "
-"n'a pas besoin d'être Set-UID kmem, et ne nécessite aucun privilège pour "
+"n'a pas besoin d'être Set-UID kmem et ne nécessite aucun privilège pour "
 "fonctionner. Ne pas donner de permissions particulières à ce B<ps>."
 
 #. type: Plain text
@@ -3126,7 +3121,7 @@ msgstr ""
 "L'utilisation CPU est actuellement exprimée en pourcentage de temps passé à "
 "fonctionner pendant le temps de vie complet d'un processus. Ce n'est ni "
 "idéal, ni conforme aux normes par ailleurs respectées par B<ps>. Il est peu "
-"probable que la somme d'utilisation CPU soit exactement égale à 100\\ %."
+"probable que la somme d'utilisations CPU soit exactement égale à 100\\ %."
 
 #. type: Plain text
 #: C/man1/ps.1:797
@@ -3409,7 +3404,7 @@ msgstr ""
 "ordonner). L'option GNU B<--sort> n'utilise pas ces clés, mais celles "
 "décrites ci-dessous dans la section B<INDICATEURS DE FORMAT STANDARDS>. "
 "Remarquez que les valeurs utilisées pour ordonner sont les valeurs internes "
-"que B<ps> utilise, et non les valeurs « trafiquées » utilisées dans certains "
+"que B<ps> utilise et non les valeurs « trafiquées » utilisées dans certains "
 "champs de format de sortie (par exemple trier sur tty ordonnera par numéro "
 "de périphérique, pas en fonction du nom de terminal affiché). Envoyer la "
 "sortie de B<ps> dans un tube (« pipe ») vers la commande B<sort>(1) permet "
@@ -4777,17 +4772,16 @@ msgstr "B<sig_ignore>, B<sigignore>).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1302
-#, fuzzy, no-wrap
-#| msgid "cls\tCLS\tT{\n"
+#, no-wrap
 msgid "ipcns\tIPCNS\tT{\n"
-msgstr "cls\tCLS\tT{\n"
+msgstr "ipcns\tIPCNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1303 C/man1/ps.1:1343 C/man1/ps.1:1347 C/man1/ps.1:1419
 #: C/man1/ps.1:1759 C/man1/ps.1:1763
 #, no-wrap
 msgid "Unique inode number describing the namespace the process belongs to. See namespaces(7).\n"
-msgstr ""
+msgstr "Numéro d’inœud unique décrivant l’espace de nommage auquel appartient le processus. Consultez B<namespaces>(7).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1306
@@ -4919,17 +4913,15 @@ msgstr "Nombre de défauts de page mineurs survenus avec ce processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1342
-#, fuzzy, no-wrap
-#| msgid "min_flt\tMINFLT\tT{\n"
+#, no-wrap
 msgid "mntns\tMNTNS\tT{\n"
-msgstr "min_flt\tMINFLT\tT{\n"
+msgstr "mntns\tMNTNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1346
-#, fuzzy, no-wrap
-#| msgid "esp\tESP\tT{\n"
+#, no-wrap
 msgid "netns\tNETNS\tT{\n"
-msgstr "esp\tESP\tT{\n"
+msgstr "netns\tNETNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1350
@@ -5171,10 +5163,9 @@ msgstr "B<tgid>).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1418
-#, fuzzy, no-wrap
-#| msgid "pid\tPID\tT{\n"
+#, no-wrap
 msgid "pidns\tPIDNS\tT{\n"
-msgstr "pid\tPID\tT{\n"
+msgstr "pidns\tPIDNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1422
@@ -5648,17 +5639,15 @@ msgstr "approximatif !\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1585
-#, fuzzy, no-wrap
-#| msgid "size\tSIZE\tT{\n"
+#, no-wrap
 msgid "slice\tSLICE\tT{\n"
-msgstr "size\tSIZE\tT{\n"
+msgstr "slice\tSLICE\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1586
-#, fuzzy, no-wrap
-#| msgid "displays systemd unit which a process belongs to.\n"
+#, no-wrap
 msgid "displays slice unit which a process belongs to.\n"
-msgstr "Unité systemd à laquelle appartient le processus.\n"
+msgstr "Unité « slice » à laquelle appartient le processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1589
@@ -6230,17 +6219,15 @@ msgstr "B<euser>, B<uname>).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1758
-#, fuzzy, no-wrap
-#| msgid "user\tUSER\tT{\n"
+#, no-wrap
 msgid "userns\tUSERNS\tT{\n"
-msgstr "user\tUSER\tT{\n"
+msgstr "userns\tUSERNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1762
-#, fuzzy, no-wrap
-#| msgid "rss\tRSS\tT{\n"
+#, no-wrap
 msgid "utsns\tUTSNS\tT{\n"
-msgstr "rss\tRSS\tT{\n"
+msgstr "utsns\tUTSNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1766
@@ -6711,16 +6698,16 @@ msgid ""
 "support, along with some ugly hacks for obsolete and foreign syntax."
 msgstr ""
 "B<ps> a été initialement écrit par Branko Lankester E<lt>I<lankeste@fwi.uva."
-"nl>E<gt>. Michael K. Johnson E<lt>I<johnsonm@redhat.com>E<gt> l'a récrit en "
+"nl>E<gt>. Michael K. Johnson E<lt>I<johnsonm@redhat.com>E<gt> l'a réécrit en "
 "profondeur pour utiliser le système de fichiers I<proc>, modifiant quelques "
 "détails au passage. Michael Shields E<lt>I<mjshield@nyx.cs.du.edu>E<gt> a "
 "ajouté la fonctionnalité de liste de PID. Charles Blake E<lt>I<cblake@bbn."
 "com>E<gt> a ajouté le tri multiniveau, la bibliothèque « à la dirent », la "
-"base de donnée de correspondance entre numéro de périphérique et nom, la "
+"base de données de correspondance entre numéro de périphérique et nom, la "
 "recherche approximative binaire directement dans I<System.map>, et beaucoup "
 "de nettoyage de code et de documentation. David Mossberger-Tang a écrit la "
 "prise en charge BFD pour psupdate. Albert Cahalan E<lt>I<albert@users.sf."
-"net>E<gt> a récrit B<ps> pour prendre en charge complètement Unix98 et BSD, "
+"net>E<gt> a réécrit B<ps> pour prendre en charge complètement Unix98 et BSD, "
 "ainsi que certains bidouillages pour les syntaxes obsolètes et étrangères."
 
 #. type: Plain text
@@ -6970,13 +6957,14 @@ msgstr "I<commande> est un nom de commande."
 #: C/man1/skill.1:83
 msgid "Match the processes that belong to the same namespace as pid."
 msgstr ""
+"Sélectionner les processus qui appartiennent aux mêmes espaces de nommage "
+"que I<PID>."
 
 #. type: TP
 #: C/man1/skill.1:83
-#, fuzzy, no-wrap
-#| msgid "B<--lines>I<\\ n>"
+#, no-wrap
 msgid "B<--nslist >I<ns,...>"
-msgstr "B<--lines>I<\\ n>"
+msgstr "B<--nslist> I<en>[B<,>I<en>]..."
 
 #. type: Plain text
 #: C/man1/skill.1:87
@@ -6984,6 +6972,8 @@ msgid ""
 "list which namespaces will be considered for the --ns option.  Available "
 "namespaces: ipc, mnt, net, pid, user, uts."
 msgstr ""
+"Afficher les espaces de nommage qui seront considérés pour l’option B<--ns>. "
+"Les espaces de nommage disponibles sont : ipc, mnt, net, pid, user et uts."
 
 #. type: SH
 #: C/man1/skill.1:88
@@ -7486,7 +7476,7 @@ msgstr ""
 "depuis I</etc/sysctl.conf> si aucun fichier n'est donné. Indiquer «\\ -\\ » "
 "comme fichier signifie que les données seront lues depuis l'entrée standard. "
 "L'utilisation de cette option signifiera que les arguments de B<sysctl> sont "
-"des fichiers, lus dans l'ordre indiqué. L'argument fichier peut être indiqué "
+"des fichiers lus dans l'ordre indiqué. L'argument fichier peut être indiqué "
 "comme une expression rationnelle."
 
 #. type: TP
@@ -7572,10 +7562,9 @@ msgstr "I</etc/sysctl.conf>"
 
 #. type: TP
 #: C/man8/sysctl.8:94
-#, fuzzy, no-wrap
-#| msgid "B<--pattern> I<pattern>"
+#, no-wrap
 msgid "B<-r>, B<--pattern> I<pattern>"
-msgstr "B<--pattern> I<motif>"
+msgstr "B<-r>, B<--pattern> I<motif>"
 
 #. type: Plain text
 #: C/man8/sysctl.8:101
@@ -7589,17 +7578,17 @@ msgstr ""
 #. type: Plain text
 #: C/man8/sysctl.8:104 C/man8/sysctl.8:113
 msgid "Alias of B<-a>"
-msgstr "Alias de B<-a>"
+msgstr "Alias de B<-a>."
 
 #. type: Plain text
 #: C/man8/sysctl.8:107
 msgid "Alias of B<-h>"
-msgstr "Alias de B<-h>"
+msgstr "Alias de B<-h>."
 
 #. type: Plain text
 #: C/man8/sysctl.8:110
 msgid "Alias of B<-p>"
-msgstr "Alias de B<-p>"
+msgstr "Alias de B<-p>."
 
 #. type: TP
 #: C/man8/sysctl.8:113
@@ -8145,10 +8134,9 @@ msgstr "TOP"
 
 #. type: TH
 #: C/man1/top.1:79
-#, fuzzy, no-wrap
-#| msgid "November 21, 1999"
+#, no-wrap
 msgid "November 2013"
-msgstr "21 novembre 1999"
+msgstr "novembre 2013"
 
 #.  ----------------------------------------------------------------------
 #. type: Plain text
@@ -8814,11 +8802,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:364
-#, fuzzy
-#| msgid ""
-#| "This is a \\*(CO only and should you wish to return to normal operation, "
-#| "it is not necessary to quit and and restart \\*(We \\*(Em just issue any "
-#| "of these \\*(CIs: '=', 'u' or 'U'."
 msgid ""
 "This is a \\*(CO only and should you wish to return to normal operation, it "
 "is not necessary to quit and restart \\*(We \\*(Em just issue any of these "
@@ -8891,10 +8874,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:388
-#, fuzzy
-#| msgid ""
-#| "Prepending an exclamation point ('!') to the user id or name instucts top "
-#| "to display only processes with users not matching the one provided."
 msgid ""
 "Prepending an exclamation point ('!') to the user id or name instructs top "
 "to display only processes with users not matching the one provided."
@@ -9401,7 +9380,7 @@ msgid ""
 "processes.  These variables will be displayed in their raw native order, not "
 "the sorted order you are accustomed to seeing with an unqualified 'set'."
 msgstr ""
-"Afficher toutes les variables d'environnement, s'il y en a, telle qu'elles "
+"Afficher toutes les variables d'environnement, s'il y en a, telles qu'elles "
 "sont vues par les processus respectifs. Ces variables seront affichées dans "
 "leur ordre natif brut, pas dans l'ordre habituel renvoyé par « set » sans "
 "argument."
@@ -9589,11 +9568,6 @@ msgstr ""
 # s/operating/operating system/
 #. type: Plain text
 #: C/man1/top.1:655
-#, fuzzy
-#| msgid ""
-#| "Under linux, real time priority is somewhat misleading since "
-#| "traditionally the operating itself was not preemptable.  And while the "
-#| "2.6 kernel can be made mostly preemptable, it is not always so."
 msgid ""
 "Under linux, real time priority is somewhat misleading since traditionally "
 "the operating itself was not preemptible.  And while the 2.6 kernel can be "
@@ -9873,12 +9847,6 @@ msgstr "31.B< TPGID \\*(Em identifiant de groupe de processus contrôlant le ter
 
 #. type: Plain text
 #: C/man1/top.1:761
-#, fuzzy
-#| msgid ""
-#| "The process group ID of the foreground process for the connected tty, or "
-#| "-1 if a process is not connected to a terminal.  By convention, this "
-#| "value equals the process ID (\\*(Xa PID) of the the process group leader "
-#| "(\\*(Xa PGRP)."
 msgid ""
 "The process group ID of the foreground process for the connected tty, or -1 "
 "if a process is not connected to a terminal.  By convention, this value "
@@ -10066,10 +10034,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:828
-#, fuzzy, no-wrap
-#| msgid "29.B< TIME \\*(Em \\*(PU Time >"
+#, no-wrap
 msgid "42.B< nsIPC \\*(Em IPC namespace >"
-msgstr "29.B< TIME \\*(Em temps \\*(PU>"
+msgstr "42. B<nsIPC \\*(Em espace de nommage IPC>"
 
 #. type: Plain text
 #: C/man1/top.1:832
@@ -10077,13 +10044,15 @@ msgid ""
 "The Inode of the namespace used to isolate interprocess communication (IPC)  "
 "resources such as System V IPC objects and POSIX message queues."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les ressources de "
+"communication interprocessus (IPC) comme les objets IPC System V et les "
+"files de messages POSIX."
 
 #. type: TP
 #: C/man1/top.1:833
-#, fuzzy, no-wrap
-#| msgid "11.B< NI \\*(Em Nice Value >"
+#, no-wrap
 msgid "43.B< nsMNT \\*(Em MNT namespace >"
-msgstr "11. B<NI \\*(Em valeur de politesse>"
+msgstr "43. B<nsMNT \\*(Em espace de nommage MNT>"
 
 #. type: Plain text
 #: C/man1/top.1:837
@@ -10091,13 +10060,15 @@ msgid ""
 "The Inode of the namespace used to isolate filesystem mount points thus "
 "offering different views of the filesystem hierarchy."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les points de montage de "
+"systèmes de fichiers en offrant ainsi des vues différentes de la hiérarchie "
+"des systèmes de fichiers."
 
 #. type: TP
 #: C/man1/top.1:838
-#, fuzzy, no-wrap
-#| msgid "11.B< NI \\*(Em Nice Value >"
+#, no-wrap
 msgid "44.B< nsNET \\*(Em NET namespace >"
-msgstr "11. B<NI \\*(Em valeur de politesse>"
+msgstr "44. B<nsNET \\*(Em espace de nommage NET>"
 
 #. type: Plain text
 #: C/man1/top.1:842
@@ -10105,13 +10076,15 @@ msgid ""
 "The Inode of the namespace used to isolate resources such as network "
 "devices, IP addresses, IP routing, port numbers, etc."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les ressources comme les "
+"périphériques réseau, les adresses IP, le routage IP, les numéros de "
+"port, etc."
 
 #. type: TP
 #: C/man1/top.1:843
-#, fuzzy, no-wrap
-#| msgid "14.B< PID \\*(Em Process Id >"
+#, no-wrap
 msgid "45.B< nsPID \\*(Em PID namespace >"
-msgstr "14. B<PID \\*(Em identifiant de processus>"
+msgstr "45. B<nsPID \\*(Em espace de nommage PID>"
 
 #. type: Plain text
 #: C/man1/top.1:849
@@ -10121,13 +10094,17 @@ msgid ""
 "'init' (PID #1) to manage various initialization tasks and reap orphaned "
 "child processes."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les numéros d’identifiant "
+"de processus leur permettant de ne pas rester uniques. Ainsi, tous ces "
+"espaces de nommage pourraient avoir leur propre « init » (PID nº 1) pour "
+"gérer plusieurs tâches d’initialisation et détruire les processus fils "
+"orphelins."
 
 #. type: TP
 #: C/man1/top.1:850
-#, fuzzy, no-wrap
-#| msgid "35.B< USER \\*(Em User Name >"
+#, no-wrap
 msgid "46.B< nsUSER \\*(Em USER namespace >"
-msgstr "35.B< USER \\*(Em nom de l'utilisateur>"
+msgstr "46. B<nsUSER \\*(Em espace de nommage USER>"
 
 #. type: Plain text
 #: C/man1/top.1:856
@@ -10137,13 +10114,17 @@ msgid ""
 "namespace while having a user ID of 0, with full root privileges, inside "
 "that namespace."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les numéros d’identifiant "
+"d’utilisateur et de groupe. Ainsi, un processus pourrait avoir un "
+"identifiant utilisateur normal sans droit à l’extérieur d’un espace de "
+"nommage utilisateur, tout en ayant un identifiant utilisateur nul, avec tous "
+"les droits du superutilisateur, à l’intérieur de cet espace de nommage."
 
 #. type: TP
 #: C/man1/top.1:857
-#, fuzzy, no-wrap
-#| msgid "35.B< USER \\*(Em User Name >"
+#, no-wrap
 msgid "47.B< nsUTS \\*(Em UTS namespace >"
-msgstr "35.B< USER \\*(Em nom de l'utilisateur>"
+msgstr "47. B<nsUTS \\*(Em espace de nommage UTS>"
 
 #. type: Plain text
 #: C/man1/top.1:861
@@ -10151,13 +10132,14 @@ msgid ""
 "The Inode of the namespace used to isolate hostname and NIS domain name.  "
 "UTS simply means \"UNIX Time-sharing System\"."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler le nom d’hôte et le nom "
+"de domaine NIS. UTS signifie simplement « Système de partage de Temps UNIX »."
 
 #. type: TP
 #: C/man1/top.1:862
-#, fuzzy, no-wrap
-#| msgid "42.B< vMj \\*(Em Major Page Fault Count Delta>"
+#, no-wrap
 msgid "48.B< vMj \\*(Em Major Page Fault Count Delta>"
-msgstr "42. B<vMj \\*(Em delta de défauts de page majeurs>"
+msgstr "48. B<vMj \\*(Em delta de défauts de page majeurs>"
 
 #. type: Plain text
 #: C/man1/top.1:866
@@ -10170,10 +10152,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:867
-#, fuzzy, no-wrap
-#| msgid "43.B< vMn \\*(Em Minor Page Fault Count Delta>"
+#, no-wrap
 msgid "49.B< vMn \\*(Em Minor Page Fault Count Delta>"
-msgstr "43. B<vMn \\*(Em delta de défauts de page mineurs>"
+msgstr "49. B<vMn \\*(Em delta de défauts de page mineurs>"
 
 #. type: Plain text
 #: C/man1/top.1:871
@@ -10831,14 +10812,7 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:1143
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   I< field  default    field  default    field  default >\n"
-#| "    GID       5       GROUP     8       WCHAN    10\n"
-#| "    RUID      5       RUSER     8\n"
-#| "    SUID      5       SUSER     8\n"
-#| "    UID       5       USER      8\n"
-#| "                      TTY       8\n"
+#, no-wrap
 msgid ""
 "   I< field  default    field  default    field  default >\n"
 "    GID       5       GROUP     8       WCHAN    10\n"
@@ -10851,10 +10825,12 @@ msgid ""
 msgstr ""
 "   I< champ  défaut     champ  défaut     champ  défaut>\n"
 "    GID       5       GROUP     8       WCHAN    10\n"
-"    RUID      5       RUSER     8\n"
-"    SUID      5       SUSER     8\n"
-"    UID       5       USER      8\n"
-"                      TTY       8\n"
+"    RUID      5       RUSER     8       nsIPC    10\n"
+"    SUID      5       SUSER     8       nsMNT    10\n"
+"    UID       5       USER      8       nsNET    10\n"
+"                      TTY       8       nsPID    10\n"
+"                                        nsUSR    10\n"
+"                                        nsUTS    10\n"
 
 #. type: Plain text
 #: C/man1/top.1:1148
@@ -11300,6 +11276,10 @@ msgid ""
 "column highlighting is temporarily disabled.  \\*(XC notes at the end of "
 "topics 5d. SEARCHING and 5e. FILTERING for an explanation why."
 msgstr ""
+"\\*(NT à chaque fois que « recherche » ou « autre filtre » est actif dans "
+"une fenêtre, la surbrillance de colonne est temporairement désactivée. "
+"\\*(XC les notes en fin des sujets B<5d. RECHERCHE> et B<5e. FILTRE> pour "
+"une explication de la raison."
 
 #. type: TP
 #: C/man1/top.1:1314
@@ -11481,12 +11461,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:1383
-#, fuzzy
-#| msgid ""
-#| "Thereafter, in that \\*(TW only matching users will be shown, or possibly "
-#| "no processes will be shown.  Prepending an exclamation point ('!') to the "
-#| "user id or name instucts top to display only processes with users not "
-#| "matching the one provided."
 msgid ""
 "Thereafter, in that \\*(TW only matching users will be shown, or possibly no "
 "processes will be shown.  Prepending an exclamation point ('!') to the user "
@@ -11501,11 +11475,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:1387
-#, fuzzy
-#| msgid ""
-#| "Different \\*(TWs can can be used to filter different users.  Later, if "
-#| "you wish to monitor all users again in the \\*(CW, re-issue this command "
-#| "but just press E<lt>EnterE<gt> at the prompt."
 msgid ""
 "Different \\*(TWs can be used to filter different users.  Later, if you wish "
 "to monitor all users again in the \\*(CW, re-issue this command but just "
@@ -11524,12 +11493,6 @@ msgstr "   B<V>  : basculer en I<mode d'affichage arborescent>"
 
 #. type: Plain text
 #: C/man1/top.1:1395
-#, fuzzy
-#| msgid ""
-#| "In this mode, processes are reordered according to their parents and the "
-#| "layout of the COMMAND column resembles that of a tree.  In forest view "
-#| "mode it is still possible to toggle between program name and commamd line "
-#| "(\\*(Xc 'c' \\*(CI) or between processes and threads (\\*(Xc 'H' \\*(CI)."
 msgid ""
 "In this mode, processes are reordered according to their parents and the "
 "layout of the COMMAND column resembles that of a tree.  In forest view mode "
@@ -12342,15 +12305,8 @@ msgstr ""
 "mais B<jamais> en \\*(AM si l'option d'\\*(TD de la \\*(CW est positionnée "
 "sur \\*F."
 
-# NOTE: s/paticularly/particularly/
-# s/abberations/aberrations/
 #. type: Plain text
 #: C/man1/top.1:1719
-#, fuzzy
-#| msgid ""
-#| "\\*(NT When any form of filtering is active, you can expect some slight "
-#| "abberations when scrolling since not all tasks will be visible.  This is "
-#| "paticularly apparent when using the Up/Down \\*(KAs."
 msgid ""
 "\\*(NT When any form of filtering is active, you can expect some slight "
 "aberrations when scrolling since not all tasks will be visible.  This is "
@@ -12495,7 +12451,7 @@ msgstr "d. La stabilité de la colonne de tri choisie,"
 #. type: Plain text
 #: C/man1/top.1:1765
 msgid "for example PID is good but %CPU bad."
-msgstr "par exemple, PID est en bon choix, mais pas %CPU."
+msgstr "par exemple, PID est un bon choix, mais pas %CPU."
 
 #. type: Plain text
 #: C/man1/top.1:1771
@@ -12667,7 +12623,7 @@ msgid ""
 "E<lt>EnterE<gt> key."
 msgstr ""
 "Cela peut servir de rappel des filtres actifs dans la \\*(CW. Un résumé sera "
-"montré sur la ligne de message jusqu'à un ce que la touche E<lt>EntréeE<gt> "
+"montré sur la ligne de message jusqu'à ce que la touche E<lt>EntréeE<gt> "
 "soit tapée."
 
 #. type: TP
@@ -12781,7 +12737,7 @@ msgstr ""
 "probablement. Quand un filtre relationnel est appliqué à un champ de mémoire "
 "et que vous n'B<avez pas> modifié l'B<échelle>, cela peut produire des "
 "résultats déconcertants. Cela arrive, par exemple, parce que "
-"« 100,0 m » (Mio) apparaîtrait plus grand que « 1,000 g » (Gio) une fois "
+"« 100,0 m » (Mio) apparaîtra plus grand que « 1,000 g » (Gio) une fois "
 "comparés en tant que chaînes."
 
 #. type: Plain text
@@ -12822,13 +12778,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:1895
-#, fuzzy
-#| msgid ""
-#| "Either of these B<RES> filters might yield inconsistent and/or\n"
-#| "misleading results, depending on the current memory scaling factor.\n"
-#| "Or both filters could produce the exact same results.\n"
-#| "     RESE<gt>9999          ( only the same results when )\n"
-#| "     !RESE<lt>10000        ( memory scaling is at 'KiB' )\n"
 msgid ""
 "Either of these B<RES> filters might yield inconsistent and/or misleading "
 "results, depending on the current memory scaling factor.  Or both filters "
@@ -12837,22 +12786,17 @@ msgstr ""
 "N'importe lequel de ces filtres B<RES> pourrait émettre des avertissements "
 "incohérents ou des résultats déconcertants, en fonction du facteur d'échelle "
 "de mémoire. Les deux filtres pourraient aussi produire exactement les mêmes "
-"résultats.\n"
-"     RESE<gt>9999          (résultats identiques seulement avec)\n"
-"     !RESE<lt>10000        (le facteur d'échelle de mémoire Kio)\n"
+"résultats."
 
 #. type: Plain text
 #: C/man1/top.1:1898
-#, fuzzy, no-wrap
-#| msgid ""
-#| "     GROUP=root        ( only the same results when )\n"
-#| "     GROUP=ROOT        ( invoked via lower case 'o' )\n"
+#, no-wrap
 msgid ""
 "     RESE<gt>9999          ( only the same results when )\n"
 "     !RESE<lt>10000        ( memory scaling is at 'KiB' )\n"
 msgstr ""
-"     GROUP=root        (résultats identiques seulement quand)\n"
-"     GROUP=ROOT        (invoqués à l'aide un « o » minuscule)\n"
+"     RESE<gt>9999          (résultats identiques seulement avec)\n"
+"     !RESE<lt>10000        (le facteur d'échelle de mémoire Kio)\n"
 
 #. type: Plain text
 #: C/man1/top.1:1904
@@ -13163,16 +13107,15 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:2029
-#, fuzzy, no-wrap
-#| msgid ".type: literal 'file' or 'pipe' .name: selection shown on the Inspect screen .fmts: string representing a path or command"
+#, no-wrap
 msgid ""
 "  .type:  literal 'file' or 'pipe'\n"
 "  .name:  selection shown on the Inspect screen\n"
 "  .fmts:  string representing a path or command\n"
 msgstr ""
-"  .type : soit « file » (fichier), soit « pipe » (tube) ;\n"
-"  .name : sélection montrée sur l'écran d'inspection ;\n"
-"  .fmts : chaîne représentant un chemin ou une commande."
+"  .type :  soit « file » (fichier), soit « pipe » (tube)\n"
+"  .name :  sélection montrée sur l'écran d'inspection\n"
+"  .fmts :  chaîne représentant un chemin ou une commande\n"
 
 #. type: Plain text
 #: C/man1/top.1:2036
@@ -13202,14 +13145,13 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:2044
-#, fuzzy, no-wrap
-#| msgid ".fmts= /proc/I<%d>/numa_maps .fmts= lsof -P -pI< %d>"
+#, no-wrap
 msgid ""
 "  .fmts=  /proc/I<%d>/numa_maps\n"
 "  .fmts=  lsof -P -pI< %d>\n"
 msgstr ""
-"  .fmts= /proc/I<%d>/numa_maps\n"
-"  .fmts= lsof -P -p I<%d>"
+"  .fmts=  /proc/I<%d>/numa_maps\n"
+"  .fmts=  lsof -P -p I<%d>\n"
 
 #. type: Plain text
 #: C/man1/top.1:2049
@@ -13223,10 +13165,9 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:2052
-#, fuzzy, no-wrap
-#| msgid ".fmts= pmap -x %dI< 2E<gt>&1>"
+#, no-wrap
 msgid "  .fmts=  pmap -x %dI< 2E<gt>&1>\n"
-msgstr "  .fmts= pmap -x %dI< 2E<gt>&1>"
+msgstr "  .fmts=  pmap -x %dI< 2E<gt>&1>\n"
 
 #. type: Plain text
 #: C/man1/top.1:2059
@@ -13285,16 +13226,8 @@ msgstr ""
 "  \"file\\etInformations NUMA\\et/proc/%d/numa_maps\" E<gt>E<gt> ~/.toprc\n"
 "  \"pipe\\etJour.\\ettail -n200 /var/log/syslog | sort -Mr\" E<gt>E<gt> ~/.toprc\n"
 
-# NOTE: s/hexidecimal/hexadecimal/
 #. type: Plain text
 #: C/man1/top.1:2085
-#, fuzzy
-#| msgid ""
-#| "B<Caution>: If any inspect entry you create produces output with "
-#| "unprintable characters they will be displayed in either the ^C notation "
-#| "or hexidecimal E<lt>FFE<gt> form, depending on their value.  This applies "
-#| "to tab characters as well, which will show as '^I'.  If you want a truer "
-#| "representation, any embedded tabs should be expanded."
 msgid ""
 "B<Caution>: If any inspect entry you create produces output with unprintable "
 "characters they will be displayed in either the ^C notation or hexadecimal "
@@ -13303,9 +13236,9 @@ msgid ""
 "embedded tabs should be expanded."
 msgstr ""
 "B<Attention> : si une entrée d'inspection créée produit une sortie avec des "
-"caractères non affichables, ils seront soit affichés en notation ^C, soit "
+"caractères non affichables, ils seront affichés soit en notation ^C, soit "
 "sous forme hexadécimale E<lt>FFE<gt>, en fonction de leur valeur. Cela "
-"concerne aussi les caractères de tabulation, qui seront affichés comme "
+"concerne aussi les caractères de tabulation qui seront affichés comme "
 "« ^I ». Pour une représentation plus réaliste, toutes les tabulations "
 "incorporées devraient être développées."
 
@@ -13330,7 +13263,7 @@ msgid ""
 "'pipe' instead so as to expand the embedded tabs."
 msgstr ""
 "L'exemple précédent prend ce qui aurait dû être une entrée « fichier » mais "
-"utilise un « pipe » à la place afin de développer les tabulations "
+"utilise un « pipe » à la place, afin de développer les tabulations "
 "incorporées."
 
 #. type: Plain text
@@ -13342,7 +13275,7 @@ msgid ""
 "specifically for the 'Y' \\*(CI."
 msgstr ""
 "\\*(NT même si les entrées de type « B<pipe> » ont été présentées en tant "
-"que tubes et commandes, rien n'empêche d'inclure aussi des  I<scripts "
+"que tubes et commandes, rien n'empêche d'inclure aussi des I<scripts "
 "d'interpréteur>. Peut-être même de nouveaux scripts conçus spécifiquement "
 "pour la \\*(CI « Y »."
 
@@ -13550,7 +13483,7 @@ msgid ""
 msgstr ""
 "Avec trois ou quatre zones d'affichage de tâches visibles, sélectionnez une "
 "fenêtre autre que la dernière et positionnez l'option processus au repos sur "
-"\\*F en utilisant la \\*(CT « i ». Selon l'endroit ou vous appliquez «\\ i\\ "
+"\\*F en utilisant la \\*(CT « i ». Selon l'endroit où vous appliquez «\\ i\\ "
 "», parfois plusieurs zones d'affichages des tâches rebondissent et parfois "
 "elles évoluent en accordéon, vu que \\*(We fait de son mieux pour allouer "
 "l'espace."
@@ -13860,32 +13793,29 @@ msgid ""
 msgstr ""
 "La charge système moyenne est le nombre moyen de processus qui sont dans un "
 "état exécutable ou non interruptible. Un processus exécutable utilise le "
-"processeur, ou est en attente pour l'utiliser. Un processus non "
-"interruptible est en attente pour des entrées et sorties, par exemple, "
-"attendre un disque. Les moyennes sont calculées sur trois intervalles de "
-"temps. La charge moyenne n'est pas normalisée par rapport au nombre de "
-"processeurs du système. Ainsi une charge moyenne de 1 signifie qu'un système "
-"monoprocesseur est chargé tout le temps alors qu'un système à quatre "
-"processeurs est inactif 75\\ % du temps."
+"processeur ou est en attente pour l'utiliser. Un processus non interruptible "
+"est en attente pour des entrées et sorties, par exemple, attendre un disque. "
+"Les moyennes sont calculées sur trois intervalles de temps. La charge "
+"moyenne n'est pas normalisée par rapport au nombre de processeurs du "
+"système. Ainsi une charge moyenne de 1 signifie qu'un système monoprocesseur "
+"est chargé tout le temps alors qu'un système à quatre processeurs est "
+"inactif 75\\ % du temps."
 
 #. type: TP
 #: C/man1/uptime.1:27
-#, fuzzy, no-wrap
-#| msgid "B<-p>, B<--precise>"
+#, no-wrap
 msgid "B<-p>, B<--pretty>"
-msgstr "B<-p>, B<--precise>"
+msgstr "B<-p>, B<--pretty>"
 
 #. type: Plain text
 #: C/man1/uptime.1:30
-#, fuzzy
-#| msgid "Show the device format."
 msgid "show uptime in pretty format"
-msgstr "Afficher la sortie au format périphérique."
+msgstr "Afficher en format élégant"
 
 #. type: Plain text
 #: C/man1/uptime.1:33
 msgid "display this help text"
-msgstr "Afficher l'aide."
+msgstr "Afficher l'aide"
 
 #. type: TP
 #: C/man1/uptime.1:33
@@ -13903,7 +13833,7 @@ msgstr ""
 #. type: Plain text
 #: C/man1/uptime.1:39
 msgid "display version information and exit"
-msgstr "Afficher la version du logiciel et quitter."
+msgstr "Afficher la version du logiciel et quitter"
 
 #. type: TP
 #: C/man1/uptime.1:40 C/man1/w.procps.1:71
@@ -14137,10 +14067,9 @@ msgstr ""
 
 #. type: TP
 #: C/man8/vmstat.8:76
-#, fuzzy, no-wrap
-#| msgid "B<-w>, B<--write>"
+#, no-wrap
 msgid "B<-w>, B<--wide>"
-msgstr "B<-w>, B<--write>"
+msgstr "B<-w>, B<--wide>"
 
 #. type: Plain text
 #: C/man8/vmstat.8:81
@@ -14149,6 +14078,9 @@ msgid ""
 "default output mode suffers from unwanted column breakage).  The output is "
 "wider than 80 characters per line."
 msgstr ""
+"Mode de sortie large (utile pour les systèmes avec une grande quantité de "
+"mémoire, où le mode d’affichage par défaut est victime de rupture de colonne "
+"involontaire). La sortie est plus grande que 80 caractères par ligne."
 
 #. type: SH
 #: C/man8/vmstat.8:88
@@ -14565,8 +14497,8 @@ msgstr "B<-e>, B<--errexit>"
 #: C/man1/watch.1:49
 msgid "Freeze updates on command error, and exit after a key press."
 msgstr ""
-"Geler les mises à jour en cas d'erreur de la commande, et quitter après "
-"avoir appuyé sur une touche."
+"Geler les mises à jour en cas d'erreur de la commande et quitter après avoir "
+"appuyé sur une touche."
 
 #. type: TP
 #: C/man1/watch.1:49
@@ -14741,7 +14673,7 @@ msgid ""
 "display at all."
 msgstr ""
 "La combinaison de caractères supposés s'afficher en dernière colonne de "
-"l'écran risque de s'afficher dans la colonne précédente, ou pas du tout."
+"l'écran risque de s'afficher dans la colonne précédente ou pas du tout."
 
 #. type: Plain text
 #: C/man1/watch.1:132
@@ -14772,9 +14704,9 @@ msgid ""
 "DNS lookup)."
 msgstr ""
 "Le mode B<--precise> ne dispose pas encore de fonctions de temporisation "
-"pour compenser une commande I<commande> dont le temps d'exécution est "
-"supérieure à I<secondes> secondes. B<watch> peut également lancer en rafales "
-"autant d'exécution de I<commande> que possible pour rattraper une exécution "
+"pour compenser une I<commande> dont le temps d'exécution est supérieure à "
+"I<secondes> secondes. B<watch> peut également lancer en rafales autant "
+"d'exécution de I<commande> que possible pour rattraper une exécution "
 "précédente qui aurait pris plus de I<secondes> secondes à s'exécuter (par "
 "exemple, B<netstat> prend beaucoup de temps pour effectuer une interrogation "
 "DNS)."
@@ -15024,10 +14956,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/w.procps.1:51
-#, fuzzy, no-wrap
-#| msgid "B<--ip-addr>"
+#, no-wrap
 msgid "B<-i>, B<--ip-addr>"
-msgstr "B<--ip-addr>"
+msgstr "B<-i>, B<--ip-addr>"
 
 #. type: Plain text
 #: C/man1/w.procps.1:54
@@ -15103,7 +15034,7 @@ msgid ""
 "by E<.UR greenfie@\\:gauss.\\:rutgers.\\:edu> Larry Greenfield E<.UE> and E<."
 "UR johnsonm@\\:redhat.\\:com> Michael K. Johnson E<.UE>"
 msgstr ""
-"B<w> a presque entièrement été récrit par Charles Blake qui s'est basé sur "
+"B<w> a presque entièrement été réécrit par Charles Blake qui s'est basé sur "
 "une version de Larry Greenfield E<lt>I<greenfie@gauss.rutgers.edu>E<gt> et "
 "Michael K. Johnson E<lt>I<johnsonm@redhat.com>E<gt>."
 
@@ -15147,7 +15078,7 @@ msgstr ""
 #~ "re-wrote it significantly to use the proc filesystem, changing a few "
 #~ "things in the process."
 #~ msgstr ""
-#~ "l'a récrit en profondeur pour utiliser le système de fichiers I<proc>, "
+#~ "l'a réécrit en profondeur pour utiliser le système de fichiers I<proc>, "
 #~ "modifiant quelques détails au passage."
 
 #~ msgid "mjshield@\\:nyx.\\:cs.\\:du.\\:edu"
@@ -15184,7 +15115,7 @@ msgstr ""
 #~ "rewrote ps for full Unix98 and BSD support, along with some ugly hacks "
 #~ "for obsolete and foreign syntax."
 #~ msgstr ""
-#~ "a récrit B<ps> pour prendre en charge complètement Unix98 et BSD, ainsi "
+#~ "a réécrit B<ps> pour prendre en charge complètement Unix98 et BSD, ainsi "
 #~ "que certains bidouillages pour les syntaxes obsolètes et étrangères."
 
 #~ msgid "procps@\\:freelists.\\:org"
@@ -15311,7 +15242,7 @@ msgstr ""
 #~ "B<w> was re-written almost entirely by Charles Blake, based on the "
 #~ "version by"
 #~ msgstr ""
-#~ "B<w> a presque entièrement été récrit par Charles Blake qui s'est basé "
+#~ "B<w> a presque entièrement été réécrit par Charles Blake qui s'est basé "
 #~ "sur une version de"
 
 #~ msgid "greenfie@\\:gauss.\\:rutgers.\\:edu"
