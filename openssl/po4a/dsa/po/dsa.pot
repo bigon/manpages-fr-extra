@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-26 17:42-0400\n"
+"POT-Creation-Date: 2013-12-22 19:30-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,7 +335,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/dsa.pod:153 C/apps/dsaparam.pod:105 C/apps/gendsa.pod:61 C/crypto/DSA_SIG_new.pod:31 C/crypto/DSA_do_sign.pod:37 C/crypto/DSA_dup_DH.pod:28 C/crypto/DSA_generate_key.pod:25 C/crypto/DSA_generate_parameters.pod:91 C/crypto/DSA_get_ex_new_index.pod:27 C/crypto/DSA_new.pod:32 C/crypto/DSA_set_method.pod:124 C/crypto/DSA_sign.pod:56 C/crypto/DSA_size.pod:25 C/crypto/dsa.pod:101 C/crypto/ecdsa.pod:198
+#: C/apps/dsa.pod:153 C/apps/dsaparam.pod:105 C/apps/gendsa.pod:61 C/crypto/DSA_SIG_new.pod:31 C/crypto/DSA_do_sign.pod:37 C/crypto/DSA_dup_DH.pod:28 C/crypto/DSA_generate_key.pod:25 C/crypto/DSA_generate_parameters.pod:91 C/crypto/DSA_get_ex_new_index.pod:27 C/crypto/DSA_new.pod:32 C/crypto/DSA_set_method.pod:124 C/crypto/DSA_sign.pod:56 C/crypto/DSA_size.pod:25 C/crypto/dsa.pod:101 C/crypto/ecdsa.pod:194
 msgid "SEE ALSO"
 msgstr ""
 
@@ -622,7 +622,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/crypto/DSA_SIG_new.pod:36 C/crypto/DSA_do_sign.pod:43 C/crypto/DSA_dup_DH.pod:32 C/crypto/DSA_generate_key.pod:30 C/crypto/DSA_generate_parameters.pod:96 C/crypto/DSA_get_ex_new_index.pod:31 C/crypto/DSA_new.pod:38 C/crypto/DSA_set_method.pod:128 C/crypto/DSA_sign.pod:61 C/crypto/DSA_size.pod:29 C/crypto/ecdsa.pod:202
+#: C/crypto/DSA_SIG_new.pod:36 C/crypto/DSA_do_sign.pod:43 C/crypto/DSA_dup_DH.pod:32 C/crypto/DSA_generate_key.pod:30 C/crypto/DSA_generate_parameters.pod:96 C/crypto/DSA_get_ex_new_index.pod:31 C/crypto/DSA_new.pod:38 C/crypto/DSA_set_method.pod:128 C/crypto/DSA_sign.pod:61 C/crypto/DSA_size.pod:29 C/crypto/ecdsa.pod:198
 msgid "HISTORY"
 msgstr ""
 
@@ -1424,7 +1424,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/crypto/DSA_sign.pod:51 C/crypto/dsa.pod:96 C/crypto/ecdsa.pod:193
+#: C/crypto/DSA_sign.pod:51 C/crypto/dsa.pod:96 C/crypto/ecdsa.pod:189
 msgid "CONFORMING TO"
 msgstr ""
 
@@ -1845,8 +1845,8 @@ msgstr ""
 #: C/crypto/ecdsa.pod:96
 msgid ""
 "ECDSA_verify() verifies that the signature in B<sig> of size B<siglen> is a "
-"valid ECDSA signature of the hash value value B<dgst> of size B<dgstlen> "
-"using the public key B<eckey>.  The parameter B<type> is ignored."
+"valid ECDSA signature of the hash value B<dgst> of size B<dgstlen> using the "
+"public key B<eckey>.  The parameter B<type> is ignored."
 msgstr ""
 
 #. type: textblock
@@ -1911,13 +1911,9 @@ msgstr ""
 msgid ""
 " int        ret;\n"
 " ECDSA_SIG *sig;\n"
-" EC_KEY    *eckey = EC_KEY_new();\n"
+" EC_KEY    *eckey;\n"
+" eckey = EC_KEY_new_by_curve_name(NID_secp192k1);\n"
 " if (eckey == NULL)\n"
-"\t{\n"
-"\t/* error */\n"
-"\t}\n"
-" key->group = EC_GROUP_new_by_nid(NID_secp192k1);\n"
-" if (key->group == NULL)\n"
 "\t{\n"
 "\t/* error */\n"
 "\t}\n"
@@ -1929,14 +1925,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:149
+#: C/crypto/ecdsa.pod:145
 msgid ""
 "Second step: compute the ECDSA signature of a SHA-1 hash value using "
 "B<ECDSA_do_sign>"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/ecdsa.pod:152
+#: C/crypto/ecdsa.pod:148
 #, no-wrap
 msgid ""
 " sig = ECDSA_do_sign(digest, 20, eckey);\n"
@@ -1948,12 +1944,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:158
+#: C/crypto/ecdsa.pod:154
 msgid "or using B<ECDSA_sign>"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/ecdsa.pod:160
+#: C/crypto/ecdsa.pod:156
 #, no-wrap
 msgid ""
 " unsigned char *buffer, *pp;\n"
@@ -1969,12 +1965,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:170
+#: C/crypto/ecdsa.pod:166
 msgid "Third step: verify the created ECDSA signature using B<ECDSA_do_verify>"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/ecdsa.pod:172
+#: C/crypto/ecdsa.pod:168
 #, no-wrap
 msgid ""
 " ret = ECDSA_do_verify(digest, 20, sig, eckey);\n"
@@ -1982,12 +1978,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:174
+#: C/crypto/ecdsa.pod:170
 msgid "or using B<ECDSA_verify>"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/ecdsa.pod:176
+#: C/crypto/ecdsa.pod:172
 #, no-wrap
 msgid ""
 " ret = ECDSA_verify(0, digest, 20, buffer, buf_len, eckey);\n"
@@ -1995,12 +1991,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:178
+#: C/crypto/ecdsa.pod:174
 msgid "and finally evaluate the return value:"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/ecdsa.pod:180
+#: C/crypto/ecdsa.pod:176
 #, no-wrap
 msgid ""
 " if (ret == -1)\n"
@@ -2019,28 +2015,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:195
+#: C/crypto/ecdsa.pod:191
 msgid ""
 "ANSI X9.62, US Federal Information Processing Standard FIPS 186-2 (Digital "
 "Signature Standard, DSS)"
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:200
+#: C/crypto/ecdsa.pod:196
 msgid "L<dsa(3)|dsa(3)>, L<rsa(3)|rsa(3)>"
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:204
+#: C/crypto/ecdsa.pod:200
 msgid "The ecdsa implementation was first introduced in OpenSSL 0.9.8"
 msgstr ""
 
 #. type: =head1
-#: C/crypto/ecdsa.pod:206
+#: C/crypto/ecdsa.pod:202
 msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: C/crypto/ecdsa.pod:208
+#: C/crypto/ecdsa.pod:204
 msgid "Nils Larsch for the OpenSSL project (http://www.openssl.org)."
 msgstr ""
