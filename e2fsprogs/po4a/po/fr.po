@@ -11,12 +11,12 @@
 # Nicolas François <nicolas.francois@centraliens.net>, 2007.
 # Romain Doumenc <rd6137@gmail.com>, 2010.
 # David Prévot <david@tilapin.org>, 2010-2013.
-# Cédric Boutillier <cedric.boutillier@gmail.com>, 2011-2013.
+# Cédric Boutillier <cedric.boutillier@gmail.com>, 2011-2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: e2fsprogs\n"
 "POT-Creation-Date: 2013-12-29 15:22-0400\n"
-"PO-Revision-Date: 2013-12-29 16:06-0400\n"
+"PO-Revision-Date: 2014-01-28 09:25+0100\n"
 "Last-Translator: Cédric Boutillier <boutil@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -2174,26 +2174,21 @@ msgstr "EXT4"
 
 #. type: Plain text
 #: C/man5/ext4.5:8
-#, fuzzy
 #| msgid "lsattr - list file attributes on a Linux second extended file system"
 msgid "ext2 - the second extended file system"
-msgstr ""
-"lsattr - Afficher les attributs des fichiers sur une partition Linux de type "
-"ext2"
+msgstr "ext2 - Le deuxième système de fichiers étendu"
 
 #. type: Plain text
 #: C/man5/ext4.5:10
-#, fuzzy
 #| msgid "e2fsck - check a Linux ext2/ext3/ext4 file system"
 msgid "ext2 - the third extended file system"
-msgstr "e2fsck - Vérifier un système de fichiers Linux ext2/ext3/ext4"
+msgstr "ext3 - Le troisième système de fichiers étendu"
 
 #. type: Plain text
 #: C/man5/ext4.5:12
-#, fuzzy
 #| msgid "Set the number of reserved filesystem blocks."
 msgid "ext4 - the fourth extended file system"
-msgstr "Définir le nombre de blocs réservés dans le système de fichiers."
+msgstr "ext4 - Le quatrième système de fichiers étendu"
 
 #. type: Plain text
 #: C/man5/ext4.5:22
@@ -2208,12 +2203,23 @@ msgid ""
 "driver has been configured handle mount requests for ext2 and ext3 file "
 "systems."
 msgstr ""
+"Les deuxième, troisième, quatrième systèmes de fichiers étendus (ou plus "
+"communément connus comme ext2, ext3, ext4) sont les systèmes de fichiers "
+"Linux qui sont historiquement utilisés par défaut de "
+"nombreuses distributions Linux. Ce sont des systèmes de fichiers "
+"généralistes qui ont été conçus pour être extensibles et bénéficier "
+"d'une compatibilité ascendante. En particulier, les systèmes prévus "
+"auparavant pour fonctionner avec les systèmes de fichiers ext2 et ext3 "
+"peuvent être montés avec le pilote de système de fichiers ext4, et en effet, "
+"dans de nombreuses distributions Linux modernes, le pilote de système de "
+"fichiers est configuré pour prendre en charge les requêtes de montage des "
+"systèmes de fichiers ext2 et  ext3."
 
 #. type: SH
 #: C/man5/ext4.5:22
 #, no-wrap
 msgid "FILE SYSTEM FEATURES"
-msgstr ""
+msgstr "FONCTIONNALITÉS DU SYSTÈME DE FICHIERS"
 
 #. type: Plain text
 #: C/man5/ext4.5:30
@@ -2225,6 +2231,13 @@ msgid ""
 "systems, such as the GNU/HURD or FreeBSD, only a very restrictive set of "
 "file system features may be supported in their implementations of ext2."
 msgstr ""
+"Un système de fichiers formaté pour ext2, ext3 ou ext4 peut avoir un sous-"
+"ensemble des fonctionnalités suivantes activés. Certaines fonctionnalités ne "
+"sont pas prises en charge par toutes les implémentations des systèmes de "
+"fichiers ext2, ext3 ou ext4, suivant la version du noyau Linux utilisé. Sur "
+"d'autres systèmes d'exploitation tels que GNU/Hurd ou FreeBSD, seul un "
+"ensemble très restreint de ces fonctionnalités est pris en charge par leur "
+"implémentation d'ext2."
 
 #. type: TP
 #: C/man5/ext4.5:31
@@ -2242,6 +2255,14 @@ msgid ""
 "created.  Note that some older kernels and older versions of e2fsprogs will "
 "not support file systems with this ext4 feature enabled."
 msgstr ""
+"Cette fonctionnalité permet au système de fichiers d'être plus grand que "
+"2^32 blocs. Cette fonctionnalité est activée automatiquement si besoin, mais "
+"il peut être utile de l'indiquer explicitement s'il est envisageable de "
+"redimensionner le système de fichiers pour atteindre un nombre de blocs "
+"supérieur à 2^32, même si celui-ci était plus petit que ce seuil lors de sa "
+"création. Remarquez que des versions précédentes du noyau et de e2fsprogs ne "
+"prendront pas en charge les systèmes de fichiers avec cette fonctionnalité "
+"activée pour ext4."
 
 #. type: TP
 #: C/man5/ext4.5:40
@@ -2251,7 +2272,6 @@ msgstr "B<bigalloc>"
 
 #. type: Plain text
 #: C/man5/ext4.5:51
-#, fuzzy
 #| msgid ""
 #| "This feature enables clustered allocation, so that the unit of allocation "
 #| "is a power of two number of blocks.  That is, each bit in the what had "
@@ -2269,18 +2289,17 @@ msgid ""
 "block allocation and brings smaller fragmentation, especially for large "
 "files.  The size can be specified using the B<-C option.>"
 msgstr ""
-"Cette fonctionnalité active l'allocation par cluster, de sorte que l'unité "
-"d'allocation en nombre de blocs est une puissance de deux. Cela signifie que "
-"chaque bit de ce qui était traditionnellement connu comme la carte "
-"d'allocation de bloc indique maintenant si un cluster est utilisé ou non, un "
-"cluster étant par défaut composé de 16 blocs. Cette fonctionnalité peut "
-"diminuer le temps passé dans des allocations de blocs et limite la "
+"Cette fonctionnalité ext4 active l'allocation de blocs par cluster, de sorte "
+"que l'unité d'allocation en nombre de blocs est une puissance de deux. Cela "
+"signifie que chaque bit de ce qui était traditionnellement connu comme la "
+"carte d'allocation de bloc indique maintenant si un cluster est utilisé ou "
+"non, un cluster étant par défaut composé de 16 blocs. Cette fonctionnalité "
+"peut diminuer le temps passé dans des allocations de blocs et limite la "
 "fragmentation, en particulier pour les grands fichiers. La taille peut être "
 "indiquée par l'option B<-C>."
 
 #. type: Plain text
 #: C/man5/ext4.5:58
-#, fuzzy
 #| msgid ""
 #| "B<Warning:> The bigalloc feature is still under development, and may not "
 #| "be fully supported with your kernel or may have various bugs.  Please see "
@@ -2294,12 +2313,14 @@ msgstr ""
 "B<Attention :> la fonctionnalité bigalloc est encore en développement, et "
 "peut ne pas être complètement prise en charge par le noyau ou peut être "
 "boguée. Veuillez consulter la page web http://ext4.wiki.kernel.org/index.php/"
-"Bigalloc pour plus d'informations."
+"Bigalloc pour plus d'informations. Elle peut entrer en conflit avec "
+"l'allocation avec retard (consultez l'option B<nodelalloc> de B<mount>)."
 
 #. type: Plain text
 #: C/man5/ext4.5:62
 msgid "This feature requires that the B<extent> features be enabled."
 msgstr ""
+"Cette fonctionnalité nécessite l'activation des fonctionnalités B<extent>."
 
 #. type: TP
 #: C/man5/ext4.5:62 C/man8/tune2fs.8:511
@@ -2314,6 +2335,10 @@ msgid ""
 "feature is supported by ext3 and ext4 file systems, and is ignored by ext2 "
 "file systems."
 msgstr ""
+"Utiliser des arbres binaires hachés (hashed b-trees en anglais) pour "
+"accélérer la recherche de noms dans de grands répertoires. Cette "
+"fonctionnalité est prise en charge par les systèmes de fichiers ext3 et "
+"ext4, et est ignorée par les systèmes de fichiers ext2."
 
 #. type: TP
 #: C/man5/ext4.5:68 C/man8/tune2fs.8:514
@@ -2323,10 +2348,11 @@ msgstr "B<dir_nlink>"
 
 #. type: Plain text
 #: C/man5/ext4.5:72
-#, fuzzy
 #| msgid "Allow more than 65000 subdirectories per directory."
 msgid "This ext4 feature allows more than 65000 subdirectories per directory."
-msgstr "Autoriser plus de 65 000 sous-répertoires par répertoire."
+msgstr ""
+"Cette fonctionnalité ext4 permet d'avoir plus de 65 000 sous-répertoires par "
+"répertoire."
 
 #. type: TP
 #: C/man5/ext4.5:72 C/man8/tune2fs.8:517
@@ -2346,6 +2372,16 @@ msgid ""
 "file system.  (Note: both B<extent> and B<extents> are accepted as valid "
 "names for this feature for historical/backwards compatibility reasons.)"
 msgstr ""
+"Cette fonctionnalité ext4 permet la correspondance entre les numéros de "
+"blocs logiques pour un inœud particulier et les blocs physiques sur le "
+"périphérique de stockage qui seront stockés au moyen d'un arbre étendu, qui "
+"est une structure de données plus efficace que le schéma de bloc indirect "
+"traditionnel utilisé par les systèmes de fichiers ext2 et ext3. "
+"L'utilisation d'arbres étendus diminue le coût associé aux métadonnées des "
+"blocs, améliore les performances du système de fichiers et diminue le besoin "
+"de lancer B<e2fsck>(8) sur le système de fichiers. (Remarque : les deux noms "
+"B<extent> et B<extents> sont considérés comme valables pour cette "
+"fonctionnalités pour des raisons historiques et de compatibilité ascendante)."
 
 #. type: TP
 #: C/man5/ext4.5:89 C/man8/tune2fs.8:520
@@ -2363,6 +2399,12 @@ msgid ""
 "features currently it currently needs, and the rest may be consumed by "
 "extended attributes."
 msgstr ""
+"Cette caractéristique ext4 réserve une quantité précise de place dans chaque "
+"inœud pour les métadonnées étendues telles que les horodatages en "
+"nanosecondes et les temps de création de fichiers, même si le noyau actuel "
+"n'a pas besoin de tant de place. Sans cette caractéristique, le noyau va "
+"réserver la quantité de place nécessaire pour les caractéristiques dont il a "
+"besoin actuellement, et le reste sera utilisé par les attributs étendus."
 
 #. type: Plain text
 #: C/man5/ext4.5:101
@@ -2370,6 +2412,8 @@ msgid ""
 "For this feature to be useful the inode size must be 256 bytes in size or "
 "larger."
 msgstr ""
+"Pour que cette caractéristique soit utilise, la taille des inœuds doit être "
+"au moins 256 octets."
 
 #. type: TP
 #: C/man5/ext4.5:101
@@ -2383,6 +2427,8 @@ msgid ""
 "This feature enables the use of extended attributes.  This feature is "
 "supported by ext2, ext3, and ext4."
 msgstr ""
+"Cette caractéristique active l'utilisation des attributs étendus. Cette "
+"caractéristique est prise en charge par ext2, ext3 et ext4."
 
 #. type: TP
 #: C/man5/ext4.5:106 C/man8/tune2fs.8:523
@@ -2396,6 +2442,9 @@ msgid ""
 "This feature enables the storage file type information in directory "
 "entries.  This feature is supported by ext2, ext3, and ext4."
 msgstr ""
+"Cette caractéristique active le stockage de l'information du type de "
+"fichiers dans les répertoires. Cette caractéristique est prise en charge par "
+"ext2, ext3 et ext4."
 
 #. type: TP
 #: C/man5/ext4.5:112 C/man8/tune2fs.8:526
@@ -2405,7 +2454,6 @@ msgstr "B<flex_bg>"
 
 #. type: Plain text
 #: C/man5/ext4.5:125
-#, fuzzy
 #| msgid ""
 #| "Allow the per-block group metadata (allocation bitmaps and inode tables)  "
 #| "to be placed anywhere on the storage media.  In addition, B<mke2fs> will "
@@ -2419,11 +2467,12 @@ msgid ""
 "first block group of each \"flex_bg group\".  The size of the flex_bg group "
 "can be specified using the B<-G> option."
 msgstr ""
-"Accepter que le groupe de métadonnées relatif au bloc (carte des allocations "
-"et table des inœuds) soit placé n'importe où sur le périphérique de "
-"stockage. De plus, B<mke2fs> placera les données de ce groupe ensemble, à "
-"partir du premier bloc du groupe de chaque « groupe flex_bg ». La taille du "
-"groupe flex_bg peut être précisée via l'option B<-G>. "
+"Cette caractéristique ext4 permet au groupe de métadonnées relatif au bloc "
+"(carte des allocations et table des inœuds) soit placé n'importe où sur le "
+"périphérique de stockage. De plus, B<mke2fs> placera les données de ce "
+"groupe ensemble, à partir du premier bloc du groupe de chaque « groupe "
+"flex_bg ». La taille du groupe flex_bg peut être précisée via l'option B<-"
+"G>. "
 
 #. type: TP
 #: C/man5/ext4.5:125 C/man8/tune2fs.8:535
@@ -2433,7 +2482,6 @@ msgstr "B<has_journal>"
 
 #. type: Plain text
 #: C/man5/ext4.5:133
-#, fuzzy
 #| msgid ""
 #| "Use a journal to ensure filesystem consistency even across unclean "
 #| "shutdowns.  Setting the filesystem feature is equivalent to using the B<-"
@@ -2444,9 +2492,10 @@ msgid ""
 "option.  This feature is supported by ext3 and ext4, and ignored by the ext2 "
 "file system driver."
 msgstr ""
-"Utiliser un journal pour assurer la cohérence du système de fichiers même "
-"après un arrêt brutal. Ajouter cette caractéristique est équivalent à "
-"utiliser l'option B<-j>."
+"Créer un journal pour assurer la cohérence du système de fichiers même après "
+"un arrêt brutal. Ajouter cette caractéristique est équivalent à utiliser "
+"l'option B<-j>. Cette fonctionnalité est prise en charge par ext3 et ext4, "
+"et ignorée par le pilote de système de fichiers ext2."
 
 #. type: TP
 #: C/man5/ext4.5:133 C/man8/tune2fs.8:541
@@ -2458,6 +2507,8 @@ msgstr "B<huge_file>"
 #: C/man5/ext4.5:137
 msgid "This ext4 feature allows files to be larger than 2 terabytes in size."
 msgstr ""
+"Cette caractéristique ext4 permet d'avoir des fichiers plus grand que "
+"2 téraoctets."
 
 #. type: TP
 #: C/man5/ext4.5:137
@@ -2472,6 +2523,9 @@ msgid ""
 "device.  The block size for the external journal must be the same as the "
 "file system which uses it."
 msgstr ""
+"Cette caractéristique est activée sur le superbloc trouvé dans un "
+"périphérique de journal externe. La taille de bloc pour le journal externe "
+"doit être la même que celle du système de fichiers qui l'utilise."
 
 #. type: Plain text
 #: C/man5/ext4.5:152
@@ -2480,6 +2534,9 @@ msgid ""
 "B<-J> B<device=>E<lt>external-deviceE<gt> option to B<mke2fs>(8)  or "
 "B<tune2fs(8).>"
 msgstr ""
+"Le périphérique de journal externe peut être utilisé par un système de "
+"fichiers en indiquant à B<mke2fs>(8) ou B<tune2fs>(8) l'option B<-j> "
+"B<device=>external-deviceB<gt>."
 
 #. type: TP
 #: C/man5/ext4.5:152 C/man8/tune2fs.8:544
@@ -2510,6 +2567,11 @@ msgid ""
 "so this feature flag was used to prohibit those kernels from mounting file "
 "systems that they could not understand."
 msgstr ""
+"Cette caractéristique est automatiquement activée par les noyaux récents "
+"lorsqu'un fichier plus grand que 2 gigaoctets est créé. Les noyaux très "
+"anciens ne pouvaient par gérer de si grands fichiers, et cette "
+"caractéristique était utilisée pour éviter à ces noyaux de monter les "
+"systèmes de fichiers qu'ils ne pouvaient comprendre."
 
 #. type: TP
 #: C/man5/ext4.5:174
@@ -2530,6 +2592,17 @@ msgid ""
 "when doing an online resize and no more reserved space is available in the "
 "resize inode."
 msgstr ""
+"Cette caractéristique ext4 permet de redimensionner les systèmes de fichiers "
+"en ligne sans avoir besoin explicitement de réserver de la place pour "
+"l'augmentation de la taille des descripteurs de groupes de blocs. Cette "
+"méthode est aussi utilisée pour redimensionner les systèmes de fichiers qui "
+"font plus de 2^32 blocs. Il n'est pas recommandé d'activer cette "
+"caractéristique lorsque de la création d'un système de fichiers, étant donné "
+"que cette méthode alternative de stocker le descripteur de groupe de bloc va "
+"augmenter le temps nécessaire à monter le système de fichiers. Les noyaux "
+"récents peuvent automatiquement activer cette caractéristique si nécessaire "
+"pendant un redimensionnement en ligne pendant lequel il n'y aurait plus de "
+"place réservée disponible dans l'inœud redimensionné."
 
 #. type: TP
 #: C/man5/ext4.5:186 C/man8/tune2fs.8:553
@@ -2539,7 +2612,6 @@ msgstr "B<mmp>"
 
 #. type: Plain text
 #: C/man5/ext4.5:192
-#, fuzzy
 #| msgid ""
 #| "Enable or disable multiple mount protection (MMP) feature.  MMP helps to "
 #| "protect the filesystem from being multiply mounted and is useful in "
@@ -2549,9 +2621,10 @@ msgid ""
 "protect the filesystem from being multiply mounted and is useful in shared "
 "storage environments."
 msgstr ""
-"Activer ou désactiver la protection multiple de montage (« MMP »). Cette "
-"fonctionnalité contribue à la protection du système de fichiers contre les "
-"montages multiples et est utile dans les environnements de stockage partagé."
+"Cette caractéristique ext4 fournit une protection multiple de montage "
+"(« MMP »). Cette fonctionnalité contribue à la protection du système de "
+"fichiers contre les montages multiples et est utile dans les environnements "
+"de stockage partagé."
 
 #. type: TP
 #: C/man5/ext4.5:192 C/man8/tune2fs.8:556
@@ -2577,10 +2650,12 @@ msgid ""
 "Causes the quota files (i.e., user.quota and group.quota which existed in "
 "the older quota design) to be hidden inodes."
 msgstr ""
+"Cette caractéristique implique que les fichiers de quota (c'est-à-dire user."
+"quota et group.quota, qui existaient dans la version plus ancienne des "
+"quotas) sont cachés dans les inœuds."
 
 #. type: Plain text
 #: C/man5/ext4.5:210
-#, fuzzy
 #| msgid ""
 #| "B<Warning:> The bigalloc feature is still under development, and may not "
 #| "be fully supported with your kernel or may have various bugs.  Please see "
@@ -2590,10 +2665,10 @@ msgid ""
 "fully supported with your kernel or may have various bugs.  Please see "
 "https://ext4.wiki.kernel.org/index.php/Quota for more details."
 msgstr ""
-"B<Attention :> la fonctionnalité bigalloc est encore en développement, et "
+"B<Attention :> la fonctionnalité de quota est encore en développement, et "
 "peut ne pas être complètement prise en charge par le noyau ou peut être "
-"boguée. Veuillez consulter la page web http://ext4.wiki.kernel.org/index.php/"
-"Bigalloc pour plus d'informations."
+"boguée. Veuillez consulter la page web https://ext4.wiki.kernel.org/index."
+"php/Quota pour plus d'informations."
 
 #. type: TP
 #: C/man5/ext4.5:210 C/man8/tune2fs.8:547
@@ -2603,7 +2678,6 @@ msgstr "B<resize_inode>"
 
 #. type: Plain text
 #: C/man5/ext4.5:225
-#, fuzzy
 #| msgid ""
 #| "Reserve space so the block group descriptor table may grow in the "
 #| "future.  Useful for online resizing using B<resize2fs>.  By default "
@@ -2619,16 +2693,20 @@ msgid ""
 "times its initial size.  This can be changed using the B<resize> extended "
 "option."
 msgstr ""
-"Réserver de la place pour permettre à la table des descripteurs de groupe de "
-"blocs de grossir plus tard. C'est utile pour permettre le changement de "
-"taille à chaud avec B<resize2fs>. Par défaut, B<mke2fs> essaie de réserver "
-"de la place pour que le système de fichiers puisse grossir 1024 fois. Ça "
-"peut être changé en utilisant l'option étendue B<resize>."
+"Cette caractéristique du système de fichiers indique que de la place a été "
+"réservée pour permettre à la table des descripteurs de groupe de blocs "
+"d'être étendue lors du redimensionnement du système de fichiers alors que "
+"celui-ci est monté. L'opération de redimensionnement est effectuée par le "
+"noyau et déclenchée par B<resize2fs>(8). Par défaut, B<mke2fs> essaie de "
+"réserver de la place pour que le système de fichiers puisse grossir 1024 "
+"fois. Ça peut être changé en utilisant l'option étendue B<resize>."
 
 #. type: Plain text
 #: C/man5/ext4.5:229
 msgid "This feature requires that the B<sparse_super> feature be enabled."
 msgstr ""
+"Cette caractéristique nécessite l'activation de la caractéristique "
+"B<sparse_super>."
 
 #. type: TP
 #: C/man5/ext4.5:229 C/man8/tune2fs.8:559
@@ -2643,6 +2721,10 @@ msgid ""
 "system.  It indicates that backup copies of the superblock and block group "
 "descriptors be present only on a few block groups, and not all of them."
 msgstr ""
+"Cette caractéristique est activée sur tous les systèmes de fichiers ext2, "
+"ext3 et ext4 récents. Elle indique que les copies de sauvegarde des "
+"descripteurs de superblocs et de groupes de blocs sont présents seulement "
+"sur quelques groupes de blocs et non sur tous."
 
 #. type: TP
 #: C/man5/ext4.5:236 C/man8/tune2fs.8:562
@@ -2661,6 +2743,14 @@ msgid ""
 "system using B<e2fsck>(8), and it also speeds up the time required for "
 "B<mke2fs>(8)  to create the file system."
 msgstr ""
+"Cette caractéristique du système de fichiers ext4 indique que les "
+"descripteurs de groupes de blocs seront protégés à l'aide de sommes de "
+"vérification, rendant plus sûre la création par B<mke2fs>(8) d'un système de "
+"fichiers sans initialisation de tous les groupes de blocs. Le noyau "
+"délimitera les inœuds inutilisés, et initialisera  les tables d'inœuds et de "
+"blocs en différé. Cette caractéristique réduit le temps mis pour la "
+"vérification du système de fichiers avec B<e2fsck>, ainsi que le temps "
+"nécessaire à B<mke2fs>(8) pour créer le système de fichiers."
 
 #. type: Plain text
 #: C/man5/ext4.5:257
@@ -4153,6 +4243,9 @@ msgid ""
 "the console.  If the I<-f> option is specified, the block number is relative "
 "to the start of the given B<filespec>."
 msgstr ""
+"Afficher le bloc du système de fichiers indiqué par I<num_bloc> sur la "
+"console aux formats hexadécimal et ASCII. Si l'option I<-f> est indiquée, le "
+"numéro de bloc est relatif au début de l'inœud B<filespec> donné."
 
 #. type: TP
 #: C/man8/debugfs.8:178
@@ -4239,6 +4332,8 @@ msgid ""
 "Mark the filesystem as dirty, so that the superblocks will be written on "
 "exit."
 msgstr ""
+"Marquer le système de fichiers comme sale, de sorte que les superblocs "
+"seront écrits à la sortie."
 
 #. type: TP
 #: C/man8/debugfs.8:211
@@ -4385,7 +4480,6 @@ msgstr "B<find_free_block> [I<compte> [I<objectif>]]"
 
 #. type: Plain text
 #: C/man8/debugfs.8:294
-#, fuzzy
 #| msgid ""
 #| "Find the first I<count> free blocks, starting from I<goal> and allocate "
 #| "it."
@@ -4394,7 +4488,7 @@ msgid ""
 "Also available as B<ffb>."
 msgstr ""
 "Trouver le premier morceau d'espace libre de I<compte> blocs, en commençant "
-"par I<objectif> et l'allouer."
+"par I<objectif> et l'allouer. Aussi disponible sous le nom B<ffb>."
 
 #. type: TP
 #: C/man8/debugfs.8:294
@@ -4404,7 +4498,6 @@ msgstr "B<find_free_inode> [I<rep> [I<mode>]]"
 
 #. type: Plain text
 #: C/man8/debugfs.8:306
-#, fuzzy
 #| msgid ""
 #| "Find a free inode and allocate it.  If present, I<dir> specifies the "
 #| "inode number of the directory which the inode is to be located.  The "
@@ -4422,7 +4515,8 @@ msgstr ""
 "numéro d'inœud du répertoire dans lequel l'inœud doit être placé. Le "
 "deuxième paramètre optionnel I<mode> indique les permissions du nouvel "
 "inœud. (Si le bit indiquant un répertoire est positionné dans le mode, la "
-"routine d'allocation fonctionnera différemment)."
+"routine d'allocation fonctionnera différemment). Aussi disponible sous le "
+"nom B<ffi>."
 
 #. type: TP
 #: C/man8/debugfs.8:306
@@ -4594,7 +4688,6 @@ msgstr "B<ln>I< filespec dest_file>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:386
-#, fuzzy
 #| msgid ""
 #| "Create a link named I<dest_file> which is a link to I<filespec>.  Note "
 #| "this does not adjust the inode reference counts."
@@ -4602,8 +4695,8 @@ msgid ""
 "Create a link named I<dest_file> which is a hard link to I<filespec>.  Note "
 "this does not adjust the inode reference counts."
 msgstr ""
-"Créer un lien nommé I<fichier_dest> vers I<filespec>. Notez que ça n'ajuste "
-"pas le compteur de référence de l'inœud."
+"Créer un lien dur nommé I<fichier_dest> vers I<filespec>. Notez que ça "
+"n'ajuste pas le compteur de référence de l'inœud."
 
 #. type: TP
 #: C/man8/debugfs.8:386
@@ -4613,7 +4706,6 @@ msgstr "B<logdump> [B<-a>] [B<-c>] [B<-s>] [B<-b> I<bloc>] [B<-i> I<filespec>] [
 
 #. type: Plain text
 #: C/man8/debugfs.8:399
-#, fuzzy
 #| msgid ""
 #| "Dump the contents of the ext3 journal.  By default, the journal inode as "
 #| "specified in the superblock.  However, this can be overridden with the I<-"
@@ -4629,12 +4721,12 @@ msgid ""
 "the I<-f> option.  Finally, the I<-s> option utilizes the backup information "
 "in the superblock to locate the journal."
 msgstr ""
-"Supprimer le contenu du journal d'un système ext3. Par défaut, l'inœud du "
-"journal est indiqué dans le superbloc. Cependant, on peut le redéfinir via "
-"l'option B<-i> qui accepte un pointeur d'inœud pour préciser le journal à "
-"utiliser. Un fichier contenant le journal peut être pointé par l'option B<-"
-"f>. Enfin, l'option B<-s> utilise l'information sauvegardée sur le superbloc "
-"pour localiser le journal."
+"Supprimer le contenu du journal d'un système ext3. Par défaut, supprimer "
+"l'inœud du journal est indiqué dans le superbloc. Cependant, on peut le "
+"redéfinir via l'option B<-i> qui supprime le journal de l'inœud interne "
+"indiqué par I<filespec>. Un fichier standard contenant le journal peut être "
+"pointé par l'option B<-f>. Enfin, l'option B<-s> utilise l'information "
+"sauvegardée sur le superbloc pour localiser le journal."
 
 #. type: Plain text
 #: C/man8/debugfs.8:418
@@ -4676,7 +4768,7 @@ msgstr ""
 #: C/man8/debugfs.8:433
 #, no-wrap
 msgid "B<list_deleted_inodes>I< [limit]>"
-msgstr "B<list_deleted_inodes> [I<limite>]"
+msgstr "B<list_deleted_inodes> [I<nb_secondes>]"
 
 #. type: Plain text
 #: C/man8/debugfs.8:439
@@ -4684,6 +4776,9 @@ msgid ""
 "List deleted inodes, optionally limited to those deleted within I<limit> "
 "seconds ago.  Also available as B<lsdel>."
 msgstr ""
+"Dresser la liste des inœuds supprimés, éventuellement limité à ceux "
+"supprimés dans les I<nb_secondes> dernières secondes. Aussi disponible sous "
+"le nom B<isdel>."
 
 #. type: Plain text
 #: C/man8/debugfs.8:444
@@ -4693,6 +4788,11 @@ msgid ""
 "files were deleted using ext3 or ext4, since the inode's data blocks are no "
 "longer available after the inode is released."
 msgstr ""
+"Cette commande était utile pour la récupération après un effacement "
+"accidentel de fichiers sur des systèmes de fichiers ext2. Malheureusement, "
+"on ne peut pas s'en servir dans ce but sur des systèmes de fichiers ext3 ou "
+"ext4, puisque les blocs de données d'un inœud ne sont plus disponibles une "
+"fois que l'inœud a été libéré."
 
 #. type: TP
 #: C/man8/debugfs.8:444
@@ -4702,12 +4802,13 @@ msgstr "B<modify_inode>I< filespec>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:450
-#, fuzzy
 #| msgid "Modify the contents of the inode structure in the inode I<filespec>."
 msgid ""
 "Modify the contents of the inode structure in the inode I<filespec>.  Also "
 "available as B<mi>."
-msgstr "Modifier le contenu de la structure de données de l'inœud I<filespec>."
+msgstr ""
+"Modifier le contenu de la structure de données de l'inœud I<filespec>. Aussi "
+"disponible sous le nom B<mi>"
 
 #. type: TP
 #: C/man8/debugfs.8:450
@@ -4845,7 +4946,7 @@ msgstr ""
 "Envoyer récursivement le I<répertoire> et tout son contenu (y compris les "
 "fichiers normaux, les liens symboliques et les autres répertoires) dans la "
 "I<destination> nommée, qui devrait être un répertoire existant sur le "
-"système de fichiers natif. "
+"système de fichiers natif."
 
 #. type: TP
 #: C/man8/debugfs.8:510
@@ -4900,7 +5001,6 @@ msgstr "B<set_block_group>I< num_groupe champ valeur>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:545
-#, fuzzy
 #| msgid ""
 #| "Modify the block group descriptor specified by I<bgnum> so that the block "
 #| "group descriptor field I<field> has value I<value.>"
@@ -4910,7 +5010,8 @@ msgid ""
 "B<set_bg>."
 msgstr ""
 "Modifier le descripteur du bloc de groupe indiqué par I<num_groupe> pour que "
-"le champ du descripteur de groupe I<champ> prenne la valeur I<valeur>."
+"le champ du descripteur de groupe I<champ> prenne la valeur I<valeur>. Aussi "
+"disponible sous le nom B<set_bg>."
 
 #. type: TP
 #: C/man8/debugfs.8:545
@@ -4936,7 +5037,6 @@ msgstr "B<set_inode_field>I< filespec champ valeur>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:565
-#, fuzzy
 #| msgid ""
 #| "Modify the inode specified by I<filespec> so that the inode field "
 #| "I<field> has value I<value.> The list of valid inode fields which can be "
@@ -4950,7 +5050,8 @@ msgid ""
 msgstr ""
 "Modifier l'inœud pointé par I<filespec> pour que l'inœud I<champ> prenne la "
 "valeur I<valeur>. La liste des champs inœuds qui peuvent être configurés via "
-"cette commande peut être obtenue par la commande : B<set_inode_field -l>."
+"cette commande peut être obtenue par la commande : B<set_inode_field -l>. "
+"Aussi disponible sous le nom B<sif>."
 
 #. type: TP
 #: C/man8/debugfs.8:565
@@ -4960,7 +5061,6 @@ msgstr "B<set_mmp_value>I< champ valeur>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:576
-#, fuzzy
 #| msgid ""
 #| "Modify the multiple-mount protection (mmp) data so that the mmp field "
 #| "I<field> has value I<value.> The list of valid mmp fields which can be "
@@ -4972,10 +5072,10 @@ msgid ""
 "via this command can be displayed by using the command: B<set_mmp_value -l> "
 "Also available as B<smmp>."
 msgstr ""
-"Modifier les données de protection contre le montage multiple (mmp) pour que "
-"le champ I<champ> prenne la valeur I<valeur>. La liste des champs mmp qui "
-"peuvent être configurés via cette commande peut être obtenue par la "
-"commande : B<set_mmp_value -l>."
+"Modifier les données de protection contre le montage multiple (MMP) pour que "
+"le champ MMP I<champ> prenne la valeur I<valeur>. La liste des champs MMP "
+"qui peuvent être configurés au moyen de cette commande peut être obtenue par "
+"la commande : B<set_mmp_value -l>. Aussi disponible sous le nom B<smmp>."
 
 #. type: TP
 #: C/man8/debugfs.8:576
@@ -4985,7 +5085,6 @@ msgstr "B<set_super_value>I< champ valeur>"
 
 #. type: Plain text
 #: C/man8/debugfs.8:587
-#, fuzzy
 #| msgid ""
 #| "Set the superblock field I<field> to I<value.> The list of valid "
 #| "superblock fields which can be set via this command can be displayed by "
@@ -4997,7 +5096,8 @@ msgid ""
 msgstr ""
 "Donner la valeur I<valeur> au champ I<champ> du superbloc. La liste des "
 "champs du superbloc qui peuvent être configurés via cette commande peut être "
-"affichée avec la commande : B<set_super_value -l>."
+"affichée avec la commande : B<set_super_value -l>. Aussi disponible sous le "
+"nom B<ssv>."
 
 #. type: TP
 #: C/man8/debugfs.8:587
@@ -5007,7 +5107,6 @@ msgstr "B<show_super_stats> [B<-h>]"
 
 #. type: Plain text
 #: C/man8/debugfs.8:593
-#, fuzzy
 #| msgid ""
 #| "List the contents of the super block and the block group descriptors.  If "
 #| "the I<-h> flag is given, only print out the superblock contents."
@@ -5017,7 +5116,8 @@ msgid ""
 "available as B<stats>."
 msgstr ""
 "Lister le contenu du superbloc et les descripteurs du groupe de blocs. Si "
-"l'argument B<-h> est passé, seul le contenu du superbloc sera affiché."
+"l'argument B<-h> est passé, seul le contenu du superbloc sera affiché. "
+"Disponible aussi sous le nom B<stats>."
 
 #. type: TP
 #: C/man8/debugfs.8:593
@@ -5129,6 +5229,8 @@ msgid ""
 "Copy the contents of I<source_file> into a newly-created file in the "
 "filesystem named I<out_file>."
 msgstr ""
+"Copier le contenu du I<fichier_source> dans un fichier nommé "
+"I<fichier_sortie> nouvellement créé dans le système de fichiers."
 
 #. type: TP
 #: C/man8/debugfs.8:646
@@ -5140,7 +5242,7 @@ msgstr "B<zap_block> [B<-f> I<filespec>] [B<-o> I<position>] [B<-l> I<longueur>]
 #: C/man8/debugfs.8:648
 #, no-wrap
 msgid "Overwrite the block specified by"
-msgstr ""
+msgstr "Réécrire par dessus les blocs indiqués par"
 
 #. type: Plain text
 #: C/man8/debugfs.8:670
@@ -5151,6 +5253,12 @@ msgid ""
 "limit the range of bytes to zap to the specified I<offset> and I<length> "
 "relative to the start of the block."
 msgstr ""
+"I<num_bloc> avec zéro (NUL) octets, ou si l'option I<-p> est indiquées, "
+"utiliser l'octet précisé par le I<motif>. Si I<-f> est indiqué, alors le "
+"numéro de bloc I<num_bloc> est relatif au début du fichier donné par "
+"I<filespec>. Les options I<-o> et <-l> limite les octets à réécrire au "
+"domaine caractérisé par la I<position> et la I<longueur> relatifs au début "
+"du bloc."
 
 #. type: TP
 #: C/man8/debugfs.8:670
@@ -5164,6 +5272,9 @@ msgid ""
 "Bit-flip portions of the physical I<block_num>.  If I<-f> is given, then "
 "I<block_num> is a logical block relative to the start of I<filespec>."
 msgstr ""
+"Basculer les bits de portions d'un bloc I<num_bloc>. Si l'option I<-f> est "
+"indiquée, alors I<num_bloc> est un bloc logique relatif au début de "
+"I<filespec>."
 
 #. type: SH
 #: C/man8/debugfs.8:680
@@ -6194,7 +6305,6 @@ msgstr "B<e2image> B<-I> I<périphérique> I<fichier_image>"
 
 #. type: Plain text
 #: C/man8/e2image.8:41
-#, fuzzy
 #| msgid ""
 #| "B<resize2fs> [ B<-fFpPM> ] [ B<-d> I<debug-flags> ] [ B<-S> I<RAID-"
 #| "stride> ] I<device> [ I<size> ]"
@@ -6202,8 +6312,8 @@ msgid ""
 "B<e2image> B<-ra> [ B<-cfnp> ] [ B<-o> I<src_offset> ] [ B<-O> "
 "I<dest_offset> ] I<src_fs> [ I<dest_fs> ]"
 msgstr ""
-"B<resize2fs> [ B<-fFpPM> ] [ B<-d> I<drapeaux_débogage> ] [ B<-S> "
-"I<bande_RAID> ] I<périphérique> [ I<taille> ]"
+"B<e2image> B<-ra> [ B<-cfnp> ] [ B<-o> I<src_offset> ] [ B<-O> "
+"I<dest_offset> ] I<src_fs> [ I<dest_fs> ]"
 
 #. type: Plain text
 #: C/man8/e2image.8:58
@@ -6233,6 +6343,11 @@ msgid ""
 "be overriden using the B<-f> option, but the resulting image file is very "
 "likely not going to be useful."
 msgstr ""
+"Lors de la sauvegarde d'une image e2image pour des besoins de déboguage, en "
+"utilisant l'une des options B<-r> ou B<-Q>, le système de fichiers doit être "
+"démonté ou bien monté en lecture seule pour que le fichier image soit dans "
+"un état cohérent. Cela peut être contourné en utilisant l'option B<-f>, mais "
+"le fichier image résultant a de fortes chances de ne pas être utilisable."
 
 #. type: Plain text
 #: C/man8/e2image.8:84
@@ -6522,12 +6637,27 @@ msgid ""
 "B<-n> option will cause all of the writes to be no-ops, and print the blocks "
 "that would have been written."
 msgstr ""
+"Normalement, B<e2image> ne contient que les métadonnées du système de "
+"fichiers, et non pas les données des fichiers standard. L'option B<-a> peut "
+"être indiquée afin d'inclure toutes les données. Cela créera une image "
+"adaptée pour le clonage du système de fichiers entier ou à des fins de "
+"sauvegarde. Notez que cette option ne fonctionne que pour les formats brut "
+"ou QCOW2. L'option B<-p> peut être ajoutée pour afficher la progression de "
+"l'opération. Si le système de fichiers est cloné sur un périphérique de "
+"stockage utilisant de la mémoire flash (où la lecture est très rapide et sur "
+"lequel il est souhaitable d'éviter les écritures pour diminuer l'usure en "
+"écriture du périphérique), l'option B<-c> permettant à e2image d'essayer de "
+"lire un bloc de la destination pour voir s'il est identique au bloc "
+"qu'B<e2image> est sur le point de copier. Si le bloc est identique, la phase "
+"d'écriture sera évitée. Avec l'option B<-n>, aucune opération d'écriture ne "
+"sera vraiment effectuée, et les blocs qui auraient dûs êtres écrits seront "
+"affichés."
 
 #. type: SH
 #: C/man8/e2image.8:244
 #, no-wrap
 msgid "OFFSETS"
-msgstr ""
+msgstr "DÉCALAGES"
 
 #. type: Plain text
 #: C/man8/e2image.8:255
@@ -6539,6 +6669,13 @@ msgid ""
 "option specifies the offset that should be seeked to in the destination "
 "before writing the filesystem."
 msgstr ""
+"Normalement, un système de fichiers démarre au début de la partition, et "
+"B<e2image> est exécuté sur la partition. Lorsqu'on travaille avec des "
+"fichiers images, il n'est pas possible d'utiliser de partition. Vous pouvez "
+"préciser le décalage à partir duquel le système de fichiers commence "
+"directement avec l'option B<-o>. De même l'option <-O> précise le décalage "
+"qui devrait être laissé sur la destination avant d'écrire le système de "
+"fichiers."
 
 #. type: Plain text
 #: C/man8/e2image.8:260
@@ -6546,6 +6683,9 @@ msgid ""
 "For example, if you have a B<dd> image of a whole hard drive that contains "
 "an ext2 fs in a partition starting at 1 MiB, you can clone that fs with:"
 msgstr ""
+"Par exemple, si vous avez une image B<dd> sur un disque dur entier qui "
+"contient un système de fichiers ext2fs dans une partition qui commence à "
+"1 Mo du début du volume, vous pouvez la cloner avec la commande :"
 
 #. type: Plain text
 #: C/man8/e2image.8:263
@@ -6558,6 +6698,9 @@ msgid ""
 "Or you can clone a fs into an image file, leaving room in the first MiB for "
 "a partition table with:"
 msgstr ""
+"Ou vous pouvez clôner un système de fichiers sur un fichier image, en "
+"laissant le premier Mo disponible pour une table de partitions avec la "
+"commande :"
 
 #. type: Plain text
 #: C/man8/e2image.8:270
@@ -6571,6 +6714,9 @@ msgid ""
 "be performed, allowing you to safely move the filesystem from one offset to "
 "another."
 msgstr ""
+"Si vous précisez au moins un décalage et seulement un fichier, un mouvement "
+"en place sera effectué, ce qui vous permet de déplacer le système de fichier "
+"d'une place à l'autre."
 
 #. type: Plain text
 #: C/man8/e2image.8:278
@@ -7404,7 +7550,6 @@ msgstr "B<-C> I<taille-cluster>"
 
 #. type: Plain text
 #: C/man8/mke2fs.8:198
-#, fuzzy
 #| msgid ""
 #| "Specify the size of cluster in bytes for filesystems using the bigalloc "
 #| "feature.  Valid cluster-size values are from 2048 to 256M bytes per "
@@ -7420,9 +7565,11 @@ msgid ""
 msgstr ""
 "Indiquer la taille du cluster en octets pour les systèmes de fichiers "
 "utilisant la fonctionnalité bigalloc. Les valeurs correctes pour la taille "
-"du cluster sont comprises entre 2048 o et 256 Mo par cluster. Par défaut (si "
-"bigalloc est activé et aucune taille de cluster n'est précisée), la taille "
-"du cluster sera égale à 16 fois celle du bloc."
+"du cluster sont comprises entre 2048 o et 256 Mo par cluster. Cela ne peut "
+"être indiqué que si la fonctionnalité bigalloc est activée. Consultez la "
+"page de manuel de B<ext4 (5)> pour plus de détails sur bigalloc). La taille "
+"du cluster par défaut, si bigalloc est activé, est égale à 16 fois celle du "
+"bloc."
 
 #. type: Plain text
 #: C/man8/mke2fs.8:204
@@ -7447,7 +7594,6 @@ msgstr "B<-E>I< options_étendues>"
 
 #. type: Plain text
 #: C/man8/mke2fs.8:217
-#, fuzzy
 #| msgid ""
 #| "Set extended options for the filesystem.  Extended options are comma "
 #| "separated, and may take an argument using the equals ('=') sign.  The B<-"
@@ -7465,8 +7611,8 @@ msgstr ""
 "étendues sont séparées par des virgules et peuvent prendre un paramètre en "
 "utilisant le symbole égal (« = »). L'option B<-E> correspond à l'option B<-"
 "R> des anciennes versions de B<mke2fs>. L'option B<-R> est encore acceptée "
-"pour des raisons de compatibilité ascendante. Les options étendues suivantes "
-"sont prises en charge :"
+"pour des raisons de compatibilité ascendante, mais est obsolète. Les options "
+"étendues suivantes sont prises en charge :"
 
 #. type: TP
 #: C/man8/mke2fs.8:218 C/man8/tune2fs.8:178
@@ -7774,7 +7920,6 @@ msgstr "B<-i> I<octets_par_inœud>"
 
 #. type: Plain text
 #: C/man8/mke2fs.8:357
-#, fuzzy
 #| msgid ""
 #| "Specify the bytes/inode ratio.  B<mke2fs> creates an inode for every "
 #| "I<bytes-per-inode> bytes of space on the disk.  The larger the I<bytes-"
@@ -7793,14 +7938,15 @@ msgid ""
 "deciding the correct value for this parameter.  Note that resizing a "
 "filesystem changes the numer of inodes to maintain this ratio."
 msgstr ""
-"Indiquer le ratio octets/inœud. B<mke2fs> crée un inœud pour chaque groupe "
-"d'I<octets_par_inœud> octets d'espace sur le disque. Plus le ratio "
+"Indiquer le rapport octets/inœud. B<mke2fs> crée un inœud pour chaque groupe "
+"d'I<octets_par_inœud> octets d'espace sur le disque. Plus le rapport "
 "I<octets_par_inœud> est élevé, moins on crée d'inœuds. Cette valeur ne "
 "devrait généralement pas être inférieure à la taille des blocs du système de "
 "fichiers car il serait alors créé plus d'inœuds que ce qui pourrait être "
-"utilisé. Sachez qu'il n'est pas possible d'augmenter le nombre d'inœuds d'un "
+"utilisé. Sachez qu'il n'est pas possible de modifier ce rapport sur un "
 "système de fichiers après sa création, donc faites attention à choisir une "
-"valeur correcte pour ce paramètre."
+"valeur correcte pour ce paramètre. Remarquez que redimensionner un système "
+"de fichiers change le nombre d'inœuds pour garder ce rapport constant."
 
 #. type: TP
 #: C/man8/mke2fs.8:357
@@ -7810,7 +7956,6 @@ msgstr "B<-I> I<taille_inœud>"
 
 #. type: Plain text
 #: C/man8/mke2fs.8:368
-#, fuzzy
 #| msgid ""
 #| "Specify the size of each inode in bytes.  B<mke2fs> creates 256-byte "
 #| "inodes by default.  In kernels after 2.6.10 and some earlier vendor "
@@ -7830,21 +7975,15 @@ msgid ""
 "filesystem and can also negatively impact performance.  It is not possible "
 "to change this value after the filesystem is created."
 msgstr ""
-"Indiquer la taille de chaque inœud, en octets. B<mke2fs> crée des inœuds de "
-"256 octets par défaut. Les noyaux postérieurs à 2.6.10 et les noyaux de "
-"certains distributeurs permettent d'utiliser des inœuds de plus de "
-"128 octets, qui peuvent stocker des attributs étendus pour améliorer les "
-"performances. La valeur de I<taille_inœud> doit être une puissance de 2 "
-"supérieure ou égale à 128. Plus I<taille_inœud> est importante, plus la "
-"table des inœuds prendra de place, réduisant la place disponible sur le "
-"système de fichiers et pouvant également réduire les performances. Les "
-"attributs étendus enregistrés dans des inœuds larges ne sont pas visibles "
-"avec les noyaux 2.4. Il n'est pas possible de changer cette valeur après la "
+"Indiquer la taille de chaque inœud, en octets. La valeur de I<taille_inœud> "
+"doit être une puissance de 2 supérieure ou égale à 128. Plus I<taille_inœud> "
+"est importante, plus la table des inœuds prendra de place, réduisant la "
+"place disponible sur le système de fichiers et pouvant également réduire les "
+"performances. Il n'est pas possible de changer cette valeur après la "
 "création du système de fichiers."
 
 #. type: Plain text
 #: C/man8/mke2fs.8:376
-#, fuzzy
 #| msgid ""
 #| "Specify the size of each inode in bytes.  B<mke2fs> creates 256-byte "
 #| "inodes by default.  In kernels after 2.6.10 and some earlier vendor "
@@ -7864,17 +8003,10 @@ msgid ""
 "visible with older kernels, and such filesystems will not be mountable with "
 "2.4 kernels at all."
 msgstr ""
-"Indiquer la taille de chaque inœud, en octets. B<mke2fs> crée des inœuds de "
-"256 octets par défaut. Les noyaux postérieurs à 2.6.10 et les noyaux de "
-"certains distributeurs permettent d'utiliser des inœuds de plus de "
-"128 octets, qui peuvent stocker des attributs étendus pour améliorer les "
-"performances. La valeur de I<taille_inœud> doit être une puissance de 2 "
-"supérieure ou égale à 128. Plus I<taille_inœud> est importante, plus la "
-"table des inœuds prendra de place, réduisant la place disponible sur le "
-"système de fichiers et pouvant également réduire les performances. Les "
-"attributs étendus enregistrés dans des inœuds larges ne sont pas visibles "
-"avec les noyaux 2.4. Il n'est pas possible de changer cette valeur après la "
-"création du système de fichiers."
+"Les noyaux postérieurs à 2.6.10 et les noyaux de certains distributeurs "
+"permettent d'utiliser des inœuds de plus de 128 octets, qui peuvent stocker "
+"des attributs étendus pour améliorer les performances. Les attributs étendus "
+"enregistrés dans des inœuds larges ne sont pas visibles avec les noyaux 2.4."
 
 #. type: Plain text
 #: C/man8/mke2fs.8:384
@@ -7884,6 +8016,11 @@ msgid ""
 "bytes for most file systems, except for small file systems where the inode "
 "size will be 128 bytes."
 msgstr ""
+"La taille par défaut des inœuds est contrôlée par le fichier B<mke2fs."
+"conf>(5). Dans le fichier B<mke2fs.conf> fourni avec e2fsprogs, la taille "
+"par défaut des inœuds est fixée à 256 octets pour la plupart des systèmes de "
+"fichiers, sauf pour les petits systèmes de fichiers pour lequels la taille "
+"des inœuds sera 128 octets."
 
 #. type: TP
 #: C/man8/mke2fs.8:384 C/man8/tune2fs.8:286
@@ -8180,7 +8317,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/mke2fs.8:550
-#, fuzzy
 #| msgid ""
 #| "The filesystem feature set is comprised of a list of features, separated "
 #| "by commas, that are to be enabled.  To disable a feature, simply prefix "
@@ -8195,20 +8331,21 @@ msgid ""
 msgstr ""
 "Le jeu de caractéristiques est une liste de caractéristiques, séparées par "
 "des virgules, qui doivent être activées. Pour désactiver une "
-"caractéristique, préfixez-la simplement par un caractère « ^ ». La "
-"caractéristique particulière « none » permet de supprimer toutes les "
-"caractéristiques de système de fichiers."
+"caractéristique, préfixez-la simplement par l'un des caractères « ^ » ou « -"
+" ». Les caractéristiques avec des dépendances ne pourront pas être "
+"désactivées correctement. La caractéristique particulière « none » permet de "
+"supprimer toutes les caractéristiques de système de fichiers."
 
 #. type: TP
 #: C/man8/mke2fs.8:550
 #, no-wrap
 msgid "For more information about the features which can be set, please see"
-msgstr ""
+msgstr "Pour plus d'informations sur les caractéristiques qui peuvent être activées, consultez"
 
 #. type: Plain text
 #: C/man8/mke2fs.8:554
 msgid "the manual page B<ext4>(5)."
-msgstr ""
+msgstr "la page de manuel B<ext4>(5)."
 
 #. type: TP
 #: C/man8/mke2fs.8:554
@@ -8734,6 +8871,7 @@ msgstr "  16\t-\\ Afficher les informations d'horodatage"
 #: C/man8/resize2fs.8:106
 msgid "  32\t-\\ Debug minimum filesystem size (-M) calculation"
 msgstr ""
+"32\t-\\ déboguer le calcul de la taille minimale du système de fichiers (-M)"
 
 #. type: Plain text
 #: C/man8/resize2fs.8:110
@@ -9698,7 +9836,6 @@ msgstr "B<-O> [B<^>]I<caractéristique>[B<,>...]"
 
 #. type: Plain text
 #: C/man8/tune2fs.8:507
-#, fuzzy
 #| msgid ""
 #| "Set or clear the indicated filesystem features (options) in the "
 #| "filesystem.  More than one filesystem feature can be cleared or set by "
@@ -9719,7 +9856,9 @@ msgstr ""
 "fichiers. Plusieurs caractéristiques peuvent être positionnées ou effacées "
 "en les séparant par des virgules. Les caractéristiques préfixées par un "
 "accent circonflexe (« B<^> ») seront effacées du superbloc tandis que celles "
-"sans préfixe ou avec le préfixe « B<+> » seront ajoutées."
+"sans préfixe ou avec le préfixe « B<+> » seront ajoutées. Pour une "
+"description détaillée des caractéristiques de système de fichiers, consultez "
+"la page de manuel B<ext4>(5)."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:510
@@ -9747,11 +9886,13 @@ msgid ""
 "Enable the use of extent trees to store the location of data blocks in "
 "inodes."
 msgstr ""
+"Activer l'utilisation d'arbres étendus pour stocker la position des blocs de "
+"données dans les inœuds."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:523
 msgid "Enable the extended inode fields used by ext4."
-msgstr ""
+msgstr "Activer les champs d'inœuds étendus utilisés par ext4."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:526
@@ -9787,7 +9928,7 @@ msgstr ""
 #. type: Plain text
 #: C/man8/tune2fs.8:544
 msgid "Support files larger than 2 terabytes in size."
-msgstr ""
+msgstr "Prendre en charge des fichiers plus grands que 2 téraoctets."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:547
@@ -9806,17 +9947,16 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/tune2fs.8:556
-#, fuzzy
 #| msgid "Display the multiple-mount protection (mmp) field values."
 msgid "Enable or disable multiple mount protection (MMP) feature."
 msgstr ""
-"Afficher les valeurs des champs de protection contre le montage multiple "
-"(mmp)."
+"Activer ou désactiver la caractéristique de protection contre le montage "
+"multiple (MMP)."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:559
 msgid "Enable internal file system quota inodes."
-msgstr ""
+msgstr "Activer les inœuds internes de quota de système de fichiers."
 
 #. type: Plain text
 #: C/man8/tune2fs.8:562
@@ -9828,7 +9968,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man8/tune2fs.8:570
-#, fuzzy
 #| msgid ""
 #| "Allow the kernel to initialize bitmaps and inode tables and keep a high "
 #| "watermark for the unused inodes in a filesystem, to reduce B<e2fsck>(8)  "
@@ -9842,8 +9981,8 @@ msgid ""
 "take the full time, but subsequent e2fsck runs will take only a fraction of "
 "the original time, depending on how full the file system is."
 msgstr ""
-"Permettre au noyau d'initialiser la table des blocs et des inœuds et de "
-"garder une trace des inœuds inutilisés d'un système de fichiers, pour "
+"Permettre au noyau d'initialiser en différé la table des blocs et des inœuds "
+"et de garder une trace des inœuds inutilisés d'un système de fichiers, pour "
 "réduire la durée d'exécution de B<e2fsck>(8). La première exécution de "
 "e2fsck après avoir activé cette fonctionnalité prendra le même temps, mais "
 "les exécutions suivantes de e2fsck ne prendront qu'une fraction de ce temps, "
