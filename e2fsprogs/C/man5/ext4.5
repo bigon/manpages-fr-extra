@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\"
-.TH EXT4 5 "December 2013" "E2fsprogs version 1.42.9"
+.TH EXT4 5 "February 2014" "E2fsprogs version 1.42.9"
 .SH NAME
 ext2 \- the second extended file system
 .br
@@ -109,7 +109,6 @@ supported by ext2, ext3, and ext4.
 This feature enables the storage file type information in directory
 entries.  This feature is supported by ext2, ext3, and ext4.
 .TP
-.TP
 .B flex_bg
 .br
 This ext4 feature allows the per-block group metadata (allocation
@@ -171,6 +170,17 @@ kernels from mounting file systems that they could not understand.
 .\" .BR uninit_bg .
 .\" .br
 .\" .B Future feature, available in e2fsprogs 1.43-WIP
+.TP
+.B sparse_super2
+.br
+This feature indicates that there will only at most two backup
+superblock and block group descriptors.  The block groups used to store
+the backup superblock and blockgroup descriptors are stored in the
+superblock, but typically, one will be located at the beginning of block
+group #1, and one in the last block group in the file system.  This is
+feature is essentially a more extreme version of sparse_super and is
+designed to allow the a much larger percentage of the disk to have
+contiguous blocks available for data files.
 .TP
 .B meta_bg
 .br
