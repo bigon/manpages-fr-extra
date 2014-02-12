@@ -18,14 +18,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra\n"
 "POT-Creation-Date: 2013-12-18 11:45-0400\n"
-"PO-Revision-Date: 2013-10-02 16:01-0400\n"
+"PO-Revision-Date: 2013-12-20 11:27-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. type: TH
@@ -97,11 +97,6 @@ msgstr "DESCRIPTION"
 
 #. type: Plain text
 #: C/man1/free.1:19
-#, fuzzy
-#| msgid ""
-#| "B<free> displays the total amount of free and used physical and swap "
-#| "memory in the system, as well as the buffers used by the kernel.  The "
-#| "shared memory column should be ignored; it is obsolete."
 msgid ""
 "B<free> displays the total amount of free and used physical and swap memory "
 "in the system, as well as the buffers used by the kernel.  The shared memory "
@@ -111,8 +106,10 @@ msgid ""
 msgstr ""
 "B<free> affiche la quantité totale de mémoire physique et d'espace d'échange "
 "libre et utilisée par le système, ainsi que les tampons utilisés par le "
-"noyau. La colonne de mémoire partagée devrait être ignorée car elle est "
-"obsolète."
+"noyau. La colonne de mémoire partagée représente soit la valeur MemShared "
+"(noyaux de la série 2.4), soit la valeur Shmem (noyaux à partir de la "
+"série 2.6), prise dans le fichier /proc/meminfo. La valeur est nulle si "
+"aucune des entrées n’est exportée par le noyau."
 
 #. type: SH
 #: C/man1/free.1:19 C/man1/kill.1:30 C/man1/pgrep.1:39 C/man1/pmap.1:16
@@ -219,7 +216,7 @@ msgid ""
 msgstr ""
 "En l'absence d'unité, pour des quantités de l'ordre du pétaoctet de RAM ou "
 "d'espace d'échange, le nombre est en téraoctet et les colonnes risquent de "
-"ne pas êtres alignées avec l'en-tête."
+"ne pas être alignées avec l'en-tête."
 
 #. type: TP
 #: C/man1/free.1:50
@@ -478,8 +475,8 @@ msgid ""
 "List signal names.  This option has optional argument, which will convert "
 "signal number to signal name, or other way round."
 msgstr ""
-"Afficher les noms de signaux. Cette option a un paramètre facultatif, qui "
-"sera converti en nom de signal s'il s'agit d'un numéro de signal, et vice "
+"Afficher les noms de signaux. Cette option a un paramètre facultatif qui "
+"sera converti en nom de signal, s'il s'agit d'un numéro de signal, et vice "
 "versa."
 
 #. type: TP
@@ -636,17 +633,12 @@ msgstr "B<pkill> [B<options>] I<motif>"
 
 #. type: Plain text
 #: C/man1/pgrep.1:19
-#, fuzzy
-#| msgid ""
-#| "B<pgrep> looks through the currently running processes and lists the "
-#| "process IDs which matches the selection criteria to stdout.  All the "
-#| "criteria have to match.  For example,"
 msgid ""
 "B<pgrep> looks through the currently running processes and lists the process "
 "IDs which match the selection criteria to stdout.  All the criteria have to "
 "match.  For example,"
 msgstr ""
-"B<pgrep> parcourt les processus en cours d'exécution, et affiche sur la "
+"B<pgrep> parcourt les processus en cours d'exécution et affiche sur la "
 "sortie standard les identifiants des processus qui correspondent aux "
 "critères de sélection donnés. Tous les critères doivent correspondre. Par "
 "exemple\\ :"
@@ -714,11 +706,6 @@ msgstr "B<-c>, B<--count>"
 
 #. type: Plain text
 #: C/man1/pgrep.1:53
-#, fuzzy
-#| msgid ""
-#| "Suppress normal output; instead print a count of matching processes.  "
-#| "When count does not match anything, e.g. returns zero, the command will "
-#| "return non-zero value.  (B<pgrep> only.)"
 msgid ""
 "Suppress normal output; instead print a count of matching processes.  When "
 "count does not match anything, e.g. returns zero, the command will return "
@@ -726,8 +713,7 @@ msgid ""
 msgstr ""
 "À la place de la sortie normale, afficher le nombre de processus "
 "correspondant aux critères. S'il n'y a pas de correspondance, c'est-à-dire "
-"si zéro est renvoyé, la commande renverra une valeur non nulle (seulement "
-"pour B<pgrep>)."
+"si zéro est renvoyé, la commande renverra une valeur non nulle."
 
 #. type: TP
 #: C/man1/pgrep.1:53
@@ -917,11 +903,6 @@ msgstr "B<-v>, B<--inverse>"
 
 #. type: Plain text
 #: C/man1/pgrep.1:124
-#, fuzzy
-#| msgid ""
-#| "Negates the matching.  This option usually used in pgrep context.  In "
-#| "B<pkill> context the short option is disabled to avoid accidental usage "
-#| "of the option."
 msgid ""
 "Negates the matching.  This option is usually used in B<pgrep>'s context.  "
 "In B<pkill>'s context the short option is disabled to avoid accidental usage "
@@ -929,29 +910,23 @@ msgid ""
 msgstr ""
 "Inverser la sélection. Cette option est normalement utilisée dans le "
 "contexte de B<pgrep>. Dans le contexte de B<pkill>, l'option courte est "
-"désactivée pour éviter d'être utilisée par accident."
+"désactivée pour éviter qu'elle soit utilisée par accident."
 
 #. type: TP
 #: C/man1/pgrep.1:124
-#, fuzzy, no-wrap
-#| msgid "B<-w>, B<--write>"
+#, no-wrap
 msgid "B<-w>, B<--lightweight>"
-msgstr "B<-w>, B<--write>"
+msgstr "B<-w>, B<--lightweight>"
 
 #. type: Plain text
 #: C/man1/pgrep.1:131
-#, fuzzy
-#| msgid ""
-#| "Negates the matching.  This option usually used in pgrep context.  In "
-#| "B<pkill> context the short option is disabled to avoid accidental usage "
-#| "of the option."
 msgid ""
 "Shows all thread ids instead of pids in B<pgrep>'s context.  In B<pkill>'s "
 "context this option is disabled."
 msgstr ""
-"Inverser la sélection. Cette option est normalement utilisée dans le "
-"contexte de B<pgrep>. Dans le contexte de B<pkill>, l'option courte est "
-"désactivée pour éviter d'être utilisée par accident."
+"Montrer tous les identifiants de processus légers (« threads ») au lieu des "
+"PID dans le contexte de B<pgrep>. Dans le contexte de B<pkill>, cette option "
+"est désactivée."
 
 #. type: TP
 #: C/man1/pgrep.1:131
@@ -961,10 +936,6 @@ msgstr "B<-x>, B<--exact>"
 
 #. type: Plain text
 #: C/man1/pgrep.1:137
-#, fuzzy
-#| msgid ""
-#| "Only match processes whose name (or command line if -f is specified)  "
-#| "B<exactly> match the I<pattern>."
 msgid ""
 "Only match processes whose names (or command line if -f is specified)  "
 "B<exactly> match the I<pattern>."
@@ -1001,10 +972,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/pgrep.1:148 C/man1/skill.1:80
-#, fuzzy, no-wrap
-#| msgid "B<--si>"
+#, no-wrap
 msgid "B<--ns >I<pid>"
-msgstr "B<--si>"
+msgstr "B<--ns> I<PID>"
 
 #. type: Plain text
 #: C/man1/pgrep.1:153
@@ -1013,12 +983,16 @@ msgid ""
 "to match processes from other users. See --nslist for how to limit which "
 "namespaces to match."
 msgstr ""
+"Sélectionner les processus qui appartiennent aux mêmes espaces de nommage. "
+"Doit être exécuté en tant que superutilisateur pour sélectionner les "
+"processus d’autres utilisateurs. Consultez B<--nslist> pour une manière de "
+"limiter les espaces de nommage à sélectionner."
 
 #. type: TP
 #: C/man1/pgrep.1:153
 #, no-wrap
 msgid "B<--nslist >I<name>B<,...>"
-msgstr ""
+msgstr "B<--nslist> I<en>[B<,>I<en>]..."
 
 #. type: Plain text
 #: C/man1/pgrep.1:157
@@ -1026,6 +1000,8 @@ msgid ""
 "Match only the provided namespaces. Available namespaces: ipc, mnt, net, "
 "pid, user,uts."
 msgstr ""
+"Ne sélectionner que les espaces de nommage fournis. Les espaces de nommage "
+"disponibles sont : ipc, mnt, net, pid, user et uts."
 
 #. type: Plain text
 #: C/man1/pgrep.1:160 C/man1/pmap.1:62 C/man1/slabtop.1:38 C/man8/sysctl.8:125
@@ -1331,67 +1307,60 @@ msgstr "Afficher tout ce que le noyau fournit."
 
 #. type: TP
 #: C/man1/pmap.1:41
-#, fuzzy, no-wrap
-#| msgid "B<-s>, B<--short>"
+#, no-wrap
 msgid "B<-p>, B<--show-path>"
-msgstr "B<-s>, B<--short>"
+msgstr "B<-p>, B<--show-path>"
 
 #. type: Plain text
 #: C/man1/pmap.1:44
 msgid "Show full path to files in the mapping column"
 msgstr ""
+"Montrer le chemin complet vers les fichiers dans la colonne de "
+"correspondance."
 
 #. type: TP
 #: C/man1/pmap.1:44
-#, fuzzy, no-wrap
-#| msgid "B<-x>, B<--exact>"
+#, no-wrap
 msgid "B<-c>, B<--read-rc>"
-msgstr "B<-x>, B<--exact>"
+msgstr "B<-c>, B<--read-rc>"
 
 #. type: Plain text
 #: C/man1/pmap.1:47
 msgid "Read the default configuration"
-msgstr ""
+msgstr "Lire la configuration par défaut."
 
 #. type: TP
 #: C/man1/pmap.1:47
-#, fuzzy, no-wrap
-#| msgid "B<-F>, B<--pidfile> I<file>"
+#, no-wrap
 msgid "B<-C>, B<--read-rc-from> I<file>"
-msgstr "B<-F>, B<--pidfile> I<fichier>"
+msgstr "B<-C>, B<--read-rc-from> I<fichier>"
 
 #. type: Plain text
 #: C/man1/pmap.1:50
-#, fuzzy
-#| msgid "configuration file"
 msgid "Read the configuration from I<file>"
-msgstr "fichier de configuration"
+msgstr "Lire le fichier de configuration I<fichier>."
 
 #. type: TP
 #: C/man1/pmap.1:50
-#, fuzzy, no-wrap
-#| msgid "B<-x>, B<--exec>"
+#, no-wrap
 msgid "B<-n>, B<--create-rc>"
-msgstr "B<-x>, B<--exec>"
+msgstr "B<-n>, B<--create-rc>"
 
 #. type: Plain text
 #: C/man1/pmap.1:53
 msgid "Create new default configuration"
-msgstr ""
+msgstr "Créer une nouvelle configuration par défaut."
 
 #. type: TP
 #: C/man1/pmap.1:53
-#, fuzzy, no-wrap
-#| msgid "B<-F>, B<--pidfile> I<file>"
+#, no-wrap
 msgid "B<-N>, B<--create-rc-to> I<file>"
-msgstr "B<-F>, B<--pidfile> I<fichier>"
+msgstr "B<-N>, B<--create-rc-to> I<fichier>"
 
 #. type: Plain text
 #: C/man1/pmap.1:56
-#, fuzzy
-#| msgid "configuration file"
 msgid "Create new configuration to I<file>"
-msgstr "fichier de configuration"
+msgstr "Créer une nouvelle configuration dans I<fichier>."
 
 #. type: Plain text
 #: C/man1/pmap.1:59 C/man1/skill.1:61 C/man8/sysctl.8:122 C/man1/watch.1:69
@@ -1486,20 +1455,20 @@ msgstr "Cette version de B<ps> accepte plusieurs types d'options :"
 #: C/man1/ps.1:47
 msgid "UNIX options, which may be grouped and must be preceded by a dash."
 msgstr ""
-"les options UNIX, qui peuvent être regroupées, et qui doivent être précédées "
+"les options UNIX qui peuvent être regroupées et qui doivent être précédées "
 "d'un tiret ;"
 
 #. type: Plain text
 #: C/man1/ps.1:49
 msgid "BSD options, which may be grouped and must not be used with a dash."
 msgstr ""
-"les options BSD, qui peuvent être regroupées, et qui ne doivent pas être "
+"les options BSD qui peuvent être regroupées et qui ne doivent pas être "
 "utilisées avec un tiret ;"
 
 #. type: Plain text
 #: C/man1/ps.1:51
 msgid "GNU long options, which are preceded by two dashes."
-msgstr "les options étendues GNU, qui doivent être précédées de deux tirets."
+msgstr "les options étendues GNU qui doivent être précédées de deux tirets."
 
 #. type: Plain text
 #: C/man1/ps.1:60
@@ -1548,8 +1517,8 @@ msgstr ""
 "utilisateur effectif (euid=EUID) que l'utilisateur en cours et associés au "
 "même terminal que l'appelant. Il affiche l'identifiant de processus "
 "(pid=PID), le terminal associé au processus (tname=TTY), le temps CPU cumulé "
-"au format [JJ-]HH:MM:SS (time=TIME), et le nom de l'exécutable (ucmd=CMD). "
-"La sortie n'est pas ordonnée par défaut."
+"au format [JJ-]HH:MM:SS (time=TIME) et le nom de l'exécutable (ucmd=CMD). La "
+"sortie n'est pas ordonnée par défaut."
 
 #. type: Plain text
 #: C/man1/ps.1:92
@@ -2037,13 +2006,6 @@ msgstr "B<--group> I<liste_groupes>"
 
 #. type: Plain text
 #: C/man1/ps.1:280
-#, fuzzy
-#| msgid ""
-#| "Select by effective group ID (EGID) or name.  This selects the processes "
-#| "whose effective group name or ID is in I<grouplist>.  The effective group "
-#| "ID describes the group whose file access permissions are used by the "
-#| "process (see I<getegid>(2)).  The B<-g> option is often an alternative to "
-#| "B<--group>."
 msgid ""
 "Select by effective group ID (EGID) or name.  This selects the processes "
 "whose effective group name or ID is in I<grplist>.  The effective group ID "
@@ -2334,12 +2296,12 @@ msgid ""
 "and LWP (thread ID) columns will be added.  See the B<c> option, the format "
 "keyword B<args>, and the format keyword B<comm>."
 msgstr ""
-"Faire une liste tout format. Cette option peut être combinée aux nombreuses "
-"autres options « à la UNIX » pour ajouter des colonnes supplémentaires. Cela "
-"conduit également à afficher les paramètres de la commande. Lorsqu'elle est "
-"utilisée avec B<-L>, les colonnes NLWP (nombre de processus légers) et LWP "
-"(identifiant de processus léger) seront ajoutées. Consultez l'option B<c> et "
-"les mots-clés de format B<args> et B<comm>."
+"Faire une liste au format complet. Cette option peut être combinée aux "
+"nombreuses autres options « à la UNIX » pour ajouter des colonnes "
+"supplémentaires. Cela conduit également à afficher les paramètres de la "
+"commande. Lorsqu'elle est utilisée avec B<-L>, les colonnes NLWP (nombre de "
+"processus légers) et LWP (identifiant de processus léger) seront ajoutées. "
+"Consultez l'option B<c> et les mots-clés de format B<args> et B<comm>."
 
 #. type: TP
 #: C/man1/ps.1:418
@@ -2350,7 +2312,7 @@ msgstr "B<-F>"
 #. type: Plain text
 #: C/man1/ps.1:425
 msgid "Extra full format.  See the B<-f> option, which B<-F> implies."
-msgstr "Tout format étendu. Consultez l'option B<-f>, implicite avec B<-F>."
+msgstr "Format complet étendu. Consultez l'option B<-f>, implicite avec B<-F>."
 
 #. type: TP
 #: C/man1/ps.1:425
@@ -3135,7 +3097,7 @@ msgid ""
 "B<ps> any special permissions."
 msgstr ""
 "Ce B<ps> fonctionne en lisant les fichiers virtuels de I</proc>. Ce B<ps> "
-"n'a pas besoin d'être Set-UID kmem, et ne nécessite aucun privilège pour "
+"n'a pas besoin d'être Set-UID kmem et ne nécessite aucun privilège pour "
 "fonctionner. Ne pas donner de permissions particulières à ce B<ps>."
 
 #. type: Plain text
@@ -3159,7 +3121,7 @@ msgstr ""
 "L'utilisation CPU est actuellement exprimée en pourcentage de temps passé à "
 "fonctionner pendant le temps de vie complet d'un processus. Ce n'est ni "
 "idéal, ni conforme aux normes par ailleurs respectées par B<ps>. Il est peu "
-"probable que la somme d'utilisation CPU soit exactement égale à 100\\ %."
+"probable que la somme d'utilisations CPU soit exactement égale à 100\\ %."
 
 #. type: Plain text
 #: C/man1/ps.1:797
@@ -3197,14 +3159,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/ps.1:816
-#, fuzzy
-#| msgid ""
-#| "Commands options such as B<ps> I<-aux> are not recommended as it is a "
-#| "confusion of two different standards.  According to the POSIX and UNIX "
-#| "standards, the above command asks to display all processes with a TTY "
-#| "(generally the commands users are running) plus all processes owned by a "
-#| "user named \"x\".  If that user doesn't exist, then B<ps> will assume you "
-#| "really meant \"B<ps> I<aux>\"."
 msgid ""
 "Commands options such as B<ps -aux> are not recommended as it is a confusion "
 "of two different standards.  According to the POSIX and UNIX standards, the "
@@ -3450,7 +3404,7 @@ msgstr ""
 "ordonner). L'option GNU B<--sort> n'utilise pas ces clés, mais celles "
 "décrites ci-dessous dans la section B<INDICATEURS DE FORMAT STANDARDS>. "
 "Remarquez que les valeurs utilisées pour ordonner sont les valeurs internes "
-"que B<ps> utilise, et non les valeurs « trafiquées » utilisées dans certains "
+"que B<ps> utilise et non les valeurs « trafiquées » utilisées dans certains "
 "champs de format de sortie (par exemple trier sur tty ordonnera par numéro "
 "de périphérique, pas en fonction du nom de terminal affiché). Envoyer la "
 "sortie de B<ps> dans un tube (« pipe ») vers la commande B<sort>(1) permet "
@@ -4219,7 +4173,7 @@ msgstr "cgroup\tCGROUP\tT{\n"
 #: C/man1/ps.1:1091
 #, no-wrap
 msgid "display control groups to which the process belongs.\n"
-msgstr "Affichage des groupes de contrôle auxquels appartient le processus.\n"
+msgstr "Groupes de contrôle auxquels appartient le processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1094
@@ -4818,17 +4772,16 @@ msgstr "B<sig_ignore>, B<sigignore>).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1302
-#, fuzzy, no-wrap
-#| msgid "cls\tCLS\tT{\n"
+#, no-wrap
 msgid "ipcns\tIPCNS\tT{\n"
-msgstr "cls\tCLS\tT{\n"
+msgstr "ipcns\tIPCNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1303 C/man1/ps.1:1343 C/man1/ps.1:1347 C/man1/ps.1:1419
 #: C/man1/ps.1:1759 C/man1/ps.1:1763
 #, no-wrap
 msgid "Unique inode number describing the namespace the process belongs to. See namespaces(7).\n"
-msgstr ""
+msgstr "Numéro d’inœud unique décrivant l’espace de nommage auquel appartient le processus. Consultez B<namespaces>(7).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1306
@@ -4880,16 +4833,15 @@ msgstr "B<bsdstart>, B<start>, B<start_time> et B<stime>.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1318
-#, fuzzy, no-wrap
-#| msgid "sess\tSESS\tT{\n"
+#, no-wrap
 msgid "lsession\tSESSION\tT{\n"
-msgstr "sess\tSESS\tT{\n"
+msgstr "lsession\tSESSION\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1319 C/man1/ps.1:1521
 #, no-wrap
 msgid "displays login session identifier of a process.\n"
-msgstr ""
+msgstr "Identifiant de session d'un processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1322
@@ -4925,16 +4877,15 @@ msgstr "pour plus de renseignements.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1330
-#, fuzzy, no-wrap
-#| msgid "wchan\tWCHAN\tT{\n"
+#, no-wrap
 msgid "machine\tMACHINE\tT{\n"
-msgstr "wchan\tWCHAN\tT{\n"
+msgstr "machine\tMACHINE\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1331
 #, no-wrap
 msgid "displays machine name for processes assigned to VM or container.\n"
-msgstr ""
+msgstr "Nom de machine pour les processus assignés à une machine virtuelle ou un conteneur.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1334
@@ -4962,17 +4913,15 @@ msgstr "Nombre de défauts de page mineurs survenus avec ce processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1342
-#, fuzzy, no-wrap
-#| msgid "min_flt\tMINFLT\tT{\n"
+#, no-wrap
 msgid "mntns\tMNTNS\tT{\n"
-msgstr "min_flt\tMINFLT\tT{\n"
+msgstr "mntns\tMNTNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1346
-#, fuzzy, no-wrap
-#| msgid "esp\tESP\tT{\n"
+#, no-wrap
 msgid "netns\tNETNS\tT{\n"
-msgstr "esp\tESP\tT{\n"
+msgstr "netns\tNETNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1350
@@ -5066,16 +5015,15 @@ msgstr "Un tiret (« - ») sera affiché dans cette colonne pour les tâches e
 
 #. type: tbl table
 #: C/man1/ps.1:1376
-#, fuzzy, no-wrap
-#| msgid "euid\tEUID\tT{\n"
+#, no-wrap
 msgid "ouid\tOWNER\tT{\n"
-msgstr "euid\tEUID\tT{\n"
+msgstr "ouid\tOWNER\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1377
 #, no-wrap
 msgid "displays the Unix user identifier of the owner of the session of a process.\n"
-msgstr ""
+msgstr "Identifiant utilisateur UNIX du propriétaire de la session d'un processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1380
@@ -5215,10 +5163,9 @@ msgstr "B<tgid>).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1418
-#, fuzzy, no-wrap
-#| msgid "pid\tPID\tT{\n"
+#, no-wrap
 msgid "pidns\tPIDNS\tT{\n"
-msgstr "pid\tPID\tT{\n"
+msgstr "pidns\tPIDNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1422
@@ -5495,10 +5442,9 @@ msgstr "affichées comme 0, 1, 2, 3, 4 et 5.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1520
-#, fuzzy, no-wrap
-#| msgid "stat\tSTAT\tT{\n"
+#, no-wrap
 msgid "seat\tSEAT\tT{\n"
-msgstr "stat\tSTAT\tT{\n"
+msgstr "seat\tSEAT\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1524
@@ -5693,17 +5639,15 @@ msgstr "approximatif !\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1585
-#, fuzzy, no-wrap
-#| msgid "size\tSIZE\tT{\n"
+#, no-wrap
 msgid "slice\tSLICE\tT{\n"
-msgstr "size\tSIZE\tT{\n"
+msgstr "slice\tSLICE\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1586
-#, fuzzy, no-wrap
-#| msgid "display control groups to which the process belongs.\n"
+#, no-wrap
 msgid "displays slice unit which a process belongs to.\n"
-msgstr "Affichage des groupes de contrôle auxquels appartient le processus.\n"
+msgstr "Unité « slice » à laquelle appartient le processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1589
@@ -6251,17 +6195,15 @@ msgstr "B<euser>,B<\\ user>).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1747
-#, fuzzy, no-wrap
-#| msgid "ni\tNI\tT{\n"
+#, no-wrap
 msgid "unit\tUNIT\tT{\n"
-msgstr "ni\tNI\tT{\n"
+msgstr "unit\tUNIT\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1748
-#, fuzzy, no-wrap
-#| msgid "display control groups to which the process belongs.\n"
+#, no-wrap
 msgid "displays systemd unit which a process belongs to.\n"
-msgstr "Affichage des groupes de contrôle auxquels appartient le processus.\n"
+msgstr "Unité systemd à laquelle appartient le processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1751
@@ -6277,31 +6219,27 @@ msgstr "B<euser>, B<uname>).\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1758
-#, fuzzy, no-wrap
-#| msgid "user\tUSER\tT{\n"
+#, no-wrap
 msgid "userns\tUSERNS\tT{\n"
-msgstr "user\tUSER\tT{\n"
+msgstr "userns\tUSERNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1762
-#, fuzzy, no-wrap
-#| msgid "rss\tRSS\tT{\n"
+#, no-wrap
 msgid "utsns\tUTSNS\tT{\n"
-msgstr "rss\tRSS\tT{\n"
+msgstr "utsns\tUTSNS\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1766
-#, fuzzy, no-wrap
-#| msgid "ni\tNI\tT{\n"
+#, no-wrap
 msgid "uunit\tUUNIT\tT{\n"
-msgstr "ni\tNI\tT{\n"
+msgstr "uunit\tUUNIT\tT{\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1767
-#, fuzzy, no-wrap
-#| msgid "display control groups to which the process belongs.\n"
+#, no-wrap
 msgid "displays systemd user unit which a process belongs to.\n"
-msgstr "Affichage des groupes de contrôle auxquels appartient le processus.\n"
+msgstr "Unité utilisateur systemd à laquelle appartient le processus.\n"
 
 #. type: tbl table
 #: C/man1/ps.1:1770
@@ -6760,16 +6698,16 @@ msgid ""
 "support, along with some ugly hacks for obsolete and foreign syntax."
 msgstr ""
 "B<ps> a été initialement écrit par Branko Lankester E<lt>I<lankeste@fwi.uva."
-"nl>E<gt>. Michael K. Johnson E<lt>I<johnsonm@redhat.com>E<gt> l'a récrit en "
+"nl>E<gt>. Michael K. Johnson E<lt>I<johnsonm@redhat.com>E<gt> l'a réécrit en "
 "profondeur pour utiliser le système de fichiers I<proc>, modifiant quelques "
 "détails au passage. Michael Shields E<lt>I<mjshield@nyx.cs.du.edu>E<gt> a "
 "ajouté la fonctionnalité de liste de PID. Charles Blake E<lt>I<cblake@bbn."
 "com>E<gt> a ajouté le tri multiniveau, la bibliothèque « à la dirent », la "
-"base de donnée de correspondance entre numéro de périphérique et nom, la "
+"base de données de correspondance entre numéro de périphérique et nom, la "
 "recherche approximative binaire directement dans I<System.map>, et beaucoup "
 "de nettoyage de code et de documentation. David Mossberger-Tang a écrit la "
 "prise en charge BFD pour psupdate. Albert Cahalan E<lt>I<albert@users.sf."
-"net>E<gt> a récrit B<ps> pour prendre en charge complètement Unix98 et BSD, "
+"net>E<gt> a réécrit B<ps> pour prendre en charge complètement Unix98 et BSD, "
 "ainsi que certains bidouillages pour les syntaxes obsolètes et étrangères."
 
 #. type: Plain text
@@ -7019,13 +6957,14 @@ msgstr "I<commande> est un nom de commande."
 #: C/man1/skill.1:83
 msgid "Match the processes that belong to the same namespace as pid."
 msgstr ""
+"Sélectionner les processus qui appartiennent aux mêmes espaces de nommage "
+"que I<PID>."
 
 #. type: TP
 #: C/man1/skill.1:83
-#, fuzzy, no-wrap
-#| msgid "B<--lines>I<\\ n>"
+#, no-wrap
 msgid "B<--nslist >I<ns,...>"
-msgstr "B<--lines>I<\\ n>"
+msgstr "B<--nslist> I<en>[B<,>I<en>]..."
 
 #. type: Plain text
 #: C/man1/skill.1:87
@@ -7033,6 +6972,8 @@ msgid ""
 "list which namespaces will be considered for the --ns option.  Available "
 "namespaces: ipc, mnt, net, pid, user, uts."
 msgstr ""
+"Afficher les espaces de nommage qui seront considérés pour l’option B<--ns>. "
+"Les espaces de nommage disponibles sont : ipc, mnt, net, pid, user et uts."
 
 #. type: SH
 #: C/man1/skill.1:88
@@ -7207,8 +7148,8 @@ msgid ""
 "The sort criteria can also be changed while slabtop is running by pressing "
 "the associated character."
 msgstr ""
-"Le critère de tri peut également être modifié pendant l'exécution de slabtop "
-"en entrant le caractère associé."
+"Les critères de tri peuvent également être modifiés pendant l'exécution de "
+"slabtop en entrant le caractère associé."
 
 #. type: tbl table
 #: C/man1/slabtop.1:50
@@ -7299,7 +7240,7 @@ msgid ""
 "routine. See the section B<SORT CRITERIA>."
 msgstr ""
 "Tous les caractères de tri valables sont aussi acceptés, afin de changer la "
-"méthode de tri. Voyez la section B<CRITÈRES DE TRI>."
+"méthode de tri. Consultez la section B<CRITÈRES DE TRI>."
 
 #. type: TP
 #: C/man1/slabtop.1:70
@@ -7397,17 +7338,14 @@ msgstr "sysctl - Configurer les paramètres du noyau à chaud"
 
 #. type: Plain text
 #: C/man8/sysctl.8:15
-#, fuzzy
-#| msgid "B<sysctl> [I<options>] [I<variable>[I<=value>]] [...]"
 msgid "B<sysctl> [I<options>] [I<variable>[B<=>I<value>]] [...]"
 msgstr "B<sysctl> [I<options>] [I<variable>[B<=>I<valeur>]] [...]"
 
+# NOTE: s/or/|/
 #. type: Plain text
 #: C/man8/sysctl.8:18
-#, fuzzy
-#| msgid "B<sysctl -p [file or regexp] [...]>"
 msgid "B<sysctl -p> [I<file> or I<regexp>] [...]"
-msgstr "B<sysctl -p>[I<fichier> ou I<expression rationnelle>] [...]"
+msgstr "B<sysctl -p> [I<fichier> | I<expression rationnelle>] [...]"
 
 #. type: Plain text
 #: C/man8/sysctl.8:26
@@ -7538,7 +7476,7 @@ msgstr ""
 "depuis I</etc/sysctl.conf> si aucun fichier n'est donné. Indiquer «\\ -\\ » "
 "comme fichier signifie que les données seront lues depuis l'entrée standard. "
 "L'utilisation de cette option signifiera que les arguments de B<sysctl> sont "
-"des fichiers, lus dans l'ordre indiqué. L'argument fichier peut être indiqué "
+"des fichiers lus dans l'ordre indiqué. L'argument fichier peut être indiqué "
 "comme une expression rationnelle."
 
 #. type: TP
@@ -7624,10 +7562,9 @@ msgstr "I</etc/sysctl.conf>"
 
 #. type: TP
 #: C/man8/sysctl.8:94
-#, fuzzy, no-wrap
-#| msgid "B<--pattern> I<pattern>"
+#, no-wrap
 msgid "B<-r>, B<--pattern> I<pattern>"
-msgstr "B<--pattern> I<motif>"
+msgstr "B<-r>, B<--pattern> I<motif>"
 
 #. type: Plain text
 #: C/man8/sysctl.8:101
@@ -7641,17 +7578,17 @@ msgstr ""
 #. type: Plain text
 #: C/man8/sysctl.8:104 C/man8/sysctl.8:113
 msgid "Alias of B<-a>"
-msgstr "Alias de B<-a>"
+msgstr "Alias de B<-a>."
 
 #. type: Plain text
 #: C/man8/sysctl.8:107
 msgid "Alias of B<-h>"
-msgstr "Alias de B<-h>"
+msgstr "Alias de B<-h>."
 
 #. type: Plain text
 #: C/man8/sysctl.8:110
 msgid "Alias of B<-p>"
-msgstr "Alias de B<-p>"
+msgstr "Alias de B<-p>."
 
 #. type: TP
 #: C/man8/sysctl.8:113
@@ -8024,10 +7961,9 @@ msgstr "commande interactive"
 #.                            ( and managed to fit in an 80x24 terminal )
 #. type: ds CL
 #: C/man1/top.1:43
-#, fuzzy, no-wrap
-#| msgid "-B<hv>|-B<bcHiSs> -B<d> delay -B<n> limit -B<u>|B<U> user -B<p> pid[,pid] -B<w> [cols] "
+#, no-wrap
 msgid "-B<hv>|-B<bcHiOSs> -B<d> secs -B<n> max -B<u>|B<U> user -B<p> pid -B<o> fld -B<w> [cols] "
-msgstr "-B<hv>|-B<bcHiSs> -B<d> I<délai> -B<n> I<limite> -B<u>|B<U> I<utilisateur> -B<p> I<PID>[B<,>I<PID>] -B<w> [I<colonnes>]"
+msgstr "-B<hv>|-B<bcHiOSs> -B<d> I<délai> -B<n> I<limite> -B<u>|B<U> I<utilisateur> -B<p> I<PID> -B<o> I<champ> -B<w> [I<colonnes>]"
 
 #. type: ds CO
 #: C/man1/top.1:45
@@ -8198,10 +8134,9 @@ msgstr "TOP"
 
 #. type: TH
 #: C/man1/top.1:79
-#, fuzzy, no-wrap
-#| msgid "November 21, 1999"
+#, no-wrap
 msgid "November 2013"
-msgstr "21 novembre 1999"
+msgstr "novembre 2013"
 
 #.  ----------------------------------------------------------------------
 #. type: Plain text
@@ -8281,39 +8216,7 @@ msgstr "Table des matières"
 
 #. type: Plain text
 #: C/man1/top.1:155
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    1. COMMAND-LINE Options\n"
-#| "    2. SUMMARY Display\n"
-#| "       a. UPTIME and LOAD Averages\n"
-#| "       b. TASK and CPU States\n"
-#| "       c. MEMORY Usage\n"
-#| "    3. FIELDS / Columns Display\n"
-#| "       a. DESCRIPTIONS of Fields\n"
-#| "       b. MANAGING Fields\n"
-#| "    4. INTERACTIVE Commands\n"
-#| "       a. GLOBAL Commands\n"
-#| "       b. SUMMARY AREA Commands\n"
-#| "       c. TASK AREA Commands\n"
-#| "          1. Appearance\n"
-#| "          2. Content\n"
-#| "          3. Size\n"
-#| "          4. Sorting\n"
-#| "       d. COLOR Mapping\n"
-#| "    5. ALTERNATE-DISPLAY Provisions\n"
-#| "       a. WINDOWS Overview\n"
-#| "       b. COMMANDS for Windows\n"
-#| "       c. SCROLLING a Window\n"
-#| "       d. SEARCHING in a Window\n"
-#| "    6. FILES\n"
-#| "       a. SYSTEM Configuration File\n"
-#| "       b. PERSONAL Configuration File\n"
-#| "    7. STUPID TRICKS Sampler\n"
-#| "       a. Kernel Magic\n"
-#| "       b. Bouncing Windows\n"
-#| "       c. The Big Bird Window\n"
-#| "       d. The Ol' Switcheroo\n"
-#| "    8. BUGS, 9. HISTORY Former top, 10. AUTHOR, 11. SEE Also\n"
+#, no-wrap
 msgid ""
 "    1. COMMAND-LINE Options\n"
 "    2. SUMMARY Display\n"
@@ -8371,9 +8274,11 @@ msgstr ""
 "       b. COMMANDES de fenêtrage\n"
 "       c. DÉPLACEMENT dans une fenêtre\n"
 "       d. RECHERCHE dans une fenêtre\n"
+"       e. FILTRE dans une fenêtre\n"
 "    6. FICHIERS\n"
 "       a. Fichier de configuration SYSTÈME\n"
 "       b. Fichier de configuration PERSONNEL\n"
+"       c. AJOUT d'entrées d'INSPECTION\n"
 "    7. Échantillons d'ASTUCES IDIOTES\n"
 "       a. Magie du noyau\n"
 "       b. Fenêtres rebondissantes\n"
@@ -8406,13 +8311,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:171
-#, fuzzy
-#| msgid ""
-#| "When you start \\*(We for the first time, you'll be presented with these "
-#| "traditional screen elements: 1) Summary Area; 2) Fields/Columns Header; "
-#| "3) Task Area.  These areas will be explored in the sections that follow.  "
-#| "There is also an Input/Message line between the Summary Area and Columns "
-#| "Header which needs no further explanation."
 msgid ""
 "When started for the first time, you'll be presented with these traditional "
 "elements on the main \\*(We screen: 1) Summary Area; 2) Fields/Columns "
@@ -8420,13 +8318,14 @@ msgid ""
 "follow.  There is also an Input/Message line between the Summary Area and "
 "Columns Header which needs no further explanation."
 msgstr ""
-"Au premier démarrage, \\*(We présente ces éléments d'écran habituels\\ :\n"
+"Au premier démarrage, \\*(We présente ces éléments d'écran habituels sur "
+"l'écran principal\\ :\n"
 "  1) zone de résumé\\ ;\n"
 "  2) en-tête de colonnes ou de champs ;\n"
 "  3) zone de tâches.\n"
-" Ces zones seront présentées dans les sections suivantes. Une ligne d'invite "
-"ou de message entre les deux premières zones mérite de plus amples "
-"explications."
+"\n"
+"Ils seront tous présentés dans les sections suivantes. Une ligne d'invite ou "
+"de message entre les deux premières zones mérite de plus amples explications."
 
 #. type: Plain text
 #: C/man1/top.1:179
@@ -8438,6 +8337,13 @@ msgid ""
 "view of terminal size and current contents differs from \\*(We's view, which "
 "is always based on operating system calls."
 msgstr ""
+"L'écran principal de \\*(We s'adapte I<généralement> plutôt bien aux "
+"modifications de dimensions du terminal sous X Window. D'autres écrans de "
+"\\*(We pourraient moins bien s'adapter, en particulier ceux contenant du "
+"texte statique. Cela dépend, au final, du gestionnaire de fenêtres et en "
+"particulier de l'émulateur de terminal. Leur vue de la taille du terminal et "
+"de son contenu pourrait éventuellement être différente de celle de \\*(We, "
+"qui est toujours basée sur les appels du système d'exploitation."
 
 #. type: Plain text
 #: C/man1/top.1:184
@@ -8447,6 +8353,11 @@ msgid ""
 "punctuation character or cursor motion key will usually restore it.  In "
 "extreme cases, the following sequence almost certainly will:"
 msgstr ""
+"Suite à une opération de redimensionnement, si un écran de \\*(We est "
+"corrompu, paraît incomplet ou désordonné, taper simplement quelque chose "
+"d'inoffensif comme un signe de ponctuation ou une touche de déplacement de "
+"curseur normalement le restaurera. Dans des cas extrêmes, l'enchaînement "
+"suivant devrait sans doute fonctionner : "
 
 #. type: Plain text
 #: C/man1/top.1:189
@@ -8457,6 +8368,10 @@ msgid ""
 "       fg       B<resume> \\*(We\n"
 "       E<lt>LeftE<gt>   force a screen B<redraw> (if necessary)\n"
 msgstr ""
+"       I<tche/cmd objectif>\n"
+"       ^Z       B<suspendre> \\*(We\n"
+"       fg       B<reprendre> \\*(We\n"
+"       E<lt>GaucheE<gt> forcer un B<redessin> de l'écran (si nécessaire)\n"
 
 #. type: Plain text
 #: C/man1/top.1:193
@@ -8465,6 +8380,9 @@ msgid ""
 "try.  Insert this command after \\*(We has been suspended but before "
 "resuming it."
 msgstr ""
+"Si l'affichage est toujours corrompu, une étape peut encore être essayée. "
+"Insérez cette commande après avoir suspendu \\*(We mais avant de le "
+"reprendre."
 
 #. type: Plain text
 #: C/man1/top.1:196
@@ -8473,6 +8391,8 @@ msgid ""
 "       I<key/cmd  objective >\n"
 "       reset    restore your B<terminal settings>\n"
 msgstr ""
+"       I<tche/cmd objectif>\n"
+"       reset    restaurer les B<réglages du terminal>\n"
 
 #. type: Plain text
 #: C/man1/top.1:206
@@ -8484,32 +8404,27 @@ msgid ""
 "of Fields.  Actual output width may also be influenced by the -w switch, "
 "which is discussed in topic 1. COMMAND-LINE Options."
 msgstr ""
-"\\*(NT la largeur de l'affichage de \\*(We sera limité à \\*(WX positions. "
+"\\*(NT la largeur de l'affichage de \\*(We sera limitée à \\*(WX positions. "
 "L'affichage de tous les champs nécessite \\*(WF colonnes. Le reste de la "
 "largeur d'écran est normalement alloué à n'importe quelles colonnes de "
 "largeur variable actuellement visibles. Les colonnes de largeur variable, "
 "comme COMMAND, sont notées comme telles en B<3a. DESCRIPTIONS des champs>. "
-"La largeur de colonne peut aussi être modifiée par l'option -w, comme c'est "
-"présenté en B<1. Options de la LIGNE de COMMANDE>."
+"La largeur de colonne peut aussi être modifiée par l'option -B<w>, comme "
+"c'est présenté en B<1. Options de la LIGNE de COMMANDE>."
 
 #. type: Plain text
 #: C/man1/top.1:211
-#, fuzzy
-#| msgid ""
-#| "Some of \\*(We's screens or functions require the use of cursor motion "
-#| "keys like the standard \\*(KAs plus the Home, End, PgUp and PgDn keys.  "
-#| "If your terminal or emulator does not provide those keys, the following "
-#| "keys are accepted as alternatives:"
 msgid ""
 "Lastly, some of \\*(We's screens or functions require the use of cursor "
 "motion keys like the standard \\*(KAs plus the Home, End, PgUp and PgDn "
 "keys.  If your terminal or emulator does not provide those keys, the "
 "following combinations are accepted as alternatives:"
 msgstr ""
-"Certains écrans ou fonctions de \\*(We nécessitent l'utilisation des touches "
-"de déplacement du curseur comme les \\*(KAs classiques et les touches Orig, "
-"Fin, Pg.Préc et Pg.Suiv. Si votre terminal ou émulateur ne fournit pas ces "
-"touches, elles sont remplaçables par les touches suivantes :"
+"Enfin, certains écrans ou fonctions de \\*(We nécessitent l'utilisation des "
+"touches de déplacement du curseur comme les \\*(KAs classiques et les "
+"touches Orig, Fin, Pg.Préc et Pg.Suiv. Si votre terminal ou émulateur ne "
+"fournit pas ces touches, elles sont remplaçables par les combinaisons "
+"suivantes :"
 
 #. type: Plain text
 #: C/man1/top.1:221
@@ -8544,6 +8459,11 @@ msgid ""
 "edited and re-input.  And there are four additional keys available with line "
 "oriented input."
 msgstr ""
+"Les \\*(KAs B<Haut> et B<Bas> ont une signification particulière lors d'une "
+"invite de ligne d'entrée se terminant par E<lt>EntréeE<gt>. Ces touches, ou "
+"leurs alias, peuvent être utilisées pour récupérer les lignes entrées "
+"précédemment, avec possibilité de les éditer et de les rentrer. Quatre "
+"touches supplémentaires sont disponibles avec les lignes d'entrée."
 
 #. type: Plain text
 #: C/man1/top.1:236
@@ -8557,6 +8477,13 @@ msgid ""
 "       Home     jump to B<beginning> of input line\n"
 "       End      jump to B<end> of input line\n"
 msgstr ""
+"       I<touche   signification particulière>\n"
+"       Haut     rappeler chaînes B<plus anciennes> pour réédition\n"
+"       Bas      rappeler chaînes B<plus récentes> ou B<effacer> ligne\n"
+"       Inser    basculer entre modes B<insertion> et B<remplacement>\n"
+"       Suppr    caractère B<supprimé> au curseur, déplct à gauche\n"
+"       Orig     sauter au B<début> de la ligne d'entrée\n"
+"       Fin      sauter à la B<fin> de la ligne d'entrée\n"
 
 #.  ......................................................................
 #. type: SS
@@ -8668,10 +8595,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:285
-#, fuzzy, no-wrap
-#| msgid "-B<h> | -B<v> :I< Help/Version >"
+#, no-wrap
 msgid "-B<h> | -B<v>\\ \\ :I<Help/Version >"
-msgstr "-B<h> | -B<v> : I<aide et version>"
+msgstr "-B<h> | -B<v>  : I<aide et version>"
 
 #. type: Plain text
 #: C/man1/top.1:288
@@ -8680,10 +8606,9 @@ msgstr "Afficher la version de bibliothèque et l'utilisation, puis quitter."
 
 #. type: TP
 #: C/man1/top.1:289
-#, fuzzy, no-wrap
-#| msgid "-B<b> :I< Batch-mode> operation "
+#, no-wrap
 msgid "-B<b>\\ \\ :I<Batch-mode> operation "
-msgstr "-B<b> : I<traitement par lot> («\\ batch mode\\ »)"
+msgstr "-B<b>  : I<traitement par lot> («\\ batch mode\\ »)"
 
 #. type: Plain text
 #: C/man1/top.1:295
@@ -8696,15 +8621,14 @@ msgstr ""
 "Lancer \\*(We en mode «\\ traitement par lot\\ », utile pour envoyer, par "
 "exemple, le résultat de \\*(We vers une autre application ou dans un "
 "fichier. Dans ce mode, \\*(We n'accepte aucune entrée et s'exécutera jusqu'à "
-"atteindre la limite d'itérations que vous avez déterminée par «\\ -n\\ » ou "
+"atteindre la limite d'itérations déterminée par l'\\*(CO  «\\ -n\\ » ou "
 "jusqu'à ce qu'il soit tué."
 
 #. type: TP
 #: C/man1/top.1:296
-#, fuzzy, no-wrap
-#| msgid "-B<c> :I< Command-line/Program-name> toggle "
+#, no-wrap
 msgid "-B<c>\\ \\ :I<Command-line/Program-name> toggle "
-msgstr "-B<c> : basculer entre I<ligne de commande ou nom du programme>"
+msgstr "-B<c>  : basculer entre I<ligne de commande ou nom du programme>"
 
 #. type: Plain text
 #: C/man1/top.1:302
@@ -8720,10 +8644,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:303
-#, fuzzy, no-wrap
-#| msgid "-B<d> :I< Delay-time> interval as:\\ \\ B<-d ss.tt> (I<secs>.I<tenths>) "
+#, no-wrap
 msgid "-B<d>\\ \\ :I<Delay-time> interval as:\\ \\ B<-d ss.t> (I<secs>.I<tenths>) "
-msgstr "-B<d> : I<durée> de l'intervalle :\\ \\ B<-d> I<délai> (sous la forme I<secondes>B<.>I<dixièmes>)"
+msgstr "-B<d>  : I<durée> de l'intervalle :\\ \\ B<-d> I<délai> (sous la forme I<secondes>B<.>I<dixièmes>)"
 
 #. type: Plain text
 #: C/man1/top.1:308
@@ -8754,10 +8677,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:314
-#, fuzzy, no-wrap
-#| msgid "-B<H> :I< Threads-mode> operation "
+#, no-wrap
 msgid "-B<H>\\ \\ :I<Threads-mode> operation "
-msgstr "-B<H> : opération en I<mode processus légers>"
+msgstr "-B<H>  : opération en I<mode processus légers>"
 
 #. type: Plain text
 #: C/man1/top.1:319
@@ -8772,10 +8694,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:320
-#, fuzzy, no-wrap
-#| msgid "-B<i> :I< Idle-process> toggle "
+#, no-wrap
 msgid "-B<i>\\ \\ :I<Idle-process> toggle "
-msgstr "-B<i> : option I<processus en veille>"
+msgstr "-B<i>  : option I<processus en veille>"
 
 #. type: Plain text
 #: C/man1/top.1:327
@@ -8792,10 +8713,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:328
-#, fuzzy, no-wrap
-#| msgid "-B<n> :I< Number-of-iterations> limit as:B<\\ \\ -n number >"
+#, no-wrap
 msgid "-B<n>\\ \\ :I<Number-of-iterations> limit as:B<\\ \\ -n number >"
-msgstr "-B<n> : I<nombre d'itérations> maximal :\\ \\ B<-n> I<limite>"
+msgstr "-B<n>  : I<nombre d'itérations> maximal :\\ \\ B<-n> I<limite>"
 
 #. type: Plain text
 #: C/man1/top.1:332
@@ -8810,7 +8730,7 @@ msgstr ""
 #: C/man1/top.1:333
 #, no-wrap
 msgid "-B<o>\\ \\ :I<Override-sort-field> as:B<\\ \\ -o fieldname >"
-msgstr ""
+msgstr "-B<o>  : I<remplacer le champ de tri> :\\ \\ B<-o> I<champ>"
 
 #. type: Plain text
 #: C/man1/top.1:340
@@ -8821,6 +8741,11 @@ msgid ""
 "will force sorting high to low, whereas a '-' will ensure a low to high "
 "ordering."
 msgstr ""
+"Indiquer le nom du champ par rapport auquel les tâches seront ordonnées, "
+"indépendamment de ce que contient le fichier de configuration. Un « + » ou "
+"un « - » peut précéder le nom de champ pour remplacer aussi le sens du tri. "
+"Un « + » forcera un tri du plus grand au plus petit tandis qu'un « - » "
+"assurera un tri du plus petit au plus grand."
 
 #. type: Plain text
 #: C/man1/top.1:343
@@ -8828,12 +8753,14 @@ msgid ""
 "This option exists primarily to support automated/scripted batch mode "
 "operation."
 msgstr ""
+"Cette option existe surtout pour permettre les opérations en mode automatisé "
+"ou traitement par lot."
 
 #. type: TP
 #: C/man1/top.1:344
 #, no-wrap
 msgid "-B<O>\\ \\ :I<Output-field-names >"
-msgstr ""
+msgstr "-B<O>  : I<afficher les noms de champs>"
 
 #. type: Plain text
 #: C/man1/top.1:350
@@ -8842,13 +8769,15 @@ msgid ""
 "\\*(We to print each of the available field names on a separate line, then "
 "quit.  Such names are subject to nls translation."
 msgstr ""
+"Cette option agit sous forme d'aide à l'option B<-o> précédente. Cela "
+"forcera \\*(We à afficher tous les noms de champs sur des lignes séparées "
+"avant de quitter. Ces noms peuvent être traduits."
 
 #. type: TP
 #: C/man1/top.1:351
-#, fuzzy, no-wrap
-#| msgid "-B<p> :I< Monitor-PIDs> mode as:B<\\ \\ -pN1 -pN2 ...>\\ \\ orB<\\ \\ -pN1,N2,N3 ... >"
+#, no-wrap
 msgid "-B<p>\\ \\ :I<Monitor-PIDs> mode as:B<\\ \\ -pN1 -pN2 ...>\\ \\ orB<\\ \\ -pN1,N2,N3 ... >"
-msgstr "-B<p> : mode de I<suivi des PID> :\\ B<-p>I<PID1> B<-p>I<PID2> ... ou B<-p>I<PID1>B<,>I<PID2>[B<,>I<PID3> ...]"
+msgstr "-B<p>  : mode de I<suivi des PID> :\\ B<-p>I<PID1> B<-p>I<PID2> ... ou B<-p>I<PID1>B<,>I<PID2>[B<,>I<PID3> ...]"
 
 #. type: Plain text
 #: C/man1/top.1:357
@@ -8873,11 +8802,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:364
-#, fuzzy
-#| msgid ""
-#| "This is a \\*(CO only and should you wish to return to normal operation, "
-#| "it is not necessary to quit and and restart \\*(We \\*(Em just issue any "
-#| "of these \\*(CIs: '=', 'u' or 'U'."
 msgid ""
 "This is a \\*(CO only and should you wish to return to normal operation, it "
 "is not necessary to quit and restart \\*(We \\*(Em just issue any of these "
@@ -8897,10 +8821,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:367
-#, fuzzy, no-wrap
-#| msgid "-B<s> :I< Secure-mode> operation "
+#, no-wrap
 msgid "-B<s>\\ \\ :I<Secure-mode> operation "
-msgstr "-B<s> : opération en I<mode sécurisé>"
+msgstr "-B<s>  : opération en I<mode sécurisé>"
 
 #. type: Plain text
 #: C/man1/top.1:372
@@ -8913,10 +8836,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:373
-#, fuzzy, no-wrap
-#| msgid "-B<S> :I< Cumulative-time> toggle "
+#, no-wrap
 msgid "-B<S>\\ \\ :I<Cumulative-time> toggle "
-msgstr "-B<S> : basculer en I<cumul de temps>"
+msgstr "-B<S>  : basculer en I<cumul de temps>"
 
 #. type: Plain text
 #: C/man1/top.1:379
@@ -8933,10 +8855,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:380
-#, fuzzy, no-wrap
-#| msgid "-B<u> | -B<U> :I< User-filter-mode> as:\\ \\ B<-u> | B<-U number> orB< name >"
+#, no-wrap
 msgid "-B<u> | -B<U>\\ \\ :I<User-filter-mode> as:\\ \\ B<-u> | B<-U number> orB< name >"
-msgstr "-B<u> | -B<U> : mode I<filtre utilisateur> :\\ \\ B<-u> | B<-U> I<utilisateur>"
+msgstr "-B<u> | -B<U>  : mode I<filtre utilisateur> :\\ \\ B<-u> | B<-U> I<utilisateur>"
 
 #. type: Plain text
 #: C/man1/top.1:385
@@ -8957,13 +8878,15 @@ msgid ""
 "Prepending an exclamation point ('!') to the user id or name instructs top "
 "to display only processes with users not matching the one provided."
 msgstr ""
+"Un point d'exclamation (« ! ») précédant l'identifiant ou le nom "
+"d'utilisateur indique à top de n'afficher que les processus avec des "
+"utilisateurs ne correspondant pas à celui fourni."
 
 #. type: TP
 #: C/man1/top.1:391
-#, fuzzy, no-wrap
-#| msgid "-B<w> :I< Output-width-override> as:\\ \\ B<-w> [B< number> ] "
+#, no-wrap
 msgid "-B<w>\\ \\ :I<Output-width-override> as:\\ \\ B<-w> [B< number> ] "
-msgstr "-B<w> : I<largeur de l'affichage> :\\ \\ B<-w> [ I<colonnes> ] "
+msgstr "-B<w>  : I<largeur de l'affichage> :\\ \\ B<-w> [ I<colonnes> ] "
 
 #. type: Plain text
 #: C/man1/top.1:398
@@ -9133,64 +9056,50 @@ msgstr "2c. Utilisation de la MÉMOIRE"
 #.  ----------------------------------------------------------------------
 #. type: Plain text
 #: C/man1/top.1:460
-#, fuzzy
-#| msgid ""
-#| "This portion consists of two lines which may express values in kibibytes "
-#| "(KiB), mebibytes (MiB) or gibibytes (GiB) depending on the amount of "
-#| "currently installed \\*(MP."
 msgid ""
 "This portion consists of two lines which may express values in kibibytes "
 "(KiB)  through exbibytes (EiB) depending on the scaling factor enforced with "
 "the 'E' \\*(CI."
 msgstr ""
-"Cette partie est composée de deux lignes qui expriment les valeurs en "
-"kibioctet (Kio), mébioctet (Mio) ou gibioctet (Gio) en fonction de la "
-"quantité de \\*(MP installée."
+"Cette partie est composée de deux lignes qui expriment les valeurs en unité "
+"de kibioctet (Kio) à exbioctet (Eio) en fonction du facteur d'échelle forcé "
+"par la \\*(CI « E »."
 
 #. type: Plain text
 #: C/man1/top.1:462
-#, fuzzy
-#| msgid ""
-#| "Line 1 reflects \\*(MP, classified as:\n"
-#| "    total, used, free, buffers\n"
 msgid "Line 1 reflects \\*(MP, classified as:"
-msgstr ""
-"La première ligne montre la \\*(MP, classée en :\n"
-" - totale (« total ») ;\n"
-" - utilisée (« used ») ;\n"
-" - libre (« free ») ;\n"
-" - tampons (« buffers »).\n"
+msgstr "La première ligne montre la \\*(MP, classée en :"
 
 #. type: Plain text
 #: C/man1/top.1:464
 #, no-wrap
 msgid "    total, used, free and buffers\n"
 msgstr ""
-
-#. type: Plain text
-#: C/man1/top.1:467
-#, fuzzy
-#| msgid ""
-#| "Line 2 reflects \\*(MV, classified as:\n"
-#| "    total, used, free, cached\n"
-msgid "Line 2 reflects mostly \\*(MV, classified as:"
-msgstr ""
-"La deuxième ligne montre la \\*(MV, classée en :\n"
 " - totale (« total ») ;\n"
 " - utilisée (« used ») ;\n"
 " - libre (« free ») ;\n"
-" - en cache (« cached »).\n"
+" - tampons (« buffers »).\n"
+
+#. type: Plain text
+#: C/man1/top.1:467
+msgid "Line 2 reflects mostly \\*(MV, classified as:"
+msgstr "La deuxième ligne montre surtout la \\*(MV, classée en :"
 
 #. type: Plain text
 #: C/man1/top.1:469
 #, no-wrap
 msgid "    total, used, free and cached (which is \\*(MP)\n"
 msgstr ""
+" - totale (« total ») ;\n"
+" - utilisée (« used ») ;\n"
+" - libre (« free ») ;\n"
+" - en cache (« cached », c'est-à-dire la \\*(MP).\n"
 
 #. type: Plain text
 #: C/man1/top.1:472
 msgid "This table may help in interpreting the scaled values displayed:"
 msgstr ""
+"Ce tableau pourrait aider à interpréter les valeurs d'échelle affichées :"
 
 #. type: Plain text
 #: C/man1/top.1:479
@@ -9203,6 +9112,12 @@ msgid ""
 "    PiB = pebibyte = 1024 TiB = 1,125,899,906,842,624 bytes\n"
 "    EiB = exbibyte = 1024 PiB = 1,152,921,504,606,846,976 bytes\n"
 msgstr ""
+"    Kio = kibioctet = 1024 octets\n"
+"    Mio = mébioctet = 1024 Kio = 1 048 576 octets\n"
+"    Gio = gibioctet = 1024 Mio = 1 073 741 824 octets\n"
+"    Tio = tébioctet = 1024 Gio = 1 099 511 627 776 octets\n"
+"    Pio = pébioctet = 1024 Tio = 1 125 899 906 842 624 octets\n"
+"    Eio = exbioctet = 1024 Pio = 1 152 921 504 606 846 976 octets\n"
 
 #.  ----------------------------------------------------------------------
 #. type: SH
@@ -9251,6 +9166,9 @@ msgid ""
 "unsuffixed display mode.  Such fields can, however, be scaled differently "
 "via the 'e' \\*(CI."
 msgstr ""
+"Les champs relatifs aux \\*(MP ou \\*(MV utilisent « (Kio) » comme mode "
+"d'affichage sans suffixe par défaut. Ces champs peuvent cependant être mis à "
+"l'échelle autrement à l'aide de la \\*(CI « e »."
 
 #. type: TP
 #: C/man1/top.1:501
@@ -9264,6 +9182,8 @@ msgid ""
 "The task's share of the elapsed \\*(PU time since the last screen update, "
 "expressed as a percentage of total \\*(PU time."
 msgstr ""
+"La part des tâches du temps \\*(PU écoulé depuis le dernier rafraîchissement "
+"d'écran, exprimé en pourcentage du temps \\*(PU total."
 
 #. type: Plain text
 #: C/man1/top.1:510
@@ -9272,28 +9192,23 @@ msgid ""
 "I<not> operating in Threads mode, amounts greater than 100% may be "
 "reported.  You toggle Threads mode with the 'H' \\*(CI."
 msgstr ""
+"Dans un véritable environnement SMP, si le processus possède plusieurs "
+"processus légers (« multi-thread ») et que \\*(We ne fonctionne I<pas> en "
+"mode processus légers, des quantités supérieures à 100 % pourraient être "
+"signalées. Le mode processus légers peut être activé avec la \\*(CI « H »."
 
 #. type: Plain text
 #: C/man1/top.1:515
-#, fuzzy
-#| msgid ""
-#| "The task's share of the elapsed \\*(PU time since the last screen update, "
-#| "expressed as a percentage of total \\*(PU time.  In a true SMP "
-#| "environment, if 'Irix mode' is \\*F, \\*(We will operate in 'Solaris "
-#| "mode' where a task's \\*(Pu usage will be divided by the total number of "
-#| "\\*(PUs.  You toggle 'Irix/Solaris' modes with the 'I' \\*(CI."
 msgid ""
 "Also for multi-processor environments, if 'Irix mode' is \\*F, \\*(We will "
 "operate in 'Solaris mode' where a task's \\*(Pu usage will be divided by the "
 "total number of \\*(PUs.  You toggle 'Irix/Solaris' modes with the 'I' "
 "\\*(CI."
 msgstr ""
-"Le partage par les tâches du temps \\*(PU écoulé depuis le dernier "
-"rafraîchissement d'écran, exprimé en pourcentage du temps \\*(PU total. Dans "
-"un véritable environnement SMP, si le «\\ mode Irix\\ » est \\*F, \\*(We "
-"fonctionnera en «\\ mode Solaris\\ » où l'utilisation \\*(Pu d'une tâche "
-"sera divisée par le nombre total de \\*(PUs. Vous pouvez basculer entre les "
-"modes « Irix » et « Solaris » avec la \\*(CI «\\ I\\ »."
+"Aussi pour les environnements multiprocesseurs, si le «\\ mode Irix\\ » est "
+"\\*F, \\*(We fonctionnera en «\\ mode Solaris\\ » où l'utilisation \\*(Pu "
+"d'une tâche sera divisée par le nombre total de \\*(PUs. Vous pouvez "
+"basculer entre les modes « Irix » et « Solaris » avec la \\*(CI «\\ I\\ »."
 
 #. type: TP
 #: C/man1/top.1:516
@@ -9360,8 +9275,8 @@ msgstr ""
 "pas de largeur fixe. La totalité de la largeur résiduelle de l'écran sera, "
 "lors de l'affichage, allouée à cette colonne et aux autres colonnes de "
 "taille variable (jusqu'à un maximum de \\*(WX caractères). Même dans ce cas, "
-"ces champs de taille variable pourraient être tronqués. \\*(XT B<5c. "
-"DÉPLACEMENT dans une fenêtre> pour obtenir plus de renseignements sur "
+"ces champs de taille variable pourraient être tronqués. \\*(XT "
+"B<5c. DÉPLACEMENT dans une fenêtre> pour obtenir plus de renseignements sur "
 "l'accès aux données tronquées."
 
 #. type: TP
@@ -9434,7 +9349,7 @@ msgstr ""
 "taille variable (jusqu'à un maximum de \\*(WX caractères). Même dans ce cas, "
 "ces champs de taille variable pourraient être tronqués. C'est "
 "particulièrement vrai pour ce champ quand les lignes de commandes sont "
-"affichées (la \\*(CI « c »). \\*(XT B<5c. DÉPLACEMENT dans une fenêtre> pour "
+"affichées (la \\*(CI « c »). \\*(XT B<5c. DÉPLACEMENT dans une fenêtre> pour "
 "obtenir plus de renseignements sur l'accès aux données tronquées."
 
 #. type: TP
@@ -9465,7 +9380,7 @@ msgid ""
 "processes.  These variables will be displayed in their raw native order, not "
 "the sorted order you are accustomed to seeing with an unqualified 'set'."
 msgstr ""
-"Afficher toutes les variables d'environnement, s'il y en a, telle qu'elles "
+"Afficher toutes les variables d'environnement, s'il y en a, telles qu'elles "
 "sont vues par les processus respectifs. Ces variables seront affichées dans "
 "leur ordre natif brut, pas dans l'ordre habituel renvoyé par « set » sans "
 "argument."
@@ -9485,7 +9400,7 @@ msgstr ""
 "lors de l'affichage, allouée à cette colonne et aux autres colonnes de "
 "taille variable (jusqu'à un maximum de \\*(WX caractères). Même dans ce cas, "
 "ces champs de taille variable pourraient être tronqués. C'est "
-"particulièrement vrai pour ce champ. \\*(XT B<5c. DÉPLACEMENT dans une "
+"particulièrement vrai pour ce champ. \\*(XT B<5c. DÉPLACEMENT dans une "
 "fenêtre> pour obtenir plus de renseignements sur l'accès aux données "
 "tronquées."
 
@@ -9653,11 +9568,6 @@ msgstr ""
 # s/operating/operating system/
 #. type: Plain text
 #: C/man1/top.1:655
-#, fuzzy
-#| msgid ""
-#| "Under linux, real time priority is somewhat misleading since "
-#| "traditionally the operating itself was not preemptable.  And while the "
-#| "2.6 kernel can be made mostly preemptable, it is not always so."
 msgid ""
 "Under linux, real time priority is somewhat misleading since traditionally "
 "the operating itself was not preemptible.  And while the 2.6 kernel can be "
@@ -9709,14 +9619,7 @@ msgstr "20.B< S \\*(Em état du processus>"
 
 #. type: Plain text
 #: C/man1/top.1:676
-#, fuzzy, no-wrap
-#| msgid ""
-#| "The status of the task which can be one of:\n"
-#| "    'B<D>' = uninterruptible sleep\n"
-#| "    'B<R>' = running\n"
-#| "    'B<S>' = sleeping\n"
-#| "    'B<T>' = traced or stopped\n"
-#| "    'B<Z>' = zombie\n"
+#, no-wrap
 msgid ""
 "The status of the task which can be one of:\n"
 "    B<D> = uninterruptible sleep\n"
@@ -9726,11 +9629,11 @@ msgid ""
 "    B<Z> = zombie\n"
 msgstr ""
 "L'état de la tâche peut être\\ :\n"
-"  «\\ B<D>\\ » = en sommeil non interruptible\n"
-"  «\\ B<R>\\ » = en cours d'exécution\n"
-"  «\\ B<S>\\ » = en sommeil\n"
-"  «\\ B<T>\\ » = tracé ou arrêté\n"
-"  «\\ B<Z>\\ » = zombie\n"
+"    B<D> = en sommeil non interruptible\n"
+"    B<R> = en cours d'exécution\n"
+"    B<S> = en sommeil\n"
+"    B<T> = tracé ou arrêté\n"
+"    B<Z> = zombie\n"
 
 #. type: Plain text
 #: C/man1/top.1:681
@@ -9825,8 +9728,8 @@ msgstr ""
 "pas de largeur fixe. La totalité de la largeur résiduelle de l'écran sera, "
 "lors de l'affichage, allouée à cette colonne et aux autres colonnes de "
 "taille variable (jusqu'à un maximum de \\*(WX caractères). Même dans ce cas, "
-"ces champs de taille variable pourraient être tronqués. \\*(XT B<5c. "
-"DÉPLACEMENT dans une fenêtre> pour obtenir plus de renseignements sur "
+"ces champs de taille variable pourraient être tronqués. \\*(XT "
+"B<5c. DÉPLACEMENT dans une fenêtre> pour obtenir plus de renseignements sur "
 "l'accès aux données tronquées."
 
 #. type: TP
@@ -9857,8 +9760,8 @@ msgstr ""
 "pas de largeur fixe. La totalité de la largeur résiduelle de l'écran sera, "
 "lors de l'affichage, allouée à cette colonne et aux autres colonnes de "
 "taille variable (jusqu'à un maximum de \\*(WX caractères). Même dans ce cas, "
-"ces champs de taille variable pourraient être tronqués. \\*(XT B<5c. "
-"DÉPLACEMENT dans une fenêtre> pour obtenir plus de renseignements sur "
+"ces champs de taille variable pourraient être tronqués. \\*(XT "
+"B<5c. DÉPLACEMENT dans une fenêtre> pour obtenir plus de renseignements sur "
 "l'accès aux données tronquées."
 
 #. type: TP
@@ -9944,12 +9847,6 @@ msgstr "31.B< TPGID \\*(Em identifiant de groupe de processus contrôlant le ter
 
 #. type: Plain text
 #: C/man1/top.1:761
-#, fuzzy
-#| msgid ""
-#| "The process group ID of the foreground process for the connected tty, or "
-#| "-1 if a process is not connected to a terminal.  By convention, this "
-#| "value equals the process ID (\\*(Xa PID) of the the process group leader "
-#| "(\\*(Xa PGRP)."
 msgid ""
 "The process group ID of the foreground process for the connected tty, or -1 "
 "if a process is not connected to a terminal.  By convention, this value "
@@ -9993,10 +9890,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:774
-#, fuzzy, no-wrap
-#| msgid "21.B< SHR \\*(Em Shared Memory Size (KiB) >"
+#, no-wrap
 msgid "34.B< USED \\*(Em Memory in Use (KiB) >"
-msgstr "21.B< SHR \\*(Em taille de mémoire partagée (Kio)>"
+msgstr "34. B<USED \\*(Em mémoire utilisée (Kio)>"
 
 #. type: Plain text
 #: C/man1/top.1:778
@@ -10004,13 +9900,14 @@ msgid ""
 "This field represents the non-swapped \\*(MP a task has used (RES) plus the "
 "non-resident portion of its address space (SWAP)."
 msgstr ""
+"Ce champ représente la \\*(MP hors espace d'échange qu'une tâche a utilisée "
+"(RES) plus la portion non résidente de son espace d'adresse (SWAP)."
 
 #. type: TP
 #: C/man1/top.1:779
-#, fuzzy, no-wrap
-#| msgid "34.B< USER \\*(Em User Name >"
+#, no-wrap
 msgid "35.B< USER \\*(Em User Name >"
-msgstr "34.B< USER \\*(Em nom de l'utilisateur>"
+msgstr "35.B< USER \\*(Em nom de l'utilisateur>"
 
 #. type: Plain text
 #: C/man1/top.1:782
@@ -10019,10 +9916,9 @@ msgstr "Le nom d'utilisateur I<effectif> du propriétaire de la tâche."
 
 #. type: TP
 #: C/man1/top.1:783
-#, fuzzy, no-wrap
-#| msgid "35.B< VIRT \\*(Em Virtual Memory Size (KiB) >"
+#, no-wrap
 msgid "36.B< VIRT \\*(Em Virtual Memory Size (KiB) >"
-msgstr "35.B< VIRT \\*(Em taille de l'image virtuelle (Kio)>"
+msgstr "36.B< VIRT \\*(Em taille de l'image virtuelle (Kio)>"
 
 #. type: Plain text
 #: C/man1/top.1:788
@@ -10038,10 +9934,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:789
-#, fuzzy, no-wrap
-#| msgid "36.B< WCHAN \\*(Em Sleeping in Function >"
+#, no-wrap
 msgid "37.B< WCHAN \\*(Em Sleeping in Function >"
-msgstr "36.B< WCHAN \\*(Em fonction résidente>"
+msgstr "37.B< WCHAN \\*(Em fonction résidente>"
 
 #. type: Plain text
 #: C/man1/top.1:795
@@ -10070,10 +9965,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:801
-#, fuzzy, no-wrap
-#| msgid "37.B< nDRT \\*(Em Dirty Pages Count >"
+#, no-wrap
 msgid "38.B< nDRT \\*(Em Dirty Pages Count >"
-msgstr "37. B<nDRT \\*(Em nombre de pages modifiées («\\ Dirty Pages\\ »)>"
+msgstr "38. B<nDRT \\*(Em nombre de pages modifiées («\\ Dirty Pages\\ »)>"
 
 #. type: Plain text
 #: C/man1/top.1:807
@@ -10089,10 +9983,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:808
-#, fuzzy, no-wrap
-#| msgid "38.B< nMaj \\*(Em Major Page Fault Count >"
+#, no-wrap
 msgid "39.B< nMaj \\*(Em Major Page Fault Count >"
-msgstr "38. B<nMaj \\*(Em nombre de défauts de page majeurs>"
+msgstr "39. B<nMaj \\*(Em nombre de défauts de page majeurs>"
 
 #. type: Plain text
 #: C/man1/top.1:815
@@ -10110,10 +10003,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:816
-#, fuzzy, no-wrap
-#| msgid "39.B< nMin \\*(Em Minor Page Fault count >"
+#, no-wrap
 msgid "40.B< nMin \\*(Em Minor Page Fault count >"
-msgstr "39. B<nMin \\*(Em nombre de défauts de page mineurs>"
+msgstr "40. B<nMin \\*(Em nombre de défauts de page mineurs>"
 
 #. type: Plain text
 #: C/man1/top.1:823
@@ -10130,10 +10022,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:824
-#, fuzzy, no-wrap
-#| msgid "40.B< nTH \\*(Em Number of Threads >"
+#, no-wrap
 msgid "41.B< nTH \\*(Em Number of Threads >"
-msgstr "40. B<nTH \\*(Em nombre de processus légers « threads »>"
+msgstr "41. B<nTH \\*(Em nombre de processus légers « threads »>"
 
 #. type: Plain text
 #: C/man1/top.1:827
@@ -10143,10 +10034,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:828
-#, fuzzy, no-wrap
-#| msgid "29.B< TIME \\*(Em \\*(PU Time >"
+#, no-wrap
 msgid "42.B< nsIPC \\*(Em IPC namespace >"
-msgstr "29.B< TIME \\*(Em temps \\*(PU>"
+msgstr "42. B<nsIPC \\*(Em espace de nommage IPC>"
 
 #. type: Plain text
 #: C/man1/top.1:832
@@ -10154,13 +10044,15 @@ msgid ""
 "The Inode of the namespace used to isolate interprocess communication (IPC)  "
 "resources such as System V IPC objects and POSIX message queues."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les ressources de "
+"communication interprocessus (IPC) comme les objets IPC System V et les "
+"files de messages POSIX."
 
 #. type: TP
 #: C/man1/top.1:833
-#, fuzzy, no-wrap
-#| msgid "11.B< NI \\*(Em Nice Value >"
+#, no-wrap
 msgid "43.B< nsMNT \\*(Em MNT namespace >"
-msgstr "11. B<NI \\*(Em valeur de politesse>"
+msgstr "43. B<nsMNT \\*(Em espace de nommage MNT>"
 
 #. type: Plain text
 #: C/man1/top.1:837
@@ -10168,13 +10060,15 @@ msgid ""
 "The Inode of the namespace used to isolate filesystem mount points thus "
 "offering different views of the filesystem hierarchy."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les points de montage de "
+"systèmes de fichiers en offrant ainsi des vues différentes de la hiérarchie "
+"des systèmes de fichiers."
 
 #. type: TP
 #: C/man1/top.1:838
-#, fuzzy, no-wrap
-#| msgid "34.B< USER \\*(Em User Name >"
+#, no-wrap
 msgid "44.B< nsNET \\*(Em NET namespace >"
-msgstr "34.B< USER \\*(Em nom de l'utilisateur>"
+msgstr "44. B<nsNET \\*(Em espace de nommage NET>"
 
 #. type: Plain text
 #: C/man1/top.1:842
@@ -10182,13 +10076,15 @@ msgid ""
 "The Inode of the namespace used to isolate resources such as network "
 "devices, IP addresses, IP routing, port numbers, etc."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les ressources comme les "
+"périphériques réseau, les adresses IP, le routage IP, les numéros de "
+"port, etc."
 
 #. type: TP
 #: C/man1/top.1:843
-#, fuzzy, no-wrap
-#| msgid "14.B< PID \\*(Em Process Id >"
+#, no-wrap
 msgid "45.B< nsPID \\*(Em PID namespace >"
-msgstr "14. B<PID \\*(Em identifiant de processus>"
+msgstr "45. B<nsPID \\*(Em espace de nommage PID>"
 
 #. type: Plain text
 #: C/man1/top.1:849
@@ -10198,13 +10094,17 @@ msgid ""
 "'init' (PID #1) to manage various initialization tasks and reap orphaned "
 "child processes."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les numéros d’identifiant "
+"de processus leur permettant de ne pas rester uniques. Ainsi, tous ces "
+"espaces de nommage pourraient avoir leur propre « init » (PID nº 1) pour "
+"gérer plusieurs tâches d’initialisation et détruire les processus fils "
+"orphelins."
 
 #. type: TP
 #: C/man1/top.1:850
-#, fuzzy, no-wrap
-#| msgid "34.B< USER \\*(Em User Name >"
+#, no-wrap
 msgid "46.B< nsUSER \\*(Em USER namespace >"
-msgstr "34.B< USER \\*(Em nom de l'utilisateur>"
+msgstr "46. B<nsUSER \\*(Em espace de nommage USER>"
 
 #. type: Plain text
 #: C/man1/top.1:856
@@ -10214,13 +10114,17 @@ msgid ""
 "namespace while having a user ID of 0, with full root privileges, inside "
 "that namespace."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler les numéros d’identifiant "
+"d’utilisateur et de groupe. Ainsi, un processus pourrait avoir un "
+"identifiant utilisateur normal sans droit à l’extérieur d’un espace de "
+"nommage utilisateur, tout en ayant un identifiant utilisateur nul, avec tous "
+"les droits du superutilisateur, à l’intérieur de cet espace de nommage."
 
 #. type: TP
 #: C/man1/top.1:857
-#, fuzzy, no-wrap
-#| msgid "34.B< USER \\*(Em User Name >"
+#, no-wrap
 msgid "47.B< nsUTS \\*(Em UTS namespace >"
-msgstr "34.B< USER \\*(Em nom de l'utilisateur>"
+msgstr "47. B<nsUTS \\*(Em espace de nommage UTS>"
 
 #. type: Plain text
 #: C/man1/top.1:861
@@ -10228,13 +10132,14 @@ msgid ""
 "The Inode of the namespace used to isolate hostname and NIS domain name.  "
 "UTS simply means \"UNIX Time-sharing System\"."
 msgstr ""
+"L’inœud de l’espace de nommage utilisé pour isoler le nom d’hôte et le nom "
+"de domaine NIS. UTS signifie simplement « Système de partage de Temps UNIX »."
 
 #. type: TP
 #: C/man1/top.1:862
-#, fuzzy, no-wrap
-#| msgid "41.B< vMj \\*(Em Major Page Fault Count Delta>"
+#, no-wrap
 msgid "48.B< vMj \\*(Em Major Page Fault Count Delta>"
-msgstr "41. B<vMj \\*(Em delta de défauts de page majeurs>"
+msgstr "48. B<vMj \\*(Em delta de défauts de page majeurs>"
 
 #. type: Plain text
 #: C/man1/top.1:866
@@ -10247,10 +10152,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:867
-#, fuzzy, no-wrap
-#| msgid "42.B< vMn \\*(Em Minor Page Fault Count Delta>"
+#, no-wrap
 msgid "49.B< vMn \\*(Em Minor Page Fault Count Delta>"
-msgstr "42. B<vMn \\*(Em delta de défauts de page mineurs>"
+msgstr "49. B<vMn \\*(Em delta de défauts de page mineurs>"
 
 #. type: Plain text
 #: C/man1/top.1:871
@@ -10283,6 +10187,7 @@ msgstr ""
 " 1) le nom de la \\*(CW ;\n"
 " 2) le champ de tri désigné ;\n"
 " 3) tous les champs dans leur ordre actuel avec leur description.\n"
+"\n"
 "Les entrées marquées avec un astérisque sont les champs actuellement "
 "affichés, comme le permet la largeur de l'écran."
 
@@ -10364,7 +10269,7 @@ msgstr ""
 "\\*(NT n'importe quelle fenêtre après une navigation I<horizontale> sera "
 "réinitialisée si une modification de champ est réalisée à l'aide de l'écran "
 "gestion de champs. Cependant, la position après une navigation I<verticale> "
-"ne sera pas modifiée. \\*(XT B<5c. DÉPLACEMENT dans une fenêtre> pour de "
+"ne sera pas modifiée. \\*(XT B<5c. DÉPLACEMENT dans une fenêtre> pour de "
 "plus amples renseignements sur les déplacements verticaux et horizontaux."
 
 #.  ----------------------------------------------------------------------
@@ -10388,25 +10293,7 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:949
-#, fuzzy, no-wrap
-#| msgid ""
-#| "  4a.I< Global-Commands >\n"
-#| "        E<lt>Ent/SpE<gt> ?, =, A, B, d, g, h, H, I, k, q, r, s, W, X, Z\n"
-#| "  4b.I< Summary-Area-Commands >\n"
-#| "        C, l, t, 1, m\n"
-#| "  4c.I< Task-Area-Commands >\n"
-#| "        Appearance:  b, J, j, x, y, z\n"
-#| "        Content:     c, f, F, S, u, U, V\n"
-#| "        Size:        #, i, n\n"
-#| "        Sorting:     E<lt>, E<gt>, f, F, R\n"
-#| "  4d.I< Color-Mapping >\n"
-#| "        E<lt>RetE<gt>, a, B, b, H, M, q, S, T, w, z, 0 - 7\n"
-#| "  5b.I< Commands-for-Windows >\n"
-#| "        -, _, =, +, A, a, g, G, w\n"
-#| "  5c.I< Scrolling-a-Window >\n"
-#| "        C, Up, Dn, Left, Right, PgUp, PgDn, Home, End\n"
-#| "  5d.I< Searching-in-a-Window >\n"
-#| "        L, &\n"
+#, no-wrap
 msgid ""
 "  4a.I< Global-Commands >\n"
 "        E<lt>Ent/SpE<gt> ?, =, 0,\n"
@@ -10428,12 +10315,13 @@ msgid ""
 "        L, &\n"
 msgstr ""
 "  4a.I< Commandes GLOBALES>\n"
-"     E<lt>Entrée/EspaceE<gt> ?, =, A, B, d, g, h, H, I, k, q, r, s, W, X, Z\n"
+"     E<lt>Entrée/EspaceE<gt> ?, =, 0,\n"
+"     A, B, d, E, e, g, h, H, I, k, q, r, s, W, X, Y, Z\n"
 "  4b.I< Commandes de la ZONE de RÉSUMÉ>\n"
-"     C, l, t, 1, m\n"
+"     C, l, t, m, 1, 2, 3\n"
 "  4c.I< Commandes de la ZONE de TÂCHES>\n"
 "     Apparence : b, J, j, x, y, z\n"
-"     Contenu :   c, f, F, S, u, U, V\n"
+"     Contenu :   c, f, F, o, O, S, u, U, V\n"
 "     Taille :    #, i, n\n"
 "     Tri :       E<lt>, E<gt>, f, F, R\n"
 "  4d.I< Palette de COULEURS>\n"
@@ -10475,10 +10363,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:962
-#, fuzzy, no-wrap
-#| msgid "\\ \\ E<lt>B<Enter>E<gt> or E<lt>B<Space>E<gt> :I<Refresh-Display >"
+#, no-wrap
 msgid "\\ \\ E<lt>B<Enter>E<gt> or E<lt>B<Space>E<gt>\\ \\ :I<Refresh-Display >"
-msgstr "\\ \\ E<lt>B<Entrée>E<gt> ou E<lt>B<Espace>E<gt> : I<rafraîchir l'affichage>"
+msgstr "\\ \\ E<lt>B<Entrée>E<gt> ou E<lt>B<Espace>E<gt>  : I<rafraîchir l'affichage>"
 
 #. type: Plain text
 #: C/man1/top.1:967
@@ -10502,10 +10389,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:971
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<?>\\' | \\'B<h>\\' :I<Help >"
+#, no-wrap
 msgid "\\ \\ \\ B<?> | B<h>\\ \\ :I<Help >"
-msgstr "\\ \\ « B<?> » | « B<h> » : I<aide>"
+msgstr "   B<?> | B<h>  : I<aide>"
 
 #. type: Plain text
 #: C/man1/top.1:976
@@ -10529,20 +10415,12 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:980
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<=>\\' :I<Exit-Task-Limits >"
+#, no-wrap
 msgid "\\ \\ \\ B<=>\\ \\ :I<Exit-Task-Limits >"
-msgstr "\\ \\ « B<=> » : I<annuler les limites de tâches>"
+msgstr "   B<=>  : I<annuler les limites de tâches>"
 
 #. type: Plain text
 #: C/man1/top.1:989
-#, fuzzy
-#| msgid ""
-#| "Removes restrictions on which tasks are shown.  This command will reverse "
-#| "any 'i' (idle tasks) and 'n' (max tasks)  commands that might be active.  "
-#| "It also provides for an 'exit' from pid monitoringI< and> user "
-#| "filtering.  See the '-p' \\*(CO for a discussion of PID monitoring and "
-#| "the 'U' or 'u' \\*(CIs regarding user filtering."
 msgid ""
 "Removes restrictions on which tasks are shown.  This command will reverse "
 "any 'i' (idle tasks) and 'n' (max tasks)  commands that might be active.  It "
@@ -10552,11 +10430,12 @@ msgid ""
 "\\*(CIs for 'other' filtering."
 msgstr ""
 "Enlève les restrictions sur les tâches qui sont affichées. Cette commande "
-"inverse chaque commande «\\ i\\ » (tâches en veille) et «\\ n\\ » (nombre de "
-"tâches maximum) qui peuvent être actives. Elle fournit aussi un moyen "
-"d'arrêter la surveillance d'un PID I<et> le filtrage d'utilisateur. "
-"Consultez l'\\*(CO «\\ -p\\ » décrivant la surveillance de PID et les "
-"commandes interactives « U » ou « u » pour le filtrage d'utilisateur."
+"inverse chaque commande «\\ i\\ » (tâches en veille) et «\\ n\\ » (nombre "
+"maximal de tâches) qui peuvent être actives. Elle fournit aussi un moyen "
+"d'arrêter la surveillance d'un PID, le filtrage « utilisateur » et « autre » "
+"filtrage. Consultez l'\\*(CO «\\ -p\\ » décrivant la surveillance de PID, "
+"les commandes interactives « U » ou « u » pour le filtrage d'utilisateur et "
+"les commandes interactives « O » ou « o » pour l'« autre » filtrage."
 
 #. type: Plain text
 #: C/man1/top.1:994
@@ -10566,8 +10445,8 @@ msgid ""
 "vertical and horizontal scrolling."
 msgstr ""
 "De plus, après navigation, toutes les fenêtres seront réinitialisées avec "
-"cette commande. \\*(XT B<5c. COMMANDES de fenêtrage> pour de plus amples "
-"renseignements sur les déplacements verticaux et horizontaux."
+"cette commande. \\*(XT B<5c. DÉPLACEMENT dans une fenêtre> pour de plus "
+"amples renseignements sur les déplacements verticaux et horizontaux."
 
 #. type: Plain text
 #: C/man1/top.1:996
@@ -10576,10 +10455,9 @@ msgstr "En opérant en \\*(AM, la portée de cette commande est plus étendue."
 
 #. type: TP
 #: C/man1/top.1:997
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<i>\\' :I<Idle-Process> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<0>\\ \\ :I<Zero-Suppress> toggle "
-msgstr "\\ \\ « B<i> » : basculer en I<processus en veille> "
+msgstr "   B<0>  : basculer en I<zéros supprimés> "
 
 #. type: Plain text
 #: C/man1/top.1:1002
@@ -10588,13 +10466,15 @@ msgid ""
 "the fields in a \\*(TW.  Fields like UID, GID, NI, PR or P are not affected "
 "by this toggle."
 msgstr ""
+"Cette commande détermine si les zéros sont montrés ou supprimés pour "
+"beaucoup de champs de la \\*(TW. Les champs comme UID, GID, NI, PR ou P ne "
+"sont pas affectés par cette option."
 
 #. type: TP
 #: C/man1/top.1:1003
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<A>\\' :I<Alternate-Display-Mode> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<A>\\ \\ :I<Alternate-Display-Mode> toggle "
-msgstr "\\ \\ « B<A> » : basculer en I<mode d'affichage alternatif>"
+msgstr "   B<A>  : basculer en I<mode d'affichage alternatif>"
 
 #. type: Plain text
 #: C/man1/top.1:1008
@@ -10608,10 +10488,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1009
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<B>\\' :I<Bold-Disable/Enable> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<B>\\ \\ :I<Bold-Disable/Enable> toggle "
-msgstr "\\ \\ « B<B> » : basculer entre I<gras désactivé et activé>"
+msgstr "   B<B>  : basculer entre I<gras désactivé et activé>"
 
 #. type: Plain text
 #: C/man1/top.1:1015
@@ -10642,10 +10521,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1021
-#, fuzzy, no-wrap
-#| msgid "*\\ \\'B<d>\\' | \\'B<s>\\' :I<Change-Delay-Time-interval >"
+#, no-wrap
 msgid "*\\ \\ B<d> | B<s>\\ \\ :I<Change-Delay-Time-interval >"
-msgstr "*\\ « B<d> » | « B<s> » : I<modifier le délai>"
+msgstr "*  B<d> | B<s>  : I<modifier le délai>"
 
 #. type: Plain text
 #: C/man1/top.1:1025
@@ -10684,7 +10562,7 @@ msgstr ""
 #: C/man1/top.1:1035
 #, no-wrap
 msgid "\\ \\ \\ B<E>\\ \\ :I<Extend-Memory-Scale> in Summary Area"
-msgstr ""
+msgstr "   B<E>  : I<échelle de mémoire étendue> dans la zone de résumé"
 
 #. type: Plain text
 #: C/man1/top.1:1040
@@ -10693,6 +10571,9 @@ msgid ""
 "which ranges from KiB (kibibytes or 1,024 bytes) through EiB (exbibytes or "
 "1,152,921,504,606,846,976 bytes)."
 msgstr ""
+"Avec cette commande, chacune des échelles disponibles de mémoire de la "
+"\\*(SA peut être choisie, du Kio (kibioctet, soit 1 024 octets) à l’Eio "
+"(exbioctet, soit 1 152 921 504 606 846 976 octets)."
 
 #. type: Plain text
 #: C/man1/top.1:1044
@@ -10701,12 +10582,15 @@ msgid ""
 "means that \\*(We was forced to truncate some portion of that number.  By "
 "raising the scaling factor, such truncation can be avoided."
 msgstr ""
+"Si un « + » apparaît entre un nombre affiché et l'étiquette suivante, cela "
+"signifie que \\*(We a été forcé de tronquer une portion de ce nombre. En "
+"augmentant le facteur d'échelle, ce genre de troncature peut être évité."
 
 #. type: TP
 #: C/man1/top.1:1045
 #, no-wrap
 msgid "\\ \\ \\ B<e>\\ \\ :I<Extend-Memory-Scale> in Task Windows"
-msgstr ""
+msgstr "   B<e>  : I<échelle de mémoire étendue> dans les fenêtres de tâches"
 
 #. type: Plain text
 #: C/man1/top.1:1050
@@ -10715,6 +10599,9 @@ msgid ""
 "which ranges from KiB (kibibytes or 1,024 bytes) through PiB (pebibytes or "
 "1,125,899,906,842,624 bytes)."
 msgstr ""
+"Avec cette commande, chacune des échelles disponibles de mémoire de la "
+"\\*(TW peut être choisie, du Kio (kibioctet, soit 1 024 octets) au Pio "
+"(pébioctet, soit 1 125 899 906 842 624 octets)."
 
 #. type: Plain text
 #: C/man1/top.1:1057
@@ -10726,13 +10613,16 @@ msgid ""
 "however, is likely to produce an all zero result which cannot be suppressed "
 "with the '0' \\*(CI."
 msgstr ""
+"Même si \\*(We essayera de respecter l'intervalle cible sélectionné, une "
+"mise à l'échelle supplémentaire pourrait être nécessaire afin de s'adapter "
+"aux valeurs présentes. Augmenter l'intervalle d'échelle permet généralement "
+"de voir un résultat plus homogène dans les colonnes de mémoire"
 
 #. type: TP
 #: C/man1/top.1:1058
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<g>\\' :I<Choose-Another-Window/Field-Group >"
+#, no-wrap
 msgid "\\ \\ \\ B<g>\\ \\ :I<Choose-Another-Window/Field-Group >"
-msgstr "\\ \\ « B<g> » : I<choisir un autre groupe de fenêtres ou champs>"
+msgstr "   B<g>  : I<choisir un autre groupe de fenêtres ou champs>"
 
 #. type: Plain text
 #: C/man1/top.1:1064
@@ -10747,10 +10637,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1065
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<H>\\' :I<Threads-mode> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<H>\\ \\ :I<Threads-mode> toggle "
-msgstr "\\ \\ « B<H> » : basculer en I<mode processus légers>"
+msgstr "   B<H>  : basculer en I<mode processus légers>"
 
 #. type: Plain text
 #: C/man1/top.1:1070
@@ -10765,10 +10654,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1071
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<I>\\' :I<Irix/Solaris-Mode> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<I>\\ \\ :I<Irix/Solaris-Mode> toggle "
-msgstr "\\ \\ « B<I> » : basculer en I<mode Irix/Solaris>"
+msgstr "   B<I>  : basculer en I<mode Irix/Solaris>"
 
 #. type: Plain text
 #: C/man1/top.1:1076
@@ -10784,15 +10672,14 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1077
-#, fuzzy, no-wrap
-#| msgid "*\\ \\'B<k>\\' :I<Kill-a-task >"
+#, no-wrap
 msgid "*\\ \\ B<k>\\ \\ :I<Kill-a-task >"
-msgstr "*\\ « B<k> » : I<tuer une tâche>"
+msgstr "*  B<k>  : I<tuer une tâche>"
 
 #. type: Plain text
 #: C/man1/top.1:1080
 msgid "You will be prompted for a PID and then the signal to send."
-msgstr ""
+msgstr "Vous invite à introduire le PID et ensuite le signal à envoyer."
 
 #. type: Plain text
 #: C/man1/top.1:1084 C/man1/top.1:1105
@@ -10801,39 +10688,27 @@ msgid ""
 "shown in the prompt (the first task displayed).  A PID value of zero means "
 "the \\*(We program itself."
 msgstr ""
+"Ne pas entrer de PID ou une valeur négative sera interprété comme utiliser "
+"la valeur par défaut montrée dans l'invite (la première tâche affichée). Une "
+"valeur de PID de zéro signifie le programme \\*(We lui-même."
 
 #. type: Plain text
 #: C/man1/top.1:1087
-#, fuzzy
-#| msgid ""
-#| "You will be prompted for a PID and then the signal to send.  The default "
-#| "signal, as reflected in the prompt, is SIGTERM.  However, you can send "
-#| "any signal, via number or name."
 msgid ""
 "The default signal, as reflected in the prompt, is SIGTERM.  However, you "
 "can send any signal, via number or name."
 msgstr ""
-"Vous invite à introduire le PID et ensuite le signal à envoyer. Le signal "
-"par défaut, comme le propose l'invite, est SIGTERM. Cependant, vous pouvez "
-"indiquer le nom ou le numéro de tout autre signal."
+"Le signal par défaut, comme le propose l'invite, est SIGTERM. Cependant, "
+"vous pouvez indiquer le nom ou le numéro de tout autre signal."
 
 #. type: Plain text
 #: C/man1/top.1:1090
-#, fuzzy
-#| msgid ""
-#| "If you wish to abort the kill process, do one of the following\n"
-#| "depending on your progress:\n"
-#| "    1) at the pid prompt, just press E<lt>EnterE<gt>\n"
-#| "    2) at the signal prompt, type 0\n"
 msgid ""
 "If you wish to abort the kill process, do one of the following depending on "
 "your progress:"
 msgstr ""
 "Si vous souhaitez annuler la terminaison d'un processus, faites une des "
-"choses suivantes\n"
-"selon le niveau de progression\\ :\n"
-"  1) à l'invite du PID, appuyez juste sur E<lt>EntréeE<gt>\n"
-"  2) à l'invite du signal, tapez 0\n"
+"choses suivantes selon le niveau d'avancement :"
 
 #. type: Plain text
 #: C/man1/top.1:1093
@@ -10842,62 +10717,48 @@ msgid ""
 "    1) at the pid prompt, type an invalid number\n"
 "    2) at the signal prompt, type 0 (or any invalid signal)\n"
 msgstr ""
+"    1) à l'invite du PID, entrez un numéro incorrect ;\n"
+"    2) à l'invite du signal, tapez 0 (ou n'importe quel signal incorrect).\n"
 
 #. type: TP
 #: C/man1/top.1:1095
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<q>\\' :I<Quit >"
+#, no-wrap
 msgid "\\ \\ \\ B<q>\\ \\ :I<Quit >"
-msgstr "\\ \\ « B<q> » : I<quitter>"
+msgstr "   B<q>  : I<quitter>"
 
 #. type: TP
 #: C/man1/top.1:1098
-#, fuzzy, no-wrap
-#| msgid "*\\ \\'B<r>\\' :I<Renice-a-Task >"
+#, no-wrap
 msgid "*\\ \\ B<r>\\ \\ :I<Renice-a-Task >"
-msgstr "*\\ « B<r> » : I<changer la politesse d'une tâche>"
+msgstr "*  B<r>  : I<changer la politesse d'une tâche>"
 
 #. type: Plain text
 #: C/man1/top.1:1101
 msgid "You will be prompted for a PID and then the value to nice it to."
 msgstr ""
+"Vous invite à introduire le PID puis la valeur de politesse à appliquer."
 
 #. type: Plain text
 #: C/man1/top.1:1111
-#, fuzzy
-#| msgid ""
-#| "You will be prompted for a PID and then the value to nice it to.  "
-#| "Entering a positive value will cause a process to lose priority.  "
-#| "Conversely, a negative value will cause a process to be viewed more "
-#| "favorably by the kernel."
 msgid ""
 "A positive nice value will cause a process to lose priority.  Conversely, a "
 "negative nice value will cause a process to be viewed more favorably by the "
 "kernel.  As a general rule, ordinary users can only increase the nice value "
 "and are prevented from lowering it."
 msgstr ""
-"Vous invite à introduire le PID puis la valeur de politesse à appliquer. Une "
-"valeur positive provoquera une diminution de la priorité de la tâche. À "
-"l'inverse, une valeur négative la fera considérer plus favorablement par le "
-"noyau."
+"Une valeur de politesse positive provoquera une diminution de la priorité de "
+"la tâche. À l'inverse, une valeur négative de politesse la fera considérer "
+"plus favorablement par le noyau. En règle générale, les utilisateurs peuvent "
+"seulement augmenter la valeur de politesse sans pouvoir la diminuer."
 
 #. type: Plain text
 #: C/man1/top.1:1114
-#, fuzzy
-#| msgid ""
-#| "If you wish to abort the kill process, do one of the following\n"
-#| "depending on your progress:\n"
-#| "    1) at the pid prompt, just press E<lt>EnterE<gt>\n"
-#| "    2) at the signal prompt, type 0\n"
 msgid ""
 "If you wish to abort the renice process, do one of the following depending "
 "on your progress:"
 msgstr ""
-"Si vous souhaitez annuler la terminaison d'un processus, faites une des "
-"choses suivantes\n"
-"selon le niveau de progression\\ :\n"
-"  1) à l'invite du PID, appuyez juste sur E<lt>EntréeE<gt>\n"
-"  2) à l'invite du signal, tapez 0\n"
+"Si vous souhaitez annuler la modification de politesse d'un processus, "
+"faites une des choses suivantes selon le niveau de progression\\ :"
 
 #. type: Plain text
 #: C/man1/top.1:1117
@@ -10906,13 +10767,14 @@ msgid ""
 "    1) at the pid prompt, type an invalid number\n"
 "    2) at the nice prompt, type E<lt>EnterE<gt> with no input\n"
 msgstr ""
+"    1) à l'invite du PID, entrez un numéro incorrect ;\n"
+"    2) à l'invite de politesse, tapez E<lt>EntréeE<gt> sans rien entrer.\n"
 
 #. type: TP
 #: C/man1/top.1:1119
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<W>\\' :I<Write-the-Configuration-File >"
+#, no-wrap
 msgid "\\ \\ \\ B<W>\\ \\ :I<Write-the-Configuration-File >"
-msgstr "\\ \\ « B<W> » : I<écrire le fichier de configuration>"
+msgstr "   B<W>  : I<écrire le fichier de configuration>"
 
 #. type: Plain text
 #: C/man1/top.1:1125
@@ -10928,10 +10790,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1126
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<X>\\' :I<Extra-Fixed-Width >"
+#, no-wrap
 msgid "\\ \\ \\ B<X>\\ \\ :I<Extra-Fixed-Width >"
-msgstr "\\ \\ « B<X> » : I<largeur fixe supplémentaire>"
+msgstr "   B<X>  : I<largeur fixe supplémentaire>"
 
 #. type: Plain text
 #: C/man1/top.1:1131
@@ -10951,14 +10812,7 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:1143
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   I< field  default    field  default    field  default >\n"
-#| "    GID       5       GROUP     8       WCHAN    10\n"
-#| "    RUID      5       RUSER     8\n"
-#| "    SUID      5       SUSER     8\n"
-#| "    UID       5       USER      8\n"
-#| "                      TTY       8\n"
+#, no-wrap
 msgid ""
 "   I< field  default    field  default    field  default >\n"
 "    GID       5       GROUP     8       WCHAN    10\n"
@@ -10971,10 +10825,12 @@ msgid ""
 msgstr ""
 "   I< champ  défaut     champ  défaut     champ  défaut>\n"
 "    GID       5       GROUP     8       WCHAN    10\n"
-"    RUID      5       RUSER     8\n"
-"    SUID      5       SUSER     8\n"
-"    UID       5       USER      8\n"
-"                      TTY       8\n"
+"    RUID      5       RUSER     8       nsIPC    10\n"
+"    SUID      5       SUSER     8       nsMNT    10\n"
+"    UID       5       USER      8       nsNET    10\n"
+"                      TTY       8       nsPID    10\n"
+"                                        nsUSR    10\n"
+"                                        nsUTS    10\n"
 
 #. type: Plain text
 #: C/man1/top.1:1148
@@ -11014,7 +10870,7 @@ msgstr ""
 #: C/man1/top.1:1158
 #, no-wrap
 msgid "\\ \\ \\ B<Y>\\ \\ :I<Inspect-Other-Output >"
-msgstr ""
+msgstr "   B<Y>  : I<inspecter une autre sortie>"
 
 #. type: Plain text
 #: C/man1/top.1:1164
@@ -11024,6 +10880,11 @@ msgid ""
 "can be used to view a variety of files or piped command output while the "
 "normal \\*(We iterative display is paused."
 msgstr ""
+"Après l'exécution de la \\*(CI « Y », un PID cible sera demandé. Taper une "
+"valeur ou accepter celle par défaut aura pour conséquence un écran séparé. "
+"Cet écran peut être utilisé pour voir plusieurs fichiers ou sorties de "
+"commande renvoyée dans un tube (« pipe ») alors que l'affichage interactif "
+"normal de \\*(We est en pause."
 
 #. type: Plain text
 #: C/man1/top.1:1168
@@ -11032,6 +10893,10 @@ msgid ""
 "manually added to the end of the \\*(We \\*(CF.  For details on creating "
 "those entries, \\*(Xt 6c. ADDING INSPECT Entries."
 msgstr ""
+"\\*(NT cette \\*(CI n'est entièrement réalisée que quand les entrées "
+"possibles ont été ajoutées par vos soins à la fin du \\*(CF de \\*(We. Pour "
+"plus de précision sur la création de ces entrées, \\*(Xt B<6c. AJOUT "
+"d'entrées d'INSPECTION>."
 
 #. type: Plain text
 #: C/man1/top.1:1175
@@ -11041,6 +10906,11 @@ msgid ""
 "have selected a particular file or command.  They are familiar to anyone who "
 "has used the pager 'less' and are summarized here for future reference."
 msgstr ""
+"La plupart des touches utilisées pour naviguer dans la fonctionnalité "
+"d'inspection sont indiquées dans l'en-tête de son prologue. Des touches "
+"supplémentaires sont cependant utilisables une fois sélectionnés un fichier "
+"ou une commande spécifiques. Elles sont familières des utilisateurs du "
+"visualiseur « less » et sont résumées ici pour référence."
 
 #. type: Plain text
 #: C/man1/top.1:1185
@@ -11055,13 +10925,20 @@ msgid ""
 "    'g'      first line, equivalent to E<lt>HomeE<gt>\n"
 "    'G'      last line, equivalent to E<lt>EndE<gt>\n"
 msgstr ""
+"    I<touche   fonction>\n"
+"    « = »    alterner entre ligne d'état, ficher ou tube\n"
+"    « / »    trouver, équivalent à « L » pour localiser\n"
+"    « n »    trouver le suivant, équivalent à « & »\n"
+"    E<lt>EspaceE<gt> descendre, équivalent à E<lt>Pg.SuivE<gt>\n"
+"    « b »    monter, équivalent à E<lt>Pg.PrécE<gt>\n"
+"    « g »    première ligne, équivalent à E<lt>OrigE<gt>\n"
+"    « G »    dernière ligne, équivalent à E<lt>FinE<gt>\n"
 
 #. type: TP
 #: C/man1/top.1:1187
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<Z>\\' :I<Change-Color-Mapping >"
+#, no-wrap
 msgid "\\ \\ \\ B<Z>\\ \\ :I<Change-Color-Mapping >"
-msgstr "\\ \\ « B<Z> » : I<modifier la palette de couleurs>"
+msgstr "   B<Z>  : I<modifier la palette de couleurs>"
 
 #. type: Plain text
 #: C/man1/top.1:1192
@@ -11121,34 +10998,26 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1208
-#, fuzzy, no-wrap
-#| msgid "\\'B<C>' :I<Show-scroll-coordinates> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<C>\\ \\ :I<Show-scroll-coordinates> toggle "
-msgstr "« B<C> » : I<montrer les coordonnées d'affichage> ou non"
+msgstr "   B<C>  : I<montrer les coordonnées d'affichage> ou non"
 
 #. type: Plain text
 #: C/man1/top.1:1213
-#, fuzzy
-#| msgid ""
-#| "Toggle an informational message which is displayed whenever the message "
-#| "line is not otherwise being used.  That message will take one of two "
-#| "forms depending on whether or not a variable width column has also been "
-#| "scrolled."
 msgid ""
 "Toggle an informational message which is displayed whenever the message line "
 "is not otherwise being used.  For additional information \\*(Xt 5c. "
 "SCROLLING a Window."
 msgstr ""
 "Montrer un message d'information si la ligne de message n'est pas utilisée. "
-"Ce message prendra une des deux formes suivantes, s'il y a eu déplacement ou "
-"non dans une colonne de largeur variable."
+"\\*(XT B<5c. DÉPLACEMENT dans une fenêtre> pour de plus amples "
+"renseignements."
 
 #. type: TP
 #: C/man1/top.1:1214
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<l>\\' :I<Load-Average/Uptime> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<l>\\ \\ :I<Load-Average/Uptime> toggle "
-msgstr "\\ \\ « B<l> » : basculer entre I<charge moyenne et temps d'activité>"
+msgstr "   B<l>  : basculer entre I<charge moyenne et temps d'activité>"
 
 #. type: Plain text
 #: C/man1/top.1:1218
@@ -11161,24 +11030,20 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1219
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<t>\\' :I<Task/Cpu-States> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<t>\\ \\ :I<Task/Cpu-States> toggle "
-msgstr "\\ \\ « B<t> » : basculer entre I<états de tâche et CPU>"
+msgstr "   B<t>  : basculer entre I<états de tâche et CPU>"
 
 #. type: Plain text
 #: C/man1/top.1:1224
-#, fuzzy
-#| msgid ""
-#| "This command affects from 2 to many \\*(SA lines, depending on the state "
-#| "of the '1' toggle and whether or not \\*(We is running under true SMP."
 msgid ""
 "This command affects from 2 to many \\*(SA lines, depending on the state of "
 "the '1', '2' or '3' \\*(CTs and whether or not \\*(We is running under true "
 "SMP."
 msgstr ""
 "Cette commande affecte deux ou plusieurs lignes de la \\*(SA, en fonction de "
-"l'état de l'option «\\ 1\\ » et si \\*(We s'exécute sur un vrai SMP ou non."
+"l'état des commandes de basculement « 1 », « 2 » ou « 3 » et si \\*(We "
+"s'exécute sur un vrai SMP ou non."
 
 #. type: Plain text
 #: C/man1/top.1:1227
@@ -11192,10 +11057,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1228
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<m>\\' :I<Memory/Swap-Usage> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<m>\\ \\ :I<Memory/Swap-Usage> toggle "
-msgstr "\\ \\ « B<m> » : basculer entre I<utilisation mémoire et fichier d'échange (« swap »)>"
+msgstr "   B<m>  : basculer entre I<utilisation mémoire et fichier d'échange (« swap »)>"
 
 #. type: Plain text
 #: C/man1/top.1:1232
@@ -11208,10 +11072,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1233
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<1>\\' :I<Single/Separate-Cpu-States> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<1>\\ \\ :I<Single/Separate-Cpu-States> toggle "
-msgstr "\\ \\ « B<1> » : basculer entre I<états CPU simple et séparé>"
+msgstr "   B<1>  : basculer entre I<états CPU simple et séparé>"
 
 #. type: Plain text
 #: C/man1/top.1:1238
@@ -11239,10 +11102,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1244
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<t>\\' :I<Task/Cpu-States> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<2>\\ \\ :I<NUMA-Nodes/Cpu-Summary> toggle "
-msgstr "\\ \\ « B<t> » : basculer entre I<états de tâche et CPU>"
+msgstr "   B<2>  : basculer entre I<nœuds NUMA et résumé de processeur>"
 
 #. type: Plain text
 #: C/man1/top.1:1249
@@ -11251,13 +11113,16 @@ msgid ""
 "a summary display plus the cpu usage statistics for each NUMA Node.  It is "
 "only available if a system has the requisite NUMA support."
 msgstr ""
+"Cette commande bascule entre la commande « 1 » de résumé de processus (seul) "
+"ou un affichage du résumé et des statistiques d'utilisation de processus "
+"pour chaque nœud NUMA. Ce n'est disponible que si le système prend en charge "
+"NUMA."
 
 #. type: TP
 #: C/man1/top.1:1250
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<X>\\' :I<Extra-Fixed-Width >"
+#, no-wrap
 msgid "\\ \\ \\ B<3>\\ \\ :I<Expand-NUMA-Node >"
-msgstr "\\ \\ « B<X> » : I<largeur fixe supplémentaire>"
+msgstr "   B<3>  : I<nœud NUMA étendu>"
 
 #. type: Plain text
 #: C/man1/top.1:1256
@@ -11267,6 +11132,10 @@ msgid ""
 "until either the '1' or '2' \\*(CT is pressed.  This \\*(CI is only "
 "available if a system has the requisite NUMA support."
 msgstr ""
+"Vous invite à introduire un nombre représentant un nœud NUMA. Ensuite, un "
+"résumé du nœud et les statistiques pour chaque processeur de ce nœud seront "
+"montrés jusqu'à ce que la \\*(CT « 1 » ou « 2 » soit saisie. Cette \\*(CI "
+"n'est disponible que si le système prend en charge NUMA."
 
 #. type: Plain text
 #: C/man1/top.1:1262
@@ -11316,10 +11185,9 @@ msgstr "B<PRÉSENTATION> de la \\*(TW"
 
 #. type: TP
 #: C/man1/top.1:1275
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<J>\\' :I<Justify-Numeric-Columns> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<J>\\ \\ :I<Justify-Numeric-Columns> toggle "
-msgstr "\\ \\ « B<J> » : basculer la I<justification des colonnes numériques>"
+msgstr "   B<J>  : basculer la I<justification des colonnes numériques>"
 
 #. type: Plain text
 #: C/man1/top.1:1281
@@ -11335,10 +11203,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1282
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<j>\\' :I<Justify-Character-Columns> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<j>\\ \\ :I<Justify-Character-Columns> toggle "
-msgstr "\\ \\ « B<j> » : basculer la I<justification des colonnes de lettres>"
+msgstr "   B<j>  : basculer la I<justification des colonnes de lettres>"
 
 #. type: Plain text
 #: C/man1/top.1:1288
@@ -11363,10 +11230,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1295
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<b>\\' :I<Bold/Reverse> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<b>\\ \\ :I<Bold/Reverse> toggle "
-msgstr "\\ \\ « B<b> » : basculer I<gras ou inverse>"
+msgstr "   B<b>  : basculer I<gras ou inverse>"
 
 #. type: Plain text
 #: C/man1/top.1:1299
@@ -11381,10 +11247,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1300
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<x>\\' :I<Column-Highlight> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<x>\\ \\ :I<Column-Highlight> toggle "
-msgstr "\\ \\ « B<x> » : basculer la I<surbrillance de colonne>"
+msgstr "   B<x>  : basculer la I<surbrillance de colonne>"
 
 #. type: Plain text
 #: C/man1/top.1:1308
@@ -11411,13 +11276,16 @@ msgid ""
 "column highlighting is temporarily disabled.  \\*(XC notes at the end of "
 "topics 5d. SEARCHING and 5e. FILTERING for an explanation why."
 msgstr ""
+"\\*(NT à chaque fois que « recherche » ou « autre filtre » est actif dans "
+"une fenêtre, la surbrillance de colonne est temporairement désactivée. "
+"\\*(XC les notes en fin des sujets B<5d. RECHERCHE> et B<5e. FILTRE> pour "
+"une explication de la raison."
 
 #. type: TP
 #: C/man1/top.1:1314
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<y>\\' :I<Row-Highlight> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<y>\\ \\ :I<Row-Highlight> toggle "
-msgstr "\\ \\ « B<y> » : basculer la I<surbrillance de ligne>"
+msgstr "   B<y>  : basculer la I<surbrillance de ligne>"
 
 #. type: Plain text
 #: C/man1/top.1:1319
@@ -11442,10 +11310,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1323
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<z>\\' :I<Color/Monochrome> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<z>\\ \\ :I<Color/Monochrome> toggle "
-msgstr "\\ \\ « B<z> » : basculer en I<couleur ou monochrome>"
+msgstr "   B<z>  : basculer en I<couleur ou monochrome>"
 
 #. type: Plain text
 #: C/man1/top.1:1329
@@ -11468,10 +11335,9 @@ msgstr "B<CONTENU> de la \\*(TW"
 
 #. type: TP
 #: C/man1/top.1:1334
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<c>\\' :I<Command-Line/Program-Name> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<c>\\ \\ :I<Command-Line/Program-Name> toggle "
-msgstr "\\ \\ « B<c> » : basculer I<ligne de commande ou nom du programme>"
+msgstr "   B<c>  : basculer I<ligne de commande ou nom du programme>"
 
 #. type: Plain text
 #: C/man1/top.1:1339
@@ -11486,10 +11352,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1340 C/man1/top.1:1470
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<f>\\' | \\'B<F>\\' :I<Fields-Management >"
+#, no-wrap
 msgid "\\ \\ \\ B<f> | B<F>\\ \\ :I<Fields-Management >"
-msgstr "\\ \\ « B<f> » | « B<F> » : I<gestion des champs>"
+msgstr "   B<f> | B<F>  : I<gestion des champs>"
 
 #. type: Plain text
 #: C/man1/top.1:1346
@@ -11505,10 +11370,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1347
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<?>\\' | \\'B<h>\\' :I<Help >"
+#, no-wrap
 msgid "\\ \\ \\ B<o> | B<O>\\ \\ :I<Other-Filtering >"
-msgstr "\\ \\ « B<?> » | « B<h> » : I<aide>"
+msgstr "   B<o> | B<O>  : I<autre filtre>"
 
 #. type: Plain text
 #: C/man1/top.1:1353
@@ -11518,6 +11382,10 @@ msgid ""
 "or case can be ignored.  And you determine if \\*(We should include or "
 "exclude matching tasks."
 msgstr ""
+"Vous invite à introduire les critères de sélection qui déterminent alors les "
+"tâches qui seront montrées dans la \\*(CW. Les critères peuvent être rendus "
+"sensibles à la casse ou non. Les tâches correspondantes peuvent être soit "
+"incluses par \\*(We, soit exclues."
 
 #. type: Plain text
 #: C/man1/top.1:1356
@@ -11525,13 +11393,14 @@ msgid ""
 "\\*(XT 5e. FILTERING in a window for details on these and additional related "
 "\\*(CIs."
 msgstr ""
+"\\*(XT B<5e. FILTRE dans une fenêtre> pour plus de précisions sur ces "
+"commandes interactives et les autres commandes interactives liées."
 
 #. type: TP
 #: C/man1/top.1:1357
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<S>\\' :I<Cumulative-Time-Mode> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<S>\\ \\ :I<Cumulative-Time-Mode> toggle "
-msgstr "\\ \\ « B<S> » : basculer en I<cumul de temps> "
+msgstr "   B<S>  : basculer en I<cumul de temps> "
 
 #. type: Plain text
 #: C/man1/top.1:1361
@@ -11574,10 +11443,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1373
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<u>' | 'B<U>' :I<Show-Specific-User-Only >"
+#, no-wrap
 msgid "\\ \\ \\ B<u> | B<U>\\ \\ :I<Show-Specific-User-Only >"
-msgstr "\\ \\ « B<u> » | « B<U> » : I<utilisateur spécifique>"
+msgstr "   B<u> | B<U>  : I<utilisateur spécifique>"
 
 #. type: Plain text
 #: C/man1/top.1:1378
@@ -11593,11 +11461,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/top.1:1383
-#, fuzzy
-#| msgid ""
-#| "Thereafter, in that \\*(TW only matching users will be shown, or possibly "
-#| "no processes will be shown.  Different \\*(TWs can can be used to filter "
-#| "different users."
 msgid ""
 "Thereafter, in that \\*(TW only matching users will be shown, or possibly no "
 "processes will be shown.  Prepending an exclamation point ('!') to the user "
@@ -11605,39 +11468,31 @@ msgid ""
 "the one provided."
 msgstr ""
 "Par la suite, seuls les utilisateurs correspondants dans cette \\*(TW seront "
-"montrés, ou éventuellement aucun processus ne sera montré. D'autres fenêtres "
-"de tâches peuvent être utilisées pour filtrer d'autres utilisateurs."
+"montrés, ou éventuellement aucun processus ne sera montré. Un point "
+"d'exclamation (« ! ») précédant l'identifiant ou le nom d'utilisateur "
+"indique à top de n'afficher que les processus avec des utilisateurs ne "
+"correspondant pas à celui fourni."
 
 #. type: Plain text
 #: C/man1/top.1:1387
-#, fuzzy
-#| msgid ""
-#| "Later, if you wish to monitor all tasks again in the \\*(CW, re-issue "
-#| "this command but just press E<lt>EnterE<gt> at the prompt."
 msgid ""
 "Different \\*(TWs can be used to filter different users.  Later, if you wish "
 "to monitor all users again in the \\*(CW, re-issue this command but just "
 "press E<lt>EnterE<gt> at the prompt."
 msgstr ""
-"Ensuite, si vous désirez surveiller à nouveau l'ensemble des tâches dans la "
-"\\*(CW, réexécutez cette commande en appuyant uniquement sur la touche "
-"E<lt>EntréeE<gt>."
+"D'autres fenêtres de tâches peuvent être utilisées pour filtrer d'autres "
+"utilisateurs. Ensuite, si vous désirez surveiller à nouveau l'ensemble des "
+"utilisateurs dans la \\*(CW, réexécutez cette commande mais appuyez "
+"uniquement sur la touche E<lt>EntréeE<gt> à l'invite."
 
 #. type: TP
 #: C/man1/top.1:1388
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<V>' :I<Forest-View-Mode> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<V>\\ \\ :I<Forest-View-Mode> toggle "
-msgstr "\\ \\ « B<V> » : basculer en I<mode d'affichage arborescent>"
+msgstr "   B<V>  : basculer en I<mode d'affichage arborescent>"
 
 #. type: Plain text
 #: C/man1/top.1:1395
-#, fuzzy
-#| msgid ""
-#| "In this mode, processes are reordered according to their parents and the "
-#| "layout of the COMMAND column resembles that of a tree.  In forest view "
-#| "mode it is still possible to toggle between program name and commamd line "
-#| "(\\*(Xc 'c' \\*(CI) or between processes and threads (\\*(Xc 'H' \\*(CI)."
 msgid ""
 "In this mode, processes are reordered according to their parents and the "
 "layout of the COMMAND column resembles that of a tree.  In forest view mode "
@@ -11669,10 +11524,9 @@ msgstr "B<TAILLE> de la \\*(TW"
 
 #. type: TP
 #: C/man1/top.1:1404
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<i>\\' :I<Idle-Process> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<i>\\ \\ :I<Idle-Process> toggle "
-msgstr "\\ \\ « B<i> » : basculer en I<processus en veille> "
+msgstr "   B<i>  : basculer en I<processus en veille> "
 
 #. type: Plain text
 #: C/man1/top.1:1412
@@ -11701,10 +11555,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1416
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<n>\\' | \\'B<#>\\' :I<Set-Maximum-Tasks >"
+#, no-wrap
 msgid "\\ \\ \\ B<n> | B<#>\\ \\ :I<Set-Maximum-Tasks >"
-msgstr "\\ \\ « B<n> » | « B<#> » : I<configurer le maximum de tâches>"
+msgstr "   B<n> | B<#>  : I<configurer le maximum de tâches>"
 
 #. type: Plain text
 #: C/man1/top.1:1420
@@ -11804,10 +11657,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1454
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<E<lt>>\\' :I<Move-Sort-Field-Left >"
+#, no-wrap
 msgid "\\ \\ \\ B<E<lt>>\\ \\ :I<Move-Sort-Field-Left >"
-msgstr "\\ \\ « B<E<lt>> » : I<déplacer le champ trié à gauche>"
+msgstr "   B<E<lt>>  : I<déplacer le champ trié à gauche>"
 
 #. type: Plain text
 #: C/man1/top.1:1458
@@ -11820,10 +11672,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1459
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<E<gt>>\\' :I<Move-Sort-Field-Right >"
+#, no-wrap
 msgid "\\ \\ \\ B<E<gt>>\\ \\ :I<Move-Sort-Field-Right >"
-msgstr "\\ \\ « B<E<gt>> » : I<déplacer le champ trié à droite>"
+msgstr "   B<E<gt>>  : I<déplacer le champ trié à droite>"
 
 #. type: Plain text
 #: C/man1/top.1:1463
@@ -11858,10 +11709,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1477
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<R>\\' :I<Reverse/Normal-Sort-Field> toggle "
+#, no-wrap
 msgid "\\ \\ \\ B<R>\\ \\ :I<Reverse/Normal-Sort-Field> toggle "
-msgstr "\\ \\ « B<R> » : basculer I<le champ de tri inverse ou normal>"
+msgstr "   B<R>  : basculer I<le champ de tri inverse ou normal>"
 
 #. type: Plain text
 #: C/man1/top.1:1480
@@ -12055,10 +11905,9 @@ msgstr "5b. COMMANDES de Fenêtrage"
 
 #. type: TP
 #: C/man1/top.1:1556
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<->\\' | \\'B<_>\\' :I<Show/Hide-Window(s)> toggles "
+#, no-wrap
 msgid "\\ \\ \\ B<-> | B<_>\\ \\ :I<Show/Hide-Window(s)> toggles "
-msgstr "\\ \\ « B<-> » | « B<_> » : I<montrer ou masquer les fenêtres>"
+msgstr "   B<-> | B<_>  : I<montrer ou masquer les fenêtres>"
 
 #. type: Plain text
 #: C/man1/top.1:1563
@@ -12090,20 +11939,12 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1570
-#, fuzzy, no-wrap
-#| msgid "*\\ \\'B<=>\\' | \\'B<+>\\' :I<Equalize-(re-balance)-Window(s) >"
+#, no-wrap
 msgid "*\\ \\ B<=> | B<+>\\ \\ :I<Equalize-(reinitialize)-Window(s) >"
-msgstr "*\\ « B<=> » | « B<+> » : I<égaliser (rééquilibrer) les fenêtres>"
+msgstr "*  B<=> | B<+>  : I<égaliser (réinitialiser) les fenêtres>"
 
 #. type: Plain text
 #: C/man1/top.1:1578
-#, fuzzy
-#| msgid ""
-#| "The '=' key forces the \\*(CW's \\*(TD to be visible.  It also reverses "
-#| "any 'i' (idle tasks), 'n' (max tasks) and 'u'/'U' (user filter) commands "
-#| "that might be active.  Also, if the window had been scrolled, it will be "
-#| "reset with this command.  \\*(XT 5c. SCROLLING a Window for additional "
-#| "information regarding vertical and horizontal scrolling."
 msgid ""
 "The '=' key forces the \\*(CW's \\*(TD to be visible.  It also reverses any "
 "'i' (idle tasks), 'n' (max tasks), 'u'/'U' (user filter)  and 'o'/'O' (other "
@@ -12112,20 +11953,15 @@ msgid ""
 "for additional information regarding vertical and horizontal scrolling."
 msgstr ""
 "La touche «\\ =\\ » force l'\\*(TD de la \\*(CW à être visible. Elle inverse "
-"aussi toutes commandes «\\ i\\ » (tâches au repos), «\\ n\\ » (nombre de "
-"tâches maximum) et « u » ou « U » (filtre utilisateur) qui peuvent être "
-"actives. De plus, après navigation, la fenêtre sera réinitialisée avec cette "
-"commande. \\*(XT B<5c. COMMANDES de fenêtrage> pour de plus amples "
-"renseignements sur les déplacements verticaux et horizontaux."
+"aussi toutes commandes «\\ i\\ » (tâches au repos), «\\ n\\ » (nombre "
+"maximal de tâches), « u » ou « U » (filtre utilisateur) et « o » ou "
+"« O » (autre filtre) qui peuvent être actives. De plus, après navigation, la "
+"fenêtre sera réinitialisée avec cette commande. \\*(XT B<5c. DÉPLACEMENT "
+"dans une fenêtre> pour de plus amples renseignements sur les déplacements "
+"verticaux et horizontaux."
 
 #. type: Plain text
 #: C/man1/top.1:1584
-#, fuzzy
-#| msgid ""
-#| "The '+' key does the same for all windows.  The four \\*(TDs will "
-#| "reappear, evenly balanced.  They will also have retained any "
-#| "customizations you had previously applied, except for the 'i' (idle "
-#| "tasks), 'n' (max tasks), 'u'/'U' (user filter)  and scrolling \\*(CIs."
 msgid ""
 "The '+' key does the same for all windows.  The four \\*(TDs will reappear, "
 "evenly balanced.  They will also have retained any customizations you had "
@@ -12136,15 +11972,14 @@ msgstr ""
 "zones d'affichage des tâches réapparaîtront avec des tailles équilibrées. "
 "Elles conserveront également toutes les options que vous avez paramétrées, à "
 "l'exception des commandes interactives «\\ i\\ » (tâches au repos), «\\ n\\ "
-"» (nombre de tâche maximum), « u » ou « U » (filtre utilisateur) et "
-"déplacement."
+"» (nombre maximal de tâches), « u » ou « U » (filtre utilisateur), « o » ou "
+"« O » (autre filtre) et déplacement."
 
 #. type: TP
 #: C/man1/top.1:1585
-#, fuzzy, no-wrap
-#| msgid "*\\ \\'B<A>\\' :I<Alternate-Display-Mode> toggle "
+#, no-wrap
 msgid "*\\ \\ B<A>\\ \\ :I<Alternate-Display-Mode> toggle "
-msgstr "*\\ « B<A> » : basculer en I<mode d'affichage alternatif>"
+msgstr "*  B<A>  : basculer en I<mode d'affichage alternatif>"
 
 #. type: Plain text
 #: C/man1/top.1:1588
@@ -12164,10 +11999,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1593
-#, fuzzy, no-wrap
-#| msgid "*\\ \\'B<a>\\' | \\'B<w>\\' :I<Next-Window-Forward/Backward >"
+#, no-wrap
 msgid "*\\ \\ B<a> | B<w>\\ \\ :I<Next-Window-Forward/Backward >"
-msgstr "*\\ « B<a> » | « B<w> » : I<fenêtre suivante ou précédente>"
+msgstr "*  B<a> | B<w>  : I<fenêtre suivante ou précédente>"
 
 #. type: Plain text
 #: C/man1/top.1:1599
@@ -12195,10 +12029,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1604
-#, fuzzy, no-wrap
-#| msgid "*\\ \\'B<g>\\' :I<Choose-Another-Window/Field-Group >"
+#, no-wrap
 msgid "*\\ \\ B<g>\\ \\ :I<Choose-Another-Window/Field-Group >"
-msgstr "*\\ « B<g> » : I<choisir une autre fenêtre ou un groupe de champs>"
+msgstr "*  B<g>  : I<choisir une autre fenêtre ou un groupe de champs>"
 
 #. type: Plain text
 #: C/man1/top.1:1608
@@ -12221,10 +12054,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1613
-#, fuzzy, no-wrap
-#| msgid "\\ \\ \\'B<G>\\' :I<Change-Window/Field-Group-Name >"
+#, no-wrap
 msgid "\\ \\ \\ B<G>\\ \\ :I<Change-Window/Field-Group-Name >"
-msgstr "\\ \\ « B<G> » : I<modifier le nom de la fenêtre ou du groupe de champs>"
+msgstr "   B<G>  : I<modifier le nom de la fenêtre ou du groupe de champs>"
 
 #. type: Plain text
 #: C/man1/top.1:1618
@@ -12239,7 +12071,7 @@ msgstr ""
 #: C/man1/top.1:1621
 msgid "The \\*(CIs shown with an \\*(AK have use beyond \\*(AM."
 msgstr ""
-"Les commandes interactives précédées d'un \\*(AK sont utilisables au delà du "
+"Les commandes interactives précédées d'un \\*(AK sont utilisables au-delà du "
 "\\*(AM."
 
 #. type: Plain text
@@ -12277,10 +12109,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1635
-#, fuzzy, no-wrap
-#| msgid "B<Up>,B<PgUp> :I<Scroll-Tasks >"
+#, no-wrap
 msgid "B<Up>,B<PgUp>\\ \\ :I<Scroll-Tasks >"
-msgstr "B<Haut>, B<Pg.Préc> : I<déplacement dans les tâches>"
+msgstr "B<Haut>, B<Pg.Préc>  : I<déplacement dans les tâches>"
 
 #. type: Plain text
 #: C/man1/top.1:1641
@@ -12295,10 +12126,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1642
-#, fuzzy, no-wrap
-#| msgid "B<Down>,B<PgDn> :I<Scroll-Tasks >"
+#, no-wrap
 msgid "B<Down>,B<PgDn>\\ \\ :I<Scroll-Tasks >"
-msgstr "B<Bas>, B<Pg.Suiv> : I<déplacement dans les tâches>"
+msgstr "B<Bas>, B<Pg.Suiv>  : I<déplacement dans les tâches>"
 
 #. type: Plain text
 #: C/man1/top.1:1648
@@ -12314,10 +12144,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1649
-#, fuzzy, no-wrap
-#| msgid "B<Left>,B<Right> :I<Scroll-Columns >"
+#, no-wrap
 msgid "B<Left>,B<Right>\\ \\ :I<Scroll-Columns >"
-msgstr "B<Gauche>, B<Droite> : I<déplacement dans les colonnes>"
+msgstr "B<Gauche>, B<Droite>  : I<déplacement dans les colonnes>"
 
 #. type: Plain text
 #: C/man1/top.1:1652
@@ -12355,10 +12184,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1664
-#, fuzzy, no-wrap
-#| msgid "B<Home> :I<Jump-to-Home-Position >"
+#, no-wrap
 msgid "B<Home>\\ \\ :I<Jump-to-Home-Position >"
-msgstr "B<Orig> : I<sauter à la position d'origine>"
+msgstr "B<Orig>  : I<sauter à la position d'origine>"
 
 #. type: Plain text
 #: C/man1/top.1:1667
@@ -12367,10 +12195,9 @@ msgstr "Repositionner l'affichage aux coordonnées initiales."
 
 #. type: TP
 #: C/man1/top.1:1668
-#, fuzzy, no-wrap
-#| msgid "B<End> :I<Jump-to-End-Position >"
+#, no-wrap
 msgid "B<End>\\ \\ :I<Jump-to-End-Position >"
-msgstr "B<Fin> : I<sauter à la position finale>"
+msgstr "B<Fin>  : I<sauter à la position finale>"
 
 #. type: Plain text
 #: C/man1/top.1:1672
@@ -12395,10 +12222,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1678
-#, fuzzy, no-wrap
-#| msgid "\\'B<C>' :I<Show-scroll-coordinates> toggle "
+#, no-wrap
 msgid "B<C>\\ \\ :I<Show-scroll-coordinates> toggle "
-msgstr "« B<C> » : I<montrer les coordonnées d'affichage> ou non"
+msgstr "B<C>  : I<montrer les coordonnées d'affichage> ou non"
 
 #. type: Plain text
 #: C/man1/top.1:1684
@@ -12486,13 +12312,17 @@ msgid ""
 "aberrations when scrolling since not all tasks will be visible.  This is "
 "particularly apparent when using the Up/Down \\*(KAs."
 msgstr ""
+"\\*(NT si n'importe quel type de filtre est actif, quelques légères "
+"aberrations sont possibles lors du déplacement puisque toutes les tâches ne "
+"seront pas visibles. C'est particulièrement visible lors de l'utilisation "
+"des \\*(KAs B<Haut> et B<Bas>."
 
 #.  ......................................................................
 #. type: SS
 #: C/man1/top.1:1721
 #, no-wrap
 msgid "5d. SEARCHING in a Window"
-msgstr "5c. RECHERCHE dans une fenêtre"
+msgstr "5d. RECHERCHE dans une fenêtre"
 
 #.  ----------------------------------------------------------------------
 #. type: Plain text
@@ -12505,10 +12335,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1725
-#, fuzzy, no-wrap
-#| msgid "\\'B<L>\\' :I<Locate-a-string>"
+#, no-wrap
 msgid "B<L>\\ \\ :I<Locate-a-string>"
-msgstr "« B<L> » : I<trouver une chaîne>"
+msgstr "B<L>  : I<trouver une chaîne>"
 
 #. type: Plain text
 #: C/man1/top.1:1730
@@ -12544,10 +12373,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/top.1:1738
-#, fuzzy, no-wrap
-#| msgid "\\'B<&>\\' :I<Locate-next>"
+#, no-wrap
 msgid "B<&>\\ \\ :I<Locate-next>"
-msgstr "« B<&> » : I<trouver la suivante>"
+msgstr "B<&>  : I<trouver la suivante>"
 
 #. type: Plain text
 #: C/man1/top.1:1742
@@ -12590,7 +12418,7 @@ msgstr "a. Les champs affichables en regard de tous ceux disponibles,"
 #. type: Plain text
 #: C/man1/top.1:1756
 msgid "\\*(Xt 3b. MANAGING Fields."
-msgstr "\\*(Xt 3b. B<GESTION des champs>."
+msgstr "\\*(Xt B<3b. GESTION des champs>."
 
 #. type: TP
 #: C/man1/top.1:1756
@@ -12601,7 +12429,7 @@ msgstr "b. Le déplacement vertical ou horizontal de la fenêtre,"
 #. type: Plain text
 #: C/man1/top.1:1759
 msgid "\\*(Xt 5c. SCROLLING a Window."
-msgstr "\\*(Xt 5c. B<DÉPLACEMENT dans une fenêtre>."
+msgstr "\\*(Xt B<5c. DÉPLACEMENT dans une fenêtre>."
 
 #. type: TP
 #: C/man1/top.1:1759
@@ -12623,7 +12451,7 @@ msgstr "d. La stabilité de la colonne de tri choisie,"
 #. type: Plain text
 #: C/man1/top.1:1765
 msgid "for example PID is good but %CPU bad."
-msgstr "par exemple, PID est en bon choix, mais pas %CPU."
+msgstr "par exemple, PID est un bon choix, mais pas %CPU."
 
 #. type: Plain text
 #: C/man1/top.1:1771
@@ -12645,14 +12473,19 @@ msgid ""
 "Such highlighting will be restored when a window's search string is empty.  "
 "\\*(XC 'x' \\*(CI for additional information on sort column highlighting."
 msgstr ""
+"\\*(NT à chaque fois qu'une touche de recherche est tapée, \\*(We "
+"positionnera sur \\*F la surbrillance de colonne pour éviter les fausses "
+"correspondances sur les suites de caractères d'échappement non affichables. "
+"Ce type de surbrillance sera réactivé lorsqu'une chaîne de recherche de la "
+"fenêtre est vide. \\*(XC la \\*(CI « x » pour de plus amples renseignements "
+"sur le tri en surbrillance de colonne."
 
 #.  ......................................................................
 #. type: SS
 #: C/man1/top.1:1781
-#, fuzzy, no-wrap
-#| msgid "5d. SEARCHING in a Window"
+#, no-wrap
 msgid "5e. FILTERING in a Window"
-msgstr "5c. RECHERCHE dans une fenêtre"
+msgstr "5e. FILTRE dans une fenêtre"
 
 #.  ----------------------------------------------------------------------
 #. type: Plain text
@@ -12661,6 +12494,8 @@ msgid ""
 "You can use the 'Other Filter' feature to establish selection criteria which "
 "will then determine which tasks are shown in the \\*(CW."
 msgstr ""
+"La fonctionnalité « autre filtre » permet d'établir des critères de "
+"sélection qui détermineront ensuite les tâches montrées dans la \\*(CW."
 
 #. type: Plain text
 #: C/man1/top.1:1791
@@ -12671,58 +12506,66 @@ msgid ""
 "friend.  Remember the Up/Down \\*(KAs or their aliases when prompted for "
 "input."
 msgstr ""
+"La mise en place d'un filtre nécessite au moins :\n"
+"  1) un nom de champ ;\n"
+"  2) un opérateur ;\n"
+"  3) une valeur de sélection.\n"
+"\n"
+"Ce sont les exigences d'entrée utilisateur de top les plus compliquées donc, "
+"en cas d'erreur, le rappel de commande sera pratique. Rappelez-vous des "
+"\\*(KAs B<Haut> et B<Bas> ou de leurs alias à l'invite de commande."
 
 #. type: Plain text
 #: C/man1/top.1:1793
 msgid "B<Filter Basics>"
-msgstr ""
+msgstr "B<Bases des filtres>"
 
 #. type: IP
 #: C/man1/top.1:1793 C/man1/top.1:1795 C/man1/top.1:1797 C/man1/top.1:1799
 #: C/man1/top.1:1801 C/man1/top.1:1803 C/man1/top.1:1805 C/man1/top.1:1807
 #, no-wrap
 msgid "   .  "
-msgstr ""
+msgstr "   .  "
 
 #. type: Plain text
 #: C/man1/top.1:1795
 msgid "field names are case sensitive and spelled as in the header"
-msgstr ""
+msgstr "chaque champ est sensible à la casse et conforme à l'en-tête"
 
 #. type: Plain text
 #: C/man1/top.1:1797
 msgid "selection values need not comprise the full displayed field"
-msgstr ""
+msgstr "les sélections peuvent n'être qu'une partie du champ affiché"
 
 #. type: Plain text
 #: C/man1/top.1:1799
 msgid "a selection is either case insensitive or sensitive to case"
-msgstr ""
+msgstr "une sélection peut être sensible à la casse ou ne pas l'être"
 
 #. type: Plain text
 #: C/man1/top.1:1801
 msgid "the default is inclusion, prepending '!' denotes exclusions"
-msgstr ""
+msgstr "l'inclusion est par défaut et l'exclusion commence par « ! »"
 
 #. type: Plain text
 #: C/man1/top.1:1803
 msgid "multiple selection criteria can be applied to a \\*(TW"
-msgstr ""
+msgstr "plusieurs critères sont possibles pour une \\*(TW"
 
 #. type: Plain text
 #: C/man1/top.1:1805
 msgid "inclusion and exclusion criteria can be used simultaneously"
-msgstr ""
+msgstr "les inclusions et exclusions peuvent être utilisées ensemble"
 
 #. type: Plain text
 #: C/man1/top.1:1807
 msgid "the 1 equality and 2 relational filters can be freely mixed"
-msgstr ""
+msgstr "les filtres d'égalité peuvent être mélangés aux relationnels"
 
 #. type: Plain text
 #: C/man1/top.1:1809
 msgid "separate unique filters are maintained for each \\*(TW"
-msgstr ""
+msgstr "chaque filtre unique est maintenu pour une \\*(TW"
 
 #. type: Plain text
 #: C/man1/top.1:1815
@@ -12731,17 +12574,20 @@ msgid ""
 "criteria will not affect the display.  Later, should a filtered field become "
 "visible, the selection criteria will then be applied."
 msgstr ""
+"Si un champ n'est pas activé ou actuellement absent de la vue, alors les "
+"critères de sélection n'affecteront pas l'affichage. Ensuite, si un champ "
+"filtré devient visible, les critères de sélection seront appliqués."
 
 #. type: Plain text
 #: C/man1/top.1:1817
 msgid "B<Keyboard Summary>"
-msgstr ""
+msgstr "B<Aide-mémoire des commandes au clavier>"
 
 #. type: TP
 #: C/man1/top.1:1817
 #, no-wrap
 msgid "\\ \\ B<o>\\ \\ :I<Other-Filter> (lower case)"
-msgstr ""
+msgstr "  B<o>  : I<autre filtre> (minuscule)"
 
 #. type: Plain text
 #: C/man1/top.1:1821
@@ -12749,29 +12595,25 @@ msgid ""
 "You will be prompted to establish a filter that B<ignores case> when "
 "matching."
 msgstr ""
+"Vous invite à mettre en place un filtre B<insensible à la casse> lors de la "
+"correspondance."
 
 #. type: TP
 #: C/man1/top.1:1822
 #, no-wrap
 msgid "\\ \\ B<O>\\ \\ :I<Other-Filter> (upper case)"
-msgstr ""
+msgstr "  B<O>  : I<autre filtre> (majuscule)"
 
 #. type: Plain text
 #: C/man1/top.1:1825
-#, fuzzy
-#| msgid ""
-#| "You will be prompted to enter the delay time, in seconds, between display "
-#| "updates."
 msgid "You will be prompted to establish a B<case sensitive> filter."
-msgstr ""
-"Vous invite à introduire le délai, en seconde, des mises à jour de "
-"l'affichage."
+msgstr "Vous invite à mettre en place un filtre B<sensible à la casse>."
 
 #. type: TP
 #: C/man1/top.1:1826
 #, no-wrap
 msgid "\\ B<^O>\\ \\ :I<Show-Active-Filters> (Ctrl key + 'o')"
-msgstr ""
+msgstr " B<^O>  : I<montrer les filtres actifs> (touche Ctrl + « o »)"
 
 #. type: Plain text
 #: C/man1/top.1:1830
@@ -12780,12 +12622,15 @@ msgid ""
 "summary will be shown on the message line until you press the "
 "E<lt>EnterE<gt> key."
 msgstr ""
+"Cela peut servir de rappel des filtres actifs dans la \\*(CW. Un résumé sera "
+"montré sur la ligne de message jusqu'à ce que la touche E<lt>EntréeE<gt> "
+"soit tapée."
 
 #. type: TP
 #: C/man1/top.1:1831
 #, no-wrap
 msgid "\\ \\ B<=>\\ \\ :I<Reset-Filtering> in current window"
-msgstr ""
+msgstr "  B<=>  : I<réinitialiser les filtres> dans la fenêtre actuelle"
 
 #. type: Plain text
 #: C/man1/top.1:1835
@@ -12793,12 +12638,15 @@ msgid ""
 "This clears all of your selection criteria in the \\*(CW.  It also has "
 "additional impact so please \\*(Xt 4a. GLOBAL Commands."
 msgstr ""
+"Cela nettoie tous les critères de sélection dans la \\*(CW. Cela a aussi "
+"d'autres conséquences, veuillez donc consulter la section B<4a. Commandes "
+"GLOBALES>."
 
 #. type: TP
 #: C/man1/top.1:1836
 #, no-wrap
 msgid "\\ \\ B<+>\\ \\ :I<Reset-Filtering> in all windows"
-msgstr ""
+msgstr "  B<+>  : I<réinitialiser les filtres> dans toutes les fenêtres"
 
 #. type: Plain text
 #: C/man1/top.1:1841
@@ -12807,11 +12655,15 @@ msgid ""
 "\\*(AM.  As with the '=' \\*(CI, it too has additional consequences so you "
 "might wish to \\*(Xt 5b. COMMANDS for Windows."
 msgstr ""
+"Cela nettoie les critères de sélection dans toutes les fenêtres, à condition "
+"de ne pas être en \\*(AM. Comme avec la  \\*(CI « = », cela a aussi d'autres "
+"conséquences, veuillez donc consulter la section B<5b. COMMANDES de "
+"Fenêtrage>."
 
 #. type: Plain text
 #: C/man1/top.1:1844
 msgid "B<Input Requirements>"
-msgstr ""
+msgstr "B<Exigences d'entrée>"
 
 #. type: Plain text
 #: C/man1/top.1:1850
@@ -12821,6 +12673,10 @@ msgid ""
 "optional.  These examples use spaces for clarity but your input generally "
 "would not."
 msgstr ""
+"À l'invite des critères de sélection, les données fournies doivent prendre "
+"une des deux formes suivantes. Trois informations sont nécessaires, une "
+"quatrième est facultative. Ces exemples utilisent des espaces par souci de "
+"clarté, mais l'entrée n'en nécessite pas."
 
 #. type: Plain text
 #: C/man1/top.1:1855
@@ -12831,6 +12687,10 @@ msgid ""
 "     B<!>  Field-Name   ?   B<exclude>-if-value\n"
 "     #4                                  ( optional )\n"
 msgstr ""
+"        nº 1         B<nº 2>  nº 3                   (nécessaires)\n"
+"        Nom_de_champ   ?   inclure_en_cas_de_valeur\n"
+"     B<!>  Nom_de_champ   ?   B<exclure>_en_cas_de_valeur\n"
+"   nº 4                                           (facultative)\n"
 
 #. type: Plain text
 #: C/man1/top.1:1860
@@ -12839,6 +12699,9 @@ msgid ""
 "a required I<delimiter> and the I<operator> which must be one of either "
 "equality ('=') or relation ('E<lt>' or 'E<gt>')."
 msgstr ""
+"Les éléments nº 1, nº 3 et nº 4 devraient être explicites. L'élément nº 2 "
+"représente à la fois un I<délimiteur> nécessaire et l'I<opérateur> qui doit "
+"être soit l'égalité (« = »), soit une relation (« E<lt> » ou « E<gt> »)."
 
 #. type: Plain text
 #: C/man1/top.1:1869
@@ -12850,6 +12713,14 @@ msgid ""
 "homogeneous data.  When some field's numeric amounts have been subjected to "
 "I<scaling> while others have not, that data is no longer homogeneous."
 msgstr ""
+"L'opérateur d'égalité « = » ne nécessite qu'une correspondance partielle, ce "
+"qui permet de réduire les exigences d'entrée « en_cas_de_valeur ». Les "
+"opérateurs relationnels « E<lt> » ou « E<gt> » utilisent toujours des "
+"comparaisons de chaînes, même avec les champs numériques. Ils sont conçus "
+"pour fonctionner avec une I<justification> par défaut du champ et avec des "
+"données homogènes. Quand certaines quantités numériques de champ ont été "
+"sujets à une I<mise à l'échelle> alors que d'autres non, ces données ne sont "
+"plus homogènes."
 
 #. type: Plain text
 #: C/man1/top.1:1876
@@ -12861,6 +12732,13 @@ msgid ""
 "for example, because '100.0m' (MiB) would appear greater than "
 "\\'1.000g' (GiB) when compared as strings."
 msgstr ""
+"En cas de mise en place d'un filtre relationnel, si vous B<avez> modifié la "
+"I<justification> « numérique » ou « caractère », ce filtre échouera "
+"probablement. Quand un filtre relationnel est appliqué à un champ de mémoire "
+"et que vous n'B<avez pas> modifié l'B<échelle>, cela peut produire des "
+"résultats déconcertants. Cela arrive, par exemple, parce que "
+"« 100,0 m » (Mio) apparaîtra plus grand que « 1,000 g » (Gio) une fois "
+"comparés en tant que chaînes."
 
 #. type: Plain text
 #: C/man1/top.1:1880
@@ -12869,13 +12747,15 @@ msgid ""
 "scaling may yet achieve the desired objective.  See the 'j', 'J' and 'e' "
 "\\*(CIs for additional information."
 msgstr ""
+"Si les résultats filtrés semblent bizarres, simplement modifier la "
+"justification ou l'échelle pourrait permettre d'atteindre l'objectif voulu. "
+"Consultez les commandes interactives « j », « J » et « e » pour de plus "
+"amples renseignements."
 
 #. type: Plain text
 #: C/man1/top.1:1883
-#, fuzzy
-#| msgid "B<Content/Labels>"
 msgid "B<Potential Problems>"
-msgstr "B<Contenu ou étiquettes>"
+msgstr "B<Problèmes possibles>"
 
 #. type: Plain text
 #: C/man1/top.1:1887
@@ -12883,6 +12763,8 @@ msgid ""
 "These B<GROUP> filters could produce the exact same results or the second "
 "one might not display anything at all, just a blank \\*(TW."
 msgstr ""
+"Ces filtres de B<GROUP> peuvent produire exactement les mêmes résultats ou "
+"le deuxième pourrait ne rien afficher du tout, juste une \\*(TW vide."
 
 #. type: Plain text
 #: C/man1/top.1:1890
@@ -12891,6 +12773,8 @@ msgid ""
 "     GROUP=root        ( only the same results when )\n"
 "     GROUP=ROOT        ( invoked via lower case 'o' )\n"
 msgstr ""
+"     GROUP=root        (résultats identiques seulement quand)\n"
+"     GROUP=ROOT        (invoqués à l'aide un « o » minuscule)\n"
 
 #. type: Plain text
 #: C/man1/top.1:1895
@@ -12899,6 +12783,10 @@ msgid ""
 "results, depending on the current memory scaling factor.  Or both filters "
 "could produce the exact same results."
 msgstr ""
+"N'importe lequel de ces filtres B<RES> pourrait émettre des avertissements "
+"incohérents ou des résultats déconcertants, en fonction du facteur d'échelle "
+"de mémoire. Les deux filtres pourraient aussi produire exactement les mêmes "
+"résultats."
 
 #. type: Plain text
 #: C/man1/top.1:1898
@@ -12907,6 +12795,8 @@ msgid ""
 "     RESE<gt>9999          ( only the same results when )\n"
 "     !RESE<lt>10000        ( memory scaling is at 'KiB' )\n"
 msgstr ""
+"     RESE<gt>9999          (résultats identiques seulement avec)\n"
+"     !RESE<lt>10000        (le facteur d'échelle de mémoire Kio)\n"
 
 #. type: Plain text
 #: C/man1/top.1:1904
@@ -12916,17 +12806,21 @@ msgid ""
 "automatically scaled to KiB or above.  So while amounts greater than 9999 "
 "exist, they will appear as 2.6m, 197k, etc."
 msgstr ""
+"Le filtre B<nMin> illustre un problème particulier de champs adaptables. Ce "
+"champ particulier peut afficher quatre chiffres au maximum, au-delà, les "
+"valeurs sont automatiquement mises à l'échelle en Kio ou plus. Ainsi, les "
+"quantités supérieures à 9999 apparaîtront sous la forme 2,6 m, 197 k, etc."
 
 #. type: Plain text
 #: C/man1/top.1:1906
 #, no-wrap
 msgid "     nMinE<gt>9999         ( always a blank \\*(TW )\n"
-msgstr ""
+msgstr "     nMinE<gt>9999         (toujours une \\*(TW vide)\n"
 
 #. type: Plain text
 #: C/man1/top.1:1910
 msgid "B<Potential Solutions>"
-msgstr ""
+msgstr "B<Solutions possibles>"
 
 #. type: Plain text
 #: C/man1/top.1:1917
@@ -12937,6 +12831,12 @@ msgid ""
 "status (^O) accurately.  But if you used them with if-values in real life, "
 "no matches would be found."
 msgstr ""
+"Ces exemples illustrent comment un « autre filtre » peut être appliqué de "
+"façon créative pour obtenir la plupart des résultats voulus. Des guillemets "
+"simples sont parfois montrés pour délimiter les espaces qui font partie d'un "
+"filtre ou pour représenter une requête d'état (« ^O ») correctement. Si vous "
+"les avez vraiment utilisés avec des valeurs conditionnelles, aucune "
+"correspondance ne sera trouvée."
 
 #. type: Plain text
 #: C/man1/top.1:1922
@@ -12946,6 +12846,11 @@ msgid ""
 "space is part of every displayed field.  The second filter achieves the "
 "exact same results with less typing."
 msgstr ""
+"En supposant que le champ B<nTH> est affiché, le premier filtre aura pour "
+"conséquence de ne montrer que les processus possédant plusieurs processus "
+"légers (« multi-thread »). Cela rappelle aussi qu'une espace finale fait "
+"partie de tous les champs affichés. Le deuxième filtre réalise exactement la "
+"même chose de façon plus concise."
 
 #. type: Plain text
 #: C/man1/top.1:1925
@@ -12954,6 +12859,8 @@ msgid ""
 "     !nTH=' 1 '                ( ' for clarity only )\n"
 "     nTHE<gt>1                     ( same with less i/p )\n"
 msgstr ""
+"     !nTH=' 1 '                (' juste par souci de clarté)\n"
+"     nTHE<gt>1                     (même chose plus directement)\n"
 
 #. type: Plain text
 #: C/man1/top.1:1929
@@ -12961,12 +12868,15 @@ msgid ""
 "With Forest View mode active and the B<COMMAND> column in view, this filter "
 "effectively collapses child processes so that just 3 levels are shown."
 msgstr ""
+"Avec l'affichage arborescent actif et la colonne B<COMMAND> dans la vue, ce "
+"filtre cache effectivement les processus fils de telle sorte que seuls trois "
+"niveaux sont montrés."
 
 #. type: Plain text
 #: C/man1/top.1:1931
 #, no-wrap
 msgid "     !COMMAND='       `- '     ( ' for clarity only )\n"
-msgstr ""
+msgstr "     !COMMAND='       `- '     (' juste par souci de clarté)\n"
 
 #. type: Plain text
 #: C/man1/top.1:1939
@@ -12978,6 +12888,13 @@ msgid ""
 "trailing spaces, the B<nMin> series of filters could achieve the failed "
 "'9999' objective discussed above."
 msgstr ""
+"Les deux derniers filtres apparaissent en réponse à la touche de requête "
+"d'état (« ^O »). En réalité, les deux filtres auraient nécessité des entrées "
+"séparées. L'exemple B<PR> montre les deux filtres nécessaires en même temps "
+"pour afficher les tâches avec des priorités d'au moins 20, puisque certaines "
+"pourraient être négatives. Ensuite, en utilisant les espaces finales, la "
+"suite B<nMin> de filtres pourrait permettre d'atteindre l'objectif raté "
+"« 9999 » discuté précédemment."
 
 #. type: Plain text
 #: C/man1/top.1:1942
@@ -12986,6 +12903,8 @@ msgid ""
 "     'PRE<gt>20' + '!PR=-'         ( 2 for right result )\n"
 "     '!nMin=0 ' + '!nMin=1 ' + '!nMin=2 ' + '!nMin=3 ' ...\n"
 msgstr ""
+"     'PRE<gt>20' + '!PR=-'         (2 pour le bon résultat)\n"
+"     '!nMin=0 ' + '!nMin=1 ' + '!nMin=2 ' + '!nMin=3 ' ...\n"
 
 #. type: Plain text
 #: C/man1/top.1:1950
@@ -12996,6 +12915,12 @@ msgid ""
 "filtering.  \\*(XC 'x' \\*(CI for additional information on sort column "
 "highlighting."
 msgstr ""
+"\\*(NT lorsqu'« autre filtre » est actif, \\*(We positionne sur \\*F la "
+"surbrillance de colonne pour éviter les fausses correspondances sur les "
+"suites de caractères d'échappement non affichables. Ce type de surbrillance "
+"sera réactivé lorsqu'une fenêtre n'est plus soumise au filtre. \\*(XC la "
+"\\*(CI « x » pour de plus amples renseignements sur le tri en surbrillance "
+"de colonne."
 
 #.  ----------------------------------------------------------------------
 #. type: SH
@@ -13075,16 +13000,12 @@ msgstr "6b. Fichier de Configuration PERSONNEL"
 #.  ----------------------------------------------------------------------
 #. type: Plain text
 #: C/man1/top.1:1985
-#, fuzzy
-#| msgid ""
-#| "This file is written as '$HOME/.your-name-4-top' + 'rc'.  Use the 'W' "
-#| "\\*(CI to create it or update it."
 msgid ""
 "This file is written as '$HOME/.your-name-4-\\*(We' + 'rc'.  Use the 'W' "
 "\\*(CI to create it or update it."
 msgstr ""
-"Ce fichier se nomme «\\ $HOME/.votre-nom-pour-top\\ » + «\\ rc\\ ». Utilisez "
-"la \\*(CI «\\ W\\ » pour le créer ou le mettre à jour."
+"Ce fichier se nomme «\\ $HOME/.votre-nom-pour-\\*(We\\ » + «\\ rc\\ ». "
+"Utilisez la \\*(CI «\\ W\\ » pour le créer ou le mettre à jour."
 
 #. type: Plain text
 #: C/man1/top.1:1987
@@ -13093,14 +13014,7 @@ msgstr "En voici la disposition générale :"
 
 #. type: Plain text
 #: C/man1/top.1:1997
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    global   # line 1: the program name/alias notation\n"
-#| "      \"      # line 2: id,altscr,irixps,delay,curwin\n"
-#| "    per ea   # line a: winname,fieldscur\n"
-#| "    window   # line b: winflags,sortindx,maxtasks\n"
-#| "      \"      # line c: summclr,msgsclr,headclr,taskclr\n"
-#| "    global   # last  : fixed-width incr\n"
+#, no-wrap
 msgid ""
 "    global   # line  1: the program name/alias notation\n"
 "      \"      # line  2: id,altscr,irixps,delay,curwin\n"
@@ -13112,12 +13026,15 @@ msgid ""
 "      \"      # generalized 'inspect' provisions\n"
 "      \"      # discussed below\n"
 msgstr ""
-"   global    #  ligne 1 : nom du programme ou nom d'alias\n"
-"     \"       #  ligne 2 : id,altscr,irixps,delay,curwin\n"
-"     par     #  ligne a : winname,fieldscur\n"
-"   fenêtre   #  ligne b : winflags,sortindx,maxtasks\n"
-"     \"       #  ligne c : summclr,msgsclr,headclr,taskclr\n"
-"    global   # dernière : incrément de largeur fixe\n"
+"   global    # ligne  1 : nom du programme ou nom d'alias\n"
+"     \"       # ligne  2 : id,altscr,irixps,delay,curwin\n"
+"     par     # ligne  a : winname,fieldscur\n"
+"   fenêtre   # ligne  b : winflags,sortindx,maxtasks\n"
+"     \"       # ligne  c : summclr,msgsclr,headclr,taskclr\n"
+"    global   # ligne 15 : incrément de largeur fixe\n"
+"      \"      # toutes les lignes restantes sont\n"
+"      \"      # consacrées aux dispositions\n"
+"      \"      # d'« inspection » présentées ci-dessous\n"
 
 #. type: Plain text
 #: C/man1/top.1:2001
@@ -13134,7 +13051,7 @@ msgstr ""
 #: C/man1/top.1:2003
 #, no-wrap
 msgid "6c. ADDING INSPECT Entries"
-msgstr ""
+msgstr "6c. AJOUT d'entrées d'INSPECTION"
 
 #.  ----------------------------------------------------------------------
 #. type: Plain text
@@ -13145,6 +13062,11 @@ msgid ""
 "pipeline to be executed whose results will then be displayed in a separate "
 "scrollable, searchable window."
 msgstr ""
+"Pour utiliser la \\*(CI « Y », les entrées doivent être ajoutées à la B<fin> "
+"du \\*(CF personnel de \\*(We. Ce type d'entrées reflète simplement un "
+"fichier à lire, ou une commande ou un tube à exécuter, dont les résultats "
+"seront affichés dans une fenêtre séparée, pouvant être parcourue et "
+"permettant une recherche."
 
 #. type: Plain text
 #: C/man1/top.1:2013
@@ -13152,6 +13074,8 @@ msgid ""
 "If you don't know the location or name of your \\*(We rcfile, use the 'W' "
 "\\*(CI to rewrite it and note those details."
 msgstr ""
+"Si vous ignorez l'emplacement ou le nom du fichier rc de \\*(We, utilisez la "
+"\\*(CI « W » pour le réécrire et noter ces précisions."
 
 #. type: Plain text
 #: C/man1/top.1:2019
@@ -13162,6 +13086,12 @@ msgid ""
 "using an editor care must be taken not to corrupt existing lines, some of "
 "which will contain unprintable data or unusual characters."
 msgstr ""
+"Les entrées d'inspection peuvent être ajoutées avec un echo redirigé ou en "
+"modifiant le \\*(CF. La redirection d'un echo risque d'écraser le fichier rc "
+"s'il remplace (E<gt>) au lieu d'ajouter à ce fichier (E<gt>E<gt>). D'un "
+"autre côté, modifier le fichier avec un éditeur de texte risque de corrompre "
+"des lignes existantes en cas d'inattention, certaines contenant des données "
+"non affichables ou des caractères inhabituels."
 
 #. type: Plain text
 #: C/man1/top.1:2024
@@ -13170,6 +13100,10 @@ msgid ""
 "of content.  Otherwise they consist of the following 3 elements, each of "
 "whichI< must> be separated by a tab character (thus 2 '\\et' total):"
 msgstr ""
+"Les entrées d'inspection commençant par un caractère « # » sont ignorées, "
+"quelque soit leur contenu. Sinon, elles sont constituées des trois éléments "
+"suivants, chacun I<devant> être séparé par un caractère de tabulation (c'est-"
+"à-dire deux « \\et » en tout) :"
 
 #. type: Plain text
 #: C/man1/top.1:2029
@@ -13179,6 +13113,9 @@ msgid ""
 "  .name:  selection shown on the Inspect screen\n"
 "  .fmts:  string representing a path or command\n"
 msgstr ""
+"  .type :  soit « file » (fichier), soit « pipe » (tube)\n"
+"  .name :  sélection montrée sur l'écran d'inspection\n"
+"  .fmts :  chaîne représentant un chemin ou une commande\n"
 
 #. type: Plain text
 #: C/man1/top.1:2036
@@ -13189,6 +13126,11 @@ msgid ""
 "employ popen, their '.fmts' element could contain many pipelined commands "
 "and, none can be interactive."
 msgstr ""
+"Les deux types d'entrées d'inspection ne sont I<pas> interchangeables. "
+"Celles désignées comme « B<file> » seront accédées à l'aide de fopen et "
+"doivent référencer un seul fichier dans l'élément « .fmts ». Les entrées "
+"indiquant « B<pipe> » utiliseront popen, leur élément « .fmts » pourrait "
+"contenir plusieurs commandes entubées et aucune ne peut être interactive."
 
 #. type: Plain text
 #: C/man1/top.1:2040
@@ -13197,6 +13139,9 @@ msgid ""
 "PID input or accepted when prompted, then the format string must also "
 "contain the 'B<%d>' specifier, as these examples illustrate."
 msgstr ""
+"Si le fichier ou le tube représentés dans « .fmts » s'occupent de l'entrée "
+"de PID spécifique ou accepté à l'invite, alors la chaîne de format doit "
+"aussi contenir l'indicateur « B<%d> » comme c'est illustré par ces exemples."
 
 #. type: Plain text
 #: C/man1/top.1:2044
@@ -13205,6 +13150,8 @@ msgid ""
 "  .fmts=  /proc/I<%d>/numa_maps\n"
 "  .fmts=  lsof -P -pI< %d>\n"
 msgstr ""
+"  .fmts=  /proc/I<%d>/numa_maps\n"
+"  .fmts=  lsof -P -p I<%d>\n"
 
 #. type: Plain text
 #: C/man1/top.1:2049
@@ -13212,12 +13159,15 @@ msgid ""
 "For 'B<pipe>' type entries only, you may also wish to redirect stderr to "
 "stdout for a more comprehensive result.  Thus the format string becomes:"
 msgstr ""
+"Pour les entrées de type « B<pipe> » uniquement, vous pourriez aussi "
+"rediriger la sortie d'erreur standard vers la sortie standard pour avoir un "
+"résultat plus complet. La chaîne de format devient donc :"
 
 #. type: Plain text
 #: C/man1/top.1:2052
 #, no-wrap
 msgid "  .fmts=  pmap -x %dI< 2E<gt>&1>\n"
-msgstr ""
+msgstr "  .fmts=  pmap -x %dI< 2E<gt>&1>\n"
 
 #. type: Plain text
 #: C/man1/top.1:2059
@@ -13227,6 +13177,11 @@ msgid ""
 "character.  For clarity, the pseudo tab depictions (^I) are surrounded by an "
 "extra space but the actual tabs would not be."
 msgstr ""
+"Voici des exemples des deux types d'entrées d'inspection telles qu'elles "
+"pourraient apparaître dans le fichier rc. La première entrée sera ignorée à "
+"cause du caractère « # » initial. Par souci de clarté, les représentations "
+"de pseudotabulations (^I) sont entourées d'espaces supplémentaires mais les "
+"véritables tabulations ne le seront pas."
 
 #. type: Plain text
 #: C/man1/top.1:2065
@@ -13237,6 +13192,10 @@ msgid ""
 "  file ^I NUMA Info ^I /proc/%d/numa_maps\n"
 "  pipe ^I Log ^I tail -n100 /var/log/syslog | sort -Mr\n"
 msgstr ""
+"  # pipe ^I Sockets ^I lsof -n -P -i 2E<gt>&1\n"
+"  pipe ^I Fichiers ouverts ^I lsof -P -p %d 2E<gt>&1\n"
+"  file ^I Informations NUMA ^I /proc/%d/numa_maps\n"
+"  pipe ^I Jour. ^I tail -n100 /var/log/syslog | sort -Mr\n"
 
 #. type: Plain text
 #: C/man1/top.1:2072
@@ -13247,6 +13206,13 @@ msgid ""
 "preceded by 'B</bin/echo -e>', not just a simple an 'echo', to enable "
 "backslash interpretation regardless of which shell you use."
 msgstr ""
+"À part pour la ligne commentée précédente, ces exemples suivants montrent ce "
+"qui pourrait être affiché pour obtenir des résultats similaires, en "
+"supposant que le nom du fichier rc est « .toprc ». Cependant, à cause des "
+"caractères de tabulation incorporés, chaque ligne devrait être précédée de "
+"« B</bin/echo -e> », au lieu d'un simple « echo », pour activer "
+"l'interprétation des barres obliques inversées quelque soit l'interpréteur "
+"de commande utilisé."
 
 #. type: Plain text
 #: C/man1/top.1:2077
@@ -13256,6 +13222,9 @@ msgid ""
 "  \"file\\etNUMA Info\\et/proc/%d/numa_maps\" E<gt>E<gt> ~/.toprc\n"
 "  \"pipe\\etLog\\ettail -n200 /var/log/syslog | sort -Mr\" E<gt>E<gt> ~/.toprc\n"
 msgstr ""
+"  \"pipe\\etFichiers ouverts\\etlsof -P -p %d 2E<gt>&1\" E<gt>E<gt> ~/.toprc\n"
+"  \"file\\etInformations NUMA\\et/proc/%d/numa_maps\" E<gt>E<gt> ~/.toprc\n"
+"  \"pipe\\etJour.\\ettail -n200 /var/log/syslog | sort -Mr\" E<gt>E<gt> ~/.toprc\n"
 
 #. type: Plain text
 #: C/man1/top.1:2085
@@ -13266,6 +13235,12 @@ msgid ""
 "as well, which will show as '^I'.  If you want a truer representation, any "
 "embedded tabs should be expanded."
 msgstr ""
+"B<Attention> : si une entrée d'inspection créée produit une sortie avec des "
+"caractères non affichables, ils seront affichés soit en notation ^C, soit "
+"sous forme hexadécimale E<lt>FFE<gt>, en fonction de leur valeur. Cela "
+"concerne aussi les caractères de tabulation qui seront affichés comme "
+"« ^I ». Pour une représentation plus réaliste, toutes les tabulations "
+"incorporées devraient être développées."
 
 #. type: Plain text
 #: C/man1/top.1:2091
@@ -13276,6 +13251,10 @@ msgid ""
 "  # but this will eliminate embedded '\\et' ...\n"
 "  pipe ^I E<lt>your_nameE<gt> ^I cat /proc/%d/status | expand -\n"
 msgstr ""
+"  # La suite aurait contenu « \\et »…\n"
+"  # file ^I E<lt>prénom_nomE<gt> ^I /proc/%d/status\n"
+"  # mais cela éliminera les « \\et » incorporés\n"
+"  pipe ^I E<lt>prénom_nomE<gt> ^I cat /proc/%d/status | expand -\n"
 
 #. type: Plain text
 #: C/man1/top.1:2095
@@ -13283,6 +13262,9 @@ msgid ""
 "The above example takes what could have been a 'file' entry but employs a "
 "'pipe' instead so as to expand the embedded tabs."
 msgstr ""
+"L'exemple précédent prend ce qui aurait dû être une entrée « fichier » mais "
+"utilise un « pipe » à la place, afin de développer les tabulations "
+"incorporées."
 
 #. type: Plain text
 #: C/man1/top.1:2100
@@ -13292,6 +13274,10 @@ msgid ""
 "shell scripts> as well.  Perhaps even newly created scripts designed "
 "specifically for the 'Y' \\*(CI."
 msgstr ""
+"\\*(NT même si les entrées de type « B<pipe> » ont été présentées en tant "
+"que tubes et commandes, rien n'empêche d'inclure aussi des I<scripts "
+"d'interpréteur>. Peut-être même de nouveaux scripts conçus spécifiquement "
+"pour la \\*(CI « Y »."
 
 #. type: Plain text
 #: C/man1/top.1:2104
@@ -13300,6 +13286,10 @@ msgid ""
 "'Options:' row will be truncated when screen width is exceeded.  That does "
 "not affect operation other than to make some selections invisible."
 msgstr ""
+"Enfin, comme le nombre d'entrées d'inspection augmente au fur et à mesure, "
+"la ligne « Option: » sera tronquée quand la largeur d'écran est dépassée. "
+"Cela ne concerne pas les opérations à part rendre certaines sélections "
+"invisibles."
 
 #. type: Plain text
 #: C/man1/top.1:2107
@@ -13307,6 +13297,8 @@ msgid ""
 "However, if some choices are lost to truncation but you want to see more "
 "options, there is an easy solution hinted at below."
 msgstr ""
+"Cependant, si certains choix sont perdus à la troncature et que vous désirez "
+"voir plus d'options, une solution facile est proposée ci-dessous."
 
 #. type: Plain text
 #: C/man1/top.1:2112
@@ -13316,6 +13308,9 @@ msgid ""
 "  Use:  left/right then E<lt>EnterE<gt> ...\n"
 "  Options:  help  1  2  3  4  5  6  7  8  9  10  11 ...\n"
 msgstr ""
+"  Inspection Pause at pid ...\n"
+"  Use:  left/right then E<lt>EnterE<gt> ...\n"
+"  Options:  aide  1  2  3  4  5  6  7  8  9  10  11 ...\n"
 
 #. type: Plain text
 #: C/man1/top.1:2118
@@ -13325,6 +13320,10 @@ msgid ""
 "what those numbered selections actually mean.  In that way, many more "
 "choices can be made visible."
 msgstr ""
+"Les entrées dans le fichier rc de \\*(We auraient un nombre pour l'élément "
+"« .name » et l'entrée « aide » identifierait un script d'interpréteur "
+"expliquant la signification réelle de ces sélections numérotées. Ainsi, plus "
+"de choix peuvent être rendus visibles."
 
 #.  ----------------------------------------------------------------------
 #. type: SH
@@ -13379,21 +13378,12 @@ msgid ""
 "For this experiment, under x-windows open an xterm and maximize it.  Then do "
 "the following:"
 msgstr ""
-"Pour cette expérience, sous x-window, ouvrez un terminal (xterm) et "
+"Pour cette expérience, sous X Window, ouvrez un terminal (xterm) et "
 "maximisez-le. Ensuite exécutez les instructions suivantes :"
 
 #. type: Plain text
 #: C/man1/top.1:2153
-#, fuzzy, no-wrap
-#| msgid ""
-#| "  . provide a scheduling boost and tiny delay via:\n"
-#| "      nice -n -10 top -d.09\n"
-#| "  . keep sorted column highlighting \\*F so as to\n"
-#| "    minimize path length\n"
-#| "  . turn \\*O reverse row highlighting for emphasis\n"
-#| "  . try various sort columns (TIME/MEM work well),\n"
-#| "    and normal or reverse sorts to bring the most\n"
-#| "    active processes into view\n"
+#, no-wrap
 msgid ""
 "  . provide a scheduling boost and tiny delay via:\n"
 "      nice -n -10 \\*(We -d.09\n"
@@ -13405,7 +13395,7 @@ msgid ""
 "    active processes into view\n"
 msgstr ""
 "  - programmez un démarrage et un délai court ainsi\\ :\n"
-"      nice -n -10 top -d.09\n"
+"      nice -n -10 \\*(We -d.09\n"
 "  - désactivez la surbrillance de la colonne triée pour\n"
 "     minimiser la longueur des chemins («\\ paths\\ »)\n"
 "  - activez la surbrillance inverse des lignes pour les mettre\n"
@@ -13493,7 +13483,7 @@ msgid ""
 msgstr ""
 "Avec trois ou quatre zones d'affichage de tâches visibles, sélectionnez une "
 "fenêtre autre que la dernière et positionnez l'option processus au repos sur "
-"\\*F en utilisant la \\*(CT « i ». Selon l'endroit ou vous appliquez «\\ i\\ "
+"\\*F en utilisant la \\*(CT « i ». Selon l'endroit où vous appliquez «\\ i\\ "
 "», parfois plusieurs zones d'affichages des tâches rebondissent et parfois "
 "elles évoluent en accordéon, vu que \\*(We fait de son mieux pour allouer "
 "l'espace."
@@ -13664,15 +13654,11 @@ msgstr "9. HISTORIQUE des versions précédentes"
 #.  ----------------------------------------------------------------------
 #. type: Plain text
 #: C/man1/top.1:2255
-#, fuzzy
-#| msgid ""
-#| "The original top was written by Roger Binns, based on Branko Lankester's "
-#| "E<lt>lankeste@fwi.uva.nlE<gt> ps program."
 msgid ""
 "The original \\*(We was written by Roger Binns, based on Branko Lankester's "
 "E<lt>lankeste@fwi.uva.nlE<gt> ps program."
 msgstr ""
-"Le B<top> originel a été écrit par Roger Binns à partir du programme B<ps> "
+"Le \\*(We originel a été écrit par Roger Binns à partir du programme B<ps> "
 "de Branko Lankester E<lt>I<lankeste@fwi.uva.nl>E<gt>."
 
 #. type: Plain text
@@ -13757,10 +13743,9 @@ msgstr "UPTIME"
 
 #. type: TH
 #: C/man1/uptime.1:3
-#, fuzzy, no-wrap
-#| msgid "December 2011"
+#, no-wrap
 msgid "December 2012"
-msgstr "décembre 2011"
+msgstr "décembre 2012"
 
 #. type: Plain text
 #: C/man1/uptime.1:6
@@ -13808,49 +13793,47 @@ msgid ""
 msgstr ""
 "La charge système moyenne est le nombre moyen de processus qui sont dans un "
 "état exécutable ou non interruptible. Un processus exécutable utilise le "
-"processeur, ou est en attente pour l'utiliser. Un processus non "
-"interruptible est en attente pour des entrées et sorties, par exemple, "
-"attendre un disque. Les moyennes sont calculées sur trois intervalles de "
-"temps. La charge moyenne n'est pas normalisée par rapport au nombre de "
-"processeurs du système. Ainsi une charge moyenne de 1 signifie qu'un système "
-"monoprocesseur est chargé tout le temps alors qu'un système à quatre "
-"processeurs est inactif 75\\ % du temps."
+"processeur ou est en attente pour l'utiliser. Un processus non interruptible "
+"est en attente pour des entrées et sorties, par exemple, attendre un disque. "
+"Les moyennes sont calculées sur trois intervalles de temps. La charge "
+"moyenne n'est pas normalisée par rapport au nombre de processeurs du "
+"système. Ainsi une charge moyenne de 1 signifie qu'un système monoprocesseur "
+"est chargé tout le temps alors qu'un système à quatre processeurs est "
+"inactif 75\\ % du temps."
 
 #. type: TP
 #: C/man1/uptime.1:27
-#, fuzzy, no-wrap
-#| msgid "B<-p>, B<--precise>"
+#, no-wrap
 msgid "B<-p>, B<--pretty>"
-msgstr "B<-p>, B<--precise>"
+msgstr "B<-p>, B<--pretty>"
 
 #. type: Plain text
 #: C/man1/uptime.1:30
-#, fuzzy
-#| msgid "Show the device format."
 msgid "show uptime in pretty format"
-msgstr "Afficher la sortie au format périphérique."
+msgstr "Afficher en format élégant"
 
 #. type: Plain text
 #: C/man1/uptime.1:33
 msgid "display this help text"
-msgstr "Afficher l'aide."
+msgstr "Afficher l'aide"
 
 #. type: TP
 #: C/man1/uptime.1:33
-#, fuzzy, no-wrap
-#| msgid "B<-o>, B<--once>"
+#, no-wrap
 msgid "B<-s>, B<--since>"
-msgstr "B<-o>, B<--once>"
+msgstr "B<-s>, B<--since>"
 
+# NOTE: s/MM:HH/HH:MM/
 #. type: Plain text
 #: C/man1/uptime.1:36
 msgid "system up since, in yyyy-mm-dd MM:HH:SS format"
 msgstr ""
+"Date depuis laquelle le système est en route, au format aaaa-mm-jj HH:MM:SS"
 
 #. type: Plain text
 #: C/man1/uptime.1:39
 msgid "display version information and exit"
-msgstr "Afficher la version du logiciel et quitter."
+msgstr "Afficher la version du logiciel et quitter"
 
 #. type: TP
 #: C/man1/uptime.1:40 C/man1/w.procps.1:71
@@ -14084,10 +14067,9 @@ msgstr ""
 
 #. type: TP
 #: C/man8/vmstat.8:76
-#, fuzzy, no-wrap
-#| msgid "B<-w>, B<--write>"
+#, no-wrap
 msgid "B<-w>, B<--wide>"
-msgstr "B<-w>, B<--write>"
+msgstr "B<-w>, B<--wide>"
 
 #. type: Plain text
 #: C/man8/vmstat.8:81
@@ -14096,6 +14078,9 @@ msgid ""
 "default output mode suffers from unwanted column breakage).  The output is "
 "wider than 80 characters per line."
 msgstr ""
+"Mode de sortie large (utile pour les systèmes avec une grande quantité de "
+"mémoire, où le mode d’affichage par défaut est victime de rupture de colonne "
+"involontaire). La sortie est plus grande que 80 caractères par ligne."
 
 #. type: SH
 #: C/man8/vmstat.8:88
@@ -14512,8 +14497,8 @@ msgstr "B<-e>, B<--errexit>"
 #: C/man1/watch.1:49
 msgid "Freeze updates on command error, and exit after a key press."
 msgstr ""
-"Geler les mises à jour en cas d'erreur de la commande, et quitter après "
-"avoir appuyé sur une touche."
+"Geler les mises à jour en cas d'erreur de la commande et quitter après avoir "
+"appuyé sur une touche."
 
 #. type: TP
 #: C/man1/watch.1:49
@@ -14688,7 +14673,7 @@ msgid ""
 "display at all."
 msgstr ""
 "La combinaison de caractères supposés s'afficher en dernière colonne de "
-"l'écran risque de s'afficher dans la colonne précédente, ou pas du tout."
+"l'écran risque de s'afficher dans la colonne précédente ou pas du tout."
 
 #. type: Plain text
 #: C/man1/watch.1:132
@@ -14719,9 +14704,9 @@ msgid ""
 "DNS lookup)."
 msgstr ""
 "Le mode B<--precise> ne dispose pas encore de fonctions de temporisation "
-"pour compenser une commande I<commande> dont le temps d'exécution est "
-"supérieure à I<secondes> secondes. B<watch> peut également lancer en rafales "
-"autant d'exécution de I<commande> que possible pour rattraper une exécution "
+"pour compenser une I<commande> dont le temps d'exécution est supérieure à "
+"I<secondes> secondes. B<watch> peut également lancer en rafales autant "
+"d'exécution de I<commande> que possible pour rattraper une exécution "
 "précédente qui aurait pris plus de I<secondes> secondes à s'exécuter (par "
 "exemple, B<netstat> prend beaucoup de temps pour effectuer une interrogation "
 "DNS)."
@@ -14971,10 +14956,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/w.procps.1:51
-#, fuzzy, no-wrap
-#| msgid "B<--ip-addr>"
+#, no-wrap
 msgid "B<-i>, B<--ip-addr>"
-msgstr "B<--ip-addr>"
+msgstr "B<-i>, B<--ip-addr>"
 
 #. type: Plain text
 #: C/man1/w.procps.1:54
@@ -15050,21 +15034,12 @@ msgid ""
 "by E<.UR greenfie@\\:gauss.\\:rutgers.\\:edu> Larry Greenfield E<.UE> and E<."
 "UR johnsonm@\\:redhat.\\:com> Michael K. Johnson E<.UE>"
 msgstr ""
-"B<w> a presque entièrement été récrit par Charles Blake qui s'est basé sur "
+"B<w> a presque entièrement été réécrit par Charles Blake qui s'est basé sur "
 "une version de Larry Greenfield E<lt>I<greenfie@gauss.rutgers.edu>E<gt> et "
 "Michael K. Johnson E<lt>I<johnsonm@redhat.com>E<gt>."
 
-#~ msgid ""
-#~ "\\*(NT Whenever a search key is typed, \\*(We forces idle tasks \\*O and "
-#~ "user filtering \\*F to ensure that every task is encountered.  \\*(XC 'i' "
-#~ "and 'u/U' \\*(CIs for additional information on how displayed tasks might "
-#~ "be filtered."
-#~ msgstr ""
-#~ "\\*(NT à chaque fois qu'une touche de recherche est tapée, \\*(We force "
-#~ "les tâches au repos en \\*O et le filtrage d'utilisateur en \\*F pour "
-#~ "s'assurer que toutes les tâches soient trouvées. \\*(XC les commandes "
-#~ "interactives « i » et « u » ou « U » pour de plus amples renseignements "
-#~ "sur la façon de filtrer les tâches affichées."
+#~ msgid "March 2013"
+#~ msgstr "mars 2013"
 
 #~ msgid "Please send bug reports to"
 #~ msgstr "Veuillez signaler les bogues à"
@@ -15103,7 +15078,7 @@ msgstr ""
 #~ "re-wrote it significantly to use the proc filesystem, changing a few "
 #~ "things in the process."
 #~ msgstr ""
-#~ "l'a récrit en profondeur pour utiliser le système de fichiers I<proc>, "
+#~ "l'a réécrit en profondeur pour utiliser le système de fichiers I<proc>, "
 #~ "modifiant quelques détails au passage."
 
 #~ msgid "mjshield@\\:nyx.\\:cs.\\:du.\\:edu"
@@ -15140,7 +15115,7 @@ msgstr ""
 #~ "rewrote ps for full Unix98 and BSD support, along with some ugly hacks "
 #~ "for obsolete and foreign syntax."
 #~ msgstr ""
-#~ "a récrit B<ps> pour prendre en charge complètement Unix98 et BSD, ainsi "
+#~ "a réécrit B<ps> pour prendre en charge complètement Unix98 et BSD, ainsi "
 #~ "que certains bidouillages pour les syntaxes obsolètes et étrangères."
 
 #~ msgid "procps@\\:freelists.\\:org"
@@ -15267,11 +15242,23 @@ msgstr ""
 #~ "B<w> was re-written almost entirely by Charles Blake, based on the "
 #~ "version by"
 #~ msgstr ""
-#~ "B<w> a presque entièrement été récrit par Charles Blake qui s'est basé "
+#~ "B<w> a presque entièrement été réécrit par Charles Blake qui s'est basé "
 #~ "sur une version de"
 
 #~ msgid "greenfie@\\:gauss.\\:rutgers.\\:edu"
 #~ msgstr "greenfie@\\:gauss.\\:rutgers.\\:edu"
+
+#~ msgid ""
+#~ "\\*(NT Whenever a search key is typed, \\*(We forces idle tasks \\*O and "
+#~ "user filtering \\*F to ensure that every task is encountered.  \\*(XC 'i' "
+#~ "and 'u/U' \\*(CIs for additional information on how displayed tasks might "
+#~ "be filtered."
+#~ msgstr ""
+#~ "\\*(NT à chaque fois qu'une touche de recherche est tapée, \\*(We force "
+#~ "les tâches au repos en \\*O et le filtrage d'utilisateur en \\*F pour "
+#~ "s'assurer que toutes les tâches soient trouvées. \\*(XC les commandes "
+#~ "interactives « i » et « u » ou « U » pour de plus amples renseignements "
+#~ "sur la façon de filtrer les tâches affichées."
 
 #~ msgid "April 2011"
 #~ msgstr "avril 2011"
@@ -15954,9 +15941,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Nicholas Miell E<lt>I<nmiell@gmail.com>E<gt> a écrit pwdx en 2004. "
 #~ "Signalez les bogues à E<lt>I<procps@freelists.org>E<gt>."
-
-#~ msgid "March 12, 1999"
-#~ msgstr "12 mars 1999"
 
 #~ msgid "-f\tfast mode\tThis is not currently useful.\n"
 #~ msgstr "-f\tmode rapide\tCette option ne sert à rien pour le moment.\n"
