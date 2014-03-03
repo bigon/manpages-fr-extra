@@ -1,16 +1,16 @@
 # French translations for the openssl package
-# Copyright (C) 2002, 2008, 2012, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# Copyright (C) 2002, 2008, 2012-2014 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
 # stolck, 2002.
 # Nicolas François <nicolas.francois@centraliens.net>, 2008.
 # Guillaume QuesneL <djikiou@yahoo.fr>, 2008.
-# David Prévot <david@tilapin.org>, 2012, 2013.
+# David Prévot <david@tilapin.org>, 2012-2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2014-03-03 14:11-0300\n"
-"PO-Revision-Date: 2013-06-19 10:31-0400\n"
+"PO-Revision-Date: 2014-03-03 14:09-0300\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.5\n"
 
 #. type: =head1
 #: C/apps/ciphers.pod:3 C/apps/s_client.pod:4 C/apps/s_server.pod:4
@@ -1374,17 +1374,6 @@ msgstr "s_client - programme client SSL ou TLS"
 
 #. type: textblock
 #: C/apps/s_client.pod:10
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<s_client> [B<-connect host:port>] [B<-verify depth>] [B<-"
-#| "cert filename>] [B<-certform DER|PEM>] [B<-key filename>] [B<-keyform DER|"
-#| "PEM>] [B<-pass arg>] [B<-CApath directory>] [B<-CAfile filename>] [B<-"
-#| "reconnect>] [B<-pause>] [B<-showcerts>] [B<-debug>] [B<-msg>] [B<-"
-#| "nbio_test>] [B<-state>] [B<-nbio>] [B<-crlf>] [B<-ign_eof>] [B<-quiet>] "
-#| "[B<-ssl2>] [B<-ssl3>] [B<-tls1>] [B<-no_ssl2>] [B<-no_ssl3>] [B<-"
-#| "no_tls1>] [B<-bugs>] [B<-cipher cipherlist>] [B<-starttls protocol>] [B<-"
-#| "engine id>] [B<-tlsextdebug>] [B<-no_ticket>] [B<-sess_out filename>] [B<-"
-#| "sess_in filename>] [B<-rand file(s)>]"
 msgid ""
 "B<openssl> B<s_client> [B<-connect host:port>] [B<-verify depth>] [B<-cert "
 "filename>] [B<-certform DER|PEM>] [B<-key filename>] [B<-keyform DER|PEM>] "
@@ -1405,7 +1394,8 @@ msgstr ""
 "no_ssl2>] [B<-no_ssl3>] [B<-no_tls1>] [B<-bugs>] [B<-cipher> "
 "I<listechiffrements>] [B<-starttls> I<protocole>] [B<-engine> "
 "I<identifiant>] [B<-tlsextdebug>] [B<-no_ticket>] [B<-sess_out> I<fichier>] "
-"[B<-sess_in> I<fichier>] [B<-rand> I<fichier(s)>]"
+"[B<-sess_in> I<fichier>] [B<-rand> I<fichier(s)>] [B<-serverinfo> I<types>] "
+"[B<-auth>] [B<-auth_require_reneg>]"
 
 #. type: textblock
 #: C/apps/s_client.pod:52
@@ -1933,10 +1923,8 @@ msgstr ""
 
 #. type: =item
 #: C/apps/s_client.pod:243
-#, fuzzy
-#| msgid "B<-verify depth>"
 msgid "B<-serverinfo types>"
-msgstr "B<-verify> I<profondeur>"
+msgstr "B<-serverinfo> I<types>"
 
 #. type: textblock
 #: C/apps/s_client.pod:245
@@ -1945,11 +1933,15 @@ msgid ""
 "65535).  Each type will be sent as an empty ClientHello TLS Extension.  The "
 "server's response (if any) will be encoded and displayed as a PEM file."
 msgstr ""
+"Une liste de types d’extension TLS (nombres compris entre 0 et 65535) "
+"séparés par des virgules. Chaque type sera envoyé comme une extension TLS de "
+"salut du client vide. La réponse du serveur (si émise) sera encodée et "
+"affichée comme un fichier PEM."
 
 #. type: =item
 #: C/apps/s_client.pod:250 C/apps/s_server.pod:291
 msgid "B<-auth>"
-msgstr ""
+msgstr "B<-auth>"
 
 #. type: textblock
 #: C/apps/s_client.pod:252 C/apps/s_server.pod:293
@@ -1958,11 +1950,14 @@ msgid ""
 "as well as supplemental data if the server also sent the authorization "
 "extensions in the Server Hello."
 msgstr ""
+"Envoyer des extensions d’autorisation client et serveur RFC 5878 dans le "
+"salut du client ainsi que des données supplémentaires si le serveur a aussi "
+"envoyé les extensions d’autorisation dans le salut du serveur."
 
 #. type: =item
 #: C/apps/s_client.pod:255 C/apps/s_server.pod:296
 msgid "B<-auth_require_reneg>"
-msgstr ""
+msgstr "B<-auth_require_reneg>"
 
 #. type: textblock
 #: C/apps/s_client.pod:257 C/apps/s_server.pod:298
@@ -1970,6 +1965,8 @@ msgid ""
 "only send RFC 5878 client and server authorization extensions during "
 "renegotiation."
 msgstr ""
+"N’envoyer que les extensions d’autorisation client et serveur RFC 5878 lors "
+"de la renégociation."
 
 #. type: =head1
 #: C/apps/s_client.pod:261 C/apps/s_server.pod:307
@@ -2146,19 +2143,6 @@ msgstr "s_server - programme serveur SSL ou TLS"
 
 #. type: textblock
 #: C/apps/s_server.pod:10
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<s_server> [B<-accept port>] [B<-context id>] [B<-verify "
-#| "depth>] [B<-Verify depth>] [B<-crl_check>] [B<-crl_check_all>] [B<-cert "
-#| "filename>] [B<-certform DER|PEM>] [B<-key keyfile>] [B<-keyform DER|PEM>] "
-#| "[B<-pass arg>] [B<-dcert filename>] [B<-dcertform DER|PEM>] [B<-dkey "
-#| "keyfile>] [B<-dkeyform DER|PEM>] [B<-dpass arg>] [B<-dhparam filename>] "
-#| "[B<-nbio>] [B<-nbio_test>] [B<-crlf>] [B<-debug>] [B<-msg>] [B<-state>] "
-#| "[B<-CApath directory>] [B<-CAfile filename>] [B<-nocert>] [B<-cipher "
-#| "cipherlist>] [B<-quiet>] [B<-no_tmp_rsa>] [B<-ssl2>] [B<-ssl3>] [B<-"
-#| "tls1>] [B<-no_ssl2>] [B<-no_ssl3>] [B<-no_tls1>] [B<-no_dhe>] [B<-bugs>] "
-#| "[B<-hack>] [B<-www>] [B<-WWW>] [B<-HTTP>] [B<-engine id>] [B<-"
-#| "tlsextdebug>] [B<-no_ticket>] [B<-id_prefix arg>] [B<-rand file(s)>]"
 msgid ""
 "B<openssl> B<s_server> [B<-accept port>] [B<-context id>] [B<-verify depth>] "
 "[B<-Verify depth>] [B<-crl_check>] [B<-crl_check_all>] [B<-cert filename>] "
@@ -2185,7 +2169,8 @@ msgstr ""
 "tls1>] [B<-no_ssl2>] [B<-no_ssl3>] [B<-no_tls1>] [B<-no_dhe>] [B<-bugs>] [B<-"
 "hack>] [B<-www>] [B<-WWW>] [B<-HTTP>] [B<-engine> I<identifiant>] [B<-"
 "tlsextdebug>] [B<-no_ticket>] [B<-id_prefix> I<param>] [B<-rand> "
-"I<fichier(s)>]"
+"I<fichier(s)>] [B<-serverinfo> I<fichier>] [B<-auth>] [B<-"
+"auth_require_reneg>] [B<-no_resumption_on_reneg>]"
 
 #. type: textblock
 #: C/apps/s_server.pod:64
@@ -2559,10 +2544,8 @@ msgstr ""
 
 #. type: =item
 #: C/apps/s_server.pod:283
-#, fuzzy
-#| msgid "B<-rand file(s)>"
 msgid "B<-serverinfo file>"
-msgstr "B<-rand> I<fichier(s)>"
+msgstr "B<-serverinfo> I<fichier>"
 
 #. type: textblock
 #: C/apps/s_server.pod:285
@@ -2573,11 +2556,17 @@ msgid ""
 "ClientHello extension matching the type, the corresponding ServerHello "
 "extension will be returned."
 msgstr ""
+"Un I<fichier> contenant au moins un bloc de données PEM. Chaque bloc PEM "
+"doit encoder une extension TLS de salut du serveur (2 octets de type, "
+"2 octets de longueur, suivis de « longueurs » octets de données "
+"d’extensions). Si le client envoie une extension de salut du client "
+"correspondant au type, l’extension de salut du serveur correspondant sera "
+"renvoyée."
 
 #. type: =item
 #: C/apps/s_server.pod:300
 msgid "B<-no_resumption_on_reneg>"
-msgstr ""
+msgstr "B<-no_resumption_on_reneg>"
 
 #. type: textblock
 #: C/apps/s_server.pod:302
@@ -2586,6 +2575,9 @@ msgid ""
 "to receive supplemental data during renegotiation if auth and "
 "auth_require_reneg are set."
 msgstr ""
+"Définir l’attribut SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION. Nécessaire "
+"pour recevoir des données supplémentaires lors de la renégociation si auth "
+"et auth_require_reneg sont définis."
 
 #. type: textblock
 #: C/apps/s_server.pod:309
