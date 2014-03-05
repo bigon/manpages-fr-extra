@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra\n"
 "POT-Creation-Date: 2014-03-05 15:51-0300\n"
-"PO-Revision-Date: 2014-02-05 19:05-0400\n"
+"PO-Revision-Date: 2014-03-05 16:07-0300\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -44,10 +44,9 @@ msgstr "BASH"
 
 #. type: TH
 #: C/man1/bash.1:13 C/man1/bash-static.1:13
-#, fuzzy, no-wrap
-#| msgid "2014 January 6"
+#, no-wrap
 msgid "2014 February 2"
-msgstr "6 janvier 2014"
+msgstr "2 février 2014"
 
 #. type: TH
 #: C/man1/bash.1:13 C/man1/bash-static.1:13
@@ -316,7 +315,7 @@ msgid ""
 "the B<-n> option; no commands will be executed."
 msgstr ""
 "Une liste de toutes les chaînes entre guillemets doubles précédées de B<$> "
-"est affichée sur la sortie standard. Ce sont les chaînes qui sont sujettes à "
+"est affichée sur la sortie standard. Ce sont les chaînes qui sont soumises à "
 "une traduction quand le paramètre linguistique régional n'est ni B<C> ni "
 "B<POSIX>. Cela implique l'option B<-n> ; aucune commande ne sera exécutée."
 
@@ -2546,16 +2545,6 @@ msgstr "B<*>"
 
 #. type: Plain text
 #: C/man1/bash.1:1343 C/man1/bash-static.1:1343
-#, fuzzy
-#| msgid ""
-#| "Expands to the positional parameters, starting from one.  When the "
-#| "expansion occurs within double quotes, it expands to a single word with "
-#| "the value of each parameter separated by the first character of the E<."
-#| "SM> B<IFS> special variable.  That is, \"B<$*>\" is equivalent to \"B<"
-#| "$1>I<c>B<$2>I<c>B<...>\", where I<c> is the first character of the value "
-#| "of the E<.SM> B<IFS> variable.  If E<.SM> B<IFS> is unset, the parameters "
-#| "are separated by spaces.  If E<.SM> B<IFS> is null, the parameters are "
-#| "joined without intervening separators."
 msgid ""
 "Expands to the positional parameters, starting from one.  When the expansion "
 "is not within double quotes, each positional parameter expands to a separate "
@@ -2569,14 +2558,17 @@ msgid ""
 "B<IFS> is null, the parameters are joined without intervening separators."
 msgstr ""
 "Se développe en ensemble des paramètres positionnels, commençant par le "
-"premier. Quand le développement se produit entre des guillemets doubles, "
-"B<*> se transforme en un seul mot constitué de la valeur de tous les "
-"paramètres positionnels séparés par le premier caractère de la variable "
-"spéciale E<.SM B<IFS>.> C'est-à-dire que \"B<$*>\" est équivalent à \"B<"
-"$1>I<c>B<$2>I<c>B<...>\", où I<c> est le premier caractère de la valeur de "
-"la variable E<.SM B<IFS>.> Si E<.SM B<IFS>> est inexistante, les paramètres "
-"sont séparés par des espaces. Si E<.SM B<IFS>> est NULL, les paramètres sont "
-"accolés sans séparateurs."
+"premier. Quand le développement n’est pas entre guillemets doubles, tous les "
+"paramètres positionnels se développent en mots séparés. Dans les contextes "
+"où il sont réalisés, ces mots sont soumis à d’autres découpages de mot et "
+"développements de chemin. Quand le développement se produit entre des "
+"guillemets doubles, B<*> se transforme en un seul mot constitué de la valeur "
+"de tous les paramètres positionnels séparés par le premier caractère de la "
+"variable spéciale E<.SM B<IFS>.> C'est-à-dire que \"B<$*>\" est équivalent à "
+"\"B<$1>I<c>B<$2>I<c>B<...>\", où I<c> est le premier caractère de la valeur "
+"de la variable E<.SM B<IFS>.> Si E<.SM B<IFS>> est inexistante, les "
+"paramètres sont séparés par des espaces. Si E<.SM B<IFS>> est NULL, les "
+"paramètres sont accolés sans séparateurs."
 
 #. type: TP
 #: C/man1/bash.1:1343 C/man1/bash-static.1:1343
@@ -15127,16 +15119,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/bash.1:7558 C/man1/bash-static.1:7558
-#, fuzzy
-#| msgid ""
-#| "Using `+' instead of `-' turns off the attribute instead, with the "
-#| "exceptions that B<+a> may not be used to destroy an array variable and B<"
-#| "+r> will not remove the readonly attribute.  When used in a function, "
-#| "B<declare> and B<typeset> make each I<name> local, as with the B<local> "
-#| "command, unless the B<-g> option is supplied.  If a variable name is "
-#| "followed by =I<value>, the value of the variable is set to I<value>.  The "
-#| "return value is 0 unless an invalid option is encountered, an attempt is "
-#| "made to define a function using"
 msgid ""
 "Using `+' instead of `-' turns off the attribute instead, with the "
 "exceptions that B<+a> may not be used to destroy an array variable and B<+r> "
@@ -15155,9 +15137,12 @@ msgstr ""
 "Quand utilisés dans une fonction, B<declare> et B<typeset> rendent chaque "
 "I<nom> local, comme avec la commande B<local> sauf si l'option B<-g> est "
 "fournie. Si un nom de variable est suivi par B<=>I<valeur>, la valeur de "
-"cette variable est configurée à I<valeur>. La valeur renvoyée est 0, sauf si "
-"une option incorrecte est rencontrée, si une tentative est faite de définir "
-"une fonction en utilisant"
+"cette variable est configurée à I<valeur>. Lors de l’utilisation de B<-a> ou "
+"B<-A> et de la syntaxe d’affectation composée pour créer des variables de "
+"type tableau, les attributs supplémentaires sont sans effet jusqu’aux "
+"affectations suivantes. La valeur renvoyée est 0, sauf si une option "
+"incorrecte est rencontrée, si une tentative est faite de définir une "
+"fonction en utilisant"
 
 #. type: groff code
 #: C/man1/bash.1:7558 C/man1/bash-static.1:7558
