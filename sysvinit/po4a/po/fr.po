@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: manpages-fr-extra\n"
 "POT-Creation-Date: 2014-02-24 14:46-0400\n"
-"PO-Revision-Date: 2014-02-24 14:54-0400\n"
+"PO-Revision-Date: 2014-03-17 20:41+0100\n"
 "Last-Translator: Thomas Vicent <thomas@vinc-net.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -801,7 +801,7 @@ msgstr "Formats de fichiers"
 #. type: Plain text
 #: C/man5/init-d-script.5:20
 msgid "init-d-script - interpreter for short and simple init.d scripts."
-msgstr ""
+msgstr "init-d-script - Interpréteur pour les scripts init.d courts et simples"
 
 #. type: Plain text
 #: C/man5/init-d-script.5:25
@@ -811,6 +811,10 @@ msgid ""
 "compliant.  When the Debian policy conflict with the LSB, the Debian policy "
 "take preference.  See"
 msgstr ""
+"Environnement de script init.d générique pour réduire le code redondant dans "
+"/etc/init.d/. L'objectif est de créer un script init.d compatible avec Debian "
+"et LSB. Quand la charte Debian entre en conflit avec le LSB, la charte Debian "
+"a la priorité. Consultez"
 
 #. type: URL
 #: C/man5/init-d-script.5:25
@@ -822,12 +826,13 @@ msgstr "http://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-
 #: C/man5/init-d-script.5:25
 #, no-wrap
 msgid "The LSB specification"
-msgstr ""
+msgstr "La spécification LSB"
 
 #. type: Plain text
 #: C/man5/init-d-script.5:27
 msgid "for information about init.d scripts in the LSB."
 msgstr ""
+"pour plus d'informations à propos des scripts init.d dans le LSB."
 
 #. type: Plain text
 #: C/man5/init-d-script.5:30
@@ -835,6 +840,8 @@ msgid ""
 "This is a simple example on how init-d-script can be used to start and stop "
 "a daemon with PID file support:"
 msgstr ""
+"Voici un exemple simple montrant comment init-d-script peut être utilisé pour "
+"démarrer et arrêter un démon prenant en charge les fichiers PID :"
 
 #. type: Plain text
 #: C/man5/init-d-script.5:44
@@ -853,6 +860,18 @@ msgid ""
 "### END INIT INFO\n"
 "DAEMON=/usr/sbin/atd\n"
 msgstr ""
+"#!/lib/init/init-d-script\n"
+"### BEGIN INIT INFO\n"
+"# Provides:          atd\n"
+"# Required-Start:    $syslog $time $remote_fs\n"
+"# Required-Stop:     $syslog $time $remote_fs\n"
+"# Default-Start:     2 3 4 5\n"
+"# Default-Stop:      0 1 6\n"
+"# Short-Description: run at jobs\n"
+"# Description:       Debian init script to start the daemon\n"
+"#                    running at jobs.\n"
+"### END INIT INFO\n"
+"DAEMON=/usr/sbin/atd\n"
 
 #. type: Plain text
 #: C/man5/init-d-script.5:52
@@ -864,6 +883,12 @@ msgid ""
 "do_status_override, do_stop_override, do_stop_prepare, do_stop_cleanup and "
 "do_stop_cmd_override."
 msgstr ""
+"En plus du réglage DAEMON, il est possible d'indiquer DESC, NAME, PIDFILE "
+"(none signifie pas de fichier PID) ou d'implémenter les fonctions de "
+"surcharge do_force_reload_override, do_reload_override, do_restart_override, "
+"do_start_override, do_start_cmd_override, do_start_prepare, do_start_cleanup "
+"do_status_override, do_stop_override, do_stop_prepare, do_stop_cleanup et "
+"do_stop_cmd_override."
 
 #. type: Plain text
 #: C/man5/init-d-script.5:56
@@ -872,6 +897,9 @@ msgid ""
 "the init.d script recognize the reload operation as well as use it for the "
 "force-reload operation."
 msgstr ""
+"Si le démon gère le rechargement, il faut implémenter la fonction do_reload "
+"pour faire que le script init.d reconnaisse l'opération de rechargement et "
+"l'utilise pour l'opération force-reload."
 
 #. type: Plain text
 #: C/man5/init-d-script.5:61
@@ -880,6 +908,10 @@ msgid ""
 "disabled, and replacement functions do_start_cmd_override, "
 "do_stop_cmd_override and do_status_override functions must be implemented."
 msgstr ""
+"Si DAEMON est réglé à 'none', la vérification pour voir si le démon est "
+"installé est désactivée et les fonctions de remplacement "
+"do_start_cmd_override, do_stop_cmd_override et do_status_override doivent "
+"être implémentées."
 
 #. type: Plain text
 #: C/man5/init-d-script.5:65
@@ -888,6 +920,9 @@ msgid ""
 "service handle reload using a SIGUSR1 signal, the following alias can be "
 "used instead of implementing ones own do_reload function:"
 msgstr ""
+"Les services gérant le rechargement doivent définir la fonction do_reload. "
+"Si le service gère le rechargement avec le signal SIGUSR1, l'alias suivant "
+"peut être utilisé au lieu d'implémenter sa propre fonction do_reload :"
 
 #. type: Plain text
 #: C/man5/init-d-script.5:68
@@ -907,17 +942,19 @@ msgid ""
 "Bourne shell interpreter with implementation of init.d actions I</etc/init.d/"
 "> Location of init.d scripts."
 msgstr ""
+"Interpréteur Bourne shell avec implémentation d'actions init.d I</etc/init.d/"
+"> Emplacement des scripts init.d."
 
 #. type: SH
 #: C/man5/init-d-script.5:78
 #, no-wrap
 msgid "KNOWN BUGS/LIMITATIONS"
-msgstr ""
+msgstr "BOGUES CONNUS/LIMITATIONS"
 
 #. type: Plain text
 #: C/man5/init-d-script.5:80
 msgid "Not yet documented"
-msgstr ""
+msgstr "Pas encore documenté"
 
 #. type: Plain text
 #: C/man5/init-d-script.5:82
@@ -5443,11 +5480,13 @@ msgstr "5 juin 2012"
 msgid ""
 "startpar-upstart-inject - notify startpar of started/stopped upstart jobs"
 msgstr ""
+"startpar-upstart-inject - Notifier startpar des tâches upstart "
+"lancées/arrêtées"
 
 #. type: Plain text
 #: C/man8/startpar-upstart-inject.8:10
 msgid "B<startpar-upstart-inject> I<job-name> I<instance> I<[started|stopped]>"
-msgstr ""
+msgstr "B<startpar-upstart-inject> I<nom-tâche> I<instance> I<[started|stopped]>"
 
 #. type: Plain text
 #: C/man8/startpar-upstart-inject.8:24
@@ -5459,6 +5498,13 @@ msgid ""
 "B<startpar> must be notified whenever an upstart job has started so that it "
 "can run the init scripts for services that declare a dependency on that job."
 msgstr ""
+"B<startpar-upstart-inject> est une commande d'aide pour notifier B<startpar> "
+"quand une tâche upstart a démarré ou s'est arrêtée. Elle permet à B<startpar> "
+"de s'exécuter de façon compatible avec les systèmes basés sur upstart, où "
+"beaucoup/presque toutes les tâches sont lancées directement par upstart et "
+"non par B<startpar>. Dans ce scénario, B<startpar> doit être notifié quand "
+"une tâche upstart a démarré pour qu'il puisse lancer les scripts d'init "
+"pour les services déclarant une dépendance sur cette tâche."
 
 #. type: Plain text
 #: C/man8/startpar-upstart-inject.8:29
@@ -5466,12 +5512,14 @@ msgid ""
 "The B<startpar-upstart-inject> command takes three arguments, all of which "
 "are mandatory."
 msgstr ""
+"La commande B<startpar-upstart-inject> prend trois arguments, tous "
+"obligatoires."
 
 #. type: TP
 #: C/man8/startpar-upstart-inject.8:29
 #, no-wrap
 msgid "I<job-name>"
-msgstr ""
+msgstr "I<nom-tâche>"
 
 #. type: Plain text
 #: C/man8/startpar-upstart-inject.8:36
@@ -5479,12 +5527,14 @@ msgid ""
 "The name of the B<upstart> job.  Normally this will match the name of a "
 "script in the I</etc/init.d> directory."
 msgstr ""
+"Le nom de la tâche B<upstart>. Normalement, celui-ci correspond au nom d'un "
+"scripts dans le répertoire I</etc/init.d>."
 
 #. type: TP
 #: C/man8/startpar-upstart-inject.8:37
 #, no-wrap
 msgid "I<instance>"
-msgstr ""
+msgstr "I<instance>"
 
 #. type: Plain text
 #: C/man8/startpar-upstart-inject.8:44
@@ -5493,12 +5543,15 @@ msgid ""
 "This is currently ignored by B<startpar>, which has no concept of service "
 "instances."
 msgstr ""
+"L'instance de la tâche B<upstart>, s'il y en a une ; autrement, une chaîne "
+"vide. Ceci est actuellement ignoré par B<startpar> qui n'a pas de concept "
+"d'instances de service."
 
 #. type: TP
 #: C/man8/startpar-upstart-inject.8:45
 #, no-wrap
 msgid "I<[started|stopped]>"
-msgstr "[B<started>|B<stopped>]"
+msgstr "I<[started|stopped]>"
 
 #. type: Plain text
 #: C/man8/startpar-upstart-inject.8:52
@@ -5506,6 +5559,8 @@ msgid ""
 "The single word I<started> or I<stopped> which indicates whether the listed "
 "job has been started or stopped."
 msgstr ""
+"Le mot simple I<started> ou I<stopped> indiquant si la tâche donnée a été "
+"démarrée ou arrêtée."
 
 #. type: TP
 #: C/man8/startpar-upstart-inject.8:54
@@ -5519,6 +5574,8 @@ msgid ""
 "upstart job which invokes B<startpar-upstart-inject> each time another "
 "upstart job starts"
 msgstr ""
+"tâche upstart invoquant B<startpar-upstart-inject> à chaque démarrage "
+"d'une autre tâche upstart"
 
 #. type: Plain text
 #: C/man8/startpar-upstart-inject.8:65
