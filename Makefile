@@ -11,6 +11,7 @@ SUBDIRS=at \
 	openssl \
 	procps \
 	reiser4progs reiserfsprogs \
+	startpar \
 	sysvinit \
 	tar \
 	util-linux \
