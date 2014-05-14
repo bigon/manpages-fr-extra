@@ -131,10 +131,8 @@ msgstr ""
 
 #. type: =item
 #: C/apps/cms.pod:93
-#, fuzzy
-#| msgid "B<-decrypt>"
 msgid "B<-debug_decrypt>"
-msgstr "B<-decrypt>"
+msgstr "B<-debug_decrypt>"
 
 #. type: textblock
 #: C/apps/cms.pod:95
@@ -1880,12 +1878,6 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/CMS_decrypt.pod:28
-#, fuzzy
-#| msgid ""
-#| "Although the recipients certificate is not needed to decrypt the data it "
-#| "is needed to locate the appropriate (of possible several) recipients in "
-#| "the CMS structure. If B<cert> is set to NULL all possible recipients are "
-#| "tried."
 msgid ""
 "Although the recipients certificate is not needed to decrypt the data it is "
 "needed to locate the appropriate (of possible several) recipients in the CMS "
@@ -1893,9 +1885,9 @@ msgid ""
 msgstr ""
 "Bien que le certificat des destinataires ne soit pas nécessaire pour "
 "déchiffrer les données, il est nécessaire pour localiser les (éventuellement "
-"nombreux) destinataires appropriés dans la structure CMS. Si I<cert> est "
-"défini à NULL, tous les destinataires possibles sont essayés."
+"nombreux) destinataires appropriés dans la structure CMS."
 
+# NOTE: missing commas, e.g., s/ failed to decrypt/ failed to decrypt,/
 #. type: textblock
 #: C/crypto/CMS_decrypt.pod:32
 msgid ""
@@ -1913,6 +1905,22 @@ msgid ""
 "use this flag with B<extreme caution> especially in automated gateways as it "
 "can leave them open to attack."
 msgstr ""
+"Si I<cert> est défini à NULL, tous les destinataires possibles sont essayés. "
+"Ce cas est cependant problématique. Pour repousser l’attaque MMA (attaque de "
+"Bleichenbacher sur le remplissage RSA v1.5 de PKCS #1), tous les "
+"destinataires sont essayés qu’ils réussissent ou pas. Si aucun destinataire "
+"ne réussit, alors une clef symétrique aléatoire est utilisée pour déchiffrer "
+"le contenu : il n’en sort généralement rien d’intéressant et pourrait (mais "
+"ce n’est pas garanti) au final ne renvoyer qu’une erreur de remplissage. Si "
+"B<CMS_decrypt>() ne renvoie qu’une erreur quand toutes les clefs chiffrées "
+"des destinataires ont échoué à déchiffrer, un attaquant pourrait utiliser "
+"cela dans une attaque temporelle. Si l’attribut spécial B<CMS_DEBUG_DECRYPT> "
+"est défini, alors le comportement précédent est modifié et une erreur B<est> "
+"renvoyée si aucune clef chiffrée de destinataire ne peut être déchiffrée "
+"B<sans> générer de clef de chiffrement de contenu aléatoire. Les "
+"applications ne devrait utiliser cet attribut qu’avec d’B<extrêmes "
+"précautions>, en particulier dans les passerelles automatisées, car cela "
+"peut les laisser ouvertes aux attaques."
 
 #. type: textblock
 #: C/crypto/CMS_decrypt.pod:46
