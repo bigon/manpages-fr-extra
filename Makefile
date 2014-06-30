@@ -2,9 +2,9 @@ SUBDIRS=at \
 	bash \
 	coreutils cron \
 	diffutils dosfstools \
-	e2fsprogs eglibc \
+	e2fsprogs \
 	findutils \
-	grep \
+	glibc grep \
 	lilo \
 	most \
 	nfs-utils \
