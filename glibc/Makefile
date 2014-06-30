@@ -1,4 +1,3 @@
-PACKAGE=eglibc
+PACKAGE=glibc
 
 include ../Makefile.common
-
