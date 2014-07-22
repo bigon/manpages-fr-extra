@@ -3,12 +3,12 @@
 # Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2006.
 # Sylvain Cherrier <sylvain.cherrier@free.fr>, 2007-2009.
 # Nicolas François <nicolas.francois@centraliens.net>, 2010.
-# David Prévot <david@tilapin.org>, 2012, 2013.
+# David Prévot <david@tilapin.org>, 2012-2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: findutils manpages\n"
 "POT-Creation-Date: 2014-07-22 17:51-0400\n"
-"PO-Revision-Date: 2013-10-02 14:16-0400\n"
+"PO-Revision-Date: 2014-07-22 17:58-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -2100,17 +2100,6 @@ msgstr "B<-exec> I<commande> B<{} +>"
 
 #. type: Plain text
 #: C/man1/find.1:1024
-#, fuzzy
-#| msgid ""
-#| "This variant of the B<-exec> action runs the specified command on the "
-#| "selected files, but the command line is built by appending each selected "
-#| "file name at the end; the total number of invocations of the command will "
-#| "be much less than the number of matched files.  The command line is built "
-#| "in much the same way that B<xargs> builds its command lines.  Only one "
-#| "instance of `{}' is allowed within the command.  The command is executed "
-#| "in the starting directory.  If B<find> encounters an error, this can "
-#| "sometimes cause an immediate exit, so some pending commands may not be "
-#| "run at all."
 msgid ""
 "This variant of the B<-exec> action runs the specified command on the "
 "selected files, but the command line is built by appending each selected "
@@ -2130,7 +2119,8 @@ msgstr ""
 "est permise à l'intérieur de la commande. La commande sera exécutée dans le "
 "répertoire de départ. Si B<find> est victime d’une erreur, cela peut parfois "
 "provoquer une sortie immédiate du programme, donc certaines commandes en "
-"attente pourraient ne jamais être exécutées."
+"attente pourraient ne jamais être exécutées. Cette variante de B<-exec> "
+"revoie toujours vrai."
 
 #. type: IP
 #: C/man1/find.1:1025
@@ -2146,22 +2136,6 @@ msgstr "B<-execdir> I<commande> B<{} +>"
 
 #. type: Plain text
 #: C/man1/find.1:1071
-#, fuzzy
-#| msgid ""
-#| "Like B<-exec>, but the specified command is run from the subdirectory "
-#| "containing the matched file, which is not normally the directory in which "
-#| "you started B<find>.  This a much more secure method for invoking "
-#| "commands, as it avoids race conditions during resolution of the paths to "
-#| "the matched files.  As with the B<-exec> action, the `+' form of B<-"
-#| "execdir> will build a command line to process more than one matched file, "
-#| "but any given invocation of I<command> will only list files that exist in "
-#| "the same subdirectory.  If you use this option, you must ensure that your "
-#| "B<$PATH> environment variable does not reference `.'; otherwise, an "
-#| "attacker can run any commands they like by leaving an appropriately-named "
-#| "file in a directory in which you will run B<-execdir>.  The same applies "
-#| "to having entries in B<$PATH> which are empty or which are not absolute "
-#| "directory names.  If B<find> encounters an error, this can sometimes "
-#| "cause an immediate exit, so some pending commands may not be run at all."
 msgid ""
 "Like B<-exec>, but the specified command is run from the subdirectory "
 "containing the matched file, which is not normally the directory in which "
@@ -2197,7 +2171,10 @@ msgstr ""
 "execdir>. De la même manière, évitez les références vides ou les noms de "
 "répertoires exprimés en relatif dans B<$PATH>. Si B<find> est victime d’une "
 "erreur, cela peut parfois provoquer une sortie immédiate du programme, donc "
-"certaines commandes en attente pourraient ne jamais être exécutées."
+"certaines commandes en attente pourraient ne jamais être exécutées. Le "
+"résultat de l’action dépend de l’utilisation des variantes B<+> ou B<;> ; B<-"
+"execdir> I<commande> B<{} +> renvoie toujours vrai alors que B<-execdir> "
+"I<commande> B<{} ;> ne renvoie vrai que si I<commande> renvoie 0."
 
 #. type: IP
 #: C/man1/find.1:1073
@@ -3399,11 +3376,6 @@ msgstr "B<-prune>"
 
 #. type: Plain text
 #: C/man1/find.1:1436
-#, fuzzy
-#| msgid ""
-#| "True; if the file is a directory, do not descend into it. If B<-depth> is "
-#| "given, false; no effect.  Because B<-delete> implies B<-depth>, you "
-#| "cannot usefully use B<-prune> and B<-delete together.>"
 msgid ""
 "True; if the file is a directory, do not descend into it. If B<-depth> is "
 "given, false; no effect.  Because B<-delete> implies B<-depth>, you cannot "
@@ -4934,13 +4906,6 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/locate.findutils.1:24
-#, fuzzy
-#| msgid ""
-#| "B<locate> [-d path | --database=path] [-e | -E | --[non-]existing] [-i | "
-#| "--ignore-case] [-0 | --null] [-c | --count] [-w | --wholename] |-b | --"
-#| "basename] [-l N | --limit=N] [-S | --statistics] [-r | --regex ] [--max-"
-#| "database-age D] [-P | -H | --nofollow] [-L | --follow] [--version] [-A | "
-#| "--all] [-p | --print] [--help] pattern..."
 msgid ""
 "B<locate> [-d path | --database=path] [-e | -E | --[non-]existing] [-i | --"
 "ignore-case] [-0 | --null] [-c | --count] [-w | --wholename] [-b | --"
@@ -4950,7 +4915,7 @@ msgid ""
 msgstr ""
 "B<locate> [B<-d> I<chemin> | B<--database=>I<chemin>] [B<-e> | B<-E> | B<--"
 ">[B<non->]B<existing>] [B<-i> | B<--ignore-case>] [B<-0> | B<--null>] [B<-c> "
-"| B<--count>] [B<-w> | B<--wholename>] |B<-b> | B<--basename>] [B<-l> I<N> | "
+"| B<--count>] [B<-w> | B<--wholename>] [B<-b> | B<--basename>] [B<-l> I<N> | "
 "B<--limit=>I<N>] [B<-S> | B<--statistics>] [B<-r> | B<--regex>] [B<--max-"
 "database-age> I<D>] [B<-P> | B<-H> | B<--nofollow>] [B<-L> | B<--follow>] "
 "[B<--version>] [B<-A> | B<--all>] [B<-p> | B<--print>] [B<--help>] "
@@ -5346,13 +5311,6 @@ msgstr "B<-S>, B<--statistics>"
 
 #. type: Plain text
 #: C/man1/locate.findutils.1:192
-#, fuzzy
-#| msgid ""
-#| "Print various statistics about each locate database and then exit without "
-#| "performing a search, unless non-option arguments are given.  For "
-#| "compatibility with BSD, -S is accepted as a synonym for --statistics.  "
-#| "However, the ouptut of B<locate -S> is different for the GNU and BSD "
-#| "implementations of B<locate>."
 msgid ""
 "Print various statistics about each locate database and then exit without "
 "performing a search, unless non-option arguments are given.  For "
@@ -6166,10 +6124,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/xargs.1:142
-#, fuzzy, no-wrap
-#| msgid "B<-e> [I<eof-str>], B<--eof>[I<=eof-str>]"
+#, no-wrap
 msgid "B<-e>[I<eof-str>], B<--eof>[I<=eof-str>]"
-msgstr "B<-e> [I<chaîne-fin-de-fichier>], B<--eof>[B<=>I<chaîne-fin-de-fichier>]"
+msgstr "B<-e>[I<chaîne-fin-de-fichier>], B<--eof>[B<=>I<chaîne-fin-de-fichier>]"
 
 #. type: Plain text
 #: C/man1/xargs.1:156
@@ -6206,10 +6163,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/xargs.1:166
-#, fuzzy, no-wrap
-#| msgid "B<-i> [I<replace-str>], B<--replace>[I<=replace-str>]"
+#, no-wrap
 msgid "B<-i>[I<replace-str>], B<--replace>[I<=replace-str>]"
-msgstr "B<-i> [I<chaîne-remplacement>], B<--replace>[B<=>I<chaîne-remplacement>]"
+msgstr "B<-i>[I<chaîne-remplacement>], B<--replace>[B<=>I<chaîne-remplacement>]"
 
 #. type: Plain text
 #: C/man1/xargs.1:180
@@ -6242,10 +6198,9 @@ msgstr ""
 
 #. type: TP
 #: C/man1/xargs.1:186
-#, fuzzy, no-wrap
-#| msgid "B<-l> [I<max-lines>], B<--max-lines>[=I<max-lines>]"
+#, no-wrap
 msgid "B<-l>[I<max-lines>], B<--max-lines>[=I<max-lines>]"
-msgstr "B<-l> [I<nombre_max_lignes>], B<--max-lines>[B<=>I<nombre_max_lignes>]"
+msgstr "B<-l>[I<nombre_max_lignes>], B<--max-lines>[B<=>I<nombre_max_lignes>]"
 
 #. type: Plain text
 #: C/man1/xargs.1:202
