@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2013-12-22 19:30-0400\n"
+"POT-Creation-Date: 2014-07-25 12:08-0400\n"
 "PO-Revision-Date: 2013-06-09 15:28-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -48,11 +48,18 @@ msgstr "SYNOPSIS"
 
 #. type: textblock
 #: C/apps/dsa.pod:9
+#, fuzzy
+#| msgid ""
+#| "B<openssl> B<dsa> [B<-inform PEM|DER>] [B<-outform PEM|DER>] [B<-in "
+#| "filename>] [B<-passin arg>] [B<-out filename>] [B<-passout arg>] [B<-"
+#| "des>] [B<-des3>] [B<-idea>] [B<-text>] [B<-noout>] [B<-modulus>] [B<-"
+#| "pubin>] [B<-pubout>] [B<-engine id>]"
 msgid ""
 "B<openssl> B<dsa> [B<-inform PEM|DER>] [B<-outform PEM|DER>] [B<-in "
-"filename>] [B<-passin arg>] [B<-out filename>] [B<-passout arg>] [B<-des>] "
-"[B<-des3>] [B<-idea>] [B<-text>] [B<-noout>] [B<-modulus>] [B<-pubin>] [B<-"
-"pubout>] [B<-engine id>]"
+"filename>] [B<-passin arg>] [B<-out filename>] [B<-passout arg>] [B<-"
+"aes128>] [B<-aes192>] [B<-aes256>] [B<-camellia128>] [B<-camellia192>] [B<-"
+"camellia256>] [B<-des>] [B<-des3>] [B<-idea>] [B<-text>] [B<-noout>] [B<-"
+"modulus>] [B<-pubin>] [B<-pubout>] [B<-engine id>]"
 msgstr ""
 "B<openssl> B<dsa> [B<-inform PEM>|B<DER>] [B<-outform PEM>|B<DER>] [B<-in> "
 "I<fichier>] [B<-passin> I<param>] [B<-out> I<fichier>] [B<-passout> "
@@ -60,10 +67,10 @@ msgstr ""
 "modulus>] [B<-pubin>] [B<-pubout>] [B<-engine> I<id>]"
 
 #. type: =head1
-#: C/apps/dsa.pod:26 C/apps/dsaparam.pod:22 C/apps/gendsa.pod:18
+#: C/apps/dsa.pod:32 C/apps/dsaparam.pod:22 C/apps/gendsa.pod:24
 #: C/crypto/DSA_SIG_new.pod:15 C/crypto/DSA_do_sign.pod:16
 #: C/crypto/DSA_dup_DH.pod:13 C/crypto/DSA_generate_key.pod:13
-#: C/crypto/DSA_generate_parameters.pod:15
+#: C/crypto/DSA_generate_parameters.pod:21
 #: C/crypto/DSA_get_ex_new_index.pod:20 C/crypto/DSA_new.pod:15
 #: C/crypto/DSA_set_method.pod:23 C/crypto/DSA_sign.pod:20
 #: C/crypto/DSA_size.pod:13 C/crypto/dsa.pod:64 C/crypto/ecdsa.pod:50
@@ -71,7 +78,7 @@ msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
 
 #. type: textblock
-#: C/apps/dsa.pod:28
+#: C/apps/dsa.pod:34
 msgid ""
 "The B<dsa> command processes DSA keys. They can be converted between various "
 "forms and their components printed out. B<Note> This command uses the "
@@ -85,17 +92,17 @@ msgstr ""
 "utiliser le format plus sûr PKCS#8 en utilisant la commande B<pkcs8>."
 
 #. type: =head1
-#: C/apps/dsa.pod:33
+#: C/apps/dsa.pod:39
 msgid "COMMAND OPTIONS"
 msgstr "OPTIONS DE LA COMMANDE"
 
 #. type: =item
-#: C/apps/dsa.pod:37 C/apps/dsaparam.pod:30
+#: C/apps/dsa.pod:43 C/apps/dsaparam.pod:30
 msgid "B<-inform DER|PEM>"
 msgstr "B<-inform> B<DER>|B<PEM>"
 
 #. type: textblock
-#: C/apps/dsa.pod:39
+#: C/apps/dsa.pod:45
 msgid ""
 "This specifies the input format. The B<DER> option with a private key uses "
 "an ASN1 DER encoded form of an ASN.1 SEQUENCE consisting of the values of "
@@ -112,7 +119,7 @@ msgstr ""
 "pas de type DSA."
 
 #. type: textblock
-#: C/apps/dsa.pod:45
+#: C/apps/dsa.pod:51
 msgid ""
 "The B<PEM> form is the default format: it consists of the B<DER> format "
 "base64 encoded with additional header and footer lines. In the case of a "
@@ -123,12 +130,12 @@ msgstr ""
 "le cas d'une clef privée, le format PKCS#8 est également accepté."
 
 #. type: =item
-#: C/apps/dsa.pod:49 C/apps/dsaparam.pod:37
+#: C/apps/dsa.pod:55 C/apps/dsaparam.pod:37
 msgid "B<-outform DER|PEM>"
 msgstr "B<-outform> B<DER>|B<PEM>"
 
 #. type: textblock
-#: C/apps/dsa.pod:51 C/apps/dsaparam.pod:39
+#: C/apps/dsa.pod:57 C/apps/dsaparam.pod:39
 msgid ""
 "This specifies the output format, the options have the same meaning as the "
 "B<-inform> option."
@@ -137,12 +144,12 @@ msgstr ""
 "l'option B<-inform>."
 
 #. type: =item
-#: C/apps/dsa.pod:54 C/apps/dsaparam.pod:42
+#: C/apps/dsa.pod:60 C/apps/dsaparam.pod:42
 msgid "B<-in filename>"
 msgstr "B<-in> I<fichier>"
 
 #. type: textblock
-#: C/apps/dsa.pod:56
+#: C/apps/dsa.pod:62
 msgid ""
 "This specifies the input filename to read a key from or standard input if "
 "this option is not specified. If the key is encrypted a pass phrase will be "
@@ -153,12 +160,12 @@ msgstr ""
 "sera demandé."
 
 #. type: =item
-#: C/apps/dsa.pod:60
+#: C/apps/dsa.pod:66
 msgid "B<-passin arg>"
 msgstr "B<-passin> I<param>"
 
 #. type: textblock
-#: C/apps/dsa.pod:62
+#: C/apps/dsa.pod:68
 msgid ""
 "the input file password source. For more information about the format of "
 "B<arg> see the B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
@@ -168,13 +175,13 @@ msgstr ""
 "d'L<B<openssl>(1)|openssl(1)>."
 
 #. type: =item
-#: C/apps/dsa.pod:65 C/apps/dsaparam.pod:48
+#: C/apps/dsa.pod:71 C/apps/dsaparam.pod:48
 msgid "B<-out filename>"
 msgstr "B<-out> I<fichier>"
 
 # NOTE: "or standard output by is not specified"
 #. type: textblock
-#: C/apps/dsa.pod:67
+#: C/apps/dsa.pod:73
 msgid ""
 "This specifies the output filename to write a key to or standard output by "
 "is not specified. If any encryption options are set then a pass phrase will "
@@ -187,12 +194,12 @@ msgstr ""
 "sortie ne doit B<pas> être identique au fichier d'entrée."
 
 #. type: =item
-#: C/apps/dsa.pod:72
+#: C/apps/dsa.pod:78
 msgid "B<-passout arg>"
 msgstr "B<-passout> I<param>"
 
 #. type: textblock
-#: C/apps/dsa.pod:74
+#: C/apps/dsa.pod:80
 msgid ""
 "the output file password source. For more information about the format of "
 "B<arg> see the B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
@@ -202,20 +209,32 @@ msgstr ""
 "DE PHRASE SECRÈTE> d'L<B<openssl>(1)|openssl(1)>."
 
 #. type: =item
-#: C/apps/dsa.pod:77 C/apps/gendsa.pod:27
-msgid "B<-des|-des3|-idea>"
-msgstr "B<-des>|B<-des3>|B<-idea>"
+#: C/apps/dsa.pod:83 C/apps/gendsa.pod:33
+msgid ""
+"B<-aes128|-aes192|-aes256|-camellia128|-camellia192|-camellia256|-des|-des3|-"
+"idea>"
+msgstr ""
 
 #. type: textblock
-#: C/apps/dsa.pod:79
+#: C/apps/dsa.pod:85
+#, fuzzy
+#| msgid ""
+#| "These options encrypt the private key with the DES, triple DES, or the "
+#| "IDEA ciphers respectively before outputting it. A pass phrase is prompted "
+#| "for.  If none of these options is specified the key is written in plain "
+#| "text. This means that using the B<dsa> utility to read in an encrypted "
+#| "key with no encryption option can be used to remove the pass phrase from "
+#| "a key, or by setting the encryption options it can be use to add or "
+#| "change the pass phrase.  These options can only be used with PEM format "
+#| "output files."
 msgid ""
-"These options encrypt the private key with the DES, triple DES, or the IDEA "
-"ciphers respectively before outputting it. A pass phrase is prompted for.  "
-"If none of these options is specified the key is written in plain text. This "
-"means that using the B<dsa> utility to read in an encrypted key with no "
-"encryption option can be used to remove the pass phrase from a key, or by "
-"setting the encryption options it can be use to add or change the pass "
-"phrase.  These options can only be used with PEM format output files."
+"These options encrypt the private key with the specified cipher before "
+"outputting it. A pass phrase is prompted for.  If none of these options is "
+"specified the key is written in plain text. This means that using the B<dsa> "
+"utility to read in an encrypted key with no encryption option can be used to "
+"remove the pass phrase from a key, or by setting the encryption options it "
+"can be use to add or change the pass phrase.  These options can only be used "
+"with PEM format output files."
 msgstr ""
 "Ces options chiffrent la clef privée produite avec l'algorithme de "
 "chiffrement DES, DES triple ou IDEA respectivement. Un mot de passe (ou une "
@@ -227,44 +246,44 @@ msgstr ""
 "de sortie."
 
 #. type: =item
-#: C/apps/dsa.pod:87 C/apps/dsaparam.pod:58
+#: C/apps/dsa.pod:93 C/apps/dsaparam.pod:58
 msgid "B<-text>"
 msgstr "B<-text>"
 
 #. type: textblock
-#: C/apps/dsa.pod:89
+#: C/apps/dsa.pod:95
 msgid "prints out the public, private key components and parameters."
 msgstr ""
 "Affiche les composants et les paramètres des clefs publiques et privées ."
 
 #. type: =item
-#: C/apps/dsa.pod:91 C/apps/dsaparam.pod:54
+#: C/apps/dsa.pod:97 C/apps/dsaparam.pod:54
 msgid "B<-noout>"
 msgstr "B<-noout>"
 
 #. type: textblock
-#: C/apps/dsa.pod:93
+#: C/apps/dsa.pod:99
 msgid "this option prevents output of the encoded version of the key."
 msgstr "Cette option empêche la sortie de la version encodée de la clef."
 
 #. type: =item
-#: C/apps/dsa.pod:95
+#: C/apps/dsa.pod:101
 msgid "B<-modulus>"
 msgstr "B<-modulus>"
 
 #. type: textblock
-#: C/apps/dsa.pod:97
+#: C/apps/dsa.pod:103
 msgid ""
 "this option prints out the value of the public key component of the key."
 msgstr "Cette option affiche la valeur de la composante publique de la clef."
 
 #. type: =item
-#: C/apps/dsa.pod:99
+#: C/apps/dsa.pod:105
 msgid "B<-pubin>"
 msgstr "B<-pubin>"
 
 #. type: textblock
-#: C/apps/dsa.pod:101
+#: C/apps/dsa.pod:107
 msgid ""
 "by default a private key is read from the input file: with this option a "
 "public key is read instead."
@@ -273,12 +292,12 @@ msgstr ""
 "cette option, une clef publique est lue à sa place."
 
 #. type: =item
-#: C/apps/dsa.pod:104
+#: C/apps/dsa.pod:110
 msgid "B<-pubout>"
 msgstr "B<-pubout>"
 
 #. type: textblock
-#: C/apps/dsa.pod:106
+#: C/apps/dsa.pod:112
 msgid ""
 "by default a private key is output. With this option a public key will be "
 "output instead. This option is automatically set if the input is a public "
@@ -289,12 +308,12 @@ msgstr ""
 "si l'entrée est une clef publique."
 
 #. type: =item
-#: C/apps/dsa.pod:110 C/apps/dsaparam.pod:86 C/apps/gendsa.pod:41
+#: C/apps/dsa.pod:116 C/apps/dsaparam.pod:86 C/apps/gendsa.pod:47
 msgid "B<-engine id>"
 msgstr "B<-engine> I<id>"
 
 #. type: textblock
-#: C/apps/dsa.pod:112
+#: C/apps/dsa.pod:118
 msgid ""
 "specifying an engine (by its unique B<id> string) will cause B<dsa> to "
 "attempt to obtain a functional reference to the specified engine, thus "
@@ -307,20 +326,20 @@ msgstr ""
 "par défaut pour tous les algorithmes disponibles."
 
 #. type: =head1
-#: C/apps/dsa.pod:119 C/apps/dsaparam.pod:95 C/apps/gendsa.pod:56
+#: C/apps/dsa.pod:125 C/apps/dsaparam.pod:95 C/apps/gendsa.pod:62
 #: C/crypto/DSA_set_method.pod:114
 msgid "NOTES"
 msgstr "NOTES"
 
 #. type: textblock
-#: C/apps/dsa.pod:121
+#: C/apps/dsa.pod:127
 msgid "The PEM private key format uses the header and footer lines:"
 msgstr ""
 "Le format de clef privée PEM utilise les lignes de début et de fin "
 "suivantes :"
 
 #. type: verbatim
-#: C/apps/dsa.pod:123
+#: C/apps/dsa.pod:129
 #, no-wrap
 msgid ""
 " -----BEGIN DSA PRIVATE KEY-----\n"
@@ -332,14 +351,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/dsa.pod:126
+#: C/apps/dsa.pod:132
 msgid "The PEM public key format uses the header and footer lines:"
 msgstr ""
 "Le format de clef publique PEM utilise les lignes de début et de fin "
 "suivantes :"
 
 #. type: verbatim
-#: C/apps/dsa.pod:128
+#: C/apps/dsa.pod:134
 #, no-wrap
 msgid ""
 " -----BEGIN PUBLIC KEY-----\n"
@@ -351,17 +370,17 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: C/apps/dsa.pod:131 C/crypto/ecdsa.pod:124
+#: C/apps/dsa.pod:137 C/crypto/ecdsa.pod:124
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
 
 #. type: textblock
-#: C/apps/dsa.pod:133
+#: C/apps/dsa.pod:139
 msgid "To remove the pass phrase on a DSA private key:"
 msgstr "Pour enlever le mot de passe d'une clef privée DSA :"
 
 #. type: verbatim
-#: C/apps/dsa.pod:135
+#: C/apps/dsa.pod:141
 #, no-wrap
 msgid ""
 " openssl dsa -in key.pem -out keyout.pem\n"
@@ -371,12 +390,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/dsa.pod:137
+#: C/apps/dsa.pod:143
 msgid "To encrypt a private key using triple DES:"
 msgstr "Pour chiffrer une clef privée en utilisant l'algorithme DES triple :"
 
 #. type: verbatim
-#: C/apps/dsa.pod:139
+#: C/apps/dsa.pod:145
 #, no-wrap
 msgid ""
 " openssl dsa -in key.pem -des3 -out keyout.pem\n"
@@ -386,12 +405,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/dsa.pod:141
+#: C/apps/dsa.pod:147
 msgid "To convert a private key from PEM to DER format:"
 msgstr "Pour convertir une clef privée du format PEM vers le format DER :"
 
 #. type: verbatim
-#: C/apps/dsa.pod:143
+#: C/apps/dsa.pod:149
 #, no-wrap
 msgid ""
 " openssl dsa -in key.pem -outform DER -out keyout.der\n"
@@ -401,13 +420,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/dsa.pod:145
+#: C/apps/dsa.pod:151
 msgid "To print out the components of a private key to standard output:"
 msgstr ""
 "Pour afficher les composants d'une clef privée sur la sortie standard :"
 
 #. type: verbatim
-#: C/apps/dsa.pod:147
+#: C/apps/dsa.pod:153
 #, no-wrap
 msgid ""
 " openssl dsa -in key.pem -text -noout\n"
@@ -417,12 +436,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/dsa.pod:149
+#: C/apps/dsa.pod:155
 msgid "To just output the public part of a private key:"
 msgstr "Pour afficher uniquement la partie publique d'une clef privée :"
 
 #. type: verbatim
-#: C/apps/dsa.pod:151
+#: C/apps/dsa.pod:157
 #, no-wrap
 msgid ""
 " openssl dsa -in key.pem -pubout -out pubkey.pem\n"
@@ -432,10 +451,10 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: C/apps/dsa.pod:153 C/apps/dsaparam.pod:105 C/apps/gendsa.pod:61
+#: C/apps/dsa.pod:159 C/apps/dsaparam.pod:105 C/apps/gendsa.pod:67
 #: C/crypto/DSA_SIG_new.pod:31 C/crypto/DSA_do_sign.pod:37
 #: C/crypto/DSA_dup_DH.pod:28 C/crypto/DSA_generate_key.pod:25
-#: C/crypto/DSA_generate_parameters.pod:91
+#: C/crypto/DSA_generate_parameters.pod:107
 #: C/crypto/DSA_get_ex_new_index.pod:27 C/crypto/DSA_new.pod:32
 #: C/crypto/DSA_set_method.pod:124 C/crypto/DSA_sign.pod:56
 #: C/crypto/DSA_size.pod:25 C/crypto/dsa.pod:101 C/crypto/ecdsa.pod:194
@@ -443,7 +462,7 @@ msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: textblock
-#: C/apps/dsa.pod:155
+#: C/apps/dsa.pod:161
 msgid ""
 "L<dsaparam(1)|dsaparam(1)>, L<gendsa(1)|gendsa(1)>, L<rsa(1)|rsa(1)>, "
 "L<genrsa(1)|genrsa(1)>"
@@ -475,7 +494,7 @@ msgstr ""
 "paramètres DSA."
 
 #. type: =head1
-#: C/apps/dsaparam.pod:26 C/apps/gendsa.pod:23
+#: C/apps/dsaparam.pod:26 C/apps/gendsa.pod:29
 msgid "OPTIONS"
 msgstr "OPTIONS"
 
@@ -555,12 +574,12 @@ msgstr ""
 "générés."
 
 #. type: =item
-#: C/apps/dsaparam.pod:72 C/apps/gendsa.pod:33
+#: C/apps/dsaparam.pod:72 C/apps/gendsa.pod:39
 msgid "B<-rand file(s)>"
 msgstr "B<-rand> I<fichier(s)>"
 
 #. type: textblock
-#: C/apps/dsaparam.pod:74 C/apps/gendsa.pod:35
+#: C/apps/dsaparam.pod:74 C/apps/gendsa.pod:41
 msgid ""
 "a file or files containing random data used to seed the random number "
 "generator, or an EGD socket (see L<RAND_egd(3)|RAND_egd(3)>).  Multiple "
@@ -648,15 +667,20 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/gendsa.pod:9
+#, fuzzy
+#| msgid ""
+#| "B<openssl> B<gendsa> [B<-out filename>] [B<-des>] [B<-des3>] [B<-idea>] "
+#| "[B<-rand file(s)>] [B<-engine id>] [B<paramfile>]"
 msgid ""
-"B<openssl> B<gendsa> [B<-out filename>] [B<-des>] [B<-des3>] [B<-idea>] [B<-"
-"rand file(s)>] [B<-engine id>] [B<paramfile>]"
+"B<openssl> B<gendsa> [B<-out filename>] [B<-aes128>] [B<-aes192>] [B<-"
+"aes256>] [B<-camellia128>] [B<-camellia192>] [B<-camellia256>] [B<-des>] [B<-"
+"des3>] [B<-idea>] [B<-rand file(s)>] [B<-engine id>] [B<paramfile>]"
 msgstr ""
 "B<openssl> B<gendsa> [B<-out> I<fichier>] [B<-des>] [B<-des3>] [B<-idea>] "
 "[B<-rand> I<fichier(s)>] [B<-engine> I<id>] [B<fichier_param>]"
 
 #. type: textblock
-#: C/apps/gendsa.pod:20
+#: C/apps/gendsa.pod:26
 msgid ""
 "The B<gendsa> command generates a DSA private key from a DSA parameter file "
 "(which will be typically generated by the B<openssl dsaparam> command)."
@@ -666,11 +690,16 @@ msgstr ""
 "dsaparam>)."
 
 #. type: textblock
-#: C/apps/gendsa.pod:29
+#: C/apps/gendsa.pod:35
+#, fuzzy
+#| msgid ""
+#| "These options encrypt the private key with the DES, triple DES, or the "
+#| "IDEA ciphers respectively before outputting it. A pass phrase is prompted "
+#| "for.  If none of these options is specified no encryption is used."
 msgid ""
-"These options encrypt the private key with the DES, triple DES, or the IDEA "
-"ciphers respectively before outputting it. A pass phrase is prompted for.  "
-"If none of these options is specified no encryption is used."
+"These options encrypt the private key with specified cipher before "
+"outputting it. A pass phrase is prompted for.  If none of these options is "
+"specified no encryption is used."
 msgstr ""
 "Ces options chiffrent la clef privée avec les algorithmes de chiffrement "
 "DES, triple DES ou IDEA respectivement avant la sortie du résultat. Un mot "
@@ -678,7 +707,7 @@ msgstr ""
 "chiffrement n'est effectué."
 
 #. type: textblock
-#: C/apps/gendsa.pod:43
+#: C/apps/gendsa.pod:49
 msgid ""
 "specifying an engine (by its unique B<id> string) will cause B<gendsa> to "
 "attempt to obtain a functional reference to the specified engine, thus "
@@ -691,12 +720,12 @@ msgstr ""
 "par défaut pour tous les algorithmes disponibles."
 
 #. type: =item
-#: C/apps/gendsa.pod:48
+#: C/apps/gendsa.pod:54
 msgid "B<paramfile>"
 msgstr "B<fichier_param>"
 
 #. type: textblock
-#: C/apps/gendsa.pod:50
+#: C/apps/gendsa.pod:56
 msgid ""
 "This option specifies the DSA parameter file to use. The parameters in this "
 "file determine the size of the private key. DSA parameters can be generated "
@@ -707,7 +736,7 @@ msgstr ""
 "peuvent être générés et examinés avec la commande B<openssl dsaparam>."
 
 #. type: textblock
-#: C/apps/gendsa.pod:58
+#: C/apps/gendsa.pod:64
 msgid ""
 "DSA key generation is little more than random number generation so it is "
 "much quicker that RSA key generation for example."
@@ -717,7 +746,7 @@ msgstr ""
 "clef RSA par exemple."
 
 #. type: textblock
-#: C/apps/gendsa.pod:63
+#: C/apps/gendsa.pod:69
 msgid ""
 "L<dsaparam(1)|dsaparam(1)>, L<dsa(1)|dsa(1)>, L<genrsa(1)|genrsa(1)>, "
 "L<rsa(1)|rsa(1)>"
@@ -813,7 +842,7 @@ msgstr ""
 #. type: =head1
 #: C/crypto/DSA_SIG_new.pod:36 C/crypto/DSA_do_sign.pod:43
 #: C/crypto/DSA_dup_DH.pod:32 C/crypto/DSA_generate_key.pod:30
-#: C/crypto/DSA_generate_parameters.pod:96
+#: C/crypto/DSA_generate_parameters.pod:112
 #: C/crypto/DSA_get_ex_new_index.pod:31 C/crypto/DSA_new.pod:38
 #: C/crypto/DSA_set_method.pod:128 C/crypto/DSA_sign.pod:61
 #: C/crypto/DSA_size.pod:29 C/crypto/ecdsa.pod:198
@@ -940,7 +969,7 @@ msgstr ""
 
 #. type: =head1
 #: C/crypto/DSA_dup_DH.pod:19 C/crypto/DSA_generate_key.pod:20
-#: C/crypto/DSA_generate_parameters.pod:81 C/crypto/DSA_size.pod:21
+#: C/crypto/DSA_generate_parameters.pod:94 C/crypto/DSA_size.pod:21
 msgid "RETURN VALUE"
 msgstr "VALEUR DE RETOUR"
 
@@ -1037,11 +1066,38 @@ msgstr "B<DSA_generate_key>() a été ajoutée dans SSLeay 0.8."
 
 #. type: textblock
 #: C/crypto/DSA_generate_parameters.pod:5
-msgid "DSA_generate_parameters - generate DSA parameters"
+#, fuzzy
+#| msgid "DSA_generate_parameters - generate DSA parameters"
+msgid ""
+"DSA_generate_parameters_ex, DSA_generate_parameters - generate DSA parameters"
 msgstr "DSA_generate_parameters - Créer des paramètres DSA"
 
 #. type: verbatim
 #: C/crypto/DSA_generate_parameters.pod:11
+#, fuzzy, no-wrap
+#| msgid ""
+#| " DSA *DSA_generate_parameters(int bits, unsigned char *seed,\n"
+#| "                int seed_len, int *counter_ret, unsigned long *h_ret,\n"
+#| "\t\tvoid (*callback)(int, int, void *), void *cb_arg);\n"
+#| "\n"
+msgid ""
+" int DSA_generate_parameters_ex(DSA *dsa, int bits,\n"
+"\t\tconst unsigned char *seed,int seed_len,\n"
+"\t\tint *counter_ret, unsigned long *h_ret, BN_GENCB *cb);\n"
+"\n"
+msgstr ""
+"B< DSA *DSA_generate_parameters(int> I<bits>B<, unsigned char *>I<seed>B<,>\n"
+"                B<int> I<seed_len>B< int *>I<counter_ret>B<, unsigned long *>I<h_ret>B<,>\n"
+" \t\tB<void (*>I<callback>B<)(int, int, void *), void *>I<cb_arg>B<);>\n"
+"\n"
+
+#. type: textblock
+#: C/crypto/DSA_generate_parameters.pod:15
+msgid "Deprecated:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/DSA_generate_parameters.pod:17
 #, no-wrap
 msgid ""
 " DSA *DSA_generate_parameters(int bits, unsigned char *seed,\n"
@@ -1055,16 +1111,20 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:17
+#: C/crypto/DSA_generate_parameters.pod:23
+#, fuzzy
+#| msgid ""
+#| "DSA_generate_parameters() generates primes p and q and a generator g for "
+#| "use in the DSA."
 msgid ""
-"DSA_generate_parameters() generates primes p and q and a generator g for use "
-"in the DSA."
+"DSA_generate_parameters_ex() generates primes p and q and a generator g for "
+"use in the DSA and stores the result in B<dsa>."
 msgstr ""
 "B<DSA_generate_parameters>() crée des nombres premiers I<p> et I<q> et un "
 "générateur I<g> pour utiliser dans le DSA."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:20
+#: C/crypto/DSA_generate_parameters.pod:26
 msgid ""
 "B<bits> is the length of the prime to be generated; the DSS allows a maximum "
 "of 1024 bits."
@@ -1073,7 +1133,7 @@ msgstr ""
 "au maximum."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:23
+#: C/crypto/DSA_generate_parameters.pod:29
 msgid ""
 "If B<seed> is B<NULL> or B<seed_len> E<lt> 20, the primes will be generated "
 "at random. Otherwise, the seed is used to generate them. If the given seed "
@@ -1085,10 +1145,15 @@ msgstr ""
 "initialisation aléatoire est choisie et placée dans I<seed>."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:28
+#: C/crypto/DSA_generate_parameters.pod:34
+#, fuzzy
+#| msgid ""
+#| "DSA_generate_parameters() places the iteration count in *B<counter_ret> "
+#| "and a counter used for finding a generator in *B<h_ret>, unless these are "
+#| "B<NULL>."
 msgid ""
-"DSA_generate_parameters() places the iteration count in *B<counter_ret> and "
-"a counter used for finding a generator in *B<h_ret>, unless these are "
+"DSA_generate_parameters_ex() places the iteration count in *B<counter_ret> "
+"and a counter used for finding a generator in *B<h_ret>, unless these are "
 "B<NULL>."
 msgstr ""
 "B<DSA_generate_parameters>() place le décompte d’itérations dans "
@@ -1096,44 +1161,62 @@ msgstr ""
 "B<*>I<h_ret>, sauf s’ils sont B<NULL>."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:32
+#: C/crypto/DSA_generate_parameters.pod:38
+#, fuzzy
+#| msgid ""
+#| "A callback function may be used to provide feedback about the progress of "
+#| "the key generation. If B<callback> is not B<NULL>, it will be called as "
+#| "follows:"
 msgid ""
 "A callback function may be used to provide feedback about the progress of "
-"the key generation. If B<callback> is not B<NULL>, it will be called as "
-"follows:"
+"the key generation. If B<cb> is not B<NULL>, it will be called as shown "
+"below. For information on the BN_GENCB structure and the BN_GENCB_call "
+"function discussed below, refer to L<BN_generate_prime(3)|"
+"BN_generate_prime(3)>."
 msgstr ""
 "Une fonction de rappel pourrait être utilisée pour fournir un retour sur "
 "l’avancement de la création de clef. Si I<callback> n’est pas B<NULL>, elle "
 "sera appelée comme suit."
 
 #. type: =item
-#: C/crypto/DSA_generate_parameters.pod:38
-#: C/crypto/DSA_generate_parameters.pod:43
-#: C/crypto/DSA_generate_parameters.pod:52
-#: C/crypto/DSA_generate_parameters.pod:57
-#: C/crypto/DSA_generate_parameters.pod:62
-#: C/crypto/DSA_generate_parameters.pod:71
-#: C/crypto/DSA_generate_parameters.pod:75
+#: C/crypto/DSA_generate_parameters.pod:46
+#: C/crypto/DSA_generate_parameters.pod:51
+#: C/crypto/DSA_generate_parameters.pod:60
+#: C/crypto/DSA_generate_parameters.pod:65
+#: C/crypto/DSA_generate_parameters.pod:70
+#: C/crypto/DSA_generate_parameters.pod:79
+#: C/crypto/DSA_generate_parameters.pod:83
 msgid "*"
 msgstr "*"
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:40
+#: C/crypto/DSA_generate_parameters.pod:48
+#, fuzzy
+#| msgid ""
+#| "When a candidate for q is generated, B<callback(0, m++, cb_arg)> is "
+#| "called (m is 0 for the first candidate)."
 msgid ""
-"When a candidate for q is generated, B<callback(0, m++, cb_arg)> is called "
+"When a candidate for q is generated, B<BN_GENCB_call(cb, 0, m++)> is called "
 "(m is 0 for the first candidate)."
 msgstr ""
 "Quand un candidat pour I<q> est créé, I<callback>B<(0,> I<m>B<++, "
 ">I<cb_arg>B<)> est appelée (I<m> est B<0> pour le premier candidat)."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:45
+#: C/crypto/DSA_generate_parameters.pod:53
+#, fuzzy
+#| msgid ""
+#| "When a candidate for q has passed a test by trial division, B<callback(1, "
+#| "-1, cb_arg)> is called.  While a candidate for q is tested by Miller-"
+#| "Rabin primality tests, B<callback(1, i, cb_arg)> is called in the outer "
+#| "loop (once for each witness that confirms that the candidate may be "
+#| "prime); i is the loop counter (starting at 0)."
 msgid ""
-"When a candidate for q has passed a test by trial division, B<callback(1, "
-"-1, cb_arg)> is called.  While a candidate for q is tested by Miller-Rabin "
-"primality tests, B<callback(1, i, cb_arg)> is called in the outer loop (once "
-"for each witness that confirms that the candidate may be prime); i is the "
-"loop counter (starting at 0)."
+"When a candidate for q has passed a test by trial division, "
+"B<BN_GENCB_call(cb, 1, -1)> is called.  While a candidate for q is tested by "
+"Miller-Rabin primality tests, B<BN_GENCB_call(cb, 1, i)> is called in the "
+"outer loop (once for each witness that confirms that the candidate may be "
+"prime); i is the loop counter (starting at 0)."
 msgstr ""
 "Quand un candidat pour I<q> a passé un test par divisions successives, "
 "I<callback>B<(1, -1, >I<cb_arg>B<)> est appelée. Alors qu’un candidat pour "
@@ -1143,31 +1226,46 @@ msgstr ""
 "le compteur de boucles (commençant à B<0>)."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:54
+#: C/crypto/DSA_generate_parameters.pod:62
+#, fuzzy
+#| msgid ""
+#| "When a prime q has been found, B<callback(2, 0, cb_arg)> and "
+#| "B<callback(3, 0, cb_arg)> are called."
 msgid ""
-"When a prime q has been found, B<callback(2, 0, cb_arg)> and B<callback(3, "
-"0, cb_arg)> are called."
+"When a prime q has been found, B<BN_GENCB_call(cb, 2, 0)> and "
+"B<BN_GENCB_call(cb, 3, 0)> are called."
 msgstr ""
 "Quand un nombre premier I<q> a été trouvé, I<callback>B<(2, 0,> "
 "I<cb_arg>B<)> et I<callback>B<(3, 0,> I<cb_arg>B<)> sont appelées."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:59
+#: C/crypto/DSA_generate_parameters.pod:67
+#, fuzzy
+#| msgid ""
+#| "Before a candidate for p (other than the first) is generated and tested, "
+#| "B<callback(0, counter, cb_arg)> is called."
 msgid ""
 "Before a candidate for p (other than the first) is generated and tested, "
-"B<callback(0, counter, cb_arg)> is called."
+"B<BN_GENCB_call(cb, 0, counter)> is called."
 msgstr ""
 "Avant qu’un candidat pour I<p> (autre que le premier) ne soit créé et testé, "
 "I<callback>B<(0,> I<counter>B<, >I<cb_arg>B<)> est appelée."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:64
+#: C/crypto/DSA_generate_parameters.pod:72
+#, fuzzy
+#| msgid ""
+#| "When a candidate for p has passed the test by trial division, "
+#| "B<callback(1, -1, cb_arg)> is called.  While it is tested by the Miller-"
+#| "Rabin primality test, B<callback(1, i, cb_arg)> is called in the outer "
+#| "loop (once for each witness that confirms that the candidate may be "
+#| "prime).  i is the loop counter (starting at 0)."
 msgid ""
-"When a candidate for p has passed the test by trial division, B<callback(1, "
-"-1, cb_arg)> is called.  While it is tested by the Miller-Rabin primality "
-"test, B<callback(1, i, cb_arg)> is called in the outer loop (once for each "
-"witness that confirms that the candidate may be prime).  i is the loop "
-"counter (starting at 0)."
+"When a candidate for p has passed the test by trial division, "
+"B<BN_GENCB_call(cb, 1, -1)> is called.  While it is tested by the Miller-"
+"Rabin primality test, B<BN_GENCB_call(cb, 1, i)> is called in the outer loop "
+"(once for each witness that confirms that the candidate may be prime).  i is "
+"the loop counter (starting at 0)."
 msgstr ""
 "Quand un candidat pour I<p> a passé un test par divisions successives, "
 "I<callback>B<(1, -1, >I<cb_arg>B<)> est appelée. Alors qu’il est testé par "
@@ -1177,51 +1275,95 @@ msgstr ""
 "compteur de boucle (commençant à B<0>)."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:73
-msgid "When p has been found, B<callback(2, 1, cb_arg)> is called."
+#: C/crypto/DSA_generate_parameters.pod:81
+#, fuzzy
+#| msgid "When p has been found, B<callback(2, 1, cb_arg)> is called."
+msgid "When p has been found, B<BN_GENCB_call(cb, 2, 1)> is called."
 msgstr ""
 "Quand I<p> a été trouvé, I<callback>B<(2, 1,> I<cb_arg>B<)> est appelée."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:77
-msgid "When the generator has been found, B<callback(3, 1, cb_arg)> is called."
+#: C/crypto/DSA_generate_parameters.pod:85
+#, fuzzy
+#| msgid ""
+#| "When the generator has been found, B<callback(3, 1, cb_arg)> is called."
+msgid ""
+"When the generator has been found, B<BN_GENCB_call(cb, 3, 1)> is called."
 msgstr ""
 "Quand le générateur a été trouvé, I<callback>B<(3, 1,> I<cb_arg>B<)> est "
 "appelée."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:83
+#: C/crypto/DSA_generate_parameters.pod:89
+msgid ""
+"DSA_generate_parameters() (deprecated) works in much the same way as for "
+"DSA_generate_parameters_ex, except that no B<dsa> parameter is passed and "
+"instead a newly allocated B<DSA> structure is returned. Additionally \"old "
+"style\" callbacks are used instead of the newer BN_GENCB based approach.  "
+"Refer to L<BN_generate_prime(3)|BN_generate_prime(3)> for further "
+"information."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/DSA_generate_parameters.pod:96
+msgid "DSA_generate_parameters_ex() returns a 1 on success, or 0 otherwise."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/DSA_generate_parameters.pod:98
+#, fuzzy
+#| msgid ""
+#| "DSA_generate_parameters() returns a pointer to the DSA structure, or "
+#| "B<NULL> if the parameter generation fails. The error codes can be "
+#| "obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
 msgid ""
 "DSA_generate_parameters() returns a pointer to the DSA structure, or B<NULL> "
-"if the parameter generation fails. The error codes can be obtained by "
-"L<ERR_get_error(3)|ERR_get_error(3)>."
+"if the parameter generation fails."
 msgstr ""
 "B<DSA_generate_parameters>() renvoie un pointeur vers la structure DSA ou "
 "B<NULL> en cas d’échec de création de paramètre. Les codes d’erreur peuvent "
 "être obtenus par L<B<ERR_get_error>(3)|ERR_get_error(3)>."
 
+#. type: textblock
+#: C/crypto/DSA_generate_parameters.pod:101
+#, fuzzy
+#| msgid ""
+#| "DSA_generate_key() returns 1 on success, 0 otherwise.  The error codes "
+#| "can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
+msgid ""
+"The error codes can be obtained by L<ERR_get_error(3)|ERR_get_error(3)>."
+msgstr ""
+"B<DSA_generate_key>() renvoie B<1> si elle réussit et B<0> sinon. Les codes "
+"d'erreur peuvent être obtenus à l'aide de L<B<ERR_get_error>(3)|"
+"ERR_get_error(3)>."
+
 #. type: =head1
-#: C/crypto/DSA_generate_parameters.pod:87
+#: C/crypto/DSA_generate_parameters.pod:103
 msgid "BUGS"
 msgstr "BOGUES"
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:89
+#: C/crypto/DSA_generate_parameters.pod:105
 msgid "Seed lengths E<gt> 20 are not supported."
 msgstr "Les tailles de I<seed> E<gt> 20 ne sont pas prises en charge."
 
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:93
+#: C/crypto/DSA_generate_parameters.pod:109
+#, fuzzy
+#| msgid ""
+#| "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|"
+#| "rand(3)>, L<DSA_generate_parameters(3)|DSA_generate_parameters(3)>"
 msgid ""
 "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|rand(3)>, "
-"L<DSA_free(3)|DSA_free(3)>"
+"L<DSA_free(3)|DSA_free(3)>, L<BN_generate_prime(3)|BN_generate_prime(3)>"
 msgstr ""
-"L<B<dsa>(3)|dsa(3)>, L<B<DSA_free>(3)|DSA_free(3)>, L<B<ERR_get_error>(3)|"
-"ERR_get_error(3)>, L<B<rand>(3)|rand(3)>"
+"L<B<dsa>(3)|dsa(3)>, L<B<DSA_generate_parameters>(3)|"
+"DSA_generate_parameters(3)>, L<B<ERR_get_error>(3)|ERR_get_error(3)>, "
+"L<B<rand>(3)|rand(3)>"
 
 # NOTE:  =cut not separated
 #. type: textblock
-#: C/crypto/DSA_generate_parameters.pod:98
+#: C/crypto/DSA_generate_parameters.pod:114
 msgid ""
 "DSA_generate_parameters() appeared in SSLeay 0.8. The B<cb_arg> argument was "
 "added in SSLeay 0.9.0.  In versions up to OpenSSL 0.9.4, B<callback(1, ...)> "
@@ -2272,9 +2414,12 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/ecdsa.pod:5
-msgid "ecdsa - Elliptic Curve Digital Signature Algorithm"
+msgid ""
+"ECDSA_SIG_new, ECDSA_SIG_free, i2d_ECDSA_SIG, d2i_ECDSA_SIG, ECDSA_size, "
+"ECDSA_sign_setup, ECDSA_sign, ECDSA_sign_ex, ECDSA_verify, ECDSA_do_sign, "
+"ECDSA_do_sign_ex, ECDSA_do_verify - Elliptic Curve Digital Signature "
+"Algorithm"
 msgstr ""
-"ecdsa - Algorithme de signature numérique utilisant les courbes elliptiques"
 
 #. type: verbatim
 #: C/crypto/ecdsa.pod:9
@@ -2783,3 +2928,18 @@ msgstr "AUTEUR"
 #: C/crypto/ecdsa.pod:204
 msgid "Nils Larsch for the OpenSSL project (http://www.openssl.org)."
 msgstr "Nils Larsch pour le projet OpenSSL (http://www.openssl.org)."
+
+#~ msgid "B<-des|-des3|-idea>"
+#~ msgstr "B<-des>|B<-des3>|B<-idea>"
+
+#~ msgid ""
+#~ "L<dsa(3)|dsa(3)>, L<ERR_get_error(3)|ERR_get_error(3)>, L<rand(3)|"
+#~ "rand(3)>, L<DSA_free(3)|DSA_free(3)>"
+#~ msgstr ""
+#~ "L<B<dsa>(3)|dsa(3)>, L<B<DSA_free>(3)|DSA_free(3)>, L<B<ERR_get_error>(3)|"
+#~ "ERR_get_error(3)>, L<B<rand>(3)|rand(3)>"
+
+#~ msgid "ecdsa - Elliptic Curve Digital Signature Algorithm"
+#~ msgstr ""
+#~ "ecdsa - Algorithme de signature numérique utilisant les courbes "
+#~ "elliptiques"

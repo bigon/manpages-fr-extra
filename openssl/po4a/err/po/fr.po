@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2014-03-03 13:15-0300\n"
+"POT-Creation-Date: 2014-07-25 12:08-0400\n"
 "PO-Revision-Date: 2013-02-05 16:49-0400\n"
 "Last-Translator: none yet\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -52,7 +52,7 @@ msgstr "B<openssl errstr code_erreur>"
 #: C/crypto/ERR_clear_error.pod:13 C/crypto/ERR_error_string.pod:20
 #: C/crypto/ERR_get_error.pod:29 C/crypto/ERR_load_crypto_strings.pod:19
 #: C/crypto/ERR_load_strings.pod:18 C/crypto/ERR_print_errors.pod:14
-#: C/crypto/ERR_put_error.pod:16 C/crypto/ERR_remove_state.pod:13
+#: C/crypto/ERR_put_error.pod:16 C/crypto/ERR_remove_state.pod:17
 #: C/crypto/ERR_set_mark.pod:15 C/crypto/err.pod:47
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
@@ -130,7 +130,7 @@ msgstr ""
 #: C/crypto/ERR_clear_error.pod:21 C/crypto/ERR_error_string.pod:61
 #: C/crypto/ERR_get_error.pod:65 C/crypto/ERR_load_crypto_strings.pod:36
 #: C/crypto/ERR_load_strings.pod:44 C/crypto/ERR_print_errors.pod:39
-#: C/crypto/ERR_put_error.pod:35 C/crypto/ERR_remove_state.pod:26
+#: C/crypto/ERR_put_error.pod:35 C/crypto/ERR_remove_state.pod:35
 #: C/crypto/ERR_set_mark.pod:30 C/crypto/err.pod:172
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
@@ -275,7 +275,7 @@ msgstr "L<err(3)|err(3)>, L<ERR_get_error(3)|ERR_get_error(3)>"
 #: C/crypto/ERR_error_string.pod:68 C/crypto/ERR_get_error.pod:70
 #: C/crypto/ERR_load_crypto_strings.pod:40 C/crypto/ERR_load_strings.pod:48
 #: C/crypto/ERR_print_errors.pod:46 C/crypto/ERR_put_error.pod:39
-#: C/crypto/ERR_remove_state.pod:30 C/crypto/ERR_set_mark.pod:34
+#: C/crypto/ERR_remove_state.pod:39 C/crypto/ERR_set_mark.pod:34
 msgid "HISTORY"
 msgstr "HISTORIQUE"
 
@@ -563,7 +563,7 @@ msgstr ""
 #| "allocated by OPENSSL_malloc(), *B<flags>&B<ERR_TXT_MALLOCED> is true."
 msgid ""
 "ERR_get_error_line_data(), ERR_peek_error_line_data() and "
-"ERR_get_last_error_line_data() store additional data and flags associated "
+"ERR_peek_last_error_line_data() store additional data and flags associated "
 "with the error code in *B<data> and *B<flags>, unless these are B<NULL>. "
 "*B<data> contains a string if *B<flags>&B<ERR_TXT_STRING> is true."
 msgstr ""
@@ -800,7 +800,7 @@ msgstr ""
 "de bibliothèque aux bibliothèques de l'utilisateur au moment de l'exécution."
 
 #. type: =head1
-#: C/crypto/ERR_load_strings.pod:39 C/crypto/ERR_remove_state.pod:22
+#: C/crypto/ERR_load_strings.pod:39 C/crypto/ERR_remove_state.pod:31
 msgid "RETURN VALUE"
 msgstr "VALEUR DE RETOUR"
 
@@ -1005,11 +1005,31 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/ERR_remove_state.pod:5
-msgid "ERR_remove_state - free a thread's error queue"
+#, fuzzy
+#| msgid "ERR_remove_state - free a thread's error queue"
+msgid "ERR_remove_thread_state, ERR_remove_state - free a thread's error queue"
 msgstr "ERR_remove_state - Libérer une file d'erreur de thread"
 
 #. type: verbatim
-#: C/crypto/ERR_remove_state.pod:11 C/crypto/err.pod:37
+#: C/crypto/ERR_remove_state.pod:11
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void ERR_remove_state(unsigned long pid);\n"
+#| "\n"
+msgid ""
+" void ERR_remove_thread_state(const CRYPTO_THREADID *tid);\n"
+"\n"
+msgstr ""
+" void ERR_remove_state(unsigned long pid);\n"
+"\n"
+
+#. type: textblock
+#: C/crypto/ERR_remove_state.pod:13
+msgid "Deprecated:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ERR_remove_state.pod:15 C/crypto/err.pod:37
 #, no-wrap
 msgid ""
 " void ERR_remove_state(unsigned long pid);\n"
@@ -1019,16 +1039,21 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/crypto/ERR_remove_state.pod:15
+#: C/crypto/ERR_remove_state.pod:19
+#, fuzzy
+#| msgid ""
+#| "ERR_remove_state() frees the error queue associated with thread B<pid>.  "
+#| "If B<pid> == 0, the current thread will have its error queue removed."
 msgid ""
-"ERR_remove_state() frees the error queue associated with thread B<pid>.  If "
-"B<pid> == 0, the current thread will have its error queue removed."
+"ERR_remove_thread_state() frees the error queue associated with thread "
+"B<tid>.  If B<tid> == B<NULL>, the current thread will have its error queue "
+"removed."
 msgstr ""
 "B<ERR_remove_state>() libère la file d'erreur associée au thread I<pid>. Si "
 "I<pid> == 0, la file du thread en cours sera supprimée."
 
 #. type: textblock
-#: C/crypto/ERR_remove_state.pod:18
+#: C/crypto/ERR_remove_state.pod:22
 msgid ""
 "Since error queue data structures are allocated automatically for new "
 "threads, they must be freed when threads are terminated in order to avoid "
@@ -1039,21 +1064,34 @@ msgstr ""
 "les threads sont terminés afin d'éviter les fuites de mémoire."
 
 #. type: textblock
-#: C/crypto/ERR_remove_state.pod:24
-msgid "ERR_remove_state() returns no value."
+#: C/crypto/ERR_remove_state.pod:26
+msgid ""
+"ERR_remove_state is deprecated and has been replaced by "
+"ERR_remove_thread_state. Since threads in OpenSSL are no longer identified "
+"by unsigned long values any argument to this function is ignored. Calling "
+"ERR_remove_state is equivalent to B<ERR_remove_thread_state(NULL)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ERR_remove_state.pod:33
+#, fuzzy
+#| msgid "ERR_remove_state() returns no value."
+msgid "ERR_remove_thread_state and ERR_remove_state() return no value."
 msgstr "B<ERR_remove_state>() ne renvoie pas de valeur."
 
 #. type: textblock
-#: C/crypto/ERR_remove_state.pod:28 C/crypto/ERR_set_mark.pod:32
+#: C/crypto/ERR_remove_state.pod:37 C/crypto/ERR_set_mark.pod:32
 msgid "L<err(3)|err(3)>"
 msgstr "L<err(3)|err(3)>"
 
 #. type: textblock
-#: C/crypto/ERR_remove_state.pod:32
-msgid "ERR_remove_state() is available in all versions of SSLeay and OpenSSL."
+#: C/crypto/ERR_remove_state.pod:41
+msgid ""
+"ERR_remove_state() is available in all versions of SSLeay and OpenSSL. It "
+"was deprecated in OpenSSL 1.0.0 when ERR_remove_thread_state was introduced "
+"and thread IDs were introduced to identify threads instead of 'unsigned "
+"long'."
 msgstr ""
-"B<ERR_remove_state>() est disponible dans toutes les versions de SSLeay et "
-"OpenSSL."
 
 #. type: textblock
 #: C/crypto/ERR_set_mark.pod:5
@@ -1453,8 +1491,18 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/err.pod:174
+#, fuzzy
+#| msgid ""
+#| "L<CRYPTO_set_id_callback(3)|CRYPTO_set_id_callback(3)>, "
+#| "L<CRYPTO_set_locking_callback(3)|CRYPTO_set_locking_callback(3)>, "
+#| "L<ERR_get_error(3)|ERR_get_error(3)>, L<ERR_GET_LIB(3)|ERR_GET_LIB(3)>, "
+#| "L<ERR_clear_error(3)|ERR_clear_error(3)>, L<ERR_error_string(3)|"
+#| "ERR_error_string(3)>, L<ERR_print_errors(3)|ERR_print_errors(3)>, "
+#| "L<ERR_load_crypto_strings(3)|ERR_load_crypto_strings(3)>, "
+#| "L<ERR_remove_state(3)|ERR_remove_state(3)>, L<ERR_put_error(3)|"
+#| "ERR_put_error(3)>, L<ERR_load_strings(3)|ERR_load_strings(3)>, "
+#| "L<SSL_get_error(3)|SSL_get_error(3)>"
 msgid ""
-"L<CRYPTO_set_id_callback(3)|CRYPTO_set_id_callback(3)>, "
 "L<CRYPTO_set_locking_callback(3)|CRYPTO_set_locking_callback(3)>, "
 "L<ERR_get_error(3)|ERR_get_error(3)>, L<ERR_GET_LIB(3)|ERR_GET_LIB(3)>, "
 "L<ERR_clear_error(3)|ERR_clear_error(3)>, L<ERR_error_string(3)|"
@@ -1473,3 +1521,9 @@ msgstr ""
 "L<ERR_remove_state(3)|ERR_remove_state(3)>, L<ERR_put_error(3)|"
 "ERR_put_error(3)>, L<ERR_load_strings(3)|ERR_load_strings(3)>, "
 "L<SSL_get_error(3)|SSL_get_error(3)>"
+
+#~ msgid ""
+#~ "ERR_remove_state() is available in all versions of SSLeay and OpenSSL."
+#~ msgstr ""
+#~ "B<ERR_remove_state>() est disponible dans toutes les versions de SSLeay "
+#~ "et OpenSSL."

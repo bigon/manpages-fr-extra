@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2014-03-03 14:11-0300\n"
+"POT-Creation-Date: 2014-07-25 12:08-0400\n"
 "PO-Revision-Date: 2014-03-03 14:09-0300\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 "[I<listechiffrements>]"
 
 #. type: =head1
-#: C/apps/ciphers.pod:17 C/apps/s_client.pod:50 C/apps/s_server.pod:62
+#: C/apps/ciphers.pod:17 C/apps/s_client.pod:54 C/apps/s_server.pod:66
 #: C/apps/s_time.pod:27
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
@@ -101,7 +101,9 @@ msgstr "B<-V>"
 # NOTE: s/V/v/
 #. type: textblock
 #: C/apps/ciphers.pod:39
-msgid "Like B<-V>, but include cipher suite codes in output (hex format)."
+#, fuzzy
+#| msgid "Like B<-V>, but include cipher suite codes in output (hex format)."
+msgid "Like B<-v>, but include cipher suite codes in output (hex format)."
 msgstr ""
 "Comme B<-v>, mais contient les codes des ensembles de chiffrements dans la "
 "sortie (format hexadécimal)."
@@ -313,10 +315,15 @@ msgstr "B<COMPLEMENTOFDEFAULT>"
 
 #. type: textblock
 #: C/apps/ciphers.pod:118
+#, fuzzy
+#| msgid ""
+#| "the ciphers included in B<ALL>, but not enabled by default. Currently "
+#| "this is B<ADH>. Note that this rule does not cover B<eNULL>, which is not "
+#| "included by B<ALL> (use B<COMPLEMENTOFALL> if necessary)."
 msgid ""
 "the ciphers included in B<ALL>, but not enabled by default. Currently this "
-"is B<ADH>. Note that this rule does not cover B<eNULL>, which is not "
-"included by B<ALL> (use B<COMPLEMENTOFALL> if necessary)."
+"is B<ADH> and B<AECDH>. Note that this rule does not cover B<eNULL>, which "
+"is not included by B<ALL> (use B<COMPLEMENTOFALL> if necessary)."
 msgstr ""
 "Les algorithmes inclus dans B<ALL>, mais désactivés par défaut. Actuellement "
 "il s'agit de B<ADH>. Notez que cette règle ne couvre pas B<eNULL>, qui n'est "
@@ -456,10 +463,16 @@ msgstr "B<aNULL>"
 
 #. type: textblock
 #: C/apps/ciphers.pod:167
+#, fuzzy
+#| msgid ""
+#| "the cipher suites offering no authentication. This is currently the "
+#| "anonymous DH algorithms. These cipher suites are vulnerable to a \"man in "
+#| "the middle\" attack and so their use is normally discouraged."
 msgid ""
 "the cipher suites offering no authentication. This is currently the "
-"anonymous DH algorithms. These cipher suites are vulnerable to a \"man in "
-"the middle\" attack and so their use is normally discouraged."
+"anonymous DH algorithms and anonymous ECDH algorithms. These cipher suites "
+"are vulnerable to a \"man in the middle\" attack and so their use is "
+"normally discouraged."
 msgstr ""
 "Les ensembles de chiffrements sans authentification. Il s'agit actuellement "
 "des algorithmes anonymes DH. Ces ensembles de chiffrements sont vulnérables "
@@ -478,36 +491,162 @@ msgstr "Ensembles de chiffrements utilisant l'échange de clef RSA."
 
 #. type: =item
 #: C/apps/ciphers.pod:175
-msgid "B<kEDH>"
-msgstr "B<kEDH>"
-
-#. type: textblock
-#: C/apps/ciphers.pod:177
-msgid "cipher suites using ephemeral DH key agreement."
-msgstr "Ensembles de chiffrements utilisant l'échange de clef éphémère DH."
-
-#. type: =item
-#: C/apps/ciphers.pod:179
-msgid "B<kDHr>, B<kDHd>"
+#, fuzzy
+#| msgid "B<kDHr>, B<kDHd>"
+msgid "B<kDHr>, B<kDHd>, B<kDH>"
 msgstr "B<kDHr>, B<kDHd>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:181
+#: C/apps/ciphers.pod:177
+#, fuzzy
+#| msgid ""
+#| "cipher suites using DH key agreement and DH certificates signed by CAs "
+#| "with RSA and DSS keys respectively. Not implemented."
 msgid ""
 "cipher suites using DH key agreement and DH certificates signed by CAs with "
-"RSA and DSS keys respectively. Not implemented."
+"RSA and DSS keys or either respectively."
 msgstr ""
 "Ensembles de chiffrements utilisant l’échange de clefs DH ainsi que des "
 "certificats DH signés par des autorités de certification utilisant "
 "respectivement des clefs RSA et DSS. Non implémentés."
 
 #. type: =item
-#: C/apps/ciphers.pod:184
+#: C/apps/ciphers.pod:180
+msgid "B<kEDH>"
+msgstr "B<kEDH>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:182
+#, fuzzy
+#| msgid "cipher suites using ephemeral DH key agreement."
+msgid ""
+"cipher suites using ephemeral DH key agreement, including anonymous cipher "
+"suites."
+msgstr "Ensembles de chiffrements utilisant l'échange de clef éphémère DH."
+
+#. type: =item
+#: C/apps/ciphers.pod:185
+#, fuzzy
+#| msgid "B<kEDH>"
+msgid "B<EDH>"
+msgstr "B<kEDH>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:187
+#, fuzzy
+#| msgid "cipher suites using ephemeral DH key agreement."
+msgid "cipher suites using authenticated ephemeral DH key agreement."
+msgstr "Ensembles de chiffrements utilisant l'échange de clef éphémère DH."
+
+#. type: =item
+#: C/apps/ciphers.pod:189
+msgid "B<ADH>"
+msgstr "B<ADH>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:191
+msgid ""
+"anonymous DH cipher suites, note that this does not include anonymous "
+"Elliptic Curve DH (ECDH) cipher suites."
+msgstr ""
+
+#. type: =item
+#: C/apps/ciphers.pod:194
+msgid "B<DH>"
+msgstr "B<DH>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:196
+#, fuzzy
+#| msgid "cipher suites using DH, including anonymous DH."
+msgid ""
+"cipher suites using DH, including anonymous DH, ephemeral DH and fixed DH."
+msgstr "Ensembles de chiffrements utilisant DH, y compris DH anonyme."
+
+#. type: =item
+#: C/apps/ciphers.pod:198
+#, fuzzy
+#| msgid "B<kDHr>, B<kDHd>"
+msgid "B<kECDHr>, B<kECDHe>, B<kECDH>"
+msgstr "B<kDHr>, B<kDHd>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:200
+#, fuzzy
+#| msgid ""
+#| "cipher suites using DH key agreement and DH certificates signed by CAs "
+#| "with RSA and DSS keys respectively. Not implemented."
+msgid ""
+"cipher suites using fixed ECDH key agreement signed by CAs with RSA and "
+"ECDSA keys or either respectively."
+msgstr ""
+"Ensembles de chiffrements utilisant l’échange de clefs DH ainsi que des "
+"certificats DH signés par des autorités de certification utilisant "
+"respectivement des clefs RSA et DSS. Non implémentés."
+
+#. type: =item
+#: C/apps/ciphers.pod:203
+#, fuzzy
+#| msgid "B<kEDH>"
+msgid "B<kEECDH>"
+msgstr "B<kEDH>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:205
+#, fuzzy
+#| msgid "cipher suites using ephemeral DH key agreement."
+msgid ""
+"cipher suites using ephemeral ECDH key agreement, including anonymous cipher "
+"suites."
+msgstr "Ensembles de chiffrements utilisant l'échange de clef éphémère DH."
+
+#. type: =item
+#: C/apps/ciphers.pod:208
+msgid "B<EECDHE>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ciphers.pod:210
+#, fuzzy
+#| msgid "cipher suites using ephemeral DH key agreement."
+msgid "cipher suites using authenticated ephemeral ECDH key agreement."
+msgstr "Ensembles de chiffrements utilisant l'échange de clef éphémère DH."
+
+#. type: =item
+#: C/apps/ciphers.pod:212
+#, fuzzy
+#| msgid "B<AES>"
+msgid "B<AECDH>"
+msgstr "B<AES>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:214
+#, fuzzy
+#| msgid "anonymous DH cipher suites."
+msgid "anonymous Elliptic Curve Diffie Hellman cipher suites."
+msgstr "Ensembles de chiffrements DH anonymes."
+
+#. type: =item
+#: C/apps/ciphers.pod:216
+msgid "B<ECDH>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ciphers.pod:218
+#, fuzzy
+#| msgid "cipher suites using DH, including anonymous DH."
+msgid ""
+"cipher suites using ECDH key exchange, including anonymous, ephemeral and "
+"fixed ECDH."
+msgstr "Ensembles de chiffrements utilisant DH, y compris DH anonyme."
+
+#. type: =item
+#: C/apps/ciphers.pod:221
 msgid "B<aRSA>"
 msgstr "B<aRSA>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:186
+#: C/apps/ciphers.pod:223
 msgid ""
 "cipher suites using RSA authentication, i.e. the certificates carry RSA keys."
 msgstr ""
@@ -515,12 +654,12 @@ msgstr ""
 "les certificats portent des clefs RSA."
 
 #. type: =item
-#: C/apps/ciphers.pod:188
+#: C/apps/ciphers.pod:225
 msgid "B<aDSS>, B<DSS>"
 msgstr "B<aDSS>, B<DSS>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:190
+#: C/apps/ciphers.pod:227
 msgid ""
 "cipher suites using DSS authentication, i.e. the certificates carry DSS keys."
 msgstr ""
@@ -528,26 +667,68 @@ msgstr ""
 "les certificats portent des clefs DSS."
 
 #. type: =item
-#: C/apps/ciphers.pod:192
+#: C/apps/ciphers.pod:229
 msgid "B<aDH>"
 msgstr "B<aDH>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:194
+#: C/apps/ciphers.pod:231
+#, fuzzy
+#| msgid ""
+#| "cipher suites effectively using DH authentication, i.e. the certificates "
+#| "carry DH keys.  Not implemented."
 msgid ""
 "cipher suites effectively using DH authentication, i.e. the certificates "
-"carry DH keys.  Not implemented."
+"carry DH keys."
 msgstr ""
 "Ensembles de chiffrements utilisant effectivement l'authentification DH, "
 "c'est-à-dire que les certificats portent des clefs DH. Non implémentés."
 
 #. type: =item
-#: C/apps/ciphers.pod:197
+#: C/apps/ciphers.pod:234
+msgid "B<aECDH>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ciphers.pod:236
+#, fuzzy
+#| msgid ""
+#| "cipher suites effectively using DH authentication, i.e. the certificates "
+#| "carry DH keys.  Not implemented."
+msgid ""
+"cipher suites effectively using ECDH authentication, i.e. the certificates "
+"carry ECDH keys."
+msgstr ""
+"Ensembles de chiffrements utilisant effectivement l'authentification DH, "
+"c'est-à-dire que les certificats portent des clefs DH. Non implémentés."
+
+#. type: =item
+#: C/apps/ciphers.pod:239
+#, fuzzy
+#| msgid "B<aDSS>, B<DSS>"
+msgid "B<aECDSA>, B<ECDSA>"
+msgstr "B<aDSS>, B<DSS>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:241
+#, fuzzy
+#| msgid ""
+#| "cipher suites using RSA authentication, i.e. the certificates carry RSA "
+#| "keys."
+msgid ""
+"cipher suites using ECDSA authentication, i.e. the certificates carry ECDSA "
+"keys."
+msgstr ""
+"Ensembles de chiffrements utilisant l'authentification RSA, c'est-à-dire que "
+"les certificats portent des clefs RSA."
+
+#. type: =item
+#: C/apps/ciphers.pod:244
 msgid "B<kFZA>, B<aFZA>, B<eFZA>, B<FZA>"
 msgstr "B<kFZA>, B<aFZA>, B<eFZA>, B<FZA>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:199
+#: C/apps/ciphers.pod:246
 msgid ""
 "ciphers suites using FORTEZZA key exchange, authentication, encryption or "
 "all FORTEZZA algorithms. Not implemented."
@@ -556,144 +737,163 @@ msgstr ""
 "le chiffrement ou tous les algorithmes FORTEZZA. Non implémentés."
 
 #. type: =item
-#: C/apps/ciphers.pod:202
-msgid "B<TLSv1>, B<SSLv3>, B<SSLv2>"
+#: C/apps/ciphers.pod:249
+#, fuzzy
+#| msgid "B<TLSv1>, B<SSLv3>, B<SSLv2>"
+msgid "B<TLSv1.2>, B<TLSv1>, B<SSLv3>, B<SSLv2>"
 msgstr "B<TLSv1>, B<SSLv3>, B<SSLv2>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:204
-msgid "TLS v1.0, SSL v3.0 or SSL v2.0 cipher suites respectively."
+#: C/apps/ciphers.pod:251
+#, fuzzy
+#| msgid "TLS v1.0, SSL v3.0 or SSL v2.0 cipher suites respectively."
+msgid ""
+"TLS v1.2, TLS v1.0, SSL v3.0 or SSL v2.0 cipher suites respectively. Note: "
+"there are no ciphersuites specific to TLS v1.1."
 msgstr ""
 "Ensembles de chiffrements TLS v1.0, SSL v3.0 ou SSL v2.0 respectivement."
 
 #. type: =item
-#: C/apps/ciphers.pod:206
-msgid "B<DH>"
-msgstr "B<DH>"
+#: C/apps/ciphers.pod:254
+#, fuzzy
+#| msgid "B<TLSv1>, B<SSLv3>, B<SSLv2>"
+msgid "B<AES128>, B<AES256>, B<AES>"
+msgstr "B<TLSv1>, B<SSLv3>, B<SSLv2>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:208
-msgid "cipher suites using DH, including anonymous DH."
-msgstr "Ensembles de chiffrements utilisant DH, y compris DH anonyme."
+#: C/apps/ciphers.pod:256
+msgid ""
+"cipher suites using 128 bit AES, 256 bit AES or either 128 or 256 bit AES."
+msgstr ""
 
 #. type: =item
-#: C/apps/ciphers.pod:210
-msgid "B<ADH>"
-msgstr "B<ADH>"
-
-#. type: textblock
-#: C/apps/ciphers.pod:212
-msgid "anonymous DH cipher suites."
-msgstr "Ensembles de chiffrements DH anonymes."
-
-#. type: =item
-#: C/apps/ciphers.pod:214
-msgid "B<AES>"
+#: C/apps/ciphers.pod:258
+#, fuzzy
+#| msgid "B<AES>"
+msgid "B<AESGCM>"
 msgstr "B<AES>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:216
-msgid "cipher suites using AES."
-msgstr "Ensembles de chiffrements utilisant AES."
+#: C/apps/ciphers.pod:260
+msgid ""
+"AES in Galois Counter Mode (GCM): these ciphersuites are only supported in "
+"TLS v1.2."
+msgstr ""
 
 #. type: =item
-#: C/apps/ciphers.pod:218
-msgid "B<CAMELLIA>"
-msgstr "B<CAMELLIA>"
+#: C/apps/ciphers.pod:263
+msgid "B<CAMELLIA128>, B<CAMELLIA256>, B<CAMELLIA>"
+msgstr ""
 
 #. type: textblock
-#: C/apps/ciphers.pod:220
-msgid "cipher suites using Camellia."
-msgstr "Ensembles de chiffrements utilisant Camellia."
+#: C/apps/ciphers.pod:265
+msgid ""
+"cipher suites using 128 bit CAMELLIA, 256 bit CAMELLIA or either 128 or 256 "
+"bit CAMELLIA."
+msgstr ""
 
 #. type: =item
-#: C/apps/ciphers.pod:222
+#: C/apps/ciphers.pod:268
 msgid "B<3DES>"
 msgstr "B<3DES>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:224
+#: C/apps/ciphers.pod:270
 msgid "cipher suites using triple DES."
 msgstr "Ensembles de chiffrements utilisant le triple DES."
 
 #. type: =item
-#: C/apps/ciphers.pod:226
+#: C/apps/ciphers.pod:272
 msgid "B<DES>"
 msgstr "B<DES>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:228
+#: C/apps/ciphers.pod:274
 msgid "cipher suites using DES (not triple DES)."
 msgstr "Ensembles de chiffrements utilisant le DES simple (pas le triple DES)."
 
 #. type: =item
-#: C/apps/ciphers.pod:230
+#: C/apps/ciphers.pod:276
 msgid "B<RC4>"
 msgstr "B<RC4>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:232
+#: C/apps/ciphers.pod:278
 msgid "cipher suites using RC4."
 msgstr "Ensembles de chiffrements utilisant RC4."
 
 #. type: =item
-#: C/apps/ciphers.pod:234
+#: C/apps/ciphers.pod:280
 msgid "B<RC2>"
 msgstr "B<RC2>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:236
+#: C/apps/ciphers.pod:282
 msgid "cipher suites using RC2."
 msgstr "Ensembles de chiffrements utilisant RC2."
 
 #. type: =item
-#: C/apps/ciphers.pod:238
+#: C/apps/ciphers.pod:284
 msgid "B<IDEA>"
 msgstr "B<IDEA>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:240
+#: C/apps/ciphers.pod:286
 msgid "cipher suites using IDEA."
 msgstr "Ensembles de chiffrements utilisant IDEA."
 
 #. type: =item
-#: C/apps/ciphers.pod:242
+#: C/apps/ciphers.pod:288
 msgid "B<SEED>"
 msgstr "B<SEED>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:244
+#: C/apps/ciphers.pod:290
 msgid "cipher suites using SEED."
 msgstr "Ensembles de chiffrements utilisant SEED."
 
 #. type: =item
-#: C/apps/ciphers.pod:246
+#: C/apps/ciphers.pod:292
 msgid "B<MD5>"
 msgstr "B<MD5>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:248
+#: C/apps/ciphers.pod:294
 msgid "cipher suites using MD5."
 msgstr "Ensembles de chiffrements utilisant MD5."
 
 #. type: =item
-#: C/apps/ciphers.pod:250
+#: C/apps/ciphers.pod:296
 msgid "B<SHA1>, B<SHA>"
 msgstr "B<SHA1>, B<SHA>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:252
+#: C/apps/ciphers.pod:298
 msgid "cipher suites using SHA1."
 msgstr "Ensembles de chiffrements utilisant SHA1."
 
 #. type: =item
-#: C/apps/ciphers.pod:254
+#: C/apps/ciphers.pod:300
+#, fuzzy
+#| msgid "B<SHA1>, B<SHA>"
+msgid "B<SHA256>, B<SHA384>"
+msgstr "B<SHA1>, B<SHA>"
+
+#. type: textblock
+#: C/apps/ciphers.pod:302
+#, fuzzy
+#| msgid "cipher suites using SHA1."
+msgid "ciphersuites using SHA256 or SHA384."
+msgstr "Ensembles de chiffrements utilisant SHA1."
+
+#. type: =item
+#: C/apps/ciphers.pod:304
 msgid "B<aGOST>"
 msgstr "B<aGOST>"
 
 # NOTE: s/authenticaction/authentication/
 #. type: textblock
-#: C/apps/ciphers.pod:256
+#: C/apps/ciphers.pod:306
 msgid ""
 "cipher suites using GOST R 34.10 (either 2001 or 94) for authenticaction "
 "(needs an engine supporting GOST algorithms)."
@@ -703,23 +903,23 @@ msgstr ""
 "GOST)."
 
 #. type: =item
-#: C/apps/ciphers.pod:259
+#: C/apps/ciphers.pod:309
 msgid "B<aGOST01>"
 msgstr "B<aGOST01>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:261
+#: C/apps/ciphers.pod:311
 msgid "cipher suites using GOST R 34.10-2001 authentication."
 msgstr ""
 "Ensembles de chiffrements utilisant l'authentification GOST R 34.10-2001."
 
 #. type: =item
-#: C/apps/ciphers.pod:263
+#: C/apps/ciphers.pod:313
 msgid "B<aGOST94>"
 msgstr "B<aGOST94>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:265
+#: C/apps/ciphers.pod:315
 msgid ""
 "cipher suites using GOST R 34.10-94 authentication (note that R 34.10-94 "
 "standard has been expired so use GOST R 34.10-2001)"
@@ -729,45 +929,76 @@ msgstr ""
 "de GOST R 34.10-2001 est donc préférable)."
 
 #. type: =item
-#: C/apps/ciphers.pod:268
+#: C/apps/ciphers.pod:318
 msgid "B<kGOST>"
 msgstr "B<kGOST>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:270
+#: C/apps/ciphers.pod:320
 msgid "cipher suites, using VKO 34.10 key exchange, specified in the RFC 4357."
 msgstr ""
 "Ensembles de chiffrements, utilisant l'échange de clef VKO 34.10, spécifiés "
 "dans la RFC 4357."
 
 #. type: =item
-#: C/apps/ciphers.pod:272
+#: C/apps/ciphers.pod:322
 msgid "B<GOST94>"
 msgstr "B<GOST94>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:274
+#: C/apps/ciphers.pod:324
 msgid "cipher suites, using HMAC based on GOST R 34.11-94."
 msgstr "Ensembles de chiffrements utilisant HMAC basé sur GOST R 34.11-94."
 
 #. type: =item
-#: C/apps/ciphers.pod:276
+#: C/apps/ciphers.pod:326
 msgid "B<GOST89MAC>"
 msgstr "B<GOST89MAC>"
 
 #. type: textblock
-#: C/apps/ciphers.pod:278
+#: C/apps/ciphers.pod:328
 msgid "cipher suites using GOST 28147-89 MAC B<instead of> HMAC."
 msgstr ""
 "Ensembles de chiffrements utilisant MAC GOST 28147-89 B<au lieu de> HMAC."
 
+#. type: =item
+#: C/apps/ciphers.pod:330
+msgid "B<PSK>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ciphers.pod:332
+#, fuzzy
+#| msgid "cipher suites using triple DES."
+msgid "cipher suites using pre-shared keys (PSK)."
+msgstr "Ensembles de chiffrements utilisant le triple DES."
+
+#. type: =item
+#: C/apps/ciphers.pod:334
+msgid "B<SUITEB128>, B<SUITEB128ONLY>, B<SUITEB192>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ciphers.pod:336
+msgid ""
+"enables suite B mode operation using 128 (permitting 192 bit mode by peer)  "
+"128 bit (not permitting 192 bit by peer) or 192 bit level of security "
+"respectively. If used these cipherstrings should appear first in the cipher "
+"list and anything after them is ignored. Setting Suite B mode has additional "
+"consequences required to comply with RFC6460. In particular the supported "
+"signature algorithms is reduced to support only ECDSA and SHA256 or SHA384, "
+"only the elliptic curves P-256 and P-384 can be used and only the two suite "
+"B compliant ciphersuites (ECDHE-ECDSA-AES128-GCM-SHA256 and ECDHE-ECDSA-"
+"AES256-GCM-SHA384) are permissible."
+msgstr ""
+
 #. type: =head1
-#: C/apps/ciphers.pod:283
+#: C/apps/ciphers.pod:348
 msgid "CIPHER SUITE NAMES"
 msgstr "NOMS DES ENSEMBLES DE CHIFFREMENTS"
 
 #. type: textblock
-#: C/apps/ciphers.pod:285
+#: C/apps/ciphers.pod:350
 msgid ""
 "The following lists give the SSL or TLS cipher suites names from the "
 "relevant specification and their OpenSSL equivalents. It should be noted, "
@@ -781,12 +1012,12 @@ msgstr ""
 "l'authentification RSA est utilisée."
 
 #. type: =head2
-#: C/apps/ciphers.pod:290
+#: C/apps/ciphers.pod:355
 msgid "SSL v3.0 cipher suites."
 msgstr "Ensembles de chiffrements SSL v3.0"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:292
+#: C/apps/ciphers.pod:357
 #, no-wrap
 msgid ""
 " SSL_RSA_WITH_NULL_MD5                   NULL-MD5\n"
@@ -814,15 +1045,29 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:303
-#, no-wrap
+#: C/apps/ciphers.pod:368
+#, fuzzy, no-wrap
+#| msgid ""
+#| " SSL_DH_DSS_EXPORT_WITH_DES40_CBC_SHA    Not implemented.\n"
+#| " SSL_DH_DSS_WITH_DES_CBC_SHA             Not implemented.\n"
+#| " SSL_DH_DSS_WITH_3DES_EDE_CBC_SHA        Not implemented.\n"
+#| " SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA    Not implemented.\n"
+#| " SSL_DH_RSA_WITH_DES_CBC_SHA             Not implemented.\n"
+#| " SSL_DH_RSA_WITH_3DES_EDE_CBC_SHA        Not implemented.\n"
+#| " SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA   EXP-EDH-DSS-DES-CBC-SHA\n"
+#| " SSL_DHE_DSS_WITH_DES_CBC_SHA            EDH-DSS-CBC-SHA\n"
+#| " SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA       EDH-DSS-DES-CBC3-SHA\n"
+#| " SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA   EXP-EDH-RSA-DES-CBC-SHA\n"
+#| " SSL_DHE_RSA_WITH_DES_CBC_SHA            EDH-RSA-DES-CBC-SHA\n"
+#| " SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA       EDH-RSA-DES-CBC3-SHA\n"
+#| "\n"
 msgid ""
-" SSL_DH_DSS_EXPORT_WITH_DES40_CBC_SHA    Not implemented.\n"
-" SSL_DH_DSS_WITH_DES_CBC_SHA             Not implemented.\n"
-" SSL_DH_DSS_WITH_3DES_EDE_CBC_SHA        Not implemented.\n"
-" SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA    Not implemented.\n"
-" SSL_DH_RSA_WITH_DES_CBC_SHA             Not implemented.\n"
-" SSL_DH_RSA_WITH_3DES_EDE_CBC_SHA        Not implemented.\n"
+" SSL_DH_DSS_EXPORT_WITH_DES40_CBC_SHA    EXP-DH-DSS-DES-CBC-SHA\n"
+" SSL_DH_DSS_WITH_DES_CBC_SHA             DH-DSS-DES-CBC-SHA\n"
+" SSL_DH_DSS_WITH_3DES_EDE_CBC_SHA        DH-DSS-DES-CBC3-SHA\n"
+" SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA    EXP-DH-RSA-DES-CBC-SHA\n"
+" SSL_DH_RSA_WITH_DES_CBC_SHA             DH-RSA-DES-CBC-SHA\n"
+" SSL_DH_RSA_WITH_3DES_EDE_CBC_SHA        DH-RSA-DES-CBC3-SHA\n"
 " SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA   EXP-EDH-DSS-DES-CBC-SHA\n"
 " SSL_DHE_DSS_WITH_DES_CBC_SHA            EDH-DSS-CBC-SHA\n"
 " SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA       EDH-DSS-DES-CBC3-SHA\n"
@@ -846,7 +1091,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:316
+#: C/apps/ciphers.pod:381
 #, no-wrap
 msgid ""
 " SSL_DH_anon_EXPORT_WITH_RC4_40_MD5      EXP-ADH-RC4-MD5\n"
@@ -864,7 +1109,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:322
+#: C/apps/ciphers.pod:387
 #, no-wrap
 msgid ""
 " SSL_FORTEZZA_KEA_WITH_NULL_SHA          Not implemented.\n"
@@ -878,12 +1123,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: C/apps/ciphers.pod:326
+#: C/apps/ciphers.pod:391
 msgid "TLS v1.0 cipher suites."
 msgstr "Ensembles de chiffrements TLS v1.0"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:328
+#: C/apps/ciphers.pod:393
 #, no-wrap
 msgid ""
 " TLS_RSA_WITH_NULL_MD5                   NULL-MD5\n"
@@ -911,7 +1156,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:339
+#: C/apps/ciphers.pod:404
 #, no-wrap
 msgid ""
 " TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA    Not implemented.\n"
@@ -943,7 +1188,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:352
+#: C/apps/ciphers.pod:417
 #, no-wrap
 msgid ""
 " TLS_DH_anon_EXPORT_WITH_RC4_40_MD5      EXP-ADH-RC4-MD5\n"
@@ -961,12 +1206,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: C/apps/ciphers.pod:358
+#: C/apps/ciphers.pod:423
 msgid "AES ciphersuites from RFC3268, extending TLS v1.0"
 msgstr "Ensembles de chiffrements AES de la RFC 3268, extension pour TLS v1.0"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:360
+#: C/apps/ciphers.pod:425
 #, no-wrap
 msgid ""
 " TLS_RSA_WITH_AES_128_CBC_SHA            AES128-SHA\n"
@@ -978,23 +1223,29 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:363
-#, no-wrap
+#: C/apps/ciphers.pod:428
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
 msgid ""
-" TLS_DH_DSS_WITH_AES_128_CBC_SHA         Not implemented.\n"
-" TLS_DH_DSS_WITH_AES_256_CBC_SHA         Not implemented.\n"
-" TLS_DH_RSA_WITH_AES_128_CBC_SHA         Not implemented.\n"
-" TLS_DH_RSA_WITH_AES_256_CBC_SHA         Not implemented.\n"
+" TLS_DH_DSS_WITH_AES_128_CBC_SHA         DH-DSS-AES128-SHA\n"
+" TLS_DH_DSS_WITH_AES_256_CBC_SHA         DH-DSS-AES256-SHA\n"
+" TLS_DH_RSA_WITH_AES_128_CBC_SHA         DH-RSA-AES128-SHA\n"
+" TLS_DH_RSA_WITH_AES_256_CBC_SHA         DH-RSA-AES256-SHA\n"
 "\n"
 msgstr ""
-" TLS_DH_DSS_WITH_AES_128_CBC_SHA         Pas implémenté.\n"
-" TLS_DH_DSS_WITH_AES_256_CBC_SHA         Pas implémenté.\n"
-" TLS_DH_RSA_WITH_AES_128_CBC_SHA         Pas implémenté.\n"
-" TLS_DH_RSA_WITH_AES_256_CBC_SHA         Pas implémenté.\n"
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:368
+#: C/apps/ciphers.pod:433
 #, no-wrap
 msgid ""
 " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
@@ -1010,7 +1261,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:373
+#: C/apps/ciphers.pod:438
 #, no-wrap
 msgid ""
 " TLS_DH_anon_WITH_AES_128_CBC_SHA        ADH-AES128-SHA\n"
@@ -1022,13 +1273,13 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: C/apps/ciphers.pod:376
+#: C/apps/ciphers.pod:441
 msgid "Camellia ciphersuites from RFC4132, extending TLS v1.0"
 msgstr ""
 "Ensembles de chiffrements Camellia de la RFC 4132, extension pour TLS v1.0"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:378
+#: C/apps/ciphers.pod:443
 #, no-wrap
 msgid ""
 " TLS_RSA_WITH_CAMELLIA_128_CBC_SHA      CAMELLIA128-SHA\n"
@@ -1040,23 +1291,29 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:381
-#, no-wrap
+#: C/apps/ciphers.pod:446
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA  DHE-DSS-CAMELLIA128-SHA\n"
+#| " TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA  DHE-DSS-CAMELLIA256-SHA\n"
+#| " TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA  DHE-RSA-CAMELLIA128-SHA\n"
+#| " TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA  DHE-RSA-CAMELLIA256-SHA\n"
+#| "\n"
 msgid ""
-" TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA   Not implemented.\n"
-" TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA   Not implemented.\n"
-" TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA   Not implemented.\n"
-" TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA   Not implemented.\n"
+" TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA   DH-DSS-CAMELLIA128-SHA\n"
+" TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA   DH-DSS-CAMELLIA256-SHA\n"
+" TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA   DH-RSA-CAMELLIA128-SHA\n"
+" TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA   DH-RSA-CAMELLIA256-SHA\n"
 "\n"
 msgstr ""
-" TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA   Pas implémenté.\n"
-" TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA   Pas implémenté.\n"
-" TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA   Pas implémenté.\n"
-" TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA   Pas implémenté.\n"
+" TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA  DHE-DSS-CAMELLIA128-SHA\n"
+" TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA  DHE-DSS-CAMELLIA256-SHA\n"
+" TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA  DHE-RSA-CAMELLIA128-SHA\n"
+" TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA  DHE-RSA-CAMELLIA256-SHA\n"
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:386
+#: C/apps/ciphers.pod:451
 #, no-wrap
 msgid ""
 " TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA  DHE-DSS-CAMELLIA128-SHA\n"
@@ -1072,7 +1329,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:391
+#: C/apps/ciphers.pod:456
 #, no-wrap
 msgid ""
 " TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA  ADH-CAMELLIA128-SHA\n"
@@ -1084,12 +1341,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: C/apps/ciphers.pod:394
+#: C/apps/ciphers.pod:459
 msgid "SEED ciphersuites from RFC4162, extending TLS v1.0"
 msgstr "Ensembles de chiffrements SEED de la RFC 4162, extension pour TLS v1.0"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:396
+#: C/apps/ciphers.pod:461
 #, no-wrap
 msgid ""
 " TLS_RSA_WITH_SEED_CBC_SHA              SEED-SHA\n"
@@ -1099,19 +1356,23 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:398
-#, no-wrap
+#: C/apps/ciphers.pod:463
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_SEED_CBC_SHA          DHE-DSS-SEED-SHA\n"
+#| " TLS_DHE_RSA_WITH_SEED_CBC_SHA          DHE-RSA-SEED-SHA\n"
+#| "\n"
 msgid ""
-" TLS_DH_DSS_WITH_SEED_CBC_SHA           Not implemented.\n"
-" TLS_DH_RSA_WITH_SEED_CBC_SHA           Not implemented.\n"
+" TLS_DH_DSS_WITH_SEED_CBC_SHA           DH-DSS-SEED-SHA\n"
+" TLS_DH_RSA_WITH_SEED_CBC_SHA           DH-RSA-SEED-SHA\n"
 "\n"
 msgstr ""
-" TLS_DH_DSS_WITH_SEED_CBC_SHA           Pas implémenté.\n"
-" TLS_DH_RSA_WITH_SEED_CBC_SHA           Pas implémenté.\n"
+" TLS_DHE_DSS_WITH_SEED_CBC_SHA          DHE-DSS-SEED-SHA\n"
+" TLS_DHE_RSA_WITH_SEED_CBC_SHA          DHE-RSA-SEED-SHA\n"
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:401
+#: C/apps/ciphers.pod:466
 #, no-wrap
 msgid ""
 " TLS_DHE_DSS_WITH_SEED_CBC_SHA          DHE-DSS-SEED-SHA\n"
@@ -1123,7 +1384,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:404
+#: C/apps/ciphers.pod:469
 #, no-wrap
 msgid ""
 " TLS_DH_anon_WITH_SEED_CBC_SHA          ADH-SEED-SHA\n"
@@ -1133,14 +1394,14 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: C/apps/ciphers.pod:406
+#: C/apps/ciphers.pod:471
 msgid "GOST ciphersuites from draft-chudov-cryptopro-cptls, extending TLS v1.0"
 msgstr ""
 "Ensembles de chiffrements GOST de la draft-chudov-cryptopro-cptls, extension "
 "pour TLS v1.0"
 
 #. type: textblock
-#: C/apps/ciphers.pod:408
+#: C/apps/ciphers.pod:473
 msgid ""
 "Note: these ciphers require an engine which including GOST cryptographic "
 "algorithms, such as the B<ccgost> engine, included in the OpenSSL "
@@ -1151,7 +1412,7 @@ msgstr ""
 "OpenSSL."
 
 #. type: verbatim
-#: C/apps/ciphers.pod:411
+#: C/apps/ciphers.pod:476
 #, no-wrap
 msgid ""
 " TLS_GOSTR341094_WITH_28147_CNT_IMIT GOST94-GOST89-GOST89\n"
@@ -1167,17 +1428,17 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: C/apps/ciphers.pod:416
+#: C/apps/ciphers.pod:481
 msgid "Additional Export 1024 and other cipher suites"
 msgstr "Ensembles de chiffrements additionnels Export 1024 et autres"
 
 #. type: textblock
-#: C/apps/ciphers.pod:418
+#: C/apps/ciphers.pod:483
 msgid "Note: these ciphers can also be used in SSL v3."
 msgstr "Remarque : ces chiffrements peuvent aussi être utilisés pour SSL v3."
 
 #. type: verbatim
-#: C/apps/ciphers.pod:420
+#: C/apps/ciphers.pod:485
 #, no-wrap
 msgid ""
 " TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA     EXP1024-DES-CBC-SHA\n"
@@ -1195,12 +1456,405 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: C/apps/ciphers.pod:426
-msgid "SSL v2.0 cipher suites."
+#: C/apps/ciphers.pod:491
+#, fuzzy
+#| msgid "SSL v3.0 cipher suites."
+msgid "Elliptic curve cipher suites."
+msgstr "Ensembles de chiffrements SSL v3.0"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:493
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDH_RSA_WITH_NULL_SHA              ECDH-RSA-NULL-SHA\n"
+" TLS_ECDH_RSA_WITH_RC4_128_SHA           ECDH-RSA-RC4-SHA\n"
+" TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA      ECDH-RSA-DES-CBC3-SHA\n"
+" TLS_ECDH_RSA_WITH_AES_128_CBC_SHA       ECDH-RSA-AES128-SHA\n"
+" TLS_ECDH_RSA_WITH_AES_256_CBC_SHA       ECDH-RSA-AES256-SHA\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:499
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDH_ECDSA_WITH_NULL_SHA            ECDH-ECDSA-NULL-SHA\n"
+" TLS_ECDH_ECDSA_WITH_RC4_128_SHA         ECDH-ECDSA-RC4-SHA\n"
+" TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA    ECDH-ECDSA-DES-CBC3-SHA\n"
+" TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA     ECDH-ECDSA-AES128-SHA\n"
+" TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA     ECDH-ECDSA-AES256-SHA\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:505
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDHE_RSA_WITH_NULL_SHA             ECDHE-RSA-NULL-SHA\n"
+" TLS_ECDHE_RSA_WITH_RC4_128_SHA          ECDHE-RSA-RC4-SHA\n"
+" TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA     ECDHE-RSA-DES-CBC3-SHA\n"
+" TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA      ECDHE-RSA-AES128-SHA\n"
+" TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA      ECDHE-RSA-AES256-SHA\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:511
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDHE_ECDSA_WITH_NULL_SHA           ECDHE-ECDSA-NULL-SHA\n"
+" TLS_ECDHE_ECDSA_WITH_RC4_128_SHA        ECDHE-ECDSA-RC4-SHA\n"
+" TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA   ECDHE-ECDSA-DES-CBC3-SHA\n"
+" TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA    ECDHE-ECDSA-AES128-SHA\n"
+" TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA    ECDHE-ECDSA-AES256-SHA\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:517
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DH_anon_EXPORT_WITH_RC4_40_MD5      EXP-ADH-RC4-MD5\n"
+#| " TLS_DH_anon_WITH_RC4_128_MD5            ADH-RC4-MD5\n"
+#| " TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA   EXP-ADH-DES-CBC-SHA\n"
+#| " TLS_DH_anon_WITH_DES_CBC_SHA            ADH-DES-CBC-SHA\n"
+#| " TLS_DH_anon_WITH_3DES_EDE_CBC_SHA       ADH-DES-CBC3-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDH_anon_WITH_NULL_SHA             AECDH-NULL-SHA\n"
+" TLS_ECDH_anon_WITH_RC4_128_SHA          AECDH-RC4-SHA\n"
+" TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA     AECDH-DES-CBC3-SHA\n"
+" TLS_ECDH_anon_WITH_AES_128_CBC_SHA      AECDH-AES128-SHA\n"
+" TLS_ECDH_anon_WITH_AES_256_CBC_SHA      AECDH-AES256-SHA\n"
+"\n"
+msgstr ""
+" TLS_DH_anon_EXPORT_WITH_RC4_40_MD5      EXP-ADH-RC4-MD5\n"
+" TLS_DH_anon_WITH_RC4_128_MD5            ADH-RC4-MD5\n"
+" TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA   EXP-ADH-DES-CBC-SHA\n"
+" TLS_DH_anon_WITH_DES_CBC_SHA            ADH-DES-CBC-SHA\n"
+" TLS_DH_anon_WITH_3DES_EDE_CBC_SHA       ADH-DES-CBC3-SHA\n"
+"\n"
+
+#. type: =head2
+#: C/apps/ciphers.pod:523
+#, fuzzy
+#| msgid "TLS v1.0 cipher suites."
+msgid "TLS v1.2 cipher suites"
+msgstr "Ensembles de chiffrements TLS v1.0"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:525
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_RSA_WITH_SEED_CBC_SHA              SEED-SHA\n"
+#| "\n"
+msgid ""
+" TLS_RSA_WITH_NULL_SHA256                  NULL-SHA256\n"
+"\n"
+msgstr ""
+" TLS_RSA_WITH_SEED_CBC_SHA              SEED-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:527
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_RSA_WITH_AES_128_CBC_SHA256           AES128-SHA256\n"
+" TLS_RSA_WITH_AES_256_CBC_SHA256           AES256-SHA256\n"
+" TLS_RSA_WITH_AES_128_GCM_SHA256           AES128-GCM-SHA256\n"
+" TLS_RSA_WITH_AES_256_GCM_SHA384           AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:532
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_DH_RSA_WITH_AES_128_CBC_SHA256        DH-RSA-AES128-SHA256\n"
+" TLS_DH_RSA_WITH_AES_256_CBC_SHA256        DH-RSA-AES256-SHA256\n"
+" TLS_DH_RSA_WITH_AES_128_GCM_SHA256        DH-RSA-AES128-GCM-SHA256\n"
+" TLS_DH_RSA_WITH_AES_256_GCM_SHA384        DH-RSA-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:537
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_DH_DSS_WITH_AES_128_CBC_SHA256        DH-DSS-AES128-SHA256\n"
+" TLS_DH_DSS_WITH_AES_256_CBC_SHA256        DH-DSS-AES256-SHA256\n"
+" TLS_DH_DSS_WITH_AES_128_GCM_SHA256        DH-DSS-AES128-GCM-SHA256\n"
+" TLS_DH_DSS_WITH_AES_256_GCM_SHA384        DH-DSS-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:542
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA256       DHE-RSA-AES128-SHA256\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA256       DHE-RSA-AES256-SHA256\n"
+" TLS_DHE_RSA_WITH_AES_128_GCM_SHA256       DHE-RSA-AES128-GCM-SHA256\n"
+" TLS_DHE_RSA_WITH_AES_256_GCM_SHA384       DHE-RSA-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:547
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA256       DHE-DSS-AES128-SHA256\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA256       DHE-DSS-AES256-SHA256\n"
+" TLS_DHE_DSS_WITH_AES_128_GCM_SHA256       DHE-DSS-AES128-GCM-SHA256\n"
+" TLS_DHE_DSS_WITH_AES_256_GCM_SHA384       DHE-DSS-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:552
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256      ECDH-RSA-AES128-SHA256\n"
+" TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384      ECDH-RSA-AES256-SHA384\n"
+" TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256      ECDH-RSA-AES128-GCM-SHA256\n"
+" TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384      ECDH-RSA-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:557
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256    ECDH-ECDSA-AES128-SHA256\n"
+" TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384    ECDH-ECDSA-AES256-SHA384\n"
+" TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256    ECDH-ECDSA-AES128-GCM-SHA256\n"
+" TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384    ECDH-ECDSA-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:562
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256     ECDHE-RSA-AES128-SHA256\n"
+" TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384     ECDHE-RSA-AES256-SHA384\n"
+" TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256     ECDHE-RSA-AES128-GCM-SHA256\n"
+" TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384     ECDHE-RSA-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:567
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256   ECDHE-ECDSA-AES128-SHA256\n"
+" TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384   ECDHE-ECDSA-AES256-SHA384\n"
+" TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256   ECDHE-ECDSA-AES128-GCM-SHA256\n"
+" TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384   ECDHE-ECDSA-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:572
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_DH_anon_WITH_AES_128_CBC_SHA256       ADH-AES128-SHA256\n"
+" TLS_DH_anon_WITH_AES_256_CBC_SHA256       ADH-AES256-SHA256\n"
+" TLS_DH_anon_WITH_AES_128_GCM_SHA256       ADH-AES128-GCM-SHA256\n"
+" TLS_DH_anon_WITH_AES_256_GCM_SHA384       ADH-AES256-GCM-SHA384\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: =head2
+#: C/apps/ciphers.pod:577
+msgid "Pre shared keying (PSK) cipheruites"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/ciphers.pod:579
+#, fuzzy, no-wrap
+#| msgid ""
+#| " TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+#| " TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+#| " TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+#| "\n"
+msgid ""
+" TLS_PSK_WITH_RC4_128_SHA                  PSK-RC4-SHA\n"
+" TLS_PSK_WITH_3DES_EDE_CBC_SHA             PSK-3DES-EDE-CBC-SHA\n"
+" TLS_PSK_WITH_AES_128_CBC_SHA              PSK-AES128-CBC-SHA\n"
+" TLS_PSK_WITH_AES_256_CBC_SHA              PSK-AES256-CBC-SHA\n"
+"\n"
+msgstr ""
+" TLS_DHE_DSS_WITH_AES_128_CBC_SHA        DHE-DSS-AES128-SHA\n"
+" TLS_DHE_DSS_WITH_AES_256_CBC_SHA        DHE-DSS-AES256-SHA\n"
+" TLS_DHE_RSA_WITH_AES_128_CBC_SHA        DHE-RSA-AES128-SHA\n"
+" TLS_DHE_RSA_WITH_AES_256_CBC_SHA        DHE-RSA-AES256-SHA\n"
+"\n"
+
+#. type: =head2
+#: C/apps/ciphers.pod:584
+#, fuzzy
+#| msgid "SSL v2.0 cipher suites."
+msgid "Deprecated SSL v2.0 cipher suites."
 msgstr "Ensembles de chiffrements SSL v2.0"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:428
+#: C/apps/ciphers.pod:586
 #, no-wrap
 msgid ""
 " SSL_CK_RC4_128_WITH_MD5                 RC4-MD5\n"
@@ -1222,22 +1876,13 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: C/apps/ciphers.pod:436 C/apps/s_client.pod:270 C/apps/s_server.pod:345
+#: C/apps/ciphers.pod:594 C/apps/s_client.pod:299 C/apps/s_server.pod:373
 #: C/apps/s_time.pod:128
 msgid "NOTES"
 msgstr "NOTES"
 
 #. type: textblock
-#: C/apps/ciphers.pod:438
-msgid ""
-"The non-ephemeral DH modes are currently unimplemented in OpenSSL because "
-"there is no support for DH certificates."
-msgstr ""
-"Les modes non éphémères de DH ne sont pas implémentés actuellement dans "
-"OpenSSL car il n'y a pas de prise en charge des certificats DH."
-
-#. type: textblock
-#: C/apps/ciphers.pod:441
+#: C/apps/ciphers.pod:596
 msgid ""
 "Some compiled versions of OpenSSL may not include all the ciphers listed "
 "here because some ciphers were excluded at compile time."
@@ -1246,19 +1891,19 @@ msgstr ""
 "de chiffrement indiqués ici en raison du paramétrage lors de la compilation."
 
 #. type: =head1
-#: C/apps/ciphers.pod:444
+#: C/apps/ciphers.pod:599
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
 
 #. type: textblock
-#: C/apps/ciphers.pod:446
+#: C/apps/ciphers.pod:601
 msgid "Verbose listing of all OpenSSL ciphers including NULL ciphers:"
 msgstr ""
 "Liste bavarde de tous les chiffrements OpenSSL incluant les chiffrements "
 "NULL :"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:448
+#: C/apps/ciphers.pod:603
 #, no-wrap
 msgid ""
 " openssl ciphers -v 'ALL:eNULL'\n"
@@ -1268,13 +1913,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/ciphers.pod:450
+#: C/apps/ciphers.pod:605
 msgid "Include all ciphers except NULL and anonymous DH then sort by strength:"
 msgstr ""
 "Inclure tous les chiffrements sauf NULL et DH anonyme, puis trier par force :"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:453
+#: C/apps/ciphers.pod:608
 #, no-wrap
 msgid ""
 " openssl ciphers -v 'ALL:!ADH:@STRENGTH'\n"
@@ -1284,14 +1929,38 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/ciphers.pod:455
+#: C/apps/ciphers.pod:610
+#, fuzzy
+#| msgid "Include all RC4 ciphers but leave out those without authentication:"
+msgid ""
+"Include all ciphers except ones with no encryption (eNULL) or no "
+"authentication (aNULL):"
+msgstr ""
+"Inclure tous les chiffrements utilisant RC4, mais laisser de côté ceux sans "
+"authentification :"
+
+#. type: verbatim
+#: C/apps/ciphers.pod:613
+#, fuzzy, no-wrap
+#| msgid ""
+#| " openssl ciphers -v 'ALL:eNULL'\n"
+#| "\n"
+msgid ""
+" openssl ciphers -v 'ALL:!aNULL'\n"
+"\n"
+msgstr ""
+" openssl ciphers -v 'ALL:eNULL'\n"
+"\n"
+
+#. type: textblock
+#: C/apps/ciphers.pod:615
 msgid "Include only 3DES ciphers and then place RSA ciphers last:"
 msgstr ""
 "Inclure seulement les chiffrements 3DES puis ajouter les chiffrements RSA à "
 "la fin :"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:457
+#: C/apps/ciphers.pod:617
 #, no-wrap
 msgid ""
 " openssl ciphers -v '3DES:+RSA'\n"
@@ -1301,14 +1970,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/ciphers.pod:459
+#: C/apps/ciphers.pod:619
 msgid "Include all RC4 ciphers but leave out those without authentication:"
 msgstr ""
 "Inclure tous les chiffrements utilisant RC4, mais laisser de côté ceux sans "
 "authentification :"
 
 #. type: verbatim
-#: C/apps/ciphers.pod:461
+#: C/apps/ciphers.pod:621
 #, no-wrap
 msgid ""
 " openssl ciphers -v 'RC4:!COMPLEMENTOFDEFAULT'\n"
@@ -1318,7 +1987,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/ciphers.pod:463
+#: C/apps/ciphers.pod:623
 msgid ""
 "Include all chiphers with RSA authentication but leave out ciphers without "
 "encryption."
@@ -1327,7 +1996,7 @@ msgstr ""
 "côté ceux sans chiffrement."
 
 #. type: verbatim
-#: C/apps/ciphers.pod:466
+#: C/apps/ciphers.pod:626
 #, no-wrap
 msgid ""
 " openssl ciphers -v 'RSA:!COMPLEMENTOFALL'\n"
@@ -1337,13 +2006,13 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: C/apps/ciphers.pod:468 C/apps/s_client.pod:321 C/apps/s_server.pod:377
+#: C/apps/ciphers.pod:628 C/apps/s_client.pod:354 C/apps/s_server.pod:405
 #: C/apps/s_time.pod:169
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: textblock
-#: C/apps/ciphers.pod:470
+#: C/apps/ciphers.pod:630
 msgid ""
 "L<s_client(1)|s_client(1)>, L<s_server(1)|s_server(1)>, L<ssl(3)|ssl(3)>"
 msgstr ""
@@ -1351,13 +2020,13 @@ msgstr ""
 "ssl(3)>"
 
 #. type: =head1
-#: C/apps/ciphers.pod:472
+#: C/apps/ciphers.pod:632
 msgid "HISTORY"
 msgstr "HISTORIQUE"
 
 # NOTE: COMPLENTOFALL -> COMPLEMENTOFALL
 #. type: textblock
-#: C/apps/ciphers.pod:474
+#: C/apps/ciphers.pod:634
 msgid ""
 "The B<COMPLENTOFALL> and B<COMPLEMENTOFDEFAULT> selection options for "
 "cipherlist strings were added in OpenSSL 0.9.7.  The B<-V> option for the "
@@ -1374,16 +2043,30 @@ msgstr "s_client - programme client SSL ou TLS"
 
 #. type: textblock
 #: C/apps/s_client.pod:10
+#, fuzzy
+#| msgid ""
+#| "B<openssl> B<s_client> [B<-connect host:port>] [B<-verify depth>] [B<-"
+#| "cert filename>] [B<-certform DER|PEM>] [B<-key filename>] [B<-keyform DER|"
+#| "PEM>] [B<-pass arg>] [B<-CApath directory>] [B<-CAfile filename>] [B<-"
+#| "reconnect>] [B<-pause>] [B<-showcerts>] [B<-debug>] [B<-msg>] [B<-"
+#| "nbio_test>] [B<-state>] [B<-nbio>] [B<-crlf>] [B<-ign_eof>] [B<-quiet>] "
+#| "[B<-ssl2>] [B<-ssl3>] [B<-tls1>] [B<-no_ssl2>] [B<-no_ssl3>] [B<-"
+#| "no_tls1>] [B<-bugs>] [B<-cipher cipherlist>] [B<-starttls protocol>] [B<-"
+#| "engine id>] [B<-tlsextdebug>] [B<-no_ticket>] [B<-sess_out filename>] [B<-"
+#| "sess_in filename>] [B<-rand file(s)>] [B<-serverinfo types>] [B<-auth>] "
+#| "[B<-auth_require_reneg>]"
 msgid ""
-"B<openssl> B<s_client> [B<-connect host:port>] [B<-verify depth>] [B<-cert "
-"filename>] [B<-certform DER|PEM>] [B<-key filename>] [B<-keyform DER|PEM>] "
-"[B<-pass arg>] [B<-CApath directory>] [B<-CAfile filename>] [B<-reconnect>] "
-"[B<-pause>] [B<-showcerts>] [B<-debug>] [B<-msg>] [B<-nbio_test>] [B<-"
-"state>] [B<-nbio>] [B<-crlf>] [B<-ign_eof>] [B<-quiet>] [B<-ssl2>] [B<-"
-"ssl3>] [B<-tls1>] [B<-no_ssl2>] [B<-no_ssl3>] [B<-no_tls1>] [B<-bugs>] [B<-"
-"cipher cipherlist>] [B<-starttls protocol>] [B<-engine id>] [B<-"
+"B<openssl> B<s_client> [B<-connect host:port>] [B<-servername name>] [B<-"
+"verify depth>] [B<-verify_return_error>] [B<-cert filename>] [B<-certform "
+"DER|PEM>] [B<-key filename>] [B<-keyform DER|PEM>] [B<-pass arg>] [B<-CApath "
+"directory>] [B<-CAfile filename>] [B<-reconnect>] [B<-pause>] [B<-"
+"showcerts>] [B<-debug>] [B<-msg>] [B<-nbio_test>] [B<-state>] [B<-nbio>] [B<-"
+"crlf>] [B<-ign_eof>] [B<-no_ign_eof>] [B<-quiet>] [B<-ssl2>] [B<-ssl3>] [B<-"
+"tls1>] [B<-no_ssl2>] [B<-no_ssl3>] [B<-no_tls1>] [B<-bugs>] [B<-cipher "
+"cipherlist>] [B<-serverpref>] [B<-starttls protocol>] [B<-engine id>] [B<-"
 "tlsextdebug>] [B<-no_ticket>] [B<-sess_out filename>] [B<-sess_in filename>] "
-"[B<-rand file(s)>] [B<-serverinfo types>] [B<-auth>] [B<-auth_require_reneg>]"
+"[B<-rand file(s)>] [B<-serverinfo types>] [B<-status>] [B<-nextprotoneg "
+"protocols>]"
 msgstr ""
 "B<openssl> B<s_client> [B<-connect> I<hôte>B<:>I<port>] [B<-verify> "
 "I<profondeur>] [B<-cert> I<fichier>] [B<-certform DER>|B<PEM>] [B<-key> "
@@ -1398,7 +2081,7 @@ msgstr ""
 "[B<-auth>] [B<-auth_require_reneg>]"
 
 #. type: textblock
-#: C/apps/s_client.pod:52
+#: C/apps/s_client.pod:56
 msgid ""
 "The B<s_client> command implements a generic SSL/TLS client which connects "
 "to a remote host using SSL/TLS. It is a I<very> useful diagnostic tool for "
@@ -1409,17 +2092,17 @@ msgstr ""
 "diagnostic I<très> pratique pour les serveurs SSL."
 
 #. type: =head1
-#: C/apps/s_client.pod:56 C/apps/s_server.pod:67 C/apps/s_time.pod:35
+#: C/apps/s_client.pod:60 C/apps/s_server.pod:71 C/apps/s_time.pod:35
 msgid "OPTIONS"
 msgstr "OPTIONS"
 
 #. type: =item
-#: C/apps/s_client.pod:60 C/apps/s_time.pod:39
+#: C/apps/s_client.pod:64 C/apps/s_time.pod:39
 msgid "B<-connect host:port>"
 msgstr "B<-connect> I<hôte>B<:>I<port>"
 
 #. type: textblock
-#: C/apps/s_client.pod:62
+#: C/apps/s_client.pod:66
 msgid ""
 "This specifies the host and optional port to connect to. If not specified "
 "then an attempt is made to connect to the local host on port 4433."
@@ -1428,12 +2111,26 @@ msgstr ""
 "un essai de connexion sera réalisé vers l’hôte local sur le port 4433."
 
 #. type: =item
-#: C/apps/s_client.pod:65 C/apps/s_server.pod:80 C/apps/s_time.pod:50
+#: C/apps/s_client.pod:69
+#, fuzzy
+#| msgid "B<-serverinfo file>"
+msgid "B<-servername name>"
+msgstr "B<-serverinfo> I<fichier>"
+
+#. type: textblock
+#: C/apps/s_client.pod:71
+msgid ""
+"Set the TLS SNI (Server Name Indication) extension in the ClientHello "
+"message."
+msgstr ""
+
+#. type: =item
+#: C/apps/s_client.pod:73 C/apps/s_server.pod:84 C/apps/s_time.pod:50
 msgid "B<-cert certname>"
 msgstr "B<-cert> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_client.pod:67
+#: C/apps/s_client.pod:75
 msgid ""
 "The certificate to use, if one is requested by the server. The default is "
 "not to use a certificate."
@@ -1442,24 +2139,24 @@ msgstr ""
 "certificat n’est utilisé."
 
 #. type: =item
-#: C/apps/s_client.pod:70 C/apps/s_server.pod:87
+#: C/apps/s_client.pod:78 C/apps/s_server.pod:91
 msgid "B<-certform format>"
 msgstr "B<-certform> I<format>"
 
 #. type: textblock
-#: C/apps/s_client.pod:72 C/apps/s_server.pod:89
+#: C/apps/s_client.pod:80 C/apps/s_server.pod:93
 msgid "The certificate format to use: DER or PEM. PEM is the default."
 msgstr ""
 "Le format de certificat à utiliser : B<DER> ou B<PEM>. Par défaut, B<PEM> "
 "est utilisé."
 
 #. type: =item
-#: C/apps/s_client.pod:74 C/apps/s_server.pod:91 C/apps/s_time.pod:55
+#: C/apps/s_client.pod:82 C/apps/s_server.pod:95 C/apps/s_time.pod:55
 msgid "B<-key keyfile>"
 msgstr "B<-key> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_client.pod:76 C/apps/s_server.pod:93
+#: C/apps/s_client.pod:84 C/apps/s_server.pod:97
 msgid ""
 "The private key to use. If not specified then the certificate file will be "
 "used."
@@ -1468,24 +2165,24 @@ msgstr ""
 "certificats sera utilisé."
 
 #. type: =item
-#: C/apps/s_client.pod:79 C/apps/s_server.pod:96
+#: C/apps/s_client.pod:87 C/apps/s_server.pod:100
 msgid "B<-keyform format>"
 msgstr "B<-keyform> I<format>"
 
 #. type: textblock
-#: C/apps/s_client.pod:81 C/apps/s_server.pod:98
+#: C/apps/s_client.pod:89 C/apps/s_server.pod:102
 msgid "The private format to use: DER or PEM. PEM is the default."
 msgstr ""
 "Le format privé à utiliser : B<DER> ou B<PEM>. Par défaut, B<PEM> est "
 "utilisé."
 
 #. type: =item
-#: C/apps/s_client.pod:83 C/apps/s_server.pod:100
+#: C/apps/s_client.pod:91 C/apps/s_server.pod:104
 msgid "B<-pass arg>"
 msgstr "B<-pass> I<param>"
 
 #. type: textblock
-#: C/apps/s_client.pod:85 C/apps/s_server.pod:102
+#: C/apps/s_client.pod:93 C/apps/s_server.pod:106
 msgid ""
 "the private key password source. For more information about the format of "
 "B<arg> see the B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
@@ -1495,12 +2192,12 @@ msgstr ""
 "d'L<B<openssl>(1)|openssl(1)>."
 
 #. type: =item
-#: C/apps/s_client.pod:88 C/apps/s_time.pod:60
+#: C/apps/s_client.pod:96 C/apps/s_time.pod:60
 msgid "B<-verify depth>"
 msgstr "B<-verify> I<profondeur>"
 
 #. type: textblock
-#: C/apps/s_client.pod:90 C/apps/s_time.pod:62
+#: C/apps/s_client.pod:98 C/apps/s_time.pod:62
 msgid ""
 "The verify depth to use. This specifies the maximum length of the server "
 "certificate chain and turns on server certificate verification.  Currently "
@@ -1516,12 +2213,26 @@ msgstr ""
 "échec de vérification de certificat du serveur."
 
 #. type: =item
-#: C/apps/s_client.pod:96 C/apps/s_server.pod:157 C/apps/s_time.pod:68
+#: C/apps/s_client.pod:104
+#, fuzzy
+#| msgid "B<-verify depth>"
+msgid "B<-verify_return_error>"
+msgstr "B<-verify> I<profondeur>"
+
+#. type: textblock
+#: C/apps/s_client.pod:106
+msgid ""
+"Return verification errors instead of continuing. This will typically abort "
+"the handshake with a fatal error."
+msgstr ""
+
+#. type: =item
+#: C/apps/s_client.pod:109 C/apps/s_server.pod:164 C/apps/s_time.pod:68
 msgid "B<-CApath directory>"
 msgstr "B<-CApath> I<répertoire>"
 
 #. type: textblock
-#: C/apps/s_client.pod:98 C/apps/s_time.pod:70
+#: C/apps/s_client.pod:111 C/apps/s_time.pod:70
 msgid ""
 "The directory to use for server certificate verification. This directory "
 "must be in \"hash format\", see B<verify> for more information. These are "
@@ -1533,12 +2244,12 @@ msgstr ""
 "certificats du client."
 
 #. type: =item
-#: C/apps/s_client.pod:102 C/apps/s_server.pod:163 C/apps/s_time.pod:74
+#: C/apps/s_client.pod:115 C/apps/s_server.pod:170 C/apps/s_time.pod:74
 msgid "B<-CAfile file>"
 msgstr "B<-CAfile> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_client.pod:104 C/apps/s_time.pod:76
+#: C/apps/s_client.pod:117 C/apps/s_time.pod:76
 msgid ""
 "A file containing trusted certificates to use during server authentication "
 "and to use when attempting to build the client certificate chain."
@@ -1548,7 +2259,7 @@ msgstr ""
 "certificats du client."
 
 #. type: =item
-#: C/apps/s_client.pod:107
+#: C/apps/s_client.pod:120
 msgid ""
 "B<-purpose, -ignore_critical, -issuer_checks, -crl_check, -crl_check_all, -"
 "policy_check, -extended_crl, -x509_strict, -policy -check_ss_sig>"
@@ -1559,7 +2270,7 @@ msgstr ""
 
 # NOTE: s/valiadition/validation/
 #. type: textblock
-#: C/apps/s_client.pod:109
+#: C/apps/s_client.pod:122
 msgid ""
 "Set various certificate chain valiadition option. See the L<B<verify>|"
 "verify(1)> manual page for details."
@@ -1568,12 +2279,12 @@ msgstr ""
 "la page de manuel L<B<verify>(1)|verify(1)> pour plus de précisions."
 
 #. type: =item
-#: C/apps/s_client.pod:112
+#: C/apps/s_client.pod:125
 msgid "B<-reconnect>"
 msgstr "B<-reconnect>"
 
 #. type: textblock
-#: C/apps/s_client.pod:114
+#: C/apps/s_client.pod:127
 msgid ""
 "reconnects to the same server 5 times using the same session ID, this can be "
 "used as a test that session caching is working."
@@ -1582,23 +2293,23 @@ msgstr ""
 "session. Cela peut servir de test de fonctionnement du cache de session."
 
 #. type: =item
-#: C/apps/s_client.pod:117
+#: C/apps/s_client.pod:130
 msgid "B<-pause>"
 msgstr "B<-pause>"
 
 #. type: textblock
-#: C/apps/s_client.pod:119
+#: C/apps/s_client.pod:132
 msgid "pauses 1 second between each read and write call."
 msgstr ""
 "Faire une pause d’une seconde entre chaque appel de lecture et écriture."
 
 #. type: =item
-#: C/apps/s_client.pod:121
+#: C/apps/s_client.pod:134
 msgid "B<-showcerts>"
 msgstr "B<-showcerts>"
 
 #. type: textblock
-#: C/apps/s_client.pod:123
+#: C/apps/s_client.pod:136
 msgid ""
 "display the whole server certificate chain: normally only the server "
 "certificate itself is displayed."
@@ -1607,12 +2318,12 @@ msgstr ""
 "certificat du serveur lui-même est affiché."
 
 #. type: =item
-#: C/apps/s_client.pod:126
+#: C/apps/s_client.pod:139
 msgid "B<-prexit>"
 msgstr "B<-prexit>"
 
 #. type: textblock
-#: C/apps/s_client.pod:128
+#: C/apps/s_client.pod:141
 msgid ""
 "print session information when the program exits. This will always attempt "
 "to print out information even if the connection fails. Normally information "
@@ -1634,22 +2345,22 @@ msgstr ""
 "pourrait n’avoir jamais été établie."
 
 #. type: =item
-#: C/apps/s_client.pod:137 C/apps/s_server.pod:170
+#: C/apps/s_client.pod:150 C/apps/s_server.pod:177
 msgid "B<-state>"
 msgstr "B<-state>"
 
 #. type: textblock
-#: C/apps/s_client.pod:139 C/apps/s_server.pod:172
+#: C/apps/s_client.pod:152 C/apps/s_server.pod:179
 msgid "prints out the SSL session states."
 msgstr "Afficher les états de session SSL."
 
 #. type: =item
-#: C/apps/s_client.pod:141 C/apps/s_server.pod:174
+#: C/apps/s_client.pod:154 C/apps/s_server.pod:181
 msgid "B<-debug>"
 msgstr "B<-debug>"
 
 #. type: textblock
-#: C/apps/s_client.pod:143 C/apps/s_server.pod:176
+#: C/apps/s_client.pod:156 C/apps/s_server.pod:183
 msgid ""
 "print extensive debugging information including a hex dump of all traffic."
 msgstr ""
@@ -1657,44 +2368,44 @@ msgstr ""
 "échanges au format hexadécimal."
 
 #. type: =item
-#: C/apps/s_client.pod:145 C/apps/s_server.pod:178
+#: C/apps/s_client.pod:158 C/apps/s_server.pod:185
 msgid "B<-msg>"
 msgstr "B<-msg>"
 
 #. type: textblock
-#: C/apps/s_client.pod:147 C/apps/s_server.pod:180
+#: C/apps/s_client.pod:160 C/apps/s_server.pod:187
 msgid "show all protocol messages with hex dump."
 msgstr ""
 "Montrer tous les messages de protocole avec les échanges au format "
 "hexadécimal."
 
 #. type: =item
-#: C/apps/s_client.pod:149 C/apps/s_server.pod:182
+#: C/apps/s_client.pod:162 C/apps/s_server.pod:189
 msgid "B<-nbio_test>"
 msgstr "B<-nbio_test>"
 
 #. type: textblock
-#: C/apps/s_client.pod:151
+#: C/apps/s_client.pod:164
 msgid "tests non-blocking I/O"
 msgstr "Tester les entrées et sorties non bloquantes."
 
 #. type: =item
-#: C/apps/s_client.pod:153 C/apps/s_server.pod:186 C/apps/s_time.pod:91
+#: C/apps/s_client.pod:166 C/apps/s_server.pod:193 C/apps/s_time.pod:91
 msgid "B<-nbio>"
 msgstr "B<-nbio>"
 
 #. type: textblock
-#: C/apps/s_client.pod:155
+#: C/apps/s_client.pod:168
 msgid "turns on non-blocking I/O"
 msgstr "Activer les entrées et sorties non bloquantes."
 
 #. type: =item
-#: C/apps/s_client.pod:157 C/apps/s_server.pod:190
+#: C/apps/s_client.pod:170 C/apps/s_server.pod:197
 msgid "B<-crlf>"
 msgstr "B<-crlf>"
 
 #. type: textblock
-#: C/apps/s_client.pod:159
+#: C/apps/s_client.pod:172
 msgid ""
 "this option translated a line feed from the terminal into CR+LF as required "
 "by some servers."
@@ -1703,12 +2414,12 @@ msgstr ""
 "comme exigé par certains serveurs."
 
 #. type: =item
-#: C/apps/s_client.pod:162
+#: C/apps/s_client.pod:175
 msgid "B<-ign_eof>"
 msgstr "B<-ign_eof>"
 
 #. type: textblock
-#: C/apps/s_client.pod:164
+#: C/apps/s_client.pod:177
 msgid ""
 "inhibit shutting down the connection when end of file is reached in the "
 "input."
@@ -1717,12 +2428,12 @@ msgstr ""
 "entrée."
 
 #. type: =item
-#: C/apps/s_client.pod:167 C/apps/s_server.pod:194
+#: C/apps/s_client.pod:180 C/apps/s_server.pod:201
 msgid "B<-quiet>"
 msgstr "B<-quiet>"
 
 #. type: textblock
-#: C/apps/s_client.pod:169
+#: C/apps/s_client.pod:182
 msgid ""
 "inhibit printing of session and certificate information.  This implicitly "
 "turns on B<-ign_eof> as well."
@@ -1731,24 +2442,44 @@ msgstr ""
 "active aussi B<-ign_eof> implicitement."
 
 #. type: =item
-#: C/apps/s_client.pod:172
+#: C/apps/s_client.pod:185
+#, fuzzy
+#| msgid "B<-ign_eof>"
+msgid "B<-no_ign_eof>"
+msgstr "B<-ign_eof>"
+
+#. type: textblock
+#: C/apps/s_client.pod:187
+#, fuzzy
+#| msgid ""
+#| "inhibit shutting down the connection when end of file is reached in the "
+#| "input."
+msgid ""
+"shut down the connection when end of file is reached in the input.  Can be "
+"used to override the implicit B<-ign_eof> after B<-quiet>."
+msgstr ""
+"Empêcher la fermeture de connexion quand une fin de fichier est atteinte en "
+"entrée."
+
+#. type: =item
+#: C/apps/s_client.pod:190
 msgid "B<-psk_identity identity>"
 msgstr "B<-psk_identity> I<identité>"
 
 #. type: textblock
-#: C/apps/s_client.pod:174
+#: C/apps/s_client.pod:192
 msgid "Use the PSK identity B<identity> when using a PSK cipher suite."
 msgstr ""
 "Utiliser l’identité PSK I<identité> lors de l’utilisation d’un ensemble de "
 "chiffrements PSK."
 
 #. type: =item
-#: C/apps/s_client.pod:176 C/apps/s_server.pod:202
+#: C/apps/s_client.pod:194 C/apps/s_server.pod:209
 msgid "B<-psk key>"
 msgstr "B<-psk> I<clef>"
 
 #. type: textblock
-#: C/apps/s_client.pod:178 C/apps/s_server.pod:204
+#: C/apps/s_client.pod:196 C/apps/s_server.pod:211
 msgid ""
 "Use the PSK key B<key> when using a PSK cipher suite. The key is given as a "
 "hexadecimal number without leading 0x, for example -psk 1a2b3c4d."
@@ -1758,12 +2489,12 @@ msgstr ""
 "précédé par 0x, par exemple B<-psk 1a2b3c4d>."
 
 #. type: =item
-#: C/apps/s_client.pod:182 C/apps/s_server.pod:208
+#: C/apps/s_client.pod:200 C/apps/s_server.pod:215
 msgid "B<-ssl2>, B<-ssl3>, B<-tls1>, B<-no_ssl2>, B<-no_ssl3>, B<-no_tls1>"
 msgstr "B<-ssl2>, B<-ssl3>, B<-tls1>, B<-no_ssl2>, B<-no_ssl3>, B<-no_tls1>"
 
 #. type: textblock
-#: C/apps/s_client.pod:184 C/apps/s_server.pod:210
+#: C/apps/s_client.pod:202 C/apps/s_server.pod:217
 msgid ""
 "these options disable the use of certain SSL or TLS protocols. By default "
 "the initial handshake uses a method which should be compatible with all "
@@ -1775,7 +2506,7 @@ msgstr ""
 "ou TLS comme approprié."
 
 #. type: textblock
-#: C/apps/s_client.pod:188
+#: C/apps/s_client.pod:206
 msgid ""
 "Unfortunately there are a lot of ancient and broken servers in use which "
 "cannot handle this technique and will fail to connect. Some servers only "
@@ -1789,12 +2520,12 @@ msgstr ""
 "B<-ssl2>."
 
 #. type: =item
-#: C/apps/s_client.pod:193 C/apps/s_server.pod:214 C/apps/s_time.pod:108
+#: C/apps/s_client.pod:211 C/apps/s_server.pod:221 C/apps/s_time.pod:108
 msgid "B<-bugs>"
 msgstr "B<-bugs>"
 
 #. type: textblock
-#: C/apps/s_client.pod:195 C/apps/s_server.pod:216 C/apps/s_time.pod:110
+#: C/apps/s_client.pod:213 C/apps/s_server.pod:223 C/apps/s_time.pod:110
 msgid ""
 "there are several known bug in SSL and TLS implementations. Adding this "
 "option enables various workarounds."
@@ -1803,12 +2534,12 @@ msgstr ""
 "cette option permet de contourner certains problèmes."
 
 #. type: =item
-#: C/apps/s_client.pod:198 C/apps/s_server.pod:224 C/apps/s_time.pod:113
+#: C/apps/s_client.pod:216 C/apps/s_server.pod:231 C/apps/s_time.pod:113
 msgid "B<-cipher cipherlist>"
 msgstr "B<-cipher> I<listechiffrements>"
 
 #. type: textblock
-#: C/apps/s_client.pod:200
+#: C/apps/s_client.pod:218
 msgid ""
 "this allows the cipher list sent by the client to be modified. Although the "
 "server determines which cipher suite is used it should take the first "
@@ -1822,12 +2553,24 @@ msgstr ""
 "pour plus de renseignements."
 
 #. type: =item
-#: C/apps/s_client.pod:205
+#: C/apps/s_client.pod:223 C/apps/s_server.pod:239
+#, fuzzy
+#| msgid "B<-serverinfo types>"
+msgid "B<-serverpref>"
+msgstr "B<-serverinfo> I<types>"
+
+#. type: textblock
+#: C/apps/s_client.pod:225
+msgid "use the server's cipher preferences; only used for SSLV2."
+msgstr ""
+
+#. type: =item
+#: C/apps/s_client.pod:227
 msgid "B<-starttls protocol>"
 msgstr "B<-starttls> I<protocole>"
 
 #. type: textblock
-#: C/apps/s_client.pod:207
+#: C/apps/s_client.pod:229
 msgid ""
 "send the protocol-specific message(s) to switch to TLS for communication.  "
 "B<protocol> is a keyword for the intended protocol.  Currently, the only "
@@ -1839,44 +2582,44 @@ msgstr ""
 "« pop3 », « imap » et « ftp »."
 
 #. type: =item
-#: C/apps/s_client.pod:211 C/apps/s_server.pod:232
+#: C/apps/s_client.pod:233 C/apps/s_server.pod:243
 msgid "B<-tlsextdebug>"
 msgstr "B<-tlsextdebug>"
 
 #. type: textblock
-#: C/apps/s_client.pod:213 C/apps/s_server.pod:234
+#: C/apps/s_client.pod:235 C/apps/s_server.pod:245
 msgid "print out a hex dump of any TLS extensions received from the server."
 msgstr ""
 "Afficher les échanges au format hexadécimal de toutes les extensions TLS "
 "reçues du serveur."
 
 #. type: =item
-#: C/apps/s_client.pod:215 C/apps/s_server.pod:236
+#: C/apps/s_client.pod:237 C/apps/s_server.pod:247
 msgid "B<-no_ticket>"
 msgstr "B<-no_ticket>"
 
 #. type: textblock
-#: C/apps/s_client.pod:217 C/apps/s_server.pod:238
+#: C/apps/s_client.pod:239 C/apps/s_server.pod:249
 msgid "disable RFC4507bis session ticket support."
 msgstr "Désactiver la prise en charge des tickets de session RFC 4507 bis."
 
 #. type: =item
-#: C/apps/s_client.pod:219
+#: C/apps/s_client.pod:241
 msgid "B<-sess_out filename>"
 msgstr "B<-sess_out> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_client.pod:221
+#: C/apps/s_client.pod:243
 msgid "output SSL session to B<filename>"
 msgstr "Envoyer la session SSL dans I<fichier>."
 
 #. type: =item
-#: C/apps/s_client.pod:223
+#: C/apps/s_client.pod:245
 msgid "B<-sess_in sess.pem>"
 msgstr "B<-sess_in> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_client.pod:225
+#: C/apps/s_client.pod:247
 msgid ""
 "load SSL session from B<filename>. The client will attempt to resume a "
 "connection from this session."
@@ -1885,12 +2628,12 @@ msgstr ""
 "connexion depuis cette session."
 
 #. type: =item
-#: C/apps/s_client.pod:228 C/apps/s_server.pod:261
+#: C/apps/s_client.pod:250 C/apps/s_server.pod:272
 msgid "B<-engine id>"
 msgstr "B<-engine> I<identifiant>"
 
 #. type: textblock
-#: C/apps/s_client.pod:230
+#: C/apps/s_client.pod:252
 msgid ""
 "specifying an engine (by its unique B<id> string) will cause B<s_client> to "
 "attempt to obtain a functional reference to the specified engine, thus "
@@ -1903,12 +2646,12 @@ msgstr ""
 "utilisé par défaut pour tous les algorithmes disponibles."
 
 #. type: =item
-#: C/apps/s_client.pod:235 C/apps/s_server.pod:275
+#: C/apps/s_client.pod:257 C/apps/s_server.pod:286
 msgid "B<-rand file(s)>"
 msgstr "B<-rand> I<fichier(s)>"
 
 #. type: textblock
-#: C/apps/s_client.pod:237 C/apps/s_server.pod:277
+#: C/apps/s_client.pod:259 C/apps/s_server.pod:288
 msgid ""
 "a file or files containing random data used to seed the random number "
 "generator, or an EGD socket (see L<RAND_egd(3)|RAND_egd(3)>).  Multiple "
@@ -1922,12 +2665,12 @@ msgstr ""
 "pour Windows, « B<,> » pour OpenVMS et « B<:> » pour tous les autres."
 
 #. type: =item
-#: C/apps/s_client.pod:243
+#: C/apps/s_client.pod:265
 msgid "B<-serverinfo types>"
 msgstr "B<-serverinfo> I<types>"
 
 #. type: textblock
-#: C/apps/s_client.pod:245
+#: C/apps/s_client.pod:267
 msgid ""
 "a list of comma-separated TLS Extension Types (numbers between 0 and "
 "65535).  Each type will be sent as an empty ClientHello TLS Extension.  The "
@@ -1939,42 +2682,45 @@ msgstr ""
 "affichée comme un fichier PEM."
 
 #. type: =item
-#: C/apps/s_client.pod:250 C/apps/s_server.pod:291
-msgid "B<-auth>"
-msgstr "B<-auth>"
+#: C/apps/s_client.pod:272 C/apps/s_server.pod:306
+#, fuzzy
+#| msgid "B<-state>"
+msgid "B<-status>"
+msgstr "B<-state>"
 
 #. type: textblock
-#: C/apps/s_client.pod:252 C/apps/s_server.pod:293
+#: C/apps/s_client.pod:274
 msgid ""
-"send RFC 5878 client and server authorization extensions in the Client Hello "
-"as well as supplemental data if the server also sent the authorization "
-"extensions in the Server Hello."
+"sends a certificate status request to the server (OCSP stapling). The server "
+"response (if any) is printed out."
 msgstr ""
-"Envoyer des extensions d’autorisation client et serveur RFC 5878 dans le "
-"salut du client ainsi que des données supplémentaires si le serveur a aussi "
-"envoyé les extensions d’autorisation dans le salut du serveur."
 
 #. type: =item
-#: C/apps/s_client.pod:255 C/apps/s_server.pod:296
-msgid "B<-auth_require_reneg>"
-msgstr "B<-auth_require_reneg>"
+#: C/apps/s_client.pod:277 C/apps/s_server.pod:325
+#, fuzzy
+#| msgid "B<-starttls protocol>"
+msgid "B<-nextprotoneg protocols>"
+msgstr "B<-starttls> I<protocole>"
 
 #. type: textblock
-#: C/apps/s_client.pod:257 C/apps/s_server.pod:298
+#: C/apps/s_client.pod:279
 msgid ""
-"only send RFC 5878 client and server authorization extensions during "
-"renegotiation."
+"enable Next Protocol Negotiation TLS extension and provide a list of comma-"
+"separated protocol names that the client should advertise support for. The "
+"list should contain most wanted protocols first.  Protocol names are "
+"printable ASCII strings, for example \"http/1.1\" or \"spdy/3\".  Empty list "
+"of protocols is treated specially and will cause the client to advertise "
+"support for the TLS extension but disconnect just after reciving ServerHello "
+"with a list of server supported protocols."
 msgstr ""
-"N’envoyer que les extensions d’autorisation client et serveur RFC 5878 lors "
-"de la renégociation."
 
 #. type: =head1
-#: C/apps/s_client.pod:261 C/apps/s_server.pod:307
+#: C/apps/s_client.pod:290 C/apps/s_server.pod:335
 msgid "CONNECTED COMMANDS"
 msgstr "COMMANDES DE CONNEXION"
 
 #. type: textblock
-#: C/apps/s_client.pod:263
+#: C/apps/s_client.pod:292
 msgid ""
 "If a connection is established with an SSL server then any data received "
 "from the server is displayed and any key presses will be sent to the server. "
@@ -1991,7 +2737,7 @@ msgstr ""
 "fin de fichier est atteinte, la connexion sera fermée."
 
 #. type: textblock
-#: C/apps/s_client.pod:272
+#: C/apps/s_client.pod:301
 msgid ""
 "B<s_client> can be used to debug SSL servers. To connect to an SSL HTTP "
 "server the command:"
@@ -2000,7 +2746,7 @@ msgstr ""
 "connecter à un serveur HTTP SSL, la commande :"
 
 #. type: verbatim
-#: C/apps/s_client.pod:275
+#: C/apps/s_client.pod:304
 #, no-wrap
 msgid ""
 " openssl s_client -connect servername:443\n"
@@ -2010,7 +2756,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/s_client.pod:277
+#: C/apps/s_client.pod:306
 msgid ""
 "would typically be used (https uses port 443). If the connection succeeds "
 "then an HTTP command can be given such as \"GET /\" to retrieve a web page."
@@ -2020,7 +2766,7 @@ msgstr ""
 "récupérer une page web."
 
 #. type: textblock
-#: C/apps/s_client.pod:280
+#: C/apps/s_client.pod:309
 msgid ""
 "If the handshake fails then there are several possible causes, if it is "
 "nothing obvious like no client certificate then the B<-bugs>, B<-ssl2>, B<-"
@@ -2036,7 +2782,7 @@ msgstr ""
 "soumettre un rapport de bogue sur une liste de diffusion d’OpenSSL."
 
 #. type: textblock
-#: C/apps/s_client.pod:286
+#: C/apps/s_client.pod:315
 msgid ""
 "A frequent problem when attempting to get client certificates working is "
 "that a web client complains it has no certificates or gives an empty list to "
@@ -2059,7 +2805,7 @@ msgstr ""
 "envoyer une requête HTTP pour une page appropriée."
 
 #. type: textblock
-#: C/apps/s_client.pod:296 C/apps/s_time.pod:155
+#: C/apps/s_client.pod:325 C/apps/s_time.pod:155
 msgid ""
 "If a certificate is specified on the command line using the B<-cert> option "
 "it will not be used unless the server specifically requests a client "
@@ -2073,7 +2819,7 @@ msgstr ""
 "fonctionne."
 
 #. type: textblock
-#: C/apps/s_client.pod:301
+#: C/apps/s_client.pod:330
 msgid ""
 "If there are problems verifying a server certificate then the B<-showcerts> "
 "option can be used to show the whole chain."
@@ -2082,7 +2828,7 @@ msgstr ""
 "showcerts> peut être utilisée pour montrer toute la chaîne."
 
 #. type: textblock
-#: C/apps/s_client.pod:304
+#: C/apps/s_client.pod:333
 msgid ""
 "Since the SSLv23 client hello cannot include compression methods or "
 "extensions these will only be supported if its use is disabled, for example "
@@ -2092,13 +2838,24 @@ msgstr ""
 "extensions de compression, elles ne seront prises en charge que si son "
 "utilisation est désactivée, par exemple en utilisant l’option B<-no_sslv2>."
 
+#. type: textblock
+#: C/apps/s_client.pod:337
+msgid ""
+"The B<s_client> utility is a test tool and is designed to continue the "
+"handshake after any certificate verification errors. As a result it will "
+"accept any certificate chain (trusted or not) sent by the peer. None test "
+"applications should B<not> do this as it makes them vulnerable to a MITM "
+"attack. This behaviour can be changed by with the B<-verify_return_error> "
+"option: any verify errors are then returned aborting the handshake."
+msgstr ""
+
 #. type: =head1
-#: C/apps/s_client.pod:308 C/apps/s_server.pod:364 C/apps/s_time.pod:160
+#: C/apps/s_client.pod:344 C/apps/s_server.pod:392 C/apps/s_time.pod:160
 msgid "BUGS"
 msgstr "BOGUES"
 
 #. type: textblock
-#: C/apps/s_client.pod:310
+#: C/apps/s_client.pod:346
 msgid ""
 "Because this program has a lot of options and also because some of the "
 "techniques used are rather old, the C source of s_client is rather hard to "
@@ -2111,15 +2868,7 @@ msgstr ""
 "client SSL typique serait beaucoup plus simple."
 
 #. type: textblock
-#: C/apps/s_client.pod:315 C/apps/s_time.pod:166
-msgid ""
-"The B<-verify> option should really exit if the server verification fails."
-msgstr ""
-"L'option B<-verify> devrait réellement quitter si la vérification du serveur "
-"échoue."
-
-#. type: textblock
-#: C/apps/s_client.pod:318
+#: C/apps/s_client.pod:351
 msgid ""
 "The B<-prexit> option is a bit of a hack. We should really report "
 "information whenever a session is renegotiated."
@@ -2128,7 +2877,7 @@ msgstr ""
 "vraiment être signalés quand une session est renégociée."
 
 #. type: textblock
-#: C/apps/s_client.pod:323
+#: C/apps/s_client.pod:356
 msgid ""
 "L<sess_id(1)|sess_id(1)>, L<s_server(1)|s_server(1)>, L<ciphers(1)|"
 "ciphers(1)>"
@@ -2143,6 +2892,21 @@ msgstr "s_server - programme serveur SSL ou TLS"
 
 #. type: textblock
 #: C/apps/s_server.pod:10
+#, fuzzy
+#| msgid ""
+#| "B<openssl> B<s_server> [B<-accept port>] [B<-context id>] [B<-verify "
+#| "depth>] [B<-Verify depth>] [B<-crl_check>] [B<-crl_check_all>] [B<-cert "
+#| "filename>] [B<-certform DER|PEM>] [B<-key keyfile>] [B<-keyform DER|PEM>] "
+#| "[B<-pass arg>] [B<-dcert filename>] [B<-dcertform DER|PEM>] [B<-dkey "
+#| "keyfile>] [B<-dkeyform DER|PEM>] [B<-dpass arg>] [B<-dhparam filename>] "
+#| "[B<-nbio>] [B<-nbio_test>] [B<-crlf>] [B<-debug>] [B<-msg>] [B<-state>] "
+#| "[B<-CApath directory>] [B<-CAfile filename>] [B<-nocert>] [B<-cipher "
+#| "cipherlist>] [B<-quiet>] [B<-no_tmp_rsa>] [B<-ssl2>] [B<-ssl3>] [B<-"
+#| "tls1>] [B<-no_ssl2>] [B<-no_ssl3>] [B<-no_tls1>] [B<-no_dhe>] [B<-bugs>] "
+#| "[B<-hack>] [B<-www>] [B<-WWW>] [B<-HTTP>] [B<-engine id>] [B<-"
+#| "tlsextdebug>] [B<-no_ticket>] [B<-id_prefix arg>] [B<-rand file(s)>] [B<-"
+#| "serverinfo file>] [B<-auth>] [B<-auth_require_reneg>] [B<-"
+#| "no_resumption_on_reneg>]"
 msgid ""
 "B<openssl> B<s_server> [B<-accept port>] [B<-context id>] [B<-verify depth>] "
 "[B<-Verify depth>] [B<-crl_check>] [B<-crl_check_all>] [B<-cert filename>] "
@@ -2151,11 +2915,12 @@ msgid ""
 "dkeyform DER|PEM>] [B<-dpass arg>] [B<-dhparam filename>] [B<-nbio>] [B<-"
 "nbio_test>] [B<-crlf>] [B<-debug>] [B<-msg>] [B<-state>] [B<-CApath "
 "directory>] [B<-CAfile filename>] [B<-nocert>] [B<-cipher cipherlist>] [B<-"
-"quiet>] [B<-no_tmp_rsa>] [B<-ssl2>] [B<-ssl3>] [B<-tls1>] [B<-no_ssl2>] [B<-"
-"no_ssl3>] [B<-no_tls1>] [B<-no_dhe>] [B<-bugs>] [B<-hack>] [B<-www>] [B<-"
-"WWW>] [B<-HTTP>] [B<-engine id>] [B<-tlsextdebug>] [B<-no_ticket>] [B<-"
-"id_prefix arg>] [B<-rand file(s)>] [B<-serverinfo file>] [B<-auth>] [B<-"
-"auth_require_reneg>] [B<-no_resumption_on_reneg>]"
+"serverpref>] [B<-quiet>] [B<-no_tmp_rsa>] [B<-ssl2>] [B<-ssl3>] [B<-tls1>] "
+"[B<-no_ssl2>] [B<-no_ssl3>] [B<-no_tls1>] [B<-no_dhe>] [B<-bugs>] [B<-hack>] "
+"[B<-www>] [B<-WWW>] [B<-HTTP>] [B<-engine id>] [B<-tlsextdebug>] [B<-"
+"no_ticket>] [B<-id_prefix arg>] [B<-rand file(s)>] [B<-serverinfo file>] [B<-"
+"no_resumption_on_reneg>] [B<-status>] [B<-status_verbose>] [B<-"
+"status_timeout nsec>] [B<-status_url url>] [B<-nextprotoneg protocols>]"
 msgstr ""
 "B<openssl> B<s_server> [B<-accept> I<port>] [B<-context> I<identifiant>] [B<-"
 "verify> I<profondeur>] [B<-Verify> I<profondeur>] [B<-crl_check>] [B<-"
@@ -2173,7 +2938,7 @@ msgstr ""
 "auth_require_reneg>] [B<-no_resumption_on_reneg>]"
 
 #. type: textblock
-#: C/apps/s_server.pod:64
+#: C/apps/s_server.pod:68
 msgid ""
 "The B<s_server> command implements a generic SSL/TLS server which listens "
 "for connections on a given port using SSL/TLS."
@@ -2182,12 +2947,12 @@ msgstr ""
 "attend les connexions sur un port donné en utilisant SSL ou TLS."
 
 #. type: =item
-#: C/apps/s_server.pod:71
+#: C/apps/s_server.pod:75
 msgid "B<-accept port>"
 msgstr "B<-accept> I<port>"
 
 #. type: textblock
-#: C/apps/s_server.pod:73
+#: C/apps/s_server.pod:77
 msgid ""
 "the TCP port to listen on for connections. If not specified 4433 is used."
 msgstr ""
@@ -2195,12 +2960,12 @@ msgstr ""
 "utilisé."
 
 #. type: =item
-#: C/apps/s_server.pod:75
+#: C/apps/s_server.pod:79
 msgid "B<-context id>"
 msgstr "B<-context> I<identifiant>"
 
 #. type: textblock
-#: C/apps/s_server.pod:77
+#: C/apps/s_server.pod:81
 msgid ""
 "sets the SSL context id. It can be given any string value. If this option is "
 "not present a default value will be used."
@@ -2210,7 +2975,7 @@ msgstr ""
 "utilisée."
 
 #. type: textblock
-#: C/apps/s_server.pod:82
+#: C/apps/s_server.pod:86
 msgid ""
 "The certificate to use, most servers cipher suites require the use of a "
 "certificate and some require a certificate with a certain public key type: "
@@ -2225,12 +2990,12 @@ msgstr ""
 "utilisé."
 
 #. type: =item
-#: C/apps/s_server.pod:105
+#: C/apps/s_server.pod:109
 msgid "B<-dcert filename>, B<-dkey keyname>"
 msgstr "B<-dcert> I<fichier>, B<-dkey> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_server.pod:107
+#: C/apps/s_server.pod:111
 msgid ""
 "specify an additional certificate and private key, these behave in the same "
 "manner as the B<-cert> and B<-key> options except there is no default if "
@@ -2253,12 +3018,12 @@ msgstr ""
 "certificat approprié."
 
 #. type: =item
-#: C/apps/s_server.pod:116
+#: C/apps/s_server.pod:120
 msgid "B<-dcertform format>, B<-dkeyform format>, B<-dpass arg>"
 msgstr "B<-dcertform> I<format>, B<-dkeyform> I<format>, B<-dpass> I<param>"
 
 #. type: textblock
-#: C/apps/s_server.pod:118
+#: C/apps/s_server.pod:122
 msgid ""
 "additional certificate and private key format and passphrase respectively."
 msgstr ""
@@ -2266,12 +3031,12 @@ msgstr ""
 "phrase secrète."
 
 #. type: =item
-#: C/apps/s_server.pod:120
+#: C/apps/s_server.pod:124
 msgid "B<-nocert>"
 msgstr "B<-nocert>"
 
 #. type: textblock
-#: C/apps/s_server.pod:122
+#: C/apps/s_server.pod:126
 msgid ""
 "if this option is set then no certificate is used. This restricts the cipher "
 "suites available to the anonymous ones (currently just anonymous DH)."
@@ -2281,12 +3046,12 @@ msgstr ""
 "seulement DH anonyme)."
 
 #. type: =item
-#: C/apps/s_server.pod:126
+#: C/apps/s_server.pod:130
 msgid "B<-dhparam filename>"
 msgstr "B<-dhparam> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_server.pod:128
+#: C/apps/s_server.pod:132
 msgid ""
 "the DH parameter file to use. The ephemeral DH cipher suites generate keys "
 "using a set of DH parameters. If not specified then an attempt is made to "
@@ -2300,12 +3065,12 @@ msgstr ""
 "paramètres, et propre au programme B<s_server>, sera utilisé."
 
 #. type: =item
-#: C/apps/s_server.pod:133
+#: C/apps/s_server.pod:137
 msgid "B<-no_dhe>"
 msgstr "B<-no_dhe>"
 
 #. type: textblock
-#: C/apps/s_server.pod:135
+#: C/apps/s_server.pod:139
 msgid ""
 "if this option is set then no DH parameters will be loaded effectively "
 "disabling the ephemeral DH cipher suites."
@@ -2314,12 +3079,12 @@ msgstr ""
 "effectivement les ensembles de chiffrements DH éphémères."
 
 #. type: =item
-#: C/apps/s_server.pod:138
+#: C/apps/s_server.pod:142
 msgid "B<-no_tmp_rsa>"
 msgstr "B<-no_tmp_rsa>"
 
 #. type: textblock
-#: C/apps/s_server.pod:140
+#: C/apps/s_server.pod:144
 msgid ""
 "certain export cipher suites sometimes use a temporary RSA key, this option "
 "disables temporary RSA key generation."
@@ -2328,12 +3093,12 @@ msgstr ""
 "RSA temporaire, cette option désactive la création de clef RSA temporaire."
 
 #. type: =item
-#: C/apps/s_server.pod:143
+#: C/apps/s_server.pod:147
 msgid "B<-verify depth>, B<-Verify depth>"
 msgstr "B<-verify> I<profondeur>, B<-Verify> I<profondeur>"
 
 #. type: textblock
-#: C/apps/s_server.pod:145
+#: C/apps/s_server.pod:149
 msgid ""
 "The verify depth to use. This specifies the maximum length of the client "
 "certificate chain and makes the server request a certificate from the "
@@ -2347,13 +3112,20 @@ msgstr ""
 "mais le client ne doit pas nécessairement en envoyer un, avec l’option B<-"
 "Verify>, le client doit fournir un certificat sinon une erreur survient."
 
+#. type: textblock
+#: C/apps/s_server.pod:155
+msgid ""
+"If the ciphersuite cannot request a client certificate (for example an "
+"anonymous ciphersuite or PSK) this option has no effect."
+msgstr ""
+
 #. type: =item
-#: C/apps/s_server.pod:151
+#: C/apps/s_server.pod:158
 msgid "B<-crl_check>, B<-crl_check_all>"
 msgstr "B<-crl_check>, B<-crl_check_all>"
 
 #. type: textblock
-#: C/apps/s_server.pod:153
+#: C/apps/s_server.pod:160
 msgid ""
 "Check the peer certificate has not been revoked by its CA.  The CRL(s) are "
 "appended to the certificate file. With the B<-crl_check_all> option all CRLs "
@@ -2366,7 +3138,7 @@ msgstr ""
 "chaîne sont vérifiées."
 
 #. type: textblock
-#: C/apps/s_server.pod:159
+#: C/apps/s_server.pod:166
 msgid ""
 "The directory to use for client certificate verification. This directory "
 "must be in \"hash format\", see B<verify> for more information. These are "
@@ -2378,7 +3150,7 @@ msgstr ""
 "certificats du serveur."
 
 #. type: textblock
-#: C/apps/s_server.pod:165
+#: C/apps/s_server.pod:172
 msgid ""
 "A file containing trusted certificates to use during client authentication "
 "and to use when attempting to build the server certificate chain. The list "
@@ -2392,46 +3164,46 @@ msgstr ""
 "client quand un certificat est demandé."
 
 #. type: textblock
-#: C/apps/s_server.pod:184
+#: C/apps/s_server.pod:191
 msgid "tests non blocking I/O"
 msgstr "Tester les entrées et sorties non bloquantes."
 
 #. type: textblock
-#: C/apps/s_server.pod:188
+#: C/apps/s_server.pod:195
 msgid "turns on non blocking I/O"
 msgstr "Activer les entrées et sorties non bloquantes."
 
 #. type: textblock
-#: C/apps/s_server.pod:192
+#: C/apps/s_server.pod:199
 msgid "this option translated a line feed from the terminal into CR+LF."
 msgstr ""
 "Cette option traduit un changement de ligne du terminal en RC+PAL (CR+LF)."
 
 #. type: textblock
-#: C/apps/s_server.pod:196
+#: C/apps/s_server.pod:203
 msgid "inhibit printing of session and certificate information."
 msgstr ""
 "Empêcher l’affichage de renseignements sur la session et le certificat."
 
 #. type: =item
-#: C/apps/s_server.pod:198
+#: C/apps/s_server.pod:205
 msgid "B<-psk_hint hint>"
 msgstr "B<-psk_hint> I<suggestion>"
 
 #. type: textblock
-#: C/apps/s_server.pod:200
+#: C/apps/s_server.pod:207
 msgid "Use the PSK identity hint B<hint> when using a PSK cipher suite."
 msgstr ""
 "Utiliser la suggestion PSK I<suggestion> lors de l’utilisation d’un ensemble "
 "de chiffrements PSK."
 
 #. type: =item
-#: C/apps/s_server.pod:219
+#: C/apps/s_server.pod:226
 msgid "B<-hack>"
 msgstr "B<-hack>"
 
 #. type: textblock
-#: C/apps/s_server.pod:221
+#: C/apps/s_server.pod:228
 msgid ""
 "this option enables a further workaround for some some early Netscape SSL "
 "code (?)."
@@ -2440,7 +3212,7 @@ msgstr ""
 "Netscape."
 
 #. type: textblock
-#: C/apps/s_server.pod:226
+#: C/apps/s_server.pod:233
 msgid ""
 "this allows the cipher list used by the server to be modified.  When the "
 "client sends a list of supported ciphers the first client cipher also "
@@ -2455,13 +3227,19 @@ msgstr ""
 "préférence, l’ordre de la liste de chiffrements du serveur n’a pas "
 "d’importance. Consultez la commande B<ciphers> pour plus de renseignements."
 
+#. type: textblock
+#: C/apps/s_server.pod:241
+msgid ""
+"use the server's cipher preferences, rather than the client's preferences."
+msgstr ""
+
 #. type: =item
-#: C/apps/s_server.pod:240
+#: C/apps/s_server.pod:251
 msgid "B<-www>"
 msgstr "B<-www>"
 
 #. type: textblock
-#: C/apps/s_server.pod:242
+#: C/apps/s_server.pod:253
 msgid ""
 "sends a status message back to the client when it connects. This includes "
 "lots of information about the ciphers used and various session parameters.  "
@@ -2474,12 +3252,12 @@ msgstr ""
 "sera normalement utilisée avec un navigateur web."
 
 #. type: =item
-#: C/apps/s_server.pod:247
+#: C/apps/s_server.pod:258
 msgid "B<-WWW>"
 msgstr "B<-WWW>"
 
 #. type: textblock
-#: C/apps/s_server.pod:249
+#: C/apps/s_server.pod:260
 msgid ""
 "emulates a simple web server. Pages will be resolved relative to the current "
 "directory, for example if the URL https://myhost/page.html is requested the "
@@ -2490,12 +3268,12 @@ msgstr ""
 "le fichier ./page.html sera chargé."
 
 #. type: =item
-#: C/apps/s_server.pod:253
+#: C/apps/s_server.pod:264
 msgid "B<-HTTP>"
 msgstr "B<-HTTP>"
 
 #. type: textblock
-#: C/apps/s_server.pod:255
+#: C/apps/s_server.pod:266
 msgid ""
 "emulates a simple web server. Pages will be resolved relative to the current "
 "directory, for example if the URL https://myhost/page.html is requested the "
@@ -2511,7 +3289,7 @@ msgstr ""
 "(CR+LF)."
 
 #. type: textblock
-#: C/apps/s_server.pod:263
+#: C/apps/s_server.pod:274
 msgid ""
 "specifying an engine (by its unique B<id> string) will cause B<s_server> to "
 "attempt to obtain a functional reference to the specified engine, thus "
@@ -2524,12 +3302,12 @@ msgstr ""
 "utilisé par défaut pour tous les algorithmes disponibles."
 
 #. type: =item
-#: C/apps/s_server.pod:268
+#: C/apps/s_server.pod:279
 msgid "B<-id_prefix arg>"
 msgstr "B<-id_prefix> I<param>"
 
 #. type: textblock
-#: C/apps/s_server.pod:270
+#: C/apps/s_server.pod:281
 msgid ""
 "generate SSL/TLS session IDs prefixed by B<arg>. This is mostly useful for "
 "testing any SSL/TLS code (eg. proxies) that wish to deal with multiple "
@@ -2543,12 +3321,12 @@ msgstr ""
 "session (par exemple avec un certain préfixe)."
 
 #. type: =item
-#: C/apps/s_server.pod:283
+#: C/apps/s_server.pod:294
 msgid "B<-serverinfo file>"
 msgstr "B<-serverinfo> I<fichier>"
 
 #. type: textblock
-#: C/apps/s_server.pod:285
+#: C/apps/s_server.pod:296
 msgid ""
 "a file containing one or more blocks of PEM data.  Each PEM block must "
 "encode a TLS ServerHello extension (2 bytes type, 2 bytes length, followed "
@@ -2564,23 +3342,70 @@ msgstr ""
 "renvoyée."
 
 #. type: =item
-#: C/apps/s_server.pod:300
+#: C/apps/s_server.pod:302
 msgid "B<-no_resumption_on_reneg>"
 msgstr "B<-no_resumption_on_reneg>"
 
 #. type: textblock
-#: C/apps/s_server.pod:302
-msgid ""
-"set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag.  Required in order "
-"to receive supplemental data during renegotiation if auth and "
-"auth_require_reneg are set."
+#: C/apps/s_server.pod:304
+msgid "set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag."
 msgstr ""
-"Définir l’attribut SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION. Nécessaire "
-"pour recevoir des données supplémentaires lors de la renégociation si auth "
-"et auth_require_reneg sont définis."
 
 #. type: textblock
-#: C/apps/s_server.pod:309
+#: C/apps/s_server.pod:308
+msgid "enables certificate status request support (aka OCSP stapling)."
+msgstr ""
+
+#. type: =item
+#: C/apps/s_server.pod:310
+#, fuzzy
+#| msgid "B<-state>"
+msgid "B<-status_verbose>"
+msgstr "B<-state>"
+
+#. type: textblock
+#: C/apps/s_server.pod:312
+msgid ""
+"enables certificate status request support (aka OCSP stapling) and gives a "
+"verbose printout of the OCSP response."
+msgstr ""
+
+#. type: =item
+#: C/apps/s_server.pod:315
+msgid "B<-status_timeout nsec>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/s_server.pod:317
+msgid "sets the timeout for OCSP response to B<nsec> seconds."
+msgstr ""
+
+#. type: =item
+#: C/apps/s_server.pod:319
+#, fuzzy
+#| msgid "B<-starttls protocol>"
+msgid "B<-status_url url>"
+msgstr "B<-starttls> I<protocole>"
+
+#. type: textblock
+#: C/apps/s_server.pod:321
+msgid ""
+"sets a fallback responder URL to use if no responder URL is present in the "
+"server certificate. Without this option an error is returned if the server "
+"certificate does not contain a responder address."
+msgstr ""
+
+#. type: textblock
+#: C/apps/s_server.pod:327
+msgid ""
+"enable Next Protocol Negotiation TLS extension and provide a comma-separated "
+"list of supported protocol names.  The list should contain most wanted "
+"protocols first.  Protocol names are printable ASCII strings, for example "
+"\"http/1.1\" or \"spdy/3\"."
+msgstr ""
+
+#. type: textblock
+#: C/apps/s_server.pod:337
 msgid ""
 "If a connection request is established with an SSL client and neither the B<-"
 "www> nor the B<-WWW> option has been used then normally any data received "
@@ -2592,7 +3417,7 @@ msgstr ""
 "sera envoyé au client."
 
 #. type: textblock
-#: C/apps/s_server.pod:313
+#: C/apps/s_server.pod:341
 msgid ""
 "Certain single letter commands are also recognized which perform special "
 "operations: these are listed below."
@@ -2601,54 +3426,54 @@ msgstr ""
 "opération particulières : la liste est ci-dessous."
 
 #. type: =item
-#: C/apps/s_server.pod:318
+#: C/apps/s_server.pod:346
 msgid "B<q>"
 msgstr "B<q>"
 
 #. type: textblock
-#: C/apps/s_server.pod:320
+#: C/apps/s_server.pod:348
 msgid "end the current SSL connection but still accept new connections."
 msgstr ""
 "Terminer la connexion SSL actuelle mais continuer à accepter de nouvelles "
 "connexions."
 
 #. type: =item
-#: C/apps/s_server.pod:322
+#: C/apps/s_server.pod:350
 msgid "B<Q>"
 msgstr "B<Q>"
 
 #. type: textblock
-#: C/apps/s_server.pod:324
+#: C/apps/s_server.pod:352
 msgid "end the current SSL connection and exit."
 msgstr "Terminer la connexion SSL actuelle et quitter."
 
 #. type: =item
-#: C/apps/s_server.pod:326
+#: C/apps/s_server.pod:354
 msgid "B<r>"
 msgstr "B<r>"
 
 #. type: textblock
-#: C/apps/s_server.pod:328
+#: C/apps/s_server.pod:356
 msgid "renegotiate the SSL session."
 msgstr "Renégocier la session SSL."
 
 #. type: =item
-#: C/apps/s_server.pod:330
+#: C/apps/s_server.pod:358
 msgid "B<R>"
 msgstr "B<R>"
 
 #. type: textblock
-#: C/apps/s_server.pod:332
+#: C/apps/s_server.pod:360
 msgid "renegotiate the SSL session and request a client certificate."
 msgstr "Renégocier la session SSL et demander un certificat client."
 
 #. type: =item
-#: C/apps/s_server.pod:334
+#: C/apps/s_server.pod:362
 msgid "B<P>"
 msgstr "B<P>"
 
 #. type: textblock
-#: C/apps/s_server.pod:336
+#: C/apps/s_server.pod:364
 msgid ""
 "send some plain text down the underlying TCP connection: this should cause "
 "the client to disconnect due to a protocol violation."
@@ -2657,17 +3482,17 @@ msgstr ""
 "forcer le client à se déconnecter à cause d’une violation de protocole."
 
 #. type: =item
-#: C/apps/s_server.pod:339
+#: C/apps/s_server.pod:367
 msgid "B<S>"
 msgstr "B<S>"
 
 #. type: textblock
-#: C/apps/s_server.pod:341
+#: C/apps/s_server.pod:369
 msgid "print out some session cache status information."
 msgstr "Afficher certains renseignements d’état sur le cache de session."
 
 #. type: textblock
-#: C/apps/s_server.pod:347
+#: C/apps/s_server.pod:375
 msgid ""
 "B<s_server> can be used to debug SSL clients. To accept connections from a "
 "web browser the command:"
@@ -2676,7 +3501,7 @@ msgstr ""
 "les connexions d’un navigateur web, la commande :"
 
 #. type: verbatim
-#: C/apps/s_server.pod:350
+#: C/apps/s_server.pod:378
 #, no-wrap
 msgid ""
 " openssl s_server -accept 443 -www\n"
@@ -2686,12 +3511,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/s_server.pod:352
+#: C/apps/s_server.pod:380
 msgid "can be used for example."
 msgstr "peut par exemple être utilisée."
 
 #. type: textblock
-#: C/apps/s_server.pod:354
+#: C/apps/s_server.pod:382
 msgid ""
 "Most web browsers (in particular Netscape and MSIE) only support RSA cipher "
 "suites, so they cannot connect to servers which don't use a certificate "
@@ -2703,7 +3528,7 @@ msgstr ""
 "ou à une version d’OpenSSL avec RSA désactivé."
 
 #. type: textblock
-#: C/apps/s_server.pod:358
+#: C/apps/s_server.pod:386
 msgid ""
 "Although specifying an empty list of CAs when requesting a client "
 "certificate is strictly speaking a protocol violation, some SSL clients "
@@ -2717,14 +3542,14 @@ msgstr ""
 "de débogage."
 
 #. type: textblock
-#: C/apps/s_server.pod:362
+#: C/apps/s_server.pod:390
 msgid "The session parameters can printed out using the B<sess_id> program."
 msgstr ""
 "Les paramètres de session peuvent être affichés en utilisant le programme "
 "B<sess_id>."
 
 #. type: textblock
-#: C/apps/s_server.pod:366
+#: C/apps/s_server.pod:394
 msgid ""
 "Because this program has a lot of options and also because some of the "
 "techniques used are rather old, the C source of s_server is rather hard to "
@@ -2737,7 +3562,7 @@ msgstr ""
 "serveur SSL typique serait beaucoup plus simple."
 
 #. type: textblock
-#: C/apps/s_server.pod:371
+#: C/apps/s_server.pod:399
 msgid ""
 "The output of common ciphers is wrong: it just gives the list of ciphers "
 "that OpenSSL recognizes and the client supports."
@@ -2747,7 +3572,7 @@ msgstr ""
 "charge par le client."
 
 #. type: textblock
-#: C/apps/s_server.pod:374
+#: C/apps/s_server.pod:402
 msgid ""
 "There should be a way for the B<s_server> program to print out details of "
 "any unknown cipher suites a client says it supports."
@@ -2757,7 +3582,7 @@ msgstr ""
 "charge."
 
 #. type: textblock
-#: C/apps/s_server.pod:379
+#: C/apps/s_server.pod:407
 msgid ""
 "L<sess_id(1)|sess_id(1)>, L<s_client(1)|s_client(1)>, L<ciphers(1)|"
 "ciphers(1)>"
@@ -3033,6 +3858,14 @@ msgstr ""
 "mesurer les performances de tous les protocoles avec tous les serveurs."
 
 #. type: textblock
+#: C/apps/s_time.pod:166
+msgid ""
+"The B<-verify> option should really exit if the server verification fails."
+msgstr ""
+"L'option B<-verify> devrait réellement quitter si la vérification du serveur "
+"échoue."
+
+#. type: textblock
 #: C/apps/s_time.pod:171
 msgid ""
 "L<s_client(1)|s_client(1)>, L<s_server(1)|s_server(1)>, L<ciphers(1)|"
@@ -3040,3 +3873,85 @@ msgid ""
 msgstr ""
 "L<B<s_client>(1)|s_client(1)>, L<B<s_server>(1)|s_server(1)>, "
 "L<B<ciphers>(1)|ciphers(1)>"
+
+#~ msgid "cipher suites using AES."
+#~ msgstr "Ensembles de chiffrements utilisant AES."
+
+#~ msgid "B<CAMELLIA>"
+#~ msgstr "B<CAMELLIA>"
+
+#~ msgid "cipher suites using Camellia."
+#~ msgstr "Ensembles de chiffrements utilisant Camellia."
+
+#~ msgid ""
+#~ " TLS_DH_DSS_WITH_AES_128_CBC_SHA         Not implemented.\n"
+#~ " TLS_DH_DSS_WITH_AES_256_CBC_SHA         Not implemented.\n"
+#~ " TLS_DH_RSA_WITH_AES_128_CBC_SHA         Not implemented.\n"
+#~ " TLS_DH_RSA_WITH_AES_256_CBC_SHA         Not implemented.\n"
+#~ "\n"
+#~ msgstr ""
+#~ " TLS_DH_DSS_WITH_AES_128_CBC_SHA         Pas implémenté.\n"
+#~ " TLS_DH_DSS_WITH_AES_256_CBC_SHA         Pas implémenté.\n"
+#~ " TLS_DH_RSA_WITH_AES_128_CBC_SHA         Pas implémenté.\n"
+#~ " TLS_DH_RSA_WITH_AES_256_CBC_SHA         Pas implémenté.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ " TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA   Not implemented.\n"
+#~ " TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA   Not implemented.\n"
+#~ " TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA   Not implemented.\n"
+#~ " TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA   Not implemented.\n"
+#~ "\n"
+#~ msgstr ""
+#~ " TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA   Pas implémenté.\n"
+#~ " TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA   Pas implémenté.\n"
+#~ " TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA   Pas implémenté.\n"
+#~ " TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA   Pas implémenté.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ " TLS_DH_DSS_WITH_SEED_CBC_SHA           Not implemented.\n"
+#~ " TLS_DH_RSA_WITH_SEED_CBC_SHA           Not implemented.\n"
+#~ "\n"
+#~ msgstr ""
+#~ " TLS_DH_DSS_WITH_SEED_CBC_SHA           Pas implémenté.\n"
+#~ " TLS_DH_RSA_WITH_SEED_CBC_SHA           Pas implémenté.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "The non-ephemeral DH modes are currently unimplemented in OpenSSL because "
+#~ "there is no support for DH certificates."
+#~ msgstr ""
+#~ "Les modes non éphémères de DH ne sont pas implémentés actuellement dans "
+#~ "OpenSSL car il n'y a pas de prise en charge des certificats DH."
+
+#~ msgid "B<-auth>"
+#~ msgstr "B<-auth>"
+
+#~ msgid ""
+#~ "send RFC 5878 client and server authorization extensions in the Client "
+#~ "Hello as well as supplemental data if the server also sent the "
+#~ "authorization extensions in the Server Hello."
+#~ msgstr ""
+#~ "Envoyer des extensions d’autorisation client et serveur RFC 5878 dans le "
+#~ "salut du client ainsi que des données supplémentaires si le serveur a "
+#~ "aussi envoyé les extensions d’autorisation dans le salut du serveur."
+
+#~ msgid "B<-auth_require_reneg>"
+#~ msgstr "B<-auth_require_reneg>"
+
+#~ msgid ""
+#~ "only send RFC 5878 client and server authorization extensions during "
+#~ "renegotiation."
+#~ msgstr ""
+#~ "N’envoyer que les extensions d’autorisation client et serveur RFC 5878 "
+#~ "lors de la renégociation."
+
+#~ msgid ""
+#~ "set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag.  Required in "
+#~ "order to receive supplemental data during renegotiation if auth and "
+#~ "auth_require_reneg are set."
+#~ msgstr ""
+#~ "Définir l’attribut SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION. "
+#~ "Nécessaire pour recevoir des données supplémentaires lors de la "
+#~ "renégociation si auth et auth_require_reneg sont définis."

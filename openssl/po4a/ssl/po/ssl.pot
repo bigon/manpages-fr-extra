@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-03 13:15-0300\n"
+"POT-Creation-Date: 2014-07-25 12:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,13 +77,15 @@ msgstr ""
 #. type: textblock
 #: C/ssl/SSL_CIPHER_get_name.pod:26
 msgid ""
-"SSL_CIPHER_get_version() returns the protocol version for B<cipher>, "
-"currently \"SSLv2\", \"SSLv3\", or \"TLSv1\". If B<cipher> is NULL, "
+"SSL_CIPHER_get_version() returns string which indicates the SSL/TLS protocol "
+"version that first defined the cipher.  This is currently B<SSLv2> or "
+"B<TLSv1/SSLv3>.  In some cases it should possibly return \"TLSv1.2\" but "
+"does not; use SSL_CIPHER_description() instead.  If B<cipher> is NULL, "
 "\"(NONE)\" is returned."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:29
+#: C/ssl/SSL_CIPHER_get_name.pod:33
 msgid ""
 "SSL_CIPHER_description() returns a textual description of the cipher used "
 "into the buffer B<buf> of length B<len> provided. B<len> must be at least "
@@ -94,12 +96,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CIPHER_get_name.pod:36 C/ssl/SSL_COMP_add_compression_method.pod:20 C/ssl/SSL_accept.pod:19 C/ssl/SSL_alert_type_string.pod:31 C/ssl/SSL_clear.pod:18 C/ssl/SSL_connect.pod:19 C/ssl/SSL_do_handshake.pod:21 C/ssl/SSL_free.pod:19 C/ssl/SSL_library_init.pod:23 C/ssl/SSL_library_init.pod:46 C/ssl/SSL_load_client_CA_file.pod:18 C/ssl/SSL_pending.pod:18 C/ssl/SSL_read.pod:18 C/ssl/SSL_rstate_string.pod:22 C/ssl/SSL_shutdown.pod:18 C/ssl/SSL_state_string.pod:22 C/ssl/SSL_want.pod:24 C/ssl/SSL_write.pod:18
+#: C/ssl/SSL_CIPHER_get_name.pod:40 C/ssl/SSL_COMP_add_compression_method.pod:20 C/ssl/SSL_accept.pod:19 C/ssl/SSL_alert_type_string.pod:31 C/ssl/SSL_clear.pod:18 C/ssl/SSL_connect.pod:19 C/ssl/SSL_do_handshake.pod:21 C/ssl/SSL_free.pod:19 C/ssl/SSL_library_init.pod:23 C/ssl/SSL_library_init.pod:46 C/ssl/SSL_load_client_CA_file.pod:18 C/ssl/SSL_pending.pod:18 C/ssl/SSL_read.pod:18 C/ssl/SSL_rstate_string.pod:22 C/ssl/SSL_shutdown.pod:18 C/ssl/SSL_state_string.pod:22 C/ssl/SSL_want.pod:24 C/ssl/SSL_write.pod:18
 msgid "NOTES"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:38
+#: C/ssl/SSL_CIPHER_get_name.pod:42
 msgid ""
 "The number of bits processed can be different from the secret bits. An "
 "export cipher like e.g. EXP-RC4-MD5 has only 40 secret bits. The algorithm "
@@ -108,7 +110,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:43
+#: C/ssl/SSL_CIPHER_get_name.pod:47
 msgid ""
 "The string returned by SSL_CIPHER_description() in case of success consists "
 "of cleartext information separated by one or more blanks in the following "
@@ -116,34 +118,34 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CIPHER_get_name.pod:49
+#: C/ssl/SSL_CIPHER_get_name.pod:53
 msgid "<ciphername>"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:51
+#: C/ssl/SSL_CIPHER_get_name.pod:55
 msgid "Textual representation of the cipher name."
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CIPHER_get_name.pod:53
+#: C/ssl/SSL_CIPHER_get_name.pod:57
 msgid "<protocol version>"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:55
+#: C/ssl/SSL_CIPHER_get_name.pod:59
 msgid ""
-"Protocol version: B<SSLv2>, B<SSLv3>. The TLSv1 ciphers are flagged with "
-"SSLv3."
+"Protocol version: B<SSLv2>, B<SSLv3>, B<TLSv1.2>. The TLSv1.0 ciphers are "
+"flagged with SSLv3. No new ciphers were added by TLSv1.1."
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CIPHER_get_name.pod:57
+#: C/ssl/SSL_CIPHER_get_name.pod:62
 msgid "Kx=<key exchange>"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:59
+#: C/ssl/SSL_CIPHER_get_name.pod:64
 msgid ""
 "Key exchange method: B<RSA> (for export ciphers as B<RSA(512)> or "
 "B<RSA(1024)>), B<DH> (for export ciphers as B<DH(512)> or B<DH(1024)>), "
@@ -151,24 +153,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CIPHER_get_name.pod:63
+#: C/ssl/SSL_CIPHER_get_name.pod:68
 msgid "Au=<authentication>"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:65
+#: C/ssl/SSL_CIPHER_get_name.pod:70
 msgid ""
 "Authentication method: B<RSA>, B<DSS>, B<DH>, B<None>. None is the "
 "representation of anonymous ciphers."
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CIPHER_get_name.pod:68
+#: C/ssl/SSL_CIPHER_get_name.pod:73
 msgid "Enc=<symmetric encryption method>"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:70
+#: C/ssl/SSL_CIPHER_get_name.pod:75
 msgid ""
 "Encryption method with number of secret bits: B<DES(40)>, B<DES(56)>, "
 "B<3DES(168)>, B<RC4(40)>, B<RC4(56)>, B<RC4(64)>, B<RC4(128)>, B<RC2(40)>, "
@@ -176,39 +178,39 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CIPHER_get_name.pod:74
+#: C/ssl/SSL_CIPHER_get_name.pod:79
 msgid "Mac=<message authentication code>"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:76
+#: C/ssl/SSL_CIPHER_get_name.pod:81
 msgid "Message digest: B<MD5>, B<SHA1>."
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CIPHER_get_name.pod:78
+#: C/ssl/SSL_CIPHER_get_name.pod:83
 msgid "<export flag>"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:80
+#: C/ssl/SSL_CIPHER_get_name.pod:85
 msgid ""
 "If the cipher is flagged exportable with respect to old US crypto "
 "regulations, the word \"B<export>\" is printed."
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CIPHER_get_name.pod:85 C/ssl/SSL_library_init.pod:33 C/ssl/SSL_load_client_CA_file.pod:26
+#: C/ssl/SSL_CIPHER_get_name.pod:90 C/ssl/SSL_library_init.pod:33 C/ssl/SSL_load_client_CA_file.pod:26
 msgid "EXAMPLES"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:87
+#: C/ssl/SSL_CIPHER_get_name.pod:92
 msgid "Some examples for the output of SSL_CIPHER_description():"
 msgstr ""
 
 #. type: verbatim
-#: C/ssl/SSL_CIPHER_get_name.pod:89
+#: C/ssl/SSL_CIPHER_get_name.pod:94
 #, no-wrap
 msgid ""
 " EDH-RSA-DES-CBC3-SHA    SSLv3 Kx=DH       Au=RSA  Enc=3DES(168) Mac=SHA1\n"
@@ -219,20 +221,33 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: textblock
+#: C/ssl/SSL_CIPHER_get_name.pod:99
+msgid "A comp[lete list can be retrieved by invoking the following command:"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CIPHER_get_name.pod:101
+#, no-wrap
+msgid ""
+" openssl ciphers -v ALL\n"
+"\n"
+msgstr ""
+
 #. type: =head1
-#: C/ssl/SSL_CIPHER_get_name.pod:94 C/ssl/SSL_pending.pod:28
+#: C/ssl/SSL_CIPHER_get_name.pod:103 C/ssl/SSL_pending.pod:28
 msgid "BUGS"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:96
+#: C/ssl/SSL_CIPHER_get_name.pod:105
 msgid ""
 "If SSL_CIPHER_description() is called with B<cipher> being NULL, the library "
 "crashes."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:99
+#: C/ssl/SSL_CIPHER_get_name.pod:108
 msgid ""
 "If SSL_CIPHER_description() cannot handle a built-in cipher, the according "
 "description of the cipher property is B<unknown>. This case should not "
@@ -240,22 +255,22 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CIPHER_get_name.pod:103 C/ssl/SSL_COMP_add_compression_method.pod:50 C/ssl/SSL_accept.pod:41 C/ssl/SSL_alert_type_string.pod:49 C/ssl/SSL_clear.pod:53 C/ssl/SSL_connect.pod:38 C/ssl/SSL_do_handshake.pod:42 C/ssl/SSL_free.pod:36 C/ssl/SSL_library_init.pod:41 C/ssl/SSL_load_client_CA_file.pod:41 C/ssl/SSL_new.pod:20 C/ssl/SSL_pending.pod:24 C/ssl/SSL_read.pod:78 C/ssl/SSL_rstate_string.pod:30 C/ssl/SSL_shutdown.pod:89 C/ssl/SSL_state_string.pod:37 C/ssl/SSL_want.pod:37 C/ssl/SSL_write.pod:71
+#: C/ssl/SSL_CIPHER_get_name.pod:112 C/ssl/SSL_COMP_add_compression_method.pod:50 C/ssl/SSL_accept.pod:41 C/ssl/SSL_alert_type_string.pod:49 C/ssl/SSL_clear.pod:53 C/ssl/SSL_connect.pod:38 C/ssl/SSL_do_handshake.pod:42 C/ssl/SSL_free.pod:36 C/ssl/SSL_library_init.pod:41 C/ssl/SSL_load_client_CA_file.pod:41 C/ssl/SSL_new.pod:20 C/ssl/SSL_pending.pod:24 C/ssl/SSL_read.pod:78 C/ssl/SSL_rstate_string.pod:30 C/ssl/SSL_shutdown.pod:89 C/ssl/SSL_state_string.pod:37 C/ssl/SSL_want.pod:37 C/ssl/SSL_write.pod:71
 msgid "RETURN VALUES"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:105
+#: C/ssl/SSL_CIPHER_get_name.pod:114
 msgid "See DESCRIPTION"
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CIPHER_get_name.pod:107 C/ssl/SSL_COMP_add_compression_method.pod:66 C/ssl/SSL_accept.pod:68 C/ssl/SSL_alert_type_string.pod:229 C/ssl/SSL_connect.pod:65 C/ssl/SSL_do_handshake.pod:69 C/ssl/SSL_library_init.pod:52 C/ssl/SSL_load_client_CA_file.pod:57 C/ssl/SSL_new.pod:37 C/ssl/SSL_pending.pod:39 C/ssl/SSL_read.pod:114 C/ssl/SSL_rstate_string.pod:55 C/ssl/SSL_shutdown.pod:117 C/ssl/SSL_state_string.pod:41 C/ssl/SSL_want.pod:73 C/ssl/SSL_write.pod:101 C/ssl/ssl.pod:678
+#: C/ssl/SSL_CIPHER_get_name.pod:116 C/ssl/SSL_COMP_add_compression_method.pod:66 C/ssl/SSL_accept.pod:68 C/ssl/SSL_alert_type_string.pod:229 C/ssl/SSL_connect.pod:65 C/ssl/SSL_do_handshake.pod:69 C/ssl/SSL_library_init.pod:52 C/ssl/SSL_load_client_CA_file.pod:57 C/ssl/SSL_new.pod:37 C/ssl/SSL_pending.pod:39 C/ssl/SSL_read.pod:114 C/ssl/SSL_rstate_string.pod:55 C/ssl/SSL_shutdown.pod:117 C/ssl/SSL_state_string.pod:41 C/ssl/SSL_want.pod:73 C/ssl/SSL_write.pod:101 C/ssl/ssl.pod:678
 msgid "SEE ALSO"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CIPHER_get_name.pod:109
+#: C/ssl/SSL_CIPHER_get_name.pod:118
 msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_get_current_cipher(3)|SSL_get_current_cipher(3)>, "
 "L<SSL_get_ciphers(3)|SSL_get_ciphers(3)>, L<ciphers(1)|ciphers(1)>"
@@ -344,7 +359,7 @@ msgstr ""
 
 #. type: =item
 #: C/ssl/SSL_COMP_add_compression_method.pod:56 C/ssl/SSL_accept.pod:47 C/ssl/SSL_clear.pod:59 C/ssl/SSL_connect.pod:44 C/ssl/SSL_do_handshake.pod:48 C/ssl/SSL_read.pod:89 C/ssl/SSL_shutdown.pod:95 C/ssl/SSL_write.pod:82
-msgid "C<0>"
+msgid "Z<>0"
 msgstr ""
 
 #. type: textblock
@@ -354,7 +369,7 @@ msgstr ""
 
 #. type: =item
 #: C/ssl/SSL_COMP_add_compression_method.pod:60 C/ssl/SSL_accept.pod:53 C/ssl/SSL_clear.pod:64 C/ssl/SSL_connect.pod:50 C/ssl/SSL_do_handshake.pod:54 C/ssl/SSL_shutdown.pod:102
-msgid "C<1>"
+msgid "Z<>1"
 msgstr ""
 
 #. type: textblock

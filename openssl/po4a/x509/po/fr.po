@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2014-03-03 13:15-0300\n"
+"POT-Creation-Date: 2014-07-25 12:08-0400\n"
 "PO-Revision-Date: 2013-02-10 17:01-0400\n"
 "Last-Translator: none yet\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. type: =head1
-#: C/apps/x509.pod:4 C/apps/x509v3_config.pod:5
+#: C/apps/x509.pod:4 C/apps/x509v3_config.pod:5 C/crypto/X509_check_host.pod:3
 #: C/crypto/X509_NAME_ENTRY_get_object.pod:3
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:3
 #: C/crypto/X509_NAME_get_index_by_NID.pod:3 C/crypto/X509_NAME_print_ex.pod:3
@@ -38,7 +38,8 @@ msgid "x509 - Certificate display and signing utility"
 msgstr "x509 - Utilitaire d'affichage et de signature de certificats"
 
 #. type: =head1
-#: C/apps/x509.pod:8 C/crypto/X509_NAME_ENTRY_get_object.pod:10
+#: C/apps/x509.pod:8 C/crypto/X509_check_host.pod:7
+#: C/crypto/X509_NAME_ENTRY_get_object.pod:10
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:8
 #: C/crypto/X509_NAME_get_index_by_NID.pod:9 C/crypto/X509_NAME_print_ex.pod:8
 #: C/crypto/X509_new.pod:7 C/crypto/X509_STORE_CTX_get_error.pod:7
@@ -57,20 +58,21 @@ msgid ""
 "B<openssl> B<x509> [B<-inform DER|PEM|NET>] [B<-outform DER|PEM|NET>] [B<-"
 "keyform DER|PEM>] [B<-CAform DER|PEM>] [B<-CAkeyform DER|PEM>] [B<-in "
 "filename>] [B<-out filename>] [B<-serial>] [B<-hash>] [B<-subject_hash>] [B<-"
-"issuer_hash>] [B<-subject>] [B<-issuer>] [B<-nameopt option>] [B<-email>] "
-"[B<-ocsp_uri>] [B<-startdate>] [B<-enddate>] [B<-purpose>] [B<-dates>] [B<-"
-"modulus>] [B<-pubkey>] [B<-fingerprint>] [B<-alias>] [B<-noout>] [B<-"
-"trustout>] [B<-clrtrust>] [B<-clrreject>] [B<-addtrust arg>] [B<-addreject "
-"arg>] [B<-setalias arg>] [B<-days arg>] [B<-set_serial n>] [B<-signkey "
-"filename>] [B<-x509toreq>] [B<-req>] [B<-CA filename>] [B<-CAkey filename>] "
-"[B<-CAcreateserial>] [B<-CAserial filename>] [B<-force_pubkey key>] [B<-"
-"text>] [B<-C>] [B<-md2|-md5|-sha1|-mdc2>] [B<-clrext>] [B<-extfile "
-"filename>] [B<-extensions section>] [B<-engine id>]"
+"issuer_hash>] [B<-ocspid>] [B<-subject>] [B<-issuer>] [B<-nameopt option>] "
+"[B<-email>] [B<-ocsp_uri>] [B<-startdate>] [B<-enddate>] [B<-purpose>] [B<-"
+"dates>] [B<-checkend num>] [B<-modulus>] [B<-pubkey>] [B<-fingerprint>] [B<-"
+"alias>] [B<-noout>] [B<-trustout>] [B<-clrtrust>] [B<-clrreject>] [B<-"
+"addtrust arg>] [B<-addreject arg>] [B<-setalias arg>] [B<-days arg>] [B<-"
+"set_serial n>] [B<-signkey filename>] [B<-passin arg>] [B<-x509toreq>] [B<-"
+"req>] [B<-CA filename>] [B<-CAkey filename>] [B<-CAcreateserial>] [B<-"
+"CAserial filename>] [B<-force_pubkey key>] [B<-text>] [B<-certopt option>] "
+"[B<-C>] [B<-md2|-md5|-sha1|-mdc2>] [B<-clrext>] [B<-extfile filename>] [B<-"
+"extensions section>] [B<-engine id>]"
 msgstr ""
 
 #. type: =head1
-#: C/apps/x509.pod:60 C/apps/x509v3_config.pod:9
-#: C/crypto/X509_NAME_ENTRY_get_object.pod:24
+#: C/apps/x509.pod:64 C/apps/x509v3_config.pod:9
+#: C/crypto/X509_check_host.pod:19 C/crypto/X509_NAME_ENTRY_get_object.pod:24
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:22
 #: C/crypto/X509_NAME_get_index_by_NID.pod:22
 #: C/crypto/X509_NAME_print_ex.pod:17 C/crypto/X509_new.pod:14
@@ -79,13 +81,13 @@ msgstr ""
 #: C/crypto/X509_STORE_CTX_new.pod:28
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:14
 #: C/crypto/X509_STORE_set_verify_cb_func.pod:17
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:29
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:42
 #: C/crypto/X509_verify_cert.pod:13 C/crypto/x509.pod:11
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
 
 #. type: textblock
-#: C/apps/x509.pod:62
+#: C/apps/x509.pod:66
 msgid ""
 "The B<x509> command is a multi purpose certificate utility. It can be used "
 "to display certificate information, convert certificates to various forms, "
@@ -94,29 +96,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:67
+#: C/apps/x509.pod:71
 msgid ""
 "Since there are a large number of options they will split up into various "
 "sections."
 msgstr ""
 
 #. type: =head1
-#: C/apps/x509.pod:70
+#: C/apps/x509.pod:74
 msgid "OPTIONS"
 msgstr "OPTIONS"
 
 #. type: =head2
-#: C/apps/x509.pod:72
+#: C/apps/x509.pod:76
 msgid "INPUT, OUTPUT AND GENERAL PURPOSE OPTIONS"
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:76
+#: C/apps/x509.pod:80
 msgid "B<-inform DER|PEM|NET>"
 msgstr "B<-inform DER|PEM|NET>"
 
 #. type: textblock
-#: C/apps/x509.pod:78
+#: C/apps/x509.pod:82
 msgid ""
 "This specifies the input format normally the command will expect an X509 "
 "certificate but this can change if other options such as B<-req> are "
@@ -126,12 +128,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:85
+#: C/apps/x509.pod:89
 msgid "B<-outform DER|PEM|NET>"
 msgstr "B<-outform DER|PEM|NET>"
 
 #. type: textblock
-#: C/apps/x509.pod:87
+#: C/apps/x509.pod:91
 msgid ""
 "This specifies the output format, the options have the same meaning as the "
 "B<-inform> option."
@@ -140,12 +142,12 @@ msgstr ""
 "l'option B<-inform>."
 
 #. type: =item
-#: C/apps/x509.pod:90
+#: C/apps/x509.pod:94
 msgid "B<-in filename>"
 msgstr "B<-in> I<nom_fichier>"
 
 #. type: textblock
-#: C/apps/x509.pod:92
+#: C/apps/x509.pod:96
 msgid ""
 "This specifies the input filename to read a certificate from or standard "
 "input if this option is not specified."
@@ -155,12 +157,12 @@ msgstr ""
 "option est omise."
 
 #. type: =item
-#: C/apps/x509.pod:95
+#: C/apps/x509.pod:99
 msgid "B<-out filename>"
 msgstr "B<-out> I<nom_fichier>"
 
 #. type: textblock
-#: C/apps/x509.pod:97
+#: C/apps/x509.pod:101
 msgid ""
 "This specifies the output filename to write to or standard output by default."
 msgstr ""
@@ -168,12 +170,12 @@ msgstr ""
 "défaut."
 
 #. type: =item
-#: C/apps/x509.pod:100
+#: C/apps/x509.pod:104
 msgid "B<-md2|-md5|-sha1|-mdc2>"
 msgstr "B<-md2|-md5|-sha1|-mdc2>"
 
 #. type: textblock
-#: C/apps/x509.pod:102
+#: C/apps/x509.pod:106
 msgid ""
 "the digest to use. This affects any signing or display option that uses a "
 "message digest, such as the B<-fingerprint>, B<-signkey> and B<-CA> options. "
@@ -182,12 +184,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:107
+#: C/apps/x509.pod:111
 msgid "B<-engine id>"
 msgstr "B<-engine> I<id>"
 
 #. type: textblock
-#: C/apps/x509.pod:109
+#: C/apps/x509.pod:113
 #, fuzzy
 #| msgid ""
 #| "specifying an engine (by it's unique B<id> string) will cause B<req> to "
@@ -206,24 +208,24 @@ msgstr ""
 "défaut pour tous les algorithmes disponibles."
 
 #. type: =head2
-#: C/apps/x509.pod:116
+#: C/apps/x509.pod:120
 msgid "DISPLAY OPTIONS"
 msgstr "OPTIONS D'AFFICHAGE"
 
 #. type: textblock
-#: C/apps/x509.pod:118
+#: C/apps/x509.pod:122
 msgid ""
 "Note: the B<-alias> and B<-purpose> options are also display options but are "
 "described in the B<TRUST SETTINGS> section."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:123
+#: C/apps/x509.pod:127
 msgid "B<-text>"
 msgstr "B<-text>"
 
 #. type: textblock
-#: C/apps/x509.pod:125
+#: C/apps/x509.pod:129
 msgid ""
 "prints out the certificate in text form. Full details are output including "
 "the public key, signature algorithms, issuer and subject names, serial "
@@ -231,12 +233,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:129
+#: C/apps/x509.pod:133
 msgid "B<-certopt option>"
 msgstr "B<-certopt option>"
 
 #. type: textblock
-#: C/apps/x509.pod:131
+#: C/apps/x509.pod:135
 msgid ""
 "customise the output format used with B<-text>. The B<option> argument can "
 "be a single option or multiple options separated by commas. The B<-certopt> "
@@ -245,22 +247,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:136
+#: C/apps/x509.pod:140
 msgid "B<-noout>"
 msgstr "B<-noout>"
 
 #. type: textblock
-#: C/apps/x509.pod:138
+#: C/apps/x509.pod:142
 msgid "this option prevents output of the encoded version of the request."
 msgstr "Cette option empêche la sortie de la version encodée de la demande."
 
 #. type: =item
-#: C/apps/x509.pod:140
+#: C/apps/x509.pod:144
 msgid "B<-pubkey>"
 msgstr "B<-pubkey>"
 
 #. type: textblock
-#: C/apps/x509.pod:142
+#: C/apps/x509.pod:146
 #, fuzzy
 #| msgid ""
 #| "the public key in the certificate SubjectPublicKeyInfo could not be read."
@@ -269,12 +271,12 @@ msgstr ""
 "La clef publique du certificat SubjectPublicKeyInfo n'a pas pu être lue."
 
 #. type: =item
-#: C/apps/x509.pod:144
+#: C/apps/x509.pod:148
 msgid "B<-modulus>"
 msgstr "B<-modulus>"
 
 #. type: textblock
-#: C/apps/x509.pod:146
+#: C/apps/x509.pod:150
 msgid ""
 "this option prints out the value of the modulus of the public key contained "
 "in the certificate."
@@ -283,22 +285,22 @@ msgstr ""
 "certificat."
 
 #. type: =item
-#: C/apps/x509.pod:149
+#: C/apps/x509.pod:153
 msgid "B<-serial>"
 msgstr "B<-serial>"
 
 #. type: textblock
-#: C/apps/x509.pod:151
+#: C/apps/x509.pod:155
 msgid "outputs the certificate serial number."
 msgstr "fournit le numéro de série du certificat."
 
 #. type: =item
-#: C/apps/x509.pod:153
+#: C/apps/x509.pod:157
 msgid "B<-subject_hash>"
 msgstr "B<-subject_hash>"
 
 #. type: textblock
-#: C/apps/x509.pod:155
+#: C/apps/x509.pod:159
 msgid ""
 "outputs the \"hash\" of the certificate subject name. This is used in "
 "OpenSSL to form an index to allow certificates in a directory to be looked "
@@ -306,80 +308,90 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:159
+#: C/apps/x509.pod:163
 msgid "B<-issuer_hash>"
 msgstr "B<-issuer_hash>"
 
 #. type: textblock
-#: C/apps/x509.pod:161
+#: C/apps/x509.pod:165
 msgid "outputs the \"hash\" of the certificate issuer name."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:163
+#: C/apps/x509.pod:167
+msgid "B<-ocspid>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/x509.pod:169
+msgid "outputs the OCSP hash values for the subject name and public key."
+msgstr ""
+
+#. type: =item
+#: C/apps/x509.pod:171
 msgid "B<-hash>"
 msgstr "B<-hash>"
 
 #. type: textblock
-#: C/apps/x509.pod:165
+#: C/apps/x509.pod:173
 msgid "synonym for \"-subject_hash\" for backward compatibility reasons."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:167
+#: C/apps/x509.pod:175
 #, fuzzy
 #| msgid "B<-subject_hash>"
 msgid "B<-subject_hash_old>"
 msgstr "B<-subject_hash>"
 
 #. type: textblock
-#: C/apps/x509.pod:169
+#: C/apps/x509.pod:177
 msgid ""
 "outputs the \"hash\" of the certificate subject name using the older "
 "algorithm as used by OpenSSL versions before 1.0.0."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:172
+#: C/apps/x509.pod:180
 #, fuzzy
 #| msgid "B<-issuer_hash>"
 msgid "B<-issuer_hash_old>"
 msgstr "B<-issuer_hash>"
 
 #. type: textblock
-#: C/apps/x509.pod:174
+#: C/apps/x509.pod:182
 msgid ""
 "outputs the \"hash\" of the certificate issuer name using the older "
 "algorithm as used by OpenSSL versions before 1.0.0."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:177
+#: C/apps/x509.pod:185
 msgid "B<-subject>"
 msgstr "B<-subject>"
 
 #. type: textblock
-#: C/apps/x509.pod:179
+#: C/apps/x509.pod:187
 msgid "outputs the subject name."
 msgstr "Produit le nom du sujet."
 
 #. type: =item
-#: C/apps/x509.pod:181
+#: C/apps/x509.pod:189
 msgid "B<-issuer>"
 msgstr "B<-issuer>"
 
 #. type: textblock
-#: C/apps/x509.pod:183
+#: C/apps/x509.pod:191
 msgid "outputs the issuer name."
 msgstr "Produit le nom de l'émetteur."
 
 #. type: =item
-#: C/apps/x509.pod:185
+#: C/apps/x509.pod:193
 msgid "B<-nameopt option>"
 msgstr "B<-nameopt> I<option>"
 
 #. type: textblock
-#: C/apps/x509.pod:187
+#: C/apps/x509.pod:195
 msgid ""
 "option which determines how the subject or issuer names are displayed. The "
 "B<option> argument can be a single option or multiple options separated by "
@@ -388,32 +400,32 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:192
+#: C/apps/x509.pod:200
 msgid "B<-email>"
 msgstr "B<-email>"
 
 #. type: textblock
-#: C/apps/x509.pod:194
+#: C/apps/x509.pod:202
 msgid "outputs the email address(es) if any."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:196
+#: C/apps/x509.pod:204
 msgid "B<-ocsp_uri>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:198
+#: C/apps/x509.pod:206
 msgid "outputs the OCSP responder address(es) if any."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:200
+#: C/apps/x509.pod:208
 msgid "B<-startdate>"
 msgstr "B<-startdate>"
 
 #. type: textblock
-#: C/apps/x509.pod:202
+#: C/apps/x509.pod:210
 msgid ""
 "prints out the start date of the certificate, that is the notBefore date."
 msgstr ""
@@ -421,12 +433,12 @@ msgstr ""
 "« notBefore » (littéralement « pas avant »)."
 
 #. type: =item
-#: C/apps/x509.pod:204
+#: C/apps/x509.pod:212
 msgid "B<-enddate>"
 msgstr "B<-enddate>"
 
 #. type: textblock
-#: C/apps/x509.pod:206
+#: C/apps/x509.pod:214
 msgid ""
 "prints out the expiry date of the certificate, that is the notAfter date."
 msgstr ""
@@ -434,50 +446,64 @@ msgstr ""
 "« notAfter » (littéralement « pas après »)."
 
 #. type: =item
-#: C/apps/x509.pod:208
+#: C/apps/x509.pod:216
 msgid "B<-dates>"
 msgstr "B<-dates>"
 
 #. type: textblock
-#: C/apps/x509.pod:210
+#: C/apps/x509.pod:218
 msgid "prints out the start and expiry dates of a certificate."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:212
+#: C/apps/x509.pod:220
+#, fuzzy
+#| msgid "B<-days arg>"
+msgid "B<-checkend arg>"
+msgstr "B<-days> I<param>"
+
+#. type: textblock
+#: C/apps/x509.pod:222
+msgid ""
+"checks if the certificate expires within the next B<arg> seconds and exits "
+"non-zero if yes it will expire or zero if not."
+msgstr ""
+
+#. type: =item
+#: C/apps/x509.pod:225
 msgid "B<-fingerprint>"
 msgstr "B<-fingerprint>"
 
 #. type: textblock
-#: C/apps/x509.pod:214
+#: C/apps/x509.pod:227
 msgid ""
 "prints out the digest of the DER encoded version of the whole certificate "
 "(see digest options)."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:217
+#: C/apps/x509.pod:230
 msgid "B<-C>"
 msgstr "B<-C>"
 
 #. type: textblock
-#: C/apps/x509.pod:219
+#: C/apps/x509.pod:232
 msgid "this outputs the certificate in the form of a C source file."
 msgstr "ceci produit une certificat sous la forme d'un fichier source C."
 
 #. type: =head2
-#: C/apps/x509.pod:223
+#: C/apps/x509.pod:236
 msgid "TRUST SETTINGS"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:225
+#: C/apps/x509.pod:238
 msgid ""
 "Please note these options are currently experimental and may well change."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:227
+#: C/apps/x509.pod:240
 msgid ""
 "A B<trusted certificate> is an ordinary certificate which has several "
 "additional pieces of information attached to it such as the permitted and "
@@ -485,7 +511,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:231
+#: C/apps/x509.pod:244
 msgid ""
 "Normally when a certificate is being verified at least one certificate must "
 "be \"trusted\". By default a trusted certificate must be stored locally and "
@@ -494,7 +520,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:236
+#: C/apps/x509.pod:249
 msgid ""
 "Trust settings currently are only used with a root CA. They allow a finer "
 "control over the purposes the root CA can be used for. For example a CA may "
@@ -502,26 +528,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:240
+#: C/apps/x509.pod:253
 msgid ""
 "See the description of the B<verify> utility for more information on the "
 "meaning of trust settings."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:243
+#: C/apps/x509.pod:256
 msgid ""
 "Future versions of OpenSSL will recognize trust settings on any certificate: "
 "not just root CAs."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:249
+#: C/apps/x509.pod:262
 msgid "B<-trustout>"
 msgstr "B<-trustout>"
 
 #. type: textblock
-#: C/apps/x509.pod:251
+#: C/apps/x509.pod:264
 msgid ""
 "this causes B<x509> to output a B<trusted> certificate. An ordinary or "
 "trusted certificate can be input but by default an ordinary certificate is "
@@ -531,54 +557,54 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:257
+#: C/apps/x509.pod:270
 msgid "B<-setalias arg>"
 msgstr "B<-setalias param>"
 
 #. type: textblock
-#: C/apps/x509.pod:259
+#: C/apps/x509.pod:272
 msgid ""
 "sets the alias of the certificate. This will allow the certificate to be "
 "referred to using a nickname for example \"Steve's Certificate\"."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:262
+#: C/apps/x509.pod:275
 msgid "B<-alias>"
 msgstr "B<-alias>"
 
 #. type: textblock
-#: C/apps/x509.pod:264
+#: C/apps/x509.pod:277
 msgid "outputs the certificate alias, if any."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:266
+#: C/apps/x509.pod:279
 msgid "B<-clrtrust>"
 msgstr "B<-clrtrust>"
 
 #. type: textblock
-#: C/apps/x509.pod:268
+#: C/apps/x509.pod:281
 msgid "clears all the permitted or trusted uses of the certificate."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:270
+#: C/apps/x509.pod:283
 msgid "B<-clrreject>"
 msgstr "B<-clrreject>"
 
 #. type: textblock
-#: C/apps/x509.pod:272
+#: C/apps/x509.pod:285
 msgid "clears all the prohibited or rejected uses of the certificate."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:274
+#: C/apps/x509.pod:287
 msgid "B<-addtrust arg>"
 msgstr "B<-addtrust param>"
 
 #. type: textblock
-#: C/apps/x509.pod:276
+#: C/apps/x509.pod:289
 msgid ""
 "adds a trusted certificate use. Any object name can be used here but "
 "currently only B<clientAuth> (SSL client use), B<serverAuth> (SSL server "
@@ -587,23 +613,23 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:281
+#: C/apps/x509.pod:294
 msgid "B<-addreject arg>"
 msgstr "B<-addreject param>"
 
 #. type: textblock
-#: C/apps/x509.pod:283
+#: C/apps/x509.pod:296
 msgid ""
 "adds a prohibited use. It accepts the same values as the B<-addtrust> option."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:286
+#: C/apps/x509.pod:299
 msgid "B<-purpose>"
 msgstr "B<-purpose>"
 
 #. type: textblock
-#: C/apps/x509.pod:288
+#: C/apps/x509.pod:301
 msgid ""
 "this option performs tests on the certificate extensions and outputs the "
 "results. For a more complete description see the B<CERTIFICATE EXTENSIONS> "
@@ -611,31 +637,31 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: C/apps/x509.pod:294
+#: C/apps/x509.pod:307
 msgid "SIGNING OPTIONS"
 msgstr "OPTIONS POUR LA SIGNATURE"
 
 #. type: textblock
-#: C/apps/x509.pod:296
+#: C/apps/x509.pod:309
 msgid ""
 "The B<x509> utility can be used to sign certificates and requests: it can "
 "thus behave like a \"mini CA\"."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:301
+#: C/apps/x509.pod:314
 msgid "B<-signkey filename>"
 msgstr "B<-signkey nom_fichier>"
 
 #. type: textblock
-#: C/apps/x509.pod:303
+#: C/apps/x509.pod:316
 msgid ""
 "this option causes the input file to be self signed using the supplied "
 "private key."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:306
+#: C/apps/x509.pod:319
 msgid ""
 "If the input file is a certificate it sets the issuer name to the subject "
 "name (i.e.  makes it self signed) changes the public key to the supplied "
@@ -646,19 +672,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:313
+#: C/apps/x509.pod:326
 msgid ""
 "If the input is a certificate request then a self signed certificate is "
 "created using the supplied private key using the subject name in the request."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:317
+#: C/apps/x509.pod:330
+#, fuzzy
+#| msgid "B<-days arg>"
+msgid "B<-passin arg>"
+msgstr "B<-days> I<param>"
+
+#. type: textblock
+#: C/apps/x509.pod:332
+msgid ""
+"the key password source. For more information about the format of B<arg> see "
+"the B<PASS PHRASE ARGUMENTS> section in L<openssl(1)|openssl(1)>."
+msgstr ""
+
+#. type: =item
+#: C/apps/x509.pod:335
 msgid "B<-clrext>"
 msgstr "B<-clrext>"
 
 #. type: textblock
-#: C/apps/x509.pod:319
+#: C/apps/x509.pod:337
 msgid ""
 "delete any extensions from a certificate. This option is used when a "
 "certificate is being created from another certificate (for example with the "
@@ -666,12 +706,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:324
+#: C/apps/x509.pod:342
 msgid "B<-keyform PEM|DER>"
 msgstr "B<-keyform> B<PEM>|B<DER>"
 
 #. type: textblock
-#: C/apps/x509.pod:326
+#: C/apps/x509.pod:344
 msgid ""
 "specifies the format (DER or PEM) of the private key file used in the B<-"
 "signkey> option."
@@ -680,12 +720,12 @@ msgstr ""
 "l'option B<-signkey>."
 
 #. type: =item
-#: C/apps/x509.pod:329
+#: C/apps/x509.pod:347
 msgid "B<-days arg>"
 msgstr "B<-days> I<param>"
 
 #. type: textblock
-#: C/apps/x509.pod:331
+#: C/apps/x509.pod:349
 msgid ""
 "specifies the number of days to make a certificate valid for. The default is "
 "30 days."
@@ -694,24 +734,24 @@ msgstr ""
 "valable. La valeur par défaut est de 30 jours."
 
 #. type: =item
-#: C/apps/x509.pod:334
+#: C/apps/x509.pod:352
 msgid "B<-x509toreq>"
 msgstr "B<-x509toreq>"
 
 #. type: textblock
-#: C/apps/x509.pod:336
+#: C/apps/x509.pod:354
 msgid ""
 "converts a certificate into a certificate request. The B<-signkey> option is "
 "used to pass the required private key."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:339
+#: C/apps/x509.pod:357
 msgid "B<-req>"
 msgstr "B<-req>"
 
 #. type: textblock
-#: C/apps/x509.pod:341
+#: C/apps/x509.pod:359
 msgid ""
 "by default a certificate is expected on input. With this option a "
 "certificate request is expected instead."
@@ -720,12 +760,12 @@ msgstr ""
 "demande de certificat est attendue à la place."
 
 #. type: =item
-#: C/apps/x509.pod:344
+#: C/apps/x509.pod:362
 msgid "B<-set_serial n>"
 msgstr "B<-set_serial> I<n>"
 
 #. type: textblock
-#: C/apps/x509.pod:346
+#: C/apps/x509.pod:364
 msgid ""
 "specifies the serial number to use. This option can be used with either the "
 "B<-signkey> or B<-CA> options. If used in conjunction with the B<-CA> option "
@@ -734,19 +774,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:351
+#: C/apps/x509.pod:369
 msgid ""
 "The serial number can be decimal or hex (if preceded by B<0x>). Negative "
 "serial numbers can also be specified but their use is not recommended."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:354
+#: C/apps/x509.pod:372
 msgid "B<-CA filename>"
 msgstr "B<-CA nom_fichier>"
 
 #. type: textblock
-#: C/apps/x509.pod:356
+#: C/apps/x509.pod:374
 msgid ""
 "specifies the CA certificate to be used for signing. When this option is "
 "present B<x509> behaves like a \"mini CA\". The input file is signed by this "
@@ -755,19 +795,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:361
+#: C/apps/x509.pod:379
 msgid ""
 "This option is normally combined with the B<-req> option. Without the B<-"
 "req> option the input is a certificate which must be self signed."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:364
+#: C/apps/x509.pod:382
 msgid "B<-CAkey filename>"
 msgstr "B<-CAkey nom_fichier>"
 
 #. type: textblock
-#: C/apps/x509.pod:366
+#: C/apps/x509.pod:384
 msgid ""
 "sets the CA private key to sign a certificate with. If this option is not "
 "specified then it is assumed that the CA private key is present in the CA "
@@ -778,17 +818,17 @@ msgstr ""
 "présente dans le fichier certificat de la CA."
 
 #. type: =item
-#: C/apps/x509.pod:370
+#: C/apps/x509.pod:388
 msgid "B<-CAserial filename>"
 msgstr "B<-CAserial nom_fichier>"
 
 #. type: textblock
-#: C/apps/x509.pod:372
+#: C/apps/x509.pod:390
 msgid "sets the CA serial number file to use."
 msgstr "défini le numéro de série de fichier de la CA à utiliser."
 
 #. type: textblock
-#: C/apps/x509.pod:374
+#: C/apps/x509.pod:392
 msgid ""
 "When the B<-CA> option is used to sign a certificate it uses a serial number "
 "specified in a file. This file consist of one line containing an even number "
@@ -797,7 +837,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:379
+#: C/apps/x509.pod:397
 msgid ""
 "The default filename consists of the CA certificate file base name with \"."
 "srl\" appended. For example if the CA certificate file is called \"mycacert."
@@ -805,12 +845,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:383
+#: C/apps/x509.pod:401
 msgid "B<-CAcreateserial>"
 msgstr "B<-CAcreateserial>"
 
 #. type: textblock
-#: C/apps/x509.pod:385
+#: C/apps/x509.pod:403
 msgid ""
 "with this option the CA serial number file is created if it does not exist: "
 "it will contain the serial number \"02\" and the certificate being signed "
@@ -819,24 +859,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:390
+#: C/apps/x509.pod:408
 msgid "B<-extfile filename>"
 msgstr "B<-extfile nom_fichier>"
 
 #. type: textblock
-#: C/apps/x509.pod:392
+#: C/apps/x509.pod:410
 msgid ""
 "file containing certificate extensions to use. If not specified then no "
 "extensions are added to the certificate."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:395
+#: C/apps/x509.pod:413
 msgid "B<-extensions section>"
 msgstr "B<-extensions> I<section>"
 
 #. type: textblock
-#: C/apps/x509.pod:397
+#: C/apps/x509.pod:415
 msgid ""
 "the section to add certificate extensions from. If this option is not "
 "specified then the extensions should either be contained in the unnamed "
@@ -846,14 +886,14 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:404
+#: C/apps/x509.pod:422
 #, fuzzy
 #| msgid "B<no_pubkey>"
 msgid "B<-force_pubkey key>"
 msgstr "B<no_pubkey>"
 
 #. type: textblock
-#: C/apps/x509.pod:406
+#: C/apps/x509.pod:424
 msgid ""
 "when a certificate is created set its public key to B<key> instead of the "
 "key in the certificate or certificate request. This option is useful for "
@@ -862,7 +902,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:411
+#: C/apps/x509.pod:429
 #, fuzzy
 #| msgid ""
 #| "specifies the format (DER or PEM) of the private key file used in the B<-"
@@ -873,12 +913,12 @@ msgstr ""
 "l'option B<-signkey>."
 
 #. type: =head2
-#: C/apps/x509.pod:415
+#: C/apps/x509.pod:433
 msgid "NAME OPTIONS"
 msgstr "OPTIONS POUR LES NOMS"
 
 #. type: textblock
-#: C/apps/x509.pod:417
+#: C/apps/x509.pod:435
 msgid ""
 "The B<nameopt> command line switch determines how the subject and issuer "
 "names are displayed. If no B<nameopt> switch is present the default \"oneline"
@@ -888,23 +928,23 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:425
+#: C/apps/x509.pod:443
 msgid "B<compat>"
 msgstr "B<compat>"
 
 #. type: textblock
-#: C/apps/x509.pod:427
+#: C/apps/x509.pod:445
 msgid ""
 "use the old format. This is equivalent to specifying no name options at all."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:429
+#: C/apps/x509.pod:447
 msgid "B<RFC2253>"
 msgstr "B<RFC2253>"
 
 #. type: textblock
-#: C/apps/x509.pod:431
+#: C/apps/x509.pod:449
 msgid ""
 "displays names compatible with RFC2253 equivalent to B<esc_2253>, "
 "B<esc_ctrl>, B<esc_msb>, B<utf8>, B<dump_nostr>, B<dump_unknown>, "
@@ -912,12 +952,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:435
+#: C/apps/x509.pod:453
 msgid "B<oneline>"
 msgstr "B<oneline>"
 
 #. type: textblock
-#: C/apps/x509.pod:437
+#: C/apps/x509.pod:455
 msgid ""
 "a oneline format which is more readable than RFC2253. It is equivalent to "
 "specifying the B<esc_2253>, B<esc_ctrl>, B<esc_msb>, B<utf8>, B<dump_nostr>, "
@@ -926,24 +966,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:442
+#: C/apps/x509.pod:460
 msgid "B<multiline>"
 msgstr "B<multiline>"
 
 #. type: textblock
-#: C/apps/x509.pod:444
+#: C/apps/x509.pod:462
 msgid ""
 "a multiline format. It is equivalent B<esc_ctrl>, B<esc_msb>, "
 "B<sep_multiline>, B<space_eq>, B<lname> and B<align>."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:447
+#: C/apps/x509.pod:465
 msgid "B<esc_2253>"
 msgstr "B<esc_2253>"
 
 #. type: textblock
-#: C/apps/x509.pod:449
+#: C/apps/x509.pod:467
 msgid ""
 "escape the \"special\" characters required by RFC2253 in a field That is B<,+"
 "\"E<lt>E<gt>;>. Additionally B<#> is escaped at the beginning of a string "
@@ -951,12 +991,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:453
+#: C/apps/x509.pod:471
 msgid "B<esc_ctrl>"
 msgstr "B<esc_ctrl>"
 
 #. type: textblock
-#: C/apps/x509.pod:455
+#: C/apps/x509.pod:473
 msgid ""
 "escape control characters. That is those with ASCII values less than 0x20 "
 "(space) and the delete (0x7f) character. They are escaped using the RFC2253 "
@@ -964,36 +1004,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:460
+#: C/apps/x509.pod:478
 msgid "B<esc_msb>"
 msgstr "B<esc_msb>"
 
 #. type: textblock
-#: C/apps/x509.pod:462
+#: C/apps/x509.pod:480
 msgid ""
 "escape characters with the MSB set, that is with ASCII values larger than "
 "127."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:465
+#: C/apps/x509.pod:483
 msgid "B<use_quote>"
 msgstr "B<use_quote>"
 
 #. type: textblock
-#: C/apps/x509.pod:467
+#: C/apps/x509.pod:485
 msgid ""
 "escapes some characters by surrounding the whole string with B<\"> "
 "characters, without the option all escaping is done with the B<\\> character."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:470
+#: C/apps/x509.pod:488
 msgid "B<utf8>"
 msgstr "B<utf8>"
 
 #. type: textblock
-#: C/apps/x509.pod:472
+#: C/apps/x509.pod:490
 msgid ""
 "convert all strings to UTF8 format first. This is required by RFC2253. If "
 "you are lucky enough to have a UTF8 compatible terminal then the use of this "
@@ -1005,12 +1045,14 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:481
-msgid "B<no_type>"
+#: C/apps/x509.pod:499
+#, fuzzy
+#| msgid "B<no_type>"
+msgid "B<ignore_type>"
 msgstr "B<no_type>"
 
 #. type: textblock
-#: C/apps/x509.pod:483
+#: C/apps/x509.pod:501
 msgid ""
 "this option does not attempt to interpret multibyte characters in any way. "
 "That is their content octets are merely dumped as though one octet "
@@ -1019,24 +1061,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:488
+#: C/apps/x509.pod:506
 msgid "B<show_type>"
 msgstr "B<show_type>"
 
 #. type: textblock
-#: C/apps/x509.pod:490
+#: C/apps/x509.pod:508
 msgid ""
 "show the type of the ASN1 character string. The type precedes the field "
 "contents. For example \"BMPSTRING: Hello World\"."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:493
+#: C/apps/x509.pod:511
 msgid "B<dump_der>"
 msgstr "B<dump_der>"
 
 #. type: textblock
-#: C/apps/x509.pod:495
+#: C/apps/x509.pod:513
 msgid ""
 "when this option is set any fields that need to be hexdumped will be dumped "
 "using the DER encoding of the field. Otherwise just the content octets will "
@@ -1044,12 +1086,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:500
+#: C/apps/x509.pod:518
 msgid "B<dump_nostr>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:502
+#: C/apps/x509.pod:520
 msgid ""
 "dump non character string types (for example OCTET STRING) if this option is "
 "not set then non character string types will be displayed as though each "
@@ -1057,36 +1099,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:506
+#: C/apps/x509.pod:524
 msgid "B<dump_all>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:508
+#: C/apps/x509.pod:526
 msgid ""
 "dump all fields. This option when used with B<dump_der> allows the DER "
 "encoding of the structure to be unambiguously determined."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:511
+#: C/apps/x509.pod:529
 msgid "B<dump_unknown>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:513
+#: C/apps/x509.pod:531
 msgid "dump any field whose OID is not recognised by OpenSSL."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:515
+#: C/apps/x509.pod:533
 msgid ""
 "B<sep_comma_plus>, B<sep_comma_plus_space>, B<sep_semi_plus_space>, "
 "B<sep_multiline>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:518
+#: C/apps/x509.pod:536
 msgid ""
 "these options determine the field separators. The first character is between "
 "RDNs and the second between multiple AVAs (multiple AVAs are very rare and "
@@ -1098,24 +1140,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:526
+#: C/apps/x509.pod:544
 msgid "B<dn_rev>"
 msgstr "B<dn_rev>"
 
 #. type: textblock
-#: C/apps/x509.pod:528
+#: C/apps/x509.pod:546
 msgid ""
 "reverse the fields of the DN. This is required by RFC2253. As a side effect "
 "this also reverses the order of multiple AVAs but this is permissible."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:532
+#: C/apps/x509.pod:550
 msgid "B<nofname>, B<sname>, B<lname>, B<oid>"
 msgstr "B<nofname>, B<sname>, B<lname>, B<oid>"
 
 #. type: textblock
-#: C/apps/x509.pod:534
+#: C/apps/x509.pod:552
 msgid ""
 "these options alter how the field name is displayed. B<nofname> does not "
 "display the field at all. B<sname> uses the \"short name\" form (CN for "
@@ -1124,34 +1166,34 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:540
+#: C/apps/x509.pod:558
 msgid "B<align>"
 msgstr "B<align>"
 
 #. type: textblock
-#: C/apps/x509.pod:542
+#: C/apps/x509.pod:560
 msgid ""
 "align field values for a more readable output. Only usable with "
 "B<sep_multiline>."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:545
+#: C/apps/x509.pod:563
 msgid "B<space_eq>"
 msgstr "B<space_eq>"
 
 #. type: textblock
-#: C/apps/x509.pod:547
+#: C/apps/x509.pod:565
 msgid "places spaces round the B<=> character which follows the field name."
 msgstr ""
 
 #. type: =head2
-#: C/apps/x509.pod:552
+#: C/apps/x509.pod:570
 msgid "TEXT OPTIONS"
 msgstr "OPTIONS POUR LA SORTIE TEXTE"
 
 #. type: textblock
-#: C/apps/x509.pod:554
+#: C/apps/x509.pod:572
 msgid ""
 "As well as customising the name output format, it is also possible to "
 "customise the actual fields printed using the B<certopt> options when the "
@@ -1159,204 +1201,204 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:560
+#: C/apps/x509.pod:578
 msgid "B<compatible>"
 msgstr "B<compatible>"
 
 #. type: textblock
-#: C/apps/x509.pod:562
+#: C/apps/x509.pod:580
 msgid ""
 "use the old format. This is equivalent to specifying no output options at "
 "all."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:564
+#: C/apps/x509.pod:582
 msgid "B<no_header>"
 msgstr "B<no_header>"
 
 #. type: textblock
-#: C/apps/x509.pod:566
+#: C/apps/x509.pod:584
 msgid ""
 "don't print header information: that is the lines saying \"Certificate\" and "
 "\"Data\"."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:568
+#: C/apps/x509.pod:586
 msgid "B<no_version>"
 msgstr "B<no_version>"
 
 #. type: textblock
-#: C/apps/x509.pod:570
+#: C/apps/x509.pod:588
 msgid "don't print out the version number."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:572
+#: C/apps/x509.pod:590
 msgid "B<no_serial>"
 msgstr "B<no_serial>"
 
 #. type: textblock
-#: C/apps/x509.pod:574
+#: C/apps/x509.pod:592
 msgid "don't print out the serial number."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:576
+#: C/apps/x509.pod:594
 msgid "B<no_signame>"
 msgstr "B<no_signame>"
 
 #. type: textblock
-#: C/apps/x509.pod:578
+#: C/apps/x509.pod:596
 msgid "don't print out the signature algorithm used."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:580
+#: C/apps/x509.pod:598
 msgid "B<no_validity>"
 msgstr "B<no_validity>"
 
 #. type: textblock
-#: C/apps/x509.pod:582
+#: C/apps/x509.pod:600
 msgid ""
 "don't print the validity, that is the B<notBefore> and B<notAfter> fields."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:584
+#: C/apps/x509.pod:602
 msgid "B<no_subject>"
 msgstr "B<no_subject>"
 
 #. type: textblock
-#: C/apps/x509.pod:586
+#: C/apps/x509.pod:604
 msgid "don't print out the subject name."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:588
+#: C/apps/x509.pod:606
 msgid "B<no_issuer>"
 msgstr "B<no_issuer>"
 
 #. type: textblock
-#: C/apps/x509.pod:590
+#: C/apps/x509.pod:608
 msgid "don't print out the issuer name."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:592
+#: C/apps/x509.pod:610
 msgid "B<no_pubkey>"
 msgstr "B<no_pubkey>"
 
 #. type: textblock
-#: C/apps/x509.pod:594
+#: C/apps/x509.pod:612
 msgid "don't print out the public key."
 msgstr "n'affiche pas la clé publique."
 
 #. type: =item
-#: C/apps/x509.pod:596
+#: C/apps/x509.pod:614
 msgid "B<no_sigdump>"
 msgstr "B<no_sigdump>"
 
 #. type: textblock
-#: C/apps/x509.pod:598
+#: C/apps/x509.pod:616
 msgid "don't give a hexadecimal dump of the certificate signature."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:600
+#: C/apps/x509.pod:618
 msgid "B<no_aux>"
 msgstr "B<no_aux>"
 
 #. type: textblock
-#: C/apps/x509.pod:602
+#: C/apps/x509.pod:620
 msgid "don't print out certificate trust information."
 msgstr "n'affiche pas les information de confiance du certificat"
 
 #. type: =item
-#: C/apps/x509.pod:604
+#: C/apps/x509.pod:622
 msgid "B<no_extensions>"
 msgstr "B<no_extensions>"
 
 #. type: textblock
-#: C/apps/x509.pod:606
+#: C/apps/x509.pod:624
 msgid "don't print out any X509V3 extensions."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:608
+#: C/apps/x509.pod:626
 msgid "B<ext_default>"
 msgstr "B<ext_default>"
 
 #. type: textblock
-#: C/apps/x509.pod:610
+#: C/apps/x509.pod:628
 msgid ""
 "retain default extension behaviour: attempt to print out unsupported "
 "certificate extensions."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:612
+#: C/apps/x509.pod:630
 msgid "B<ext_error>"
 msgstr "B<ext_error>"
 
 #. type: textblock
-#: C/apps/x509.pod:614
+#: C/apps/x509.pod:632
 msgid "print an error message for unsupported certificate extensions."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:616
+#: C/apps/x509.pod:634
 msgid "B<ext_parse>"
 msgstr "B<ext_parse>"
 
 #. type: textblock
-#: C/apps/x509.pod:618
+#: C/apps/x509.pod:636
 msgid "ASN1 parse unsupported extensions."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:620
+#: C/apps/x509.pod:638
 msgid "B<ext_dump>"
 msgstr "B<ext_dump>"
 
 #. type: textblock
-#: C/apps/x509.pod:622
+#: C/apps/x509.pod:640
 msgid "hex dump unsupported extensions."
 msgstr "affichage brut des extensions non gérées."
 
 #. type: =item
-#: C/apps/x509.pod:624
+#: C/apps/x509.pod:642
 msgid "B<ca_default>"
 msgstr "B<ca_default>"
 
 #. type: textblock
-#: C/apps/x509.pod:626
+#: C/apps/x509.pod:644
 msgid ""
 "the value used by the B<ca> utility, equivalent to B<no_issuer>, "
 "B<no_pubkey>, B<no_header>, B<no_version>, B<no_sigdump> and B<no_signame>."
 msgstr ""
 
 #. type: =head1
-#: C/apps/x509.pod:631 C/crypto/X509_NAME_add_entry_by_txt.pod:74
+#: C/apps/x509.pod:649 C/crypto/X509_NAME_add_entry_by_txt.pod:74
 #: C/crypto/X509_NAME_get_index_by_NID.pod:62
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:58
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
 
 #. type: textblock
-#: C/apps/x509.pod:633
+#: C/apps/x509.pod:651
 msgid ""
 "Note: in these examples the '\\' means the example should be all on one line."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:636
+#: C/apps/x509.pod:654
 msgid "Display the contents of a certificate:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:638
+#: C/apps/x509.pod:656
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -noout -text\n"
@@ -1366,12 +1408,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:640
+#: C/apps/x509.pod:658
 msgid "Display the certificate serial number:"
 msgstr "Afficher le numéro de série du certificat :"
 
 #. type: verbatim
-#: C/apps/x509.pod:642
+#: C/apps/x509.pod:660
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -noout -serial\n"
@@ -1381,12 +1423,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:644
+#: C/apps/x509.pod:662
 msgid "Display the certificate subject name:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:646
+#: C/apps/x509.pod:664
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -noout -subject\n"
@@ -1396,12 +1438,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:648
+#: C/apps/x509.pod:666
 msgid "Display the certificate subject name in RFC2253 form:"
 msgstr "Afficher le nom du sujet du certificat au format de la RFC 2253 :"
 
 #. type: verbatim
-#: C/apps/x509.pod:650
+#: C/apps/x509.pod:668
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -noout -subject -nameopt RFC2253\n"
@@ -1411,14 +1453,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:652
+#: C/apps/x509.pod:670
 msgid ""
 "Display the certificate subject name in oneline form on a terminal "
 "supporting UTF8:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:655
+#: C/apps/x509.pod:673
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -noout -subject -nameopt oneline,-esc_msb\n"
@@ -1428,12 +1470,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:657
+#: C/apps/x509.pod:675
 msgid "Display the certificate MD5 fingerprint:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:659
+#: C/apps/x509.pod:677
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -noout -fingerprint\n"
@@ -1443,12 +1485,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:661
+#: C/apps/x509.pod:679
 msgid "Display the certificate SHA1 fingerprint:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:663
+#: C/apps/x509.pod:681
 #, no-wrap
 msgid ""
 " openssl x509 -sha1 -in cert.pem -noout -fingerprint\n"
@@ -1458,12 +1500,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:665
+#: C/apps/x509.pod:683
 msgid "Convert a certificate from PEM to DER format:"
 msgstr "Convertir un certificat du format PEM vers le format DER :"
 
 #. type: verbatim
-#: C/apps/x509.pod:667
+#: C/apps/x509.pod:685
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -inform PEM -out cert.der -outform DER\n"
@@ -1473,12 +1515,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:669
+#: C/apps/x509.pod:687
 msgid "Convert a certificate to a certificate request:"
 msgstr "Convertir un certificat en une demande de certificat :"
 
 #. type: verbatim
-#: C/apps/x509.pod:671
+#: C/apps/x509.pod:689
 #, no-wrap
 msgid ""
 " openssl x509 -x509toreq -in cert.pem -out req.pem -signkey key.pem\n"
@@ -1488,7 +1530,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:673
+#: C/apps/x509.pod:691
 msgid ""
 "Convert a certificate request into a self signed certificate using "
 "extensions for a CA:"
@@ -1497,7 +1539,7 @@ msgstr ""
 "les extensions de la CA :"
 
 #. type: verbatim
-#: C/apps/x509.pod:676
+#: C/apps/x509.pod:694
 #, no-wrap
 msgid ""
 " openssl x509 -req -in careq.pem -extfile openssl.cnf -extensions v3_ca \\\n"
@@ -1509,7 +1551,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:679
+#: C/apps/x509.pod:697
 msgid ""
 "Sign a certificate request using the CA certificate above and add user "
 "certificate extensions:"
@@ -1518,7 +1560,7 @@ msgstr ""
 "précédentes et ajouter les extensions de certificat utilisateur :"
 
 #. type: verbatim
-#: C/apps/x509.pod:682
+#: C/apps/x509.pod:700
 #, no-wrap
 msgid ""
 " openssl x509 -req -in req.pem -extfile openssl.cnf -extensions v3_usr \\\n"
@@ -1530,14 +1572,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:686
+#: C/apps/x509.pod:704
 msgid ""
 "Set a certificate to be trusted for SSL client use and change set its alias "
 "to \"Steve's Class 1 CA\""
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:689
+#: C/apps/x509.pod:707
 #, no-wrap
 msgid ""
 " openssl x509 -in cert.pem -addtrust clientAuth \\\n"
@@ -1549,8 +1591,8 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: C/apps/x509.pod:692 C/apps/x509v3_config.pod:479
-#: C/crypto/X509_NAME_ENTRY_get_object.pod:41
+#: C/apps/x509.pod:710 C/apps/x509v3_config.pod:479
+#: C/crypto/X509_check_host.pod:116 C/crypto/X509_NAME_ENTRY_get_object.pod:41
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:44
 #: C/crypto/X509_NAME_get_index_by_NID.pod:48
 #: C/crypto/X509_NAME_print_ex.pod:34
@@ -1559,18 +1601,18 @@ msgstr ""
 #: C/crypto/X509_STORE_CTX_new.pod:73
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:46
 #: C/crypto/X509_STORE_set_verify_cb_func.pod:25
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:136
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:200
 #: C/crypto/X509_verify_cert.pod:28
 msgid "NOTES"
 msgstr "NOTES"
 
 #. type: textblock
-#: C/apps/x509.pod:694
+#: C/apps/x509.pod:712
 msgid "The PEM format uses the header and footer lines:"
 msgstr "Le format PEM utilise les lignes de début et de fin suivantes :"
 
 #. type: verbatim
-#: C/apps/x509.pod:696
+#: C/apps/x509.pod:714
 #, no-wrap
 msgid ""
 " -----BEGIN CERTIFICATE-----\n"
@@ -1582,12 +1624,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:699
+#: C/apps/x509.pod:717
 msgid "it will also handle files containing:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:701
+#: C/apps/x509.pod:719
 #, no-wrap
 msgid ""
 " -----BEGIN X509 CERTIFICATE-----\n"
@@ -1599,12 +1641,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:704
+#: C/apps/x509.pod:722
 msgid "Trusted certificates have the lines"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/x509.pod:706
+#: C/apps/x509.pod:724
 #, no-wrap
 msgid ""
 " -----BEGIN TRUSTED CERTIFICATE-----\n"
@@ -1616,7 +1658,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/x509.pod:709
+#: C/apps/x509.pod:727
 msgid ""
 "The conversion to UTF8 format used with the name options assumes that "
 "T61Strings use the ISO8859-1 character set. This is wrong but Netscape and "
@@ -1625,7 +1667,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:714
+#: C/apps/x509.pod:732
 msgid ""
 "The B<-fingerprint> option takes the digest of the DER encoded certificate.  "
 "This is commonly called a \"fingerprint\". Because of the nature of message "
@@ -1634,12 +1676,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:719
+#: C/apps/x509.pod:737
 msgid "The Netscape fingerprint uses MD5 whereas MSIE uses SHA1."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:721
+#: C/apps/x509.pod:739
 msgid ""
 "The B<-email> option searches the subject name and the subject alternative "
 "name extension. Only unique email addresses will be printed out: it will not "
@@ -1647,12 +1689,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/x509.pod:725
+#: C/apps/x509.pod:743
 msgid "CERTIFICATE EXTENSIONS"
 msgstr "EXTENSIONS DE CERTIFICATS"
 
 #. type: textblock
-#: C/apps/x509.pod:727
+#: C/apps/x509.pod:745
 msgid ""
 "The B<-purpose> option checks the certificate extensions and determines what "
 "the certificate can be used for. The actual checks done are rather complex "
@@ -1661,14 +1703,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:732
+#: C/apps/x509.pod:750
 msgid ""
 "The same code is used when verifying untrusted certificates in chains so "
 "this section is useful if a chain is rejected by the verify code."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:735
+#: C/apps/x509.pod:753
 msgid ""
 "The basicConstraints extension CA flag is used to determine whether the "
 "certificate can be used as a CA. If the CA flag is true then it is a CA, if "
@@ -1677,7 +1719,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:740
+#: C/apps/x509.pod:758
 msgid ""
 "If the basicConstraints extension is absent then the certificate is "
 "considered to be a \"possible CA\" other extensions are checked according to "
@@ -1687,7 +1729,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:746
+#: C/apps/x509.pod:764
 msgid ""
 "If the certificate is a V1 certificate (and thus has no extensions) and it "
 "is self signed it is also assumed to be a CA but a warning is again given: "
@@ -1696,7 +1738,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:751
+#: C/apps/x509.pod:769
 msgid ""
 "If the keyUsage extension is present then additional restraints are made on "
 "the uses of the certificate. A CA certificate B<must> have the keyCertSign "
@@ -1704,7 +1746,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:755
+#: C/apps/x509.pod:773
 msgid ""
 "The extended key usage extension places additional restrictions on the "
 "certificate uses. If this extension is present (whether critical or not)  "
@@ -1712,7 +1754,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:759
+#: C/apps/x509.pod:777
 msgid ""
 "A complete description of each test is given below. The comments about "
 "basicConstraints and keyUsage and V1 certificates above apply to B<all> CA "
@@ -1720,12 +1762,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:766
+#: C/apps/x509.pod:784
 msgid "B<SSL Client>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:768
+#: C/apps/x509.pod:786
 msgid ""
 "The extended key usage extension must be absent or include the \"web client "
 "authentication\" OID.  keyUsage must be absent or it must have the "
@@ -1734,12 +1776,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:773
+#: C/apps/x509.pod:791
 msgid "B<SSL Client CA>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:775
+#: C/apps/x509.pod:793
 msgid ""
 "The extended key usage extension must be absent or include the \"web client "
 "authentication\" OID. Netscape certificate type must be absent or it must "
@@ -1748,12 +1790,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:780
+#: C/apps/x509.pod:798
 msgid "B<SSL Server>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:782
+#: C/apps/x509.pod:800
 msgid ""
 "The extended key usage extension must be absent or include the \"web server "
 "authentication\" and/or one of the SGC OIDs.  keyUsage must be absent or it "
@@ -1762,12 +1804,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:787
+#: C/apps/x509.pod:805
 msgid "B<SSL Server CA>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:789
+#: C/apps/x509.pod:807
 msgid ""
 "The extended key usage extension must be absent or include the \"web server "
 "authentication\" and/or one of the SGC OIDs.  Netscape certificate type must "
@@ -1776,12 +1818,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:794
+#: C/apps/x509.pod:812
 msgid "B<Netscape SSL Server>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:796
+#: C/apps/x509.pod:814
 msgid ""
 "For Netscape SSL clients to connect to an SSL server it must have the "
 "keyEncipherment bit set if the keyUsage extension is present. This isn't "
@@ -1790,12 +1832,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:801
+#: C/apps/x509.pod:819
 msgid "B<Common S/MIME Client Tests>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:803
+#: C/apps/x509.pod:821
 msgid ""
 "The extended key usage extension must be absent or include the \"email "
 "protection\" OID. Netscape certificate type must be absent or should have "
@@ -1805,36 +1847,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:809
+#: C/apps/x509.pod:827
 msgid "B<S/MIME Signing>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:811
+#: C/apps/x509.pod:829
 msgid ""
 "In addition to the common S/MIME client tests the digitalSignature bit must "
 "be set if the keyUsage extension is present."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:814
+#: C/apps/x509.pod:832
 msgid "B<S/MIME Encryption>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:816
+#: C/apps/x509.pod:834
 msgid ""
 "In addition to the common S/MIME tests the keyEncipherment bit must be set "
 "if the keyUsage extension is present."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:819
+#: C/apps/x509.pod:837
 msgid "B<S/MIME CA>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:821
+#: C/apps/x509.pod:839
 msgid ""
 "The extended key usage extension must be absent or include the \"email "
 "protection\" OID. Netscape certificate type must be absent or must have the "
@@ -1843,47 +1885,47 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:826
+#: C/apps/x509.pod:844
 msgid "B<CRL Signing>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:828
+#: C/apps/x509.pod:846
 msgid ""
 "The keyUsage extension must be absent or it must have the CRL signing bit "
 "set."
 msgstr ""
 
 #. type: =item
-#: C/apps/x509.pod:831
+#: C/apps/x509.pod:849
 msgid "B<CRL Signing CA>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:833
+#: C/apps/x509.pod:851
 msgid ""
 "The normal CA tests apply. Except in this case the basicConstraints "
 "extension must be present."
 msgstr ""
 
 #. type: =head1
-#: C/apps/x509.pod:838 C/crypto/X509_NAME_add_entry_by_txt.pod:103
+#: C/apps/x509.pod:856 C/crypto/X509_NAME_add_entry_by_txt.pod:103
 #: C/crypto/X509_STORE_CTX_new.pod:90
 #: C/crypto/X509_STORE_set_verify_cb_func.pod:32
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:142
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:206
 #: C/crypto/X509_verify_cert.pod:40
 msgid "BUGS"
 msgstr "BOGUES"
 
 #. type: textblock
-#: C/apps/x509.pod:840
+#: C/apps/x509.pod:858
 msgid ""
 "Extensions in certificates are not transferred to certificate requests and "
 "vice versa."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:843
+#: C/apps/x509.pod:861
 msgid ""
 "It is possible to produce invalid certificates or requests by specifying the "
 "wrong private key or using inconsistent options in some cases: these should "
@@ -1891,14 +1933,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:847
+#: C/apps/x509.pod:865
 msgid ""
 "There should be options to explicitly set such things as start and end dates "
 "rather than an offset from the current time."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:850
+#: C/apps/x509.pod:868
 msgid ""
 "The code to implement the verify behaviour described in the B<TRUST "
 "SETTINGS> is currently being developed. It thus describes the intended "
@@ -1907,8 +1949,8 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/x509.pod:855 C/apps/x509v3_config.pod:523
-#: C/crypto/X509_NAME_ENTRY_get_object.pod:65
+#: C/apps/x509.pod:873 C/apps/x509v3_config.pod:523
+#: C/crypto/X509_check_host.pod:124 C/crypto/X509_NAME_ENTRY_get_object.pod:65
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:110
 #: C/crypto/X509_NAME_get_index_by_NID.pod:100
 #: C/crypto/X509_NAME_print_ex.pod:97 C/crypto/X509_new.pod:31
@@ -1917,13 +1959,13 @@ msgstr ""
 #: C/crypto/X509_STORE_CTX_new.pod:113
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:150
 #: C/crypto/X509_STORE_set_verify_cb_func.pod:42
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:163
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:227
 #: C/crypto/X509_verify_cert.pod:45 C/crypto/x509.pod:48
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: textblock
-#: C/apps/x509.pod:857
+#: C/apps/x509.pod:875
 #, fuzzy
 #| msgid ""
 #| "L<req(1)|req(1)>, L<ca(1)|ca(1)>, L<genrsa(1)|genrsa(1)>, L<gendsa(1)|"
@@ -1936,8 +1978,8 @@ msgstr ""
 "gendsa(1)>, L<verify(1)|verify(1)>"
 
 #. type: =head1
-#: C/apps/x509.pod:861 C/apps/x509v3_config.pod:513
-#: C/crypto/X509_NAME_ENTRY_get_object.pod:70
+#: C/apps/x509.pod:879 C/apps/x509v3_config.pod:513
+#: C/crypto/X509_check_host.pod:133 C/crypto/X509_NAME_ENTRY_get_object.pod:70
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:114
 #: C/crypto/X509_NAME_get_index_by_NID.pod:104
 #: C/crypto/X509_NAME_print_ex.pod:101 C/crypto/X509_new.pod:35
@@ -1946,18 +1988,18 @@ msgstr ""
 #: C/crypto/X509_STORE_CTX_new.pod:118
 #: C/crypto/X509_STORE_CTX_set_verify_cb.pod:156
 #: C/crypto/X509_STORE_set_verify_cb_func.pod:47
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:167
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:234
 #: C/crypto/X509_verify_cert.pod:49
 msgid "HISTORY"
 msgstr "HISTORIQUE"
 
 #. type: textblock
-#: C/apps/x509.pod:863
+#: C/apps/x509.pod:881
 msgid "Before OpenSSL 0.9.8, the default digest for RSA keys was MD5."
 msgstr ""
 
 #. type: textblock
-#: C/apps/x509.pod:865
+#: C/apps/x509.pod:883
 msgid ""
 "The hash algorithm used in the B<-subject_hash> and B<-issuer_hash> options "
 "before OpenSSL 1.0.0 was based on the deprecated MD5 algorithm and the "
@@ -2395,7 +2437,7 @@ msgstr ""
 msgid ""
 "The value of B<dirName> should point to a section containing the "
 "distinguished name to use as a set of name value pairs. Multi values AVAs "
-"can be formed by preceding the name with a B<+> character."
+"can be formed by prefacing the name with a B<+> character."
 msgstr ""
 
 #. type: textblock
@@ -2712,12 +2754,6 @@ msgid ""
 "\n"
 msgstr ""
 
-#. type: verbatim
-#: C/apps/x509v3_config.pod:304
-#, no-wrap
-msgid " \n"
-msgstr ""
-
 #. type: =head2
 #: C/apps/x509v3_config.pod:305
 msgid "Certificate Policies."
@@ -2951,14 +2987,13 @@ msgstr ""
 #: C/apps/x509v3_config.pod:392
 #, fuzzy, no-wrap
 #| msgid ""
-#| " nameConstraints=excluded;email:.com\n"
+#| " nameConstraints=permitted;email:.somedomain.com\n"
 #| "\n"
 msgid ""
 " nameConstraints=excluded;email:.com\n"
-"issuingDistributionPoint = idp_section\n"
 "\n"
 msgstr ""
-" nameConstraints=excluded;email:.com\n"
+" nameConstraints=permitted;email:.somedomain.com\n"
 "\n"
 
 #. type: =head2
@@ -3311,20 +3346,14 @@ msgstr ""
 "x509(1)>, L<config(5)|config(5)>"
 
 #. type: textblock
-#: C/crypto/X509_NAME_ENTRY_get_object.pod:5
+#: C/crypto/X509_check_host.pod:5
 msgid ""
-"X509_NAME_ENTRY_get_object, X509_NAME_ENTRY_get_data, "
-"X509_NAME_ENTRY_set_object, X509_NAME_ENTRY_set_data, "
-"X509_NAME_ENTRY_create_by_txt, X509_NAME_ENTRY_create_by_NID, "
-"X509_NAME_ENTRY_create_by_OBJ - X509_NAME_ENTRY utility functions"
+"X509_check_host, X509_check_email, X509_check_ip, X509_check_ip_asc - X.509 "
+"certificate matching"
 msgstr ""
-"X509_NAME_ENTRY_get_object, X509_NAME_ENTRY_get_data, "
-"X509_NAME_ENTRY_set_object, X509_NAME_ENTRY_set_data, "
-"X509_NAME_ENTRY_create_by_txt, X509_NAME_ENTRY_create_by_NID, "
-"X509_NAME_ENTRY_create_by_OBJ - Fonctions utilitaires X509_NAME_ENTRY"
 
 #. type: verbatim
-#: C/crypto/X509_NAME_ENTRY_get_object.pod:12
+#: C/crypto/X509_check_host.pod:9 C/crypto/X509_NAME_ENTRY_get_object.pod:12
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:10
 #: C/crypto/X509_NAME_get_index_by_NID.pod:11
 #: C/crypto/X509_NAME_print_ex.pod:10 C/crypto/X509_new.pod:9
@@ -3336,6 +3365,229 @@ msgid ""
 msgstr ""
 " #include <openssl/x509.h>\n"
 "\n"
+
+#. type: verbatim
+#: C/crypto/X509_check_host.pod:11
+#, no-wrap
+msgid ""
+" int X509_check_host(X509 *, const char *name, size_t namelen,\n"
+"\t\t     unsigned int flags, char **peername);\n"
+" int X509_check_email(X509 *, const char *address, size_t addresslen,\n"
+"\t\t      unsigned int flags);\n"
+" int X509_check_ip(X509 *, const unsigned char *address, size_t addresslen,\n"
+"\t\t   unsigned int flags);\n"
+" int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:21
+msgid ""
+"The certificate matching functions are used to check whether a certificate "
+"matches a given host name, email address, or IP address.  The validity of "
+"the certificate and its trust level has to be checked by other means."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:26
+msgid ""
+"X509_check_host() checks if the certificate Subject Alternative Name (SAN) "
+"or Subject CommonName (CN) matches the specified host name, which must be "
+"encoded in the preferred name syntax described in section 3.5 of RFC 1034.  "
+"By default, wildcards are supported and they match only in the left-most "
+"label; but they may match part of that label with an explicit prefix or "
+"suffix.  For example, by default, the host B<name> \"www.example.com\" would "
+"match a certificate with a SAN or CN value of \"*.example.com\", \"w*."
+"example.com\" or \"*w.example.com\"."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:36
+msgid ""
+"Per section 6.4.2 of RFC 6125, B<name> values representing international "
+"domain names must be given in A-label form.  The B<namelen> argument must be "
+"the number of characters in the name string or zero in which case the length "
+"is calculated with strlen(B<name>).  When B<name> starts with a dot (e.g \"."
+"example.com\"), it will be matched by a certificate valid for any sub-domain "
+"of B<name>, (see also B<X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS> below)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:44
+msgid ""
+"When the certificate is matched, and B<peername> is not NULL, a pointer to a "
+"copy of the matching SAN or CN from the peer certificate is stored at the "
+"address passed in B<peername>.  The application is responsible for freeing "
+"the peername via OPENSSL_free() when it is no longer needed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:50
+msgid ""
+"X509_check_email() checks if the certificate matches the specified email "
+"B<address>.  Only the mailbox syntax of RFC 822 is supported, comments are "
+"not allowed, and no attempt is made to normalize quoted characters.  The "
+"B<addresslen> argument must be the number of characters in the address "
+"string or zero in which case the length is calculated with "
+"strlen(B<address>)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:57
+msgid ""
+"X509_check_ip() checks if the certificate matches a specified IPv4 or IPv6 "
+"address.  The B<address> array is in binary format, in network byte order.  "
+"The length is either 4 (IPv4) or 16 (IPv6).  Only explicitly marked "
+"addresses in the certificates are considered; IP addresses stored in DNS "
+"names and Common Names are ignored."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:63
+msgid ""
+"X509_check_ip_asc() is similar, except that the NUL-terminated string "
+"B<address> is first converted to the internal representation."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:66
+msgid ""
+"The B<flags> argument is usually 0.  It can be the bitwise OR of the flags:"
+msgstr ""
+
+#. type: =item
+#: C/crypto/X509_check_host.pod:71
+msgid "B<X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT>,"
+msgstr ""
+
+#. type: =item
+#: C/crypto/X509_check_host.pod:73
+msgid "B<X509_CHECK_FLAG_NO_WILDCARDS>,"
+msgstr ""
+
+#. type: =item
+#: C/crypto/X509_check_host.pod:75
+msgid "B<X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS>,"
+msgstr ""
+
+#. type: =item
+#: C/crypto/X509_check_host.pod:77
+msgid "B<X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS>."
+msgstr ""
+
+#. type: =item
+#: C/crypto/X509_check_host.pod:79
+msgid "B<X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:83
+msgid ""
+"The B<X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT> flag causes the function to "
+"consider the subject DN even if the certificate contains at least one "
+"subject alternative name of the right type (DNS name or email address as "
+"appropriate); the default is to ignore the subject DN when at least one "
+"corresponding subject alternative names is present."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:89
+msgid ""
+"If set, B<X509_CHECK_FLAG_NO_WILDCARDS> disables wildcard expansion; this "
+"only applies to B<X509_check_host>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:92
+msgid ""
+"If set, B<X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS> suppresses support for \"*\" "
+"as wildcard pattern in labels that have a prefix or suffix, such as: \"www*"
+"\" or \"*www\"; this only aplies to B<X509_check_host>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:96
+msgid ""
+"If set, B<X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS> allows a \"*\" that "
+"constitutes the complete label of a DNS name (e.g. \"*.example.com\")  to "
+"match more than one label in B<name>; this flag only applies to "
+"B<X509_check_host>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:101
+msgid ""
+"If set, B<X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS> restricts B<name> values "
+"which start with \".\", that would otherwise match any sub-domain in the "
+"peer certificate, to only match direct child sub-domains.  Thus, for "
+"instance, with this flag set a B<name> of \".example.com\" would match a "
+"peer certificate with a DNS name of \"www.example.com\", but would not match "
+"a peer certificate with a DNS name of \"www.sub.example.com\"; this flag "
+"only applies to B<X509_check_host>."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/X509_check_host.pod:109 C/crypto/X509_NAME_ENTRY_get_object.pod:63
+#: C/crypto/X509_NAME_add_entry_by_txt.pod:94
+#: C/crypto/X509_NAME_get_index_by_NID.pod:90 C/crypto/X509_new.pod:23
+#: C/crypto/X509_STORE_CTX_get_error.pod:52 C/crypto/X509_STORE_CTX_new.pod:96
+#: C/crypto/X509_STORE_CTX_set_verify_cb.pod:54
+#: C/crypto/X509_STORE_set_verify_cb_func.pod:37
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:125
+#: C/crypto/X509_verify_cert.pod:19
+msgid "RETURN VALUES"
+msgstr "VALEURS DE RETOUR"
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:111
+msgid ""
+"The functions return 1 for a successful match, 0 for a failed match and -1 "
+"for an internal error: typically a memory allocation failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:114
+msgid ""
+"X509_check_ip_asc() can also return -2 if the IP address string is malformed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:118
+msgid ""
+"Applications are encouraged to use X509_VERIFY_PARAM_set1_host()  rather "
+"than explicitly calling L<X509_check_host(3)>. Host name checks are out of "
+"scope with the DANE-EE(3) certificate usage, and the internal checks will be "
+"suppressed as appropriate when DANE support is added to OpenSSL."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:126
+msgid ""
+"L<SSL_get_verify_result(3)|SSL_get_verify_result(3)>, "
+"L<X509_VERIFY_PARAM_set1_host(3)|X509_VERIFY_PARAM_set1_host(3)>, "
+"L<X509_VERIFY_PARAM_add1_host(3)|X509_VERIFY_PARAM_add1_host(3)>, "
+"L<X509_VERIFY_PARAM_set1_email(3)|X509_VERIFY_PARAM_set1_email(3)>, "
+"L<X509_VERIFY_PARAM_set1_ip(3)|X509_VERIFY_PARAM_set1_ip(3)>, "
+"L<X509_VERIFY_PARAM_set1_ipasc(3)|X509_VERIFY_PARAM_set1_ipasc(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_check_host.pod:135
+msgid "These functions were added in OpenSSL 1.1.0."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_NAME_ENTRY_get_object.pod:5
+msgid ""
+"X509_NAME_ENTRY_get_object, X509_NAME_ENTRY_get_data, "
+"X509_NAME_ENTRY_set_object, X509_NAME_ENTRY_set_data, "
+"X509_NAME_ENTRY_create_by_txt, X509_NAME_ENTRY_create_by_NID, "
+"X509_NAME_ENTRY_create_by_OBJ - X509_NAME_ENTRY utility functions"
+msgstr ""
+"X509_NAME_ENTRY_get_object, X509_NAME_ENTRY_get_data, "
+"X509_NAME_ENTRY_set_object, X509_NAME_ENTRY_set_data, "
+"X509_NAME_ENTRY_create_by_txt, X509_NAME_ENTRY_create_by_NID, "
+"X509_NAME_ENTRY_create_by_OBJ - Fonctions utilitaires X509_NAME_ENTRY"
 
 #. type: verbatim
 #: C/crypto/X509_NAME_ENTRY_get_object.pod:14
@@ -3471,23 +3723,15 @@ msgstr ""
 "doit d'abord être défini pour que les renseignements appropriés du champ "
 "puissent être recherchés en interne."
 
-#. type: =head1
-#: C/crypto/X509_NAME_ENTRY_get_object.pod:63
-#: C/crypto/X509_NAME_add_entry_by_txt.pod:94
-#: C/crypto/X509_NAME_get_index_by_NID.pod:90 C/crypto/X509_new.pod:23
-#: C/crypto/X509_STORE_CTX_get_error.pod:52 C/crypto/X509_STORE_CTX_new.pod:96
-#: C/crypto/X509_STORE_CTX_set_verify_cb.pod:54
-#: C/crypto/X509_STORE_set_verify_cb_func.pod:37
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:64
-#: C/crypto/X509_verify_cert.pod:19
-msgid "RETURN VALUES"
-msgstr "VALEURS DE RETOUR"
-
 #. type: textblock
 #: C/crypto/X509_NAME_ENTRY_get_object.pod:67
+#, fuzzy
+#| msgid ""
+#| "L<ERR_get_error(3)|ERR_get_error(3)>, L<d2i_X509_NAME(3)|"
+#| "d2i_X509_NAME(3)>, L<OBJ_nid2obj(3),OBJ_nid2obj(3)>"
 msgid ""
 "L<ERR_get_error(3)|ERR_get_error(3)>, L<d2i_X509_NAME(3)|d2i_X509_NAME(3)>, "
-"L<OBJ_nid2obj(3),OBJ_nid2obj(3)>"
+"L<OBJ_nid2obj(3)|OBJ_nid2obj(3)>"
 msgstr ""
 "L<ERR_get_error(3)|ERR_get_error(3)>, L<d2i_X509_NAME(3)|d2i_X509_NAME(3)>, "
 "L<OBJ_nid2obj(3),OBJ_nid2obj(3)>"
@@ -3497,7 +3741,7 @@ msgstr ""
 #: C/crypto/X509_NAME_get_index_by_NID.pod:106
 #: C/crypto/X509_NAME_print_ex.pod:103
 #: C/crypto/X509_STORE_CTX_get_error.pod:303
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:169
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:236
 msgid "TBA"
 msgstr "À préciser"
 
@@ -3587,8 +3831,8 @@ msgstr ""
 #: C/crypto/X509_NAME_add_entry_by_txt.pod:46
 msgid ""
 "The use of string types such as B<MBSTRING_ASC> or B<MBSTRING_UTF8> is "
-"strongly recommened for the B<type> parameter. This allows the internal code "
-"to correctly determine the type of the field and to apply length checks "
+"strongly recommended for the B<type> parameter. This allows the internal "
+"code to correctly determine the type of the field and to apply length checks "
 "according to the relevant standards. This is done using "
 "ASN1_STRING_set_by_NID()."
 msgstr ""
@@ -4210,7 +4454,7 @@ msgstr ""
 msgid ""
 "X509_STORE_CTX_get_error_depth() returns the B<depth> of the error. This is "
 "a non-negative integer representing where in the certificate chain the error "
-"occurred. If it is zero it occured in the end entity certificate, one if it "
+"occurred. If it is zero it occurred in the end entity certificate, one if it "
 "is the certificate which signed the end entity certificate and so on."
 msgstr ""
 
@@ -4962,7 +5206,7 @@ msgstr "B<9 X509_V_ERR_CERT_NOT_YET_VALID: certificate is not yet valid>"
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_get_error.pod:249
-msgid "A name constraint violation occured in the permitted subtrees."
+msgid "A name constraint violation occurred in the permitted subtrees."
 msgstr ""
 
 #. type: =item
@@ -4972,7 +5216,7 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_get_error.pod:253
-msgid "A name constraint violation occured in the excluded subtrees."
+msgid "A name constraint violation occurred in the excluded subtrees."
 msgstr ""
 
 #. type: =item
@@ -5027,8 +5271,8 @@ msgstr "B<11 X509_V_ERR_CRL_NOT_YET_VALID: CRL is not yet valid>"
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_get_error.pod:273
 msgid ""
-"An error occured when attempting to verify the CRL path. This error can only "
-"happen if extended CRL checking is enabled."
+"An error occurred when attempting to verify the CRL path. This error can "
+"only happen if extended CRL checking is enabled."
 msgstr ""
 
 #. type: =item
@@ -5075,7 +5319,6 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/X509_STORE_CTX_get_error.pod:299
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:165
 msgid "L<X509_verify_cert(3)|X509_verify_cert(3)>"
 msgstr ""
 
@@ -5132,9 +5375,12 @@ msgstr ""
 
 #. type: verbatim
 #: C/crypto/X509_STORE_CTX_get_ex_new_index.pod:18
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *d, int idx);\n"
+#| "\n"
 msgid ""
-" char *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *d, int idx);\n"
+" void *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *d, int idx);\n"
 "\n"
 msgstr ""
 " char *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *d, int idx);\n"
@@ -5917,8 +6163,11 @@ msgid ""
 "X509_VERIFY_PARAM_get_flags, X509_VERIFY_PARAM_set_purpose, "
 "X509_VERIFY_PARAM_set_trust, X509_VERIFY_PARAM_set_depth, "
 "X509_VERIFY_PARAM_get_depth, X509_VERIFY_PARAM_set_time, "
-"X509_VERIFY_PARAM_add0_policy, X509_VERIFY_PARAM_set1_policies - X509 "
-"verification parameters"
+"X509_VERIFY_PARAM_add0_policy, X509_VERIFY_PARAM_set1_policies, "
+"X509_VERIFY_PARAM_set1_host, X509_VERIFY_PARAM_add1_host, "
+"X509_VERIFY_PARAM_set_hostflags, X509_VERIFY_PARAM_get0_peername, "
+"X509_VERIFY_PARAM_set1_email, X509_VERIFY_PARAM_set1_ip, "
+"X509_VERIFY_PARAM_set1_ip_asc - X509 verification parameters"
 msgstr ""
 
 #. type: verbatim
@@ -5969,15 +6218,34 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: verbatim
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:29
+#, no-wrap
+msgid ""
+" int X509_VERIFY_PARAM_set1_host(X509_VERIFY_PARAM *param,\n"
+"\t\t\t\t const char *name, size_t namelen);\n"
+" int X509_VERIFY_PARAM_add1_host(X509_VERIFY_PARAM *param,\n"
+"                                 const char *name, size_t namelen);\n"
+" void X509_VERIFY_PARAM_set_hostflags(X509_VERIFY_PARAM *param,\n"
+"\t\t\t\t      unsigned int flags);\n"
+" char *X509_VERIFY_PARAM_get0_peername(X509_VERIFY_PARAM *param);\n"
+" int X509_VERIFY_PARAM_set1_email(X509_VERIFY_PARAM *param,\n"
+"\t\t\t\t const char *email, size_t emaillen);\n"
+" int X509_VERIFY_PARAM_set1_ip(X509_VERIFY_PARAM *param,\n"
+"\t\t\t       const unsigned char *ip, size_t iplen);\n"
+" int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);\n"
+"\n"
+msgstr ""
+
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:31
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:44
 msgid ""
 "These functions manipulate the B<X509_VERIFY_PARAM> structure associated "
 "with a certificate verification operation."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:34
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:47
 msgid ""
 "The X509_VERIFY_PARAM_set_flags() function sets the flags in B<param> by "
 "oring it with B<flags>. See the B<VERIFICATION FLAGS> section for a complete "
@@ -5985,17 +6253,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:38
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:51
 msgid "X509_VERIFY_PARAM_get_flags() returns the flags in B<param>."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:40
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:53
 msgid "X509_VERIFY_PARAM_clear_flags() clears the flags B<flags> in B<param>."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:42
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:55
 msgid ""
 "X509_VERIFY_PARAM_set_purpose() sets the verification purpose in B<param> to "
 "B<purpose>. This determines the acceptable purpose of the certificate chain, "
@@ -6003,27 +6271,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:46
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:59
 msgid ""
 "X509_VERIFY_PARAM_set_trust() sets the trust setting in B<param> to B<trust>."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:49
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:62
 msgid ""
 "X509_VERIFY_PARAM_set_time() sets the verification time in B<param> to B<t>. "
 "Normally the current time is used."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:52
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:65
 msgid ""
 "X509_VERIFY_PARAM_add0_policy() enables policy checking (it is disabled by "
 "default) and adds B<policy> to the acceptable policy set."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:55
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:68
 msgid ""
 "X509_VERIFY_PARAM_set1_policies() enables policy checking (it is disabled by "
 "default) and sets the acceptable policy set to B<policies>. Any existing "
@@ -6032,7 +6300,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:60
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:73
 msgid ""
 "X509_VERIFY_PARAM_set_depth() sets the maximum verification depth to "
 "B<depth>.  That is the maximum number of untrusted CA certificates that can "
@@ -6040,61 +6308,131 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:66
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:77
 msgid ""
-"X509_VERIFY_PARAM_set_flags(), X509_VERIFY_PARAM_clear_flags(), "
-"X509_VERIFY_PARAM_set_purpose(), X509_VERIFY_PARAM_set_trust(), "
-"X509_VERIFY_PARAM_add0_policy() and X509_VERIFY_PARAM_set1_policies() return "
-"1 for success and 0 for failure."
+"X509_VERIFY_PARAM_set1_host() sets the expected DNS hostname to B<name> "
+"clearing any previously specified host name or names.  If B<name> is NULL, "
+"or empty the list of hostnames is cleared, and name checks are not performed "
+"on the peer certificate.  If B<name> is NUL-terminated, B<namelen> may be "
+"zero, otherwise B<namelen> must be set to the length of B<name>.  When a "
+"hostname is specified, certificate verification automatically invokes "
+"L<X509_check_host(3)> with flags equal to the B<flags> argument given to "
+"B<X509_VERIFY_PARAM_set_hostflags()> (default zero).  Applications are "
+"strongly advised to use this interface in preference to explicitly calling "
+"L<X509_check_host(3)>, hostname checks are out of scope with the DANE-EE(3) "
+"certificate usage, and the internal check will be suppressed as appropriate "
+"when DANE support is added to OpenSSL."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:71
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:91
+msgid ""
+"X509_VERIFY_PARAM_add1_host() adds B<name> as an additional reference "
+"identifer that can match the peer's certificate.  Any previous names set via "
+"X509_VERIFY_PARAM_set1_host() or X509_VERIFY_PARAM_add1_host()  are "
+"retained, no change is made if B<name> is NULL or empty.  When multiple "
+"names are configured, the peer is considered verified when any name matches."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:98
+msgid ""
+"X509_VERIFY_PARAM_get0_peername() returns the DNS hostname or subject "
+"CommonName from the peer certificate that matched one of the reference "
+"identifiers.  When wildcard matching is not disabled, or when a reference "
+"identifier specifies a parent domain (starts with \".\")  rather than a "
+"hostname, the peer name may be a wildcard name or a sub-domain of the "
+"reference identifier respectively.  The return string is allocated by the "
+"library and is no longer valid once the associated B<param> argument is "
+"freed.  Applications must not free the return value."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:108
+msgid ""
+"X509_VERIFY_PARAM_set1_email() sets the expected RFC822 email address to "
+"B<email>.  If B<email> is NUL-terminated, B<emaillen> may be zero, otherwise "
+"B<emaillen> must be set to the length of B<email>.  When an email address is "
+"specified, certificate verification automatically invokes "
+"L<X509_check_email(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:114
+msgid ""
+"X509_VERIFY_PARAM_set1_ip() sets the expected IP address to B<ip>.  The "
+"B<ip> argument is in binary format, in network byte-order and B<iplen> must "
+"be set to 4 for IPv4 and 16 for IPv6.  When an IP address is specified, "
+"certificate verification automatically invokes L<X509_check_ip(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:120
+msgid ""
+"X509_VERIFY_PARAM_set1_ip_asc() sets the expected IP address to B<ipasc>.  "
+"The B<ipasc> argument is a NUL-terminal ASCII string: dotted decimal quad "
+"for IPv4 and colon-separated hexadecimal for IPv6.  The condensed \"::\" "
+"notation is supported for IPv6 addresses."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:127
+msgid ""
+"X509_VERIFY_PARAM_set_flags(), X509_VERIFY_PARAM_clear_flags(), "
+"X509_VERIFY_PARAM_set_purpose(), X509_VERIFY_PARAM_set_trust(), "
+"X509_VERIFY_PARAM_add0_policy() X509_VERIFY_PARAM_set1_policies(), "
+"X509_VERIFY_PARAM_set1_host(), X509_VERIFY_PARAM_set_hostflags(), "
+"X509_VERIFY_PARAM_set1_email(), X509_VERIFY_PARAM_set1_ip() and "
+"X509_VERIFY_PARAM_set1_ip_asc() return 1 for success and 0 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:135
 msgid "X509_VERIFY_PARAM_get_flags() returns the current verification flags."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:73
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:137
 msgid ""
 "X509_VERIFY_PARAM_set_time() and X509_VERIFY_PARAM_set_depth() do not return "
 "values."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:76
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:140
 msgid "X509_VERIFY_PARAM_get_depth() returns the current verification depth."
 msgstr ""
 
 #. type: =head1
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:78
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:142
 #, fuzzy
 #| msgid "CERTIFICATE EXTENSIONS"
 msgid "VERIFICATION FLAGS"
 msgstr "EXTENSIONS DE CERTIFICATS"
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:80
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:144
 msgid ""
 "The verification flags consists of zero or more of the following flags ored "
 "together."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:83
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:147
 msgid ""
 "B<X509_V_FLAG_CRL_CHECK> enables CRL checking for the certificate chain leaf "
 "certificate. An error occurs if a suitable CRL cannot be found."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:86
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:150
 msgid ""
 "B<X509_V_FLAG_CRL_CHECK_ALL> enables CRL checking for the entire certificate "
 "chain."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:89
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:153
 msgid ""
 "B<X509_V_FLAG_IGNORE_CRITICAL> disabled critical extension checking. By "
 "default any unhandled critical extensions in certificates or (if checked) "
@@ -6105,20 +6443,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:96
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:160
 msgid ""
 "THe B<X509_V_FLAG_X509_STRICT> flag disables workarounds for some broken "
 "certificates and makes the verification strictly apply B<X509> rules."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:99
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:163
 msgid ""
 "B<X509_V_FLAG_ALLOW_PROXY_CERTS> enables proxy certificate verification."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:101
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:165
 msgid ""
 "B<X509_V_FLAG_POLICY_CHECK> enables certificate policy checking, by default "
 "no policy checking is peformed. Additional information is sent to the "
@@ -6126,7 +6464,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:105
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:169
 msgid ""
 "B<X509_V_FLAG_EXPLICIT_POLICY>, B<X509_V_FLAG_INHIBIT_ANY> and "
 "B<X509_V_FLAG_INHIBIT_MAP> set the B<require explicit policy>, B<inhibit any "
@@ -6136,7 +6474,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:111
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:175
 msgid ""
 "If B<X509_V_FLAG_NOTIFY_POLICY> is set and the policy checking is successful "
 "a special status code is set to the verification callback. This permits it "
@@ -6145,7 +6483,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:116
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:180
 msgid ""
 "By default some additional features such as indirect CRLs and CRLs signed by "
 "different keys are disabled. If B<X509_V_FLAG_EXTENDED_CRL_SUPPORT> is set "
@@ -6153,14 +6491,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:120
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:184
 msgid ""
 "If B<X509_V_FLAG_USE_DELTAS> ise set delta CRLs (if present) are used to "
 "determine certificate status. If not set deltas are ignored."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:123
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:187
 msgid ""
 "B<X509_V_FLAG_CHECK_SS_SIGNATURE> enables checking of the root CA self "
 "signed cerificate signature. By default this check is disabled because it "
@@ -6171,7 +6509,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:130
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:194
 msgid ""
 "The B<X509_V_FLAG_CB_ISSUER_CHECK> flag enables debugging of certificate "
 "issuer checks. It is B<not> needed unless you are logging certificate "
@@ -6181,7 +6519,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:138
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:202
 msgid ""
 "The above functions should be used to manipulate verification parameters "
 "instead of legacy functions which work in specific structures such as "
@@ -6189,7 +6527,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:144
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:208
 msgid ""
 "Delta CRL checking is currently primitive. Only a single delta can be used "
 "and (partly due to limitations of B<X509_STORE>) constructed CRLs are not "
@@ -6197,7 +6535,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:148
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:212
 msgid ""
 "If CRLs checking is enable CRLs are expected to be available in the "
 "corresponding B<X509_STORE> structure. No attempt is made to download CRLs "
@@ -6205,19 +6543,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:152
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:216
 msgid "EXAMPLE"
 msgstr "EXEMPLE"
 
 #. type: textblock
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:154
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:218
 msgid ""
 "Enable CRL checking when performing certificate verification during SSL "
 "connections associated with an B<SSL_CTX> structure B<ctx>:"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:157
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:221
 #, no-wrap
 msgid ""
 "  X509_VERIFY_PARAM *param;\n"
@@ -6226,6 +6564,14 @@ msgid ""
 "  SSL_CTX_set1_param(ctx, param);\n"
 "  X509_VERIFY_PARAM_free(param);\n"
 "\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/X509_VERIFY_PARAM_set_flags.pod:229
+msgid ""
+"L<X509_verify_cert(3)|X509_verify_cert(3)>, L<X509_check_host(3)|"
+"X509_check_host(3)>, L<X509_check_email(3)|X509_check_email(3)>, "
+"L<X509_check_ip(3)|X509_check_ip(3)>"
 msgstr ""
 
 # NOTE: s/certificte/certificate/
@@ -6417,3 +6763,15 @@ msgid ""
 "d2i_X509_NAME(3)>, L<d2i_X509_REQ(3)|d2i_X509_REQ(3)>, L<d2i_X509_SIG(3)|"
 "d2i_X509_SIG(3)>, L<crypto(3)|crypto(3)>, L<x509v3(3)|x509v3(3)>"
 msgstr ""
+
+#, fuzzy
+#~| msgid ""
+#~| " nameConstraints=excluded;email:.com\n"
+#~| "\n"
+#~ msgid ""
+#~ " nameConstraints=excluded;email:.com\n"
+#~ "issuingDistributionPoint = idp_section\n"
+#~ "\n"
+#~ msgstr ""
+#~ " nameConstraints=excluded;email:.com\n"
+#~ "\n"
