@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e2fsprogs\n"
 "POT-Creation-Date: 2014-07-10 10:34-0400\n"
-"PO-Revision-Date: 2014-07-10 11:09-0400\n"
+"PO-Revision-Date: 2014-08-01 10:24+0200\n"
 "Last-Translator: Cédric Boutillier <boutil@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -169,6 +169,10 @@ msgid ""
 "filesystem-specific man pages such as B<btrfs>(5), B<ext4>(5), and "
 "B<xfs>(5)  for more filesystem-specific details."
 msgstr ""
+"Tous les attributs ne sont pas pris en charge ou utilisés par l'ensemble des "
+"systèmes de fichiers. Veuillez vous référer aux pages de manuel spécifiques "
+"telles que B<btrfs>(5), B<ext4>(5) et B<xfs>(5) pour les détails "
+"particuliers à chaque système de fichiers."
 
 #. type: SH
 #: C/man1/chattr.1:61 C/man1/lsattr.1:18 C/man8/badblocks.8:84
@@ -395,19 +399,14 @@ msgstr ""
 
 #. type: Plain text
 #: C/man1/chattr.1:148
-#, fuzzy
-#| msgid ""
-#| "The 'I' attribute is used by the htree code to indicate that a directory "
-#| "is being indexed using hashed trees.  It may not be set or reset using "
-#| "B<chattr>(1), although it can be displayed by B<lsattr>(1)."
 msgid ""
 "A file with the 'N' attribute set indicates that the file has data stored "
 "inline, within the inode itself. It may not be set or reset using "
 "B<chattr>(1), although it can be displayed by B<lsattr>(1)."
 msgstr ""
-"L'attribut « I » sert au code des arbres de hachage pour indiquer qu'un "
-"répertoire est en train d'y être indexé. Il ne peut pas être ajouté ou "
-"retiré avec B<chattr>(1), il est tout de même affiché par B<lsattr>(1)."
+"L'attribut « N » d'un fichier indique que les données de ce fichier sont "
+"stockées en ligne, à l'intérieur même de l'inœud. Il ne peut pas être ajouté "
+"ou retiré avec B<chattr>(1), il est tout de même affiché par B<lsattr>(1)."
 
 #. type: Plain text
 #: C/man1/chattr.1:152
@@ -2763,6 +2762,9 @@ msgid ""
 "ext4.  Other generic mount options may be used as well; see B<mount>(8)  for "
 "details."
 msgstr ""
+"Cette section décrit les options de montages spécifiques à ext2, ext3, et "
+"ext4. D'autres options de montage générique peuvent être aussi utilisées. "
+"Consultez B<mount>(8) pour plus de détails."
 
 #. type: SH
 #: C/man5/ext4.5:259
@@ -2824,7 +2826,7 @@ msgstr "% mount /k -o minixdf; df /k; umount /k"
 #: C/man5/ext4.5:285 C/man5/ext4.5:294
 #, no-wrap
 msgid "Filesystem#1024-blocks#Used#Available#Capacity#Mounted on\n"
-msgstr ""
+msgstr "Sys. de fichiers#blocks de 1K#Utilisé#Disponible#Utilisé#Uti%#Monté sur\n"
 
 #. type: tbl table
 #: C/man5/ext4.5:286
@@ -2867,6 +2869,13 @@ msgid ""
 "have been removed). Note that these mount options don't have to be supported "
 "if ext4 kernel driver is used for ext2 and ext3 filesystems."
 msgstr ""
+"Aucune vérification n'est faite lors du montage. C'est le comportement par "
+"défaut. C'est rapide. Il est sage de lancer B<e2fsck>(8) de temps en temps, "
+"par exemple à l'amorçage. Aucun autre comportement que celui par défaut "
+"n'est pris en charge (les options check=normal et check=strict ont été "
+"supprimées). Veuillez remarquer que ces options de montage n'ont pas besoin "
+"d'être prises en charge si le pilote ext4 du noyau est utilisé pour des "
+"systèmes de fichiers ext2 et ext3."
 
 #. type: TP
 #: C/man5/ext4.5:309 C/man8/tune2fs.8:440
@@ -2936,6 +2945,10 @@ msgid ""
 "filesystem. grpquota enables group quotas support. You need the quota "
 "utilities to actually enable and manage the quota system."
 msgstr ""
+"L'option de montage usrquota (identique à quota) active la prise en charge "
+"du quota utilisateur sur le système de fichiers. grpquota active la prise en "
+"charge du quota de groupe. Les utilitaires de quota sont en fait nécessaires "
+"pour activer et gérer le système de quota."
 
 #. type: TP
 #: C/man5/ext4.5:335 C/man5/ext4.5:576
@@ -3191,6 +3204,8 @@ msgid ""
 "Just print an error message if an error occurs in a file data buffer in "
 "ordered mode."
 msgstr ""
+"Afficher simplement un message d'erreur si une erreur survient dans un "
+"tampon de données de fichiers en mode ordonné."
 
 #. type: TP
 #: C/man5/ext4.5:428
@@ -3203,6 +3218,8 @@ msgstr "B<data_err=abort>"
 msgid ""
 "Abort the journal if an error occurs in a file data buffer in ordered mode."
 msgstr ""
+"Abandonner le journal si une erreur survient dans un tampon de données de "
+"fichiers en mode ordonné."
 
 #. type: TP
 #: C/man5/ext4.5:431
@@ -3222,6 +3239,16 @@ msgid ""
 "battery-backed in one way or another, disabling barriers may safely improve "
 "performance."
 msgstr ""
+"Cette option désactive (barrier=0) ou active (barrier=1) l'utilisation de "
+"barrières d'écriture dans le code jbd. Elle est activée par défaut. Elle "
+"nécessite aussi une pile d'entrée/sortie qui peut prendre en charge les "
+"barrières, et si jbd reçoit une erreur sur une barrière d'écriture, il "
+"désactivera à nouveau les barrières avec un avertissement. Les barrières "
+"d'écriture forcent un ordre correct sur le disque des écritures du journal, "
+"en faisant des caches d'écriture sur disque volatiles sûrs, avec un impact "
+"négatif sur les performances. Si les disques sont alimentés par des "
+"batteries d'une manière ou d'une autre, désactiver les barrières peut "
+"améliorer les performance en toute sécurité."
 
 #. type: TP
 #: C/man5/ext4.5:440
@@ -3279,6 +3306,14 @@ msgid ""
 "quota system which quota database files to use. Journaled quotas have the "
 "advantage that even after a crash no quota check is required."
 msgstr ""
+"En plus de l'ancien système de quota (comme dans ext2, jqfmt=vfsold, aussi "
+"connu sous le nom de quota version 1), ext3 prend en charge aussi des quotas "
+"journalisés (quota version 2). jqfmt=vfsv0 active les quotas journalisés. "
+"Pour les quotas journalisés, les options de montage usrjquota=aquota.user et "
+"grpjquota=aquota.group sont requises pour dire au système de quota quels "
+"fichiers de base de données de quotas utiliser. L'avantage des quotas "
+"journalisés est qu'ils ne nécessitent pas de vérification de quota même "
+"après un plantage."
 
 #. type: SH
 #: C/man5/ext4.5:464
@@ -3362,6 +3397,9 @@ msgid ""
 "\"barrier\" and \"nobarrier\" are added for consistency with other ext4 "
 "mount options."
 msgstr ""
+"Ces options de montage ont le même effet qu'avec ext3. Les options de "
+"montage « barrier » et « nobarrier » sont ajoutées pour la cohérence avec "
+"les autres options de montage d'ext4."
 
 #. type: Plain text
 #: C/man5/ext4.5:492
@@ -3454,6 +3492,22 @@ msgid ""
 "max_batch_time, which defaults to 15000\\ \\[mc]s (15\\ ms). This "
 "optimization can be turned off entirely by setting max_batch_time to 0."
 msgstr ""
+"Durée maximale pendant laquelle ext4 devrait attendre des opérations "
+"supplémentaires sur le système de fichiers afin de les grouper pour une "
+"écriture synchrone. Puisque l'opération d'écriture synchrone va forcer une "
+"inscription des données et attendre la fin des entrées/sorties, qu'elle est "
+"peu coûteuse et peut représenter un gain significatif de débit, ext4 attend "
+"un petit peu pour voir si d'autres transactions peuvent être englobées dans "
+"l'écriture synchrone. L'algorithme utilisé est conçu pour faire des réglages "
+"automatiquement en fonction de la vitesse du disque, en mesurant le temps "
+"(moyen) d'une inscription complète d'une transaction. Ce temps est appelé "
+"« temps d'inscription » (« commit time »). Si le temps pendant lequel une "
+"transaction est en cours est inférieur au temps d'inscription, ext4 essaiera "
+"de dormir pendant une durée égale au temps d'inscription pour voir si "
+"d'autres opérations vont se joindre à la transaction. Le temps d'inscription "
+"est majoré par la valeur max_batch_time, qui vaut par défaut 15 000 \\[mc]s "
+"(ou 15 ms). Cette optimisation peut être désactivée complètement en "
+"affectant la valeur 0 à max_batch_time."
 
 #. type: TP
 #: C/man5/ext4.5:524
@@ -3579,6 +3633,11 @@ msgid ""
 "can complete as quickly as possible; the inode table initialization process "
 "would then be deferred until the next time the filesystem is mounted."
 msgstr ""
+"Ne pas initialiser les blocs non initialisés de la table des inœuds en tâche "
+"de fond. Cette fonctionnalité peut être utilisée par les CD d'installation "
+"afin que le processus d'installation termine le plus vite possible. Le "
+"processus d'initialisation de la table des inœuds serait alors reporté au "
+"prochain montage du système de fichiers."
 
 #. type: TP
 #: C/man5/ext4.5:565
@@ -3594,6 +3653,10 @@ msgid ""
 "impact on system performance while the filesystem's inode table is being "
 "initialized."
 msgstr ""
+"Le code d'initialisation différée de la table d'inœuds attendra n fois le "
+"nombre de millisecondes qu'il a pris pour mettre à zéro la table d'inœuds du "
+"groupe de blocs précédent. Cela minimise l'impact sur les performances du "
+"système pendant l'initialisation de la table d'inœuds du système de fichiers."
 
 #. type: TP
 #: C/man5/ext4.5:570
@@ -3686,6 +3749,12 @@ msgid ""
 "(For example, if there is only 512\\ MB memory available, a 176\\ MB "
 "directory may seriously cramp the system's style.)"
 msgstr ""
+"Cette option limite la taille des répertoires de sorte que toute tentative "
+"de les faire croître au-delà de la limite indiquée (en kilooctets) causera "
+"une erreur ENOSPC. C'est utile dans des environnements avec des contraintes "
+"de mémoire, où un très grand répertoire peut causer de gros problèmes de "
+"performance ou même provoquer le mécanisme de tuage de processus en "
+"l'absence de mémoire (« Out Of Memory killer »)."
 
 #. type: TP
 #: C/man5/ext4.5:607
@@ -4643,6 +4712,10 @@ msgid ""
 "will cause hugefile alignment to be relative to the beginning of the file "
 "system."
 msgstr ""
+"Cette option indique si l'alignement doit être relatif au début du disque "
+"dur (en supposant mke2fs a accès au décalage de départ de la partition). La "
+"valeur par défaut est faux, ce qui signifie que l'alignement des grands "
+"fichiers sera relatif au début du système de fichiers."
 
 #. type: TP
 #: C/man5/mke2fs.conf.5:489
