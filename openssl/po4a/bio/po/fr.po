@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2010-08-25 15:03-0400\n"
+"POT-Creation-Date: 2014-08-07 01:31-0400\n"
 "PO-Revision-Date: 2013-03-05 16:45-0400\n"
 "Last-Translator: none yet\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -200,9 +200,9 @@ msgstr ""
 msgid ""
 "BIO_pending(), BIO_ctrl_pending(), BIO_wpending() and BIO_ctrl_wpending()  "
 "return the number of pending characters in the BIOs read and write buffers.  "
-"Not all BIOs support these calls. BIO_ctrl_pending() and BIO_ctrl_wpending"
-"()  return a size_t type and are functions, BIO_pending() and BIO_wpending() "
-"are macros which call BIO_ctrl()."
+"Not all BIOs support these calls. BIO_ctrl_pending() and "
+"BIO_ctrl_wpending()  return a size_t type and are functions, BIO_pending() "
+"and BIO_wpending() are macros which call BIO_ctrl()."
 msgstr ""
 
 #. type: =head1
@@ -315,7 +315,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/crypto/BIO_ctrl.pod:119 C/crypto/BIO_f_base64.pod:71
+#: C/crypto/BIO_ctrl.pod:119 C/crypto/BIO_f_base64.pod:72
 #: C/crypto/BIO_f_md.pod:134 C/crypto/BIO_f_ssl.pod:311
 #: C/crypto/BIO_find_type.pod:74 C/crypto/BIO_new_CMS.pod:47
 #: C/crypto/BIO_s_file.pod:134 C/crypto/BIO_s_mem.pod:82
@@ -333,7 +333,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/crypto/BIO_ctrl.pod:126 C/crypto/BIO_f_base64.pod:79
+#: C/crypto/BIO_ctrl.pod:126 C/crypto/BIO_f_base64.pod:80
 #: C/crypto/BIO_f_buffer.pod:67 C/crypto/BIO_f_cipher.pod:74
 #: C/crypto/BIO_f_md.pod:142 C/crypto/BIO_f_null.pod:30
 #: C/crypto/BIO_f_ssl.pod:320 C/crypto/BIO_find_type.pod:96
@@ -349,7 +349,7 @@ msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: textblock
-#: C/crypto/BIO_ctrl.pod:128 C/crypto/BIO_f_base64.pod:81
+#: C/crypto/BIO_ctrl.pod:128 C/crypto/BIO_f_base64.pod:82
 #: C/crypto/BIO_f_cipher.pod:72 C/crypto/BIO_f_cipher.pod:76
 #: C/crypto/BIO_f_md.pod:144 C/crypto/BIO_f_null.pod:32
 #: C/crypto/BIO_f_ssl.pod:129 C/crypto/BIO_f_ssl.pod:322
@@ -458,18 +458,20 @@ msgstr ""
 msgid ""
 " b64 = BIO_new(BIO_f_base64());\n"
 " bio = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
-" bio = BIO_push(b64, bio);\n"
-" BIO_write(bio, message, strlen(message));\n"
-" BIO_flush(bio);\n"
+" BIO_push(b64, bio);\n"
+" BIO_write(b64, message, strlen(message));\n"
+" BIO_flush(b64);\n"
 "\n"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/BIO_f_base64.pod:53 C/crypto/BIO_f_base64.pod:69
-#: C/crypto/BIO_f_md.pod:132
-#, no-wrap
+#: C/crypto/BIO_f_base64.pod:53
+#, fuzzy, no-wrap
+#| msgid ""
+#| " BIO_free_all(bio);\n"
+#| "\n"
 msgid ""
-" BIO_free_all(bio);\n"
+" BIO_free_all(b64);\n"
 "\n"
 msgstr ""
 " BIO_free_all(bio);\n"
@@ -499,21 +501,35 @@ msgid ""
 " b64 = BIO_new(BIO_f_base64());\n"
 " bio = BIO_new_fp(stdin, BIO_NOCLOSE);\n"
 " bio_out = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
-" bio = BIO_push(b64, bio);\n"
-" while((inlen = BIO_read(bio, inbuf, 512)) > 0) \n"
+" BIO_push(b64, bio);\n"
+" while((inlen = BIO_read(b64, inbuf, 512)) > 0) \n"
 "\tBIO_write(bio_out, inbuf, inlen);\n"
 "\n"
 msgstr ""
 
+#. type: verbatim
+#: C/crypto/BIO_f_base64.pod:69
+#, fuzzy, no-wrap
+#| msgid ""
+#| " BIO_free_all(bio);\n"
+#| "\n"
+msgid ""
+" BIO_flush(bio_out);\n"
+" BIO_free_all(b64);\n"
+"\n"
+msgstr ""
+" BIO_free_all(bio);\n"
+"\n"
+
 #. type: textblock
-#: C/crypto/BIO_f_base64.pod:73
+#: C/crypto/BIO_f_base64.pod:74
 msgid ""
 "The ambiguity of EOF in base64 encoded data can cause additional data "
 "following the base64 encoded block to be misinterpreted."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/BIO_f_base64.pod:76
+#: C/crypto/BIO_f_base64.pod:77
 msgid ""
 "There should be some way of specifying a test that the BIO can perform to "
 "reliably determine EOF (for example a MIME boundary)."
@@ -674,13 +690,13 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_f_buffer.pod:69
 msgid ""
-"L<BIO(3)|BIO(3)>, L<BIO_reset(3)|BIO_reset(3)>, L<BIO_flush(3)|BIO_flush(3)"
-">, L<BIO_pop(3)|BIO_pop(3)>, L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_int_ctrl(3)|"
-"BIO_ctrl(3)>"
+"L<BIO(3)|BIO(3)>, L<BIO_reset(3)|BIO_reset(3)>, L<BIO_flush(3)|"
+"BIO_flush(3)>, L<BIO_pop(3)|BIO_pop(3)>, L<BIO_ctrl(3)|BIO_ctrl(3)>, "
+"L<BIO_int_ctrl(3)|BIO_ctrl(3)>"
 msgstr ""
-"L<BIO(3)|BIO(3)>, L<BIO_reset(3)|BIO_reset(3)>, L<BIO_flush(3)|BIO_flush(3)"
-">, L<BIO_pop(3)|BIO_pop(3)>, L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_int_ctrl(3)|"
-"BIO_ctrl(3)>"
+"L<BIO(3)|BIO(3)>, L<BIO_reset(3)|BIO_reset(3)>, L<BIO_flush(3)|"
+"BIO_flush(3)>, L<BIO_pop(3)|BIO_pop(3)>, L<BIO_ctrl(3)|BIO_ctrl(3)>, "
+"L<BIO_int_ctrl(3)|BIO_ctrl(3)>"
 
 #. type: textblock
 #: C/crypto/BIO_f_cipher.pod:5
@@ -706,8 +722,8 @@ msgstr ""
 msgid ""
 "BIO_f_cipher() returns the cipher BIO method. This is a filter BIO that "
 "encrypts any data written through it, and decrypts any data read from it. It "
-"is a BIO wrapper for the cipher routines EVP_CipherInit(), EVP_CipherUpdate"
-"() and EVP_CipherFinal()."
+"is a BIO wrapper for the cipher routines EVP_CipherInit(), "
+"EVP_CipherUpdate() and EVP_CipherFinal()."
 msgstr ""
 
 #. type: textblock
@@ -827,8 +843,8 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_f_md.pod:24
 msgid ""
-"Any data written or read through a digest BIO using BIO_read() and BIO_write"
-"() is digested."
+"Any data written or read through a digest BIO using BIO_read() and "
+"BIO_write() is digested."
 msgstr ""
 
 #. type: textblock
@@ -1048,14 +1064,24 @@ msgstr ""
 " } while(mdtmp);\n"
 "\n"
 
+#. type: verbatim
+#: C/crypto/BIO_f_md.pod:132
+#, no-wrap
+msgid ""
+" BIO_free_all(bio);\n"
+"\n"
+msgstr ""
+" BIO_free_all(bio);\n"
+"\n"
+
 #. type: textblock
 #: C/crypto/BIO_f_md.pod:136
 msgid ""
-"The lack of support for BIO_puts() and the non standard behaviour of BIO_gets"
-"() could be regarded as anomalous. It could be argued that BIO_gets()  and "
-"BIO_puts() should be passed to the next BIO in the chain and digest the data "
-"passed through and that digests should be retrieved using a separate BIO_ctrl"
-"() call."
+"The lack of support for BIO_puts() and the non standard behaviour of "
+"BIO_gets() could be regarded as anomalous. It could be argued that "
+"BIO_gets()  and BIO_puts() should be passed to the next BIO in the chain and "
+"digest the data passed through and that digests should be retrieved using a "
+"separate BIO_ctrl() call."
 msgstr ""
 
 #. type: textblock
@@ -2194,9 +2220,9 @@ msgstr "B<BIO_free_all>() et B<BIO_vfree>() ne renvoient pas de valeur."
 #. type: textblock
 #: C/crypto/BIO_new.pod:42
 msgid ""
-"Some BIOs (such as memory BIOs) can be used immediately after calling BIO_new"
-"(). Others (such as file BIOs) need some additional initialization, and "
-"frequently a utility function exists to create and initialize such BIOs."
+"Some BIOs (such as memory BIOs) can be used immediately after calling "
+"BIO_new(). Others (such as file BIOs) need some additional initialization, "
+"and frequently a utility function exists to create and initialize such BIOs."
 msgstr ""
 "Certains BIO (comme les BIO mémoire) peuvent être utilisés immédiatement "
 "après avoir appelé B<BIO_new>(). D'autres (comme les BIO fichier) ont besoin "
@@ -2215,8 +2241,8 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_new.pod:49
 msgid ""
-"Calling BIO_free_all() a single BIO has the same effect as calling BIO_free"
-"()  on it other than the discarded return value."
+"Calling BIO_free_all() a single BIO has the same effect as calling "
+"BIO_free()  on it other than the discarded return value."
 msgstr ""
 "Appeler B<BIO_free_all>() sur un seul BIO a le même effet que d'appeler "
 "B<BIO_free>() dessus à part l'absence de valeur de retour."
@@ -2297,8 +2323,8 @@ msgid ""
 "The chain returned by this function behaves like a standard filter BIO. It "
 "supports non blocking I/O. Content is processed and streamed on the fly and "
 "not all held in memory at once: so it is possible to encode very large "
-"structures.  After all content has been written through the chain BIO_flush"
-"() must be called to finalise the structure."
+"structures.  After all content has been written through the chain "
+"BIO_flush() must be called to finalise the structure."
 msgstr ""
 "La chaîne renvoyée par cette fonction se comporte comme un BIO filtre "
 "standard. Elle permet les entrées et sorties non bloquantes. Le contenu est "
@@ -2488,7 +2514,10 @@ msgstr ""
 # NOTE: s/b64-chain/b64-f/
 #. type: textblock
 #: C/crypto/BIO_push.pod:43
-msgid "is made then the new chain will be B<b64-chain>. After making the calls"
+#, fuzzy
+#| msgid ""
+#| "is made then the new chain will be B<b64-chain>. After making the calls"
+msgid "is made then the new chain will be B<b64-f>. After making the calls"
 msgstr ""
 "est fait, alors la nouvelle chaîne sera I<b64-f>. Après avoir fait les appels"
 
@@ -2685,8 +2714,8 @@ msgstr ""
 #: C/crypto/BIO_read.pod:58
 msgid ""
 "If the BIO_gets() function is not supported by a BIO then it possible to "
-"work around this by adding a buffering BIO L<BIO_f_buffer(3)|BIO_f_buffer(3)"
-"> to the chain."
+"work around this by adding a buffering BIO L<BIO_f_buffer(3)|"
+"BIO_f_buffer(3)> to the chain."
 msgstr ""
 "Si la fonction B<BIO_gets>() n'est pas prise en charge par un BIO, alors "
 "contourner cela est possible en ajoutant un BIO tampon L<BIO_f_buffer(3)|"
@@ -3202,8 +3231,8 @@ msgid ""
 "maximum length of data that can be currently written to the BIO. Writes "
 "larger than this value will return a value from BIO_write() less than the "
 "amount requested or if the buffer is full request a retry. "
-"BIO_ctrl_get_write_guarantee() is a function whereas BIO_get_write_guarantee"
-"() is a macro."
+"BIO_ctrl_get_write_guarantee() is a function whereas "
+"BIO_get_write_guarantee() is a macro."
 msgstr ""
 
 #. type: textblock
@@ -3631,13 +3660,13 @@ msgstr ""
 msgid ""
 "BIO_set_conn_hostname(), BIO_set_conn_port(), BIO_set_conn_ip(), "
 "BIO_set_conn_int_port(), BIO_get_conn_hostname(), BIO_get_conn_port(), "
-"BIO_get_conn_ip(), BIO_get_conn_int_port(), BIO_set_nbio() and BIO_do_connect"
-"() are macros."
+"BIO_get_conn_ip(), BIO_get_conn_int_port(), BIO_set_nbio() and "
+"BIO_do_connect() are macros."
 msgstr ""
 "BIO_set_conn_hostname(), BIO_set_conn_port(), BIO_set_conn_ip(), "
 "BIO_set_conn_int_port(), BIO_get_conn_hostname(), BIO_get_conn_port(), "
-"BIO_get_conn_ip(), BIO_get_conn_int_port(), BIO_set_nbio() et BIO_do_connect"
-"() sont des macros."
+"BIO_get_conn_ip(), BIO_get_conn_int_port(), BIO_set_nbio() et "
+"BIO_do_connect() sont des macros."
 
 #. type: textblock
 #: C/crypto/BIO_s_connect.pod:138
@@ -3809,8 +3838,8 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_s_fd.pod:23
 msgid ""
-"BIO_read() and BIO_write() read or write the underlying descriptor.  BIO_puts"
-"() is supported but BIO_gets() is not."
+"BIO_read() and BIO_write() read or write the underlying descriptor.  "
+"BIO_puts() is supported but BIO_gets() is not."
 msgstr ""
 
 #. type: textblock
@@ -3886,8 +3915,8 @@ msgstr ""
 #. type: textblock
 #: C/crypto/BIO_s_fd.pod:61
 msgid ""
-"BIO_reset() returns zero for success and -1 if an error occurred.  BIO_seek"
-"() and BIO_tell() return the current file position or -1 is an error "
+"BIO_reset() returns zero for success and -1 if an error occurred.  "
+"BIO_seek() and BIO_tell() return the current file position or -1 is an error "
 "occurred. These values reflect the underlying lseek()  behaviour."
 msgstr ""
 
@@ -5042,23 +5071,23 @@ msgid ""
 "L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_f_base64(3)|BIO_f_base64(3)>, "
 "L<BIO_f_buffer(3)|BIO_f_buffer(3)>, L<BIO_f_cipher(3)|BIO_f_cipher(3)>, "
 "L<BIO_f_md(3)|BIO_f_md(3)>, L<BIO_f_null(3)|BIO_f_null(3)>, L<BIO_f_ssl(3)|"
-"BIO_f_ssl(3)>, L<BIO_find_type(3)|BIO_find_type(3)>, L<BIO_new(3)|BIO_new(3)"
-">, L<BIO_new_bio_pair(3)|BIO_new_bio_pair(3)>, L<BIO_push(3)|BIO_push(3)>, "
-"L<BIO_read(3)|BIO_read(3)>, L<BIO_s_accept(3)|BIO_s_accept(3)>, L<BIO_s_bio"
-"(3)|BIO_s_bio(3)>, L<BIO_s_connect(3)|BIO_s_connect(3)>, L<BIO_s_fd(3)|"
-"BIO_s_fd(3)>, L<BIO_s_file(3)|BIO_s_file(3)>, L<BIO_s_mem(3)|BIO_s_mem(3)>, "
-"L<BIO_s_null(3)|BIO_s_null(3)>, L<BIO_s_socket(3)|BIO_s_socket(3)>, "
-"L<BIO_set_callback(3)|BIO_set_callback(3)>, L<BIO_should_retry(3)|"
-"BIO_should_retry(3)>"
+"BIO_f_ssl(3)>, L<BIO_find_type(3)|BIO_find_type(3)>, L<BIO_new(3)|"
+"BIO_new(3)>, L<BIO_new_bio_pair(3)|BIO_new_bio_pair(3)>, L<BIO_push(3)|"
+"BIO_push(3)>, L<BIO_read(3)|BIO_read(3)>, L<BIO_s_accept(3)|"
+"BIO_s_accept(3)>, L<BIO_s_bio(3)|BIO_s_bio(3)>, L<BIO_s_connect(3)|"
+"BIO_s_connect(3)>, L<BIO_s_fd(3)|BIO_s_fd(3)>, L<BIO_s_file(3)|"
+"BIO_s_file(3)>, L<BIO_s_mem(3)|BIO_s_mem(3)>, L<BIO_s_null(3)|"
+"BIO_s_null(3)>, L<BIO_s_socket(3)|BIO_s_socket(3)>, L<BIO_set_callback(3)|"
+"BIO_set_callback(3)>, L<BIO_should_retry(3)|BIO_should_retry(3)>"
 msgstr ""
 "L<BIO_ctrl(3)|BIO_ctrl(3)>, L<BIO_f_base64(3)|BIO_f_base64(3)>, "
 "L<BIO_f_buffer(3)|BIO_f_buffer(3)>, L<BIO_f_cipher(3)|BIO_f_cipher(3)>, "
 "L<BIO_f_md(3)|BIO_f_md(3)>, L<BIO_f_null(3)|BIO_f_null(3)>, L<BIO_f_ssl(3)|"
-"BIO_f_ssl(3)>, L<BIO_find_type(3)|BIO_find_type(3)>, L<BIO_new(3)|BIO_new(3)"
-">, L<BIO_new_bio_pair(3)|BIO_new_bio_pair(3)>, L<BIO_push(3)|BIO_push(3)>, "
-"L<BIO_read(3)|BIO_read(3)>, L<BIO_s_accept(3)|BIO_s_accept(3)>, L<BIO_s_bio"
-"(3)|BIO_s_bio(3)>, L<BIO_s_connect(3)|BIO_s_connect(3)>, L<BIO_s_fd(3)|"
-"BIO_s_fd(3)>, L<BIO_s_file(3)|BIO_s_file(3)>, L<BIO_s_mem(3)|BIO_s_mem(3)>, "
-"L<BIO_s_null(3)|BIO_s_null(3)>, L<BIO_s_socket(3)|BIO_s_socket(3)>, "
-"L<BIO_set_callback(3)|BIO_set_callback(3)>, L<BIO_should_retry(3)|"
-"BIO_should_retry(3)>"
+"BIO_f_ssl(3)>, L<BIO_find_type(3)|BIO_find_type(3)>, L<BIO_new(3)|"
+"BIO_new(3)>, L<BIO_new_bio_pair(3)|BIO_new_bio_pair(3)>, L<BIO_push(3)|"
+"BIO_push(3)>, L<BIO_read(3)|BIO_read(3)>, L<BIO_s_accept(3)|"
+"BIO_s_accept(3)>, L<BIO_s_bio(3)|BIO_s_bio(3)>, L<BIO_s_connect(3)|"
+"BIO_s_connect(3)>, L<BIO_s_fd(3)|BIO_s_fd(3)>, L<BIO_s_file(3)|"
+"BIO_s_file(3)>, L<BIO_s_mem(3)|BIO_s_mem(3)>, L<BIO_s_null(3)|"
+"BIO_s_null(3)>, L<BIO_s_socket(3)|BIO_s_socket(3)>, L<BIO_set_callback(3)|"
+"BIO_set_callback(3)>, L<BIO_should_retry(3)|BIO_should_retry(3)>"

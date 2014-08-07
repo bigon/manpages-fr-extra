@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-29 21:47-0400\n"
+"POT-Creation-Date: 2014-08-07 01:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/crypto/d2i_ASN1_OBJECT.pod:21 C/crypto/d2i_DHparams.pod:22 C/crypto/d2i_DSAPublicKey.pod:75 C/crypto/d2i_PKCS8PrivateKey.pod:52 C/crypto/d2i_RSAPublicKey.pod:59 C/crypto/d2i_X509.pod:222 C/crypto/d2i_X509_ALGOR.pod:22 C/crypto/d2i_X509_CRL.pod:29 C/crypto/d2i_X509_NAME.pod:23 C/crypto/d2i_X509_REQ.pod:28 C/crypto/d2i_X509_SIG.pod:22 C/crypto/i2d_CMS_bio_stream.pod:32 C/crypto/i2d_PKCS7_bio_stream.pod:32 C/ssl/d2i_SSL_SESSION.pod:61
+#: C/crypto/d2i_ASN1_OBJECT.pod:21 C/crypto/d2i_DHparams.pod:22 C/crypto/d2i_DSAPublicKey.pod:75 C/crypto/d2i_PKCS8PrivateKey.pod:52 C/crypto/d2i_RSAPublicKey.pod:59 C/crypto/d2i_X509.pod:222 C/crypto/d2i_X509_ALGOR.pod:22 C/crypto/d2i_X509_CRL.pod:29 C/crypto/d2i_X509_NAME.pod:23 C/crypto/d2i_X509_REQ.pod:28 C/crypto/d2i_X509_SIG.pod:22 C/crypto/i2d_CMS_bio_stream.pod:32 C/crypto/i2d_PKCS7_bio_stream.pod:32 C/ssl/d2i_SSL_SESSION.pod:71
 msgid "SEE ALSO"
 msgstr ""
 
@@ -967,7 +967,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/crypto/d2i_X509.pod:209 C/crypto/i2d_CMS_bio_stream.pod:28 C/crypto/i2d_PKCS7_bio_stream.pod:28 C/ssl/d2i_SSL_SESSION.pod:52
+#: C/crypto/d2i_X509.pod:209 C/crypto/i2d_CMS_bio_stream.pod:28 C/crypto/i2d_PKCS7_bio_stream.pod:28 C/ssl/d2i_SSL_SESSION.pod:62
 msgid "RETURN VALUES"
 msgstr ""
 
@@ -1364,19 +1364,34 @@ msgid ""
 "SSL_CTX object)."
 msgstr ""
 
-#. type: textblock
+#. type: verbatim
 #: C/ssl/d2i_SSL_SESSION.pod:45
+#, no-wrap
 msgid ""
 "When using i2d_SSL_SESSION(), the memory location pointed to by B<pp> must "
-"be large enough to hold the binary representation of the session. There is "
-"no known limit on the size of the created ASN1 representation, so the "
-"necessary amount of space should be obtained by first calling "
-"i2d_SSL_SESSION() with B<pp=NULL>, and obtain the size needed, then allocate "
-"the memory and call i2d_SSL_SESSION() again."
+"be\n"
+"large enough to hold the binary representation of the session. There is no\n"
+"known limit on the size of the created ASN1 representation, so the "
+"necessary\n"
+"amount of space should be obtained by first calling i2d_SSL_SESSION() with\n"
+"B<pp=NULL>, and obtain the size needed, then allocate the memory and\n"
+"call i2d_SSL_SESSION() again.\n"
+"Note that this will advance the value contained in B<*pp> so it is "
+"necessary\n"
+"to save a copy of the original allocation.\n"
+"For example:\n"
+" int i,j;\n"
+" char *p, *temp;\n"
+" i = i2d_SSL_SESSION(sess, NULL);\n"
+" p = temp = malloc(i);\n"
+" j = i2d_SSL_SESSION(sess, &temp);\n"
+" assert(i == j);\n"
+" assert(p+i == temp);\n"
+"\n"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/d2i_SSL_SESSION.pod:54
+#: C/ssl/d2i_SSL_SESSION.pod:64
 msgid ""
 "d2i_SSL_SESSION() returns a pointer to the newly allocated SSL_SESSION "
 "object. In case of failure the NULL-pointer is returned and the error "
@@ -1384,7 +1399,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/d2i_SSL_SESSION.pod:58
+#: C/ssl/d2i_SSL_SESSION.pod:68
 msgid ""
 "i2d_SSL_SESSION() returns the size of the ASN1 representation in bytes.  "
 "When the session is not valid, B<0> is returned and no operation is "
@@ -1392,7 +1407,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/d2i_SSL_SESSION.pod:63
+#: C/ssl/d2i_SSL_SESSION.pod:73
 msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_SESSION_free(3)|SSL_SESSION_free(3)>, "
 "L<SSL_CTX_sess_set_get_cb(3)|SSL_CTX_sess_set_get_cb(3)>"

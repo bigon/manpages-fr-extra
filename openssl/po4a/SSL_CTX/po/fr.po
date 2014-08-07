@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2014-05-13 21:12-0400\n"
+"POT-Creation-Date: 2014-08-07 01:31-0400\n"
 "PO-Revision-Date: 2013-02-05 21:56-0400\n"
 "Last-Translator: none yet\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -127,11 +127,36 @@ msgstr ""
 "confiance, consultez L<SSL_CTX_load_verify_locations(3)|"
 "SSL_CTX_load_verify_locations(3)>."
 
+#. type: textblock
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:27
+msgid ""
+"The B<x509> certificate provided to SSL_CTX_add_extra_chain_cert() will be "
+"freed by the library when the B<SSL_CTX> is destroyed. An application "
+"B<should not> free the B<x509> object."
+msgstr ""
+
 #. type: =head1
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:27 C/ssl/SSL_CTX_add_session.pod:49
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:29
+#, fuzzy
+#| msgid "DESCRIPTION"
+msgid "RESTRICTIONS"
+msgstr "DESCRIPTION"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:31
+msgid ""
+"Only one set of extra chain certificates can be specified per SSL_CTX "
+"structure. Different chains for different certificates (for example if both "
+"RSA and DSA certificates are specified by the same server) or different SSL "
+"structures with the same parent SSL_CTX cannot be specified using this "
+"function."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:37 C/ssl/SSL_CTX_add_session.pod:49
 #: C/ssl/SSL_CTX_ctrl.pod:25 C/ssl/SSL_CTX_flush_sessions.pod:40
 #: C/ssl/SSL_CTX_free.pod:32 C/ssl/SSL_CTX_get_verify_mode.pod:42
-#: C/ssl/SSL_CTX_load_verify_locations.pod:97 C/ssl/SSL_CTX_new.pod:72
+#: C/ssl/SSL_CTX_load_verify_locations.pod:97 C/ssl/SSL_CTX_new.pod:86
 #: C/ssl/SSL_CTX_sess_number.pod:66 C/ssl/SSL_CTX_sess_set_cache_size.pod:38
 #: C/ssl/SSL_CTX_use_certificate.pod:149
 #: C/ssl/SSL_CTX_use_psk_identity_hint.pod:77
@@ -139,7 +164,7 @@ msgid "RETURN VALUES"
 msgstr "VALEURS DE RETOUR"
 
 #. type: textblock
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:29
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:39
 msgid ""
 "SSL_CTX_add_extra_chain_cert() returns 1 on success. Check out the error "
 "stack to find out the reason for failure otherwise."
@@ -148,11 +173,11 @@ msgstr ""
 "la pile d'erreur pour découvrir la raison de l'échec sinon."
 
 #. type: =head1
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:32 C/ssl/SSL_CTX_add_session.pod:67
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:42 C/ssl/SSL_CTX_add_session.pod:67
 #: C/ssl/SSL_CTX_ctrl.pod:30 C/ssl/SSL_CTX_flush_sessions.pod:42
 #: C/ssl/SSL_CTX_free.pod:36 C/ssl/SSL_CTX_get_ex_new_index.pod:47
 #: C/ssl/SSL_CTX_get_verify_mode.pod:46
-#: C/ssl/SSL_CTX_load_verify_locations.pod:115 C/ssl/SSL_CTX_new.pod:89
+#: C/ssl/SSL_CTX_load_verify_locations.pod:115 C/ssl/SSL_CTX_new.pod:103
 #: C/ssl/SSL_CTX_sess_number.pod:70 C/ssl/SSL_CTX_sess_set_cache_size.pod:44
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:79 C/ssl/SSL_CTX_sessions.pod:28
 #: C/ssl/SSL_CTX_use_certificate.pod:154
@@ -160,7 +185,7 @@ msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: textblock
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:34
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:44
 msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_CTX_use_certificate(3)|SSL_CTX_use_certificate(3)>, "
 "L<SSL_CTX_set_client_cert_cb(3)|SSL_CTX_set_client_cert_cb(3)>, "
@@ -237,7 +262,7 @@ msgid ""
 "flag then the internal cache will not be populated automatically by new "
 "sessions negotiated by the SSL/TLS implementation, even though the internal "
 "cache will be searched automatically for session-resume requests (the latter "
-"can be surpressed by SSL_SESS_CACHE_NO_INTERNAL_LOOKUP). So the application "
+"can be suppressed by SSL_SESS_CACHE_NO_INTERNAL_LOOKUP). So the application "
 "can use SSL_CTX_add_session() directly to have full control over the "
 "sessions that can be resumed if desired."
 msgstr ""
@@ -902,7 +927,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_load_verify_locations.pod:99 C/ssl/SSL_CTX_new.pod:74
+#: C/ssl/SSL_CTX_load_verify_locations.pod:99 C/ssl/SSL_CTX_new.pod:88
 msgid "The following return values can occur:"
 msgstr "Les valeurs suivantes peuvent être renvoyées."
 
@@ -1020,56 +1045,81 @@ msgstr ""
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:54
 msgid ""
-"A TLS/SSL connection established with these methods will understand the "
-"SSLv2, SSLv3, and TLSv1 protocol. A client will send out SSLv2 client hello "
-"messages and will indicate that it also understands SSLv3 and TLSv1. A "
-"server will understand SSLv2, SSLv3, and TLSv1 client hello messages. This "
-"is the best choice when compatibility is a concern."
+"A TLS/SSL connection established with these methods may understand the "
+"SSLv2, SSLv3, TLSv1, TLSv1.1 and TLSv1.2 protocols."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_new.pod:62
+#: C/ssl/SSL_CTX_new.pod:57
+msgid ""
+"If the cipher list does not contain any SSLv2 ciphersuites (the default "
+"cipher list does not) or extensions are required (for example server name)  "
+"a client will send out TLSv1 client hello messages including extensions and "
+"will indicate that it also understands TLSv1.1, TLSv1.2 and permits a "
+"fallback to SSLv3. A server will support SSLv3, TLSv1, TLSv1.1 and TLSv1.2 "
+"protocols. This is the best choice when compatibility is a concern."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_new.pod:64
+msgid ""
+"If any SSLv2 ciphersuites are included in the cipher list and no extensions "
+"are required then SSLv2 compatible client hellos will be used by clients and "
+"SSLv2 will be accepted by servers. This is B<not> recommended due to the "
+"insecurity of SSLv2 and the limited nature of the SSLv2 client hello "
+"prohibiting the use of extensions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_new.pod:72
 msgid ""
 "The list of protocols available can later be limited using the "
-"SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_TLSv1 options of the "
-"B<SSL_CTX_set_options()> or B<SSL_set_options()> functions. Using these "
-"options it is possible to choose e.g. SSLv23_server_method() and be able to "
-"negotiate with all possible clients, but to only allow newer protocols like "
-"SSLv3 or TLSv1."
+"SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_TLSv1, SSL_OP_NO_TLSv1_1 and "
+"SSL_OP_NO_TLSv1_2 options of the SSL_CTX_set_options() or SSL_set_options() "
+"functions.  Using these options it is possible to choose e.g. "
+"SSLv23_server_method() and be able to negotiate with all possible clients, "
+"but to only allow newer protocols like TLSv1, TLSv1.1 or TLS v1.2."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_new.pod:68
+#: C/ssl/SSL_CTX_new.pod:79
+msgid ""
+"Applications which never want to support SSLv2 (even is the cipher string is "
+"configured to use SSLv2 ciphersuites) can set SSL_OP_NO_SSLv2."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_new.pod:82
 msgid ""
 "SSL_CTX_new() initializes the list of ciphers, the session cache setting, "
-"the callbacks, the keys and certificates, and the options to its default "
+"the callbacks, the keys and certificates and the options to its default "
 "values."
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CTX_new.pod:78
+#: C/ssl/SSL_CTX_new.pod:92
 msgid "NULL"
 msgstr "NULL"
 
 #. type: textblock
-#: C/ssl/SSL_CTX_new.pod:80
+#: C/ssl/SSL_CTX_new.pod:94
 msgid ""
 "The creation of a new SSL_CTX object failed. Check the error stack to find "
 "out the reason."
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CTX_new.pod:83
+#: C/ssl/SSL_CTX_new.pod:97
 msgid "Pointer to an SSL_CTX object"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_new.pod:85
+#: C/ssl/SSL_CTX_new.pod:99
 msgid "The return value points to an allocated SSL_CTX object."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_new.pod:91
+#: C/ssl/SSL_CTX_new.pod:105
 msgid ""
 "L<SSL_CTX_free(3)|SSL_CTX_free(3)>, L<SSL_accept(3)|SSL_accept(3)>, L<ssl(3)|"
 "ssl(3)>, L<SSL_set_connect_state(3)|SSL_set_connect_state(3)>"
