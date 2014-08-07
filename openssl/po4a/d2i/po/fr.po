@@ -1819,8 +1819,7 @@ msgstr ""
 
 #. type: verbatim
 #: C/ssl/d2i_SSL_SESSION.pod:45
-#, fuzzy, no-wrap
-#| msgid "When using i2d_SSL_SESSION(), the memory location pointed to by B<pp> must be large enough to hold the binary representation of the session. There is no known limit on the size of the created ASN1 representation, so the necessary amount of space should be obtained by first calling i2d_SSL_SESSION() with B<pp=NULL>, and obtain the size needed, then allocate the memory and call i2d_SSL_SESSION() again."
+#, no-wrap
 msgid ""
 "When using i2d_SSL_SESSION(), the memory location pointed to by B<pp> must be\n"
 "large enough to hold the binary representation of the session. There is no\n"
@@ -1839,7 +1838,18 @@ msgid ""
 " assert(i == j);\n"
 " assert(p+i == temp);\n"
 "\n"
-msgstr "Lors de l'utilisation de B<i2d_SSL_SESSION>(), l'emplacement de mémoire pointé par I<pp> doit être assez grand pour y placer la représentation binaire de la session. La taille de représentation ASN1 créée n'a pas de limite connue, donc la quantité d'espace nécessaire devrait être obtenue en appelant d'abord B<i2d_SSL_SESSION>() avec B<pp=NULL> afin d'allouer la mémoire avant d'appeler de nouveau B<i2d_SSL_SESSION>()."
+msgstr ""
+"Lors de l'utilisation de B<i2d_SSL_SESSION>(), l'emplacement de mémoire pointé par I<pp> doit être assez grand pour y placer la représentation binaire de la session. La taille de représentation ASN1 créée n'a pas de limite connue, donc la quantité d'espace nécessaire devrait être obtenue en appelant d'abord B<i2d_SSL_SESSION>() avec B<pp=NULL> afin d'allouer la mémoire avant d'appeler de nouveau B<i2d_SSL_SESSION>().\n"
+"Remarquez que cela avancera la valeur contenue dans B<*>I<pp> donc il est nécessaire de sauvegarder une copie de l’emplacement d’origine.\n"
+"Par exemple :\n"
+" int i,j;\n"
+" char *p, *temp;\n"
+" i = i2d_SSL_SESSION(sess, NULL);\n"
+" p = temp = malloc(i);\n"
+" j = i2d_SSL_SESSION(sess, &temp);\n"
+" assert(i == j);\n"
+" assert(p+i == temp);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/d2i_SSL_SESSION.pod:64
