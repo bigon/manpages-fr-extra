@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2014-04-08 14:06-0400\n"
+"POT-Creation-Date: 2014-10-19 14:52-0400\n"
 "PO-Revision-Date: 2013-10-17 15:47-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -850,7 +850,7 @@ msgstr ""
 #: C/crypto/EVP_PKEY_get_default_digest.pod:30
 #: C/crypto/EVP_PKEY_keygen.pod:147 C/crypto/EVP_PKEY_new.pod:39
 #: C/crypto/EVP_PKEY_print_private.pod:44 C/crypto/EVP_PKEY_set1_RSA.pod:72
-#: C/crypto/EVP_PKEY_sign.pod:83 C/crypto/EVP_PKEY_verify.pod:78
+#: C/crypto/EVP_PKEY_sign.pod:92 C/crypto/EVP_PKEY_verify.pod:78
 #: C/crypto/EVP_PKEY_verify_recover.pod:90
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
@@ -924,7 +924,7 @@ msgstr ""
 #. type: =head1
 #: C/apps/pkeyparam.pod:53 C/crypto/EVP_PKEY_decrypt.pod:44
 #: C/crypto/EVP_PKEY_derive.pod:45 C/crypto/EVP_PKEY_encrypt.pod:44
-#: C/crypto/EVP_PKEY_sign.pod:44 C/crypto/EVP_PKEY_verify.pod:47
+#: C/crypto/EVP_PKEY_sign.pod:49 C/crypto/EVP_PKEY_verify.pod:47
 #: C/crypto/EVP_PKEY_verify_recover.pod:52
 msgid "EXAMPLE"
 msgstr "EXEMPLE"
@@ -1776,7 +1776,7 @@ msgstr ""
 #: C/crypto/EVP_PKEY_derive.pod:39 C/crypto/EVP_PKEY_encrypt.pod:38
 #: C/crypto/EVP_PKEY_get_default_digest.pod:22 C/crypto/EVP_PKEY_keygen.pod:80
 #: C/crypto/EVP_PKEY_new.pod:32 C/crypto/EVP_PKEY_print_private.pod:38
-#: C/crypto/EVP_PKEY_set1_RSA.pod:60 C/crypto/EVP_PKEY_sign.pod:38
+#: C/crypto/EVP_PKEY_set1_RSA.pod:60 C/crypto/EVP_PKEY_sign.pod:43
 #: C/crypto/EVP_PKEY_verify.pod:35 C/crypto/EVP_PKEY_verify_recover.pod:46
 msgid "RETURN VALUES"
 msgstr "VALEURS DE RETOUR"
@@ -1817,7 +1817,7 @@ msgstr ""
 #: C/crypto/EVP_PKEY_get_default_digest.pod:37
 #: C/crypto/EVP_PKEY_keygen.pod:157 C/crypto/EVP_PKEY_new.pod:43
 #: C/crypto/EVP_PKEY_print_private.pod:49 C/crypto/EVP_PKEY_set1_RSA.pod:76
-#: C/crypto/EVP_PKEY_sign.pod:92 C/crypto/EVP_PKEY_verify.pod:87
+#: C/crypto/EVP_PKEY_sign.pod:102 C/crypto/EVP_PKEY_verify.pod:87
 #: C/crypto/EVP_PKEY_verify_recover.pod:99
 msgid "HISTORY"
 msgstr "HISTORIQUE"
@@ -1826,7 +1826,7 @@ msgstr "HISTORIQUE"
 #: C/crypto/EVP_PKEY_CTX_ctrl.pod:126 C/crypto/EVP_PKEY_CTX_new.pod:50
 #: C/crypto/EVP_PKEY_decrypt.pod:91 C/crypto/EVP_PKEY_derive.pod:91
 #: C/crypto/EVP_PKEY_encrypt.pod:91 C/crypto/EVP_PKEY_keygen.pod:159
-#: C/crypto/EVP_PKEY_print_private.pod:51 C/crypto/EVP_PKEY_sign.pod:94
+#: C/crypto/EVP_PKEY_print_private.pod:51 C/crypto/EVP_PKEY_sign.pod:104
 #: C/crypto/EVP_PKEY_verify.pod:89 C/crypto/EVP_PKEY_verify_recover.pod:101
 msgid "These functions were first added to OpenSSL 1.0.0."
 msgstr ""
@@ -2152,7 +2152,7 @@ msgstr "Déchiffrer des données en utilisant OAEP (pour les clefs RSA) :"
 #. type: verbatim
 #: C/crypto/EVP_PKEY_decrypt.pod:48 C/crypto/EVP_PKEY_derive.pod:49
 #: C/crypto/EVP_PKEY_encrypt.pod:48 C/crypto/EVP_PKEY_keygen.pod:91
-#: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:48
+#: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:53
 #: C/crypto/EVP_PKEY_verify.pod:51 C/crypto/EVP_PKEY_verify_recover.pod:56
 #, no-wrap
 msgid ""
@@ -3373,8 +3373,14 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_set1_RSA.pod:40
+#, fuzzy
+#| msgid ""
+#| "EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  and "
+#| "EVP_PKEY_assign_EC_KEY() also set the referenced key to B<key> however "
+#| "these use the supplied B<key> internally and so B<key> will be freed when "
+#| "the parent B<pkey> is freed."
 msgid ""
-"EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  and "
+"EVP_PKEY_assign_RSA(), EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  and "
 "EVP_PKEY_assign_EC_KEY() also set the referenced key to B<key> however these "
 "use the supplied B<key> internally and so B<key> will be freed when the "
 "parent B<pkey> is freed."
@@ -3411,8 +3417,12 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_set1_RSA.pod:57
+#, fuzzy
+#| msgid ""
+#| "EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  "
+#| "EVP_PKEY_assign_EC_KEY() are implemented as macros."
 msgid ""
-"EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  "
+"EVP_PKEY_assign_RSA(), EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  and "
 "EVP_PKEY_assign_EC_KEY() are implemented as macros."
 msgstr ""
 "B<EVP_PKEY_assign_RSA>(), B<EVP_PKEY_assign_DSA>(), B<EVP_PKEY_assign_DH>() "
@@ -3441,8 +3451,12 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_set1_RSA.pod:69
+#, fuzzy
+#| msgid ""
+#| "EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  and "
+#| "EVP_PKEY_assign_EC_KEY() return 1 for success and 0 for failure."
 msgid ""
-"EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  and "
+"EVP_PKEY_assign_RSA(), EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()  and "
 "EVP_PKEY_assign_EC_KEY() return 1 for success and 0 for failure."
 msgstr ""
 "B<EVP_PKEY_assign_RSA>(), B<EVP_PKEY_assign_DSA>(), B<EVP_PKEY_assign_DH>() "
@@ -3504,15 +3518,30 @@ msgstr ""
 #. type: textblock
 #: C/crypto/EVP_PKEY_sign.pod:31
 msgid ""
+"EVP_PKEY_sign() does not hash the data to be signed, and therefore is "
+"normally used to sign digests. For signing arbitrary messages, see the "
+"L<EVP_DigestSignInit(3)|EVP_DigestSignInit(3)> and L<EVP_SignInit(3)|"
+"EVP_SignInit(3)> signing interfaces instead."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_PKEY_sign.pod:36
+#, fuzzy
+#| msgid ""
+#| "After the call to EVP_PKEY_sign_init() algorithm specific control "
+#| "operations can be performed to set any appropriate parameters for the "
+#| "operation."
+msgid ""
 "After the call to EVP_PKEY_sign_init() algorithm specific control operations "
-"can be performed to set any appropriate parameters for the operation."
+"can be performed to set any appropriate parameters for the operation (see "
+"L<EVP_PKEY_CTX_ctrl(3)|EVP_PKEY_CTX_ctrl(3)>)."
 msgstr ""
 "Après l'appel de B<EVP_PKEY_sign_init>(), des opérations de contrôle "
 "spécifiques à l'algorithme peuvent être réalisées pour définir n'importe "
 "quels paramètres appropriés à l'opération."
 
 #. type: textblock
-#: C/crypto/EVP_PKEY_sign.pod:35
+#: C/crypto/EVP_PKEY_sign.pod:40
 msgid ""
 "The function EVP_PKEY_sign() can be called more than once on the same "
 "context if several operations are performed using the same parameters."
@@ -3522,7 +3551,7 @@ msgstr ""
 "paramètres."
 
 #. type: textblock
-#: C/crypto/EVP_PKEY_sign.pod:40
+#: C/crypto/EVP_PKEY_sign.pod:45
 msgid ""
 "EVP_PKEY_sign_init() and EVP_PKEY_sign() return 1 for success and 0 or a "
 "negative value for failure. In particular a return value of -2 indicates the "
@@ -3534,24 +3563,52 @@ msgstr ""
 "l'algorithme à clef publique."
 
 #. type: textblock
-#: C/crypto/EVP_PKEY_sign.pod:46
+#: C/crypto/EVP_PKEY_sign.pod:51
 msgid "Sign data using RSA with PKCS#1 padding and SHA256 digest:"
 msgstr ""
 "Signer les données en utilisant RSA avec remplissage PKCS#1 et un algorithme "
 "de signature SHA256 :"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_sign.pod:51
+#: C/crypto/EVP_PKEY_sign.pod:56
 #, no-wrap
 msgid ""
 " EVP_PKEY_CTX *ctx;\n"
+" /* md is a SHA-256 digest in this example. */\n"
 " unsigned char *md, *sig;\n"
-" size_t mdlen, siglen; \n"
+" size_t mdlen = 32, siglen;\n"
 " EVP_PKEY *signing_key;\n"
-" /* NB: assumes signing_key, md and mdlen are already set up\n"
-"  * and that signing_key is an RSA private key\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_PKEY_sign.pod:62
+#, fuzzy, no-wrap
+#| msgid ""
+#| " EVP_PKEY_CTX *ctx;\n"
+#| " unsigned char *md, *sig;\n"
+#| " size_t mdlen, siglen; \n"
+#| " EVP_PKEY *signing_key;\n"
+#| " /* NB: assumes signing_key, md and mdlen are already set up\n"
+#| "  * and that signing_key is an RSA private key\n"
+#| "  */\n"
+#| " ctx = EVP_PKEY_CTX_new(signing_key);\n"
+#| " if (!ctx)\n"
+#| "\t/* Error occurred */\n"
+#| " if (EVP_PKEY_sign_init(ctx) <= 0)\n"
+#| "\t/* Error */\n"
+#| " if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING) <= 0)\n"
+#| "\t/* Error */\n"
+#| " if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0)\n"
+#| "\t/* Error */\n"
+#| "\n"
+msgid ""
+" /*\n"
+"  * NB: assumes signing_key and md are set up before the next\n"
+"  * step. signing_key must be an RSA private key and md must\n"
+"  * point to the SHA-256 digest to be signed.\n"
 "  */\n"
-" ctx = EVP_PKEY_CTX_new(signing_key);\n"
+" ctx = EVP_PKEY_CTX_new(signing_key, NULL /* no engine */);\n"
 " if (!ctx)\n"
 "\t/* Error occurred */\n"
 " if (EVP_PKEY_sign_init(ctx) <= 0)\n"
@@ -3581,7 +3638,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_sign.pod:68
+#: C/crypto/EVP_PKEY_sign.pod:77
 #, no-wrap
 msgid ""
 " /* Determine buffer length */\n"
@@ -3595,7 +3652,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_sign.pod:72
+#: C/crypto/EVP_PKEY_sign.pod:81
 #, no-wrap
 msgid ""
 " sig = OPENSSL_malloc(siglen);\n"
@@ -3605,7 +3662,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_sign.pod:74
+#: C/crypto/EVP_PKEY_sign.pod:83
 #, no-wrap
 msgid ""
 " if (!sig)\n"
@@ -3617,7 +3674,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_sign.pod:77
+#: C/crypto/EVP_PKEY_sign.pod:86
 #, no-wrap
 msgid ""
 " if (EVP_PKEY_sign(ctx, sig, &siglen, md, mdlen) <= 0)\n"
@@ -3629,7 +3686,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_sign.pod:80
+#: C/crypto/EVP_PKEY_sign.pod:89
 #, no-wrap
 msgid ""
 " /* Signature is siglen bytes written to buffer sig */\n"
@@ -3639,16 +3696,25 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/crypto/EVP_PKEY_sign.pod:85
+#: C/crypto/EVP_PKEY_sign.pod:94
+#, fuzzy
+#| msgid ""
+#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
+#| "EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+#| "L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|"
+#| "EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
+#| "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgid ""
-"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
-"EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
-"L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
+"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_CTX_ctrl(3)|"
+"EVP_PKEY_CTX_ctrl(3)>, L<EVP_PKEY_encrypt(3)|EVP_PKEY_encrypt(3)>, "
+"L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, L<EVP_PKEY_verify(3)|"
+"EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
 "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgstr ""
 "L<B<EVP_PKEY_CTX_new>(3)|EVP_PKEY_CTX_new(3)>, L<B<EVP_PKEY_encrypt>(3)|"
 "EVP_PKEY_encrypt(3)>, L<B<EVP_PKEY_decrypt>(3)|EVP_PKEY_decrypt(3)>, "
-"L<B<EVP_PKEY_verify>(3)|EVP_PKEY_verify(3)>, L<B<EVP_PKEY_verify_recover>(3)|"
+"L<B<EVP_PKEY_sign>(3)|EVP_PKEY_sign(3)>, L<B<EVP_PKEY_verify>(3)|"
+"EVP_PKEY_verify(3)>, L<B<EVP_PKEY_verify_recover>(3)|"
 "EVP_PKEY_verify_recover(3)>, L<B<EVP_PKEY_derive>(3)|EVP_PKEY_derive(3)>"
 
 #. type: textblock
@@ -4062,3 +4128,15 @@ msgstr ""
 "EVP_PKEY_encrypt(3)>, L<B<EVP_PKEY_decrypt>(3)|EVP_PKEY_decrypt(3)>, "
 "L<B<EVP_PKEY_sign>(3)|EVP_PKEY_sign(3)>, L<B<EVP_PKEY_verify>(3)|"
 "EVP_PKEY_verify(3)>, L<B<EVP_PKEY_derive>(3)|EVP_PKEY_derive(3)>"
+
+#~ msgid ""
+#~ "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
+#~ "EVP_PKEY_encrypt(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+#~ "L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
+#~ "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
+#~ msgstr ""
+#~ "L<B<EVP_PKEY_CTX_new>(3)|EVP_PKEY_CTX_new(3)>, L<B<EVP_PKEY_encrypt>(3)|"
+#~ "EVP_PKEY_encrypt(3)>, L<B<EVP_PKEY_decrypt>(3)|EVP_PKEY_decrypt(3)>, "
+#~ "L<B<EVP_PKEY_verify>(3)|EVP_PKEY_verify(3)>, "
+#~ "L<B<EVP_PKEY_verify_recover>(3)|EVP_PKEY_verify_recover(3)>, "
+#~ "L<B<EVP_PKEY_derive>(3)|EVP_PKEY_derive(3)>"
