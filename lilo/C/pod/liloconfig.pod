@@ -2,8 +2,8 @@
 manpage:  LILOCONFIG
 section:  8
 title:    liloconfig documentation
-version:  24.0
-datum:    2013-05-07
+version:  24.1
+datum:    2014-10-13
 
 =encoding utf8
 
@@ -13,7 +13,7 @@ liloconfig - create new lilo.conf file (with diskid and uuid)
 
 =head1 SYNOPSIS
 
-B<liloconfig> [B<-h>] [B<-v>] [B<-f>] [B<lilo.conf>]
+B<liloconfig> [B<-h>] [B<-v>] [B<-f>] [B<-u>] [B<lilo.conf>]
 
 =head1 DESCRIPTION
 
@@ -22,6 +22,12 @@ After creating the new configuration file you must execute '/sbin/lilo'.
 
 liloconfig use the lilo.example.conf file as template. In the final
 lilo.conf file you find many useful comments for custom changes.
+
+Please pay attention about error messages if liloconfig cannot find
+any images (/boot/vmlinuz*) oder image symlinks (/vmlinuz, /vmlinu.old).
+Then you need to search for images by ourself and make some changes
+in the '/etc/lilo.conf' file. Otherwise no bootloader can be installed
+with '/sbin/lilo'.
 
 =head1 OPTIONS
 
@@ -39,6 +45,10 @@ Print verbose messages.
 
 Force overriding existing lilo.conf.
 
+=item B<-u>
+
+Force overriding/update of boot line in lilo.conf.
+
 =back
 
 =head1 EXAMPLES
@@ -50,6 +60,8 @@ Lines in the configuration file /etc/lilo.conf:
   #large-memory
   lba32
   boot = /dev/sda
+  #root = /dev/sda1
+  root = "UUID=18843936-00f9-4df0-a373-000d05a5dd44"
   map = /boot/map
   install = menu
   menu-scheme = Wb:Yr:Wb:Wb
@@ -63,20 +75,20 @@ Lines in the configuration file /etc/lilo.conf:
   #boot = /dev/sda
   boot = /dev/disk/by-id/ata-SAMSUNG_SV1604N_S01FJ10X999999
 
-  image = /boot/vmlinuz-3.5.0-trunk-686
+  image = /boot/vmlinuz-3.12-trunk-686
       label = "Linux"
       #root = /dev/sda1
-      root = "UUID=18843936-00f9-4df0-a373-000d05a5dd44"
+      #root = "UUID=18843936-00f9-4df0-a373-000d05a5dd44"
       read-only
   #   restricted
   #   alias = 1
   #   optional
-      initrd = /boot/initrd.img-3.5.0-trunk-686
+      initrd = /boot/initrd.img-3.12-trunk-686
 
   image = /boot/vmlinuz-3.2.0-4-686
       label = "Linux Old"
       #root = /dev/sda1
-      root = "UUID=18843936-00f9-4df0-a373-000d05a5dd44"
+      #root = "UUID=18843936-00f9-4df0-a373-000d05a5dd44"
       read-only
   #   restricted
   #   alias = 2
@@ -85,7 +97,7 @@ Lines in the configuration file /etc/lilo.conf:
 
 =head1 COPYRIGHT and LICENSE
 
-Copyright (C) 2011-2013 Joachim Wiedorn
+Copyright (C) 2011-2014 Joachim Wiedorn
 
 This script is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by 
@@ -96,7 +108,7 @@ the Free Software Foundation; either version 2 of the License, or
 
 B<lilconfig> was written by Joachim Wiedorn.
 
-This manual page was written by Joachim Wiedorn <ad_debian at joonet.de>.
+This manual page was written by Joachim Wiedorn <joodevel at joonet.de>.
 
 =head1 SEE ALSO
 

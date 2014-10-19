@@ -62,7 +62,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LILOCONFIG 8"
-.TH LILOCONFIG 8 "2013-05-07" "24.0" "liloconfig documentation"
+.TH LILOCONFIG 8 "2014-10-13" "24.1" "liloconfig documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -71,7 +71,7 @@
 liloconfig \- create new lilo.conf file (with diskid and uuid)
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBliloconfig\fR [\fB\-h\fR] [\fB\-v\fR] [\fB\-f\fR] [\fBlilo.conf\fR]
+\&\fBliloconfig\fR [\fB\-h\fR] [\fB\-v\fR] [\fB\-f\fR] [\fB\-u\fR] [\fBlilo.conf\fR]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
 liloconfig is an simple program for creating a new lilo.conf file.
@@ -79,6 +79,12 @@ After creating the new configuration file you must execute '/sbin/lilo'.
 .PP
 liloconfig use the lilo.example.conf file as template. In the final
 lilo.conf file you find many useful comments for custom changes.
+.PP
+Please pay attention about error messages if liloconfig cannot find
+any images (/boot/vmlinuz*) oder image symlinks (/vmlinuz, /vmlinu.old).
+Then you need to search for images by ourself and make some changes
+in the '/etc/lilo.conf' file. Otherwise no bootloader can be installed
+with '/sbin/lilo'.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
 .IP "\fB\-h\fR" 4
@@ -90,6 +96,9 @@ Print verbose messages.
 .IP "\fB\-f\fR" 4
 .IX Item "-f"
 Force overriding existing lilo.conf.
+.IP "\fB\-u\fR" 4
+.IX Item "-u"
+Force overriding/update of boot line in lilo.conf.
 .SH "EXAMPLES"
 .IX Header "EXAMPLES"
 Lines in the configuration file /etc/lilo.conf:
@@ -100,6 +109,8 @@ Lines in the configuration file /etc/lilo.conf:
 \&  #large\-memory
 \&  lba32
 \&  boot = /dev/sda
+\&  #root = /dev/sda1
+\&  root = "UUID=18843936\-00f9\-4df0\-a373\-000d05a5dd44"
 \&  map = /boot/map
 \&  install = menu
 \&  menu\-scheme = Wb:Yr:Wb:Wb
@@ -113,20 +124,20 @@ Lines in the configuration file /etc/lilo.conf:
 \&  #boot = /dev/sda
 \&  boot = /dev/disk/by\-id/ata\-SAMSUNG_SV1604N_S01FJ10X999999
 \&
-\&  image = /boot/vmlinuz\-3.5.0\-trunk\-686
+\&  image = /boot/vmlinuz\-3.12\-trunk\-686
 \&      label = "Linux"
 \&      #root = /dev/sda1
-\&      root = "UUID=18843936\-00f9\-4df0\-a373\-000d05a5dd44"
+\&      #root = "UUID=18843936\-00f9\-4df0\-a373\-000d05a5dd44"
 \&      read\-only
 \&  #   restricted
 \&  #   alias = 1
 \&  #   optional
-\&      initrd = /boot/initrd.img\-3.5.0\-trunk\-686
+\&      initrd = /boot/initrd.img\-3.12\-trunk\-686
 \&
 \&  image = /boot/vmlinuz\-3.2.0\-4\-686
 \&      label = "Linux Old"
 \&      #root = /dev/sda1
-\&      root = "UUID=18843936\-00f9\-4df0\-a373\-000d05a5dd44"
+\&      #root = "UUID=18843936\-00f9\-4df0\-a373\-000d05a5dd44"
 \&      read\-only
 \&  #   restricted
 \&  #   alias = 2
@@ -135,7 +146,7 @@ Lines in the configuration file /etc/lilo.conf:
 .Ve
 .SH "COPYRIGHT and LICENSE"
 .IX Header "COPYRIGHT and LICENSE"
-Copyright (C) 2011\-2013 Joachim Wiedorn
+Copyright (C) 2011\-2014 Joachim Wiedorn
 .PP
 This script is free software; you can redistribute it and/or modify
 it under the terms of the \s-1GNU\s0 General Public License as published by 
@@ -145,7 +156,7 @@ the Free Software Foundation; either version 2 of the License, or
 .IX Header "AUTHOR"
 \&\fBlilconfig\fR was written by Joachim Wiedorn.
 .PP
-This manual page was written by Joachim Wiedorn <ad_debian at joonet.de>.
+This manual page was written by Joachim Wiedorn <joodevel at joonet.de>.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBlilo\fR(8), \fBupdate-lilo\fR(8), \fBlilo-uuid-diskid\fR(8)

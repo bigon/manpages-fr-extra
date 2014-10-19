@@ -2,8 +2,8 @@
 manpage:  LILO
 section:  8
 title:    lilo documentation
-version:  24.0
-datum:    2013-05-07
+version:  24.1
+datum:    2014-10-15
 
 =encoding utf8
 
@@ -44,10 +44,10 @@ override the configuration file, may be specified  on the command line.
 =item B<-A> I<master-device [N]>
 
 Used with a single argument, inquire of active partition on device I<master-device>;
-e.g. I</dev/sda>. With N==0: deactivate all partitions on the device. With N in 
+e.g. I</dev/sda>. With N==0: deactivate all partitions on the device. With N in
 the range [1..n]: activate the specified partition and deactivate all others.
 Normally, only primary partitions [1..4] may be activated, but if the 'Extended
-Master Boot Loader' is present on the Master Boot Record (MBR) of the device 
+Master Boot Loader' is present on the Master Boot Record (MBR) of the device
 (see the -M option), any partition may be made active.  Whether the actual OS
 in the partition will boot from a logical partition depends on the characteristics
 of the OS. LILO boot records for Linux may be booted from a logical partition.
@@ -207,6 +207,13 @@ once-only command. It is typically used in reboot scripts, just before calling
 'shutdown -r'. Used without any arguments, it will cancel a I<lock>-ed or
 I<fallback> command line.
 
+This Command line starts with image identifier (as shown during map file update),
+then space, then kernel parameters. The kernel parameters are appended to kernel
+command line constructed routinely. In either case, it there were parameters
+or not, such one-time command will be treated by loaders code, as if it is set
+at 'boot:' prompt. This could lead to 'password:' prompt at boot time. Be warned!
+Refer to I<lilo.conf(5)> for details.
+
 =item B<-s> I<save-file>
 
 When lilo writes a new boot sector, it preserves the former contents of the boot
@@ -291,7 +298,7 @@ generate this version of LILO.
 
 =item B<-z>
 
-When used with the '-M' switch, clears the Volume-ID.  Usually used in the 
+When used with the '-M' switch, clears the Volume-ID.  Usually used in the
 following sequence to generate a new Volume-ID:
 
     lilo -z -M /dev/sda
@@ -422,10 +429,10 @@ It is best to use the  default mechanism, as it works correctly in all cases.
 
  Copyright (C) 1992-1998 Werner Almesberger
  Copyright (C) 1999-2007 John Coffman
- Copyright (C) 2009-2013 Joachim Wiedorn
+ Copyright (C) 2009-2014 Joachim Wiedorn
 
-Redistribution and use in source and binary forms, with or without 
-modification, are permitted under the terms of the BSD license found in 
+Redistribution and use in source and binary forms, with or without
+modification, are permitted under the terms of the BSD license found in
 the COPYING file.
 
 =head1 AUTHOR
@@ -437,14 +444,14 @@ B<lilo> was written by:
  Joachim Wiedorn (since version 23.0).
 
 This manual page was written by Werner Almesberger and Joachim Wiedorn
-<ad_debian at joonet.de>.
+<joodevel at joonet.de>.
 
 =head1 SEE ALSO
 
 B<lilo.conf>(5),
-B<liloconfig>(8), 
+B<liloconfig>(8),
 B<lilo-uuid-diskid>(8),
-B<mkrescue>(8), 
+B<mkrescue>(8),
 B<fdisk>(8),
 B<mkinitrd>(8)
 

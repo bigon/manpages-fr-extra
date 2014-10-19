@@ -62,7 +62,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LILO 8"
-.TH LILO 8 "2013-05-07" "24.0" "lilo documentation"
+.TH LILO 8 "2014-10-15" "24.1" "lilo documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -107,10 +107,10 @@ override the configuration file, may be specified  on the command line.
 .IP "\fB\-A\fR \fImaster-device [N]\fR" 4
 .IX Item "-A master-device [N]"
 Used with a single argument, inquire of active partition on device \fImaster-device\fR;
-e.g. \fI/dev/sda\fR. With N==0: deactivate all partitions on the device. With N in 
+e.g. \fI/dev/sda\fR. With N==0: deactivate all partitions on the device. With N in
 the range [1..n]: activate the specified partition and deactivate all others.
 Normally, only primary partitions [1..4] may be activated, but if the 'Extended
-Master Boot Loader' is present on the Master Boot Record (\s-1MBR\s0) of the device 
+Master Boot Loader' is present on the Master Boot Record (\s-1MBR\s0) of the device
 (see the \-M option), any partition may be made active.  Whether the actual \s-1OS\s0
 in the partition will boot from a logical partition depends on the characteristics
 of the \s-1OS\s0. \s-1LILO\s0 boot records for Linux may be booted from a logical partition.
@@ -248,6 +248,13 @@ executes. After execution the boot loader will erase this line because it is a
 once-only command. It is typically used in reboot scripts, just before calling
 \&'shutdown \-r'. Used without any arguments, it will cancel a \fIlock\fR\-ed or
 \&\fIfallback\fR command line.
+.Sp
+This Command line starts with image identifier (as shown during map file update),
+then space, then kernel parameters. The kernel parameters are appended to kernel
+command line constructed routinely. In either case, it there were parameters
+or not, such one-time command will be treated by loaders code, as if it is set
+at 'boot:' prompt. This could lead to 'password:' prompt at boot time. Be warned!
+Refer to \fI\fIlilo.conf\fI\|(5)\fR for details.
 .IP "\fB\-s\fR \fIsave-file\fR" 4
 .IX Item "-s save-file"
 When lilo writes a new boot sector, it preserves the former contents of the boot
@@ -323,7 +330,7 @@ versions. The line beginning \*(L"CFLAGS=\*(R" will contain the compiler options
 generate this version of \s-1LILO\s0.
 .IP "\fB\-z\fR" 4
 .IX Item "-z"
-When used with the '\-M' switch, clears the Volume-ID.  Usually used in the 
+When used with the '\-M' switch, clears the Volume-ID.  Usually used in the
 following sequence to generate a new Volume-ID:
 .Sp
 .Vb 2
@@ -446,11 +453,11 @@ It is best to use the  default mechanism, as it works correctly in all cases.
 .Vb 3
 \& Copyright (C) 1992\-1998 Werner Almesberger
 \& Copyright (C) 1999\-2007 John Coffman
-\& Copyright (C) 2009\-2013 Joachim Wiedorn
+\& Copyright (C) 2009\-2014 Joachim Wiedorn
 .Ve
 .PP
-Redistribution and use in source and binary forms, with or without 
-modification, are permitted under the terms of the \s-1BSD\s0 license found in 
+Redistribution and use in source and binary forms, with or without
+modification, are permitted under the terms of the \s-1BSD\s0 license found in
 the \s-1COPYING\s0 file.
 .SH "AUTHOR"
 .IX Header "AUTHOR"
@@ -463,12 +470,12 @@ the \s-1COPYING\s0 file.
 .Ve
 .PP
 This manual page was written by Werner Almesberger and Joachim Wiedorn
-<ad_debian at joonet.de>.
+<joodevel at joonet.de>.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBlilo.conf\fR(5),
-\&\fBliloconfig\fR(8), 
+\&\fBliloconfig\fR(8),
 \&\fBlilo-uuid-diskid\fR(8),
-\&\fBmkrescue\fR(8), 
+\&\fBmkrescue\fR(8),
 \&\fBfdisk\fR(8),
 \&\fBmkinitrd\fR(8)
