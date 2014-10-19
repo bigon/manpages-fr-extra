@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2014-10-19 14:52-0400\n"
-"PO-Revision-Date: 2014-06-20 16:22-0400\n"
+"PO-Revision-Date: 2014-10-19 15:49-0400\n"
 "Last-Translator: Celia Boudjemai <celisou2008@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -866,6 +866,7 @@ msgstr "L<B<ca>(1)|ca(1)>, L<B<req>(1)|req(1)>, L<B<x509>(1)|x509(1)>"
 msgid ""
 "comment Original text by James Westby, contributed under the OpenSSL license."
 msgstr ""
+"comment Original text by James Westby, contributed under the OpenSSL license."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:8
@@ -884,20 +885,11 @@ msgstr "SYNOPSIS"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:12
-#, fuzzy
-#| msgid "B<c_rehash> [directory] ..."
 msgid "B<c_rehash> [ I<directory>...]"
-msgstr "B<c_rehash> [I<répertoire>] ..."
+msgstr "B<c_rehash> [I<répertoire> ...]"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:17
-#, fuzzy
-#| msgid ""
-#| "c_rehash scans directories and takes a hash value of each .pem and .crt "
-#| "file in the directory. It then creates symbolic links for each of the "
-#| "files named by the hash value. This is useful as many programs require "
-#| "directories to be set up like this in order to find the certificates they "
-#| "require."
 msgid ""
 "B<c_rehash> scans directories and calculates a hash value of each C<.pem> "
 "file in the specified directory list and creates symbolic links for each "
@@ -905,23 +897,16 @@ msgid ""
 "as many programs that use OpenSSL require directories to be set up like this "
 "in order to find certificates."
 msgstr ""
-"c_rehash parcourt les répertoires et prend une valeur de hachage de chaque "
-"fichier I<.pem> et I<.crt> dans le répertoire. Il crée ensuite des liens "
-"symboliques pour chacun de ces fichiers en les nommant par la valeur du "
-"hachage. C'est utile parce que beaucoup de programmes imposent à des "
-"répertoires d'être configurés de la sorte pour trouver les certificats "
-"qu'ils recherchent."
+"B<c_rehash> parcourt les répertoires et calcule une valeur de hachage de "
+"chaque fichier I<.pem> dans la liste de répertoires indiqués puis crée des "
+"liens symboliques pour chacun de ces fichiers, où le nom du lien est la "
+"valeur du hachage. Cet utilitaire permet à beaucoup de programmes qui "
+"utilisent OpenSSL de trouver les certificats avec des répertoires configurés "
+"de la sorte."
 
+# NOTE: s/shold/should/
 #. type: textblock
 #: C/apps/c_rehash.pod:23
-#, fuzzy
-#| msgid ""
-#| "If any directories are named on the command line then these directories "
-#| "are processed in turn. If not then and the environment variable "
-#| "SSL_CERT_DIR is defined then that is consulted. This variable should be a "
-#| "colon (:) separated list of directories, all of which will be processed. "
-#| "If neither of these conditions are true then /usr/lib/ssl/certs is "
-#| "processed."
 msgid ""
 "If any directories are named on the command line, then those are processed "
 "in turn. If not, then the B<SSL_CERT_DIR> environment variable is consulted; "
@@ -929,13 +914,12 @@ msgid ""
 "variable.  If that is not set then the default directory (installation-"
 "specific but often B</usr/local/ssl/certs>) is processed."
 msgstr ""
-"Si des répertoires sont indiqués sur la ligne de commande, alors ces "
-"répertoires sont traités chacun à son tour. Sinon, et si la variable "
-"d'environnement SSL_CERT_DIR est définie, les répertoires spécifiées dans "
-"celle-ci sont traités. Cette variable doit être une liste de répertoires "
-"séparés par des deux-points (« : »), chacun étant à traiter. Si aucun "
-"répertoire n'est précisé d'une de ces façons, c'est le répertoire /usr/lib/"
-"ssl/certs qui sera traité."
+"Si des répertoires sont indiqués sur la ligne de commande, alors ils sont "
+"traités chacun à leur tour. Sinon, la variable d'environnement "
+"B<SSL_CERT_DIR> est consultée ; ce devrait être une liste de répertoires "
+"séparés par des deux-points (« : »), comme la variable B<PATH> d’UNIX. Si "
+"elle n’est pas définie, alors le répertoire par défaut (spécifique à "
+"l’installation, mais probablement I</usr/lib/ssl/certs>) est traité."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:30
@@ -949,6 +933,15 @@ msgid ""
 "removed.  Hashes for CRL's look similar except the letter B<r> appears after "
 "the period, like this: C<HHHHHHHH.rD>."
 msgstr ""
+"Pour qu’un répertoire soit traité, l’utilisateur doit avoir le droit "
+"d’écrire dedans, sinon il sera sauté. Les liens créés sont de la forme "
+"I<HHHHHHHH>B<.>I<D>, où chaque I<H> est un caractères hexadécimal et I<D> un "
+"seul nombre décimal. Lors du traitement d’un répertoire, B<c_rehash> "
+"commencera par supprimer tous les liens qui ont un nom correspondant à cette "
+"syntaxe. Si des liens de cette forme sont utilisés pour autre chose, ils "
+"seront supprimés. Les hachages de listes de révocations de certificats "
+"ressemblent à cela, à part que la lettre B<r> est présente après le point, "
+"comme ceci : I<HHHHHHHH>B<.r>I<D>."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:40
@@ -957,19 +950,19 @@ msgid ""
 "incrementing the B<D> value. Duplicates are found by comparing the full "
 "SHA-1 fingerprint. A warning will be displayed if a duplicate is found."
 msgstr ""
+"Plusieurs objets pourraient avoir le même hachage ; ils seront indiqués en "
+"incrémentant la valeur de I<D>. Des duplicatas sont trouvés en comparant "
+"l’empreinte SHA-1 complète. Un avertissement sera affiché si un duplicata "
+"est trouvé."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:45
-#, fuzzy
-#| msgid ""
-#| "The program will also warn if there are files with extension .pem which "
-#| "are not certificate or CRL files."
 msgid ""
 "A warning will also be displayed if there are B<.pem> files that cannot be "
 "parsed as either a certificate or a CRL."
 msgstr ""
-"Le programme avertira également s'il y a des fichiers avec l'extension .pem "
-"qui ne sont ni des certificats ni des CRL."
+"Un avertissement sera aussi affiché si un fichier I<.pem> ne peut pas être "
+"traité comme un certificat ou comme une liste de révocation de certificats."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:48
@@ -979,6 +972,11 @@ msgid ""
 "environment variable to the full pathname.  Any program can be used, it will "
 "be invoked as follows for either a certificate or CRL:"
 msgstr ""
+"Le programme utilise le programme B<openssl> pour calculer les hachages et "
+"les empreintes. S’il n’est pas dans le B<PATH> de l’utilisateur, définissez "
+"la variable d’environnement B<OPENSSL> à son chemin complet. N’importe quel "
+"programme peut être utilisé, il sera invoqué comme ceci pour un certificat "
+"ou une liste de révocation de certificats :"
 
 #. type: verbatim
 #: C/apps/c_rehash.pod:54
@@ -988,6 +986,9 @@ msgid ""
 "  $OPENSSL crl -hash -fingerprint -noout -in FFFFFF\n"
 "\n"
 msgstr ""
+"  $OPENSSL x509 -hash -fingerprint -noout -in FFFFFF\n"
+"  $OPENSSL crl -hash -fingerprint -noout -in FFFFFF\n"
+"\n"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:57
@@ -996,6 +997,9 @@ msgid ""
 "first line, and the fingerprint on the second, optionally prefixed with some "
 "text and an equals sign."
 msgstr ""
+"où I<FFFFFF> est le nom du fichier. Il doit contenir le hachage du fichier "
+"en première ligne et l’empreinte en deuxième ligne, facultativement précédés "
+"de texte et d’un signe égal."
 
 #. type: =head1
 #: C/apps/c_rehash.pod:61
@@ -1009,16 +1013,12 @@ msgstr "B<OPENSSL>"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:67
-#, fuzzy
-#| msgid ""
-#| "The name (and path) of an executable to use to generate hashes and "
-#| "fingerprints (see above)."
 msgid ""
 "The path to an executable to use to generate hashes and fingerprints (see "
 "above)."
 msgstr ""
-"Le nom (et le chemin) d'un exécutable à utiliser pour générer des hachages "
-"et des empreintes (voir ci-dessus)."
+"Le chemin vers un exécutable à utiliser pour générer des hachages et des "
+"empreintes (voir ci-dessus)."
 
 #. type: =item
 #: C/apps/c_rehash.pod:70
@@ -1027,10 +1027,6 @@ msgstr "B<SSL_CERT_DIR>"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:72
-#, fuzzy
-#| msgid ""
-#| "Colon separated list of directories to operate on. Ignored if directories "
-#| "are listed on the command line."
 msgid ""
 "Colon separated list of directories to operate on.  Ignored if directories "
 "are listed on the command line."
@@ -1040,30 +1036,21 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/c_rehash.pod:79
-#, fuzzy
-#| msgid "L<openssl(1)|openssl(1)>, L<x509(1)|x509(1)>"
 msgid "L<openssl(1)|openssl(1)>, L<crl(1)|crl(1)>.  L<x509(1)|x509(1)>."
-msgstr "L<B<openssl>(1)|openssl(1)>, L<B<x509>(1)|x509(1)>"
+msgstr ""
+"L<B<crl>(1)|crl(1)>, L<B<openssl>(1)|openssl(1)>, L<B<x509>(1)|x509(1)>"
 
 #. type: textblock
 #: C/apps/dgst.pod:5
-#, fuzzy
-#| msgid "dgst, md5, md4, md2, sha1, sha, mdc2, ripemd160 - message digests"
 msgid ""
 "dgst, sha, sha1, mdc2, ripemd160, sha224, sha256, sha384, sha512, md2, md4, "
 "md5, dss1 - message digests"
 msgstr ""
-"dgst, md5, md4, md2, sha1, sha, mdc2, ripemd160 - Condensés de messages"
+"dgst, sha, sha1, mdc2, ripemd160, sha224, sha256, sha384, sha512, md2, md4, "
+"md5, dss1 - Condensés de messages"
 
 #. type: textblock
 #: C/apps/dgst.pod:9
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<dgst> [B<-md5|-md4|-md2|-sha1|-sha|-mdc2|-ripemd160|-dss1>] "
-#| "[B<-c>] [B<-d>] [B<-hex>] [B<-binary>] [B<-hmac arg>] [B<-non-fips-"
-#| "allow>] [B<-out filename>] [B<-sign filename>] [B<-keyform arg>] [B<-"
-#| "passin arg>] [B<-verify filename>] [B<-prverify filename>] [B<-signature "
-#| "filename>] [B<-hmac key>] [B<file...>]"
 msgid ""
 "B<openssl> B<dgst> [B<-sha|-sha1|-mdc2|-ripemd160|-sha224|-sha256|-sha384|-"
 "sha512|-md2|-md4|-md5|-dss1>] [B<-c>] [B<-d>] [B<-hex>] [B<-binary>] [B<-"
@@ -1072,33 +1059,30 @@ msgid ""
 "prverify filename>] [B<-signature filename>] [B<-hmac key>] [B<-non-fips-"
 "allow>] [B<-fips-fingerprint>] [B<file...>]"
 msgstr ""
-"B<openssl> B<dgst> [B<-md5>|B<-md4>|B<-md2>|B<-sha1>|B<-sha>|B<-mdc2>|B<-"
-"ripemd160>|B<-dss1>] [B<-c>] [B<-d>] [B<-hex>] [B<-binary>] [B<-hmac> "
-"I<param>] [B<-non-fips-allow>] [B<-out> I<nom_fichier>] [B<-sign> "
-"I<nom_fichier>] [B<-keyform> I<param>] [B<-passin> I<param>] [B<-verify> "
-"I<nom_fichier>] [B<-prverify> I<nom_fichier>] [B<-signature> I<nom_fichier>] "
-"[B<-hmac> I<clef>] [I<fichier>...]"
+"B<openssl> B<dgst> [B<-sha>|B<-sha1>|B<-mdc2>|B<-ripemd160>|B<-sha224>|B<-"
+"sha256>|B<-sha384>|B<-sha512>|B<-md2>|B<-md4>|B<-md5>|B<-dss1>] [B<-c>] [B<-"
+"d>] [B<-hex>] [B<-binary>] [B<-hmac> I<param>] [B<-non-fips-allow>] [B<-r>] "
+"[B<-out> I<nom_fichier>] [B<-sign> I<nom_fichier>] [B<-keyform> I<param>] "
+"[B<-passin> I<param>] [B<-verify> I<nom_fichier>] [B<-prverify> "
+"I<nom_fichier>] [B<-signature> I<nom_fichier>] [B<-hmac> I<clef>] [B<-non-"
+"fips-allow>] [B<-fips-fingerprint>] [I<fichier> ...]"
 
 #. type: textblock
 #: C/apps/dgst.pod:30
 msgid "B<openssl> [I<digest>] [B<...>]"
-msgstr ""
+msgstr "B<openssl> [I<condensé> ...]"
 
 #. type: textblock
 #: C/apps/dgst.pod:36
-#, fuzzy
-#| msgid ""
-#| "The digest functions output the message digest of a supplied file or "
-#| "files in hexadecimal form. They can also be used for digital signing and "
-#| "verification."
 msgid ""
 "The digest functions output the message digest of a supplied file or files "
 "in hexadecimal.  The digest functions also generate and verify digital "
 "signatures using message digests."
 msgstr ""
 "Les fonctions de condensé génèrent les condensés des messages d'un ou "
-"plusieurs fichiers fournis sous forme hexadécimale. Elles peuvent également "
-"servir pour la signature numérique et la vérification."
+"plusieurs fichiers fournis sous forme hexadécimale. Les fonctions de "
+"condensé créent et vérifient aussi des signatures numériques en utilisant "
+"des condensés des messages."
 
 #. type: =head1
 #: C/apps/dgst.pod:40 C/apps/enc.pod:41 C/apps/passwd.pod:30
@@ -1139,17 +1123,14 @@ msgstr "B<-hex>"
 
 #. type: textblock
 #: C/apps/dgst.pod:55
-#, fuzzy
-#| msgid ""
-#| "digest is to be output as a hex dump. This is the default case for a "
-#| "\"normal\" digest as opposed to a digital signature."
 msgid ""
 "digest is to be output as a hex dump. This is the default case for a \"normal"
 "\" digest as opposed to a digital signature.  See NOTES below for digital "
 "signatures using B<-hex>."
 msgstr ""
 "Afficher le condensé en hexadécimal brut. C'est le cas par défaut pour les "
-"condensés « normaux » par opposition aux signatures numériques."
+"condensés « normaux » par opposition aux signatures numériques. Consultez "
+"les B<NOTES> ci-dessous pour des signatures numériques utilisant B<-hex>."
 
 #. type: =item
 #: C/apps/dgst.pod:59
@@ -1163,10 +1144,8 @@ msgstr "Afficher le condensé sous forme binaire."
 
 #. type: =item
 #: C/apps/dgst.pod:63
-#, fuzzy
-#| msgid "B<-reqopt>"
 msgid "B<-r>"
-msgstr "B<-reqopt>"
+msgstr "B<-r>"
 
 #. type: textblock
 #: C/apps/dgst.pod:65
@@ -1174,6 +1153,8 @@ msgid ""
 "output the digest in the \"coreutils\" format used by programs like "
 "B<sha1sum>."
 msgstr ""
+"Afficher le condensé au format de « coreutils » utilisé par des programmes "
+"comme B<sha1sum>."
 
 #. type: =item
 #: C/apps/dgst.pod:67
@@ -1216,7 +1197,7 @@ msgstr "B<-sign> I<nom_fichier>"
 msgid "digitally sign the digest using the private key in \"filename\"."
 msgstr ""
 "Signer numériquement le condensé en utilisant la clef privée de "
-"B<nom_fichier>."
+"I<nom_fichier>."
 
 #. type: =item
 #: C/apps/dgst.pod:83
@@ -1225,16 +1206,12 @@ msgstr "B<-keyform> I<param>"
 
 #. type: textblock
 #: C/apps/dgst.pod:85
-#, fuzzy
-#| msgid ""
-#| "Specifies the key format to sign digest with. Only PEM and ENGINE formats "
-#| "are supported by the B<dgst> command."
 msgid ""
 "Specifies the key format to sign digest with. The DER, PEM, P12, and ENGINE "
 "formats are supported."
 msgstr ""
 "Indiquer le format de clef avec lequel signer le condensé. Seuls les formats "
-"PEM et ENGINE sont pris en charge par la commande B<dgst>."
+"DER, PEM, P12 et ENGINE sont pris en charge."
 
 #. type: =item
 #: C/apps/dgst.pod:88 C/apps/req.pod:317 C/apps/speed.pod:45
@@ -1295,7 +1272,7 @@ msgid ""
 "verify the signature using the the public key in \"filename\".  The output "
 "is either \"Verification OK\" or \"Verification Failure\"."
 msgstr ""
-"Vérifier la signature en utilisant la clef publique de B<nom_fichier>. Le "
+"Vérifier la signature en utilisant la clef publique de I<nom_fichier>. Le "
 "résultat est soit « Verification OK » soit « Verification Failure »."
 
 #. type: =item
@@ -1419,23 +1396,24 @@ msgstr ""
 #: C/apps/dgst.pod:161
 msgid "enable use of non-FIPS algorithms such as MD5 even in FIPS mode."
 msgstr ""
+"Activer l’utilisation d’algorithmes non FIPS comme MD5 même en mode FIPS."
 
 #. type: =item
 #: C/apps/dgst.pod:163
-#, fuzzy
-#| msgid "B<-policy_print>"
 msgid "B<-fips-fingerprint>"
-msgstr "B<-policy_print>"
+msgstr "B<-fips-fingerprint>"
 
 #. type: textblock
 #: C/apps/dgst.pod:165
 msgid "compute HMAC using a specific key for certain OpenSSL-FIPS operations."
 msgstr ""
+"Calculer HMAC en utilisant une clef spécifique pour certaines opérations "
+"OpenSSL-FIPS."
 
 #. type: =item
 #: C/apps/dgst.pod:168
 msgid "B<file...>"
-msgstr "I<fichier>..."
+msgstr "I<fichier> ..."
 
 #. type: textblock
 #: C/apps/dgst.pod:170
@@ -1453,6 +1431,9 @@ msgid ""
 " openssl dgst -md5 -hex file.txt\n"
 "\n"
 msgstr ""
+"Pour créer un condensé de message encodé en hexadécimal d’un fichier :\n"
+" openssl dgst -md5 -hex fichier.txt\n"
+"\n"
 
 #. type: verbatim
 #: C/apps/dgst.pod:181
@@ -1462,6 +1443,11 @@ msgid ""
 " openssl dgst -sha256 -sign privatekey.pem -out signature.sign file.txt\n"
 "\n"
 msgstr ""
+"Pour signer un fichier en utilisant SHA-256 avec un fichier binaire\n"
+"en sortie :\n"
+" openssl dgst -sha256 -sign clef_privée.pem -out signature.sign \\\n"
+" fichier.txt\n"
+"\n"
 
 #. type: verbatim
 #: C/apps/dgst.pod:184
@@ -1473,6 +1459,11 @@ msgid ""
 " file.txt\n"
 "\n"
 msgstr ""
+"Pour vérifier une signature :\n"
+" openssl dgst -sha256 -verify clef_publique.pem \\\n"
+" -signature signature.sign \\\n"
+" fichier.txt\n"
+"\n"
 
 #. type: textblock
 #: C/apps/dgst.pod:192
@@ -1492,19 +1483,21 @@ msgid ""
 "itself, not the related data to identify the signer and algorithm used in "
 "formats such as x.509, CMS, and S/MIME."
 msgstr ""
+"En signant un fichier, B<dgst> déterminera automatiquement l’algorithme "
+"(RSA, ECC, etc.) à utiliser pour la signature à partir des informations "
+"ASN.1 de la clef privée. Lors de la vérification de signatures, il ne "
+"traitera que les signatures RSA, DSA ou ECDSA lui-même, pas les données "
+"associées pour identifier le signataire et l’algorithme utilisé dans ces "
+"formats, comme x.509, CMS et S/MIME."
 
 #. type: textblock
 #: C/apps/dgst.pod:201
-#, fuzzy
-#| msgid ""
-#| "A source of random numbers is required for certain signing algorithms, in "
-#| "particular DSA."
 msgid ""
 "A source of random numbers is required for certain signing algorithms, in "
 "particular ECDSA and DSA."
 msgstr ""
 "Une source de nombres aléatoires est nécessaire pour certains algorithmes de "
-"signature, en particulier DSA."
+"signature, en particulier ECDSA et DSA."
 
 #. type: textblock
 #: C/apps/dgst.pod:204
@@ -1522,6 +1515,10 @@ msgid ""
 "or similar program to transform the hex signature into a binary signature "
 "prior to verification."
 msgstr ""
+"Les signatures hexadécimales ne peuvent pas être vérifiées en utilisant "
+"B<openssl>. À la place, utilisez B<xxd -r> ou un programme similaire pour "
+"transformer la signature hexadécimale en signature binaire avant la "
+"vérification."
 
 #. type: textblock
 #: C/apps/enc.pod:5
@@ -7716,14 +7713,12 @@ msgstr ""
 
 #. type: =item
 #: C/apps/verify.pod:50
-#, fuzzy
-#| msgid ""
-#| "A file of trusted certificates. The file should contain multiple "
-#| "certificates in PEM format concatenated together."
 msgid ""
 "B<-CAfile file> A file of trusted certificates. The file should contain "
 "multiple certificates in PEM format concatenated together."
 msgstr ""
+"B<-CAfile> I<fichier>\n"
+"\n"
 "Un fichier avec des certificats de confiance. Le fichier doit contenir des "
 "certificats au format PEM, concaténés."
 
