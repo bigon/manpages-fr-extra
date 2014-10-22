@@ -935,11 +935,11 @@ msgid ""
 msgstr ""
 "Pour qu’un répertoire soit traité, l’utilisateur doit avoir le droit "
 "d’écrire dedans, sinon il sera sauté. Les liens créés sont de la forme "
-"I<HHHHHHHH>B<.>I<D>, où chaque I<H> est un caractères hexadécimal et I<D> un "
-"seul nombre décimal. Lors du traitement d’un répertoire, B<c_rehash> "
+"I<HHHHHHHH>B<.>I<D>, où chaque I<H> est un caractère hexadécimal et I<D> un "
+"seul chiffre décimal. Lors du traitement d’un répertoire, B<c_rehash> "
 "commencera par supprimer tous les liens qui ont un nom correspondant à cette "
 "syntaxe. Si des liens de cette forme sont utilisés pour autre chose, ils "
-"seront supprimés. Les hachages de listes de révocations de certificats "
+"seront supprimés. Les hachages de listes de révocations de certificat "
 "ressemblent à cela, à part que la lettre B<r> est présente après le point, "
 "comme ceci : I<HHHHHHHH>B<.r>I<D>."
 
@@ -962,7 +962,7 @@ msgid ""
 "parsed as either a certificate or a CRL."
 msgstr ""
 "Un avertissement sera aussi affiché si un fichier I<.pem> ne peut pas être "
-"traité comme un certificat ou comme une liste de révocation de certificats."
+"traité comme un certificat ou comme une liste de révocations de certificat."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:48
@@ -976,7 +976,7 @@ msgstr ""
 "les empreintes. S’il n’est pas dans le B<PATH> de l’utilisateur, définissez "
 "la variable d’environnement B<OPENSSL> à son chemin complet. N’importe quel "
 "programme peut être utilisé, il sera invoqué comme ceci pour un certificat "
-"ou une liste de révocation de certificats :"
+"ou une liste de révocations de certificat :"
 
 #. type: verbatim
 #: C/apps/c_rehash.pod:54
@@ -997,9 +997,9 @@ msgid ""
 "first line, and the fingerprint on the second, optionally prefixed with some "
 "text and an equals sign."
 msgstr ""
-"où I<FFFFFF> est le nom du fichier. Il doit contenir le hachage du fichier "
-"en première ligne et l’empreinte en deuxième ligne, facultativement précédés "
-"de texte et d’un signe égal."
+"où I<FFFFFF> est le nom du fichier. Le résultat doit contenir le hachage du "
+"fichier en première ligne et l’empreinte en deuxième ligne, facultativement "
+"précédés de texte et d’un signe égal."
 
 #. type: =head1
 #: C/apps/c_rehash.pod:61
@@ -1079,10 +1079,10 @@ msgid ""
 "in hexadecimal.  The digest functions also generate and verify digital "
 "signatures using message digests."
 msgstr ""
-"Les fonctions de condensé génèrent les condensés des messages d'un ou "
+"Les fonctions de condensé génèrent les condensés de message d'un ou "
 "plusieurs fichiers fournis sous forme hexadécimale. Les fonctions de "
 "condensé créent et vérifient aussi des signatures numériques en utilisant "
-"des condensés des messages."
+"des condensés de message."
 
 #. type: =head1
 #: C/apps/dgst.pod:40 C/apps/enc.pod:41 C/apps/passwd.pod:30
@@ -1103,7 +1103,7 @@ msgid ""
 "if B<hex> format output is used."
 msgstr ""
 "Afficher le condensé par groupe de deux chiffres séparés par des deux-"
-"points, uniquement appliquable si le format de sortie B<hex> est employé."
+"points, uniquement applicable si le format de sortie B<hex> est employé."
 
 #. type: =item
 #: C/apps/dgst.pod:49 C/apps/enc.pod:72 C/apps/tsget.pod:76
@@ -1486,9 +1486,9 @@ msgstr ""
 "En signant un fichier, B<dgst> déterminera automatiquement l’algorithme "
 "(RSA, ECC, etc.) à utiliser pour la signature à partir des informations "
 "ASN.1 de la clef privée. Lors de la vérification de signatures, il ne "
-"traitera que les signatures RSA, DSA ou ECDSA lui-même, pas les données "
-"associées pour identifier le signataire et l’algorithme utilisé dans ces "
-"formats, comme x.509, CMS et S/MIME."
+"traitera de lui-même que les signatures RSA, DSA ou ECDSA, pas les données "
+"associées pour identifier le signataire et l’algorithme utilisé dans des "
+"formats comme x.509, CMS et S/MIME."
 
 #. type: textblock
 #: C/apps/dgst.pod:201
@@ -1523,7 +1523,7 @@ msgstr ""
 #. type: textblock
 #: C/apps/enc.pod:5
 msgid "enc - symmetric cipher routines"
-msgstr "enc - Routines de chiffrement symétriques"
+msgstr "enc - Routines de chiffrement symétrique"
 
 #. type: textblock
 #: C/apps/enc.pod:9
@@ -2999,7 +2999,7 @@ msgstr "B<-CA> I<fichier>"
 msgid ""
 "CA certificate corresponding to the revocation information in B<indexfile>."
 msgstr ""
-"Certificat d’autorité correspondant aux informations de révocation de B<-"
+"Certificat d’autorité correspondant aux informations de révocations de B<-"
 "indexfile>."
 
 #. type: =item
@@ -3102,9 +3102,9 @@ msgid ""
 "immediately available."
 msgstr ""
 "Temps en minute ou jour pendant lequel les informations fraîches de "
-"révocation ne sont pas disponibles : utilisé dans le champ B<nextUpdate>. Si "
-"aucune option n'est présente, alors le champ B<nextUpdate> est omis, ce qui "
-"signifie que les informations fraîches de révocation sont disponibles "
+"révocations ne sont pas disponibles : utilisé dans le champ B<nextUpdate>. "
+"Si aucune option n'est présente, alors le champ B<nextUpdate> est omis, ce "
+"qui signifie que les informations fraîches de révocations sont disponibles "
 "immédiatement."
 
 #. type: =head1
@@ -3199,8 +3199,8 @@ msgid ""
 msgstr ""
 "Ce que cela signifie effectivement est que si le certificat du répondeur "
 "OCSP est autorisé directement par l’autorité de certificat à propos de "
-"laquelle il publie des informations de révocation (et qu’il est correctement "
-"configuré), alors la vérification réussira."
+"laquelle il publie des informations de révocations (et qu’il est "
+"correctement configuré), alors la vérification réussira."
 
 #. type: textblock
 #: C/apps/ocsp.pod:309
@@ -3261,7 +3261,7 @@ msgstr ""
 "la forme POST des requêtes OCSP. Il gère également les demandes en série, il "
 "ne peut donc pas répondre à de nouvelles demandes avant d’avoir traité "
 "l’actuelle. Le format de fichier texte d'index de la révocation est "
-"également inefficace pour de grandes quantités de données de révocation."
+"également inefficace pour de grandes quantités de données de révocations."
 
 #. type: textblock
 #: C/apps/ocsp.pod:332
@@ -7893,8 +7893,8 @@ msgid ""
 "CRL.  If a valid CRL cannot be found an error occurs."
 msgstr ""
 "Vérifier la fin de validité d'une entité de certificat en essayant de "
-"rechercher une liste valable de révocations de certificats. Cela produit une "
-"erreur si une liste valable de révocations de certificats ne peut pas être "
+"rechercher une liste valable de révocations de certificat. Cela produit une "
+"erreur si une liste valable de révocations de certificat ne peut pas être "
 "trouvée."
 
 #. type: =item
@@ -7909,7 +7909,7 @@ msgid ""
 "look up valid CRLs."
 msgstr ""
 "Vérifier la validité de B<tous> les certificats de la chaîne en essayant de "
-"rechercher une liste valable de révocations de certificats."
+"rechercher une liste valable de révocations de certificat."
 
 #. type: =item
 #: C/apps/verify.pod:125
@@ -7953,9 +7953,9 @@ msgid ""
 "Enable extended CRL features such as indirect CRLs and alternate CRL signing "
 "keys."
 msgstr ""
-"Activer les fonctionnalités étendues de liste de révocations de certificats, "
-"comme les listes indirectes de révocations de certificats et les clefs de "
-"signature alternatives de liste de révocations de certificats."
+"Activer les fonctionnalités étendues de liste de révocations de certificat, "
+"comme les listes indirectes de révocations de certificat et les clefs de "
+"signature alternatives de liste de révocations de certificat."
 
 #. type: =item
 #: C/apps/verify.pod:141
@@ -7967,7 +7967,7 @@ msgstr "B<-use_deltas>"
 msgid "Enable support for delta CRLs."
 msgstr ""
 "Activer la prise en charge pour les deltas de listes de révocations de "
-"certificats."
+"certificat."
 
 #. type: =item
 #: C/apps/verify.pod:145
@@ -8258,7 +8258,7 @@ msgstr "B<3 X509_V_ERR_UNABLE_TO_GET_CRL: unable to get certificate CRL>"
 #. type: textblock
 #: C/apps/verify.pod:254
 msgid "the CRL of a certificate could not be found."
-msgstr "La liste de révocations de certificats est introuvable."
+msgstr "La liste de révocations de certificat est introuvable."
 
 #. type: =item
 #: C/apps/verify.pod:256
@@ -8297,7 +8297,7 @@ msgid ""
 "signature value could not be determined rather than it not matching the "
 "expected value. Unused."
 msgstr ""
-"La signature de liste de révocations de certificats n'a pas pu être "
+"La signature de liste de révocations de certificat n'a pas pu être "
 "déchiffrée : cela signifie que la valeur de signature réelle n'a pas pu être "
 "déterminée, plutôt qu'elle ne correspond pas à la valeur attendue. Inutilisé."
 
@@ -8368,7 +8368,7 @@ msgstr "B<11 X509_V_ERR_CRL_NOT_YET_VALID: CRL is not yet valid>"
 #. type: textblock
 #: C/apps/verify.pod:289
 msgid "the CRL is not yet valid."
-msgstr "La liste de révocations de certificats n'est pas encore valable."
+msgstr "La liste de révocations de certificat n'est pas encore valable."
 
 #. type: =item
 #: C/apps/verify.pod:291
@@ -8378,7 +8378,7 @@ msgstr "B<12 X509_V_ERR_CRL_HAS_EXPIRED: CRL has expired>"
 #. type: textblock
 #: C/apps/verify.pod:293
 msgid "the CRL has expired."
-msgstr "La liste de révocations de certificats a expiré."
+msgstr "La liste de révocations de certificat a expiré."
 
 #. type: =item
 #: C/apps/verify.pod:295
@@ -8421,7 +8421,7 @@ msgstr ""
 #: C/apps/verify.pod:305
 msgid "the CRL lastUpdate field contains an invalid time."
 msgstr ""
-"Le champ lastUpdate de la liste de révocations de certificats contient une "
+"Le champ lastUpdate de la liste de révocations de certificat contient une "
 "date incorrecte."
 
 #. type: =item
@@ -8437,7 +8437,7 @@ msgstr ""
 #: C/apps/verify.pod:309
 msgid "the CRL nextUpdate field contains an invalid time."
 msgstr ""
-"Le champ nextUpdate de la liste de révocations de certificats contient une "
+"Le champ nextUpdate de la liste de révocations de certificat contient une "
 "date incorrecte."
 
 #. type: =item
