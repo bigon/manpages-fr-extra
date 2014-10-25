@@ -1,7 +1,7 @@
 SUBDIRS=at \
 	bash \
 	coreutils cron \
-	diffutils dosfstools \
+	ddate diffutils dosfstools \
 	e2fsprogs \
 	findutils \
 	glibc grep \
