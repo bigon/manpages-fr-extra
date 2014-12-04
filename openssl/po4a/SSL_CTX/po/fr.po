@@ -1,22 +1,23 @@
 # French translations for the openssl package
-# Copyright (C) 2008, 2012, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# Copyright (C) 2008, 2012-2014 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
 # Nicolas François <nicolas.francois@centraliens.net>, 2008.
 # David Prévot <david@tilapin.org>, 2012, 2013.
+# Jean-Pierre Giraud <jean-pierregiraud@neuf.fr>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2014-08-07 01:31-0400\n"
-"PO-Revision-Date: 2013-02-05 21:56-0400\n"
-"Last-Translator: none yet\n"
+"PO-Revision-Date: 2014-12-04 22:21+0100\n"
+"Last-Translator: Jean-Pierre Giraud <jean-pierregiraud@neuf.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 
 #. type: =head1
 #: C/ssl/SSL_CTX_add_extra_chain_cert.pod:3 C/ssl/SSL_CTX_add_session.pod:3
@@ -136,7 +137,7 @@ msgid ""
 msgstr ""
 "Le certificat B<x509> fourni à B<SSL_CTX_add_extra_chain_cert> sera libéré "
 "par la bibliothèque quand le B<SSL_CTX> est détruit. Une application ne "
-"B<devrait pas> libérer l’objet B<x509>."
+"B<devrait pas> libérer l’objet I<x509>."
 
 #. type: =head1
 #: C/ssl/SSL_CTX_add_extra_chain_cert.pod:29
@@ -153,9 +154,9 @@ msgid ""
 "function."
 msgstr ""
 "Un seul jeu de certificats de chaîne supplémentaire peut être indiqué par "
-"structure SSL_CTX. Différentes chaînes pour différents certificats (par "
+"structure B<SSL_CTX>. Différentes chaînes pour différents certificats (par "
 "exemple si à la fois des certificats RSA et DSA sont indiqués par le même "
-"serveur) ou différentes structures SSL avec le même SSL_CTX parent ne "
+"serveur) ou différentes structures SSL avec le même B<SSL_CTX> parent ne "
 "peuvent pas être indiquées en utilisant cette fonction."
 
 #. type: =head1
@@ -207,6 +208,8 @@ msgid ""
 "SSL_CTX_add_session, SSL_add_session, SSL_CTX_remove_session, "
 "SSL_remove_session - manipulate session cache"
 msgstr ""
+"SSL_CTX_add_session, SSL_add_session, SSL_CTX_remove_session, "
+"SSL_remove_session - manipuler le cache de sessions"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_add_session.pod:11
@@ -216,6 +219,9 @@ msgid ""
 " int SSL_add_session(SSL_CTX *ctx, SSL_SESSION *c);\n"
 "\n"
 msgstr ""
+" int SSL_CTX_add_session(SSL_CTX *ctx, SSL_SESSION *c);\n"
+" int SSL_add_session(SSL_CTX *ctx, SSL_SESSION *c);\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_add_session.pod:14
@@ -225,6 +231,9 @@ msgid ""
 " int SSL_remove_session(SSL_CTX *ctx, SSL_SESSION *c);\n"
 "\n"
 msgstr ""
+" int SSL_CTX_remove_session(SSL_CTX *ctx, SSL_SESSION *c);\n"
+" int SSL_remove_session(SSL_CTX *ctx, SSL_SESSION *c);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:19
@@ -234,6 +243,10 @@ msgid ""
 "same session id already exists, the old session is removed by calling "
 "L<SSL_SESSION_free(3)|SSL_SESSION_free(3)>."
 msgstr ""
+"B<SSL_CTX_add_session>() ajoute la session I<c> au contexte I<ctx>. Le "
+"compteur de références pour la session I<c> est incrémenté de 1. S'il existe "
+"déjà une session avec le même identifiant de session, la session ancienne "
+"est supprimée en appelant L<SSL_SESSION_free(3)|SSL_SESSION_free(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:24
@@ -241,6 +254,8 @@ msgid ""
 "SSL_CTX_remove_session() removes the session B<c> from the context B<ctx>.  "
 "L<SSL_SESSION_free(3)|SSL_SESSION_free(3)> is called once for B<c>."
 msgstr ""
+"B<SSL_CTX_remove_session>() supprime la session I<c> du contexte I<ctx>. "
+"L<SSL_SESSION_free(3)|SSL_SESSION_free(3)> est appelée une fois pour I<c>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:27
@@ -248,6 +263,8 @@ msgid ""
 "SSL_add_session() and SSL_remove_session() are synonyms for their "
 "SSL_CTX_*() counterparts."
 msgstr ""
+"B<SSL_add_session>() et B<SSL_remove_session>() sont synonymes pour leurs "
+"équivalents B< SSL_CTX_*>()."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:32
@@ -260,6 +277,13 @@ msgid ""
 "object is identical), SSL_CTX_add_session()  is a no-op, and the return "
 "value is 0."
 msgstr ""
+"Quand on ajoute une nouvelle session au cache des sessions interne, "
+"l'existence d'une session portant déjà le même identifiant de session est "
+"vérifiée. Si c'est le cas, ces deux sessions sont considérées identiques. Si "
+"la même session est conservée dans un objet B<SSL_SESSION> différent, "
+"l'ancienne session est supprimée et remplacée par la nouvelle session. Si la "
+"session est vraiment identique (l'objet B<SSL_SESSION> est identique), "
+"B<SSL_CTX_add_session>() est sans effet et la valeur 0 est renvoyée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:40
@@ -272,11 +296,20 @@ msgid ""
 "can use SSL_CTX_add_session() directly to have full control over the "
 "sessions that can be resumed if desired."
 msgstr ""
+"Lorsqu'un serveur SSL_CTX est configuré avec le réglage "
+"B<SSL_SESS_CACHE_NO_INTERNAL_STORE>, le cache interne n'est pas "
+"automatiquement rempli par les nouvelles sessions négociées par "
+"l'implémentation de B<SSL/TLS>, même si le cache interne fera "
+"automatiquement l'objet d'une recherche lors d'une requête de reprise de "
+"session (la dernière peut être supprimée par la fonction "
+"B<SSL_SESS_CACHE_NO_INTERNAL_LOOKUP>). Ainsi, l'application peut utiliser "
+"directement B<SSL_CTX_add_session>() pour obtenir un contrôle total des "
+"sessions qui peuvent être reprises si on le souhaite."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:51
 msgid "The following values are returned by all functions:"
-msgstr ""
+msgstr "Toutes les fonctions peuvent renvoyer les valeurs suivantes :"
 
 #. type: =item
 #: C/ssl/SSL_CTX_add_session.pod:55
@@ -294,6 +327,10 @@ msgid ""
 " session was not found in the cache.\n"
 "\n"
 msgstr ""
+" L’opération a échouée. Si c’est lors d’une opération d’addition, un essai\n"
+" d’ajout de la même session (identique) a été fait. Si c’est lors d’une\n"
+" opération de suppression, la session n’a pas été trouvée dans le cache.\n"
+"\n"
 
 #. type: =item
 #: C/ssl/SSL_CTX_add_session.pod:61
@@ -308,6 +345,8 @@ msgid ""
 " The operation succeeded.\n"
 "\n"
 msgstr ""
+" L’opération est réussie.\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:69
@@ -316,6 +355,9 @@ msgid ""
 "SSL_CTX_set_session_cache_mode(3)>, L<SSL_SESSION_free(3)|"
 "SSL_SESSION_free(3)>"
 msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_session_cache_mode(3)|"
+"SSL_CTX_set_session_cache_mode(3)>, L<SSL_SESSION_free(3)|"
+"SSL_SESSION_free(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_ctrl.pod:5
@@ -427,7 +469,14 @@ msgid ""
 "or manually by calling SSL_CTX_flush_sessions(). \n"
 "\n"
 msgstr ""
-"Si activé, le cache de sessions internes collectera toutes les sessions établies jusqu'au nombre maximal indiqué (consultez B<SSL_CTX_sess_set_cache_size>()). Comme les sessions ne seront pas réutilisées une fois expirées, elles devront être supprimées du cache pour préserver les ressources. Cela peut être fait soit automatiquement à chaque fois que 255 nouvelles sessions ont été établies (consultez L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>), soit directement en appelant B<SSL_CTX_flush_sessions>().\n"
+"Si activé, le cache de sessions internes collectera toutes les sessions \n"
+"établies jusqu'au nombre maximal indiqué (consultez\n"
+"B<SSL_CTX_sess_set_cache_size>()). Comme les sessions ne seront pas\n"
+"réutilisées une fois expirées, elles devront être supprimées du cache\n"
+"pour préserver les ressources. Cela peut être fait soit automatiquement\n"
+"à chaque fois que 255 nouvelles sessions ont été établies (consultez\n"
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>),\n"
+"soit directement en appelant B<SSL_CTX_flush_sessions>().\n"
 "\n"
 
 #. type: textblock
@@ -706,7 +755,7 @@ msgid ""
 "B<ctx>."
 msgstr ""
 "B<SSL_CTX_get_verify_mode>() renvoie le mode de vérification actuellement "
-"défini dans B<ctx>."
+"défini dans I<ctx>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_get_verify_mode.pod:23
@@ -714,7 +763,7 @@ msgid ""
 "SSL_get_verify_mode() returns the verification mode currently set in B<ssl>."
 msgstr ""
 "B<SSL_get_verify_mode>() renvoie le mode de vérification actuellement défini "
-"dans B<ssl>."
+"dans I<ssl>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_get_verify_mode.pod:26
@@ -724,7 +773,7 @@ msgid ""
 "default value will be used."
 msgstr ""
 "B<SSL_CTX_get_verify_depth>() renvoie la limite de profondeur de "
-"vérification actuellement définie dans B<ctx>. Si aucune limite n'a été "
+"vérification actuellement définie dans I<ctx>. Si aucune limite n'a été "
 "définie explicitement, -1 est renvoyé et la valeur par défaut sera utilisée."
 
 #. type: textblock
@@ -735,7 +784,7 @@ msgid ""
 "value will be used."
 msgstr ""
 "B<SSL_get_verify_depth>() renvoie la limite de profondeur de vérification "
-"actuellement définie dans B<ssl>. Si aucune limite n'a été définie "
+"actuellement définie dans I<ssl>. Si aucune limite n'a été définie "
 "explicitement, -1 est renvoyé et la valeur par défaut sera utilisée."
 
 #. type: textblock
@@ -746,7 +795,7 @@ msgid ""
 "NULL pointer is returned and the default callback will be used."
 msgstr ""
 "B<SSL_CTX_get_verify_callback>() renvoie un pointeur de fonction vers le "
-"rappel de vérification actuellement défini dans B<ctx>. Si aucun rappel n'a "
+"rappel de vérification actuellement défini dans I<ctx>. Si aucun rappel n'a "
 "été défini explicitement, le pointeur NULL est renvoyé et le rappel par "
 "défaut sera utilisé."
 
@@ -758,7 +807,7 @@ msgid ""
 "NULL pointer is returned and the default callback will be used."
 msgstr ""
 "B<SSL_get_verify_callback>() renvoie un pointeur de fonction vers le rappel "
-"de vérification actuellement défini dans B<ssl>. Si aucun rappel n'a été "
+"de vérification actuellement défini dans I<ssl>. Si aucun rappel n'a été "
 "défini explicitement, le pointeur NULL est renvoyé et le rappel par défaut "
 "sera utilisé."
 
@@ -778,6 +827,8 @@ msgid ""
 "SSL_CTX_load_verify_locations - set default locations for trusted CA "
 "certificates"
 msgstr ""
+"SSL_CTX_load_verify_locations - Définir l'emplacement par défaut des "
+"certificats d'autorité de certification"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_load_verify_locations.pod:12
@@ -787,6 +838,9 @@ msgid ""
 "                                   const char *CApath);\n"
 "\n"
 msgstr ""
+" int SSL_CTX_load_verify_locations(SSL_CTX *ctx, const char *CAfile,\n"
+"                                   const char *CApath);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:17
@@ -795,6 +849,10 @@ msgid ""
 "CA certificates for verification purposes are located. The certificates "
 "available via B<CAfile> and B<CApath> are trusted."
 msgstr ""
+"B<SSL_CTX_load_verify_locations>() précise l'emplacement pour I<ctx> où les "
+"certificats d'autorité, aux fins de vérifications, sont situés. Les "
+"certificats disponibles par B<CAfile> et B<CApath> sont considérés de "
+"confiance."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:23
@@ -802,6 +860,9 @@ msgid ""
 "If B<CAfile> is not NULL, it points to a file of CA certificates in PEM "
 "format. The file can contain several CA certificates identified by"
 msgstr ""
+"Si B<CAfile> n'est pas NULL, il pointe vers un fichier de certificats "
+"d'autorité de certification au format PEM. Le fichier peut contenirplusieurs "
+"certificats d'autorité de certification identifiés par des séquences"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_load_verify_locations.pod:26
@@ -812,6 +873,10 @@ msgid ""
 " -----END CERTIFICATE-----\n"
 "\n"
 msgstr ""
+" -----BEGIN CERTIFICATE-----\n"
+" ... (CA certificate codé en base64) ...\n"
+" -----END CERTIFICATE-----\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:30
@@ -819,6 +884,8 @@ msgid ""
 "sequences. Before, between, and after the certificates text is allowed which "
 "can be used e.g. for descriptions of the certificates."
 msgstr ""
+"Avant, entre et après les certificats, il peut y avoir un texte qui peut, "
+"par exemple, décrire les certificats."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:33
@@ -826,6 +893,8 @@ msgid ""
 "The B<CAfile> is processed on execution of the "
 "SSL_CTX_load_verify_locations()  function."
 msgstr ""
+"B<CAfile> est traité lors de l'exécution de la fonction "
+"B<SSL_CTX_load_verify_locations>()"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:36
@@ -839,6 +908,16 @@ msgid ""
 "of other properties of the certificates.  Use the B<c_rehash> utility to "
 "create the necessary links."
 msgstr ""
+"Si B<CApath> n'est pas NULL, il pointe vers un répertoire contenant des "
+"certificats d'autorité de certification au format PEM. Chaque fichier "
+"contient un certificat d'autorité de certification. La recherche de ces "
+"fichiers s'effectue par la valeur de hachage de nom du sujet de l'autorité "
+"de certification, qui doit donc être disponible. Si plusieurs certificats "
+"d'autorité de certification ont la même valeur de hachage de nom, leur "
+"extension peut être différente (par exemple 9d66eef0.0, 9d66eef0.1, etc.). "
+"La recherche est faite dans l'ordre des numéros d'extension, indépendamment "
+"des autres propriétés des certificats. Utilisez l'utilitaire B<c_rehash> "
+"pour créer les liens nécessaires."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:45
@@ -847,6 +926,9 @@ msgid ""
 "building the certificate chain or when actually performing the verification "
 "of a peer certificate."
 msgstr ""
+"Les certificats dans B<CApath> ne sont consultés que lorsqu'il le faut, par "
+"exemple lors de la construction d'une chaîne de certificats ou lorsque l'on "
+"vérifie effectivement le certificat d'un interlocuteur."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:49
@@ -860,6 +942,14 @@ msgid ""
 "performed; no other certificates for the same parameters will be searched in "
 "case of failure."
 msgstr ""
+"Quand on recherche des certificats d'autorité de certification, la "
+"bibliothèque OpenSSL cherchera les certificats d’abord dans B<CAfile> puis "
+"dans B<CApath>. La correspondance du certificat est établie sur la base du "
+"nom du sujet, de la clef d’identification (si elle existe) et du numéro de "
+"série du certificat à vérifier. Si ces données ne correspondent pas, le "
+"certificat suivant est testé. Si un premier certificat dont les paramètres "
+"correspondent est trouvé, le processus de vérification est exécuté et aucun "
+"autre certificat avec les mêmes paramètres ne sera recherché en cas d'échec."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:58
@@ -870,6 +960,11 @@ msgid ""
 "be set using the L<SSL_CTX_set_client_CA_list(3)|"
 "SSL_CTX_set_client_CA_list(3)> family of functions."
 msgstr ""
+"En mode serveur, quand un certificat client est demandé, le serveur doit "
+"envoyer la liste des autorités de certification dont il accepte les "
+"certificats. Cette liste n'est pas déterminée par le contenu de B<CAfile> ou "
+"B<CApath> et doit être être configurée avec la famille de fonctions "
+"L<SSL_CTX_set_client_CA_list(3)|SSL_CTX_set_client_CA_list(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:65
@@ -880,6 +975,11 @@ msgid ""
 "SSL_CTX_add_extra_chain_cert(3)>, L<SSL_CTX_use_certificate(3)|"
 "SSL_CTX_use_certificate(3)>."
 msgstr ""
+"Lors de la construction de sa chaîne de certificats, un client ou serveur "
+"OpenSSL essaiera de combler les certificats manquants à partir de B<CAfile> "
+"ou de B<CApath>, si la chaîne de certificats n'est pas précisée (voir "
+"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>, "
+"L<SSL_CTX_use_certificate(3)|SSL_CTX_use_certificate(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:73
@@ -891,6 +991,13 @@ msgid ""
 "occurs, no other certificate will be searched. Make sure to not have expired "
 "certificates mixed with valid ones."
 msgstr ""
+"Si plusieurs certificats d'autorité de certification correspondant au nom, à "
+"la clef d’identification et au numéro de série sont disponibles, seul le "
+"premier sera examiné. Cela peut entraîner des résultats inattendus si le "
+"même certificat d'autorité de certification est disponible avec plusieurs "
+"dates d'expiration différentes. Si une erreur de vérification « certificate "
+"expired » survient, aucun autre certificat ne sera recherché. Assurez-vous "
+"de ne pas avoir de certificats expirés mêlés à des certificats valides."
 
 #. type: =head1
 #: C/ssl/SSL_CTX_load_verify_locations.pod:80
@@ -903,6 +1010,9 @@ msgid ""
 "Generate a CA certificate file with descriptive text from the CA "
 "certificates ca1.pem ca2.pem ca3.pem:"
 msgstr ""
+"Générer un fichier de certificat d'autorité de certification avec un texte "
+"descriptif à partir des certificats d'autorité de certification ca1.pem ca2."
+"pem ca3.pem :"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_load_verify_locations.pod:85
@@ -915,6 +1025,12 @@ msgid ""
 " done\n"
 "\n"
 msgstr ""
+" #!/bin/sh\n"
+" rm CAfile.pem\n"
+" for i in ca1.pem ca2.pem ca3.pem ; do\n"
+"   openssl x509 -in $i -text >> CAfile.pem\n"
+" done\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:91
@@ -922,6 +1038,8 @@ msgid ""
 "Prepare the directory /some/where/certs containing several CA certificates "
 "for use as B<CApath>:"
 msgstr ""
+"Préparer le répertoire /quelque/part/certificats contenant plusieurs "
+"certificats d'autorité de certification à définir comme B<CApath> :"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_load_verify_locations.pod:94
@@ -931,11 +1049,14 @@ msgid ""
 " c_rehash .\n"
 "\n"
 msgstr ""
+" cd /quelque/part/certificats\n"
+" c_rehash .\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:99 C/ssl/SSL_CTX_new.pod:88
 msgid "The following return values can occur:"
-msgstr "Les valeurs suivantes peuvent être renvoyées."
+msgstr "Les valeurs suivantes peuvent être renvoyées :"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:105
@@ -944,6 +1065,9 @@ msgid ""
 "processing at one of the locations specified failed. Check the error stack "
 "to find out the reason."
 msgstr ""
+"L'opération a échoué parce que B<CAfile> et B<CApath> sont NULL ou le "
+"traitement d'un des emplacements spécifié a échoué. Vérifiez la pile "
+"d'erreur pour découvrir la raison."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_load_verify_locations.pod:111
@@ -960,6 +1084,12 @@ msgid ""
 "SSL_CTX_add_extra_chain_cert(3)>, L<SSL_CTX_set_cert_store(3)|"
 "SSL_CTX_set_cert_store(3)>"
 msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_CTX_set_client_CA_list(3)|"
+"SSL_CTX_set_client_CA_list(3)>, L<SSL_get_client_CA_list(3)|"
+"SSL_get_client_CA_list(3)>, L<SSL_CTX_use_certificate(3)|"
+"SSL_CTX_use_certificate(3)>, L<SSL_CTX_add_extra_chain_cert(3)|"
+"SSL_CTX_add_extra_chain_cert(3)>, L<SSL_CTX_set_cert_store(3)|"
+"SSL_CTX_set_cert_store(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:5
@@ -967,15 +1097,18 @@ msgid ""
 "SSL_CTX_new - create a new SSL_CTX object as framework for TLS/SSL enabled "
 "functions"
 msgstr ""
+"SSL_CTX_new - Créer un nouvel objet B<SSL_CTX> comme cadre pour les "
+"fonctions avec TLS/SSL actif."
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_new.pod:11
-#, fuzzy, no-wrap
-#| msgid "SSL_CTX *B<SSL_CTX_new>(SSL_METHOD *meth);"
+#, no-wrap
 msgid ""
 " SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);\n"
 "\n"
-msgstr "SSL_CTX *B<SSL_CTX_new>(SSL_METHOD *I<meth>);"
+msgstr ""
+" SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:15
@@ -983,6 +1116,8 @@ msgid ""
 "SSL_CTX_new() creates a new B<SSL_CTX> object as framework to establish TLS/"
 "SSL enabled connections."
 msgstr ""
+"B<SSL_CTX_new>() crée un nouvel objet B<SSL_CTX> comme cadre pour établir "
+"des connexions avec TLS/SSL actif."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:20
@@ -991,12 +1126,17 @@ msgid ""
 "a generic type (for client and server use), a server only type, and a client "
 "only type. B<method> can be of the following types:"
 msgstr ""
+"L'objet B<SSL_CTX> utilise B<method> comme méthode de connexion. Il existe "
+"des méthodes de type générique (pour utilisation client et serveur), un type "
+"uniquement serveur et un type uniquement client. B<method> peut appartenir "
+"aux types suivants :"
 
 #. type: =item
 #: C/ssl/SSL_CTX_new.pod:26
 msgid ""
 "SSLv2_method(void), SSLv2_server_method(void), SSLv2_client_method(void)"
 msgstr ""
+"SSLv2_method(void), SSLv2_server_method(void), SSLv2_client_method(void)"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:28
@@ -1006,12 +1146,17 @@ msgid ""
 "also indicate that it only understand SSLv2. A server will only understand "
 "SSLv2 client hello messages."
 msgstr ""
+"Une connexion TLS/SSL établie avec ces méthodes ne comprendra que le "
+"protocole SSLv2. Un client enverra des messages hello client SSLv2 et "
+"indiquera qu'il ne comprend que SSLv2. Un serveur ne comprendra que les "
+"messages hello du client SSLv2."
 
 #. type: =item
 #: C/ssl/SSL_CTX_new.pod:33
 msgid ""
 "SSLv3_method(void), SSLv3_server_method(void), SSLv3_client_method(void)"
 msgstr ""
+"SSLv3_method(void), SSLv3_server_method(void), SSLv3_client_method(void)"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:35
@@ -1023,12 +1168,19 @@ msgid ""
 "SSLv2 client hello messages which are widely used for compatibility reasons, "
 "see SSLv23_*_method()."
 msgstr ""
+"Un connexion TLS/SSL établie avec ces méthodes ne comprendra que le "
+"protocole SSLv3. Un client enverra des messages hello client SSLv3 et "
+"indiquera qu'il ne comprend que SSLv3. Un serveur ne comprendra que les "
+"messages hello client SSLv3. Cela veut surtout dire qu'il ne comprendra pas "
+"les messages hello client SSLv2 qui sont couramment utilisés pour des "
+"raisons de compatibilité. Voir B<SSLv23_*_method>()."
 
 #. type: =item
 #: C/ssl/SSL_CTX_new.pod:42
 msgid ""
 "TLSv1_method(void), TLSv1_server_method(void), TLSv1_client_method(void)"
 msgstr ""
+"TLSv1_method(void), TLSv1_server_method(void), TLSv1_client_method(void)"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:44
@@ -1041,12 +1193,20 @@ msgid ""
 "see SSLv23_*_method(). It will also not understand SSLv3 client hello "
 "messages."
 msgstr ""
+"Une connexion  TLS/SSL établie avec ces méthodes ne comprendra que le "
+"protocole TLSv1. Un client enverra des messages hello TLSv1 et indiquera "
+"qu'il ne comprend que TLSv1. Un serveur ne comprendra que les messages hello "
+"client TLSv1. Cela veut surtout dire qu'il ne comprendra pas les messages "
+"hello client SSLv2 qui sont couramment utilisés pour des raisons de "
+"compatibilité. Voir B<SSLv23_*_method>(). Il ne comprendra pas non plus les "
+"messages hello client SSLv3."
 
 #. type: =item
 #: C/ssl/SSL_CTX_new.pod:52
 msgid ""
 "SSLv23_method(void), SSLv23_server_method(void), SSLv23_client_method(void)"
 msgstr ""
+"SSLv23_method(void), SSLv23_server_method(void), SSLv23_client_method(void)"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:54
@@ -1054,6 +1214,8 @@ msgid ""
 "A TLS/SSL connection established with these methods may understand the "
 "SSLv2, SSLv3, TLSv1, TLSv1.1 and TLSv1.2 protocols."
 msgstr ""
+"Une connexion TLS/SSL établie avec ces méthodes peut comprendre les "
+"protocoles SSLv2, SSLv3, TLSv1, TLSv1.1 et TLSv1.2 "
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:57
@@ -1065,6 +1227,13 @@ msgid ""
 "fallback to SSLv3. A server will support SSLv3, TLSv1, TLSv1.1 and TLSv1.2 "
 "protocols. This is the best choice when compatibility is a concern."
 msgstr ""
+"Si la liste de chiffrements ne contient pas d’ensemble de chiffrements SSLv2 "
+"(la liste par défaut de chiffrements n'existe pas), ou si des extensions "
+"sont nécessaires (par exemple le nom de serveur), un client enverra des "
+"messages hello client TLSv1 incluant des extensions et indiquera qu'il "
+"comprend aussi TLSv1.1, TLSv1.2 et permettra de se rabattre sur SSLv3. Un "
+"serveur gérera les protocoles SSLv3, TLSv1, TLSv1.1 et TLSv1.2. C'est le "
+"meilleur choix s'il y a un souci de compatibilité."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:64
@@ -1075,6 +1244,12 @@ msgid ""
 "insecurity of SSLv2 and the limited nature of the SSLv2 client hello "
 "prohibiting the use of extensions."
 msgstr ""
+"S'il existe des ensembles de chiffrement SSLv2 dans la liste de "
+"chiffrements, et si aucune extension n'est nécessaire, les clients "
+"utiliseront des hellos compatibles SSLv2, et SSLv2 sera accepté par les "
+"serveurs. Cela n'est B<pas> recommandé en raison du caractère non sécurisé "
+"de SSLv2 et de la nature limitée du hello client SSLv2 qui interdit "
+"l'utilisation d'extensions."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:72
@@ -1086,6 +1261,13 @@ msgid ""
 "SSLv23_server_method() and be able to negotiate with all possible clients, "
 "but to only allow newer protocols like TLSv1, TLSv1.1 or TLS v1.2."
 msgstr ""
+"La liste des protocoles disponibles peut être ultérieurement limitée en "
+"utilisant les options B<SSL_OP_NO_SSLv2>, B<SSL_OP_NO_SSLv3>, "
+"B<SSL_OP_NO_TLSv1>, B<SSL_OP_NO_TLSv1_1> et B<SSL_OP_NO_TLSv1_2> des "
+"fonctions B<SSL_CTX_set_options>() ou B<SSL_set_options>(). Avec ces "
+"options, il est possible de choisir B<SSLv23_server_method>() par exemple et "
+"de pouvoir négocier avec tous les clients possibles, mais de n'autoriser que "
+"les protocoles les plus récents comme TLSv1, TLSv1.1 ou TLS v1.2."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:79
@@ -1093,6 +1275,9 @@ msgid ""
 "Applications which never want to support SSLv2 (even is the cipher string is "
 "configured to use SSLv2 ciphersuites) can set SSL_OP_NO_SSLv2."
 msgstr ""
+"Des applications qui ne veulent jamais prendre en charge SSLv2 (même si la "
+"chaîne de chiffrement est configurée pour utiliser les ensembles de "
+"chiffrement SSLv2) peuvent utiliser l'option B<SSL_OP_NO_SSLv2>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:82
@@ -1101,6 +1286,9 @@ msgid ""
 "the callbacks, the keys and certificates and the options to its default "
 "values."
 msgstr ""
+"B<SSL_CTX_new>() initialise la liste de chiffrements, la configuration du "
+"cache de sessions, le rappel, les clés et les certificats, ainsi que les "
+"options de ses valeurs par défaut."
 
 #. type: =item
 #: C/ssl/SSL_CTX_new.pod:92
@@ -1113,16 +1301,18 @@ msgid ""
 "The creation of a new SSL_CTX object failed. Check the error stack to find "
 "out the reason."
 msgstr ""
+"La création d'un nouvel objet B<SSL_CTX> a échoué. Vérifiez la pile d'erreur "
+"pour découvrir la raison de l'échec."
 
 #. type: =item
 #: C/ssl/SSL_CTX_new.pod:97
 msgid "Pointer to an SSL_CTX object"
-msgstr ""
+msgstr "Pointeur vers un objet B<SSL_CTX>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:99
 msgid "The return value points to an allocated SSL_CTX object."
-msgstr ""
+msgstr "La valeur renvoyée pointe vers un objet B<SSL_CTX> alloué."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_new.pod:105
@@ -1130,6 +1320,8 @@ msgid ""
 "L<SSL_CTX_free(3)|SSL_CTX_free(3)>, L<SSL_accept(3)|SSL_accept(3)>, L<ssl(3)|"
 "ssl(3)>, L<SSL_set_connect_state(3)|SSL_set_connect_state(3)>"
 msgstr ""
+"L<SSL_CTX_free(3)|SSL_CTX_free(3)>, L<SSL_accept(3)|SSL_accept(3)>, L<ssl(3)|"
+"ssl(3)>, L<SSL_set_connect_state(3)|SSL_set_connect_state(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:5
@@ -1141,6 +1333,12 @@ msgid ""
 "SSL_CTX_sess_timeouts, SSL_CTX_sess_cache_full - obtain session cache "
 "statistics"
 msgstr ""
+"SSL_CTX_sess_number, SSL_CTX_sess_connect, SSL_CTX_sess_connect_good, "
+"SSL_CTX_sess_connect_renegotiate, SSL_CTX_sess_accept, "
+"SSL_CTX_sess_accept_good, SSL_CTX_sess_accept_renegotiate, "
+"SSL_CTX_sess_hits, SSL_CTX_sess_cb_hits, SSL_CTX_sess_misses, "
+"SSL_CTX_sess_timeouts, SSL_CTX_sess_cache_full - Obtenir des statistiques du "
+"cache de sessions"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_sess_number.pod:11
@@ -1160,6 +1358,19 @@ msgid ""
 " long SSL_CTX_sess_cache_full(SSL_CTX *ctx);\n"
 "\n"
 msgstr ""
+" long SSL_CTX_sess_number(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_connect(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_connect_good(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_connect_renegotiate(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_accept(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_accept_good(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_accept_renegotiate(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_hits(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_cb_hits(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_misses(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_timeouts(SSL_CTX *ctx);\n"
+" long SSL_CTX_sess_cache_full(SSL_CTX *ctx);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:26
@@ -1167,6 +1378,8 @@ msgid ""
 "SSL_CTX_sess_number() returns the current number of sessions in the internal "
 "session cache."
 msgstr ""
+"B<SSL_CTX_sess_number>() renvoie le nombre actuel de sessions dans le cache "
+"de sessions interne."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:29
@@ -1174,6 +1387,8 @@ msgid ""
 "SSL_CTX_sess_connect() returns the number of started SSL/TLS handshakes in "
 "client mode."
 msgstr ""
+"B<SSL_CTX_sess_connect>() renvoie le nombre actuel d'initialisations de "
+"connexion SSL/TLS démarrées en mode client."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:32
@@ -1181,6 +1396,8 @@ msgid ""
 "SSL_CTX_sess_connect_good() returns the number of successfully established "
 "SSL/TLS sessions in client mode."
 msgstr ""
+"B<SSL_CTX_sess_connect_good>() renvoie le nombre de sessions SSL/TLS "
+"établies avec succès en mode client."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:35
@@ -1188,6 +1405,8 @@ msgid ""
 "SSL_CTX_sess_connect_renegotiate() returns the number of start "
 "renegotiations in client mode."
 msgstr ""
+"B<SSL_CTX_sess_connect_renegotiate>() renvoie le nombre de renégociations "
+"démarrées en mode client."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:38
@@ -1195,6 +1414,8 @@ msgid ""
 "SSL_CTX_sess_accept() returns the number of started SSL/TLS handshakes in "
 "server mode."
 msgstr ""
+"B<SSL_CTX_sess_accept>() renvoie le nombre d'initialisations de connexion "
+"SSL/TLS démarrées en mode serveur."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:41
@@ -1202,6 +1423,8 @@ msgid ""
 "SSL_CTX_sess_accept_good() returns the number of successfully established "
 "SSL/TLS sessions in server mode."
 msgstr ""
+"B<SSL_CTX_sess_accept_good>() renvoie le nombre de sessions SSL/TLS établies "
+"avec succès en mode serveur."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:44
@@ -1209,6 +1432,8 @@ msgid ""
 "SSL_CTX_sess_accept_renegotiate() returns the number of start renegotiations "
 "in server mode."
 msgstr ""
+"B<SSL_CTX_sess_accept_renegotiate>() renvoie le nombre de renégociations "
+"démarrées en mode serveur."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:47
@@ -1218,6 +1443,10 @@ msgid ""
 "successfully reused is counted as a hit. In server mode a session "
 "successfully retrieved from internal or external cache is counted as a hit."
 msgstr ""
+"B<SSL_CTX_sess_hits>() renvoie le nombre de sessions réutilisées avec "
+"succès. En mode client, une session configurée avec L<SSL_set_session(3)|"
+"SSL_set_session(3)>, réutilisée, est comptée. En mode serveur, une session "
+"récupérée du cache externe ou interne est comptée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:52
@@ -1225,6 +1454,8 @@ msgid ""
 "SSL_CTX_sess_cb_hits() returns the number of successfully retrieved sessions "
 "from the external session cache in server mode."
 msgstr ""
+"B<SSL_CTX_sess_cb_hits>() renvoie le nombre des sessions récupérées avec "
+"succès à partir du cache de sessions externe en mode serveur."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:55
@@ -1232,6 +1463,9 @@ msgid ""
 "SSL_CTX_sess_misses() returns the number of sessions proposed by clients "
 "that were not found in the internal session cache in server mode."
 msgstr ""
+"B<SSL_CTX_sess_misses>() renvoie le nombre de sessions proposées par les "
+"clients qui n'ont pas été trouvées dans le cache de sessions interne en mode "
+"serveur."
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_sess_number.pod:58
@@ -1243,6 +1477,11 @@ msgid ""
 "the SSL_CTX_sess_hits() count.\n"
 "\n"
 msgstr ""
+"B<SSL_CTX_sess_timeouts>() renvoie le nombre de sessions proposées par des\n"
+"clients et trouvées dans le cache de sessions interne ou externe en mode\n"
+"serveur, mais invalidées à cause du délai d'expiration. Ces sessions ne sont\n"
+"pas incluses dans le compte de B<SSL_CTX_sess_hits>().\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:63
@@ -1250,11 +1489,14 @@ msgid ""
 "SSL_CTX_sess_cache_full() returns the number of sessions that were removed "
 "because the maximum session cache size was exceeded."
 msgstr ""
+"B<SSL_CTX_sess_cache_full>() renvoie le nombre de sessions qui ont été "
+"supprimées parce que la taille maximale du cache de sessions a été dépassée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:68
 msgid "The functions return the values indicated in the DESCRIPTION section."
 msgstr ""
+"Les fonctions renvoient les valeurs indiquées dans la partie DESCRIPTION."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_number.pod:72
@@ -1263,6 +1505,9 @@ msgid ""
 "L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)> "
 "L<SSL_CTX_sess_set_cache_size(3)|SSL_CTX_sess_set_cache_size(3)>"
 msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_set_session(3)|SSL_set_session(3)>, "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)> "
+"L<SSL_CTX_sess_set_cache_size(3)|SSL_CTX_sess_set_cache_size(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_cache_size.pod:5
@@ -1292,7 +1537,7 @@ msgid ""
 "context B<ctx> to B<t>."
 msgstr ""
 "B<SSL_CTX_sess_set_cache_size>() définit la taille du cache de sessions "
-"interne du contexte B<ctx> à B<t>."
+"interne du contexte I<ctx> à I<t>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_cache_size.pod:19
@@ -1374,6 +1619,10 @@ msgid ""
 "SSL_CTX_sess_get_remove_cb, SSL_CTX_sess_get_get_cb - provide callback "
 "functions for server side external session caching"
 msgstr ""
+"SSL_CTX_sess_set_new_cb, SSL_CTX_sess_set_remove_cb, "
+"SSL_CTX_sess_set_get_cb, SSL_CTX_sess_get_new_cb, "
+"SSL_CTX_sess_get_remove_cb, SSL_CTX_sess_get_get_cb - Fournir des fonctions "
+"de rappel pour la mise en cache de sessions externe du côté serveur"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:11
@@ -1387,6 +1636,13 @@ msgid ""
 "\t   SSL_SESSION (*get_session_cb)(SSL *, unsigned char *, int, int *));\n"
 "\n"
 msgstr ""
+" void SSL_CTX_sess_set_new_cb(SSL_CTX *ctx,\n"
+"\t\t\t      int (*new_session_cb)(SSL *, SSL_SESSION *));\n"
+" void SSL_CTX_sess_set_remove_cb(SSL_CTX *ctx,\n"
+"\t   void (*remove_session_cb)(SSL_CTX *ctx, SSL_SESSION *));\n"
+" void SSL_CTX_sess_set_get_cb(SSL_CTX *ctx,\n"
+"\t   SSL_SESSION (*get_session_cb)(SSL *, unsigned char *, int, int *));\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:18
@@ -1397,6 +1653,10 @@ msgid ""
 " SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx))(struct ssl_st *ssl, unsigned char *data, int len, int *copy);\n"
 "\n"
 msgstr ""
+" int (*SSL_CTX_sess_get_new_cb(SSL_CTX *ctx))(struct ssl_st *ssl, SSL_SESSION *sess);\n"
+" void (*SSL_CTX_sess_get_remove_cb(SSL_CTX *ctx))(struct ssl_ctx_st *ctx, SSL_SESSION *sess);\n"
+" SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx))(struct ssl_st *ssl, unsigned char *data, int len, int *copy);\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:22
@@ -1408,6 +1668,11 @@ msgid ""
 "\t       int len, int *copy);\n"
 "\n"
 msgstr ""
+" int (*new_session_cb)(struct ssl_st *ssl, SSL_SESSION *sess);\n"
+" void (*remove_session_cb)(struct ssl_ctx_st *ctx, SSL_SESSION *sess);\n"
+" SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,\n"
+"\t       int len, int *copy);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:29
@@ -1415,6 +1680,8 @@ msgid ""
 "SSL_CTX_sess_set_new_cb() sets the callback function, which is automatically "
 "called whenever a new session was negotiated."
 msgstr ""
+"B<SSL_CTX_sess_set_new_cb>() configure la fonction de rappel qui est "
+"automatiquement appelée chaque fois qu'une nouvelle session a été négociée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:32
@@ -1424,6 +1691,10 @@ msgid ""
 "because it is considered faulty or the session has become obsolete because "
 "of exceeding the timeout value."
 msgstr ""
+"B<SSL_CTX_sess_set_remove_cb>() configure la fonction de rappel qui est "
+"automatiquement appelée chaque fois qu'une session a été supprimée par le "
+"moteur SSL, parce qu'elle est considérée fautive ou parce que la session est "
+"devenue obsolète par dépassement de la valeur du délai d'expiration."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:37
@@ -1434,6 +1705,11 @@ msgid ""
 "L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>).  "
 "(SSL/TLS server only.)"
 msgstr ""
+"B<SSL_CTX_sess_set_get_cb>() configure la fonction de rappel qui est appelée "
+"chaque fois qu'un client SSL/TLS a proposé de reprendre une session mais "
+"qu'elle ne peut pas être trouvée dans le cache de sessions interne (voir "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>), "
+"(seulement pour les serveurs SSL/TLS)"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:43
@@ -1443,6 +1719,10 @@ msgid ""
 "provided callback functions. If a callback function has not been set, the "
 "NULL pointer is returned."
 msgstr ""
+"B<SSL_CTX_sess_get_new_cb>(), B<SSL_CTX_sess_get_remove_cb>(), et "
+"B<SSL_CTX_sess_get_get_cb>() permettent de récupérer les pointeurs de "
+"fonction des fonctions de rappel fournies. Si une fonction de rappel n'a pas "
+"été configurée, le pointeur NULL est renvoyé."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:50
@@ -1452,6 +1732,11 @@ msgid ""
 "callback functions, session can be saved to disk or put into a database "
 "using the L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)> interface."
 msgstr ""
+"Afin de permettre la mise en cache externe de session, la synchronisation "
+"avec le cache interne de session est réalisée par les fonctions de rappel."
+"Dans les fonctions de rappel, la session peut être sauvegardée sur le disque "
+"ou mise dans une base de données en utilisant l'interface "
+"L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:55
@@ -1462,6 +1747,12 @@ msgid ""
 "B<ssl> connection and the ssl session B<sess>. If the callback returns B<0>, "
 "the session will be immediately removed again."
 msgstr ""
+"La fonction B<new_session_cb>() est appelée chaque fois qu'une nouvelle "
+"session a été négociée et que la mise en cache de sessions est activée (voir "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>). La "
+"fonction B<new_session_cb>() est passée à la connexion I<ssl> et à la "
+"session SSL B<sess>. Si le rappel renvoie B<0>, la session sera à nouveau "
+"immédiatement supprimée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:62
@@ -1473,6 +1764,13 @@ msgid ""
 "SSL_CTX_free(3)> is called. The remove_session_cb() is passed the B<ctx> and "
 "the ssl session B<sess>. It does not provide any feedback."
 msgstr ""
+"La fonction B<remove_session_cb>() est appelée chaque fois que le moteur SSL "
+"supprime une session du cache interne. Cela se produit quand la session est "
+"supprimée parce qu'elle est expirée ou quand une connexion n'a pas été "
+"fermée proprement. Cela arrive aussi pour toutes les sessions dans le cache "
+"de sessions interne lorsque L<SSL_CTX_free(3)|SSL_CTX_free(3)> est appelée. "
+"La fonction B<remove_session_cb>() est passée à I<ctx> et à la session SSL "
+"I<sess>. Elle ne renvoie aucun message."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:69
@@ -1486,6 +1784,16 @@ msgid ""
 "reference count is not incremented and therefore the session must not be "
 "explicitly freed with L<SSL_SESSION_free(3)|SSL_SESSION_free(3)>."
 msgstr ""
+"La fonction B<get_session_cb>() est seulement appelée sur les serveurs SSL/"
+"TLS avec l'identifiant de session proposé par le client. La fonction "
+"B<get_session_cb>() est toujours appelée, même si la mise en cache de "
+"session a été désactivée. La fonction B<get_session_cb>() est passée à la "
+"connexion I<ssl>, l'identifiant de session de longueur I<length> à "
+"l'emplacement mémoire I<data>. Avec le paramètre I<copy> le rappel peut "
+"nécessiter que le moteur SSL incrémente le compteur de références de l'objet "
+"B<SSL_SESSION>. Normalement, le compteur de références n'est pas "
+"incrémentéet ainsi la session ne doit pas être explicitement libérée avec "
+"L<SSL_SESSION_free(3)|SSL_SESSION_free(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sess_set_get_cb.pod:81
@@ -1496,6 +1804,11 @@ msgid ""
 "L<SSL_SESSION_free(3)|SSL_SESSION_free(3)>, L<SSL_CTX_free(3)|"
 "SSL_CTX_free(3)>"
 msgstr ""
+"L<ssl(3)|ssl(3)>, L<d2i_SSL_SESSION(3)|d2i_SSL_SESSION(3)>, "
+"L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>, "
+"L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)>, "
+"L<SSL_SESSION_free(3)|SSL_SESSION_free(3)>, L<SSL_CTX_free(3)|"
+"SSL_CTX_free(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sessions.pod:5
@@ -1519,7 +1832,7 @@ msgid ""
 "internal session cache for B<ctx>."
 msgstr ""
 "SSL_CTX_sessions() renvoie un pointeur vers les bases de données lhash "
-"contenant le cache interne de sessions pour B<ctx>."
+"contenant le cache interne de sessions pour I<ctx>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_sessions.pod:20
@@ -1535,8 +1848,8 @@ msgstr ""
 "données de type L<lhash(3)|lhash(3)>. Il est possible d'accéder directement "
 "à cette base de données, par exemple pour faire des recherches. En "
 "parallèle, les sessions forment une liste chaînée qui est maintenue "
-"indépendemment des opérations L<lhash(3)|lhash(3)>, de telle sorte que la "
-"base de données n'a pas à être modifié directement, mais en utilisant la "
+"indépendamment des opérations L<lhash(3)|lhash(3)>, de telle sorte que la "
+"base de données n'a pas à être modifiée directement, mais en utilisant la "
 "famille de fonctions L<SSL_CTX_add_session(3)|SSL_CTX_add_session(3)>."
 
 #. type: textblock
@@ -1564,6 +1877,16 @@ msgid ""
 "SSL_use_RSAPrivateKey_file, SSL_CTX_check_private_key, SSL_check_private_key "
 "- load certificate and key data"
 msgstr ""
+"SSL_CTX_use_certificate, SSL_CTX_use_certificate_ASN1, "
+"SSL_CTX_use_certificate_file, SSL_use_certificate, SSL_use_certificate_ASN1, "
+"SSL_use_certificate_file, SSL_CTX_use_certificate_chain_file, "
+"SSL_CTX_use_PrivateKey, SSL_CTX_use_PrivateKey_ASN1, "
+"SSL_CTX_use_PrivateKey_file, SSL_CTX_use_RSAPrivateKey, "
+"SSL_CTX_use_RSAPrivateKey_ASN1, SSL_CTX_use_RSAPrivateKey_file, "
+"SSL_use_PrivateKey_file, SSL_use_PrivateKey_ASN1, SSL_use_PrivateKey, "
+"SSL_use_RSAPrivateKey, SSL_use_RSAPrivateKey_ASN1, "
+"SSL_use_RSAPrivateKey_file, SSL_CTX_check_private_key, SSL_check_private_key "
+"- Charger les données de certificat et de clé"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_use_certificate.pod:11
@@ -1577,6 +1900,13 @@ msgid ""
 " int SSL_use_certificate_file(SSL *ssl, const char *file, int type);\n"
 "\n"
 msgstr ""
+" int SSL_CTX_use_certificate(SSL_CTX *ctx, X509 *x);\n"
+" int SSL_CTX_use_certificate_ASN1(SSL_CTX *ctx, int len, unsigned char *d);\n"
+" int SSL_CTX_use_certificate_file(SSL_CTX *ctx, const char *file, int type);\n"
+" int SSL_use_certificate(SSL *ssl, X509 *x);\n"
+" int SSL_use_certificate_ASN1(SSL *ssl, unsigned char *d, int len);\n"
+" int SSL_use_certificate_file(SSL *ssl, const char *file, int type);\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_use_certificate.pod:18
@@ -1585,6 +1915,8 @@ msgid ""
 " int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);\n"
 "\n"
 msgstr ""
+" int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_use_certificate.pod:20
@@ -1605,6 +1937,20 @@ msgid ""
 " int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);\n"
 "\n"
 msgstr ""
+" int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey);\n"
+" int SSL_CTX_use_PrivateKey_ASN1(int pk, SSL_CTX *ctx, unsigned char *d,\n"
+"\t\t\t\t long len);\n"
+" int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file, int type);\n"
+" int SSL_CTX_use_RSAPrivateKey(SSL_CTX *ctx, RSA *rsa);\n"
+" int SSL_CTX_use_RSAPrivateKey_ASN1(SSL_CTX *ctx, unsigned char *d, long len);\n"
+" int SSL_CTX_use_RSAPrivateKey_file(SSL_CTX *ctx, const char *file, int type);\n"
+" int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey);\n"
+" int SSL_use_PrivateKey_ASN1(int pk,SSL *ssl, unsigned char *d, long len);\n"
+" int SSL_use_PrivateKey_file(SSL *ssl, const char *file, int type);\n"
+" int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa);\n"
+" int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, unsigned char *d, long len);\n"
+" int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_use_certificate.pod:34
@@ -1614,6 +1960,9 @@ msgid ""
 " int SSL_check_private_key(const SSL *ssl);\n"
 "\n"
 msgstr ""
+" int SSL_CTX_check_private_key(const SSL_CTX *ctx);\n"
+" int SSL_check_private_key(const SSL *ssl);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:39
@@ -1621,6 +1970,8 @@ msgid ""
 "These functions load the certificates and private keys into the SSL_CTX or "
 "SSL object, respectively."
 msgstr ""
+"Ces fonctions chargent les certificats et les clés privés dans l'objet "
+"B<SSL_CTX> et l'objet B<SSL>, respectivement."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:42
@@ -1630,6 +1981,11 @@ msgid ""
 "created from B<ctx> with L<SSL_new(3)|SSL_new(3)> by copying, so that "
 "changes applied to B<ctx> do not propagate to already existing SSL objects."
 msgstr ""
+"La classe de fonctions B<SSL_CTX_*> charge les certificats et les clés dans "
+"l'objet B<SSL_CTX>, I<ctx>. L'information est passée aux objets B<SSL> "
+"I<ssl> créés à partir de I<ctx> avec L<SSL_new(3)|SSL_new(3)> par copie, "
+"ainsi les changements portés à I<ctx> ne se propagent pas à des objets "
+"B<SSL> déjà existants."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:47
@@ -1638,6 +1994,9 @@ msgid ""
 "specific SSL object. The specific information is kept, when L<SSL_clear(3)|"
 "SSL_clear(3)> is called for this SSL object."
 msgstr ""
+"La classe de fonctions B<SSL_*> charge seulement les certificats et les clés "
+"dans un objet B<SSL> particulier. L'information particulière est conservée "
+"lorsque L<SSL_clear(3)|SSL_clear(3)> est appelée pour cet objet B<SSL>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:51
@@ -1647,6 +2006,11 @@ msgid ""
 "needed to form the complete certificate chain can be specified using the "
 "L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)> function."
 msgstr ""
+"B<SSL_CTX_use_certificate>() charge le certificat B<x> dans I<ctx>, "
+"B<SSL_use_certificate>() charge I<x> dans I<ssl>. Le reste des certificats "
+"nécessaires pour former la chaîne complète de certificats peut être spécifié "
+"avec la fonction L<SSL_CTX_add_extra_chain_cert(3)|"
+"SSL_CTX_add_extra_chain_cert(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:58
@@ -1655,6 +2019,9 @@ msgid ""
 "memory location B<d> (with length B<len>) into B<ctx>, "
 "SSL_use_certificate_ASN1() loads the ASN1 encoded certificate into B<ssl>."
 msgstr ""
+"B<SSL_CTX_use_certificate_ASN1>() charge le certificat codé en ASN1 à partir "
+"de l'emplacement de mémoire I<d> (de longueur I<len>) dans I<ctx>, "
+"B<SSL_use_certificate_ASN1>() charge le certificat codé en ASN1 dans I<ssl>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:62
@@ -1666,6 +2033,12 @@ msgid ""
 "See the NOTES section on why SSL_CTX_use_certificate_chain_file()  should be "
 "preferred."
 msgstr ""
+"B<SSL_CTX_use_certificate_file>() charge le premier certificat stocké dans "
+"I<file> dans I<ctx>. Le format B<type> du certificat peut être précisé à "
+"partir des types connus SSL_FILETYPE_PEM, SSL_FILETYPE_ASN1. "
+"B<SSL_use_certificate_file>() charge le certificat de B<file> dans I<ssl>. "
+"Voir dans la partie NOTES pourquoi B<SSL_CTX_use_certificate_chain_file>() "
+"devrait être préférée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:69
@@ -1677,6 +2050,13 @@ msgid ""
 "ending at the highest level (root) CA.  There is no corresponding function "
 "working on a single SSL object."
 msgstr ""
+"B<SSL_CTX_use_certificate_chain_file>() charge une chaîne de certificats de "
+"I<file> dans I<ctx>. Les certificats peuvent être au format PEM et peuvent "
+"être triés d'abord en certificat du sujet (certificat du client ou du "
+"serveur réel), puis en certificats d'autorité de certification "
+"intermédiaires, le cas échéant, et pour finir en autorité de certification "
+"de plus haut niveau (racine). Il n'y a pas de fonction correspondante "
+"fonctionnant avec un objet B<SSL> simple."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:76
@@ -1691,6 +2071,16 @@ msgid ""
 "SSL_CTX_use_certificate() before setting the private key with "
 "SSL_CTX_use_PrivateKey() or SSL_use_PrivateKey()."
 msgstr ""
+"B<SSL_CTX_use_PrivateKey>() ajoute I<pkey> comme clé privée à I<ctx>. "
+"B<SSL_CTX_use_RSAPrivateKey>() ajoute la clé privée I<rsa> de type RSA à "
+"I<ctx>. B<SSL_use_PrivateKey>() ajoute I<pkey> comme clé privée à I<ssl> ; "
+"B<SSL_use_RSAPrivateKey>() ajoute I<rsa> comme clé privée de type RSA à "
+"I<ssl>. Si un certificat a déjà été configuré et que la clé privée "
+"n'appartient pas au certificat, une erreur est renvoyée. Pour changer un "
+"certificat, apparier la clé privée, le nouveau certificat doit être "
+"configuré avec B<SSL_use_certificate>() ou B<SSL_CTX_use_certificate>() "
+"avant de configurer la clé privée avec B<SSL_CTX_use_PrivateKey>() ou "
+"B<SSL_use_PrivateKey>()."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:87
@@ -1701,6 +2091,12 @@ msgid ""
 "memory location B<d> (length B<len>) to B<ctx>.  SSL_use_PrivateKey_ASN1() "
 "and SSL_use_RSAPrivateKey_ASN1() add the private key to B<ssl>."
 msgstr ""
+"B<SSL_CTX_use_PrivateKey_ASN1>() ajoute la clé privée de type I<pk> stockée "
+"à l'emplacement de mémoire I<d> (de longueur I<len>) à I<ctx>. "
+"B<SSL_CTX_use_RSAPrivateKey_ASN1>() ajoute la clé privée de type RSA stockée "
+"à l'emplacement de mémoire I<d> (de longueur I<len>) à I<ctx>. "
+"B<SSL_use_PrivateKey_ASN1>() et B<SSL_use_RSAPrivateKey_ASN1>() ajoute la "
+"clé privée à I<ssl>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:94
@@ -1713,6 +2109,14 @@ msgid ""
 "found in B<file> to B<ssl>; SSL_use_RSAPrivateKey_file() adds the first "
 "private RSA key found to B<ssl>."
 msgstr ""
+"B<SSL_CTX_use_PrivateKey_file>() ajoute la première clé privée trouvée dans "
+"B<file> à I<ctx>. Le I<type> du format du certificat doit être indiqué à "
+"partir des types connus B<SSL_FILETYPE_PEM>, B<SSL_FILETYPE_ASN1>."
+"B<SSL_CTX_use_RSAPrivateKey_file>() ajoute la première clé privée RSA "
+"trouvée dans I<file> à I<ctx>. B<SSL_use_PrivateKey_file>() ajoute la "
+"première clé privée trouvée dans I<file> à I<ssl> ; "
+"B<SSL_use_RSAPrivateKey_file>() ajoute la première clé privée RSA trouvée à "
+"I<ssl>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:102
@@ -1725,6 +2129,14 @@ msgid ""
 "check for B<ssl>. If no key/certificate was explicitly added for this "
 "B<ssl>, the last item added into B<ctx> will be checked."
 msgstr ""
+"B<SSL_CTX_check_private_key>() vérifie la cohérence d'une clé privée avec le "
+"certificat correspondant chargé dans I<ctx>. Si plus d'une paire clé/"
+"certificat (RSA/DSA) est installée, le dernier objet installé sera vérifié. "
+"Si, par exemple, le dernier objet est un certificat ou une clé RSA, la paire "
+"clé/certificat RSA sera vérifiée. B<SSL_check_private_key>() exécute la même "
+"vérification pour I<ssl>. Si aucune clé ou certificat n'ont été "
+"explicitement ajoutés pour ce I<ssl>, le dernier objet ajouté dans I<ctx> "
+"sera vérifié."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:112
@@ -1734,6 +2146,11 @@ msgid ""
 "certificate of type DSA. The certificate used depends on the cipher select, "
 "see also L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>."
 msgstr ""
+"Le magasin de certificats interne d'OpenSSL peut garder deux paires clé "
+"privée/certificat à la fois : une paire clé/certificat de type RSA et une "
+"paire clé/certificat de type DSA. Le certificat utilisé dépend du "
+"chiffrement choisi, voir aussi L<SSL_CTX_set_cipher_list(3)|"
+"SSL_CTX_set_cipher_list(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:117
@@ -1744,6 +2161,12 @@ msgid ""
 "SSL_CTX_use_certificate_chain_file() is only applicable to PEM formatting.  "
 "Files of type SSL_FILETYPE_PEM can contain more than one item."
 msgstr ""
+"Lors de la lecture des certificats et des clés privés à partir d'un fichier, "
+"les fichiers de type B<SSL_FILETYPE_ASN1> (connu aussi sous le nom B<DER>, "
+"codé en binaire) peuvent seulement contenir un certificat ou une clé privée, "
+"en conséquence B<SSL_CTX_use_certificate_chain_file>() est seulement "
+"applicable au format PEM. Les fichiers de type B<SSL_FILETYPE_PEM> peuvent "
+"contenir plus d'un objet."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:123
@@ -1759,6 +2182,19 @@ msgid ""
 "complete certificate chains even when no trusted CA storage is used or when "
 "the CA issuing the certificate shall not be added to the trusted CA storage."
 msgstr ""
+"B<SSL_CTX_use_certificate_chain_file>() ajoute le premier certificat trouvé "
+"dans le fichier au magasin de certificats. Les autres certificats sont "
+"ajoutés au magasin de certificats de chaîne utilisant "
+"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>. Il "
+"existe seulement un magasin supplémentaire de chaîne, de telle sorte que la "
+"même chaîne est ajoutée aux deux types de certificat, RSA et DSA ! Si l'on "
+"n'a pas l'intention d'utiliser deux types de certificat en même temps, il "
+"est recommandé d'utiliser B<SSL_CTX_use_certificate_chain_file>() plutôt que "
+"la fonction B<SSL_CTX_use_certificate_file>() afin de permettre "
+"l'utilisation de chaînes complètes de certificats même quand un stockage "
+"d'autorités de certification non sûr est utilisé ou quand l'autorité de "
+"certification qui émet le certificat ne pourra pas être ajoutée au stockage "
+"d'autorités de certification de confiance."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:136
@@ -1768,6 +2204,11 @@ msgid ""
 "trusted CA certificates, see L<SSL_CTX_load_verify_locations(3)|"
 "SSL_CTX_load_verify_locations(3)>."
 msgstr ""
+"Si des certificats supplémentaires sont nécessaires pour terminer la chaîne "
+"complète de certificats lors de la négociation TLS, des certificats "
+"d'autorité de certification sont aussi recherchés dans les emplacements des "
+"certificats d'autorité de certification de confiance, voir "
+"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:141
@@ -1779,6 +2220,13 @@ msgid ""
 "well from the technical point of view, it however does not make sense as the "
 "data in the certificate is considered public anyway.)"
 msgstr ""
+"Les clés privées chargées d'un fichier peuvent être chiffrées. Afin de "
+"charger avec succès des clés chiffrées, une fonction qui renvoie la phrase "
+"secrète peut avoir été fournie, voir L<SSL_CTX_set_default_passwd_cb(3)|"
+"SSL_CTX_set_default_passwd_cb(3)>. (Les fichiers de certificats pourraient "
+"aussi bien être chiffrés d'un point de vue technique, toutefois, ce n'est "
+"pas logique dans la mesure où les données contenues par le certificat sont "
+"considérées comme publiques de toute façon.)"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:151
@@ -1786,6 +2234,8 @@ msgid ""
 "On success, the functions return 1.  Otherwise check out the error stack to "
 "find out the reason."
 msgstr ""
+"En cas de réussite, les fonctions renvoient 1. Vérifiez la pile d'erreur "
+"pour découvrir la raison de l'échec sinon."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:156
@@ -1797,6 +2247,12 @@ msgid ""
 "L<SSL_CTX_set_client_cert_cb(3)|SSL_CTX_set_client_cert_cb(3)>, "
 "L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>"
 msgstr ""
+"L<ssl(3)|ssl(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_clear(3)|SSL_clear(3)>, "
+"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>, "
+"L<SSL_CTX_set_default_passwd_cb(3)|SSL_CTX_set_default_passwd_cb(3)>, "
+"L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>, "
+"L<SSL_CTX_set_client_cert_cb(3)|SSL_CTX_set_client_cert_cb(3)>, "
+"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>"
 
 #. type: =head1
 #: C/ssl/SSL_CTX_use_certificate.pod:163
@@ -1810,6 +2266,9 @@ msgid ""
 "SSL_CTX_use_PrivateKey_file() and SSL_use_PrivateKey_file() was added in "
 "0.9.8 ."
 msgstr ""
+"La gestion des clés privées à chiffrage DER (B<SSL_FILETYPE_ASN1>) dans "
+"B<SSL_CTX_use_PrivateKey_file>() et B<SSL_use_PrivateKey_file>() a été "
+"ajoutée dans la version 0.9.8 ."
 
 #. type: =end
 #: C/ssl/SSL_CTX_use_psk_identity_hint.pod:3
