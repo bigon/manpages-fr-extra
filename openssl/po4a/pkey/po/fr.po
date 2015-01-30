@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2014-10-19 14:52-0400\n"
+"POT-Creation-Date: 2015-01-30 16:06-0400\n"
 "PO-Revision-Date: 2014-10-19 16:01-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -846,7 +846,7 @@ msgstr ""
 #: C/apps/pkey.pod:130 C/apps/pkeyparam.pod:64 C/apps/pkeyutl.pod:219
 #: C/crypto/EVP_PKEY_CTX_ctrl.pod:113 C/crypto/EVP_PKEY_CTX_new.pod:44
 #: C/crypto/EVP_PKEY_cmp.pod:56 C/crypto/EVP_PKEY_decrypt.pod:80
-#: C/crypto/EVP_PKEY_derive.pod:80 C/crypto/EVP_PKEY_encrypt.pod:80
+#: C/crypto/EVP_PKEY_derive.pod:80 C/crypto/EVP_PKEY_encrypt.pod:84
 #: C/crypto/EVP_PKEY_get_default_digest.pod:30
 #: C/crypto/EVP_PKEY_keygen.pod:147 C/crypto/EVP_PKEY_new.pod:39
 #: C/crypto/EVP_PKEY_print_private.pod:44 C/crypto/EVP_PKEY_set1_RSA.pod:72
@@ -1813,7 +1813,7 @@ msgstr ""
 #. type: =head1
 #: C/crypto/EVP_PKEY_CTX_ctrl.pod:124 C/crypto/EVP_PKEY_CTX_new.pod:48
 #: C/crypto/EVP_PKEY_decrypt.pod:89 C/crypto/EVP_PKEY_derive.pod:89
-#: C/crypto/EVP_PKEY_encrypt.pod:89
+#: C/crypto/EVP_PKEY_encrypt.pod:95
 #: C/crypto/EVP_PKEY_get_default_digest.pod:37
 #: C/crypto/EVP_PKEY_keygen.pod:157 C/crypto/EVP_PKEY_new.pod:43
 #: C/crypto/EVP_PKEY_print_private.pod:49 C/crypto/EVP_PKEY_set1_RSA.pod:76
@@ -1825,7 +1825,7 @@ msgstr "HISTORIQUE"
 #. type: textblock
 #: C/crypto/EVP_PKEY_CTX_ctrl.pod:126 C/crypto/EVP_PKEY_CTX_new.pod:50
 #: C/crypto/EVP_PKEY_decrypt.pod:91 C/crypto/EVP_PKEY_derive.pod:91
-#: C/crypto/EVP_PKEY_encrypt.pod:91 C/crypto/EVP_PKEY_keygen.pod:159
+#: C/crypto/EVP_PKEY_encrypt.pod:97 C/crypto/EVP_PKEY_keygen.pod:159
 #: C/crypto/EVP_PKEY_print_private.pod:51 C/crypto/EVP_PKEY_sign.pod:104
 #: C/crypto/EVP_PKEY_verify.pod:89 C/crypto/EVP_PKEY_verify_recover.pod:101
 msgid "These functions were first added to OpenSSL 1.0.0."
@@ -2151,9 +2151,9 @@ msgstr "Déchiffrer des données en utilisant OAEP (pour les clefs RSA) :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_decrypt.pod:48 C/crypto/EVP_PKEY_derive.pod:49
-#: C/crypto/EVP_PKEY_encrypt.pod:48 C/crypto/EVP_PKEY_keygen.pod:91
-#: C/crypto/EVP_PKEY_keygen.pod:110 C/crypto/EVP_PKEY_sign.pod:53
-#: C/crypto/EVP_PKEY_verify.pod:51 C/crypto/EVP_PKEY_verify_recover.pod:56
+#: C/crypto/EVP_PKEY_keygen.pod:91 C/crypto/EVP_PKEY_keygen.pod:110
+#: C/crypto/EVP_PKEY_sign.pod:53 C/crypto/EVP_PKEY_verify.pod:51
+#: C/crypto/EVP_PKEY_verify_recover.pod:56
 #, no-wrap
 msgid ""
 " #include <openssl/evp.h>\n"
@@ -2215,7 +2215,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_decrypt.pod:70 C/crypto/EVP_PKEY_encrypt.pod:70
+#: C/crypto/EVP_PKEY_decrypt.pod:70 C/crypto/EVP_PKEY_encrypt.pod:74
 #, no-wrap
 msgid ""
 " out = OPENSSL_malloc(outlen);\n"
@@ -2225,7 +2225,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_decrypt.pod:72 C/crypto/EVP_PKEY_encrypt.pod:72
+#: C/crypto/EVP_PKEY_decrypt.pod:72 C/crypto/EVP_PKEY_encrypt.pod:76
 #, no-wrap
 msgid ""
 " if (!out)\n"
@@ -2571,21 +2571,59 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_encrypt.pod:46
-msgid "Encrypt data using OAEP (for RSA keys):"
-msgstr "Chiffrer des données en utilisant OAEP (pour les clefs RSA) :"
+msgid ""
+"Encrypt data using OAEP (for RSA keys). See also L<PEM_read_PUBKEY(3)|"
+"pem(3)> or L<d2i_X509(3)|d2i_X509(3)> for means to load a public key. You "
+"may also simply set 'eng = NULL;' to start with the default OpenSSL RSA "
+"implementation:"
+msgstr ""
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_encrypt.pod:51
-#, no-wrap
+#: C/crypto/EVP_PKEY_encrypt.pod:50
+#, fuzzy, no-wrap
+#| msgid ""
+#| " #include <openssl/evp.h>\n"
+#| " #include <openssl/rsa.h>\n"
+#| "\n"
+msgid ""
+" #include <openssl/evp.h>\n"
+" #include <openssl/rsa.h>\n"
+" #include <openssl/engine.h>\n"
+"\n"
+msgstr ""
+" #include <openssl/evp.h>\n"
+" #include <openssl/rsa.h>\n"
+"\n"
+
+#. type: verbatim
+#: C/crypto/EVP_PKEY_encrypt.pod:54
+#, fuzzy, no-wrap
+#| msgid ""
+#| " EVP_PKEY_CTX *ctx;\n"
+#| " unsigned char *out, *in;\n"
+#| " size_t outlen, inlen; \n"
+#| " EVP_PKEY *key;\n"
+#| " /* NB: assumes key in, inlen are already set up\n"
+#| "  * and that key is an RSA public key\n"
+#| "  */\n"
+#| " ctx = EVP_PKEY_CTX_new(key);\n"
+#| " if (!ctx)\n"
+#| "\t/* Error occurred */\n"
+#| " if (EVP_PKEY_encrypt_init(ctx) <= 0)\n"
+#| "\t/* Error */\n"
+#| " if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_OAEP_PADDING) <= 0)\n"
+#| "\t/* Error */\n"
+#| "\n"
 msgid ""
 " EVP_PKEY_CTX *ctx;\n"
+" ENGINE *eng;\n"
 " unsigned char *out, *in;\n"
 " size_t outlen, inlen; \n"
 " EVP_PKEY *key;\n"
-" /* NB: assumes key in, inlen are already set up\n"
+" /* NB: assumes eng, key, in, inlen are already set up,\n"
 "  * and that key is an RSA public key\n"
 "  */\n"
-" ctx = EVP_PKEY_CTX_new(key);\n"
+" ctx = EVP_PKEY_CTX_new(key,eng);\n"
 " if (!ctx)\n"
 "\t/* Error occurred */\n"
 " if (EVP_PKEY_encrypt_init(ctx) <= 0)\n"
@@ -2611,7 +2649,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_encrypt.pod:66
+#: C/crypto/EVP_PKEY_encrypt.pod:70
 #, no-wrap
 msgid ""
 " /* Determine buffer length */\n"
@@ -2625,7 +2663,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_encrypt.pod:75
+#: C/crypto/EVP_PKEY_encrypt.pod:79
 #, no-wrap
 msgid ""
 " if (EVP_PKEY_encrypt(ctx, out, &outlen, in, inlen) <= 0)\n"
@@ -2637,7 +2675,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_PKEY_encrypt.pod:78
+#: C/crypto/EVP_PKEY_encrypt.pod:82
 #, no-wrap
 msgid ""
 " /* Encrypted data is outlen bytes written to buffer out */\n"
@@ -2647,11 +2685,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/crypto/EVP_PKEY_encrypt.pod:82
+#: C/crypto/EVP_PKEY_encrypt.pod:86
+#, fuzzy
+#| msgid ""
+#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_decrypt(3)|"
+#| "EVP_PKEY_decrypt(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, "
+#| "L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
+#| "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgid ""
-"L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_decrypt(3)|"
-"EVP_PKEY_decrypt(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, "
-"L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
+"L<d2i_X509(3)|d2i_X509(3)>, L<engine(3)|engine(3)>, L<EVP_PKEY_CTX_new(3)|"
+"EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
+"L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, L<EVP_PKEY_verify(3)|"
+"EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
 "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgstr ""
 "L<B<EVP_PKEY_CTX_new>(3)|EVP_PKEY_CTX_new(3)>, L<B<EVP_PKEY_decrypt>(3)|"
@@ -4095,6 +4140,9 @@ msgstr ""
 "EVP_PKEY_encrypt(3)>, L<B<EVP_PKEY_decrypt>(3)|EVP_PKEY_decrypt(3)>, "
 "L<B<EVP_PKEY_sign>(3)|EVP_PKEY_sign(3)>, L<B<EVP_PKEY_verify>(3)|"
 "EVP_PKEY_verify(3)>, L<B<EVP_PKEY_derive>(3)|EVP_PKEY_derive(3)>"
+
+#~ msgid "Encrypt data using OAEP (for RSA keys):"
+#~ msgstr "Chiffrer des données en utilisant OAEP (pour les clefs RSA) :"
 
 #~ msgid ""
 #~ "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_encrypt(3)|"
