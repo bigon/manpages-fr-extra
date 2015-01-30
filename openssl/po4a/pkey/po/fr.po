@@ -1,13 +1,13 @@
 # French translations for the openssl package
-# Copyright (C) 2012-2014 Debian French l10n team <debian-l10n-french@lists.debian.org>
+# Copyright (C) 2012-2015 Debian French l10n team <debian-l10n-french@lists.debian.org>
 # This file is distributed under the same license as the openssl package.
 #
-# David Prévot <david@tilapin.org>, 2012-2014.
+# David Prévot <david@tilapin.org>, 2012-2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-01-30 16:06-0400\n"
-"PO-Revision-Date: 2014-10-19 16:01-0400\n"
+"PO-Revision-Date: 2015-01-30 16:30-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -2577,14 +2577,15 @@ msgid ""
 "may also simply set 'eng = NULL;' to start with the default OpenSSL RSA "
 "implementation:"
 msgstr ""
+"Chiffrer des données en utilisant OAEP (pour les clefs RSA). Consultez "
+"également L<B<PEM_read_PUBKEY>(3)|pem(3)> ou L<B<d2i_X509>(3)|d2i_X509(3)> "
+"pour différents moyens de charger une clef publique. Simplement définir "
+"« eng = NULL; » permet aussi de commencer avec l’implémentation RSA "
+"d’OpenSSL par défaut :"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_encrypt.pod:50
-#, fuzzy, no-wrap
-#| msgid ""
-#| " #include <openssl/evp.h>\n"
-#| " #include <openssl/rsa.h>\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " #include <openssl/evp.h>\n"
 " #include <openssl/rsa.h>\n"
@@ -2593,27 +2594,12 @@ msgid ""
 msgstr ""
 " #include <openssl/evp.h>\n"
 " #include <openssl/rsa.h>\n"
+" #include <openssl/engine.h>\n"
 "\n"
 
 #. type: verbatim
 #: C/crypto/EVP_PKEY_encrypt.pod:54
-#, fuzzy, no-wrap
-#| msgid ""
-#| " EVP_PKEY_CTX *ctx;\n"
-#| " unsigned char *out, *in;\n"
-#| " size_t outlen, inlen; \n"
-#| " EVP_PKEY *key;\n"
-#| " /* NB: assumes key in, inlen are already set up\n"
-#| "  * and that key is an RSA public key\n"
-#| "  */\n"
-#| " ctx = EVP_PKEY_CTX_new(key);\n"
-#| " if (!ctx)\n"
-#| "\t/* Error occurred */\n"
-#| " if (EVP_PKEY_encrypt_init(ctx) <= 0)\n"
-#| "\t/* Error */\n"
-#| " if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_OAEP_PADDING) <= 0)\n"
-#| "\t/* Error */\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " EVP_PKEY_CTX *ctx;\n"
 " ENGINE *eng;\n"
@@ -2633,13 +2619,14 @@ msgid ""
 "\n"
 msgstr ""
 " EVP_PKEY_CTX *ctx;\n"
+" ENGINE *eng;\n"
 " unsigned char *out, *in;\n"
 " size_t outlen, inlen; \n"
 " EVP_PKEY *key;\n"
-" /* Remarque : key, in et inlen sont supposées\n"
+" /* Remarque : eng, key, in et inlen sont supposées\n"
 "  * déjà définies, avec key une clef publique RSA\n"
 "  */\n"
-" ctx = EVP_PKEY_CTX_new(key);\n"
+" ctx = EVP_PKEY_CTX_new(key,eng);\n"
 " if (!ctx)\n"
 "\t/* Une erreur est survenue */\n"
 " if (EVP_PKEY_encrypt_init(ctx) <= 0)\n"
@@ -2686,12 +2673,6 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_PKEY_encrypt.pod:86
-#, fuzzy
-#| msgid ""
-#| "L<EVP_PKEY_CTX_new(3)|EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_decrypt(3)|"
-#| "EVP_PKEY_decrypt(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, "
-#| "L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
-#| "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgid ""
 "L<d2i_X509(3)|d2i_X509(3)>, L<engine(3)|engine(3)>, L<EVP_PKEY_CTX_new(3)|"
 "EVP_PKEY_CTX_new(3)>, L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, "
@@ -2699,6 +2680,7 @@ msgid ""
 "EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
 "EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
 msgstr ""
+"L<B<d2i_X509>(3)|d2i_X509(3)>, L<B<engine>(3)|engine(3)>, "
 "L<B<EVP_PKEY_CTX_new>(3)|EVP_PKEY_CTX_new(3)>, L<B<EVP_PKEY_decrypt>(3)|"
 "EVP_PKEY_decrypt(3)>, L<B<EVP_PKEY_sign>(3)|EVP_PKEY_sign(3)>, "
 "L<B<EVP_PKEY_verify>(3)|EVP_PKEY_verify(3)>, L<B<EVP_PKEY_verify_recover>(3)|"
