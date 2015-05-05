@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-05 17:54-0400\n"
-"PO-Revision-Date: 2015-01-30 16:26-0400\n"
+"PO-Revision-Date: 2015-05-05 18:19-0400\n"
 "Last-Translator: Celia Boudjemai <celisou2008@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -580,10 +580,8 @@ msgstr ""
 
 #. type: =head2
 #: C/apps/config.pod:193
-#, fuzzy
-#| msgid "ENGINE CONFIGURATION MODULE"
 msgid "EVP CONFIGURATION MODULE"
-msgstr "MODULE DE CONFIGURATION DU MOTEUR"
+msgstr "MODULE DE CONFIGURATION EVP"
 
 #. type: textblock
 #: C/apps/config.pod:195
@@ -933,20 +931,11 @@ msgstr "SYNOPSIS"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:12
-#, fuzzy
-#| msgid "B<c_rehash> [ I<directory>...]"
 msgid "B<c_rehash> B<[-old]> B<[-h]> B<[-n]> B<[-v]> [ I<directory>...]"
-msgstr "B<c_rehash> [I<répertoire> ...]"
+msgstr "B<c_rehash> [B<-old>] [B<-h>] [B<-n>] [B<-v>] [I<répertoire> ...]"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:21
-#, fuzzy
-#| msgid ""
-#| "B<c_rehash> scans directories and calculates a hash value of each C<.pem> "
-#| "file in the specified directory list and creates symbolic links for each "
-#| "file, where the name of the link is the hash value.  This utility is "
-#| "useful as many programs that use OpenSSL require directories to be set up "
-#| "like this in order to find certificates."
 msgid ""
 "B<c_rehash> scans directories and calculates a hash value of each C<.pem>, "
 "C<.crt>, C<.cer>, or C<.crl> file in the specified directory list and "
@@ -956,11 +945,12 @@ msgid ""
 "to be set up like this in order to find certificates."
 msgstr ""
 "B<c_rehash> parcourt les répertoires et calcule une valeur de hachage de "
-"chaque fichier I<.pem> dans la liste de répertoires indiqués puis crée des "
-"liens symboliques pour chacun de ces fichiers, où le nom du lien est la "
-"valeur du hachage. Cet utilitaire permet à beaucoup de programmes qui "
-"utilisent OpenSSL de trouver les certificats avec des répertoires configurés "
-"de la sorte."
+"chaque fichier I<.pem>, I<.crt>, I<.cer> ou I<.crl> dans la liste de "
+"répertoires indiqués puis crée des liens symboliques pour chacun de ces "
+"fichiers, où le nom du lien est la valeur du hachage (si la plate-forme ne "
+"permet pas l’utilisation de liens symboliques, une copie est faite). Cet "
+"utilitaire permet à beaucoup de programmes qui utilisent OpenSSL de trouver "
+"les certificats avec des répertoires configurés de la sorte."
 
 # NOTE: s/shold/should/
 #. type: textblock
@@ -981,16 +971,6 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/c_rehash.pod:36
-#, fuzzy
-#| msgid ""
-#| "In order for a directory to be processed, the user must have write "
-#| "permissions on that directory, otherwise it will be skipped.  The links "
-#| "created are of the form C<HHHHHHHH.D>, where each B<H> is a hexadecimal "
-#| "character and B<D> is a single decimal digit.  When processing a "
-#| "directory, B<c_rehash> will first remove all links that have a name in "
-#| "that syntax. If you have links in that format used for other purposes, "
-#| "they will be removed.  Hashes for CRL's look similar except the letter "
-#| "B<r> appears after the period, like this: C<HHHHHHHH.rD>."
 msgid ""
 "In order for a directory to be processed, the user must have write "
 "permissions on that directory, otherwise it will be skipped.  The links "
@@ -1008,9 +988,10 @@ msgstr ""
 "seul chiffre décimal. Lors du traitement d’un répertoire, B<c_rehash> "
 "commencera par supprimer tous les liens qui ont un nom correspondant à cette "
 "syntaxe. Si des liens de cette forme sont utilisés pour autre chose, ils "
-"seront supprimés. Les hachages de listes de révocations de certificat "
-"ressemblent à cela, à part que la lettre B<r> est présente après le point, "
-"comme ceci : I<HHHHHHHH>B<.r>I<D>."
+"seront supprimés. Pour sauter l’étape se suppression, utilisez l’option B<-"
+"n>. Les hachages de listes de révocations de certificat ressemblent à cela, "
+"à part que la lettre B<r> est présente après le point, comme ceci : "
+"I<HHHHHHHH>B<.r>I<D>."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:47
@@ -1026,16 +1007,12 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/c_rehash.pod:52
-#, fuzzy
-#| msgid ""
-#| "A warning will also be displayed if there are B<.pem> files that cannot "
-#| "be parsed as either a certificate or a CRL."
 msgid ""
 "A warning will also be displayed if there are files that cannot be parsed as "
 "either a certificate or a CRL."
 msgstr ""
-"Un avertissement sera aussi affiché si un fichier I<.pem> ne peut pas être "
-"traité comme un certificat ou comme une liste de révocations de certificat."
+"Un avertissement sera aussi affiché si un fichier ne peut pas être traité "
+"comme un certificat ou comme une liste de révocations de certificat."
 
 #. type: textblock
 #: C/apps/c_rehash.pod:55
@@ -1053,33 +1030,24 @@ msgstr ""
 
 #. type: verbatim
 #: C/apps/c_rehash.pod:61
-#, fuzzy, no-wrap
-#| msgid ""
-#| "  $OPENSSL x509 -hash -fingerprint -noout -in FFFFFF\n"
-#| "  $OPENSSL crl -hash -fingerprint -noout -in FFFFFF\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "  $OPENSSL x509 -hash -fingerprint -noout -in FILENAME\n"
 "  $OPENSSL crl -hash -fingerprint -noout -in FILENAME\n"
 "\n"
 msgstr ""
-"  $OPENSSL x509 -hash -fingerprint -noout -in FFFFFF\n"
-"  $OPENSSL crl -hash -fingerprint -noout -in FFFFFF\n"
+"  $OPENSSL x509 -hash -fingerprint -noout -in FICHIER\n"
+"  $OPENSSL crl -hash -fingerprint -noout -in FICHIER\n"
 "\n"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:64
-#, fuzzy
-#| msgid ""
-#| "where B<FFFFFF> is the filename. It must output the hash of the file on "
-#| "the first line, and the fingerprint on the second, optionally prefixed "
-#| "with some text and an equals sign."
 msgid ""
 "where B<FILENAME> is the filename. It must output the hash of the file on "
 "the first line, and the fingerprint on the second, optionally prefixed with "
 "some text and an equals sign."
 msgstr ""
-"où I<FFFFFF> est le nom du fichier. Le résultat doit contenir le hachage du "
+"où I<FICHIER> est le nom du fichier. Le résultat doit contenir le hachage du "
 "fichier en première ligne et l’empreinte en deuxième ligne, facultativement "
 "précédés de texte et d’un signe égal."
 
@@ -1092,10 +1060,8 @@ msgstr "OPTIONS"
 
 #. type: =item
 #: C/apps/c_rehash.pod:72
-#, fuzzy
-#| msgid "B<-o>"
 msgid "B<-old>"
-msgstr "B<-o>"
+msgstr "B<-old>"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:74
@@ -1107,24 +1073,18 @@ msgstr ""
 
 #. type: =item
 #: C/apps/c_rehash.pod:78
-#, fuzzy
-#| msgid "B<-hex>"
 msgid "B<-h>"
-msgstr "B<-hex>"
+msgstr "B<-h>"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:80
-#, fuzzy
-#| msgid "Print out a usage message."
 msgid "Display a brief usage message."
-msgstr "Afficher un message sur l'utilisation."
+msgstr "Afficher un court message sur l'utilisation."
 
 #. type: =item
 #: C/apps/c_rehash.pod:82
-#, fuzzy
-#| msgid "B<-new>"
 msgid "B<-n>"
-msgstr "B<-new>"
+msgstr "B<-n>"
 
 #. type: textblock
 #: C/apps/c_rehash.pod:84
@@ -2639,20 +2599,6 @@ msgstr "ocsp - Utilitaire pour le protocole d’état de certificat en ligne"
 
 #. type: textblock
 #: C/apps/ocsp.pod:9
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<ocsp> [B<-out file>] [B<-issuer file>] [B<-cert file>] [B<-"
-#| "serial n>] [B<-signer file>] [B<-signkey file>] [B<-sign_other file>] [B<-"
-#| "no_certs>] [B<-req_text>] [B<-resp_text>] [B<-text>] [B<-reqout file>] "
-#| "[B<-respout file>] [B<-reqin file>] [B<-respin file>] [B<-nonce>] [B<-"
-#| "no_nonce>] [B<-url URL>] [B<-host host:n>] [B<-path>] [B<-CApath dir>] "
-#| "[B<-CAfile file>] [B<-VAfile file>] [B<-validity_period n>] [B<-"
-#| "status_age n>] [B<-noverify>] [B<-verify_other file>] [B<-trust_other>] "
-#| "[B<-no_intern>] [B<-no_signature_verify>] [B<-no_cert_verify>] [B<-"
-#| "no_chain>] [B<-no_cert_checks>] [B<-port num>] [B<-index file>] [B<-CA "
-#| "file>] [B<-rsigner file>] [B<-rkey file>] [B<-rother file>] [B<-"
-#| "resp_no_certs>] [B<-nmin n>] [B<-ndays n>] [B<-resp_key_id>] [B<-nrequest "
-#| "n>] [B<-md5|-sha1|...>]"
 msgid ""
 "B<openssl> B<ocsp> [B<-out file>] [B<-issuer file>] [B<-cert file>] [B<-"
 "serial n>] [B<-signer file>] [B<-signkey file>] [B<-sign_other file>] [B<-"
@@ -2676,10 +2622,11 @@ msgstr ""
 "I<rép>] [B<-CAfile> I<fichier>] [B<-VAfile> I<fichier>] [B<-validity_period> "
 "I<n>] [B<-status_age> I<age>] [B<-noverify>] [B<-verify_other> I<fichier>] "
 "[B<-trust_other>] [B<-no_intern>] [B<-no_signature_verify>] [B<-"
-"no_cert_verify>] [B<-no_chain>] [B<-no_cert_checks>] [B<-port> I<num>] [B<-"
-"index> I<fichier>] [B<-CA> I<fichier>] [B<-rsigner> I<fichier>] [B<-rkey> "
-"I<fichier>] [B<-rother> I<fichier>] [B<-resp_no_certs>] [B<-nmin> I<n>] [B<-"
-"ndays> I<n>] [B<-resp_key_id>] [B<-nrequest> I<n>] [B<-md5>|B<-sha1>|...]"
+"no_cert_verify>] [B<-no_chain>] [B<-no_cert_checks>] [B<-no_explicit>] [B<-"
+"port> I<num>] [B<-index> I<fichier>] [B<-CA> I<fichier>] [B<-rsigner> "
+"I<fichier>] [B<-rkey> I<fichier>] [B<-rother> I<fichier>] [B<-"
+"resp_no_certs>] [B<-nmin> I<n>] [B<-ndays> I<n>] [B<-resp_key_id>] [B<-"
+"nrequest> I<n>] [B<-md5>|B<-sha1>|...]"
 
 #. type: textblock
 #: C/apps/ocsp.pod:59
@@ -3039,10 +2986,8 @@ msgstr ""
 
 #. type: =item
 #: C/apps/ocsp.pod:193
-#, fuzzy
-#| msgid "B<-explicit_policy>"
 msgid "B<-no_explicit>"
-msgstr "B<-explicit_policy>"
+msgstr "B<-no_explicit>"
 
 #. type: textblock
 #: C/apps/ocsp.pod:195
@@ -3357,18 +3302,15 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/ocsp.pod:309
-#, fuzzy
-#| msgid ""
-#| "Otherwise the root CA of the OCSP responders CA is checked to see if it "
-#| "is trusted for OCSP signing. If it is the OCSP verify succeeds."
 msgid ""
 "Otherwise, if B<-no_explicit> is B<not> set the root CA of the OCSP "
 "responders CA is checked to see if it is trusted for OCSP signing. If it is "
 "the OCSP verify succeeds."
 msgstr ""
-"Sinon, la confiance de l’autorité de certification racine des autorités de "
-"certification des répondeurs OCSP est vérifiée pour la signature OCSP. Si "
-"c’est le cas, la vérification OCSP réussit."
+"Sinon, si B<-no_explicit> n’est B<pas> défini, la confiance de l’autorité de "
+"certification racine des autorités de certification des répondeurs OCSP est "
+"vérifiée pour la signature OCSP. Si c’est le cas, la vérification OCSP "
+"réussit."
 
 #. type: textblock
 #: C/apps/ocsp.pod:313
@@ -4012,14 +3954,6 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/req.pod:158
-#, fuzzy
-#| msgid ""
-#| "B<param:file> generates a key using the parameter file or certificate "
-#| "B<file>, the algorithm is determined by the parameters. B<algname:file> "
-#| "use algorithm B<algname> and parameter file B<file>: the two algorithms "
-#| "must match or an error occurs. B<algname> just uses algorithm B<algname>, "
-#| "and parameters, if neccessary should be specified via B<-pkeyopt> "
-#| "parameter."
 msgid ""
 "B<param:file> generates a key using the parameter file or certificate "
 "B<file>, the algorithm is determined by the parameters. B<algname:file> use "
@@ -4214,13 +4148,6 @@ msgstr "B<-x509>"
 
 #. type: textblock
 #: C/apps/req.pod:234
-#, fuzzy
-#| msgid ""
-#| "this option outputs a self signed certificate instead of a certificate "
-#| "request. This is typically used to generate a test certificate or a self "
-#| "signed root CA. The extensions added to the certificate (if any) are "
-#| "specified in the configuration file. Unless specified using the "
-#| "B<set_serial> option B<0> will be used for the serial number."
 msgid ""
 "this option outputs a self signed certificate instead of a certificate "
 "request. This is typically used to generate a test certificate or a self "
@@ -4234,7 +4161,7 @@ msgstr ""
 "test ou le certificat autosigné racine d'une autorité de certification. Les "
 "extensions à ajouter au certificat, s'il y en a, sont indiquées dans le "
 "fichier de configuration. À moins d'être précisé par l'option B<set_serial>, "
-"le numéro de série sera B<0>."
+"un grand nombre aléatoire sera utilisé pour le numéro de série."
 
 #. type: =item
 #: C/apps/req.pod:241
@@ -6954,7 +6881,7 @@ msgstr ""
 "Indiquer le nombre maximal de chiffres pour représenter la fraction de "
 "seconde qui doit être incluse dans champ temporel. Les zéros finaux doivent "
 "être supprimés, donc moins de chiffres pourraient être présents ou aucune "
-"fraction de seconde du tout. Pris en charge uniquement sur les plateformes "
+"fraction de seconde du tout. Pris en charge uniquement sur les plate-formes "
 "UNIX. La valeur maximale est 6, la valeur par défaut est 0. (Facultatif)"
 
 #. type: =item
@@ -7866,14 +7793,6 @@ msgstr "verify - Utilitaire de vérification de certificats"
 
 #. type: textblock
 #: C/apps/verify.pod:9
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<verify> [B<-CApath directory>] [B<-CAfile file>] [B<-purpose "
-#| "purpose>] [B<-policy arg>] [B<-ignore_critical>] [B<-crl_check>] [B<-"
-#| "crl_check_all>] [B<-policy_check>] [B<-explicit_policy>] [B<-"
-#| "inhibit_any>] [B<-inhibit_map>] [B<-x509_strict>] [B<-extended_crl>] [B<-"
-#| "use_deltas>] [B<-policy_print>] [B<-untrusted file>] [B<-help>] [B<-"
-#| "issuer_checks>] [B<-attime timestamp>] [B<-verbose>] [B<->] [certificates]"
 msgid ""
 "B<openssl> B<verify> [B<-CApath directory>] [B<-CAfile file>] [B<-purpose "
 "purpose>] [B<-policy arg>] [B<-ignore_critical>] [B<-attime timestamp>] [B<-"
@@ -7884,12 +7803,12 @@ msgid ""
 "[certificates]"
 msgstr ""
 "B<openssl> B<verify> [B<-CApath> I<répertoire>] [B<-CAfile> I<fichier>] [B<-"
-"purpose> I<raison>] [B<-policy> I<param>] [B<-ignore_critical>] [B<-"
-"crl_check>] [B<-crl_check_all>] [B<-policy_check>] [B<-explicit_policy>] [B<-"
+"purpose> I<raison>] [B<-policy> I<param>] [B<-ignore_critical>] [B<-attime> "
+"I<horodatage>] [B<-check_ss_sig>] [B<-crlfile> I<fichier>] [B<-crl_check>] "
+"[B<-crl_check_all>] [B<-policy_check>] [B<-explicit_policy>] [B<-"
 "inhibit_any>] [B<-inhibit_map>] [B<-x509_strict>] [B<-extended_crl>] [B<-"
 "use_deltas>] [B<-policy_print>] [B<-untrusted> I<fichier>] [B<-help>] [B<-"
-"issuer_checks>] [B<-attime> I<horodatage>] [B<-verbose>] [B<->] "
-"[I<certificats>]"
+"issuer_checks>] [B<-verbose>] [B<->] [I<certificats>]"
 
 #. type: textblock
 #: C/apps/verify.pod:38
@@ -7961,10 +7880,8 @@ msgstr ""
 
 #. type: =item
 #: C/apps/verify.pod:67
-#, fuzzy
-#| msgid "B<-VAfile file>"
 msgid "B<-crlfile file>"
-msgstr "B<-VAfile>  I<fichier>"
+msgstr "B<-crlfile> I<fichier>"
 
 #. type: textblock
 #: C/apps/verify.pod:69

@@ -1,15 +1,15 @@
 # French translations for the openssl package
-# Copyright (C) 2008, 2012-2014 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# Copyright (C) 2008, 2012-2015 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
 # Nicolas François <nicolas.francois@centraliens.net>, 2008.
-# David Prévot <david@tilapin.org>, 2012, 2013.
+# David Prévot <david@tilapin.org>, 2012, 2013, 2015.
 # Jean-Pierre Giraud <jean-pierregiraud@neuf.fr>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-06 17:00-0400\n"
-"PO-Revision-Date: 2014-12-04 22:21+0100\n"
+"PO-Revision-Date: 2015-05-05 18:05-0400\n"
 "Last-Translator: Jean-Pierre Giraud <jean-pierregiraud@neuf.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -460,13 +460,6 @@ msgstr "RESTRICTIONS"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_extra_chain_cert.pod:31
-#, fuzzy
-#| msgid ""
-#| "Only one set of extra chain certificates can be specified per SSL_CTX "
-#| "structure. Different chains for different certificates (for example if "
-#| "both RSA and DSA certificates are specified by the same server) or "
-#| "different SSL structures with the same parent SSL_CTX cannot be specified "
-#| "using this function."
 msgid ""
 "Only one set of extra chain certificates can be specified per SSL_CTX "
 "structure. Different chains for different certificates (for example if both "
@@ -479,7 +472,8 @@ msgstr ""
 "structure B<SSL_CTX>. Différentes chaînes pour différents certificats (par "
 "exemple si à la fois des certificats RSA et DSA sont indiqués par le même "
 "serveur) ou différentes structures SSL avec le même B<SSL_CTX> parent ne "
-"peuvent pas être indiquées en utilisant cette fonction."
+"peuvent pas être indiquées en utilisant cette fonction. Pour plus de "
+"flexibilité, des fonctions comme B<SSL_add1_chain_cert>() sont à préférer."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_extra_chain_cert.pod:40
@@ -505,6 +499,18 @@ msgid ""
 "L<SSL_CTX_build_cert_chain(3)|SSL_CTX_build_cert_chain(3)> "
 "L<SSL_build_cert_chain(3)|SSL_build_cert_chain(3)>"
 msgstr ""
+"L<B<ssl>(3)|ssl(3)>, L<B<SSL_CTX_use_certificate>(3)|"
+"SSL_CTX_use_certificate(3)>, L<B<SSL_CTX_set_client_cert_cb>(3)|"
+"SSL_CTX_set_client_cert_cb(3)>, L<B<SSL_CTX_load_verify_locations>(3)|"
+"SSL_CTX_load_verify_locations(3)>, L<B<SSL_CTX_set0_chain>(3)|"
+"SSL_CTX_set0_chain(3)>, L<B<SSL_CTX_set1_chain>(3)|SSL_CTX_set1_chain(3)>, "
+"L<B<SSL_CTX_add0_chain_cert>(3)|SSL_CTX_add0_chain_cert(3)>, "
+"L<B<SSL_CTX_add1_chain_cert>(3)|SSL_CTX_add1_chain_cert(3)>, "
+"L<B<SSL_set0_chain>(3)|SSL_set0_chain(3)>, L<B<SSL_set1_chain>(3)|"
+"SSL_set1_chain(3)>, L<B<SSL_add0_chain_cert>(3)|SSL_add0_chain_cert(3)>, "
+"L<B<SSL_add1_chain_cert>(3)|SSL_add1_chain_cert(3)>, "
+"L<B<SSL_CTX_build_cert_chain>(3)|SSL_CTX_build_cert_chain(3)>, "
+"L<B<SSL_build_cert_chain>(3)|SSL_build_cert_chain(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_add_session.pod:5
@@ -1886,7 +1892,7 @@ msgid ""
 msgstr ""
 "Quand le nombre maximal de sessions est atteint, aucune nouvelle session "
 "n'est ajoutée au cache. Un nouvel espace peut être ajouté en appelant "
-"L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> pour supprimer les "
+"L<B<SSL_CTX_flush_sessions>(3)|SSL_CTX_flush_sessions(3)> pour supprimer les "
 "sessions expirées."
 
 #. type: textblock
@@ -2455,21 +2461,14 @@ msgstr ""
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:112
-#, fuzzy
-#| msgid ""
-#| "The internal certificate store of OpenSSL can hold two private key/"
-#| "certificate pairs at a time: one key/certificate of type RSA and one key/"
-#| "certificate of type DSA. The certificate used depends on the cipher "
-#| "select, see also L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>."
 msgid ""
 "The internal certificate store of OpenSSL can hold several private key/"
 "certificate pairs at a time. The certificate used depends on the cipher "
 "selected, see also L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>."
 msgstr ""
-"Le magasin de certificats interne d'OpenSSL peut garder deux paires clé "
-"privée/certificat à la fois : une paire clé/certificat de type RSA et une "
-"paire clé/certificat de type DSA. Le certificat utilisé dépend du "
-"chiffrement choisi, voir aussi L<SSL_CTX_set_cipher_list(3)|"
+"Le magasin de certificats interne d'OpenSSL peut garder plusieurs paires de "
+"clefs ou de certificats à la fois. Le certificat utilisé dépend du "
+"chiffrement choisi, Consultez aussi L<B<SSL_CTX_set_cipher_list>(3)|"
 "SSL_CTX_set_cipher_list(3)>."
 
 #. type: textblock
@@ -2786,7 +2785,7 @@ msgstr ""
 #. type: =item
 #: C/ssl/SSL_CTX_use_psk_identity_hint.pod:91
 msgid "E<gt>0"
-msgstr ""
+msgstr "E<gt>0"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_use_psk_identity_hint.pod:93

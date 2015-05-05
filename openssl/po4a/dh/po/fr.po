@@ -1,15 +1,15 @@
 # French translations for the openssl package
-# Copyright (C) 2002, 2008, 2009, 2012, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# Copyright (C) 2002, 2008, 2009, 2012, 2013, 2015 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
 # arne, 2002.
 # Nicolas François <nicolas.francois@centraliens.net>, 2008, 2009.
-# David Prévot <david@tilapin.org>, 2012, 2013.
+# David Prévot <david@tilapin.org>, 2012, 2013, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-05 17:54-0400\n"
-"PO-Revision-Date: 2012-10-13 16:37-0400\n"
+"PO-Revision-Date: 2015-05-05 18:50-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 
 #. type: =head1
 #: C/apps/dhparam.pod:3 C/crypto/DH_generate_key.pod:3
@@ -504,30 +504,21 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:6
-#, fuzzy
-#| msgid ""
-#| "DH_generate_parameters, DH_check - generate and check Diffie-Hellman "
-#| "parameters"
 msgid ""
 "DH_generate_parameters_ex, DH_generate_parameters, DH_check - generate and "
 "check Diffie-Hellman parameters"
 msgstr ""
-"DH_generate_parameters, DH_check - Générer et vérifier les paramètres Diffie-"
-"Hellman"
+"DH_generate_parameters_ex, DH_generate_parameters, DH_check - Générer et "
+"vérifier les paramètres Diffie-Hellman"
 
 #. type: verbatim
 #: C/crypto/DH_generate_parameters.pod:13
-#, fuzzy, no-wrap
-#| msgid ""
-#| " DH *DH_generate_parameters(int prime_len, int generator,\n"
-#| "     void (*callback)(int, int, void *), void *cb_arg);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int DH_generate_parameters_ex(DH *dh, int prime_len,int generator, BN_GENCB *cb);\n"
 "\n"
 msgstr ""
-" DH *DH_generate_parameters(int prime_len, int generator,\n"
-"     void (*callback)(int, int, void *), void *cb_arg);\n"
+" int DH_generate_parameters_ex(DH *dh, int prime_len,int generator, BN_GENCB *cb);\n"
 "\n"
 
 #. type: verbatim
@@ -543,7 +534,7 @@ msgstr ""
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:17
 msgid "Deprecated:"
-msgstr ""
+msgstr "Obsolète :"
 
 #. type: verbatim
 #: C/crypto/DH_generate_parameters.pod:19
@@ -559,23 +550,16 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:24
-#, fuzzy
-#| msgid ""
-#| "DH_generate_parameters() generates Diffie-Hellman parameters that can be "
-#| "shared among a group of users, and returns them in a newly allocated "
-#| "B<DH> structure. The pseudo-random number generator must be seeded prior "
-#| "to calling DH_generate_parameters()."
 msgid ""
 "DH_generate_parameters_ex() generates Diffie-Hellman parameters that can be "
 "shared among a group of users, and stores them in the provided B<DH> "
 "structure. The pseudo-random number generator must be seeded prior to "
 "calling DH_generate_parameters()."
 msgstr ""
-"B<DH_generate_parameters>() génère les paramètres Diffie-Hellman qui peuvent "
-"être partagés par un groupe d'utilisateurs, et les renvoie dans une "
-"structure B<DH> nouvellement allouée. Le générateur de nombres "
-"pseudoaléatoires doit être initialisé avant d'appeler "
-"B<DH_generate_parameters>()."
+"B<DH_generate_parameters_ex>() génère les paramètres Diffie-Hellman qui "
+"peuvent être partagés par un groupe d'utilisateurs, et les conserve dans la "
+"structure B<DH> fournie. Le générateur de nombres pseudoaléatoires doit être "
+"initialisé avant d'appeler B<DH_generate_parameters>()."
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:29
@@ -588,13 +572,6 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:32
-#, fuzzy
-#| msgid ""
-#| "A callback function may be used to provide feedback about the progress of "
-#| "the key generation. If B<callback> is not B<NULL>, it will be called as "
-#| "described in L<BN_generate_prime(3)|BN_generate_prime(3)> while a random "
-#| "prime number is generated, and when a prime has been found, B<callback(3, "
-#| "0, cb_arg)> is called."
 msgid ""
 "A callback function may be used to provide feedback about the progress of "
 "the key generation. If B<cb> is not B<NULL>, it will be called as described "
@@ -604,11 +581,12 @@ msgid ""
 "the BN_GENCB_call() function."
 msgstr ""
 "Une fonction de rappel peut être utilisée pour fournir un retour sur "
-"l'avancement de la génération de clef. Si I<callback> n'est pas B<NULL>, "
-"elle sera appelée conformément à la description de L<BN_generate_prime(3)|"
+"l'avancement de la génération de clef. Si I<cb> n'est pas B<NULL>, elle sera "
+"appelée conformément à la description de L<BN_generate_prime(3)|"
 "BN_generate_prime(3)> pendant qu'un nombre premier aléatoire est généré, et "
-"quand un nombre premier a été trouvé, B<callback(3, 0, >I<cb_arg>B<)> est "
-"appelée."
+"quand un nombre premier a été trouvé. Consultez L<B<BN_generate_prime>(3)|"
+"BN_generate_prime(3)> pour des renseignements sur la fonction "
+"B<BN_GENCB_call>()."
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:39
@@ -628,54 +606,41 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:48
-#, fuzzy
-#| msgid "DH_check() returns 1 if the check could be performed, 0 otherwise."
 msgid ""
 "DH_generate_parameters_ex() and DH_check() return 1 if the check could be "
 "performed, 0 otherwise."
 msgstr ""
-"B<DH_check>() renvoie B<1> si la vérification a pu être réalisée, B<0> sinon."
+"B<DH_generate_parameters_ex> et B<DH_check>() renvoient B<1> si la "
+"vérification a pu être réalisée, B<0> sinon."
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:51
-#, fuzzy
-#| msgid ""
-#| "DH_generate_parameters() returns a pointer to the DH structure, or NULL "
-#| "if the parameter generation fails. The error codes can be obtained by "
-#| "L<ERR_get_error(3)|ERR_get_error(3)>."
 msgid ""
 "DH_generate_parameters() (deprecated) returns a pointer to the DH structure, "
 "or NULL if the parameter generation fails."
 msgstr ""
-"B<DH_generate_parameters>() renvoie un pointeur vers la structure DH ou "
-"B<NULL> en cas d'échec de la génération de paramètre. Les codes d'erreur "
-"peuvent être obtenus avec L<ERR_get_error(3)|ERR_get_error(3)>."
+"B<DH_generate_parameters>() (obsolète) renvoie un pointeur vers la structure "
+"DH ou B<NULL> en cas d'échec de la génération de paramètre."
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:58
-#, fuzzy
-#| msgid ""
-#| "DH_generate_parameters() may run for several hours before finding a "
-#| "suitable prime."
 msgid ""
 "DH_generate_parameters_ex() and DH_generate_parameters() may run for several "
 "hours before finding a suitable prime."
 msgstr ""
-"B<DH_generate_parameters>() pourrait s'exécuter pendant plusieurs heures "
-"avant de trouver un nombre premier convenable."
+"B<DH_generate_parameters_ex> et B<DH_generate_parameters>() pourraient "
+"s’exécuter pendant plusieurs heures avant de trouver un nombre premier "
+"convenable."
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:61
-#, fuzzy
-#| msgid ""
-#| "The parameters generated by DH_generate_parameters() are not to be used "
-#| "in signature schemes."
 msgid ""
 "The parameters generated by DH_generate_parameters_ex() and "
 "DH_generate_parameters()  are not to be used in signature schemes."
 msgstr ""
-"Les paramètres générés par B<DH_generate_parameters>() ne sont pas faits "
-"pour être utilisés dans les schémas de signature."
+"Les paramètres générés par B<DH_generate_parameters_ex> et "
+"B<DH_generate_parameters>() ne sont pas faits pour être utilisés dans les "
+"schémas de signature."
 
 #. type: textblock
 #: C/crypto/DH_generate_parameters.pod:66
