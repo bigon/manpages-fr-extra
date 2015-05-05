@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2015-01-30 16:06-0400\n"
+"POT-Creation-Date: 2015-05-06 17:00-0400\n"
 "PO-Revision-Date: 2015-01-30 16:21-0400\n"
 "Last-Translator: Jean-Paul Guillonneau <guillonneau.jeanpaul@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -20,17 +20,19 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 
 #. type: =head1
-#: C/ssl/SSL_CTX_set_cert_store.pod:3
+#: C/ssl/SSL_CTX_set1_curves.pod:3 C/ssl/SSL_CTX_set1_verify_cert_store.pod:3
+#: C/ssl/SSL_CTX_set_cert_cb.pod:3 C/ssl/SSL_CTX_set_cert_store.pod:3
 #: C/ssl/SSL_CTX_set_cert_verify_callback.pod:3
 #: C/ssl/SSL_CTX_set_cipher_list.pod:3 C/ssl/SSL_CTX_set_client_CA_list.pod:3
 #: C/ssl/SSL_CTX_set_client_cert_cb.pod:3
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:3
 #: C/ssl/SSL_CTX_set_default_passwd_cb.pod:3
 #: C/ssl/SSL_CTX_set_generate_session_id.pod:3
 #: C/ssl/SSL_CTX_set_info_callback.pod:3 C/ssl/SSL_CTX_set_max_cert_list.pod:3
 #: C/ssl/SSL_CTX_set_mode.pod:3 C/ssl/SSL_CTX_set_msg_callback.pod:3
 #: C/ssl/SSL_CTX_set_options.pod:3
 #: C/ssl/SSL_CTX_set_psk_client_callback.pod:32
-#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:3
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:3 C/ssl/SSL_CTX_set_read_ahead.pod:3
 #: C/ssl/SSL_CTX_set_session_cache_mode.pod:3
 #: C/ssl/SSL_CTX_set_session_id_context.pod:3
 #: C/ssl/SSL_CTX_set_ssl_version.pod:3 C/ssl/SSL_CTX_set_timeout.pod:3
@@ -41,26 +43,27 @@ msgid "NAME"
 msgstr "NOM"
 
 #. type: textblock
-#: C/ssl/SSL_CTX_set_cert_store.pod:5
+#: C/ssl/SSL_CTX_set1_curves.pod:5
 msgid ""
-"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - manipulate X509 certificate "
-"verification storage"
+"SSL_CTX_set1_curves, SSL_CTX_set1_curves_list, SSL_set1_curves, "
+"SSL_set1_curves_list, SSL_get1_curves, SSL_get_shared_curve, "
+"SSL_CTX_set_ecdh_auto, SSL_set_ecdh_auto - EC supported curve functions"
 msgstr ""
-"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - Manipuler le stockage de "
-"vérification de certificats X509"
 
 #. type: =head1
-#: C/ssl/SSL_CTX_set_cert_store.pod:7
+#: C/ssl/SSL_CTX_set1_curves.pod:9 C/ssl/SSL_CTX_set1_verify_cert_store.pod:11
+#: C/ssl/SSL_CTX_set_cert_cb.pod:7 C/ssl/SSL_CTX_set_cert_store.pod:7
 #: C/ssl/SSL_CTX_set_cert_verify_callback.pod:7
 #: C/ssl/SSL_CTX_set_cipher_list.pod:7 C/ssl/SSL_CTX_set_client_CA_list.pod:9
 #: C/ssl/SSL_CTX_set_client_cert_cb.pod:7
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:7
 #: C/ssl/SSL_CTX_set_default_passwd_cb.pod:7
 #: C/ssl/SSL_CTX_set_generate_session_id.pod:7
 #: C/ssl/SSL_CTX_set_info_callback.pod:7 C/ssl/SSL_CTX_set_max_cert_list.pod:7
 #: C/ssl/SSL_CTX_set_mode.pod:7 C/ssl/SSL_CTX_set_msg_callback.pod:7
 #: C/ssl/SSL_CTX_set_options.pod:7
 #: C/ssl/SSL_CTX_set_psk_client_callback.pod:36
-#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:7
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:7 C/ssl/SSL_CTX_set_read_ahead.pod:9
 #: C/ssl/SSL_CTX_set_session_cache_mode.pod:7
 #: C/ssl/SSL_CTX_set_session_id_context.pod:7
 #: C/ssl/SSL_CTX_set_ssl_version.pod:8 C/ssl/SSL_CTX_set_timeout.pod:7
@@ -71,16 +74,19 @@ msgid "SYNOPSIS"
 msgstr "SYNOPSIS"
 
 #. type: verbatim
+#: C/ssl/SSL_CTX_set1_curves.pod:11
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:13 C/ssl/SSL_CTX_set_cert_cb.pod:9
 #: C/ssl/SSL_CTX_set_cert_store.pod:9
 #: C/ssl/SSL_CTX_set_cert_verify_callback.pod:9
 #: C/ssl/SSL_CTX_set_cipher_list.pod:9 C/ssl/SSL_CTX_set_client_cert_cb.pod:9
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:9
 #: C/ssl/SSL_CTX_set_default_passwd_cb.pod:9
 #: C/ssl/SSL_CTX_set_generate_session_id.pod:9
 #: C/ssl/SSL_CTX_set_info_callback.pod:9 C/ssl/SSL_CTX_set_max_cert_list.pod:9
 #: C/ssl/SSL_CTX_set_mode.pod:9 C/ssl/SSL_CTX_set_msg_callback.pod:9
 #: C/ssl/SSL_CTX_set_options.pod:9
 #: C/ssl/SSL_CTX_set_psk_client_callback.pod:38
-#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:9
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:9 C/ssl/SSL_CTX_set_read_ahead.pod:11
 #: C/ssl/SSL_CTX_set_session_cache_mode.pod:9
 #: C/ssl/SSL_CTX_set_session_id_context.pod:9
 #: C/ssl/SSL_CTX_set_ssl_version.pod:10 C/ssl/SSL_CTX_set_timeout.pod:9
@@ -95,6 +101,651 @@ msgstr ""
 "\n"
 
 #. type: verbatim
+#: C/ssl/SSL_CTX_set1_curves.pod:13
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
+#| " int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
+#| "\n"
+msgid ""
+" int SSL_CTX_set1_curves(SSL_CTX *ctx, int *clist, int clistlen);\n"
+" int SSL_CTX_set1_curves_list(SSL_CTX *ctx, char *list);\n"
+"\n"
+msgstr ""
+"B< int SSL_CTX_set_cipher_list(SSL_CTX *>I<ctx>B<, const char *>I<str>B<);>\n"
+" B<int SSL_set_cipher_list(SSL *>I<ssl>B<, const char *>I<str>B<);>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set1_curves.pod:16
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
+#| " int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
+#| "\n"
+msgid ""
+" int SSL_set1_curves(SSL *ssl, int *clist, int clistlen);\n"
+" int SSL_set1_curves_list(SSL *ssl, char *list);\n"
+"\n"
+msgstr ""
+"B< int SSL_CTX_set_cipher_list(SSL_CTX *>I<ctx>B<, const char *>I<str>B<);>\n"
+" B<int SSL_set_cipher_list(SSL *>I<ssl>B<, const char *>I<str>B<);>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set1_curves.pod:19
+#, fuzzy, no-wrap
+#| msgid ""
+#| " long SSL_CTX_get_mode(SSL_CTX *ctx);\n"
+#| " long SSL_get_mode(SSL *ssl);\n"
+#| "\n"
+msgid ""
+" int SSL_get1_curves(SSL *ssl, int *curves);\n"
+" int SSL_get_shared_curve(SSL *s, int n);\n"
+"\n"
+msgstr ""
+"B< long SSL_CTX_get_mode(SSL_CTX *>I<ctx>B<);>\n"
+" B<long SSL_get_mode(SSL *>I<ssl>B<);>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set1_curves.pod:22
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
+#| " int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
+#| "\n"
+msgid ""
+" int SSL_CTX_set_ecdh_auto(SSL_CTX *ctx, int onoff);\n"
+" int SSL_set_ecdh_auto(SSL *s, int onoff);\n"
+"\n"
+msgstr ""
+"B< int SSL_CTX_set_cipher_list(SSL_CTX *>I<ctx>B<, const char *>I<str>B<);>\n"
+" B<int SSL_set_cipher_list(SSL *>I<ssl>B<, const char *>I<str>B<);>\n"
+"\n"
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set1_curves.pod:25
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:25
+#: C/ssl/SSL_CTX_set_cert_cb.pod:16 C/ssl/SSL_CTX_set_cert_store.pod:14
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:13
+#: C/ssl/SSL_CTX_set_cipher_list.pod:14
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:18
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:15
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:40
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:16
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:19
+#: C/ssl/SSL_CTX_set_info_callback.pod:17
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:17 C/ssl/SSL_CTX_set_mode.pod:17
+#: C/ssl/SSL_CTX_set_msg_callback.pod:17 C/ssl/SSL_CTX_set_options.pod:22
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:50
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:17 C/ssl/SSL_CTX_set_read_ahead.pod:21
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:14
+#: C/ssl/SSL_CTX_set_session_id_context.pod:16
+#: C/ssl/SSL_CTX_set_ssl_version.pod:16 C/ssl/SSL_CTX_set_timeout.pod:14
+#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:16
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:19
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:23 C/ssl/SSL_CTX_set_verify.pod:20
+msgid "DESCRIPTION"
+msgstr "DESCRIPTION"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:27
+msgid ""
+"SSL_CTX_set1_curves() sets the supported curves for B<ctx> to B<clistlen> "
+"curves in the array B<clist>. The array consist of all NIDs of curves in "
+"preference order. For a TLS client the curves are used directly in the "
+"supported curves extension. For a TLS server the curves are used to "
+"determine the set of shared curves."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:33
+msgid ""
+"SSL_CTX_set1_curves_list() sets the supported curves for B<ctx> to string "
+"B<list>. The string is a colon separated list of curve NIDs or names, for "
+"example \"P-521:P-384:P-256\"."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:37
+msgid ""
+"SSL_set1_curves() and SSL_set1_curves_list() are similar except they set "
+"supported curves for the SSL structure B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:40
+msgid ""
+"SSL_get1_curves() returns the set of supported curves sent by a client in "
+"the supported curves extension. It returns the total number of supported "
+"curves. The B<curves> parameter can be B<NULL> to simply return the number "
+"of curves for memory allocation purposes. The B<curves> array is in the form "
+"of a set of curve NIDs in preference order. It can return zero if the client "
+"did not send a supported curves extension."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:48
+msgid ""
+"SSL_get_shared_curve() returns shared curve B<n> for a server-side SSL "
+"B<ssl>. If B<n> is -1 then the total number of shared curves is returned, "
+"which may be zero. Other than for diagnostic purposes, most applications "
+"will only be interested in the first shared curve so B<n> is normally set to "
+"zero. If the value B<n> is out of range, NID_undef is returned."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:55
+msgid ""
+"SSL_CTX_set_ecdh_auto() and SSL_set_ecdh_auto() set automatic curve "
+"selection for server B<ctx> or B<ssl> to B<onoff>. If B<onoff> is 1 then the "
+"highest preference curve is automatically used for ECDH temporary keys used "
+"during key exchange."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:60
+#, fuzzy
+#| msgid "Note: all these functions are implemented using macros."
+msgid "All these functions are implemented as macros."
+msgstr "Note : toutes ces fonctions sont implémentées en utilisant des macros."
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set1_curves.pod:62
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:43
+#: C/ssl/SSL_CTX_set_cert_cb.pod:36 C/ssl/SSL_CTX_set_cert_store.pod:23
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:19
+#: C/ssl/SSL_CTX_set_cipher_list.pod:23
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:35
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:38
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:103
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:32
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:31
+#: C/ssl/SSL_CTX_set_info_callback.pod:36
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:32 C/ssl/SSL_CTX_set_mode.pod:29
+#: C/ssl/SSL_CTX_set_msg_callback.pod:74 C/ssl/SSL_CTX_set_options.pod:44
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:67
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:33 C/ssl/SSL_CTX_set_read_ahead.pod:37
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:21
+#: C/ssl/SSL_CTX_set_session_id_context.pod:24
+#: C/ssl/SSL_CTX_set_ssl_version.pod:29 C/ssl/SSL_CTX_set_timeout.pod:21
+#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:107
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:34
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:48 C/ssl/SSL_CTX_set_verify.pod:40
+msgid "NOTES"
+msgstr "NOTES"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:64
+msgid ""
+"If an application wishes to make use of several of these functions for "
+"configuration purposes either on a command line or in a file it should "
+"consider using the SSL_CONF interface instead of manually parsing options."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:68
+msgid ""
+"The functions SSL_CTX_set_ecdh_auto() and SSL_set_ecdh_auto() can be used to "
+"make a server always choose the most appropriate curve for a client. If set "
+"it will override any temporary ECDH parameters set by a server. Previous "
+"versions of OpenSSL could effectively only use a single ECDH curve set using "
+"a function such as SSL_CTX_set_ecdh_tmp(). Newer applications should just "
+"call:"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set1_curves.pod:75
+#, no-wrap
+msgid ""
+" SSL_CTX_set_ecdh_auto(ctx, 1);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:77
+msgid ""
+"and they will automatically support ECDH using the most appropriate shared "
+"curve."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set1_curves.pod:80
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:69
+#: C/ssl/SSL_CTX_set_cert_store.pod:52
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:57
+#: C/ssl/SSL_CTX_set_cipher_list.pod:61
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:59
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:122
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:52
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:132
+#: C/ssl/SSL_CTX_set_info_callback.pod:101
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:60 C/ssl/SSL_CTX_set_mode.pod:86
+#: C/ssl/SSL_CTX_set_options.pod:303
+#: C/ssl/SSL_CTX_set_psk_client_callback.pod:71
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:49 C/ssl/SSL_CTX_set_read_ahead.pod:42
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:113
+#: C/ssl/SSL_CTX_set_session_id_context.pod:60
+#: C/ssl/SSL_CTX_set_ssl_version.pod:38 C/ssl/SSL_CTX_set_timeout.pod:45
+#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:178
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:154
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:141 C/ssl/SSL_CTX_set_verify.pod:161
+msgid "RETURN VALUES"
+msgstr "VALEURS DE RETOUR"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:82
+msgid ""
+"SSL_CTX_set1_curves(), SSL_CTX_set1_curves_list(), SSL_set1_curves(), "
+"SSL_set1_curves_list(), SSL_CTX_set_ecdh_auto() and SSL_set_ecdh_auto()  "
+"return 1 for success and 0 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:86
+msgid "SSL_get1_curves() returns the number of curves, which may be zero."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:88
+msgid ""
+"SSL_get_shared_curve() returns the NID of shared curve B<n> or NID_undef if "
+"there is no shared curve B<n>; or the total number of shared curves if B<n> "
+"is -1."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:92
+msgid ""
+"When called on a client B<ssl>, SSL_get_shared_curve() has no meaning and "
+"returns -1."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set1_curves.pod:95
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:73
+#: C/ssl/SSL_CTX_set_cert_cb.pod:61 C/ssl/SSL_CTX_set_cert_store.pod:58
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:61
+#: C/ssl/SSL_CTX_set_cipher_list.pod:66
+#: C/ssl/SSL_CTX_set_client_CA_list.pod:87
+#: C/ssl/SSL_CTX_set_client_cert_cb.pod:87
+#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:71
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:140
+#: C/ssl/SSL_CTX_set_info_callback.pod:148
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:68 C/ssl/SSL_CTX_set_mode.pod:93
+#: C/ssl/SSL_CTX_set_msg_callback.pod:90 C/ssl/SSL_CTX_set_options.pod:316
+#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:57 C/ssl/SSL_CTX_set_read_ahead.pod:47
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:120
+#: C/ssl/SSL_CTX_set_session_id_context.pod:79
+#: C/ssl/SSL_CTX_set_ssl_version.pod:55 C/ssl/SSL_CTX_set_timeout.pod:51
+#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:182
+#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:162
+#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:152 C/ssl/SSL_CTX_set_verify.pod:283
+msgid "SEE ALSO"
+msgstr "VOIR AUSSI"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:97
+msgid "L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>"
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set1_curves.pod:99
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:87
+#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:67
+#: C/ssl/SSL_CTX_set_generate_session_id.pod:144
+#: C/ssl/SSL_CTX_set_max_cert_list.pod:73 C/ssl/SSL_CTX_set_mode.pod:97
+#: C/ssl/SSL_CTX_set_msg_callback.pod:94 C/ssl/SSL_CTX_set_options.pod:323
+#: C/ssl/SSL_CTX_set_session_cache_mode.pod:132
+#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:191
+msgid "HISTORY"
+msgstr "HISTORIQUE"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_curves.pod:101
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:89
+#, fuzzy
+#| msgid "This function was introduced in OpenSSL 0.9.8h"
+msgid "These functions were first added to OpenSSL 1.0.2."
+msgstr "Cette fonction a été introduite dans OpenSSL 0.9.8h"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:5
+msgid ""
+"SSL_CTX_set0_verify_cert_store, SSL_CTX_set1_verify_cert_store, "
+"SSL_CTX_set0_chain_cert_store, SSL_CTX_set1_chain_cert_store, "
+"SSL_set0_verify_cert_store, SSL_set1_verify_cert_store, "
+"SSL_set0_chain_cert_store, SSL_set1_chain_cert_store - set certificate "
+"verification or chain store"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:15
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);\n"
+#| " void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *list);\n"
+#| " int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *cacert);\n"
+#| " int SSL_add_client_CA(SSL *ssl, X509 *cacert);\n"
+#| "\n"
+msgid ""
+" int SSL_CTX_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+" int SSL_CTX_set1_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+" int SSL_CTX_set0_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+" int SSL_CTX_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+"\n"
+msgstr ""
+"B< void SSL_CTX_set_client_CA_list(SSL_CTX *>I<ctx>B<, STACK_OF(X509_NAME)*>I<liste>B<);>\n"
+" B<void SSL_set_client_CA_list(SSL *>I<s>B<, STACK_OF(X509_NAME) *>I<liste>B<);>\n"
+" B<int SSL_CTX_add_client_CA(SSL_CTX *>I<ctx>B<, X509 *>I<ca_cert>B<);>\n"
+" B<int SSL_add_client_CA(SSL *>I<ssl>B<, X509 *>I<ca_cert>B<);>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:20
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);\n"
+#| " void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *list);\n"
+#| " int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *cacert);\n"
+#| " int SSL_add_client_CA(SSL *ssl, X509 *cacert);\n"
+#| "\n"
+msgid ""
+" int SSL_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+" int SSL_set1_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+" int SSL_set0_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+" int SSL_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
+"\n"
+msgstr ""
+"B< void SSL_CTX_set_client_CA_list(SSL_CTX *>I<ctx>B<, STACK_OF(X509_NAME)*>I<liste>B<);>\n"
+" B<void SSL_set_client_CA_list(SSL *>I<s>B<, STACK_OF(X509_NAME) *>I<liste>B<);>\n"
+" B<int SSL_CTX_add_client_CA(SSL_CTX *>I<ctx>B<, X509 *>I<ca_cert>B<);>\n"
+" B<int SSL_add_client_CA(SSL *>I<ssl>B<, X509 *>I<ca_cert>B<);>\n"
+"\n"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:27
+#, fuzzy
+#| msgid ""
+#| "SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - manipulate X509 "
+#| "certificate verification storage"
+msgid ""
+"SSL_CTX_set0_verify_cert_store() and SSL_CTX_set1_verify_cert_store()  set "
+"the certificate store used for certificate verification to B<st>."
+msgstr ""
+"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - Manipuler le stockage de "
+"vérification de certificats X509"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:30
+#, fuzzy
+#| msgid ""
+#| "SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - manipulate X509 "
+#| "certificate verification storage"
+msgid ""
+"SSL_CTX_set0_chain_cert_store() and SSL_CTX_set1_chain_cert_store()  set the "
+"certificate store used for certificate chain building to B<st>."
+msgstr ""
+"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - Manipuler le stockage de "
+"vérification de certificats X509"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:33
+msgid ""
+"SSL_set0_verify_cert_store(), SSL_set1_verify_cert_store(), "
+"SSL_set0_chain_cert_store() and SSL_set1_chain_cert_store() are similar "
+"except they apply to SSL structure B<ssl>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:37
+msgid ""
+"All these functions are implemented as macros. Those containing a B<1> "
+"increment the reference count of the supplied store so it must be freed at "
+"some point after the operation. Those containing a B<0> do not increment "
+"reference counts and the supplied store B<MUST NOT> be freed after the "
+"operation."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:45
+msgid ""
+"The stores pointers associated with an SSL_CTX structure are copied to any "
+"SSL structures when SSL_new() is called. As a result SSL structures will not "
+"be affected if the parent SSL_CTX store pointer is set to a new value."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:49
+msgid ""
+"The verification store is used to verify the certificate chain sent by the "
+"peer: that is an SSL/TLS client will use the verification store to verify "
+"the server's certificate chain and a SSL/TLS server will use it to verify "
+"any client certificate chain."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:54
+msgid "The chain store is used to build the certificate chain."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:56
+msgid ""
+"If the mode B<SSL_MODE_NO_AUTO_CHAIN> is set or a certificate chain is "
+"configured already (for example using the functions such as "
+"L<SSL_CTX_add1_chain_cert(3)|SSL_CTX_add1_chain_cert(3)> or "
+"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>) then "
+"automatic chain building is disabled."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:62
+msgid ""
+"If the mode B<SSL_MODE_NO_AUTO_CHAIN> is set then automatic chain building "
+"is disabled."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:65
+msgid ""
+"If the chain or the verification store is not set then the store associated "
+"with the parent SSL_CTX is used instead to retain compatibility with "
+"previous versions of OpenSSL."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:71
+msgid "All these functions return 1 for success and 0 for failure."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set1_verify_cert_store.pod:75
+msgid ""
+"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)> "
+"L<SSL_CTX_set0_chain(3)|SSL_CTX_set0_chain(3)> L<SSL_CTX_set1_chain(3)|"
+"SSL_CTX_set1_chain(3)> L<SSL_CTX_add0_chain_cert(3)|"
+"SSL_CTX_add0_chain_cert(3)> L<SSL_CTX_add1_chain_cert(3)|"
+"SSL_CTX_add1_chain_cert(3)> L<SSL_set0_chain(3)|SSL_set0_chain(3)> "
+"L<SSL_set1_chain(3)|SSL_set1_chain(3)> L<SSL_add0_chain_cert(3)|"
+"SSL_add0_chain_cert(3)> L<SSL_add1_chain_cert(3)|SSL_add1_chain_cert(3)> "
+"L<SSL_CTX_build_cert_chain(3)|SSL_CTX_build_cert_chain(3)> "
+"L<SSL_build_cert_chain(3)|SSL_build_cert_chain(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:5
+#, fuzzy
+#| msgid ""
+#| "SSL_CTX_set_client_cert_cb, SSL_CTX_get_client_cert_cb - handle client "
+#| "certificate callback function"
+msgid ""
+"SSL_CTX_set_cert_cb, SSL_set_cert_cb - handle certificate callback function"
+msgstr ""
+"SSL_CTX_set_client_cert_cb, SSL_CTX_get_client_cert_cb - Gestion de la "
+"fonction de rappel de certificat client."
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_cert_cb.pod:11
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void SSL_CTX_set_client_cert_cb(SSL_CTX *ctx, int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey));\n"
+#| " int (*SSL_CTX_get_client_cert_cb(SSL_CTX *ctx))(SSL *ssl, X509 **x509, EVP_PKEY **pkey);\n"
+#| " int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey);\n"
+#| "\n"
+msgid ""
+" void SSL_CTX_set_cert_cb(SSL_CTX *c, int (*cert_cb)(SSL *ssl, void *arg), void *arg);\n"
+" void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);\n"
+"\n"
+msgstr ""
+"B< void SSL_CTX_set_client_cert_cb(SSL_CTX *>I<ctx>B<, int (*client_cert_cb)(SSL *>I<ssl>B<, X509 **x>I<509>B<, EVP_PKEY **>I<pkey>B<));>\n"
+" B<int (*SSL_CTX_get_client_cert_cb(SSL_CTX *>I<ctx>B<))(SSL *>I<ssl>B<, X509 **>I<x509>B<, EVP_PKEY **>I<pkey>B<);>\n"
+" B<int (*client_cert_cb)(SSL *>I<ssl>B<, X509 **>I<x509>B<, EVP_PKEY **>I<pkey>B<);>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_cert_cb.pod:14
+#, no-wrap
+msgid ""
+" int (*cert_cb)(SSL *ssl, void *arg);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:18
+msgid ""
+"SSL_CTX_set_cert_cb() and SSL_set_cert_cb() sets the B<cert_cb()> callback, "
+"B<arg> value is pointer which is passed to the application callback."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:21
+#, fuzzy
+#| msgid "When B<client_cert_cb()> is NULL, no callback function is used."
+msgid "When B<cert_cb()> is NULL, no callback function is used."
+msgstr ""
+"Lorsque B<client_cert_cb>() est NULL, aucune fonction de rappel n’est "
+"utilisée."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:23
+#, fuzzy
+#| msgid ""
+#| "client_cert_cb() is the application defined callback. If it wants to set "
+#| "a certificate, a certificate/private key combination must be set using "
+#| "the B<x509> and B<pkey> arguments and \"1\" must be returned. The "
+#| "certificate will be installed into B<ssl>, see the NOTES and BUGS "
+#| "sections.  If no certificate should be set, \"0\" has to be returned and "
+#| "no certificate will be sent. A negative return value will suspend the "
+#| "handshake and the handshake function will return immediately. "
+#| "L<SSL_get_error(3)|SSL_get_error(3)> will return "
+#| "SSL_ERROR_WANT_X509_LOOKUP to indicate, that the handshake was suspended. "
+#| "The next call to the handshake function will again lead to the call of "
+#| "client_cert_cb(). It is the job of the client_cert_cb() to store "
+#| "information about the state of the last call, if required to continue."
+msgid ""
+"cert_cb() is the application defined callback. It is called before a "
+"certificate will be used by a client or server. The callback can then "
+"inspect the passed B<ssl> structure and set or clear any appropriate "
+"certificates. If the callback is successful it B<MUST> return 1 even if no "
+"certificates have been set. A zero is returned on error which will abort the "
+"handshake with a fatal internal error alert. A negative return value will "
+"suspend the handshake and the handshake function will return immediately.  "
+"L<SSL_get_error(3)|SSL_get_error(3)> will return SSL_ERROR_WANT_X509_LOOKUP "
+"to indicate, that the handshake was suspended. The next call to the "
+"handshake function will again lead to the call of cert_cb(). It is the job "
+"of the cert_cb() to store information about the state of the last call, if "
+"required to continue."
+msgstr ""
+"B<client_cert_cb>() est le rappel défini par l’application. Si elle veut "
+"définir un certificat, une combinaison clef/certificat privé doit être "
+"indiquée en utilisant les arguments I<x509> et I<pkey>, et B<1> doit être "
+"renvoyé. Le certificat sera installé dans I<ssl> ; consultez les sections "
+"NOTES et BOGUES. Si aucun certificat ne doit être défini, B<0> doit être "
+"renvoyé et aucun certificat ne sera adressé. Le renvoi d’une valeur négative "
+"suspendra l’initiation de connexion et la fonction d’initiation s'arrêtera "
+"immédiatement. L<B<SSL_get_error>(3)|SSL_get_error(3)> renverra "
+"SSL_ERROR_WANT_X509_LOOKUP pour signaler que l’initiation est suspendue. Le "
+"prochain appel à la fonction d’initiation amènera de nouveau à l’appel de "
+"B<client_cert_cb>(). C’est au B<client_cert_cb>() d’emmagasiner "
+"l’information sur l’état du dernier appel, si une demande de continuation "
+"est faite."
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:38
+msgid ""
+"An application will typically call SSL_use_certificate() and "
+"SSL_use_PrivateKey() to set the end entity certificate and private key.  It "
+"can add intermediate and optionally the root CA certificates using "
+"SSL_add1_chain_cert()."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:43
+msgid ""
+"It might also call SSL_certs_clear() to delete any certificates associated "
+"with the B<SSL> object."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:46
+msgid ""
+"The certificate callback functionality supercedes the (largely broken)  "
+"functionality provided by the old client certificate callback interface.  It "
+"is B<always> called even is a certificate is already set so the callback can "
+"modify or delete the existing certificate."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:51
+msgid ""
+"A more advanced callback might examine the handshake parameters and set "
+"whatever chain is appropriate. For example a legacy client supporting only "
+"TLS v1.0 might receive a certificate chain signed using SHA1 whereas a TLS "
+"v1.2 client which advertises support for SHA256 could receive a chain using "
+"SHA256."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:57
+msgid ""
+"Normal server sanity checks are performed on any certificates set by the "
+"callback. So if an EC chain is set for a curve the client does not support "
+"it will B<not> be used."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_cb.pod:63
+#, fuzzy
+#| msgid ""
+#| "L<ssl(3)|ssl(3)>, L<SSL_CTX_use_certificate(3)|"
+#| "SSL_CTX_use_certificate(3)>, L<SSL_CTX_add_extra_chain_cert(3)|"
+#| "SSL_CTX_add_extra_chain_cert(3)>, L<SSL_get_client_CA_list(3)|"
+#| "SSL_get_client_CA_list(3)>, L<SSL_clear(3)|SSL_clear(3)>, L<SSL_free(3)|"
+#| "SSL_free(3)>"
+msgid ""
+"L<ssl(3)|ssl(3)>, L<SSL_use_certificate(3)|SSL_use_certificate(3)>, "
+"L<SSL_add1_chain_cert(3)|SSL_add1_chain_cert(3)>, "
+"L<SSL_get_client_CA_list(3)|SSL_get_client_CA_list(3)>, L<SSL_clear(3)|"
+"SSL_clear(3)>, L<SSL_free(3)|SSL_free(3)>"
+msgstr ""
+"L<B<ssl>(3)|ssl(3)>, L<B<SSL_CTX_use_certificate>(3)|"
+"SSL_CTX_use_certificate(3)>, L<B<SSL_CTX_add_extra_chain_cert>(3)|"
+"SSL_CTX_add_extra_chain_cert(3)>, L<B<SSL_get_client_CA_list>(3)|"
+"SSL_get_client_CA_list(3)>, L<B<SSL_clear>(3)|SSL_clear(3)>, "
+"L<B<SSL_free>(3)|SSL_free(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:5
+msgid ""
+"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - manipulate X509 certificate "
+"verification storage"
+msgstr ""
+"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - Manipuler le stockage de "
+"vérification de certificats X509"
+
+#. type: verbatim
 #: C/ssl/SSL_CTX_set_cert_store.pod:11
 #, no-wrap
 msgid ""
@@ -105,28 +756,6 @@ msgstr ""
 "B< void SSL_CTX_set_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<stockage>B<);>\n"
 " B<X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *>I<ctx>B<);>\n"
 "\n"
-
-#. type: =head1
-#: C/ssl/SSL_CTX_set_cert_store.pod:14
-#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:13
-#: C/ssl/SSL_CTX_set_cipher_list.pod:14
-#: C/ssl/SSL_CTX_set_client_CA_list.pod:18
-#: C/ssl/SSL_CTX_set_client_cert_cb.pod:15
-#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:16
-#: C/ssl/SSL_CTX_set_generate_session_id.pod:19
-#: C/ssl/SSL_CTX_set_info_callback.pod:17
-#: C/ssl/SSL_CTX_set_max_cert_list.pod:17 C/ssl/SSL_CTX_set_mode.pod:17
-#: C/ssl/SSL_CTX_set_msg_callback.pod:17 C/ssl/SSL_CTX_set_options.pod:22
-#: C/ssl/SSL_CTX_set_psk_client_callback.pod:50
-#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:17
-#: C/ssl/SSL_CTX_set_session_cache_mode.pod:14
-#: C/ssl/SSL_CTX_set_session_id_context.pod:16
-#: C/ssl/SSL_CTX_set_ssl_version.pod:16 C/ssl/SSL_CTX_set_timeout.pod:14
-#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:16
-#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:19
-#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:23 C/ssl/SSL_CTX_set_verify.pod:20
-msgid "DESCRIPTION"
-msgstr "DESCRIPTION"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_store.pod:16
@@ -147,28 +776,6 @@ msgid ""
 msgstr ""
 "B<SSL_CTX_set_cert_store>() renvoie un pointeur vers le stockage actuel de "
 "vérifications de certificat."
-
-#. type: =head1
-#: C/ssl/SSL_CTX_set_cert_store.pod:23
-#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:19
-#: C/ssl/SSL_CTX_set_cipher_list.pod:23
-#: C/ssl/SSL_CTX_set_client_CA_list.pod:35
-#: C/ssl/SSL_CTX_set_client_cert_cb.pod:38
-#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:32
-#: C/ssl/SSL_CTX_set_generate_session_id.pod:31
-#: C/ssl/SSL_CTX_set_info_callback.pod:36
-#: C/ssl/SSL_CTX_set_max_cert_list.pod:32 C/ssl/SSL_CTX_set_mode.pod:29
-#: C/ssl/SSL_CTX_set_msg_callback.pod:74 C/ssl/SSL_CTX_set_options.pod:44
-#: C/ssl/SSL_CTX_set_psk_client_callback.pod:67
-#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:33
-#: C/ssl/SSL_CTX_set_session_cache_mode.pod:21
-#: C/ssl/SSL_CTX_set_session_id_context.pod:24
-#: C/ssl/SSL_CTX_set_ssl_version.pod:29 C/ssl/SSL_CTX_set_timeout.pod:21
-#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:107
-#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:34
-#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:48 C/ssl/SSL_CTX_set_verify.pod:40
-msgid "NOTES"
-msgstr "NOTES"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_store.pod:25
@@ -221,58 +828,32 @@ msgstr ""
 
 #. type: =head1
 #: C/ssl/SSL_CTX_set_cert_store.pod:45
-#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:57
-#: C/ssl/SSL_CTX_set_cipher_list.pod:61
-#: C/ssl/SSL_CTX_set_client_CA_list.pod:59
-#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:52
-#: C/ssl/SSL_CTX_set_generate_session_id.pod:132
-#: C/ssl/SSL_CTX_set_info_callback.pod:101
-#: C/ssl/SSL_CTX_set_max_cert_list.pod:60 C/ssl/SSL_CTX_set_mode.pod:86
-#: C/ssl/SSL_CTX_set_options.pod:303
-#: C/ssl/SSL_CTX_set_psk_client_callback.pod:71
-#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:49
-#: C/ssl/SSL_CTX_set_session_cache_mode.pod:113
-#: C/ssl/SSL_CTX_set_session_id_context.pod:60
-#: C/ssl/SSL_CTX_set_ssl_version.pod:38 C/ssl/SSL_CTX_set_timeout.pod:45
-#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:178
-#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:154
-#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:141 C/ssl/SSL_CTX_set_verify.pod:161
-msgid "RETURN VALUES"
-msgstr "VALEURS DE RETOUR"
+#, fuzzy
+#| msgid "DESCRIPTION"
+msgid "RESTRICTIONS"
+msgstr "DESCRIPTION"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_store.pod:47
+msgid ""
+"The X509_STORE structure used by an SSL_CTX is used for verifying peer "
+"certificates and building certificate chains, it is also shared by every "
+"child SSL structure. Applications wanting finer control can use functions "
+"such as SSL_CTX_set1_verify_cert_store() instead."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_cert_store.pod:54
 msgid "SSL_CTX_set_cert_store() does not return diagnostic output."
 msgstr "B<SSL_CTX_set_cert_store>() ne renvoie pas de sortie de diagnostic."
 
 #. type: textblock
-#: C/ssl/SSL_CTX_set_cert_store.pod:49
+#: C/ssl/SSL_CTX_set_cert_store.pod:56
 msgid "SSL_CTX_get_cert_store() returns the current setting."
 msgstr "B<SSL_CTX_set_cert_store>() renvoie la configuration actuelle."
 
-#. type: =head1
-#: C/ssl/SSL_CTX_set_cert_store.pod:51
-#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:61
-#: C/ssl/SSL_CTX_set_cipher_list.pod:66
-#: C/ssl/SSL_CTX_set_client_CA_list.pod:87
-#: C/ssl/SSL_CTX_set_client_cert_cb.pod:87
-#: C/ssl/SSL_CTX_set_default_passwd_cb.pod:71
-#: C/ssl/SSL_CTX_set_generate_session_id.pod:140
-#: C/ssl/SSL_CTX_set_info_callback.pod:148
-#: C/ssl/SSL_CTX_set_max_cert_list.pod:68 C/ssl/SSL_CTX_set_mode.pod:93
-#: C/ssl/SSL_CTX_set_msg_callback.pod:90 C/ssl/SSL_CTX_set_options.pod:316
-#: C/ssl/SSL_CTX_set_quiet_shutdown.pod:57
-#: C/ssl/SSL_CTX_set_session_cache_mode.pod:120
-#: C/ssl/SSL_CTX_set_session_id_context.pod:79
-#: C/ssl/SSL_CTX_set_ssl_version.pod:55 C/ssl/SSL_CTX_set_timeout.pod:51
-#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:182
-#: C/ssl/SSL_CTX_set_tmp_dh_callback.pod:162
-#: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:152 C/ssl/SSL_CTX_set_verify.pod:283
-msgid "SEE ALSO"
-msgstr "VOIR AUSSI"
-
 #. type: textblock
-#: C/ssl/SSL_CTX_set_cert_store.pod:53
+#: C/ssl/SSL_CTX_set_cert_store.pod:60
 msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_CTX_load_verify_locations(3)|"
 "SSL_CTX_load_verify_locations(3)>, L<SSL_CTX_set_verify(3)|"
@@ -427,16 +1008,6 @@ msgstr ""
 "L<B<SSL_get_verify_result>(3)|SSL_get_verify_result(3)>, "
 "L<B<SSL_CTX_load_verify_locations>(3)|SSL_CTX_load_verify_locations(3)>"
 
-#. type: =head1
-#: C/ssl/SSL_CTX_set_cert_verify_callback.pod:67
-#: C/ssl/SSL_CTX_set_generate_session_id.pod:144
-#: C/ssl/SSL_CTX_set_max_cert_list.pod:73 C/ssl/SSL_CTX_set_mode.pod:97
-#: C/ssl/SSL_CTX_set_msg_callback.pod:94 C/ssl/SSL_CTX_set_options.pod:323
-#: C/ssl/SSL_CTX_set_session_cache_mode.pod:132
-#: C/ssl/SSL_CTX_set_tlsext_ticket_key_cb.pod:191
-msgid "HISTORY"
-msgstr "HISTORIQUE"
-
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_cert_verify_callback.pod:69
 #, no-wrap
@@ -539,12 +1110,21 @@ msgstr ""
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cipher_list.pod:39
+#, fuzzy
+#| msgid ""
+#| "A RSA cipher can only be chosen, when a RSA certificate is available.  "
+#| "RSA export ciphers with a keylength of 512 bits for the RSA key require a "
+#| "temporary 512 bit RSA key, as typically the supplied key has a length of "
+#| "1024 bit (see L<SSL_CTX_set_tmp_rsa_callback(3)|"
+#| "SSL_CTX_set_tmp_rsa_callback(3)>).  RSA ciphers using EDH need a "
+#| "certificate and key and additional DH-parameters (see "
+#| "L<SSL_CTX_set_tmp_dh_callback(3)|SSL_CTX_set_tmp_dh_callback(3)>)."
 msgid ""
 "A RSA cipher can only be chosen, when a RSA certificate is available.  RSA "
 "export ciphers with a keylength of 512 bits for the RSA key require a "
 "temporary 512 bit RSA key, as typically the supplied key has a length of "
 "1024 bit (see L<SSL_CTX_set_tmp_rsa_callback(3)|"
-"SSL_CTX_set_tmp_rsa_callback(3)>).  RSA ciphers using EDH need a certificate "
+"SSL_CTX_set_tmp_rsa_callback(3)>).  RSA ciphers using DHE need a certificate "
 "and key and additional DH-parameters (see L<SSL_CTX_set_tmp_dh_callback(3)|"
 "SSL_CTX_set_tmp_dh_callback(3)>)."
 msgstr ""
@@ -1049,6 +1629,246 @@ msgstr ""
 "SSL_CTX_add_extra_chain_cert(3)>, L<B<SSL_get_client_CA_list>(3)|"
 "SSL_get_client_CA_list(3)>, L<B<SSL_clear>(3)|SSL_clear(3)>, "
 "L<B<SSL_free>(3)|SSL_free(3)>"
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:5
+msgid ""
+"SSL_CTX_add_client_custom_ext, SSL_CTX_add_server_custom_ext - custom TLS "
+"extension handling"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:11
+#, no-wrap
+msgid ""
+" int SSL_CTX_add_client_custom_ext(SSL_CTX *ctx, unsigned int ext_type,\n"
+"\t\t\t           custom_ext_add_cb add_cb,\n"
+"\t\t\t           custom_ext_free_cb free_cb, void *add_arg,\n"
+"\t\t\t           custom_ext_parse_cb parse_cb,\n"
+"\t\t\t\t   void *parse_arg);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:17
+#, no-wrap
+msgid ""
+" int SSL_CTX_add_server_custom_ext(SSL_CTX *ctx, unsigned int ext_type,\n"
+"\t\t\t           custom_ext_add_cb add_cb,\n"
+"\t\t\t           custom_ext_free_cb free_cb, void *add_arg,\n"
+"\t\t\t           custom_ext_parse_cb parse_cb,\n"
+"\t\t\t\t   void *parse_arg);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:23
+#, no-wrap
+msgid ""
+" int SSL_extension_supported(unsigned int ext_type);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:25
+#, no-wrap
+msgid ""
+" typedef int (*custom_ext_add_cb)(SSL *s, unsigned int ext_type,\n"
+"\t\t\t\t  const unsigned char **out,\n"
+"\t\t\t\t  size_t *outlen, int *al,\n"
+"\t\t\t\t  void *add_arg);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:30
+#, no-wrap
+msgid ""
+" typedef void (*custom_ext_free_cb)(SSL *s, unsigned int ext_type,\n"
+"\t\t\t\t    const unsigned char *out,\n"
+"\t\t\t\t    void *add_arg);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:34
+#, no-wrap
+msgid ""
+" typedef int (*custom_ext_parse_cb)(SSL *s, unsigned int ext_type,\n"
+"\t\t\t\t    const unsigned char *in,\n"
+"\t\t\t\t    size_t inlen, int *al,\n"
+"\t\t\t\t    void *parse_arg);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:42
+msgid ""
+"SSL_CTX_add_client_custom_ext() adds a custom extension for a TLS client "
+"with extension type B<ext_type> and callbacks B<add_cb>, B<free_cb> and "
+"B<parse_cb>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:46
+msgid ""
+"SSL_CTX_add_server_custom_ext() adds a custom extension for a TLS server "
+"with extension type B<ext_type> and callbacks B<add_cb>, B<free_cb> and "
+"B<parse_cb>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:50
+msgid ""
+"In both cases the extension type must not be handled by OpenSSL internally "
+"or an error occurs."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:53
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:130
+msgid ""
+"SSL_extension_supported() returns 1 if the extension B<ext_type> is handled "
+"internally by OpenSSL and 0 otherwise."
+msgstr ""
+
+#. type: =head1
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:56
+msgid "EXTENSION CALLBACKS"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:58
+msgid ""
+"The callback B<add_cb> is called to send custom extension data to be "
+"included in ClientHello for TLS clients or ServerHello for servers. The "
+"B<ext_type> parameter is set to the extension type which will be added and "
+"B<add_arg> to the value set when the extension handler was added."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:63
+msgid ""
+"If the application wishes to include the extension B<ext_type> it should set "
+"B<*out> to the extension data, set B<*outlen> to the length of the extension "
+"data and return 1."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:67
+msgid ""
+"If the B<add_cb> does not wish to include the extension it must return 0."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:69
+msgid ""
+"If B<add_cb> returns -1 a fatal handshake error occurs using the TLS alert "
+"value specified in B<*al>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:72
+msgid ""
+"For clients (but not servers) if B<add_cb> is set to NULL a zero length "
+"extension is added for B<ext_type>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:75
+msgid ""
+"For clients every registered B<add_cb> is always called to see if the "
+"application wishes to add an extension to ClientHello."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:78
+msgid ""
+"For servers every registered B<add_cb> is called once if and only if the "
+"corresponding extension was received in ClientHello to see if the "
+"application wishes to add the extension to ServerHello. That is, if no "
+"corresponding extension was received in ClientHello then B<add_cb> will not "
+"be called."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:83
+msgid ""
+"If an extension is added (that is B<add_cb> returns 1) B<free_cb> is called "
+"(if it is set) with the value of B<out> set by the add callback. It can be "
+"used to free up any dynamic extension data set by B<add_cb>. Since B<out> is "
+"constant (to permit use of constant data in B<add_cb>) applications may need "
+"to cast away const to free the data."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:89
+msgid ""
+"The callback B<parse_cb> receives data for TLS extensions. For TLS clients "
+"the extension data will come from ServerHello and for TLS servers it will "
+"come from ClientHello."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:93
+msgid ""
+"The extension data consists of B<inlen> bytes in the buffer B<in> for the "
+"extension B<extension_type>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:96
+msgid ""
+"If the B<parse_cb> considers the extension data acceptable it must return 1. "
+"If it returns 0 or a negative value a fatal handshake error occurs using the "
+"TLS alert value specified in B<*al>."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:100
+msgid ""
+"The buffer B<in> is a temporary internal buffer which will not be valid "
+"after the callback returns."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:105
+msgid ""
+"The B<add_arg> and B<parse_arg> parameters can be set to arbitrary values "
+"which will be passed to the corresponding callbacks. They can, for example, "
+"be used to store the extension data received in a convenient structure or "
+"pass the extension data to be added or freed when adding extensions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:110
+msgid ""
+"The B<ext_type> parameter corresponds to the B<extension_type> field of "
+"RFC5246 et al. It is B<not> a NID."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:113
+msgid ""
+"If the same custom extension type is received multiple times a fatal "
+"B<decode_error> alert is sent and the handshake aborts. If a custom "
+"extension is received in ServerHello which was not sent in ClientHello a "
+"fatal B<unsupported_extension> alert is sent and the handshake is aborted. "
+"The ServerHello B<add_cb> callback is only called if the corresponding "
+"extension was received in ClientHello. This is compliant with the TLS "
+"specifications.  This behaviour ensures that each callback is called at most "
+"once and that an application can never send unsolicited extensions."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_custom_cli_ext.pod:124
+msgid ""
+"SSL_CTX_add_client_custom_ext() and SSL_CTX_add_server_custom_ext() return 1 "
+"for success and 0 for failure. A failure can occur if an attempt is made to "
+"add the same B<ext_type> more than once, if an attempt is made to use an "
+"extension type handled internally by OpenSSL or if an internal error occurs "
+"(for example a memory allocation failure)."
+msgstr ""
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_default_passwd_cb.pod:5
@@ -3700,6 +4520,88 @@ msgstr ""
 "L<B<SSL_clear>(3)|SSL_clear(3)>, L<B<SSL_free>(3)|SSL_free(3)>"
 
 #. type: textblock
+#: C/ssl/SSL_CTX_set_read_ahead.pod:5
+msgid ""
+"SSL_CTX_set_read_ahead, SSL_CTX_set_default_read_ahead, "
+"SSL_CTX_get_read_ahead, SSL_CTX_get_default_read_ahead, SSL_set_read_ahead, "
+"SSL_get_read_ahead - manage whether to read as many input bytes as possible"
+msgstr ""
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_read_ahead.pod:13
+#, fuzzy, no-wrap
+#| msgid ""
+#| " long SSL_CTX_get_mode(SSL_CTX *ctx);\n"
+#| " long SSL_get_mode(SSL *ssl);\n"
+#| "\n"
+msgid ""
+" int SSL_get_read_ahead(const SSL *s);\n"
+" void SSL_set_read_ahead(SSL *s, int yes);\n"
+"\n"
+msgstr ""
+"B< long SSL_CTX_get_mode(SSL_CTX *>I<ctx>B<);>\n"
+" B<long SSL_get_mode(SSL *>I<ssl>B<);>\n"
+"\n"
+
+#. type: verbatim
+#: C/ssl/SSL_CTX_set_read_ahead.pod:16
+#, no-wrap
+msgid ""
+" #define SSL_CTX_get_default_read_ahead(ctx)\n"
+" #define SSL_CTX_set_default_read_ahead(ctx,m)\n"
+" #define SSL_CTX_get_read_ahead(ctx)\n"
+" #define SSL_CTX_set_read_ahead(ctx,m)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_read_ahead.pod:23
+msgid ""
+"SSL_CTX_set_read_ahead() and SSL_set_read_ahead() set whether we should read "
+"as many input bytes as possible (for non-blocking reads) or not. For example "
+"if B<x> bytes are currently required by OpenSSL, but B<y> bytes are "
+"available from the underlying BIO (where B<y> > B<x>), then OpenSSL will "
+"read all B<y> bytes into its buffer (providing that the buffer is large "
+"enough) if reading ahead is on, or B<x> bytes otherwise. The parameter "
+"B<yes> or B<m> should be 0 to ensure reading ahead is off, or non zero "
+"otherwise."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_read_ahead.pod:31
+msgid ""
+"SSL_CTX_set_default_read_ahead is a synonym for SSL_CTX_set_read_ahead, and "
+"SSL_CTX_get_default_read_ahead is a synonym for SSL_CTX_get_read_ahead."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_read_ahead.pod:34
+msgid ""
+"SSL_CTX_get_read_ahead() and SSL_get_read_ahead() indicate whether reading "
+"ahead has been set or not."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_read_ahead.pod:39
+msgid ""
+"These functions have no impact when used with DTLS. The return values for "
+"SSL_CTX_get_read_head() and SSL_get_read_ahead() are undefined for DTLS."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_read_ahead.pod:44
+msgid ""
+"SSL_get_read_ahead and SSL_CTX_get_read_ahead return 0 if reading ahead is "
+"off, and non zero otherwise."
+msgstr ""
+
+#. type: textblock
+#: C/ssl/SSL_CTX_set_read_ahead.pod:49
+#: C/ssl/SSL_CTX_set_session_id_context.pod:81
+msgid "L<ssl(3)|ssl(3)>"
+msgstr "L<B<ssl>(3)|ssl(3)>"
+
+#. type: textblock
 #: C/ssl/SSL_CTX_set_session_cache_mode.pod:5
 msgid ""
 "SSL_CTX_set_session_cache_mode, SSL_CTX_get_session_cache_mode - enable/"
@@ -4141,11 +5043,6 @@ msgstr ""
 "La longueur I<sid_ctx_len> du contexte d’identifiant de session I<sid_ctx> "
 "dépasse la longueur maximale allouée de B<SSL_MAX_SSL_SESSION_ID_LENGTH>. "
 "L’erreur est journalisée dans la pile d’erreurs."
-
-#. type: textblock
-#: C/ssl/SSL_CTX_set_session_id_context.pod:81
-msgid "L<ssl(3)|ssl(3)>"
-msgstr "L<B<ssl>(3)|ssl(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_ssl_version.pod:5
@@ -5432,12 +6329,22 @@ msgstr ""
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_tmp_rsa_callback.pod:68
+#, fuzzy
+#| msgid ""
+#| "Additionally, the use of ephemeral RSA key exchange is only allowed in "
+#| "the TLS standard, when the RSA key can be used for signing only, that is "
+#| "for export ciphers. Using ephemeral RSA key exchange for other purposes "
+#| "violates the standard and can break interoperability with clients.  It is "
+#| "therefore strongly recommended to not use ephemeral RSA key exchange and "
+#| "use EDH (Ephemeral Diffie-Hellman) key exchange instead in order to "
+#| "achieve forward secrecy (see L<SSL_CTX_set_tmp_dh_callback(3)|"
+#| "SSL_CTX_set_tmp_dh_callback(3)>)."
 msgid ""
 "Additionally, the use of ephemeral RSA key exchange is only allowed in the "
 "TLS standard, when the RSA key can be used for signing only, that is for "
 "export ciphers. Using ephemeral RSA key exchange for other purposes violates "
 "the standard and can break interoperability with clients.  It is therefore "
-"strongly recommended to not use ephemeral RSA key exchange and use EDH "
+"strongly recommended to not use ephemeral RSA key exchange and use DHE "
 "(Ephemeral Diffie-Hellman) key exchange instead in order to achieve forward "
 "secrecy (see L<SSL_CTX_set_tmp_dh_callback(3)|"
 "SSL_CTX_set_tmp_dh_callback(3)>)."

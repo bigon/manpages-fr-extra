@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-20 16:01-0400\n"
+"POT-Creation-Date: 2015-05-06 17:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. type: =head1
-#: C/apps/openssl.pod:4 C/crypto/OPENSSL_Applink.pod:3 C/crypto/OPENSSL_VERSION_NUMBER.pod:3 C/crypto/OPENSSL_config.pod:3 C/crypto/OPENSSL_ia32cap.pod:3 C/crypto/OPENSSL_load_builtin_modules.pod:3 C/crypto/OpenSSL_add_all_algorithms.pod:3
+#: C/apps/openssl.pod:4 C/crypto/OPENSSL_Applink.pod:3 C/crypto/OPENSSL_VERSION_NUMBER.pod:3 C/crypto/OPENSSL_config.pod:3 C/crypto/OPENSSL_ia32cap.pod:3 C/crypto/OPENSSL_instrument_bus.pod:3 C/crypto/OPENSSL_load_builtin_modules.pod:3 C/crypto/OpenSSL_add_all_algorithms.pod:3
 msgid "NAME"
 msgstr ""
 
@@ -27,7 +27,7 @@ msgid "openssl - OpenSSL command line tool"
 msgstr ""
 
 #. type: =head1
-#: C/apps/openssl.pod:8 C/crypto/OPENSSL_Applink.pod:7 C/crypto/OPENSSL_VERSION_NUMBER.pod:7 C/crypto/OPENSSL_config.pod:7 C/crypto/OPENSSL_ia32cap.pod:7 C/crypto/OPENSSL_load_builtin_modules.pod:7 C/crypto/OpenSSL_add_all_algorithms.pod:8
+#: C/apps/openssl.pod:8 C/crypto/OPENSSL_Applink.pod:7 C/crypto/OPENSSL_VERSION_NUMBER.pod:7 C/crypto/OPENSSL_config.pod:7 C/crypto/OPENSSL_ia32cap.pod:7 C/crypto/OPENSSL_instrument_bus.pod:7 C/crypto/OPENSSL_load_builtin_modules.pod:7 C/crypto/OpenSSL_add_all_algorithms.pod:8
 msgid "SYNOPSIS"
 msgstr ""
 
@@ -50,7 +50,7 @@ msgid "B<openssl> B<no->I<XXX> [ I<arbitrary options> ]"
 msgstr ""
 
 #. type: =head1
-#: C/apps/openssl.pod:19 C/crypto/OPENSSL_Applink.pod:11 C/crypto/OPENSSL_VERSION_NUMBER.pod:16 C/crypto/OPENSSL_config.pod:14 C/crypto/OPENSSL_ia32cap.pod:12 C/crypto/OPENSSL_load_builtin_modules.pod:15 C/crypto/OpenSSL_add_all_algorithms.pod:18
+#: C/apps/openssl.pod:19 C/crypto/OPENSSL_Applink.pod:11 C/crypto/OPENSSL_VERSION_NUMBER.pod:16 C/crypto/OPENSSL_config.pod:14 C/crypto/OPENSSL_ia32cap.pod:12 C/crypto/OPENSSL_instrument_bus.pod:14 C/crypto/OPENSSL_load_builtin_modules.pod:15 C/crypto/OpenSSL_add_all_algorithms.pod:18
 msgid "DESCRIPTION"
 msgstr ""
 
@@ -893,7 +893,7 @@ msgid "read the password from standard input."
 msgstr ""
 
 #. type: =head1
-#: C/apps/openssl.pod:397 C/crypto/OPENSSL_VERSION_NUMBER.pod:91 C/crypto/OPENSSL_config.pod:73 C/crypto/OPENSSL_load_builtin_modules.pod:43 C/crypto/OpenSSL_add_all_algorithms.pod:61
+#: C/apps/openssl.pod:397 C/crypto/OPENSSL_VERSION_NUMBER.pod:91 C/crypto/OPENSSL_config.pod:55 C/crypto/OPENSSL_load_builtin_modules.pod:43 C/crypto/OpenSSL_add_all_algorithms.pod:61
 msgid "SEE ALSO"
 msgstr ""
 
@@ -915,7 +915,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/openssl.pod:413 C/crypto/OPENSSL_VERSION_NUMBER.pod:95 C/crypto/OPENSSL_config.pod:78 C/crypto/OPENSSL_load_builtin_modules.pod:47
+#: C/apps/openssl.pod:413 C/crypto/OPENSSL_VERSION_NUMBER.pod:95 C/crypto/OPENSSL_config.pod:60 C/crypto/OPENSSL_load_builtin_modules.pod:47
 msgid "HISTORY"
 msgstr ""
 
@@ -987,7 +987,7 @@ msgstr ""
 #: C/crypto/OPENSSL_VERSION_NUMBER.pod:20
 #, no-wrap
 msgid ""
-" MMNNFFPPS: major minor fix patch status\n"
+" MNNFFPPS: major minor fix patch status\n"
 "\n"
 msgstr ""
 
@@ -1129,7 +1129,7 @@ msgid "For an unknown B<t>, the text \"not available\" is returned."
 msgstr ""
 
 #. type: =head1
-#: C/crypto/OPENSSL_VERSION_NUMBER.pod:87 C/crypto/OPENSSL_load_builtin_modules.pod:39
+#: C/crypto/OPENSSL_VERSION_NUMBER.pod:87 C/crypto/OPENSSL_instrument_bus.pod:35 C/crypto/OPENSSL_load_builtin_modules.pod:39
 msgid "RETURN VALUE"
 msgstr ""
 
@@ -1178,63 +1178,37 @@ msgstr ""
 msgid ""
 "OPENSSL_config() configures OpenSSL using the standard B<openssl.cnf> "
 "configuration file name using B<config_name>. If B<config_name> is NULL then "
-"the default name B<openssl_conf> will be used. Any errors are "
-"ignored. Further calls to OPENSSL_config() will have no effect. The "
-"configuration file format is documented in the L<conf(5)|conf(5)> manual "
-"page."
+"the file specified in the environment variable B<OPENSSL_CONF> will be used, "
+"and if that is not set then a system default location is used.  Errors are "
+"silently ignored.  Multiple calls have no effect."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_config.pod:22
+#: C/crypto/OPENSSL_config.pod:23
 msgid ""
 "OPENSSL_no_config() disables configuration. If called before "
 "OPENSSL_config()  no configuration takes place."
 msgstr ""
 
 #. type: =head1
-#: C/crypto/OPENSSL_config.pod:25 C/crypto/OPENSSL_load_builtin_modules.pod:25 C/crypto/OpenSSL_add_all_algorithms.pod:37
+#: C/crypto/OPENSSL_config.pod:26 C/crypto/OPENSSL_load_builtin_modules.pod:25 C/crypto/OpenSSL_add_all_algorithms.pod:37
 msgid "NOTES"
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_config.pod:27
+#: C/crypto/OPENSSL_config.pod:28
 msgid ""
-"It is B<strongly> recommended that B<all> new applications call "
-"OPENSSL_config()  or the more sophisticated functions such as "
-"CONF_modules_load() during initialization (that is before starting any "
-"threads). By doing this an application does not need to keep track of all "
-"configuration options and some new functionality can be supported "
-"automatically."
+"The OPENSSL_config() function is designed to be a very simple \"call it and "
+"forget it\" function.  It is however B<much> better than "
+"nothing. Applications which need finer control over their configuration "
+"functionality should use the configuration functions such as "
+"CONF_modules_load() directly. This function is deprecated and its use should "
+"be avoided.  Applications should instead call CONF_modules_load() during "
+"initialization (that is before starting any threads)."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_config.pod:33
-msgid ""
-"It is also possible to automatically call OPENSSL_config() when an "
-"application calls OPENSSL_add_all_algorithms() by compiling an application "
-"with the preprocessor symbol B<OPENSSL_LOAD_CONF> #define'd. In this way "
-"configuration can be added without source changes."
-msgstr ""
-
-#. type: verbatim
-#: C/crypto/OPENSSL_config.pod:38
-#, no-wrap
-msgid ""
-"The environment variable B<OPENSSL_CONF> can be set to specify the "
-"location\n"
-"of the configuration file.\n"
-" \n"
-msgstr ""
-
-#. type: textblock
-#: C/crypto/OPENSSL_config.pod:41
-msgid ""
-"Currently ASN1 OBJECTs and ENGINE configuration can be performed future "
-"versions of OpenSSL will add new configuration options."
-msgstr ""
-
-#. type: textblock
-#: C/crypto/OPENSSL_config.pod:44
+#: C/crypto/OPENSSL_config.pod:37
 msgid ""
 "There are several reasons why calling the OpenSSL configuration routines is "
 "advisable. For example new ENGINE functionality was added to OpenSSL 0.9.7.  "
@@ -1249,67 +1223,47 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_config.pod:55
+#: C/crypto/OPENSSL_config.pod:48
 msgid ""
 "Applications should free up configuration at application closedown by "
 "calling CONF_modules_free()."
 msgstr ""
 
 #. type: =head1
-#: C/crypto/OPENSSL_config.pod:58
-msgid "RESTRICTIONS"
-msgstr ""
-
-#. type: textblock
-#: C/crypto/OPENSSL_config.pod:60
-msgid ""
-"The OPENSSL_config() function is designed to be a very simple \"call it and "
-"forget it\" function. As a result its behaviour is somewhat limited. It "
-"ignores all errors silently and it can only load from the standard "
-"configuration file location for example."
-msgstr ""
-
-#. type: textblock
-#: C/crypto/OPENSSL_config.pod:65
-msgid ""
-"It is however B<much> better than nothing. Applications which need finer "
-"control over their configuration functionality should use the configuration "
-"functions such as CONF_load_modules() directly."
-msgstr ""
-
-#. type: =head1
-#: C/crypto/OPENSSL_config.pod:69 C/crypto/OpenSSL_add_all_algorithms.pod:33
+#: C/crypto/OPENSSL_config.pod:51 C/crypto/OpenSSL_add_all_algorithms.pod:33
 msgid "RETURN VALUES"
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_config.pod:71
+#: C/crypto/OPENSSL_config.pod:53
 msgid "Neither OPENSSL_config() nor OPENSSL_no_config() return a value."
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_config.pod:75
+#: C/crypto/OPENSSL_config.pod:57
 msgid ""
 "L<conf(5)|conf(5)>, L<CONF_load_modules_file(3)|CONF_load_modules_file(3)>, "
 "L<CONF_modules_free(3)|CONF_modules_free(3)>"
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_config.pod:80
+#: C/crypto/OPENSSL_config.pod:62
 msgid "OPENSSL_config() and OPENSSL_no_config() first appeared in OpenSSL 0.9.7"
 msgstr ""
 
 #. type: textblock
 #: C/crypto/OPENSSL_ia32cap.pod:5
-msgid "OPENSSL_ia32cap - finding the IA-32 processor capabilities"
+msgid ""
+"OPENSSL_ia32cap, OPENSSL_ia32cap_loc - the IA-32 processor capabilities "
+"vector"
 msgstr ""
 
 #. type: verbatim
 #: C/crypto/OPENSSL_ia32cap.pod:9
 #, no-wrap
 msgid ""
-" unsigned long *OPENSSL_ia32cap_loc(void);\n"
-" #define OPENSSL_ia32cap (*(OPENSSL_ia32cap_loc()))\n"
+" unsigned int *OPENSSL_ia32cap_loc(void);\n"
+" #define OPENSSL_ia32cap ((OPENSSL_ia32cap_loc())[0])\n"
 "\n"
 msgstr ""
 
@@ -1317,47 +1271,223 @@ msgstr ""
 #: C/crypto/OPENSSL_ia32cap.pod:14
 msgid ""
 "Value returned by OPENSSL_ia32cap_loc() is address of a variable containing "
-"IA-32 processor capabilities bit vector as it appears in EDX register after "
-"executing CPUID instruction with EAX=1 input value (see Intel Application "
-"Note #241618). Naturally it's meaningful on IA-32[E] platforms only. The "
-"variable is normally set up automatically upon toolkit initialization, but "
-"can be manipulated afterwards to modify crypto library behaviour. For the "
-"moment of this writing six bits are significant, namely:"
+"IA-32 processor capabilities bit vector as it appears in EDX:ECX register "
+"pair after executing CPUID instruction with EAX=1 input value (see Intel "
+"Application Note #241618). Naturally it's meaningful on x86 and x86_64 "
+"platforms only. The variable is normally set up automatically upon toolkit "
+"initialization, but can be manipulated afterwards to modify crypto library "
+"behaviour. For the moment of this writing following bits are significant:"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:25
+msgid "bit #4 denoting presence of Time-Stamp Counter."
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:27
+msgid "bit #19 denoting availability of CLFLUSH instruction;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:29
+msgid "bit #20, reserved by Intel, is used to choose among RC4 code paths;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:31
+msgid "bit #23 denoting MMX support;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:33
+msgid "bit #24, FXSR bit, denoting availability of XMM registers;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:35
+msgid "bit #25 denoting SSE support;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:37
+msgid "bit #26 denoting SSE2 support;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:39
+msgid ""
+"bit #28 denoting Hyperthreading, which is used to distinguish cores with "
+"shared cache;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:42
+msgid "bit #30, reserved by Intel, denotes specifically Intel CPUs;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:44
+msgid "bit #33 denoting availability of PCLMULQDQ instruction;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:46
+msgid "bit #41 denoting SSSE3, Supplemental SSE3, support;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:48
+msgid "bit #43 denoting AMD XOP support (forced to zero on non-AMD CPUs);"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:50
+msgid "bit #57 denoting AES-NI instruction set extension;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:52
+msgid "bit #59, OSXSAVE bit, denoting availability of YMM registers;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:54
+msgid "bit #60 denoting AVX extension;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:56
+msgid "bit #62 denoting availability of RDRAND instruction;"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_ia32cap.pod:60
+msgid ""
+"For example, clearing bit #26 at run-time disables high-performance SSE2 "
+"code present in the crypto library, while clearing bit #24 disables SSE2 "
+"code operating on 128-bit XMM register bank. You might have to do the latter "
+"if target OpenSSL application is executed on SSE2 capable CPU, but under "
+"control of OS that does not enable XMM registers. Even though you can "
+"manipulate the value programmatically, you most likely will find it more "
+"appropriate to set up an environment variable with the same name prior "
+"starting target application, e.g. on Intel P4 processor 'env "
+"OPENSSL_ia32cap=0x16980010 apps/openssl', or better yet 'env "
+"OPENSSL_ia32cap=~0x1000000 apps/openssl' to achieve same effect without "
+"modifying the application source code. Alternatively you can reconfigure the "
+"toolkit with no-sse2 option and recompile."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_ia32cap.pod:73
+msgid ""
+"Less intuitive is clearing bit #28. The truth is that it's not copied from "
+"CPUID output verbatim, but is adjusted to reflect whether or not the data "
+"cache is actually shared between logical cores. This in turn affects the "
+"decision on whether or not expensive countermeasures against cache-timing "
+"attacks are applied, most notably in AES assembler module."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_ia32cap.pod:80
+msgid ""
+"The vector is further extended with EBX value returned by CPUID with EAX=7 "
+"and ECX=0 as input. Following bits are significant:"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:85
+msgid "bit #64+3 denoting availability of BMI1 instructions, e.g. ANDN;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:87
+msgid "bit #64+5 denoting availability of AVX2 instructions;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:89
+msgid "bit #64+8 denoting availability of BMI2 instructions, e.g. MUXL and RORX;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:92
+msgid "bit #64+18 denoting availability of RDSEED instruction;"
+msgstr ""
+
+#. type: =item
+#: C/crypto/OPENSSL_ia32cap.pod:94
+msgid "bit #64+19 denoting availability of ADCX and ADOX instructions;"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_instrument_bus.pod:5
+msgid ""
+"OPENSSL_instrument_bus, OPENSSL_instrument_bus2 - instrument references to "
+"memory bus"
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/OPENSSL_ia32cap.pod:23
+#: C/crypto/OPENSSL_instrument_bus.pod:9
 #, no-wrap
 msgid ""
-"1. bit #28 denoting Hyperthreading, which is used to distiguish\n"
-"   cores with shared cache;\n"
-"2. bit #26 denoting SSE2 support;\n"
-"3. bit #25 denoting SSE support;\n"
-"4. bit #23 denoting MMX support;\n"
-"5. bit #20, reserved by Intel, is used to choose between RC4 code\n"
-"   pathes;\n"
-"6. bit #4 denoting presence of Time-Stamp Counter.\n"
+" #ifdef OPENSSL_CPUID_OBJ\n"
+" size_t OPENSSL_instrument_bus (int *vector,size_t num);\n"
+" size_t OPENSSL_instrument_bus2(int *vector,size_t num,size_t max);\n"
+" #endif\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: C/crypto/OPENSSL_ia32cap.pod:32
+#: C/crypto/OPENSSL_instrument_bus.pod:16
 msgid ""
-"For example, clearing bit #26 at run-time disables high-performance SSE2 "
-"code present in the crypto library. You might have to do this if target "
-"OpenSSL application is executed on SSE2 capable CPU, but under control of OS "
-"which does not support SSE2 extentions. Even though you can manipulate the "
-"value programmatically, you most likely will find it more appropriate to set "
-"up an environment variable with the same name prior starting target "
-"application, e.g. on Intel P4 processor 'env OPENSSL_ia32cap=0x12900010 "
-"apps/openssl', to achieve same effect without modifying the application "
-"source code. Alternatively you can reconfigure the toolkit with no-sse2 "
-"option and recompile."
+"It was empirically found that timings of references to primary memory are "
+"subject to irregular, apparently non-deterministic variations. The "
+"subroutines in question instrument these references for purposes of "
+"gathering entropy for random number generator. In order to make it bus-bound "
+"a 'flush cache line' instruction is used between probes. In addition probes "
+"are added to B<vector> elements in atomic or interlocked manner, which "
+"should contribute additional noise on multi-processor systems. This also "
+"means that B<vector[num]> should be zeroed upon invocation (if you want to "
+"retrieve actual probe values)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_instrument_bus.pod:26
+msgid ""
+"OPENSSL_instrument_bus performs B<num> probes and records the number of "
+"oscillator cycles every probe took."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_instrument_bus.pod:29
+msgid ""
+"OPENSSL_instrument_bus2 on the other hand B<accumulates> consecutive probes "
+"with the same value, i.e. in a way it records duration of periods when probe "
+"values appeared deterministic. The subroutine performs at most B<max> probes "
+"in attempt to fill the B<vector[num]>, with B<max> value of 0 meaning \"as "
+"many as it takes.\""
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_instrument_bus.pod:37
+msgid ""
+"Return value of 0 indicates that CPU is not capable of performing the "
+"benchmark, either because oscillator counter or 'flush cache line' is not "
+"available on current platform. For reference, on x86 'flush cache line' was "
+"introduced with the SSE2 extensions."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/OPENSSL_instrument_bus.pod:42
+msgid "Otherwise number of recorded values is returned."
 msgstr ""
 
 #. type: textblock
 #: C/crypto/OPENSSL_load_builtin_modules.pod:5
-msgid "OPENSSL_load_builtin_modules - add standard configuration modules"
+msgid ""
+"OPENSSL_load_builtin_modules, ASN1_add_oid_module, ENGINE_add_conf_module - "
+"add standard configuration modules"
 msgstr ""
 
 #. type: verbatim
@@ -1430,8 +1560,8 @@ msgstr ""
 #. type: textblock
 #: C/crypto/OpenSSL_add_all_algorithms.pod:5
 msgid ""
-"OpenSSL_add_all_algorithms, OpenSSL_add_all_ciphers, OpenSSL_add_all_digests "
-"- add algorithms to internal table"
+"OpenSSL_add_all_algorithms, OpenSSL_add_all_ciphers, "
+"OpenSSL_add_all_digests, EVP_cleanup - add algorithms to internal table"
 msgstr ""
 
 #. type: verbatim

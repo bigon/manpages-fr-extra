@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2014-08-07 01:31-0400\n"
+"POT-Creation-Date: 2015-05-06 17:00-0400\n"
 "PO-Revision-Date: 2012-10-13 18:29-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -19,7 +19,10 @@ msgstr ""
 "X-Generator: Lokalize 1.4\n"
 
 #. type: =head1
-#: C/apps/ec.pod:3 C/apps/ecparam.pod:3
+#: C/apps/ec.pod:3 C/crypto/ec.pod:3 C/crypto/EC_GFp_simple_method.pod:3
+#: C/crypto/EC_GROUP_copy.pod:3 C/crypto/EC_GROUP_new.pod:3
+#: C/crypto/EC_KEY_new.pod:3 C/crypto/EC_POINT_add.pod:3
+#: C/crypto/EC_POINT_new.pod:3 C/apps/ecparam.pod:3
 msgid "NAME"
 msgstr "NOM"
 
@@ -29,7 +32,10 @@ msgid "ec - EC key processing"
 msgstr "ec - Traitement de clefs EC"
 
 #. type: =head1
-#: C/apps/ec.pod:7 C/apps/ecparam.pod:7
+#: C/apps/ec.pod:7 C/crypto/ec.pod:7 C/crypto/EC_GFp_simple_method.pod:7
+#: C/crypto/EC_GROUP_copy.pod:7 C/crypto/EC_GROUP_new.pod:7
+#: C/crypto/EC_KEY_new.pod:7 C/crypto/EC_POINT_add.pod:7
+#: C/crypto/EC_POINT_new.pod:7 C/apps/ecparam.pod:7
 msgid "SYNOPSIS"
 msgstr "SYNOPSIS"
 
@@ -48,7 +54,10 @@ msgstr ""
 "I<param>] [B<-engine> I<id>]"
 
 #. type: =head1
-#: C/apps/ec.pod:28 C/apps/ecparam.pod:27
+#: C/apps/ec.pod:28 C/crypto/ec.pod:167 C/crypto/EC_GFp_simple_method.pod:22
+#: C/crypto/EC_GROUP_copy.pod:49 C/crypto/EC_GROUP_new.pod:27
+#: C/crypto/EC_KEY_new.pod:39 C/crypto/EC_POINT_add.pod:26
+#: C/crypto/EC_POINT_new.pod:50 C/apps/ecparam.pod:27
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
 
@@ -464,7 +473,10 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: C/apps/ec.pod:178 C/apps/ecparam.pod:167
+#: C/apps/ec.pod:178 C/crypto/ec.pod:194 C/crypto/EC_GFp_simple_method.pod:53
+#: C/crypto/EC_GROUP_copy.pod:168 C/crypto/EC_GROUP_new.pod:89
+#: C/crypto/EC_KEY_new.pod:100 C/crypto/EC_POINT_add.pod:66
+#: C/crypto/EC_POINT_new.pod:122 C/apps/ecparam.pod:167
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
@@ -492,6 +504,1614 @@ msgstr "AUTEUR"
 #: C/apps/ec.pod:188
 msgid "Nils Larsch for the OpenSSL project (http://www.openssl.org)."
 msgstr "Nils Larsch pour le projet OpenSSL (http://www.openssl.org)."
+
+#. type: textblock
+#: C/crypto/ec.pod:5
+msgid "ec - Elliptic Curve functions"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:9 C/crypto/EC_GROUP_copy.pod:9 C/crypto/EC_GROUP_new.pod:9
+#: C/crypto/EC_KEY_new.pod:9 C/crypto/EC_POINT_add.pod:9
+#: C/crypto/EC_POINT_new.pod:9
+#, no-wrap
+msgid ""
+" #include <openssl/ec.h>\n"
+" #include <openssl/bn.h>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:12 C/crypto/EC_GFp_simple_method.pod:11
+#, no-wrap
+msgid ""
+" const EC_METHOD *EC_GFp_simple_method(void);\n"
+" const EC_METHOD *EC_GFp_mont_method(void);\n"
+" const EC_METHOD *EC_GFp_nist_method(void);\n"
+" const EC_METHOD *EC_GFp_nistp224_method(void);\n"
+" const EC_METHOD *EC_GFp_nistp256_method(void);\n"
+" const EC_METHOD *EC_GFp_nistp521_method(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:19 C/crypto/EC_GFp_simple_method.pod:18
+#, no-wrap
+msgid ""
+" const EC_METHOD *EC_GF2m_simple_method(void);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:21
+#, no-wrap
+msgid ""
+" EC_GROUP *EC_GROUP_new(const EC_METHOD *meth);\n"
+" void EC_GROUP_free(EC_GROUP *group);\n"
+" void EC_GROUP_clear_free(EC_GROUP *group);\n"
+" int EC_GROUP_copy(EC_GROUP *dst, const EC_GROUP *src);\n"
+" EC_GROUP *EC_GROUP_dup(const EC_GROUP *src);\n"
+" const EC_METHOD *EC_GROUP_method_of(const EC_GROUP *group);\n"
+" int EC_METHOD_get_field_type(const EC_METHOD *meth);\n"
+" int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator, const BIGNUM *order, const BIGNUM *cofactor);\n"
+" const EC_POINT *EC_GROUP_get0_generator(const EC_GROUP *group);\n"
+" int EC_GROUP_get_order(const EC_GROUP *group, BIGNUM *order, BN_CTX *ctx);\n"
+" int EC_GROUP_get_cofactor(const EC_GROUP *group, BIGNUM *cofactor, BN_CTX *ctx);\n"
+" void EC_GROUP_set_curve_name(EC_GROUP *group, int nid);\n"
+" int EC_GROUP_get_curve_name(const EC_GROUP *group);\n"
+" void EC_GROUP_set_asn1_flag(EC_GROUP *group, int flag);\n"
+" int EC_GROUP_get_asn1_flag(const EC_GROUP *group);\n"
+" void EC_GROUP_set_point_conversion_form(EC_GROUP *group, point_conversion_form_t form);\n"
+" point_conversion_form_t EC_GROUP_get_point_conversion_form(const EC_GROUP *);\n"
+" unsigned char *EC_GROUP_get0_seed(const EC_GROUP *x);\n"
+" size_t EC_GROUP_get_seed_len(const EC_GROUP *);\n"
+" size_t EC_GROUP_set_seed(EC_GROUP *, const unsigned char *, size_t len);\n"
+" int EC_GROUP_set_curve_GFp(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" int EC_GROUP_get_curve_GFp(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);\n"
+" int EC_GROUP_set_curve_GF2m(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);\n"
+" int EC_GROUP_get_degree(const EC_GROUP *group);\n"
+" int EC_GROUP_check(const EC_GROUP *group, BN_CTX *ctx);\n"
+" int EC_GROUP_check_discriminant(const EC_GROUP *group, BN_CTX *ctx);\n"
+" int EC_GROUP_cmp(const EC_GROUP *a, const EC_GROUP *b, BN_CTX *ctx);\n"
+" EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" EC_GROUP *EC_GROUP_new_curve_GF2m(const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" EC_GROUP *EC_GROUP_new_by_curve_name(int nid);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:53 C/crypto/EC_GROUP_new.pod:25
+#, no-wrap
+msgid ""
+" size_t EC_get_builtin_curves(EC_builtin_curve *r, size_t nitems);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:55 C/crypto/EC_POINT_new.pod:12
+#, no-wrap
+msgid ""
+" EC_POINT *EC_POINT_new(const EC_GROUP *group);\n"
+" void EC_POINT_free(EC_POINT *point);\n"
+" void EC_POINT_clear_free(EC_POINT *point);\n"
+" int EC_POINT_copy(EC_POINT *dst, const EC_POINT *src);\n"
+" EC_POINT *EC_POINT_dup(const EC_POINT *src, const EC_GROUP *group);\n"
+" const EC_METHOD *EC_POINT_method_of(const EC_POINT *point);\n"
+" int EC_POINT_set_to_infinity(const EC_GROUP *group, EC_POINT *point);\n"
+" int EC_POINT_set_Jprojective_coordinates_GFp(const EC_GROUP *group, EC_POINT *p,\n"
+"\tconst BIGNUM *x, const BIGNUM *y, const BIGNUM *z, BN_CTX *ctx);\n"
+" int EC_POINT_get_Jprojective_coordinates_GFp(const EC_GROUP *group,\n"
+"\tconst EC_POINT *p, BIGNUM *x, BIGNUM *y, BIGNUM *z, BN_CTX *ctx);\n"
+" int EC_POINT_set_affine_coordinates_GFp(const EC_GROUP *group, EC_POINT *p,\n"
+"\tconst BIGNUM *x, const BIGNUM *y, BN_CTX *ctx);\n"
+" int EC_POINT_get_affine_coordinates_GFp(const EC_GROUP *group,\n"
+"\tconst EC_POINT *p, BIGNUM *x, BIGNUM *y, BN_CTX *ctx);\n"
+" int EC_POINT_set_compressed_coordinates_GFp(const EC_GROUP *group, EC_POINT *p,\n"
+"\tconst BIGNUM *x, int y_bit, BN_CTX *ctx);\n"
+" int EC_POINT_set_affine_coordinates_GF2m(const EC_GROUP *group, EC_POINT *p,\n"
+"\tconst BIGNUM *x, const BIGNUM *y, BN_CTX *ctx);\n"
+" int EC_POINT_get_affine_coordinates_GF2m(const EC_GROUP *group,\n"
+"\tconst EC_POINT *p, BIGNUM *x, BIGNUM *y, BN_CTX *ctx);\n"
+" int EC_POINT_set_compressed_coordinates_GF2m(const EC_GROUP *group, EC_POINT *p,\n"
+"\tconst BIGNUM *x, int y_bit, BN_CTX *ctx);\n"
+" size_t EC_POINT_point2oct(const EC_GROUP *group, const EC_POINT *p,\n"
+"\tpoint_conversion_form_t form,\n"
+"        unsigned char *buf, size_t len, BN_CTX *ctx);\n"
+" int EC_POINT_oct2point(const EC_GROUP *group, EC_POINT *p,\n"
+"        const unsigned char *buf, size_t len, BN_CTX *ctx);\n"
+" BIGNUM *EC_POINT_point2bn(const EC_GROUP *, const EC_POINT *,\n"
+"\tpoint_conversion_form_t form, BIGNUM *, BN_CTX *);\n"
+" EC_POINT *EC_POINT_bn2point(const EC_GROUP *, const BIGNUM *,\n"
+"\tEC_POINT *, BN_CTX *);\n"
+" char *EC_POINT_point2hex(const EC_GROUP *, const EC_POINT *,\n"
+"\tpoint_conversion_form_t form, BN_CTX *);\n"
+" EC_POINT *EC_POINT_hex2point(const EC_GROUP *, const char *,\n"
+"\tEC_POINT *, BN_CTX *);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:92 C/crypto/EC_POINT_add.pod:12
+#, no-wrap
+msgid ""
+" int EC_POINT_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a, const EC_POINT *b, BN_CTX *ctx);\n"
+" int EC_POINT_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a, BN_CTX *ctx);\n"
+" int EC_POINT_invert(const EC_GROUP *group, EC_POINT *a, BN_CTX *ctx);\n"
+" int EC_POINT_is_at_infinity(const EC_GROUP *group, const EC_POINT *p);\n"
+" int EC_POINT_is_on_curve(const EC_GROUP *group, const EC_POINT *point, BN_CTX *ctx);\n"
+" int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a, const EC_POINT *b, BN_CTX *ctx);\n"
+" int EC_POINT_make_affine(const EC_GROUP *group, EC_POINT *point, BN_CTX *ctx);\n"
+" int EC_POINTs_make_affine(const EC_GROUP *group, size_t num, EC_POINT *points[], BN_CTX *ctx);\n"
+" int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *n, size_t num, const EC_POINT *p[], const BIGNUM *m[], BN_CTX *ctx);\n"
+" int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *n, const EC_POINT *q, const BIGNUM *m, BN_CTX *ctx);\n"
+" int EC_GROUP_precompute_mult(EC_GROUP *group, BN_CTX *ctx);\n"
+" int EC_GROUP_have_precompute_mult(const EC_GROUP *group);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:105
+#, no-wrap
+msgid ""
+" int EC_GROUP_get_basis_type(const EC_GROUP *);\n"
+" int EC_GROUP_get_trinomial_basis(const EC_GROUP *, unsigned int *k);\n"
+" int EC_GROUP_get_pentanomial_basis(const EC_GROUP *, unsigned int *k1, \n"
+"\tunsigned int *k2, unsigned int *k3);\n"
+" EC_GROUP *d2i_ECPKParameters(EC_GROUP **, const unsigned char **in, long len);\n"
+" int i2d_ECPKParameters(const EC_GROUP *, unsigned char **out);\n"
+" #define d2i_ECPKParameters_bio(bp,x) ASN1_d2i_bio_of(EC_GROUP,NULL,d2i_ECPKParameters,bp,x)\n"
+" #define i2d_ECPKParameters_bio(bp,x) ASN1_i2d_bio_of_const(EC_GROUP,i2d_ECPKParameters,bp,x)\n"
+" #define d2i_ECPKParameters_fp(fp,x) (EC_GROUP *)ASN1_d2i_fp(NULL, \\\n"
+"                (char *(*)())d2i_ECPKParameters,(fp),(unsigned char **)(x))\n"
+" #define i2d_ECPKParameters_fp(fp,x) ASN1_i2d_fp(i2d_ECPKParameters,(fp), \\\n"
+"\t\t(unsigned char *)(x))\n"
+" int     ECPKParameters_print(BIO *bp, const EC_GROUP *x, int off);\n"
+" int     ECPKParameters_print_fp(FILE *fp, const EC_GROUP *x, int off);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:120
+#, no-wrap
+msgid ""
+" EC_KEY *EC_KEY_new(void);\n"
+" int EC_KEY_get_flags(const EC_KEY *key);\n"
+" void EC_KEY_set_flags(EC_KEY *key, int flags);\n"
+" void EC_KEY_clear_flags(EC_KEY *key, int flags);\n"
+" EC_KEY *EC_KEY_new_by_curve_name(int nid);\n"
+" void EC_KEY_free(EC_KEY *key);\n"
+" EC_KEY *EC_KEY_copy(EC_KEY *dst, const EC_KEY *src);\n"
+" EC_KEY *EC_KEY_dup(const EC_KEY *src);\n"
+" int EC_KEY_up_ref(EC_KEY *key);\n"
+" const EC_GROUP *EC_KEY_get0_group(const EC_KEY *key);\n"
+" int EC_KEY_set_group(EC_KEY *key, const EC_GROUP *group);\n"
+" const BIGNUM *EC_KEY_get0_private_key(const EC_KEY *key);\n"
+" int EC_KEY_set_private_key(EC_KEY *key, const BIGNUM *prv);\n"
+" const EC_POINT *EC_KEY_get0_public_key(const EC_KEY *key);\n"
+" int EC_KEY_set_public_key(EC_KEY *key, const EC_POINT *pub);\n"
+" unsigned EC_KEY_get_enc_flags(const EC_KEY *key);\n"
+" void EC_KEY_set_enc_flags(EC_KEY *eckey, unsigned int flags);\n"
+" point_conversion_form_t EC_KEY_get_conv_form(const EC_KEY *key);\n"
+" void EC_KEY_set_conv_form(EC_KEY *eckey, point_conversion_form_t cform);\n"
+" void *EC_KEY_get_key_method_data(EC_KEY *key, \n"
+"\tvoid *(*dup_func)(void *), void (*free_func)(void *), void (*clear_free_func)(void *));\n"
+" void EC_KEY_insert_key_method_data(EC_KEY *key, void *data,\n"
+"\tvoid *(*dup_func)(void *), void (*free_func)(void *), void (*clear_free_func)(void *));\n"
+" void EC_KEY_set_asn1_flag(EC_KEY *eckey, int asn1_flag);\n"
+" int EC_KEY_precompute_mult(EC_KEY *key, BN_CTX *ctx);\n"
+" int EC_KEY_generate_key(EC_KEY *key);\n"
+" int EC_KEY_check_key(const EC_KEY *key);\n"
+" int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:149
+#, no-wrap
+msgid ""
+" EC_KEY *d2i_ECPrivateKey(EC_KEY **key, const unsigned char **in, long len);\n"
+" int i2d_ECPrivateKey(EC_KEY *key, unsigned char **out);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:152
+#, no-wrap
+msgid ""
+" EC_KEY *d2i_ECParameters(EC_KEY **key, const unsigned char **in, long len);\n"
+" int i2d_ECParameters(EC_KEY *key, unsigned char **out);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/ec.pod:155
+#, no-wrap
+msgid ""
+" EC_KEY *o2i_ECPublicKey(EC_KEY **key, const unsigned char **in, long len);\n"
+" int i2o_ECPublicKey(EC_KEY *key, unsigned char **out);\n"
+" int\tECParameters_print(BIO *bp, const EC_KEY *key);\n"
+" int\tEC_KEY_print(BIO *bp, const EC_KEY *key, int off);\n"
+" int\tECParameters_print_fp(FILE *fp, const EC_KEY *key);\n"
+" int\tEC_KEY_print_fp(FILE *fp, const EC_KEY *key, int off);\n"
+" #define ECParameters_dup(x) ASN1_dup_of(EC_KEY,i2d_ECParameters,d2i_ECParameters,x)\n"
+" #define EVP_PKEY_CTX_set_ec_paramgen_curve_nid(ctx, nid) \\\n"
+"\tEVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_EC, EVP_PKEY_OP_PARAMGEN, \\\n"
+"\t\t\t\tEVP_PKEY_CTRL_EC_PARAMGEN_CURVE_NID, nid, NULL)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:169
+msgid ""
+"This library provides an extensive set of functions for performing "
+"operations on elliptic curves over finite fields.  In general an elliptic "
+"curve is one with an equation of the form:"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:172
+msgid "y^2 = x^3 + ax + b"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:174
+msgid ""
+"An B<EC_GROUP> structure is used to represent the definition of an elliptic "
+"curve. Points on a curve are stored using an B<EC_POINT> structure. An "
+"B<EC_KEY> is used to hold a private/public key pair, where a private key is "
+"simply a BIGNUM and a public key is a point on a curve (represented by an "
+"B<EC_POINT>)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:178
+msgid ""
+"The library contains a number of alternative implementations of the "
+"different functions. Each implementation is optimised for different "
+"scenarios. No matter which implementation is being used, the interface "
+"remains the same. The library handles calling the correct implementation "
+"when an interface function is invoked. An implementation is represented by "
+"an B<EC_METHOD> structure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:183
+msgid ""
+"The creation and destruction of B<EC_GROUP> objects is described in "
+"L<EC_GROUP_new(3)|EC_GROUP_new(3)>. Functions for manipulating B<EC_GROUP> "
+"objects are described in L<EC_GROUP_copy(3)|EC_GROUP_copy(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:186
+msgid ""
+"Functions for creating, destroying and manipulating B<EC_POINT> objects are "
+"explained in L<EC_POINT_new(3)|EC_POINT_new(3)>, whilst functions for "
+"performing mathematical operations and tests on B<EC_POINTs> are coverd in "
+"L<EC_POINT_add(3)|EC_POINT_add(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:189
+msgid ""
+"For working with private and public keys refer to L<EC_KEY_new(3)|"
+"EC_KEY_new(3)>. Implementations are covered in L<EC_GFp_simple_method(3)|"
+"EC_GFp_simple_method(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:192
+msgid ""
+"For information on encoding and decoding curve parameters to and from ASN1 "
+"see L<d2i_ECPKParameters(3)|d2i_ECPKParameters(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/ec.pod:196
+msgid ""
+"L<crypto(3)|crypto(3)>, L<EC_GROUP_new(3)|EC_GROUP_new(3)>, "
+"L<EC_GROUP_copy(3)|EC_GROUP_copy(3)>, L<EC_POINT_new(3)|EC_POINT_new(3)>, "
+"L<EC_POINT_add(3)|EC_POINT_add(3)>, L<EC_KEY_new(3)|EC_KEY_new(3)>, "
+"L<EC_GFp_simple_method(3)|EC_GFp_simple_method(3)>, L<d2i_ECPKParameters(3)|"
+"d2i_ECPKParameters(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:5
+msgid ""
+"EC_GFp_simple_method, EC_GFp_mont_method, EC_GFp_nist_method, "
+"EC_GFp_nistp224_method, EC_GFp_nistp256_method, EC_GFp_nistp521_method, "
+"EC_GF2m_simple_method, EC_METHOD_get_field_type - Functions for obtaining "
+"B<EC_METHOD> objects."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GFp_simple_method.pod:9
+#, no-wrap
+msgid ""
+" #include <openssl/ec.h>\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GFp_simple_method.pod:20
+#, no-wrap
+msgid ""
+" int EC_METHOD_get_field_type(const EC_METHOD *meth);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:24
+msgid ""
+"The Elliptic Curve library provides a number of different implementations "
+"through a single common interface.  When constructing a curve using "
+"EC_GROUP_new (see L<EC_GROUP_new(3)|EC_GROUP_new(3)>) an implementation "
+"method must be provided. The functions described here all return a const "
+"pointer to an B<EC_METHOD> structure that can be passed to EC_GROUP_NEW. It "
+"is important that the correct implementation type for the form of curve "
+"selected is used."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:30
+msgid ""
+"For F2^m curves there is only one implementation choice, i.e. "
+"EC_GF2_simple_method."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:32
+msgid ""
+"For Fp curves the lowest common denominator implementation is the "
+"EC_GFp_simple_method implementation. All other implementations are based on "
+"this one. EC_GFp_mont_method builds on EC_GFp_simple_method but adds the use "
+"of montgomery multiplication (see L<BN_mod_mul_montgomery(3)|"
+"BN_mod_mul_montgomery(3)>). EC_GFp_nist_method offers an implementation "
+"optimised for use with NIST recommended curves (NIST curves are available "
+"through EC_GROUP_new_by_curve_name as described in L<EC_GROUP_new(3)|"
+"EC_GROUP_new(3)>)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:38
+msgid ""
+"The functions EC_GFp_nistp224_method, EC_GFp_nistp256_method and "
+"EC_GFp_nistp521_method offer 64 bit optimised implementations for the NIST "
+"P224, P256 and P521 curves respectively. Note, however, that these "
+"implementations are not available on all platforms."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:42
+msgid ""
+"EC_METHOD_get_field_type identifies what type of field the EC_METHOD "
+"structure supports, which will be either F2^m or Fp. If the field type is Fp "
+"then the value B<NID_X9_62_prime_field> is returned. If the field type is "
+"F2^m then the value B<NID_X9_62_characteristic_two_field> is returned. These "
+"values are defined in the obj_mac.h header file."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/EC_GFp_simple_method.pod:47 C/crypto/EC_GROUP_copy.pod:142
+#: C/crypto/EC_GROUP_new.pod:81 C/crypto/EC_KEY_new.pod:83
+#: C/crypto/EC_POINT_add.pod:53 C/crypto/EC_POINT_new.pod:101
+msgid "RETURN VALUES"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:49
+msgid ""
+"All EC_GFp* functions and EC_GF2m_simple_method always return a const "
+"pointer to an EC_METHOD structure."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:51
+msgid ""
+"EC_METHOD_get_field_type returns an integer that identifies the type of "
+"field the EC_METHOD structure supports."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GFp_simple_method.pod:55
+msgid ""
+"L<crypto(3)|crypto(3)>, L<ec(3)|ec(3)>, L<EC_GROUP_new(3)|EC_GROUP_new(3)>, "
+"L<EC_GROUP_copy(3)|EC_GROUP_copy(3)>, L<EC_POINT_new(3)|EC_POINT_new(3)>, "
+"L<EC_POINT_add(3)|EC_POINT_add(3)>, L<EC_KEY_new(3)|EC_KEY_new(3)>, "
+"L<d2i_ECPKParameters(3)|d2i_ECPKParameters(3)>, L<BN_mod_mul_montgomery(3)|"
+"BN_mod_mul_montgomery(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:5
+msgid ""
+"EC_GROUP_copy, EC_GROUP_dup, EC_GROUP_method_of, EC_GROUP_set_generator, "
+"EC_GROUP_get0_generator, EC_GROUP_get_order, EC_GROUP_get_cofactor, "
+"EC_GROUP_set_curve_name, EC_GROUP_get_curve_name, EC_GROUP_set_asn1_flag, "
+"EC_GROUP_get_asn1_flag, EC_GROUP_set_point_conversion_form, "
+"EC_GROUP_get_point_conversion_form, EC_GROUP_get0_seed, "
+"EC_GROUP_get_seed_len, EC_GROUP_set_seed, EC_GROUP_get_degree, "
+"EC_GROUP_check, EC_GROUP_check_discriminant, EC_GROUP_cmp, "
+"EC_GROUP_get_basis_type, EC_GROUP_get_trinomial_basis, "
+"EC_GROUP_get_pentanomial_basis - Functions for manipulating B<EC_GROUP> "
+"objects."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:12
+#, no-wrap
+msgid ""
+" int EC_GROUP_copy(EC_GROUP *dst, const EC_GROUP *src);\n"
+" EC_GROUP *EC_GROUP_dup(const EC_GROUP *src);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:15
+#, no-wrap
+msgid ""
+" const EC_METHOD *EC_GROUP_method_of(const EC_GROUP *group);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:17
+#, no-wrap
+msgid ""
+" int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator, const BIGNUM *order, const BIGNUM *cofactor);\n"
+" const EC_POINT *EC_GROUP_get0_generator(const EC_GROUP *group);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:20
+#, no-wrap
+msgid ""
+" int EC_GROUP_get_order(const EC_GROUP *group, BIGNUM *order, BN_CTX *ctx);\n"
+" int EC_GROUP_get_cofactor(const EC_GROUP *group, BIGNUM *cofactor, BN_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:23
+#, no-wrap
+msgid ""
+" void EC_GROUP_set_curve_name(EC_GROUP *group, int nid);\n"
+" int EC_GROUP_get_curve_name(const EC_GROUP *group);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:26
+#, no-wrap
+msgid ""
+" void EC_GROUP_set_asn1_flag(EC_GROUP *group, int flag);\n"
+" int EC_GROUP_get_asn1_flag(const EC_GROUP *group);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:29
+#, no-wrap
+msgid ""
+" void EC_GROUP_set_point_conversion_form(EC_GROUP *group, point_conversion_form_t form);\n"
+" point_conversion_form_t EC_GROUP_get_point_conversion_form(const EC_GROUP *);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:32
+#, no-wrap
+msgid ""
+" unsigned char *EC_GROUP_get0_seed(const EC_GROUP *x);\n"
+" size_t EC_GROUP_get_seed_len(const EC_GROUP *);\n"
+" size_t EC_GROUP_set_seed(EC_GROUP *, const unsigned char *, size_t len);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:36
+#, no-wrap
+msgid ""
+" int EC_GROUP_get_degree(const EC_GROUP *group);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:38
+#, no-wrap
+msgid ""
+" int EC_GROUP_check(const EC_GROUP *group, BN_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:40
+#, no-wrap
+msgid ""
+" int EC_GROUP_check_discriminant(const EC_GROUP *group, BN_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:42
+#, no-wrap
+msgid ""
+" int EC_GROUP_cmp(const EC_GROUP *a, const EC_GROUP *b, BN_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:44
+#, no-wrap
+msgid ""
+" int EC_GROUP_get_basis_type(const EC_GROUP *);\n"
+" int EC_GROUP_get_trinomial_basis(const EC_GROUP *, unsigned int *k);\n"
+" int EC_GROUP_get_pentanomial_basis(const EC_GROUP *, unsigned int *k1, \n"
+"\tunsigned int *k2, unsigned int *k3);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:51
+msgid ""
+"EC_GROUP_copy copies the curve B<src> into B<dst>. Both B<src> and B<dst> "
+"must use the same EC_METHOD."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:53
+msgid ""
+"EC_GROUP_dup creates a new EC_GROUP object and copies the content from "
+"B<src> to the newly created EC_GROUP object."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:56
+msgid "EC_GROUP_method_of obtains the EC_METHOD of B<group>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:58
+msgid ""
+"EC_GROUP_set_generator sets curve paramaters that must be agreed by all "
+"participants using the curve. These paramaters include the B<generator>, the "
+"B<order> and the B<cofactor>. The B<generator> is a well defined point on "
+"the curve chosen for cryptographic operations. Integers used for point "
+"multiplications will be between 0 and n-1 where n is the B<order>. The "
+"B<order> multipied by the B<cofactor> gives the number of points on the "
+"curve."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:63
+msgid ""
+"EC_GROUP_get0_generator returns the generator for the identified B<group>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:65
+msgid ""
+"The functions EC_GROUP_get_order and EC_GROUP_get_cofactor populate the "
+"provided B<order> and B<cofactor> parameters with the respective order and "
+"cofactors for the B<group>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:68
+msgid ""
+"The functions EC_GROUP_set_curve_name and EC_GROUP_get_curve_name, set and "
+"get the NID for the curve respectively (see L<EC_GROUP_new(3)|"
+"EC_GROUP_new(3)>). If a curve does not have a NID associated with it, then "
+"EC_GROUP_get_curve_name will return 0."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:72
+msgid ""
+"The asn1_flag value on a curve is used to determine whether there is a "
+"specific ASN1 OID to describe the curve or not.  If the asn1_flag is 1 then "
+"this is a named curve with an associated ASN1 OID. If not then asn1_flag is "
+"0. The functions EC_GROUP_get_asn1_flag and EC_GROUP_set_asn1_flag get and "
+"set the status of the asn1_flag for the curve. If set then the curve_name "
+"must also be set."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:77
+msgid ""
+"The point_coversion_form for a curve controls how EC_POINT data is encoded "
+"as ASN1 as defined in X9.62 (ECDSA).  point_conversion_form_t is an enum "
+"defined as follows:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:80
+#, no-wrap
+msgid ""
+" typedef enum {\n"
+"\t/** the point is encoded as z||x, where the octet z specifies \n"
+"\t *   which solution of the quadratic equation y is  */\n"
+"\tPOINT_CONVERSION_COMPRESSED = 2,\n"
+"\t/** the point is encoded as z||x||y, where z is the octet 0x02  */\n"
+"\tPOINT_CONVERSION_UNCOMPRESSED = 4,\n"
+"\t/** the point is encoded as z||x||y, where the octet z specifies\n"
+"         *  which solution of the quadratic equation y is  */\n"
+"\tPOINT_CONVERSION_HYBRID = 6\n"
+" } point_conversion_form_t;\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_copy.pod:91
+#, no-wrap
+msgid " \n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:92
+msgid ""
+"For POINT_CONVERSION_UNCOMPRESSED the point is encoded as an octet "
+"signifying the UNCOMPRESSED form has been used followed by the octets for x, "
+"followed by the octets for y."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:95
+msgid ""
+"For any given x co-ordinate for a point on a curve it is possible to derive "
+"two possible y values. For POINT_CONVERSION_COMPRESSED the point is encoded "
+"as an octet signifying that the COMPRESSED form has been used AND which of "
+"the two possible solutions for y has been used, followed by the octets for x."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:99
+msgid ""
+"For POINT_CONVERSION_HYBRID the point is encoded as an octet signifying the "
+"HYBRID form has been used AND which of the two possible solutions for y has "
+"been used, followed by the octets for x, followed by the octets for y."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:102
+msgid ""
+"The functions EC_GROUP_set_point_conversion_form and "
+"EC_GROUP_get_point_conversion_form set and get the point_conversion_form for "
+"the curve respectively."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:105
+msgid ""
+"ANSI X9.62 (ECDSA standard) defines a method of generating the curve "
+"parameter b from a random number. This provides advantages in that a "
+"parameter obtained in this way is highly unlikely to be susceptible to "
+"special purpose attacks, or have any trapdoors in it.  If the seed is "
+"present for a curve then the b parameter was generated in a verifiable "
+"fashion using that seed. The OpenSSL EC library does not use this seed value "
+"but does enable you to inspect it using EC_GROUP_get0_seed. This returns a "
+"pointer to a memory block containing the seed that was used. The length of "
+"the memory block can be obtained using EC_GROUP_get_seed_len. A number of "
+"the builtin curves within the library provide seed values that can be "
+"obtained. It is also possible to set a custom seed using EC_GROUP_set_seed "
+"and passing a pointer to a memory block, along with the length of the seed. "
+"Again, the EC library will not use this seed value, although it will be "
+"preserved in any ASN1 based communications."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:114
+msgid ""
+"EC_GROUP_get_degree gets the degree of the field. For Fp fields this will be "
+"the number of bits in p.  For F2^m fields this will be the value m."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:117
+msgid ""
+"The function EC_GROUP_check_discriminant calculates the discriminant for the "
+"curve and verifies that it is valid.  For a curve defined over Fp the "
+"discriminant is given by the formula 4*a^3 + 27*b^2 whilst for F2^m curves "
+"the discriminant is simply b. In either case for the curve to be valid the "
+"discriminant must be non zero."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:121
+msgid ""
+"The function EC_GROUP_check performs a number of checks on a curve to verify "
+"that it is valid. Checks performed include verifying that the discriminant "
+"is non zero; that a generator has been defined; that the generator is on the "
+"curve and has the correct order."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:125
+msgid ""
+"EC_GROUP_cmp compares B<a> and B<b> to determine whether they represent the "
+"same curve or not."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:127
+msgid ""
+"The functions EC_GROUP_get_basis_type, EC_GROUP_get_trinomial_basis and "
+"EC_GROUP_get_pentanomial_basis should only be called for curves defined over "
+"an F2^m field. Addition and multiplication operations within an F2^m field "
+"are performed using an irreducible polynomial function f(x). This function "
+"is either a trinomial of the form:"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:131
+msgid "f(x) = x^m + x^k + 1 with m > k >= 1"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:133
+msgid "or a pentanomial of the form:"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:135
+msgid "f(x) = x^m + x^k3 + x^k2 + x^k1 + 1 with m > k3 > k2 > k1 >= 1"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:137
+msgid ""
+"The function EC_GROUP_get_basis_type returns a NID identifying whether a "
+"trinomial or pentanomial is in use for the field. The function "
+"EC_GROUP_get_trinomial_basis must only be called where f(x) is of the "
+"trinomial form, and returns the value of B<k>. Similary the function "
+"EC_GROUP_get_pentanomial_basis must only be called where f(x) is of the "
+"pentanomial form, and returns the values of B<k1>, B<k2> and B<k3> "
+"respectively."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:144
+msgid ""
+"The following functions return 1 on success or 0 on error: EC_GROUP_copy, "
+"EC_GROUP_set_generator, EC_GROUP_check, EC_GROUP_check_discriminant, "
+"EC_GROUP_get_trinomial_basis and EC_GROUP_get_pentanomial_basis."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:147
+msgid ""
+"EC_GROUP_dup returns a pointer to the duplicated curve, or NULL on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:149
+msgid ""
+"EC_GROUP_method_of returns the EC_METHOD implementation in use for the given "
+"curve or NULL on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:151
+msgid ""
+"EC_GROUP_get0_generator returns the generator for the given curve or NULL on "
+"error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:153
+msgid ""
+"EC_GROUP_get_order, EC_GROUP_get_cofactor, EC_GROUP_get_curve_name, "
+"EC_GROUP_get_asn1_flag, EC_GROUP_get_point_conversion_form and "
+"EC_GROUP_get_degree return the order, cofactor, curve name (NID), ASN1 flag, "
+"point_conversion_form and degree for the specified curve respectively. If "
+"there is no curve name associated with a curve then EC_GROUP_get_curve_name "
+"will return 0."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:157
+msgid ""
+"EC_GROUP_get0_seed returns a pointer to the seed that was used to generate "
+"the parameter b, or NULL if the seed is not specified. EC_GROUP_get_seed_len "
+"returns the length of the seed or 0 if the seed is not specified."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:160
+msgid ""
+"EC_GROUP_set_seed returns the length of the seed that has been set. If the "
+"supplied seed is NULL, or the supplied seed length is 0, the the return "
+"value will be 1. On error 0 is returned."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:163
+msgid ""
+"EC_GROUP_cmp returns 0 if the curves are equal, 1 if they are not equal, or "
+"-1 on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:165
+msgid ""
+"EC_GROUP_get_basis_type returns the values NID_X9_62_tpBasis or "
+"NID_X9_62_ppBasis (as defined in <openssl/obj_mac.h>) for a trinomial or "
+"pentanomial respectively. Alternatively in the event of an error a 0 is "
+"returned."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_copy.pod:170
+msgid ""
+"L<crypto(3)|crypto(3)>, L<ec(3)|ec(3)>, L<EC_GROUP_new(3)|EC_GROUP_new(3)>, "
+"L<EC_POINT_new(3)|EC_POINT_new(3)>, L<EC_POINT_add(3)|EC_POINT_add(3)>, "
+"L<EC_KEY_new(3)|EC_KEY_new(3)>, L<EC_GFp_simple_method(3)|"
+"EC_GFp_simple_method(3)>, L<d2i_ECPKParameters(3)|d2i_ECPKParameters(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:5
+msgid ""
+"EC_GROUP_new, EC_GROUP_free, EC_GROUP_clear_free, EC_GROUP_new_curve_GFp, "
+"EC_GROUP_new_curve_GF2m, EC_GROUP_new_by_curve_name, EC_GROUP_set_curve_GFp, "
+"EC_GROUP_get_curve_GFp, EC_GROUP_set_curve_GF2m, EC_GROUP_get_curve_GF2m, "
+"EC_get_builtin_curves - Functions for creating and destroying B<EC_GROUP> "
+"objects."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_new.pod:12
+#, no-wrap
+msgid ""
+" EC_GROUP *EC_GROUP_new(const EC_METHOD *meth);\n"
+" void EC_GROUP_free(EC_GROUP *group);\n"
+" void EC_GROUP_clear_free(EC_GROUP *group);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_new.pod:16
+#, no-wrap
+msgid ""
+" EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" EC_GROUP *EC_GROUP_new_curve_GF2m(const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" EC_GROUP *EC_GROUP_new_by_curve_name(int nid);\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_new.pod:20
+#, no-wrap
+msgid ""
+" int EC_GROUP_set_curve_GFp(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" int EC_GROUP_get_curve_GFp(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);\n"
+" int EC_GROUP_set_curve_GF2m(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);\n"
+" int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:29
+msgid ""
+"Within the library there are two forms of elliptic curve that are of "
+"interest. The first form is those defined over the prime field Fp. The "
+"elements of Fp are the integers 0 to p-1, where p is a prime number. This "
+"gives us a revised elliptic curve equation as follows:"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:33
+msgid "y^2 mod p = x^3 +ax + b mod p"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:35
+msgid ""
+"The second form is those defined over a binary field F2^m where the elements "
+"of the field are integers of length at most m bits. For this form the "
+"elliptic curve equation is modified to:"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:38
+msgid "y^2 + xy = x^3 + ax^2 + b (where b != 0)"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:40
+msgid ""
+"Operations in a binary field are performed relative to an B<irreducible "
+"polynomial>. All such curves with OpenSSL use a trinomial or a pentanomial "
+"for this parameter."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:43
+msgid ""
+"A new curve can be constructed by calling EC_GROUP_new, using the "
+"implementation provided by B<meth> (see L<EC_GFp_simple_method(3)|"
+"EC_GFp_simple_method(3)>). It is then necessary to call either "
+"EC_GROUP_set_curve_GFp or EC_GROUP_set_curve_GF2m as appropriate to create a "
+"curve defined over Fp or over F2^m respectively."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:47
+msgid ""
+"EC_GROUP_set_curve_GFp sets the curve parameters B<p>, B<a> and B<b> for a "
+"curve over Fp stored in B<group>.  EC_group_get_curve_GFp obtains the "
+"previously set curve parameters."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:50
+msgid ""
+"EC_GROUP_set_curve_GF2m sets the equivalent curve parameters for a curve "
+"over F2^m. In this case B<p> represents the irreducible polybnomial - each "
+"bit represents a term in the polynomial. Therefore there will either be "
+"three or five bits set dependant on whether the polynomial is a trinomial or "
+"a pentanomial.  EC_group_get_curve_GF2m obtains the previously set curve "
+"parameters."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:55
+msgid ""
+"The functions EC_GROUP_new_curve_GFp and EC_GROUP_new_curve_GF2m are "
+"shortcuts for calling EC_GROUP_new and the appropriate EC_group_set_curve "
+"function. An appropriate default implementation method will be used."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:58
+msgid ""
+"Whilst the library can be used to create any curve using the functions "
+"described above, there are also a number of predefined curves that are "
+"available. In order to obtain a list of all of the predefined curves, call "
+"the function EC_get_builtin_curves. The parameter B<r> should be an array of "
+"EC_builtin_curve structures of size B<nitems>. The function will populate "
+"the B<r> array with information about the builtin curves. If B<nitems> is "
+"less than the total number of curves available, then the first B<nitems> "
+"curves will be returned. Otherwise the total number of curves will be "
+"provided. The return value is the total number of curves available (whether "
+"that number has been populated in B<r> or not). Passing a NULL B<r>, or "
+"setting B<nitems> to 0 will do nothing other than return the total number of "
+"curves available.  The EC_builtin_curve structure is defined as follows:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_GROUP_new.pod:67
+#, no-wrap
+msgid ""
+" typedef struct { \n"
+"\tint nid;\n"
+"\tconst char *comment;\n"
+"\t} EC_builtin_curve;\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:72
+msgid ""
+"Each EC_builtin_curve item has a unique integer id (B<nid>), and a human "
+"readable comment string describing the curve."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:74
+msgid ""
+"In order to construct a builtin curve use the function "
+"EC_GROUP_new_by_curve_name and provide the B<nid> of the curve to be "
+"constructed."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:77
+msgid "EC_GROUP_free frees the memory associated with the EC_GROUP."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:79
+msgid ""
+"EC_GROUP_clear_free destroys any sensitive data held within the EC_GROUP and "
+"then frees its memory."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:83
+msgid ""
+"All EC_GROUP_new* functions return a pointer to the newly constructed group, "
+"or NULL on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:85
+msgid ""
+"EC_get_builtin_curves returns the number of builtin curves that are "
+"available."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:87
+msgid ""
+"EC_GROUP_set_curve_GFp, EC_GROUP_get_curve_GFp, EC_GROUP_set_curve_GF2m, "
+"EC_GROUP_get_curve_GF2m return 1 on success or 0 on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_GROUP_new.pod:91
+msgid ""
+"L<crypto(3)|crypto(3)>, L<ec(3)|ec(3)>, L<EC_GROUP_copy(3)|"
+"EC_GROUP_copy(3)>, L<EC_POINT_new(3)|EC_POINT_new(3)>, L<EC_POINT_add(3)|"
+"EC_POINT_add(3)>, L<EC_KEY_new(3)|EC_KEY_new(3)>, L<EC_GFp_simple_method(3)|"
+"EC_GFp_simple_method(3)>, L<d2i_ECPKParameters(3)|d2i_ECPKParameters(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:5
+msgid ""
+"EC_KEY_new, EC_KEY_get_flags, EC_KEY_set_flags, EC_KEY_clear_flags, "
+"EC_KEY_new_by_curve_name, EC_KEY_free, EC_KEY_copy, EC_KEY_dup, "
+"EC_KEY_up_ref, EC_KEY_get0_group, EC_KEY_set_group, EC_KEY_get0_private_key, "
+"EC_KEY_set_private_key, EC_KEY_get0_public_key, EC_KEY_set_public_key, "
+"EC_KEY_get_enc_flags, EC_KEY_set_enc_flags, EC_KEY_get_conv_form, "
+"EC_KEY_set_conv_form, EC_KEY_get_key_method_data, "
+"EC_KEY_insert_key_method_data, EC_KEY_set_asn1_flag, EC_KEY_precompute_mult, "
+"EC_KEY_generate_key, EC_KEY_check_key, "
+"EC_KEY_set_public_key_affine_coordinates - Functions for creating, "
+"destroying and manipulating B<EC_KEY> objects."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EC_KEY_new.pod:12
+#, no-wrap
+msgid ""
+" EC_KEY *EC_KEY_new(void);\n"
+" int EC_KEY_get_flags(const EC_KEY *key);\n"
+" void EC_KEY_set_flags(EC_KEY *key, int flags);\n"
+" void EC_KEY_clear_flags(EC_KEY *key, int flags);\n"
+" EC_KEY *EC_KEY_new_by_curve_name(int nid);\n"
+" void EC_KEY_free(EC_KEY *key);\n"
+" EC_KEY *EC_KEY_copy(EC_KEY *dst, const EC_KEY *src);\n"
+" EC_KEY *EC_KEY_dup(const EC_KEY *src);\n"
+" int EC_KEY_up_ref(EC_KEY *key);\n"
+" const EC_GROUP *EC_KEY_get0_group(const EC_KEY *key);\n"
+" int EC_KEY_set_group(EC_KEY *key, const EC_GROUP *group);\n"
+" const BIGNUM *EC_KEY_get0_private_key(const EC_KEY *key);\n"
+" int EC_KEY_set_private_key(EC_KEY *key, const BIGNUM *prv);\n"
+" const EC_POINT *EC_KEY_get0_public_key(const EC_KEY *key);\n"
+" int EC_KEY_set_public_key(EC_KEY *key, const EC_POINT *pub);\n"
+" point_conversion_form_t EC_KEY_get_conv_form(const EC_KEY *key);\n"
+" void EC_KEY_set_conv_form(EC_KEY *eckey, point_conversion_form_t cform);\n"
+" void *EC_KEY_get_key_method_data(EC_KEY *key, \n"
+"\tvoid *(*dup_func)(void *), void (*free_func)(void *), void (*clear_free_func)(void *));\n"
+" void EC_KEY_insert_key_method_data(EC_KEY *key, void *data,\n"
+"\tvoid *(*dup_func)(void *), void (*free_func)(void *), void (*clear_free_func)(void *));\n"
+" void EC_KEY_set_asn1_flag(EC_KEY *eckey, int asn1_flag);\n"
+" int EC_KEY_precompute_mult(EC_KEY *key, BN_CTX *ctx);\n"
+" int EC_KEY_generate_key(EC_KEY *key);\n"
+" int EC_KEY_check_key(const EC_KEY *key);\n"
+" int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:41
+msgid ""
+"An EC_KEY represents a public key and (optionaly) an associated private key. "
+"A new EC_KEY (with no associated curve) can be constructed by calling "
+"EC_KEY_new.  The reference count for the newly created EC_KEY is initially "
+"set to 1. A curve can be associated with the EC_KEY by calling "
+"EC_KEY_set_group."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:45
+msgid ""
+"Alternatively a new EC_KEY can be constructed by calling "
+"EC_KEY_new_by_curve_name and supplying the nid of the associated curve. "
+"Refer to L<EC_GROUP_new(3)|EC_GROUP_new(3)> for a description of curve "
+"names. This function simply wraps calls to EC_KEY_new and "
+"EC_GROUP_new_by_curve_name."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:48
+msgid ""
+"Calling EC_KEY_free decrements the reference count for the EC_KEY object, "
+"and if it has dropped to zero then frees the memory associated with it."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:51
+msgid "EC_KEY_copy copies the contents of the EC_KEY in B<src> into B<dest>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:53
+msgid "EC_KEY_dup creates a new EC_KEY object and copies B<ec_key> into it."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:55
+msgid ""
+"EC_KEY_up_ref increments the reference count associated with the EC_KEY "
+"object."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:57
+msgid ""
+"EC_KEY_generate_key generates a new public and private key for the supplied "
+"B<eckey> object. B<eckey> must have an EC_GROUP object associated with it "
+"before calling this function. The private key is a random integer (0 < "
+"priv_key < order, where order is the order of the EC_GROUP object). The "
+"public key is an EC_POINT on the curve calculated by multiplying the "
+"generator for the curve by the private key."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:62
+msgid ""
+"EC_KEY_check_key performs various sanity checks on the EC_KEY object to "
+"confirm that it is valid."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:64
+msgid ""
+"EC_KEY_set_public_key_affine_coordinates sets the public key for B<key> "
+"based on its affine co-ordinates, i.e. it constructs an EC_POINT object "
+"based on the supplied B<x> and B<y> values and sets the public key to be "
+"this EC_POINT. It will also performs certain sanity checks on the key to "
+"confirm that it is valid."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:68
+msgid ""
+"The functions EC_KEY_get0_group, EC_KEY_set_group, EC_KEY_get0_private_key, "
+"EC_KEY_set_private_key, EC_KEY_get0_public_key, and EC_KEY_set_public_key "
+"get and set the EC_GROUP object, the private key and the EC_POINT public key "
+"for the B<key> respectively."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:70
+msgid ""
+"The functions EC_KEY_get_conv_form and EC_KEY_set_conv_form get and set the "
+"point_conversion_form for the B<key>. For a description of "
+"point_conversion_forms please refer to L<EC_POINT_new(3)|EC_POINT_new(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:73
+msgid ""
+"EC_KEY_insert_key_method_data and EC_KEY_get_key_method_data enable the "
+"caller to associate arbitary additional data specific to the elliptic curve "
+"scheme being used with the EC_KEY object. This data is treated as a \"black "
+"box\" by the ec library. The data to be stored by "
+"EC_KEY_insert_key_method_data is provided in the B<data> parameter, which "
+"must have have associated functions for duplicating, freeing and "
+"\"clear_freeing\" the data item. If a subsequent EC_KEY_get_key_method_data "
+"call is issued, the functions for duplicating, freeing and \"clear_freeing\" "
+"the data item must be provided again, and they must be the same as they were "
+"when the data item was inserted."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:76
+msgid ""
+"EC_KEY_set_flags sets the flags in the B<flags> parameter on the EC_KEY "
+"object. Any flags that are already set are left set. The currently defined "
+"standard flags are EC_FLAG_NON_FIPS_ALLOW and EC_FLAG_FIPS_CHECKED. In "
+"addition there is the flag EC_FLAG_COFACTOR_ECDH which is specific to ECDH "
+"and is defined in ecdh.h. EC_KEY_get_flags returns the current flags that "
+"are set for this EC_KEY. EC_KEY_clear_flags clears the flags indicated by "
+"the B<flags> parameter. All other flags are left in their existing state."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:78
+msgid ""
+"EC_KEY_set_asn1_flag sets the asn1_flag on the underlying EC_GROUP object "
+"(if set). Refer to L<EC_GROUP_copy(3)|EC_GROUP_copy(3)> for further "
+"information on the asn1_flag."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:80
+msgid ""
+"EC_KEY_precompute_mult stores multiples of the underlying EC_GROUP generator "
+"for faster point multiplication. See also L<EC_POINT_add(3)|EC_POINT_add(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:85
+msgid ""
+"EC_KEY_new, EC_KEY_new_by_curve_name and EC_KEY_dup return a pointer to the "
+"newly created EC_KEY object, or NULL on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:87
+msgid ""
+"EC_KEY_get_flags returns the flags associated with the EC_KEY object as an "
+"integer."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:89
+msgid "EC_KEY_copy returns a pointer to the destination key, or NULL on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:91
+msgid ""
+"EC_KEY_up_ref, EC_KEY_set_group, EC_KEY_set_private_key, "
+"EC_KEY_set_public_key, EC_KEY_precompute_mult, EC_KEY_generate_key, "
+"EC_KEY_check_key and EC_KEY_set_public_key_affine_coordinates return 1 on "
+"success or 0 on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:93
+msgid "EC_KEY_get0_group returns the EC_GROUP associated with the EC_KEY."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:95
+msgid ""
+"EC_KEY_get0_private_key returns the private key associated with the EC_KEY."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:97
+msgid "EC_KEY_get_conv_form return the point_conversion_form for the EC_KEY."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_KEY_new.pod:102
+msgid ""
+"L<crypto(3)|crypto(3)>, L<ec(3)|ec(3)>, L<EC_GROUP_new(3)|EC_GROUP_new(3)>, "
+"L<EC_GROUP_copy(3)|EC_GROUP_copy(3)>, L<EC_POINT_new(3)|EC_POINT_new(3)>, "
+"L<EC_POINT_add(3)|EC_POINT_add(3)>, L<EC_GFp_simple_method(3)|"
+"EC_GFp_simple_method(3)>, L<d2i_ECPKParameters(3)|d2i_ECPKParameters(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:5
+msgid ""
+"EC_POINT_add, EC_POINT_dbl, EC_POINT_invert, EC_POINT_is_at_infinity, "
+"EC_POINT_is_on_curve, EC_POINT_cmp, EC_POINT_make_affine, "
+"EC_POINTs_make_affine, EC_POINTs_mul, EC_POINT_mul, "
+"EC_GROUP_precompute_mult, EC_GROUP_have_precompute_mult - Functions for "
+"performing mathematical operations and tests on B<EC_POINT> objects."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:28
+msgid ""
+"EC_POINT_add adds the two points B<a> and B<b> and places the result in "
+"B<r>. Similarly EC_POINT_dbl doubles the point B<a> and places the result in "
+"B<r>. In both cases it is valid for B<r> to be one of B<a> or B<b>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:31
+msgid ""
+"EC_POINT_invert calculates the inverse of the supplied point B<a>. The "
+"result is placed back in B<a>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:33
+msgid ""
+"The function EC_POINT_is_at_infinity tests whether the supplied point is at "
+"infinity or not."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:35
+msgid ""
+"EC_POINT_is_on_curve tests whether the supplied point is on the curve or not."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:37
+msgid ""
+"EC_POINT_cmp compares the two supplied points and tests whether or not they "
+"are equal."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:39
+msgid ""
+"The functions EC_POINT_make_affine and EC_POINTs_make_affine force the "
+"internal representation of the EC_POINT(s) into the affine co-ordinate "
+"system. In the case of EC_POINTs_make_affine the value B<num> provides the "
+"number of points in the array B<points> to be forced."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:43
+msgid ""
+"EC_POINT_mul calculates the value generator * B<n> + B<q> * B<m> and stores "
+"the result in B<r>. The value B<n> may be NULL in which case the result is "
+"just B<q> * B<m>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:45
+msgid ""
+"EC_POINTs_mul calculates the value generator * B<n> + B<q[0]> * B<m[0]> "
+"+ ... + B<q[num-1]> * B<m[num-1]>. As for EC_POINT_mul the value B<n> may be "
+"NULL."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:48
+msgid ""
+"The function EC_GROUP_precompute_mult stores multiples of the generator for "
+"faster point multiplication, whilst EC_GROUP_have_precompute_mult tests "
+"whether precomputation has already been done. See L<EC_GROUP_copy(3)|"
+"EC_GROUP_copy(3)> for information about the generator."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:55
+msgid ""
+"The following functions return 1 on success or 0 on error: EC_POINT_add, "
+"EC_POINT_dbl, EC_POINT_invert, EC_POINT_make_affine, EC_POINTs_make_affine, "
+"EC_POINTs_make_affine, EC_POINT_mul, EC_POINTs_mul and "
+"EC_GROUP_precompute_mult."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:58
+msgid ""
+"EC_POINT_is_at_infinity returns 1 if the point is at infinity, or 0 "
+"otherwise."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:60
+msgid ""
+"EC_POINT_is_on_curve returns 1 if the point is on the curve, 0 if not, or -1 "
+"on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:62
+msgid ""
+"EC_POINT_cmp returns 1 if the points are not equal, 0 if they are, or -1 on "
+"error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:64
+msgid ""
+"EC_GROUP_have_precompute_mult return 1 if a precomputation has been done, or "
+"0 if not."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_add.pod:68
+msgid ""
+"L<crypto(3)|crypto(3)>, L<ec(3)|ec(3)>, L<EC_GROUP_new(3)|EC_GROUP_new(3)>, "
+"L<EC_GROUP_copy(3)|EC_GROUP_copy(3)>, L<EC_POINT_new(3)|EC_POINT_new(3)>, "
+"L<EC_KEY_new(3)|EC_KEY_new(3)>, L<EC_GFp_simple_method(3)|"
+"EC_GFp_simple_method(3)>, L<d2i_ECPKParameters(3)|d2i_ECPKParameters(3)>"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:5
+msgid ""
+"EC_POINT_new, EC_POINT_free, EC_POINT_clear_free, EC_POINT_copy, "
+"EC_POINT_dup, EC_POINT_method_of, EC_POINT_set_to_infinity, "
+"EC_POINT_set_Jprojective_coordinates, "
+"EC_POINT_get_Jprojective_coordinates_GFp, "
+"EC_POINT_set_affine_coordinates_GFp, EC_POINT_get_affine_coordinates_GFp, "
+"EC_POINT_set_compressed_coordinates_GFp, "
+"EC_POINT_set_affine_coordinates_GF2m, EC_POINT_get_affine_coordinates_GF2m, "
+"EC_POINT_set_compressed_coordinates_GF2m, EC_POINT_point2oct, "
+"EC_POINT_oct2point, EC_POINT_point2bn, EC_POINT_bn2point, "
+"EC_POINT_point2hex, EC_POINT_hex2point - Functions for creating, destroying "
+"and manipulating B<EC_POINT> objects."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:52
+msgid ""
+"An EC_POINT represents a point on a curve. A new point is constructed by "
+"calling the function EC_POINT_new and providing the B<group> object that the "
+"point relates to."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:55
+msgid "EC_POINT_free frees the memory associated with the EC_POINT."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:57
+msgid ""
+"EC_POINT_clear_free destroys any sensitive data held within the EC_POINT and "
+"then frees its memory."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:59
+msgid ""
+"EC_POINT_copy copies the point B<src> into B<dst>. Both B<src> and B<dst> "
+"must use the same EC_METHOD."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:61
+msgid ""
+"EC_POINT_dup creates a new EC_POINT object and copies the content from "
+"B<src> to the newly created EC_POINT object."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:64
+msgid "EC_POINT_method_of obtains the EC_METHOD associated with B<point>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:66
+msgid ""
+"A valid point on a curve is the special point at infinity. A point is set to "
+"be at infinity by calling EC_POINT_set_to_infinity."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:68
+msgid ""
+"The affine co-ordinates for a point describe a point in terms of its x and y "
+"position. The functions EC_POINT_set_affine_coordinates_GFp and "
+"EC_POINT_set_affine_coordinates_GF2m set the B<x> and B<y> co-ordinates for "
+"the point B<p> defined over the curve given in B<group>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:72
+msgid ""
+"As well as the affine co-ordinates, a point can alternatively be described "
+"in terms of its Jacobian projective co-ordinates (for Fp curves only). "
+"Jacobian projective co-ordinates are expressed as three values x, y and z. "
+"Working in this co-ordinate system provides more efficient point "
+"multiplication operations.  A mapping exists between Jacobian projective co-"
+"ordinates and affine co-ordinates. A Jacobian projective co-ordinate (x, y, "
+"z) can be written as an affine co-ordinate as (x/(z^2), y/(z^3)). Conversion "
+"to Jacobian projective to affine co-ordinates is simple. The co-ordinate (x, "
+"y) is mapped to (x, y, 1). To set or get the projective co-ordinates use "
+"EC_POINT_set_Jprojective_coordinates_GFp and "
+"EC_POINT_get_Jprojective_coordinates_GFp respectively."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:79
+msgid ""
+"Points can also be described in terms of their compressed co-ordinates. For "
+"a point (x, y), for any given value for x such that the point is on the "
+"curve there will only ever be two possible values for y. Therefore a point "
+"can be set using the EC_POINT_set_compressed_coordinates_GFp and "
+"EC_POINT_set_compressed_coordinates_GF2m functions where B<x> is the x co-"
+"ordinate and B<y_bit> is a value 0 or 1 to identify which of the two "
+"possible values for y should be used."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:84
+msgid ""
+"In addition EC_POINTs can be converted to and from various external "
+"representations. Supported representations are octet strings, BIGNUMs and "
+"hexadecimal. Octet strings are stored in a buffer along with an associated "
+"buffer length. A point held in a BIGNUM is calculated by converting the "
+"point to an octet string and then converting that octet string into a BIGNUM "
+"integer.  Points in hexadecimal format are stored in a NULL terminated "
+"character string where each character is one of the printable values 0-9 or "
+"A-F (or a-f)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:92
+msgid ""
+"The functions EC_POINT_point2oct, EC_POINT_oct2point, EC_POINT_point2bn, "
+"EC_POINT_bn2point, EC_POINT_point2hex and EC_POINT_hex2point convert from "
+"and to EC_POINTs for the formats: octet string, BIGNUM and hexadecimal "
+"respectively."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:95
+msgid ""
+"The function EC_POINT_point2oct must be supplied with a buffer long enough "
+"to store the octet string. The return value provides the number of octets "
+"stored. Calling the function with a NULL buffer will not perform the "
+"conversion but will still return the required buffer length."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:98
+msgid ""
+"The function EC_POINT_point2hex will allocate sufficient memory to store the "
+"hexadecimal string. It is the caller's responsibility to free this memory "
+"with a subsequent call to OPENSSL_free()."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:103
+msgid ""
+"EC_POINT_new and EC_POINT_dup return the newly allocated EC_POINT or NULL on "
+"error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:105
+msgid ""
+"The following functions return 1 on success or 0 on error: EC_POINT_copy, "
+"EC_POINT_set_to_infinity, EC_POINT_set_Jprojective_coordinates_GFp, "
+"EC_POINT_get_Jprojective_coordinates_GFp, "
+"EC_POINT_set_affine_coordinates_GFp, EC_POINT_get_affine_coordinates_GFp, "
+"EC_POINT_set_compressed_coordinates_GFp, "
+"EC_POINT_set_affine_coordinates_GF2m, EC_POINT_get_affine_coordinates_GF2m, "
+"EC_POINT_set_compressed_coordinates_GF2m and EC_POINT_oct2point."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:110
+msgid ""
+"EC_POINT_method_of returns the EC_METHOD associated with the supplied "
+"EC_POINT."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:112
+msgid ""
+"EC_POINT_point2oct returns the length of the required buffer, or 0 on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:114
+msgid ""
+"EC_POINT_point2bn returns the pointer to the BIGNUM supplied, or NULL on "
+"error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:116
+msgid ""
+"EC_POINT_bn2point returns the pointer to the EC_POINT supplied, or NULL on "
+"error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:118
+msgid ""
+"EC_POINT_point2hex returns a pointer to the hex string, or NULL on error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:120
+msgid ""
+"EC_POINT_hex2point returns the pointer to the EC_POINT supplied, or NULL on "
+"error."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EC_POINT_new.pod:124
+msgid ""
+"L<crypto(3)|crypto(3)>, L<ec(3)|ec(3)>, L<EC_GROUP_new(3)|EC_GROUP_new(3)>, "
+"L<EC_GROUP_copy(3)|EC_GROUP_copy(3)>, L<EC_POINT_add(3)|EC_POINT_add(3)>, "
+"L<EC_KEY_new(3)|EC_KEY_new(3)>, L<EC_GFp_simple_method(3)|"
+"EC_GFp_simple_method(3)>, L<d2i_ECPKParameters(3)|d2i_ECPKParameters(3)>"
+msgstr ""
 
 #. type: textblock
 #: C/apps/ecparam.pod:5
