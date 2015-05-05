@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2015-01-30 16:06-0400\n"
+"POT-Creation-Date: 2015-05-05 17:54-0400\n"
 "PO-Revision-Date: 2014-12-02 05:13+0100\n"
 "Last-Translator: Jean-Paul Guillonneau <guillonneau.jeanpaul@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -35,7 +35,7 @@ msgstr "EVP_BytesToKey - Routine de chiffrement à base de mot de passe"
 #. type: =head1
 #: C/crypto/EVP_BytesToKey.pod:7 C/crypto/EVP_DigestInit.pod:14
 #: C/crypto/EVP_DigestSignInit.pod:7 C/crypto/EVP_DigestVerifyInit.pod:7
-#: C/crypto/EVP_EncryptInit.pod:21 C/crypto/EVP_OpenInit.pod:7
+#: C/crypto/EVP_EncryptInit.pod:31 C/crypto/EVP_OpenInit.pod:7
 #: C/crypto/EVP_SealInit.pod:7 C/crypto/EVP_SignInit.pod:7
 #: C/crypto/EVP_VerifyInit.pod:7 C/crypto/evp.pod:7
 msgid "SYNOPSIS"
@@ -44,7 +44,7 @@ msgstr "SYNOPSIS"
 #. type: verbatim
 #: C/crypto/EVP_BytesToKey.pod:9 C/crypto/EVP_DigestInit.pod:16
 #: C/crypto/EVP_DigestSignInit.pod:9 C/crypto/EVP_DigestVerifyInit.pod:9
-#: C/crypto/EVP_EncryptInit.pod:23 C/crypto/EVP_OpenInit.pod:9
+#: C/crypto/EVP_EncryptInit.pod:33 C/crypto/EVP_OpenInit.pod:9
 #: C/crypto/EVP_SealInit.pod:9 C/crypto/EVP_SignInit.pod:9
 #: C/crypto/EVP_VerifyInit.pod:9 C/crypto/evp.pod:9
 #, no-wrap
@@ -74,7 +74,7 @@ msgstr ""
 #. type: =head1
 #: C/crypto/EVP_BytesToKey.pod:16 C/crypto/EVP_DigestInit.pod:68
 #: C/crypto/EVP_DigestSignInit.pod:16 C/crypto/EVP_DigestVerifyInit.pod:16
-#: C/crypto/EVP_EncryptInit.pod:94 C/crypto/EVP_OpenInit.pod:18
+#: C/crypto/EVP_EncryptInit.pod:104 C/crypto/EVP_OpenInit.pod:18
 #: C/crypto/EVP_SealInit.pod:19 C/crypto/EVP_SignInit.pod:19
 #: C/crypto/EVP_VerifyInit.pod:17 C/crypto/evp.pod:11
 msgid "DESCRIPTION"
@@ -104,7 +104,7 @@ msgstr ""
 #. type: =head1
 #: C/crypto/EVP_BytesToKey.pod:26 C/crypto/EVP_DigestInit.pod:174
 #: C/crypto/EVP_DigestSignInit.pod:47 C/crypto/EVP_DigestVerifyInit.pod:47
-#: C/crypto/EVP_EncryptInit.pod:343 C/crypto/EVP_OpenInit.pod:34
+#: C/crypto/EVP_EncryptInit.pod:432 C/crypto/EVP_OpenInit.pod:34
 #: C/crypto/EVP_SealInit.pod:56 C/crypto/EVP_SignInit.pod:54
 #: C/crypto/EVP_VerifyInit.pod:46
 msgid "NOTES"
@@ -147,9 +147,13 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:39
+#, fuzzy
+#| msgid ""
+#| "Newer applications should use more standard algorithms such as PKCS#5 "
+#| "v2.0 for key derivation."
 msgid ""
-"Newer applications should use more standard algorithms such as PKCS#5 v2.0 "
-"for key derivation."
+"Newer applications should use more standard algorithms such as PBKDF2 as "
+"defined in PKCS#5v2.1 for key derivation."
 msgstr ""
 "Les applications les plus récentes devraient utiliser plus d'algorithmes "
 "normalisés comme PKCS#5 v2.0 pour la dérivation de clef."
@@ -202,7 +206,7 @@ msgstr ""
 #. type: =head1
 #: C/crypto/EVP_BytesToKey.pod:56 C/crypto/EVP_DigestInit.pod:154
 #: C/crypto/EVP_DigestSignInit.pod:38 C/crypto/EVP_DigestVerifyInit.pod:34
-#: C/crypto/EVP_EncryptInit.pod:237 C/crypto/EVP_OpenInit.pod:46
+#: C/crypto/EVP_EncryptInit.pod:246 C/crypto/EVP_OpenInit.pod:46
 #: C/crypto/EVP_SealInit.pod:49 C/crypto/EVP_SignInit.pod:45
 #: C/crypto/EVP_VerifyInit.pod:36
 msgid "RETURN VALUES"
@@ -210,20 +214,23 @@ msgstr "VALEURS DE RETOUR"
 
 #. type: textblock
 #: C/crypto/EVP_BytesToKey.pod:58
-msgid "EVP_BytesToKey() returns the size of the derived key in bytes."
-msgstr "B<EVP_BytesToKey>() renvoie la taille de la clef dérivée en octet."
+msgid ""
+"If B<data> is NULL, then EVP_BytesToKey() returns the number of bytes needed "
+"to store the derived key.  Otherwise, EVP_BytesToKey() returns the size of "
+"the derived key in bytes, or 0 on error."
+msgstr ""
 
 #. type: =head1
-#: C/crypto/EVP_BytesToKey.pod:60 C/crypto/EVP_DigestInit.pod:257
+#: C/crypto/EVP_BytesToKey.pod:63 C/crypto/EVP_DigestInit.pod:257
 #: C/crypto/EVP_DigestSignInit.pod:74 C/crypto/EVP_DigestVerifyInit.pod:69
-#: C/crypto/EVP_EncryptInit.pod:490 C/crypto/EVP_OpenInit.pod:55
+#: C/crypto/EVP_EncryptInit.pod:579 C/crypto/EVP_OpenInit.pod:55
 #: C/crypto/EVP_SealInit.pod:75 C/crypto/EVP_SignInit.pod:91
-#: C/crypto/EVP_VerifyInit.pod:79 C/crypto/evp.pod:44
+#: C/crypto/EVP_VerifyInit.pod:79 C/crypto/evp.pod:80
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: textblock
-#: C/crypto/EVP_BytesToKey.pod:62
+#: C/crypto/EVP_BytesToKey.pod:65
 msgid ""
 "L<evp(3)|evp(3)>, L<rand(3)|rand(3)>, L<EVP_EncryptInit(3)|"
 "EVP_EncryptInit(3)>"
@@ -232,9 +239,9 @@ msgstr ""
 "EVP_EncryptInit(3)>"
 
 #. type: =head1
-#: C/crypto/EVP_BytesToKey.pod:65 C/crypto/EVP_DigestInit.pod:262
+#: C/crypto/EVP_BytesToKey.pod:68 C/crypto/EVP_DigestInit.pod:262
 #: C/crypto/EVP_DigestSignInit.pod:82 C/crypto/EVP_DigestVerifyInit.pod:77
-#: C/crypto/EVP_EncryptInit.pod:494 C/crypto/EVP_OpenInit.pod:61
+#: C/crypto/EVP_EncryptInit.pod:583 C/crypto/EVP_OpenInit.pod:61
 #: C/crypto/EVP_SealInit.pod:81 C/crypto/EVP_SignInit.pod:99
 #: C/crypto/EVP_VerifyInit.pod:88
 msgid "HISTORY"
@@ -242,15 +249,27 @@ msgstr "HISTORIQUE"
 
 #. type: textblock
 #: C/crypto/EVP_DigestInit.pod:5
+#, fuzzy
+#| msgid ""
+#| "EVP_MD_CTX_init, EVP_MD_CTX_create, EVP_DigestInit_ex, EVP_DigestUpdate, "
+#| "EVP_DigestFinal_ex, EVP_MD_CTX_cleanup, EVP_MD_CTX_destroy, "
+#| "EVP_MAX_MD_SIZE, EVP_MD_CTX_copy_ex, EVP_MD_CTX_copy, EVP_MD_type, "
+#| "EVP_MD_pkey_type, EVP_MD_size, EVP_MD_block_size, EVP_MD_CTX_md, "
+#| "EVP_MD_CTX_size, EVP_MD_CTX_block_size, EVP_MD_CTX_type, EVP_md_null, "
+#| "EVP_md2, EVP_md5, EVP_sha, EVP_sha1, EVP_sha224, EVP_sha256, EVP_sha384, "
+#| "EVP_sha512, EVP_dss, EVP_dss1, EVP_mdc2, EVP_ripemd160, "
+#| "EVP_get_digestbyname, EVP_get_digestbynid, EVP_get_digestbyobj - EVP "
+#| "digest routines"
 msgid ""
 "EVP_MD_CTX_init, EVP_MD_CTX_create, EVP_DigestInit_ex, EVP_DigestUpdate, "
 "EVP_DigestFinal_ex, EVP_MD_CTX_cleanup, EVP_MD_CTX_destroy, EVP_MAX_MD_SIZE, "
-"EVP_MD_CTX_copy_ex, EVP_MD_CTX_copy, EVP_MD_type, EVP_MD_pkey_type, "
-"EVP_MD_size, EVP_MD_block_size, EVP_MD_CTX_md, EVP_MD_CTX_size, "
-"EVP_MD_CTX_block_size, EVP_MD_CTX_type, EVP_md_null, EVP_md2, EVP_md5, "
-"EVP_sha, EVP_sha1, EVP_sha224, EVP_sha256, EVP_sha384, EVP_sha512, EVP_dss, "
-"EVP_dss1, EVP_mdc2, EVP_ripemd160, EVP_get_digestbyname, "
-"EVP_get_digestbynid, EVP_get_digestbyobj - EVP digest routines"
+"EVP_MD_CTX_copy_ex, EVP_DigestInit, EVP_DigestFinal, EVP_MD_CTX_copy, "
+"EVP_MD_type, EVP_MD_pkey_type, EVP_MD_size, EVP_MD_block_size, "
+"EVP_MD_CTX_md, EVP_MD_CTX_size, EVP_MD_CTX_block_size, EVP_MD_CTX_type, "
+"EVP_md_null, EVP_md2, EVP_md5, EVP_sha, EVP_sha1, EVP_sha224, EVP_sha256, "
+"EVP_sha384, EVP_sha512, EVP_dss, EVP_dss1, EVP_mdc2, EVP_ripemd160, "
+"EVP_get_digestbyname, EVP_get_digestbynid, EVP_get_digestbyobj - EVP digest "
+"routines"
 msgstr ""
 "EVP_MD_CTX_init, EVP_MD_CTX_create, EVP_DigestInit_ex, EVP_DigestUpdate, "
 "EVP_DigestFinal_ex, EVP_MD_CTX_cleanup, EVP_MD_CTX_destroy, EVP_MAX_MD_SIZE, "
@@ -1023,9 +1042,14 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_DigestInit.pod:271
+#, fuzzy
+#| msgid ""
+#| "EVP_md_null(), EVP_md2(), EVP_md5(), EVP_sha(), EVP_sha1(), EVP_dss(), "
+#| "EVP_dss1(), EVP_mdc2() and EVP_ripemd160() were changed to return truely "
+#| "const EVP_MD * in OpenSSL 0.9.7."
 msgid ""
 "EVP_md_null(), EVP_md2(), EVP_md5(), EVP_sha(), EVP_sha1(), EVP_dss(), "
-"EVP_dss1(), EVP_mdc2() and EVP_ripemd160() were changed to return truely "
+"EVP_dss1(), EVP_mdc2() and EVP_ripemd160() were changed to return truly "
 "const EVP_MD * in OpenSSL 0.9.7."
 msgstr ""
 "B<EVP_md_null>(), B<EVP_md2>(), B<EVP_md5>(), B<EVP_sha>(), B<EVP_sha1>(), "
@@ -1270,12 +1294,18 @@ msgstr ""
 
 #. type: verbatim
 #: C/crypto/EVP_DigestVerifyInit.pod:11
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int EVP_DigestVerifyInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx,\n"
+#| "\t\t\tconst EVP_MD *type, ENGINE *e, EVP_PKEY *pkey);\n"
+#| " int EVP_DigestVerifyUpdate(EVP_MD_CTX *ctx, const void *d, unsigned int cnt);\n"
+#| " int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, unsigned char *sig, size_t siglen);\n"
+#| "\n"
 msgid ""
 " int EVP_DigestVerifyInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx,\n"
 "\t\t\tconst EVP_MD *type, ENGINE *e, EVP_PKEY *pkey);\n"
 " int EVP_DigestVerifyUpdate(EVP_MD_CTX *ctx, const void *d, unsigned int cnt);\n"
-" int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, unsigned char *sig, size_t siglen);\n"
+" int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t siglen);\n"
 "\n"
 msgstr ""
 "B< int EVP_DigestVerifyInit(EVP_MD_CTX *>I<ctx>B<, EVP_PKEY_CTX **>I<pctx>B<,>\n"
@@ -1398,6 +1428,23 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/EVP_EncryptInit.pod:5
+#, fuzzy
+#| msgid ""
+#| "EVP_CIPHER_CTX_init, EVP_EncryptInit_ex, EVP_EncryptUpdate, "
+#| "EVP_EncryptFinal_ex, EVP_DecryptInit_ex, EVP_DecryptUpdate, "
+#| "EVP_DecryptFinal_ex, EVP_CipherInit_ex, EVP_CipherUpdate, "
+#| "EVP_CipherFinal_ex, EVP_CIPHER_CTX_set_key_length, EVP_CIPHER_CTX_ctrl, "
+#| "EVP_CIPHER_CTX_cleanup, EVP_EncryptInit, EVP_EncryptFinal, "
+#| "EVP_DecryptInit, EVP_DecryptFinal, EVP_CipherInit, EVP_CipherFinal, "
+#| "EVP_get_cipherbyname, EVP_get_cipherbynid, EVP_get_cipherbyobj, "
+#| "EVP_CIPHER_nid, EVP_CIPHER_block_size, EVP_CIPHER_key_length, "
+#| "EVP_CIPHER_iv_length, EVP_CIPHER_flags, EVP_CIPHER_mode, EVP_CIPHER_type, "
+#| "EVP_CIPHER_CTX_cipher, EVP_CIPHER_CTX_nid, EVP_CIPHER_CTX_block_size, "
+#| "EVP_CIPHER_CTX_key_length, EVP_CIPHER_CTX_iv_length, "
+#| "EVP_CIPHER_CTX_get_app_data, EVP_CIPHER_CTX_set_app_data, "
+#| "EVP_CIPHER_CTX_type, EVP_CIPHER_CTX_flags, EVP_CIPHER_CTX_mode, "
+#| "EVP_CIPHER_param_to_asn1, EVP_CIPHER_asn1_to_param, "
+#| "EVP_CIPHER_CTX_set_padding - EVP cipher routines"
 msgid ""
 "EVP_CIPHER_CTX_init, EVP_EncryptInit_ex, EVP_EncryptUpdate, "
 "EVP_EncryptFinal_ex, EVP_DecryptInit_ex, EVP_DecryptUpdate, "
@@ -1412,7 +1459,17 @@ msgid ""
 "EVP_CIPHER_CTX_iv_length, EVP_CIPHER_CTX_get_app_data, "
 "EVP_CIPHER_CTX_set_app_data, EVP_CIPHER_CTX_type, EVP_CIPHER_CTX_flags, "
 "EVP_CIPHER_CTX_mode, EVP_CIPHER_param_to_asn1, EVP_CIPHER_asn1_to_param, "
-"EVP_CIPHER_CTX_set_padding - EVP cipher routines"
+"EVP_CIPHER_CTX_set_padding, EVP_enc_null, EVP_des_cbc, EVP_des_ecb, "
+"EVP_des_cfb, EVP_des_ofb, EVP_des_ede_cbc, EVP_des_ede, EVP_des_ede_ofb, "
+"EVP_des_ede_cfb, EVP_des_ede3_cbc, EVP_des_ede3, EVP_des_ede3_ofb, "
+"EVP_des_ede3_cfb, EVP_desx_cbc, EVP_rc4, EVP_rc4_40, EVP_idea_cbc, "
+"EVP_idea_ecb, EVP_idea_cfb, EVP_idea_ofb, EVP_idea_cbc, EVP_rc2_cbc, "
+"EVP_rc2_ecb, EVP_rc2_cfb, EVP_rc2_ofb, EVP_rc2_40_cbc, EVP_rc2_64_cbc, "
+"EVP_bf_cbc, EVP_bf_ecb, EVP_bf_cfb, EVP_bf_ofb, EVP_cast5_cbc, "
+"EVP_cast5_ecb, EVP_cast5_cfb, EVP_cast5_ofb, EVP_rc5_32_12_16_cbc, "
+"EVP_rc5_32_12_16_ecb, EVP_rc5_32_12_16_cfb, EVP_rc5_32_12_16_ofb, "
+"EVP_aes_128_gcm, EVP_aes_192_gcm, EVP_aes_256_gcm, EVP_aes_128_ccm, "
+"EVP_aes_192_ccm, EVP_aes_256_ccm - EVP cipher routines"
 msgstr ""
 "EVP_CIPHER_CTX_init, EVP_EncryptInit_ex, EVP_EncryptUpdate, "
 "EVP_EncryptFinal_ex, EVP_DecryptInit_ex, EVP_DecryptUpdate, "
@@ -1430,7 +1487,7 @@ msgstr ""
 "EVP_CIPHER_CTX_set_padding - Routines de chiffrement EVP"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:25
+#: C/crypto/EVP_EncryptInit.pod:35
 #, no-wrap
 msgid ""
 " void EVP_CIPHER_CTX_init(EVP_CIPHER_CTX *a);\n"
@@ -1440,7 +1497,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:27
+#: C/crypto/EVP_EncryptInit.pod:37
 #, no-wrap
 msgid ""
 " int EVP_EncryptInit_ex(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,\n"
@@ -1460,7 +1517,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:34
+#: C/crypto/EVP_EncryptInit.pod:44
 #, no-wrap
 msgid ""
 " int EVP_DecryptInit_ex(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,\n"
@@ -1480,7 +1537,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:41
+#: C/crypto/EVP_EncryptInit.pod:51
 #, no-wrap
 msgid ""
 " int EVP_CipherInit_ex(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,\n"
@@ -1500,7 +1557,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:48
+#: C/crypto/EVP_EncryptInit.pod:58
 #, no-wrap
 msgid ""
 " int EVP_EncryptInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,\n"
@@ -1516,7 +1573,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:53
+#: C/crypto/EVP_EncryptInit.pod:63
 #, no-wrap
 msgid ""
 " int EVP_DecryptInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,\n"
@@ -1532,7 +1589,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:58
+#: C/crypto/EVP_EncryptInit.pod:68
 #, no-wrap
 msgid ""
 " int EVP_CipherInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,\n"
@@ -1548,7 +1605,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:63
+#: C/crypto/EVP_EncryptInit.pod:73
 #, no-wrap
 msgid ""
 " int EVP_CIPHER_CTX_set_padding(EVP_CIPHER_CTX *x, int padding);\n"
@@ -1564,7 +1621,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:68
+#: C/crypto/EVP_EncryptInit.pod:78
 #, no-wrap
 msgid ""
 " const EVP_CIPHER *EVP_get_cipherbyname(const char *name);\n"
@@ -1578,7 +1635,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:72
+#: C/crypto/EVP_EncryptInit.pod:82
 #, no-wrap
 msgid ""
 " #define EVP_CIPHER_nid(e)\t\t((e)->nid)\n"
@@ -1600,7 +1657,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:80
+#: C/crypto/EVP_EncryptInit.pod:90
 #, no-wrap
 msgid ""
 " #define EVP_CIPHER_CTX_cipher(e)\t((e)->cipher)\n"
@@ -1628,7 +1685,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:91
+#: C/crypto/EVP_EncryptInit.pod:101
 #, no-wrap
 msgid ""
 " int EVP_CIPHER_param_to_asn1(EVP_CIPHER_CTX *c, ASN1_TYPE *type);\n"
@@ -1640,7 +1697,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:96
+#: C/crypto/EVP_EncryptInit.pod:106
 msgid ""
 "The EVP cipher routines are a high level interface to certain symmetric "
 "ciphers."
@@ -1649,12 +1706,12 @@ msgstr ""
 "certains algorithmes de chiffrement symétrique."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:99
+#: C/crypto/EVP_EncryptInit.pod:109
 msgid "EVP_CIPHER_CTX_init() initializes cipher contex B<ctx>."
 msgstr "B<EVP_CIPHER_CTX_init>() initialise le contexte de chiffrement I<ctx>."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:101
+#: C/crypto/EVP_EncryptInit.pod:111
 msgid ""
 "EVP_EncryptInit_ex() sets up cipher context B<ctx> for encryption with "
 "cipher B<type> from ENGINE B<impl>. B<ctx> must be initialized before "
@@ -1681,7 +1738,7 @@ msgstr ""
 "sont pas adéquats."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:113
+#: C/crypto/EVP_EncryptInit.pod:123
 #, fuzzy
 #| msgid ""
 #| "EVP_EncryptUpdate() encrypts B<inl> bytes from the buffer B<in> and "
@@ -1709,7 +1766,7 @@ msgstr ""
 "Le nombre réel d’octets écrits est placé dans I<outl>."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:121
+#: C/crypto/EVP_EncryptInit.pod:131
 msgid ""
 "If padding is enabled (the default) then EVP_EncryptFinal_ex() encrypts the "
 "\"final\" data, that is any data that remains in a partial block.  It uses "
@@ -1729,7 +1786,7 @@ msgstr ""
 "appel ne peut plus être fait à B<EVP_EncryptUpdate>()."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:129
+#: C/crypto/EVP_EncryptInit.pod:139
 msgid ""
 "If padding is disabled then EVP_EncryptFinal_ex() will not encrypt any more "
 "data and it will return an error if any data remains in a partial block: "
@@ -1741,7 +1798,7 @@ msgstr ""
 "données n’est pas un multiple de la taille du bloc."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:133
+#: C/crypto/EVP_EncryptInit.pod:143
 msgid ""
 "EVP_DecryptInit_ex(), EVP_DecryptUpdate() and EVP_DecryptFinal_ex() are the "
 "corresponding decryption operations. EVP_DecryptFinal() will return an error "
@@ -1763,7 +1820,7 @@ msgstr ""
 "chiffrement soit B<1>, auquel cas I<inl> octets sont suffisants."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:142
+#: C/crypto/EVP_EncryptInit.pod:152
 msgid ""
 "EVP_CipherInit_ex(), EVP_CipherUpdate() and EVP_CipherFinal_ex() are "
 "functions that can be used for decryption or encryption. The operation "
@@ -1779,7 +1836,7 @@ msgstr ""
 "fournie par un précédent appel)."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:148
+#: C/crypto/EVP_EncryptInit.pod:158
 msgid ""
 "EVP_CIPHER_CTX_cleanup() clears all information from a cipher context and "
 "free up any allocated memory associate with it. It should be called after "
@@ -1792,7 +1849,7 @@ msgstr ""
 "donnée sensible ne subsiste en mémoire."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:153
+#: C/crypto/EVP_EncryptInit.pod:163
 msgid ""
 "EVP_EncryptInit(), EVP_DecryptInit() and EVP_CipherInit() behave in a "
 "similar way to EVP_EncryptInit_ex(), EVP_DecryptInit_ex and "
@@ -1806,7 +1863,7 @@ msgstr ""
 "toujours l’implémentation par défaut de l’algorithme de chiffrement."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:158
+#: C/crypto/EVP_EncryptInit.pod:168
 msgid ""
 "EVP_EncryptFinal(), EVP_DecryptFinal() and EVP_CipherFinal() behave in a "
 "similar way to EVP_EncryptFinal_ex(), EVP_DecryptFinal_ex() and "
@@ -1819,7 +1876,7 @@ msgstr ""
 "est automatiquement nettoyé après l’appel."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:163
+#: C/crypto/EVP_EncryptInit.pod:173
 msgid ""
 "EVP_get_cipherbyname(), EVP_get_cipherbynid() and EVP_get_cipherbyobj()  "
 "return an EVP_CIPHER structure when passed a cipher name, a NID or an "
@@ -1831,7 +1888,7 @@ msgstr ""
 "fourni."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:167
+#: C/crypto/EVP_EncryptInit.pod:177
 msgid ""
 "EVP_CIPHER_nid() and EVP_CIPHER_CTX_nid() return the NID of a cipher when "
 "passed an B<EVP_CIPHER> or B<EVP_CIPHER_CTX> structure.  The actual NID "
@@ -1844,7 +1901,7 @@ msgstr ""
 "pas avoir un OBJECT IDENTIFIER correspondant."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:172
+#: C/crypto/EVP_EncryptInit.pod:182
 msgid ""
 "EVP_CIPHER_CTX_set_padding() enables or disables padding. By default "
 "encryption operations are padded using standard block padding and the "
@@ -1860,7 +1917,7 @@ msgstr ""
 "un multiple de la taille de bloc ou une erreur s’ensuivra."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:179
+#: C/crypto/EVP_EncryptInit.pod:189
 msgid ""
 "EVP_CIPHER_key_length() and EVP_CIPHER_CTX_key_length() return the key "
 "length of a cipher when passed an B<EVP_CIPHER> or B<EVP_CIPHER_CTX> "
@@ -1879,7 +1936,7 @@ msgstr ""
 "chiffrement."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:186
+#: C/crypto/EVP_EncryptInit.pod:196
 msgid ""
 "EVP_CIPHER_CTX_set_key_length() sets the key length of the cipher ctx.  If "
 "the cipher is a fixed length cipher then attempting to set the key length to "
@@ -1890,7 +1947,7 @@ msgstr ""
 "de définir la longueur de clef à une valeur différente est fautif."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:190
+#: C/crypto/EVP_EncryptInit.pod:200
 msgid ""
 "EVP_CIPHER_iv_length() and EVP_CIPHER_CTX_iv_length() return the IV length "
 "of a cipher when passed an B<EVP_CIPHER> or B<EVP_CIPHER_CTX>.  It will "
@@ -1905,7 +1962,7 @@ msgstr ""
 "tous les algorithmes de chiffrement."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:195
+#: C/crypto/EVP_EncryptInit.pod:205
 msgid ""
 "EVP_CIPHER_block_size() and EVP_CIPHER_CTX_block_size() return the block "
 "size of a cipher when passed an B<EVP_CIPHER> or B<EVP_CIPHER_CTX> "
@@ -1918,7 +1975,7 @@ msgstr ""
 "aussi la longueur maximale pour les algorithmes de chiffrement."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:200
+#: C/crypto/EVP_EncryptInit.pod:210
 msgid ""
 "EVP_CIPHER_type() and EVP_CIPHER_CTX_type() return the type of the passed "
 "cipher or context. This \"type\" is the actual NID of the cipher OBJECT "
@@ -1934,7 +1991,7 @@ msgstr ""
 "ASN1, cette fonction renverra B<NID_undef>."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:207
+#: C/crypto/EVP_EncryptInit.pod:217
 msgid ""
 "EVP_CIPHER_CTX_cipher() returns the B<EVP_CIPHER> structure when passed an "
 "B<EVP_CIPHER_CTX> structure."
@@ -1943,7 +2000,7 @@ msgstr ""
 "fournie une structure B<EVP_CIPHER_CTX>."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:210
+#: C/crypto/EVP_EncryptInit.pod:220
 msgid ""
 "EVP_CIPHER_mode() and EVP_CIPHER_CTX_mode() return the block cipher mode: "
 "EVP_CIPH_ECB_MODE, EVP_CIPH_CBC_MODE, EVP_CIPH_CFB_MODE or "
@@ -1956,7 +2013,7 @@ msgstr ""
 "chiffrement par flot, alors B<EVP_CIPH_STREAM_CIPHER> est renvoyé."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:215
+#: C/crypto/EVP_EncryptInit.pod:225
 msgid ""
 "EVP_CIPHER_param_to_asn1() sets the AlgorithmIdentifier \"parameter\" based "
 "on the passed cipher. This will typically include any parameters and an IV. "
@@ -1975,7 +2032,7 @@ msgstr ""
 "peut échouer si l’algorithme n’est nullement pris en charge par ASN1."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:222
+#: C/crypto/EVP_EncryptInit.pod:232
 msgid ""
 "EVP_CIPHER_asn1_to_param() sets the cipher parameters based on an ASN1 "
 "AlgorithmIdentifier \"parameter\". The precise effect depends on the cipher "
@@ -2003,18 +2060,22 @@ msgstr ""
 "charge)."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:233
+#: C/crypto/EVP_EncryptInit.pod:243
+#, fuzzy
+#| msgid ""
+#| "EVP_CIPHER_CTX_ctrl() allows various cipher specific parameters to be "
+#| "determined and set. Currently only the RC2 effective key length and the "
+#| "number of rounds of RC5 can be set."
 msgid ""
 "EVP_CIPHER_CTX_ctrl() allows various cipher specific parameters to be "
-"determined and set. Currently only the RC2 effective key length and the "
-"number of rounds of RC5 can be set."
+"determined and set."
 msgstr ""
 "B<EVP_CIPHER_CTX_ctrl>() permet de déterminer et définir les paramètres "
 "particuliers de différents algorithmes. Actuellement, la longueur réelle de "
 "la clef RC2 et le nombre de tours de RC5 peuvent être définis."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:239
+#: C/crypto/EVP_EncryptInit.pod:248
 msgid ""
 "EVP_EncryptInit_ex(), EVP_EncryptUpdate() and EVP_EncryptFinal_ex()  return "
 "1 for success and 0 for failure."
@@ -2023,7 +2084,7 @@ msgstr ""
 "renvoient B<1> lors d’un succès et B<0> lors d’un échec."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:242
+#: C/crypto/EVP_EncryptInit.pod:251
 msgid ""
 "EVP_DecryptInit_ex() and EVP_DecryptUpdate() return 1 for success and 0 for "
 "failure.  EVP_DecryptFinal_ex() returns 0 if the decrypt failed or 1 for "
@@ -2034,7 +2095,7 @@ msgstr ""
 "déchiffrement est un échec ou B<1> si c’est une réussite."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:245
+#: C/crypto/EVP_EncryptInit.pod:254
 msgid ""
 "EVP_CipherInit_ex() and EVP_CipherUpdate() return 1 for success and 0 for "
 "failure.  EVP_CipherFinal_ex() returns 0 for a decryption failure or 1 for "
@@ -2045,14 +2106,14 @@ msgstr ""
 "échec de déchiffrement et B<1> pour une réussite."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:248
+#: C/crypto/EVP_EncryptInit.pod:257
 msgid "EVP_CIPHER_CTX_cleanup() returns 1 for success and 0 for failure."
 msgstr ""
 "B<EVP_CIPHER_CTX_cleanup>() renvoie B<1> pour un succès et B<0> pour un "
 "échec."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:250
+#: C/crypto/EVP_EncryptInit.pod:259
 msgid ""
 "EVP_get_cipherbyname(), EVP_get_cipherbynid() and EVP_get_cipherbyobj()  "
 "return an B<EVP_CIPHER> structure or NULL on error."
@@ -2062,13 +2123,13 @@ msgstr ""
 "cas d’erreur."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:253
+#: C/crypto/EVP_EncryptInit.pod:262
 msgid "EVP_CIPHER_nid() and EVP_CIPHER_CTX_nid() return a NID."
 msgstr ""
 "B<EVP_CIPHER_nid>() et B<EVP_CIPHER_CTX_nid>() renvoient un identifiant NID."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:255
+#: C/crypto/EVP_EncryptInit.pod:264
 msgid ""
 "EVP_CIPHER_block_size() and EVP_CIPHER_CTX_block_size() return the block "
 "size."
@@ -2077,7 +2138,7 @@ msgstr ""
 "taille de bloc."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:258
+#: C/crypto/EVP_EncryptInit.pod:267
 msgid ""
 "EVP_CIPHER_key_length() and EVP_CIPHER_CTX_key_length() return the key "
 "length."
@@ -2086,12 +2147,12 @@ msgstr ""
 "longueur de clef."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:261
+#: C/crypto/EVP_EncryptInit.pod:270
 msgid "EVP_CIPHER_CTX_set_padding() always returns 1."
 msgstr "B<EVP_CIPHER_CTX_set_padding>() renvoie toujours B<1>."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:263
+#: C/crypto/EVP_EncryptInit.pod:272
 msgid ""
 "EVP_CIPHER_iv_length() and EVP_CIPHER_CTX_iv_length() return the IV length "
 "or zero if the cipher does not use an IV."
@@ -2101,7 +2162,7 @@ msgstr ""
 "n’utilise pas de vecteur."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:266
+#: C/crypto/EVP_EncryptInit.pod:275
 msgid ""
 "EVP_CIPHER_type() and EVP_CIPHER_CTX_type() return the NID of the cipher's "
 "OBJECT IDENTIFIER or NID_undef if it has no defined OBJECT IDENTIFIER."
@@ -2111,12 +2172,12 @@ msgstr ""
 "OBJECT IDENTIFIER de défini."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:269
+#: C/crypto/EVP_EncryptInit.pod:278
 msgid "EVP_CIPHER_CTX_cipher() returns an B<EVP_CIPHER> structure."
 msgstr "B<EVP_CIPHER_CTX_cipher>() renvoie une structure B<EVP_CIPHER>."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:271
+#: C/crypto/EVP_EncryptInit.pod:280
 msgid ""
 "EVP_CIPHER_param_to_asn1() and EVP_CIPHER_asn1_to_param() return 1 for "
 "success or zero for failure."
@@ -2125,29 +2186,29 @@ msgstr ""
 "B<1> pour une réussite ou zéro pour un échec."
 
 #. type: =head1
-#: C/crypto/EVP_EncryptInit.pod:274
+#: C/crypto/EVP_EncryptInit.pod:283
 msgid "CIPHER LISTING"
 msgstr "LISTE DES ALGORITHMES DE CHIFFREMENT"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:276
+#: C/crypto/EVP_EncryptInit.pod:285
 msgid "All algorithms have a fixed key length unless otherwise stated."
 msgstr ""
 "Tous les algorithmes ont une longueur fixe de clef sauf stipulation "
 "contraire."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:280
+#: C/crypto/EVP_EncryptInit.pod:289
 msgid "EVP_enc_null()"
 msgstr "B<EVP_enc_null>()"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:282
+#: C/crypto/EVP_EncryptInit.pod:291
 msgid "Null cipher: does nothing."
 msgstr "Algorithme NULL, sans action"
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:284
+#: C/crypto/EVP_EncryptInit.pod:293
 msgid ""
 "EVP_des_cbc(void), EVP_des_ecb(void), EVP_des_cfb(void), EVP_des_ofb(void)"
 msgstr ""
@@ -2155,12 +2216,12 @@ msgstr ""
 "B<EVP_des_ofb>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:286
+#: C/crypto/EVP_EncryptInit.pod:295
 msgid "DES in CBC, ECB, CFB and OFB modes respectively."
 msgstr "Respectivement, DES avec les modes CBC, ECB, CFB et OFB."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:288
+#: C/crypto/EVP_EncryptInit.pod:297
 msgid ""
 "EVP_des_ede_cbc(void), EVP_des_ede(), EVP_des_ede_ofb(void), "
 "EVP_des_ede_cfb(void)"
@@ -2169,13 +2230,13 @@ msgstr ""
 "B<EVP_des_ede_cfb>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:290
+#: C/crypto/EVP_EncryptInit.pod:299
 msgid "Two key triple DES in CBC, ECB, CFB and OFB modes respectively."
 msgstr ""
 "Respectivement, triple DES à deux clefs avec les modes CBC, ECB, CFB et OFB."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:292
+#: C/crypto/EVP_EncryptInit.pod:301
 msgid ""
 "EVP_des_ede3_cbc(void), EVP_des_ede3(), EVP_des_ede3_ofb(void), "
 "EVP_des_ede3_cfb(void)"
@@ -2184,28 +2245,28 @@ msgstr ""
 "B<EVP_des_ede3_cfb>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:294
+#: C/crypto/EVP_EncryptInit.pod:303
 msgid "Three key triple DES in CBC, ECB, CFB and OFB modes respectively."
 msgstr ""
 "Respectivement, triple DES à trois clefs avec les modes CBC, ECB, CFB et OFB."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:296
+#: C/crypto/EVP_EncryptInit.pod:305
 msgid "EVP_desx_cbc(void)"
 msgstr "B<EVP_desx_cbc>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:298
+#: C/crypto/EVP_EncryptInit.pod:307
 msgid "DESX algorithm in CBC mode."
 msgstr "Algorithme DESX avec le mode CBC."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:300
+#: C/crypto/EVP_EncryptInit.pod:309
 msgid "EVP_rc4(void)"
 msgstr "B<EVP_rc4>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:302
+#: C/crypto/EVP_EncryptInit.pod:311
 msgid ""
 "RC4 stream cipher. This is a variable key length cipher with default key "
 "length 128 bits."
@@ -2214,12 +2275,12 @@ msgstr ""
 "défaut 128 bits."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:304
+#: C/crypto/EVP_EncryptInit.pod:313
 msgid "EVP_rc4_40(void)"
 msgstr "B<EVP_rc4_40>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:306
+#: C/crypto/EVP_EncryptInit.pod:315
 msgid ""
 "RC4 stream cipher with 40 bit key length. This is obsolete and new code "
 "should use EVP_rc4()  and the EVP_CIPHER_CTX_set_key_length() function."
@@ -2229,7 +2290,7 @@ msgstr ""
 "B<EVP_CIPHER_CTX_set_key_length>()."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:309
+#: C/crypto/EVP_EncryptInit.pod:318
 msgid ""
 "EVP_idea_cbc() EVP_idea_ecb(void), EVP_idea_cfb(void), EVP_idea_ofb(void), "
 "EVP_idea_cbc(void)"
@@ -2238,14 +2299,14 @@ msgstr ""
 "B<EVP_idea_ofb>(void), B<EVP_idea_cbc>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:311
+#: C/crypto/EVP_EncryptInit.pod:320
 msgid "IDEA encryption algorithm in CBC, ECB, CFB and OFB modes respectively."
 msgstr ""
 "Algorithme de chiffrement IDEA avec les modes CBC, ECB, CFB et OFB "
 "respectivement."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:313
+#: C/crypto/EVP_EncryptInit.pod:322
 msgid ""
 "EVP_rc2_cbc(void), EVP_rc2_ecb(void), EVP_rc2_cfb(void), EVP_rc2_ofb(void)"
 msgstr ""
@@ -2253,7 +2314,7 @@ msgstr ""
 "B<EVP_rc2_ofb>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:315
+#: C/crypto/EVP_EncryptInit.pod:324
 msgid ""
 "RC2 encryption algorithm in CBC, ECB, CFB and OFB modes respectively. This "
 "is a variable key length cipher with an additional parameter called "
@@ -2266,12 +2327,12 @@ msgstr ""
 "défini à 128 bits)."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:319
+#: C/crypto/EVP_EncryptInit.pod:328
 msgid "EVP_rc2_40_cbc(void), EVP_rc2_64_cbc(void)"
 msgstr "B<EVP_rc2_40_cbc>(void), B<EVP_rc2_64_cbc>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:321
+#: C/crypto/EVP_EncryptInit.pod:330
 msgid ""
 "RC2 algorithm in CBC mode with a default key length and effective key length "
 "of 40 and 64 bits.  These are obsolete and new code should use "
@@ -2285,14 +2346,14 @@ msgstr ""
 "clef efficace."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:325
+#: C/crypto/EVP_EncryptInit.pod:334
 msgid "EVP_bf_cbc(void), EVP_bf_ecb(void), EVP_bf_cfb(void), EVP_bf_ofb(void);"
 msgstr ""
 "B<EVP_bf_cbc>(void), B<EVP_bf_ecb>(void), B<EVP_bf_cfb>(void), "
 "B<EVP_bf_ofb>(void);"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:327
+#: C/crypto/EVP_EncryptInit.pod:336
 msgid ""
 "Blowfish encryption algorithm in CBC, ECB, CFB and OFB modes respectively. "
 "This is a variable key length cipher."
@@ -2301,7 +2362,7 @@ msgstr ""
 "CFB et OFB. Algorithme à longueur de clef variable."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:330
+#: C/crypto/EVP_EncryptInit.pod:339
 msgid ""
 "EVP_cast5_cbc(void), EVP_cast5_ecb(void), EVP_cast5_cfb(void), "
 "EVP_cast5_ofb(void)"
@@ -2310,7 +2371,7 @@ msgstr ""
 "B<EVP_cast5_ofb>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:332
+#: C/crypto/EVP_EncryptInit.pod:341
 msgid ""
 "CAST encryption algorithm in CBC, ECB, CFB and OFB modes respectively. This "
 "is a variable key length cipher."
@@ -2319,7 +2380,7 @@ msgstr ""
 "et OFB. Algorithme à longueur de clef variable."
 
 #. type: =item
-#: C/crypto/EVP_EncryptInit.pod:335
+#: C/crypto/EVP_EncryptInit.pod:344
 msgid ""
 "EVP_rc5_32_12_16_cbc(void), EVP_rc5_32_12_16_ecb(void), "
 "EVP_rc5_32_12_16_cfb(void), EVP_rc5_32_12_16_ofb(void)"
@@ -2328,7 +2389,7 @@ msgstr ""
 "B<EVP_rc5_32_12_16_cfb>(void), B<EVP_rc5_32_12_16_ofb>(void)"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:337
+#: C/crypto/EVP_EncryptInit.pod:346
 msgid ""
 "RC5 encryption algorithm in CBC, ECB, CFB and OFB modes respectively. This "
 "is a variable key length cipher with an additional \"number of rounds\" "
@@ -2339,8 +2400,252 @@ msgstr ""
 "« nombre de tours ». Par défaut, la longueur de clef est de 128 bits et le "
 "nombre de tours 12."
 
+#. type: =item
+#: C/crypto/EVP_EncryptInit.pod:350
+#, fuzzy
+#| msgid ""
+#| "EVP_des_cbc(void), EVP_des_ecb(void), EVP_des_cfb(void), EVP_des_ofb(void)"
+msgid "EVP_aes_128_gcm(void), EVP_aes_192_gcm(void), EVP_aes_256_gcm(void)"
+msgstr ""
+"B<EVP_des_cbc>(void), B<EVP_des_ecb>(void), B<EVP_des_cfb>(void), "
+"B<EVP_des_ofb>(void)"
+
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:345
+#: C/crypto/EVP_EncryptInit.pod:352
+msgid ""
+"AES Galois Counter Mode (GCM) for 128, 192 and 256 bit keys respectively.  "
+"These ciphers require additional control operations to function correctly: "
+"see L<GCM mode> section below for details."
+msgstr ""
+
+#. type: =item
+#: C/crypto/EVP_EncryptInit.pod:356
+#, fuzzy
+#| msgid ""
+#| "EVP_des_cbc(void), EVP_des_ecb(void), EVP_des_cfb(void), EVP_des_ofb(void)"
+msgid "EVP_aes_128_ccm(void), EVP_aes_192_ccm(void), EVP_aes_256_ccm(void)"
+msgstr ""
+"B<EVP_des_cbc>(void), B<EVP_des_ecb>(void), B<EVP_des_cfb>(void), "
+"B<EVP_des_ofb>(void)"
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:358
+msgid ""
+"AES Counter with CBC-MAC Mode (CCM) for 128, 192 and 256 bit keys "
+"respectively.  These ciphers require additional control operations to "
+"function correctly: see CCM mode section below for details."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/EVP_EncryptInit.pod:364
+msgid "GCM Mode"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:366
+msgid ""
+"For GCM mode ciphers the behaviour of the EVP interface is subtly altered "
+"and several GCM specific ctrl operations are supported."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:369
+msgid ""
+"To specify any additional authenticated data (AAD) a call to "
+"EVP_CipherUpdate(), EVP_EncryptUpdate() or EVP_DecryptUpdate() should be "
+"made with the output parameter B<out> set to B<NULL>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:373
+msgid ""
+"When decrypting the return value of EVP_DecryptFinal() or EVP_CipherFinal()  "
+"indicates if the operation was successful. If it does not indicate success "
+"the authentication operation has failed and any output data B<MUST NOT> be "
+"used as it is corrupted."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:378
+msgid "The following ctrls are supported in GCM mode:"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:380
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int nrounds;\n"
+#| " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
+#| "\n"
+msgid ""
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_IVLEN, ivlen, NULL);\n"
+"\n"
+msgstr ""
+" int nrounds;\n"
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
+"\n"
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:382
+#, no-wrap
+msgid ""
+"Sets the GCM IV length: this call can only be made before specifying an IV. If\n"
+"not called a default IV length is used (96 bits for AES).\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:385
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int key_bits;\n"
+#| " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
+#| "\n"
+msgid ""
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_GET_TAG, taglen, tag);\n"
+"\n"
+msgstr ""
+" int key_bits;\n"
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
+"\n"
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:387
+msgid ""
+"Writes B<taglen> bytes of the tag value to the buffer indicated by B<tag>.  "
+"This call can only be made when encrypting data and B<after> all data has "
+"been processed (e.g. after an EVP_EncryptFinal() call)."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:391
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int key_bits;\n"
+#| " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
+#| "\n"
+msgid ""
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_TAG, taglen, tag);\n"
+"\n"
+msgstr ""
+" int key_bits;\n"
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
+"\n"
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:393
+msgid ""
+"Sets the expected tag to B<taglen> bytes from B<tag>. This call is only "
+"legal when decrypting data and must be made B<before> any data is processed "
+"(e.g.  before any EVP_DecryptUpdate() call)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:397
+msgid "See L<EXAMPLES> below for an example of the use of GCM mode."
+msgstr ""
+
+#. type: =head1
+#: C/crypto/EVP_EncryptInit.pod:399
+msgid "CCM Mode"
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:401
+msgid ""
+"The behaviour of CCM mode ciphers is similar to CCM mode but with a few "
+"additional requirements and different ctrl values."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:404
+msgid ""
+"Like GCM mode any additional authenticated data (AAD) is passed by calling "
+"EVP_CipherUpdate(), EVP_EncryptUpdate() or EVP_DecryptUpdate() with the "
+"output parameter B<out> set to B<NULL>. Additionally the total plaintext or "
+"ciphertext length B<MUST> be passed to EVP_CipherUpdate(), "
+"EVP_EncryptUpdate() or EVP_DecryptUpdate() with the output and input "
+"parameters (B<in> and B<out>)  set to B<NULL> and the length passed in the "
+"B<inl> parameter."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:411
+#, no-wrap
+msgid ""
+"The following ctrls are supported in CCM mode:\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:413
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int key_bits;\n"
+#| " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
+#| "\n"
+msgid ""
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_CCM_SET_TAG, taglen, tag);\n"
+"\n"
+msgstr ""
+" int key_bits;\n"
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
+"\n"
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:415
+msgid ""
+"This call is made to set the expected B<CCM> tag value when decrypting or "
+"the length of the tag (with the B<tag> parameter set to NULL) when "
+"encrypting.  The tag length is often referred to as B<M>. If not set a "
+"default value is used (12 for AES)."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:420
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int nrounds;\n"
+#| " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
+#| "\n"
+msgid ""
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_CCM_SET_L, ivlen, NULL);\n"
+"\n"
+msgstr ""
+" int nrounds;\n"
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
+"\n"
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:422
+msgid "Sets the CCM B<L> value. If not set a default is used (8 for AES)."
+msgstr ""
+
+#. type: verbatim
+#: C/crypto/EVP_EncryptInit.pod:424
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int nrounds;\n"
+#| " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
+#| "\n"
+msgid ""
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_CCM_SET_IVLEN, ivlen, NULL);\n"
+"\n"
+msgstr ""
+" int nrounds;\n"
+" EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
+"\n"
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:426
+msgid ""
+"Sets the CCM nonce (IV) length: this call can only be made before specifying "
+"an nonce value. The nonce length is given by B<15 - L> so it is 7 by default "
+"for AES."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/EVP_EncryptInit.pod:434
 msgid ""
 "Where possible the B<EVP> interface to symmetric ciphers should be used in "
 "preference to the low level interfaces. This is because the code then "
@@ -2357,7 +2662,7 @@ msgstr ""
 "(l’interface de bas niveau n’offre aucune garantie)."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:352
+#: C/crypto/EVP_EncryptInit.pod:441
 msgid ""
 "PKCS padding works by adding B<n> padding bytes of value B<n> to make the "
 "total length of the encrypted data a multiple of the block size. Padding is "
@@ -2373,7 +2678,7 @@ msgstr ""
 "chiffrés, alors B<5> bits de remplissage de valeur B<5> seront ajoutés."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:358
+#: C/crypto/EVP_EncryptInit.pod:447
 msgid ""
 "When decrypting the final block is checked to see if it has the correct form."
 msgstr ""
@@ -2381,7 +2686,7 @@ msgstr ""
 "forme correcte."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:360
+#: C/crypto/EVP_EncryptInit.pod:449
 msgid ""
 "Although the decryption operation can produce an error if padding is "
 "enabled, it is not a strong test that the input data or key is correct. A "
@@ -2396,7 +2701,7 @@ msgstr ""
 "ne provoqueront pas une erreur finale de déchiffrement."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:365
+#: C/crypto/EVP_EncryptInit.pod:454
 msgid ""
 "If padding is disabled then the decryption operation will always succeed if "
 "the total amount of data decrypted is a multiple of the block size."
@@ -2405,7 +2710,7 @@ msgstr ""
 "réussie si le total des données est un multiple de la taille de bloc."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:368
+#: C/crypto/EVP_EncryptInit.pod:457
 msgid ""
 "The functions EVP_EncryptInit(), EVP_EncryptFinal(), EVP_DecryptInit(), "
 "EVP_CipherInit() and EVP_CipherFinal() are obsolete but are retained for "
@@ -2423,13 +2728,13 @@ msgstr ""
 "le contexte existant sans avoir à allouer ou libérer à chaque appel."
 
 #. type: =head1
-#: C/crypto/EVP_EncryptInit.pod:375 C/crypto/EVP_SignInit.pod:77
+#: C/crypto/EVP_EncryptInit.pod:464 C/crypto/EVP_SignInit.pod:77
 #: C/crypto/EVP_VerifyInit.pod:65
 msgid "BUGS"
 msgstr "BOGUES"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:377
+#: C/crypto/EVP_EncryptInit.pod:466
 msgid ""
 "For RC5 the number of rounds can currently only be set to 8, 12 or 16. This "
 "is a limitation of the current RC5 code rather than the EVP interface."
@@ -2438,7 +2743,7 @@ msgstr ""
 "une limitation du code RC5 actuel plutôt que de l’interface EVP."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:380
+#: C/crypto/EVP_EncryptInit.pod:469
 msgid ""
 "EVP_MAX_KEY_LENGTH and EVP_MAX_IV_LENGTH only refer to the internal ciphers "
 "with default key lengths. If custom ciphers exceed these values the results "
@@ -2453,7 +2758,7 @@ msgstr ""
 "définie en un tableau « unsigned char » contenant B<EVP_MAX_KEY_LENGTH>."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:385
+#: C/crypto/EVP_EncryptInit.pod:474
 msgid ""
 "The ASN1 code is incomplete (and sometimes inaccurate) it has only been "
 "tested for certain common S/MIME ciphers (RC2, DES, triple DES) in CBC mode."
@@ -2462,19 +2767,19 @@ msgstr ""
 "certains algorithmes communs S/MIME (RC2, DES, triple DES) avec le mode CBC."
 
 #. type: =head1
-#: C/crypto/EVP_EncryptInit.pod:388
+#: C/crypto/EVP_EncryptInit.pod:477
 msgid "EXAMPLES"
 msgstr "EXEMPLES"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:390
+#: C/crypto/EVP_EncryptInit.pod:479
 #, fuzzy
 #| msgid "Encrypt a string using blowfish:"
 msgid "Encrypt a string using IDEA:"
 msgstr "Chiffrer une chaîne en utilisant Blowfish :"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:392
+#: C/crypto/EVP_EncryptInit.pod:481
 #, fuzzy, no-wrap
 #| msgid ""
 #| " int do_crypt(char *outfile)\n"
@@ -2524,7 +2829,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:405
+#: C/crypto/EVP_EncryptInit.pod:494
 #, no-wrap
 msgid ""
 "\tEVP_CIPHER_CTX_init(&ctx);\n"
@@ -2533,7 +2838,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:408
+#: C/crypto/EVP_EncryptInit.pod:497
 #, no-wrap
 msgid ""
 "\tif(!EVP_EncryptUpdate(&ctx, outbuf, &outlen, intext, strlen(intext)))\n"
@@ -2591,7 +2896,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:434
+#: C/crypto/EVP_EncryptInit.pod:523
 #, fuzzy, no-wrap
 #| msgid ""
 #| "The ciphertext from the above example can be decrypted using the B<openssl>\n"
@@ -2606,7 +2911,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:437
+#: C/crypto/EVP_EncryptInit.pod:526
 #, fuzzy, no-wrap
 #| msgid ""
 #| " S<openssl bf -in cipher.bin -K 000102030405060708090A0B0C0D0E0F -iv 0102030405060708 -d>\n"
@@ -2620,7 +2925,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:440
+#: C/crypto/EVP_EncryptInit.pod:529
 #, fuzzy
 #| msgid ""
 #| "General encryption, decryption function example using FILE I/O and RC2 "
@@ -2633,7 +2938,7 @@ msgstr ""
 "avec une clef de 80 bits :"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:443
+#: C/crypto/EVP_EncryptInit.pod:532
 #, fuzzy, no-wrap
 #| msgid ""
 #| " int do_crypt(FILE *in, FILE *out, int do_encrypt)\n"
@@ -2686,7 +2991,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:455
+#: C/crypto/EVP_EncryptInit.pod:544
 #, no-wrap
 msgid ""
 "\t/* Don't set key or IV right away; we want to check lengths */\n"
@@ -2699,7 +3004,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:462
+#: C/crypto/EVP_EncryptInit.pod:551
 #, no-wrap
 msgid ""
 "\t/* Now we can set key and IV */\n"
@@ -2708,7 +3013,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:465
+#: C/crypto/EVP_EncryptInit.pod:554
 #, no-wrap
 msgid ""
 "\tfor(;;) \n"
@@ -2754,7 +3059,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: C/crypto/EVP_EncryptInit.pod:485
+#: C/crypto/EVP_EncryptInit.pod:574
 #, no-wrap
 msgid ""
 "\tEVP_CIPHER_CTX_cleanup(&ctx);\n"
@@ -2768,12 +3073,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:492
+#: C/crypto/EVP_EncryptInit.pod:581
 msgid "L<evp(3)|evp(3)>"
 msgstr "L<B<evp>(3)|evp(3)>"
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:496
+#: C/crypto/EVP_EncryptInit.pod:585
 msgid ""
 "EVP_CIPHER_CTX_init(), EVP_EncryptInit_ex(), EVP_EncryptFinal_ex(), "
 "EVP_DecryptInit_ex(), EVP_DecryptFinal_ex(), EVP_CipherInit_ex(), "
@@ -2786,7 +3091,7 @@ msgstr ""
 "dans OpenSSL 0.9.7."
 
 #. type: textblock
-#: C/crypto/EVP_EncryptInit.pod:501
+#: C/crypto/EVP_EncryptInit.pod:590
 msgid ""
 "IDEA appeared in OpenSSL 0.9.7 but was often disabled due to patent "
 "concerns; the last patents expired in 2012."
@@ -3498,9 +3803,14 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/evp.pod:16
+#, fuzzy
+#| msgid ""
+#| "B<EVP_Seal>I<...> and B<EVP_Open>I<...> provide public key encryption and "
+#| "decryption to implement digital \"envelopes\"."
 msgid ""
-"B<EVP_Seal>I<...> and B<EVP_Open>I<...> provide public key encryption and "
-"decryption to implement digital \"envelopes\"."
+"L<B<EVP_Seal>I<...>|EVP_SealInit(3)> and L<B<EVP_Open>I<...>|"
+"EVP_OpenInit(3)> provide public key encryption and decryption to implement "
+"digital \"envelopes\"."
 msgstr ""
 "B<EVP_Seal>I<...> et B<EVP_Open>I<...> fournissent le chiffrement et le "
 "déchiffrement à clef publique pour implémenter des « enveloppes » numériques."
@@ -3508,44 +3818,117 @@ msgstr ""
 #. type: textblock
 #: C/crypto/evp.pod:19
 msgid ""
-"The B<EVP_Sign>I<...> and B<EVP_Verify>I<...> functions implement digital "
-"signatures."
+"The L<B<EVP_DigestSign>I<...>|EVP_DigestSignInit(3)> and "
+"L<B<EVP_DigestVerify>I<...>|EVP_DigestVerifyInit(3)> functions implement "
+"digital signatures and Message Authentication Codes (MACs). Also see the "
+"older L<B<EVP_Sign>I<...>|EVP_SignInit(3)> and L<B<EVP_Verify>I<...>|"
+"EVP_VerifyInit(3)> functions."
 msgstr ""
-"Les fonctions B<EVP_Sign>I<...> et B<EVP_Verify>I<...> implémentent les "
-"signatures numériques."
 
 #. type: textblock
-#: C/crypto/evp.pod:22
+#: C/crypto/evp.pod:25
+#, fuzzy
+#| msgid ""
+#| "Symmetric encryption is available with the B<EVP_Encrypt>I<...> "
+#| "functions.  The B<EVP_Digest>I<...> functions provide message digests."
 msgid ""
-"Symmetric encryption is available with the B<EVP_Encrypt>I<...> functions.  "
-"The B<EVP_Digest>I<...> functions provide message digests."
+"Symmetric encryption is available with the L<B<EVP_Encrypt>I<...>|"
+"EVP_EncryptInit(3)> functions.  The L<B<EVP_Digest>I<...>|EVP_DigestInit(3)> "
+"functions provide message digests."
 msgstr ""
 "Le chiffrement symétrique est disponible avec les fonctions "
 "B<EVP_Encrypt>I<...>. Les fonctions B<EVP_Digest>I<...> fournissent les "
 "signatures de message."
 
 #. type: textblock
-#: C/crypto/evp.pod:25
+#: C/crypto/evp.pod:28
 msgid ""
 "The B<EVP_PKEY>I<...> functions provide a high level interface to asymmetric "
-"algorithms."
+"algorithms. To create a new EVP_PKEY see L<EVP_PKEY_new(3)|EVP_PKEY_new(3)>. "
+"EVP_PKEYs can be associated with a private key of a particular algorithm by "
+"using the functions described on the L<EVP_PKEY_set1_RSA(3)|"
+"EVP_PKEY_set1_RSA(3)> page, or new keys can be generated using "
+"L<EVP_PKEY_keygen(3)|EVP_PKEY_keygen(3)>.  EVP_PKEYs can be compared using "
+"L<EVP_PKEY_cmp(3)|EVP_PKEY_cmp(3)>, or printed using "
+"L<EVP_PKEY_print_private(3)|EVP_PKEY_print_private(3)>."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/evp.pod:37
+#, fuzzy
+#| msgid ""
+#| "The B<EVP_PKEY>I<...> functions provide a high level interface to "
+#| "asymmetric algorithms."
+msgid ""
+"The EVP_PKEY functions support the full range of asymmetric algorithm "
+"operations:"
 msgstr ""
 "Les fonctions B<EVP_PKEY>I<...> fournissent une interface haut niveau pour "
 "les algorithmes asymétriques."
 
+#. type: =item
+#: C/crypto/evp.pod:41
+msgid "For key agreement see L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>"
+msgstr ""
+
+#. type: =item
+#: C/crypto/evp.pod:43
+msgid ""
+"For signing and verifying see L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, "
+"L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)> and L<EVP_PKEY_verify_recover(3)|"
+"EVP_PKEY_verify_recover(3)>.  However, note that these functions do not "
+"perform a digest of the data to be signed. Therefore normally you would use "
+"the L<B<EVP_DigestSign>I<...>|EVP_DigestSignInit(3)> functions for this "
+"purpose."
+msgstr ""
+
+#. type: =item
+#: C/crypto/evp.pod:50
+msgid ""
+"For encryption and decryption see L<EVP_PKEY_encrypt(3)|EVP_PKEY_encrypt(3)> "
+"and L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)> respectively. However, note "
+"that these functions perform encryption and decryption only. As public key "
+"encryption is an expensive operation, normally you would wrap an encrypted "
+"message in a \"digital envelope\" using the L<B<EVP_Seal>I<...>|"
+"EVP_SealInit(3)> and L<B<EVP_Open>I<...>|EVP_OpenInit(3)> functions."
+msgstr ""
+
 #. type: textblock
-#: C/crypto/evp.pod:28
-msgid "Algorithms are loaded with OpenSSL_add_all_algorithms(3)."
+#: C/crypto/evp.pod:59
+msgid ""
+"The L<EVP_BytesToKey(3)|EVP_BytesToKey(3)> function provides some limited "
+"support for password based encryption. Careful selection of the parameters "
+"will provide a PKCS#5 PBKDF1 compatible implementation. However, new "
+"applications should not typically use this (preferring, for example, PBKDF2 "
+"from PCKS#5)."
+msgstr ""
+
+#. type: textblock
+#: C/crypto/evp.pod:64
+#, fuzzy
+#| msgid "Algorithms are loaded with OpenSSL_add_all_algorithms(3)."
+msgid ""
+"Algorithms are loaded with L<OpenSSL_add_all_algorithms(3)|"
+"OpenSSL_add_all_algorithms(3)>."
 msgstr "Les algorithmes sont chargés avec B<OpenSSL_add_all_algorithms>(3)."
 
 # NOTE: ETOOMUCHautomatically
 #. type: textblock
-#: C/crypto/evp.pod:30
+#: C/crypto/evp.pod:66
+#, fuzzy
+#| msgid ""
+#| "All the symmetric algorithms (ciphers), digests and asymmetric algorithms "
+#| "(public key algorithms) can be replaced by ENGINE modules providing "
+#| "alternative implementations. If ENGINE implementations of ciphers or "
+#| "digests are registered as defaults, then the various EVP functions will "
+#| "automatically use those implementations automatically in preference to "
+#| "built in software implementations. For more information, consult the "
+#| "engine(3) man page."
 msgid ""
 "All the symmetric algorithms (ciphers), digests and asymmetric algorithms "
-"(public key algorithms) can be replaced by ENGINE modules providing "
-"alternative implementations. If ENGINE implementations of ciphers or digests "
-"are registered as defaults, then the various EVP functions will "
+"(public key algorithms) can be replaced by L<ENGINE|engine(3)> modules "
+"providing alternative implementations. If ENGINE implementations of ciphers "
+"or digests are registered as defaults, then the various EVP functions will "
 "automatically use those implementations automatically in preference to built "
 "in software implementations. For more information, consult the engine(3) man "
 "page."
@@ -3560,7 +3943,7 @@ msgstr ""
 "renseignements, consultez la page de manuel B<engine>(3)."
 
 #. type: textblock
-#: C/crypto/evp.pod:37
+#: C/crypto/evp.pod:73
 msgid ""
 "Although low level algorithm specific functions exist for many algorithms "
 "their use is discouraged. They cannot be used with an ENGINE and ENGINE "
@@ -3579,19 +3962,45 @@ msgstr ""
 "l'interface haut niveau."
 
 #. type: textblock
-#: C/crypto/evp.pod:46
+#: C/crypto/evp.pod:82
 msgid ""
 "L<EVP_DigestInit(3)|EVP_DigestInit(3)>, L<EVP_EncryptInit(3)|"
 "EVP_EncryptInit(3)>, L<EVP_OpenInit(3)|EVP_OpenInit(3)>, L<EVP_SealInit(3)|"
-"EVP_SealInit(3)>, L<EVP_SignInit(3)|EVP_SignInit(3)>, L<EVP_VerifyInit(3)|"
-"EVP_VerifyInit(3)>, L<OpenSSL_add_all_algorithms(3)|"
+"EVP_SealInit(3)>, L<EVP_DigestSignInit(3)|EVP_DigestSignInit(3)>, "
+"L<EVP_SignInit(3)|EVP_SignInit(3)>, L<EVP_VerifyInit(3)|EVP_VerifyInit(3)>, "
+"L<EVP_PKEY_new(3)|EVP_PKEY_new(3)>, L<EVP_PKEY_set1_RSA(3)|"
+"EVP_PKEY_set1_RSA(3)>, L<EVP_PKEY_keygen(3)|EVP_PKEY_keygen(3)>, "
+"L<EVP_PKEY_print_private(3)|EVP_PKEY_print_private(3)>, "
+"L<EVP_PKEY_decrypt(3)|EVP_PKEY_decrypt(3)>, L<EVP_PKEY_encrypt(3)|"
+"EVP_PKEY_encrypt(3)>, L<EVP_PKEY_sign(3)|EVP_PKEY_sign(3)>, "
+"L<EVP_PKEY_verify(3)|EVP_PKEY_verify(3)>, L<EVP_PKEY_verify_recover(3)|"
+"EVP_PKEY_verify_recover(3)>, L<EVP_PKEY_derive(3)|EVP_PKEY_derive(3)>, "
+"L<EVP_BytesToKey(3)|EVP_BytesToKey(3)>, L<OpenSSL_add_all_algorithms(3)|"
 "OpenSSL_add_all_algorithms(3)>, L<engine(3)|engine(3)>"
 msgstr ""
-"L<EVP_DigestInit(3)|EVP_DigestInit(3)>, L<EVP_EncryptInit(3)|"
-"EVP_EncryptInit(3)>, L<EVP_OpenInit(3)|EVP_OpenInit(3)>, L<EVP_SealInit(3)|"
-"EVP_SealInit(3)>, L<EVP_SignInit(3)|EVP_SignInit(3)>, L<EVP_VerifyInit(3)|"
-"EVP_VerifyInit(3)>, L<OpenSSL_add_all_algorithms(3)|"
-"OpenSSL_add_all_algorithms(3)>, L<engine(3)|engine(3)>"
+
+#~ msgid "EVP_BytesToKey() returns the size of the derived key in bytes."
+#~ msgstr "B<EVP_BytesToKey>() renvoie la taille de la clef dérivée en octet."
+
+#~ msgid ""
+#~ "The B<EVP_Sign>I<...> and B<EVP_Verify>I<...> functions implement digital "
+#~ "signatures."
+#~ msgstr ""
+#~ "Les fonctions B<EVP_Sign>I<...> et B<EVP_Verify>I<...> implémentent les "
+#~ "signatures numériques."
+
+#~ msgid ""
+#~ "L<EVP_DigestInit(3)|EVP_DigestInit(3)>, L<EVP_EncryptInit(3)|"
+#~ "EVP_EncryptInit(3)>, L<EVP_OpenInit(3)|EVP_OpenInit(3)>, "
+#~ "L<EVP_SealInit(3)|EVP_SealInit(3)>, L<EVP_SignInit(3)|EVP_SignInit(3)>, "
+#~ "L<EVP_VerifyInit(3)|EVP_VerifyInit(3)>, L<OpenSSL_add_all_algorithms(3)|"
+#~ "OpenSSL_add_all_algorithms(3)>, L<engine(3)|engine(3)>"
+#~ msgstr ""
+#~ "L<EVP_DigestInit(3)|EVP_DigestInit(3)>, L<EVP_EncryptInit(3)|"
+#~ "EVP_EncryptInit(3)>, L<EVP_OpenInit(3)|EVP_OpenInit(3)>, "
+#~ "L<EVP_SealInit(3)|EVP_SealInit(3)>, L<EVP_SignInit(3)|EVP_SignInit(3)>, "
+#~ "L<EVP_VerifyInit(3)|EVP_VerifyInit(3)>, L<OpenSSL_add_all_algorithms(3)|"
+#~ "OpenSSL_add_all_algorithms(3)>, L<engine(3)|engine(3)>"
 
 #~ msgid ""
 #~ "L<evp(3)|evp(3)>, L<hmac(3)|hmac(3)>, L<md2(3)|md2(3)>, L<md5(3)|md5(3)>, "
@@ -3617,26 +4026,8 @@ msgstr ""
 #~ msgid "Get the RC2 effective key length:"
 #~ msgstr "Obtention de la longueur de clef effective :"
 
-#~ msgid ""
-#~ " int key_bits;\n"
-#~ " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
-#~ "\n"
-#~ msgstr ""
-#~ " int key_bits;\n"
-#~ " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GET_RC2_KEY_BITS, 0, &key_bits);\n"
-#~ "\n"
-
 #~ msgid "Set the number of rounds used in RC5:"
 #~ msgstr "Définition du nombre de tours utilisés dans RC5 :"
-
-#~ msgid ""
-#~ " int nrounds;\n"
-#~ " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
-#~ "\n"
-#~ msgstr ""
-#~ " int nrounds;\n"
-#~ " EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_SET_RC5_ROUNDS, nrounds, NULL);\n"
-#~ "\n"
 
 #~ msgid "Set the effective key length used in RC2:"
 #~ msgstr "Définition de la longueur de clef effective utilisé dans RC2 :"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-08-07 01:31-0400\n"
+"POT-Creation-Date: 2015-05-05 17:54-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:19 C/ssl/SSL_CTX_add_session.pod:30 C/ssl/SSL_CTX_flush_sessions.pod:21 C/ssl/SSL_CTX_load_verify_locations.pod:21 C/ssl/SSL_CTX_new.pod:18 C/ssl/SSL_CTX_sess_set_cache_size.pod:21 C/ssl/SSL_CTX_sess_set_get_cb.pod:48 C/ssl/SSL_CTX_sessions.pod:18 C/ssl/SSL_CTX_use_certificate.pod:110
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:19 C/ssl/SSL_CTX_add_session.pod:30 C/ssl/SSL_CTX_flush_sessions.pod:21 C/ssl/SSL_CTX_load_verify_locations.pod:21 C/ssl/SSL_CTX_new.pod:18 C/ssl/SSL_CTX_sess_set_cache_size.pod:22 C/ssl/SSL_CTX_sess_set_get_cb.pod:48 C/ssl/SSL_CTX_sessions.pod:18 C/ssl/SSL_CTX_use_certificate.pod:110
 msgid "NOTES"
 msgstr ""
 
@@ -95,32 +95,43 @@ msgid ""
 "structure. Different chains for different certificates (for example if both "
 "RSA and DSA certificates are specified by the same server) or different SSL "
 "structures with the same parent SSL_CTX cannot be specified using this "
-"function."
+"function. For more flexibility functions such as SSL_add1_chain_cert() "
+"should be used instead."
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:37 C/ssl/SSL_CTX_add_session.pod:49 C/ssl/SSL_CTX_ctrl.pod:25 C/ssl/SSL_CTX_flush_sessions.pod:40 C/ssl/SSL_CTX_free.pod:32 C/ssl/SSL_CTX_get_verify_mode.pod:42 C/ssl/SSL_CTX_load_verify_locations.pod:97 C/ssl/SSL_CTX_new.pod:86 C/ssl/SSL_CTX_sess_number.pod:66 C/ssl/SSL_CTX_sess_set_cache_size.pod:38 C/ssl/SSL_CTX_use_certificate.pod:149 C/ssl/SSL_CTX_use_psk_identity_hint.pod:77
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:38 C/ssl/SSL_CTX_add_session.pod:49 C/ssl/SSL_CTX_ctrl.pod:25 C/ssl/SSL_CTX_flush_sessions.pod:40 C/ssl/SSL_CTX_free.pod:32 C/ssl/SSL_CTX_get_verify_mode.pod:42 C/ssl/SSL_CTX_load_verify_locations.pod:97 C/ssl/SSL_CTX_new.pod:86 C/ssl/SSL_CTX_sess_number.pod:66 C/ssl/SSL_CTX_sess_set_cache_size.pod:40 C/ssl/SSL_CTX_use_certificate.pod:145 C/ssl/SSL_CTX_use_psk_identity_hint.pod:77
 msgid "RETURN VALUES"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:39
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:40
 msgid ""
 "SSL_CTX_add_extra_chain_cert() returns 1 on success. Check out the error "
 "stack to find out the reason for failure otherwise."
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:42 C/ssl/SSL_CTX_add_session.pod:67 C/ssl/SSL_CTX_ctrl.pod:30 C/ssl/SSL_CTX_flush_sessions.pod:42 C/ssl/SSL_CTX_free.pod:36 C/ssl/SSL_CTX_get_ex_new_index.pod:47 C/ssl/SSL_CTX_get_verify_mode.pod:46 C/ssl/SSL_CTX_load_verify_locations.pod:115 C/ssl/SSL_CTX_new.pod:103 C/ssl/SSL_CTX_sess_number.pod:70 C/ssl/SSL_CTX_sess_set_cache_size.pod:44 C/ssl/SSL_CTX_sess_set_get_cb.pod:79 C/ssl/SSL_CTX_sessions.pod:28 C/ssl/SSL_CTX_use_certificate.pod:154
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:43 C/ssl/SSL_CTX_add_session.pod:67 C/ssl/SSL_CTX_ctrl.pod:30 C/ssl/SSL_CTX_flush_sessions.pod:42 C/ssl/SSL_CTX_free.pod:36 C/ssl/SSL_CTX_get_ex_new_index.pod:47 C/ssl/SSL_CTX_get_verify_mode.pod:46 C/ssl/SSL_CTX_load_verify_locations.pod:115 C/ssl/SSL_CTX_new.pod:103 C/ssl/SSL_CTX_sess_number.pod:70 C/ssl/SSL_CTX_sess_set_cache_size.pod:46 C/ssl/SSL_CTX_sess_set_get_cb.pod:79 C/ssl/SSL_CTX_sessions.pod:28 C/ssl/SSL_CTX_use_certificate.pod:150
 msgid "SEE ALSO"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:44
+#: C/ssl/SSL_CTX_add_extra_chain_cert.pod:45
 msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_CTX_use_certificate(3)|SSL_CTX_use_certificate(3)>, "
 "L<SSL_CTX_set_client_cert_cb(3)|SSL_CTX_set_client_cert_cb(3)>, "
-"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>"
+"L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)> "
+"L<SSL_CTX_set0_chain(3)|SSL_CTX_set0_chain(3)> "
+"L<SSL_CTX_set1_chain(3)|SSL_CTX_set1_chain(3)> "
+"L<SSL_CTX_add0_chain_cert(3)|SSL_CTX_add0_chain_cert(3)> "
+"L<SSL_CTX_add1_chain_cert(3)|SSL_CTX_add1_chain_cert(3)> "
+"L<SSL_set0_chain(3)|SSL_set0_chain(3)> "
+"L<SSL_set1_chain(3)|SSL_set1_chain(3)> "
+"L<SSL_add0_chain_cert(3)|SSL_add0_chain_cert(3)> "
+"L<SSL_add1_chain_cert(3)|SSL_add1_chain_cert(3)> "
+"L<SSL_CTX_build_cert_chain(3)|SSL_CTX_build_cert_chain(3)> "
+"L<SSL_build_cert_chain(3)|SSL_build_cert_chain(3)>"
 msgstr ""
 
 #. type: textblock
@@ -201,7 +212,7 @@ msgid "The following values are returned by all functions:"
 msgstr ""
 
 #. type: =item
-#: C/ssl/SSL_CTX_add_session.pod:55 C/ssl/SSL_CTX_load_verify_locations.pod:103 C/ssl/SSL_CTX_use_psk_identity_hint.pod:99
+#: C/ssl/SSL_CTX_add_session.pod:55 C/ssl/SSL_CTX_load_verify_locations.pod:103 C/ssl/SSL_CTX_use_psk_identity_hint.pod:86
 msgid "Z<>0"
 msgstr ""
 
@@ -1084,18 +1095,19 @@ msgstr ""
 #: C/ssl/SSL_CTX_sess_set_cache_size.pod:16
 msgid ""
 "SSL_CTX_sess_set_cache_size() sets the size of the internal session cache of "
-"context B<ctx> to B<t>."
+"context B<ctx> to B<t>.  This value is a hint and not an absolute; see the "
+"notes below."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_sess_set_cache_size.pod:19
+#: C/ssl/SSL_CTX_sess_set_cache_size.pod:20
 msgid ""
 "SSL_CTX_sess_get_cache_size() returns the currently valid session cache "
 "size."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_sess_set_cache_size.pod:23
+#: C/ssl/SSL_CTX_sess_set_cache_size.pod:24
 msgid ""
 "The internal session cache size is SSL_SESSION_CACHE_MAX_SIZE_DEFAULT, "
 "currently 1024*20, so that up to 20000 sessions can be held. This size can "
@@ -1104,16 +1116,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_sess_set_cache_size.pod:28
+#: C/ssl/SSL_CTX_sess_set_cache_size.pod:29
 msgid ""
-"When the maximum number of sessions is reached, no more new sessions are "
-"added to the cache. New space may be added by calling "
-"L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> to remove expired "
-"sessions."
+"If adding the session makes the cache exceed its size, then unused sessions "
+"are dropped from the end of the cache.  Cache space may also be reclaimed by "
+"calling L<SSL_CTX_flush_sessions(3)|SSL_CTX_flush_sessions(3)> to remove "
+"expired sessions."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_sess_set_cache_size.pod:33
+#: C/ssl/SSL_CTX_sess_set_cache_size.pod:35
 msgid ""
 "If the size of the session cache is reduced and more sessions are already in "
 "the session cache, old session will be removed at the next time a session "
@@ -1122,17 +1134,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_sess_set_cache_size.pod:40
+#: C/ssl/SSL_CTX_sess_set_cache_size.pod:42
 msgid "SSL_CTX_sess_set_cache_size() returns the previously valid size."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_sess_set_cache_size.pod:42
+#: C/ssl/SSL_CTX_sess_set_cache_size.pod:44
 msgid "SSL_CTX_sess_get_cache_size() returns the currently valid size."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_sess_set_cache_size.pod:46
+#: C/ssl/SSL_CTX_sess_set_cache_size.pod:48
 msgid ""
 "L<ssl(3)|ssl(3)>, "
 "L<SSL_CTX_set_session_cache_mode(3)|SSL_CTX_set_session_cache_mode(3)>, "
@@ -1499,14 +1511,13 @@ msgstr ""
 #. type: textblock
 #: C/ssl/SSL_CTX_use_certificate.pod:112
 msgid ""
-"The internal certificate store of OpenSSL can hold two private "
-"key/certificate pairs at a time: one key/certificate of type RSA and one "
-"key/certificate of type DSA. The certificate used depends on the cipher "
-"select, see also L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>."
+"The internal certificate store of OpenSSL can hold several private "
+"key/certificate pairs at a time. The certificate used depends on the cipher "
+"selected, see also L<SSL_CTX_set_cipher_list(3)|SSL_CTX_set_cipher_list(3)>."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_certificate.pod:117
+#: C/ssl/SSL_CTX_use_certificate.pod:116
 msgid ""
 "When reading certificates and private keys from file, files of type "
 "SSL_FILETYPE_ASN1 (also known as B<DER>, binary encoding) can only contain "
@@ -1516,23 +1527,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_certificate.pod:123
+#: C/ssl/SSL_CTX_use_certificate.pod:122
 msgid ""
 "SSL_CTX_use_certificate_chain_file() adds the first certificate found in the "
 "file to the certificate store. The other certificates are added to the store "
 "of chain certificates using "
-"L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>.  There "
-"exists only one extra chain store, so that the same chain is appended to "
-"both types of certificates, RSA and DSA! If it is not intended to use both "
-"type of certificate at the same time, it is recommended to use the "
-"SSL_CTX_use_certificate_chain_file() instead of the "
-"SSL_CTX_use_certificate_file() function in order to allow the use of "
+"L<SSL_CTX_add1_chain_cert(3)|SSL_CTX_add1_chain_cert(3)>. Note: versions of "
+"OpenSSL before 1.0.2 only had a single certificate chain store for all "
+"certificate types, OpenSSL 1.0.2 and later have a separate chain store for "
+"each type. SSL_CTX_use_certificate_chain_file()  should be used instead of "
+"the SSL_CTX_use_certificate_file() function in order to allow the use of "
 "complete certificate chains even when no trusted CA storage is used or when "
 "the CA issuing the certificate shall not be added to the trusted CA storage."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_certificate.pod:136
+#: C/ssl/SSL_CTX_use_certificate.pod:132
 msgid ""
 "If additional certificates are needed to complete the chain during the TLS "
 "negotiation, CA certificates are additionally looked up in the locations of "
@@ -1541,7 +1551,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_certificate.pod:141
+#: C/ssl/SSL_CTX_use_certificate.pod:137
 msgid ""
 "The private keys loaded from file can be encrypted. In order to successfully "
 "load encrypted keys, a function returning the passphrase must have been "
@@ -1553,14 +1563,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_certificate.pod:151
+#: C/ssl/SSL_CTX_use_certificate.pod:147
 msgid ""
 "On success, the functions return 1.  Otherwise check out the error stack to "
 "find out the reason."
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_certificate.pod:156
+#: C/ssl/SSL_CTX_use_certificate.pod:152
 msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_new(3)|SSL_new(3)>, L<SSL_clear(3)|SSL_clear(3)>, "
 "L<SSL_CTX_load_verify_locations(3)|SSL_CTX_load_verify_locations(3)>, "
@@ -1571,12 +1581,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/ssl/SSL_CTX_use_certificate.pod:163
+#: C/ssl/SSL_CTX_use_certificate.pod:159
 msgid "HISTORY"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_certificate.pod:165
+#: C/ssl/SSL_CTX_use_certificate.pod:161
 msgid ""
 "Support for DER encoded private keys (SSL_FILETYPE_ASN1) in "
 "SSL_CTX_use_PrivateKey_file() and SSL_use_PrivateKey_file() was added in "
@@ -1708,13 +1718,20 @@ msgstr ""
 msgid "Return values from the server callback are interpreted as follows:"
 msgstr ""
 
+#. type: textblock
+#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:88
+msgid ""
+"PSK identity was not found. An \"unknown_psk_identity\" alert message will "
+"be sent and the connection setup fails."
+msgstr ""
+
 #. type: =item
-#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:86
-msgid "> 0"
+#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:91
+msgid "E<gt>0"
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:88
+#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:93
 msgid ""
 "PSK identity was found and the server callback has provided the PSK "
 "successfully in parameter B<psk>. Return value is the length of B<psk> in "
@@ -1722,17 +1739,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:93
+#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:98
 msgid ""
 "If the PSK identity was not found but the callback instructs the protocol to "
 "continue anyway, the callback must provide some random data to B<psk> and "
 "return the length of the random data, so the connection will fail with "
 "decryption_error before it will be finished completely."
-msgstr ""
-
-#. type: textblock
-#: C/ssl/SSL_CTX_use_psk_identity_hint.pod:101
-msgid ""
-"PSK identity was not found. An \"unknown_psk_identity\" alert message will "
-"be sent and the connection setup fails."
 msgstr ""
