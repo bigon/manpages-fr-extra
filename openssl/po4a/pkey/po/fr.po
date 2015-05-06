@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-05 17:54-0400\n"
-"PO-Revision-Date: 2015-05-06 15:29-0400\n"
+"PO-Revision-Date: 2015-05-06 18:43-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -348,6 +348,13 @@ msgid ""
 "bit group with 256 bit subgroup as mentioned in RFC5114 sections 2.1, 2.2 "
 "and 2.3 respectively."
 msgstr ""
+"Si cette option est définie, les paramètres RFC 5114 adéquats sont utilisés "
+"au lieu d’en créer de nouveaux. La valeur I<num> peut prendre la valeur "
+"B<1>, B<2> ou B<3> correspondant aux paramètres DH RFC 5114 constitués d’un "
+"groupe de 1024 bits avec un sous-groupe de 160 bits, d’un groupe de "
+"2048 bits avec un sous-groupe de 224 bits ou d’un groupe de 2048 bits avec "
+"un sous-groupe de 256 bits conformément aux sections 2.1, 2.2 et 2.3 de la "
+"RFC 5114."
 
 #. type: =head1
 #: C/apps/genpkey.pod:142
@@ -527,7 +534,7 @@ msgid ""
 "\n"
 msgstr ""
 " openssl genpkey -genparam -algorithm DSA -out pdsa.pem \\\n"
-"\t\t\t\t-pkeyopt dsa_paramgen_bits:1024\n"
+"\t\t\t   -pkeyopt dsa_paramgen_bits:1024\n"
 "\n"
 
 #. type: textblock
@@ -559,13 +566,15 @@ msgid ""
 "\n"
 msgstr ""
 " openssl genpkey -genparam -algorithm DH -out pdh.pem \\\n"
-"\t\t\t\t-pkeyopt dh_paramgen_prime_len:1024\n"
+"\t\t\t   -pkeyopt dh_paramgen_prime_len:1024\n"
 "\n"
 
 #. type: textblock
 #: C/apps/genpkey.pod:218
 msgid "Output RFC5114 2048 bit DH parameters with 224 bit subgroup:"
 msgstr ""
+"Afficher les paramètres DH RFC 5114 sur 2048 bits avec un sous-groupe de "
+"224 bits :"
 
 #. type: verbatim
 #: C/apps/genpkey.pod:220
@@ -574,7 +583,8 @@ msgid ""
 " openssl genpkey -genparam -algorithm DH -out dhp.pem -pkeyopt dh_rfc5114:2\n"
 "\n"
 msgstr ""
-" openssl genpkey -genparam -algorithm DH -out pdh.pem -pkeyopt dh_rfc5114:2\n"
+" openssl genpkey -genparam -algorithm DH -out pdh.pem \\\n"
+"\t\t\t   -pkeyopt dh_rfc5114:2\n"
 "\n"
 
 #. type: textblock
