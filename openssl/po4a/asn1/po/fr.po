@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-05 17:54-0400\n"
-"PO-Revision-Date: 2015-05-05 18:24-0400\n"
+"PO-Revision-Date: 2015-05-07 15:00-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -1136,7 +1136,9 @@ msgstr ""
 msgid ""
 "L<X509_NAME_print_ex(3)|X509_NAME_print_ex(3)>, L<ASN1_tag2str(3)|"
 "ASN1_tag2str(3)>"
-msgstr "B<X509_NAME_print_ex>(3), B<ASN1_tag2str>(3)"
+msgstr ""
+"L<B<ASN1_tag2str>(3)|ASN1_tag2str(3)>, L<B<X509_NAME_print_ex>(3)|"
+"X509_NAME_print_ex(3)>"
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:5
@@ -1144,6 +1146,8 @@ msgid ""
 "ASN1_TIME_set, ASN1_TIME_adj, ASN1_TIME_check, ASN1_TIME_set_string, "
 "ASN1_TIME_print, ASN1_TIME_diff - ASN.1 Time functions."
 msgstr ""
+"ASN1_TIME_set, ASN1_TIME_adj, ASN1_TIME_check, ASN1_TIME_set_string, "
+"ASN1_TIME_print, ASN1_TIME_diff - Fonctions d’heure ASN.1"
 
 #. type: verbatim
 #: C/crypto/ASN1_TIME_set.pod:10
@@ -1157,6 +1161,13 @@ msgid ""
 " int ASN1_TIME_print(BIO *b, const ASN1_TIME *s);\n"
 "\n"
 msgstr ""
+"B< ASN1_TIME *ASN1_TIME_set(ASN1_TIME *>I<s>B<, time_t> I<t>B<);>\n"
+" B<ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *>I<s>B<, time_t> I<t>B<,>\n"
+"                          B<int> I<offset_day>B<, long> I<offset_sec>B<);>\n"
+" B<int ASN1_TIME_set_string(ASN1_TIME *>I<s>B<, const char *>I<str>B<);>\n"
+" B<int ASN1_TIME_check(const ASN1_TIME *>I<t>B<);>\n"
+" B<int ASN1_TIME_print(BIO *>I<b>B<, const ASN1_TIME *>I<s>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/ASN1_TIME_set.pod:17
@@ -1166,6 +1177,9 @@ msgid ""
 "                    const ASN1_TIME *from, const ASN1_TIME *to);\n"
 "\n"
 msgstr ""
+"B< int ASN1_TIME_diff(int *>I<pday>B<, int *>I<psec>B<,>\n"
+"                    B<const ASN1_TIME *>I<from>B<, const ASN1_TIME *>I<to>B<);>\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:22
@@ -1174,6 +1188,9 @@ msgid ""
 "represented by the time_t value B<t>. If B<s> is NULL a new ASN1_TIME "
 "structure is allocated and returned."
 msgstr ""
+"La fonction B<ASN1_TIME_set>() définit la structure B<ASN1_TIME> I<s> à "
+"l’heure représentée par la valeur B<time_t> I<t>. Si I<s> est B<NULL>, une "
+"nouvelle structure B<ASN1_TIME> est allouée et renvoyée."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:26
@@ -1185,6 +1202,12 @@ msgid ""
 "in a day. If B<s> is NULL a new ASN1_TIME structure is allocated and "
 "returned."
 msgstr ""
+"B<ASN1_TIME_adj>() définit la structure B<ASN1_TIME> I<s> à l’heure "
+"représentée par la valeur B<time_t> I<t>. Les valeurs de I<offset_day> ou "
+"I<offset_sec> peuvent être négatives pour définir une heure avant I<t>. La "
+"valeur I<offset_sec> peut aussi dépasser le nombre de secondes dans un jour. "
+"Si I<s> est B<NULL>, une nouvelle structure B<ASN1_TIME> est allouée et "
+"renvoyée. "
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:33
@@ -1193,6 +1216,9 @@ msgid ""
 "by string B<str> which must be in appropriate ASN.1 time format (for example "
 "YYMMDDHHMMSSZ or YYYYMMDDHHMMSSZ)."
 msgstr ""
+"B<ASN1_TIME_set_string>() définit la structure B<ASN1_TIME> I<s> à l’heure "
+"représentée par la chaîne I<str> qui doit être dans un format d’heure ASN.1 "
+"approprié (par exemple AAMMJJHHMMSSZ ou AAAAMMJJHHMMSSZ)."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:37
@@ -1209,6 +1235,10 @@ msgid ""
 "structure has invalid format it prints out \"Bad time value\" and returns an "
 "error."
 msgstr ""
+"B<ASN1_TIME_print>() affiche l’heure I<s> dans le BIO I<b> en format "
+"lisible. Le format est Mmm JJ HH:MM:SS AAAA [GMT], par exemple « Feb 3 "
+"00:55:52 2015 GMT », sans changement de ligne. Si la structure de temps a un "
+"format incorrect, elle affiche « Bad time value » et renvoie une erreur."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:45
@@ -1223,6 +1253,16 @@ msgid ""
 "value of B<*psec> will always be less than the number of seconds in a day. "
 "If B<from> or B<to> is NULL the current time is used."
 msgstr ""
+"B<ASN1_TIME_diff>() définit B<*>I<pday> et B<*>I<psec> à la difference "
+"d’heure entre I<from> et I<to>. Si I<to> représente une heure suivant "
+"I<from>, B<*>I<pday> ou B<*>I<psec> ou les deux (en fonction de la "
+"différence d’heure) seront positives. Si I<to> représente une heure "
+"précédent I<from>, B<*>I<pday> ou B<*>I<psec> ou les deux seront négatives. "
+"Si I<to> et I<from> représentent la même heure, B<*>I<pday> et B<*>I<psec> "
+"seront toutes deux nulles. Si B<*>I<pday> et B<*>I<psec> ne sont pas nulles, "
+"elles seront toujours de même signe. La valeur de B<*>I<psec> sera toujours "
+"inférieure au nombre de secondes dans une journée. Si I<from> ou I<to> sont "
+"B<NULL>, l’heure actuelle est utilisée."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:57
@@ -1232,6 +1272,10 @@ msgid ""
 "RFC5280: if the date can be represented by UTCTime it is used, else "
 "GeneralizedTime is used."
 msgstr ""
+"La structure B<ASN1_TIME> correspond à la structure B<ASN.1> B<Time> définie "
+"dans la RFC 5280 et suivantes. Les fonctions de définition d’heure obéissent "
+"aux règles soulignées dans la RFC 5280 : si la date peut être représentée "
+"par UTCTime, c’est ce qui est utilisé, sinon GeneralizedTime est utilisé."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:62
@@ -1239,6 +1283,8 @@ msgid ""
 "The ASN1_TIME structure is represented as an ASN1_STRING internally and can "
 "be freed up using ASN1_STRING_free()."
 msgstr ""
+"La structure B<ASN1_TIME> est représentée par une B<ASN1_STRING> en interne "
+"est peut être libérée en utilisant B<ASN1_STRING_free>()."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:65
@@ -1247,6 +1293,9 @@ msgid ""
 "is made to correct ancient calendar changes (for example from Julian to "
 "Gregorian calendars)."
 msgstr ""
+"La structure B<ASN1_TIME> peut représenter des années entre 0000 et 9999 "
+"mais aucune correction des modifications de calendrier ancien n’est tentée "
+"(par exemple, de calendrier julien en grégorien)."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:69
@@ -1258,6 +1307,13 @@ msgid ""
 "value in the B<offset_sec> and B<offset_day> parameters instead of directly "
 "manipulating a time_t value."
 msgstr ""
+"Certaines applications ajoutent des heures de décalage directement dans une "
+"valeur I<time_t> et passent le résultat à B<ASN1_TIME_set>() (ou "
+"équivalent). Cela peut poser des problèmes car la valeur I<time_t> peut "
+"déborder sur certains systèmes avec pour conséquence des résultats "
+"inattendus. Les nouvelles applications devraient utiliser B<ASN1_TIME_adj>() "
+"à la place et passer la valeur de décalage dans les paramètres I<offset_sec> "
+"et I<offset_day> au lieu de manipuler directement une valeur I<time_t>."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:78
@@ -1266,12 +1322,17 @@ msgid ""
 "prints out \"GMT\" or nothing. But all certificates complying with RFC5280 "
 "et al use GMT anyway."
 msgstr ""
+"B<ASN1_TIME_print>() n’affiche actuellement pas le fuseau horaire : elle "
+"affiche soit « GMT », soit rien. Tous les certificats sont compatible avec "
+"la RFC 5280 et utilisent tous GMT de toute façon."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:84
 msgid ""
 "Set a time structure to one hour after the current time and print it out:"
 msgstr ""
+"Définir une structure de temps à une heure après l’heure actuelle et "
+"l’afficher :"
 
 #. type: verbatim
 #: C/crypto/ASN1_TIME_set.pod:86
@@ -1290,11 +1351,23 @@ msgid ""
 " BIO_free(b);\n"
 "\n"
 msgstr ""
+"    #include <time.h>\n"
+"    #include <openssl/asn1.h>\n"
+"    ASN1_TIME *tm;\n"
+"    time_t t;\n"
+"    BIO *b;\n"
+"    t = time(NULL);\n"
+"    tm = ASN1_TIME_adj(NULL, t, 0, 60 * 60);\n"
+"    b = BIO_new_fp(stdout, BIO_NOCLOSE);\n"
+"    ASN1_TIME_print(b, tm);\n"
+"    ASN1_STRING_free(tm);\n"
+"    BIO_free(b);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:98
 msgid "Determine if one time is later or sooner than the current time:"
-msgstr ""
+msgstr "Déterminer is une heure est après ou avant l’heure actuelle :"
 
 #. type: verbatim
 #: C/crypto/ASN1_TIME_set.pod:100
@@ -1303,6 +1376,8 @@ msgid ""
 " int day, sec;\n"
 "\n"
 msgstr ""
+"    int day, sec;\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/ASN1_TIME_set.pod:102
@@ -1312,6 +1387,9 @@ msgid ""
 "\t/* Invalid time format */\n"
 "\n"
 msgstr ""
+"    if (!ASN1_TIME_diff(&day, &sec, NULL, to))\n"
+"\t/* Format d’heure incorrect */\n"
+"\n"
 
 #. type: verbatim
 #: C/crypto/ASN1_TIME_set.pod:105
@@ -1325,6 +1403,13 @@ msgid ""
 "   printf(\"Same\\n\");\n"
 "\n"
 msgstr ""
+"    if (day > 0 || sec > 0)\n"
+"        printf(\"Après\\n\");\n"
+"    else if (day < 0 || sec < 0)\n"
+"        printf(\"Avant\\n\");\n"
+"    else\n"
+"        printf(\"Identique\\n\");\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:114
@@ -1341,6 +1426,8 @@ msgid ""
 "ASN1_TIME_set_string() returns 1 if the time value is successfully set and 0 "
 "otherwise."
 msgstr ""
+"B<ASN1_TIME_set_string>() renvoie B<1> si la valeur de temps est définie "
+"correctement et B<0> sinon."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:120
@@ -1348,6 +1435,8 @@ msgid ""
 "ASN1_TIME_check() returns 1 if the structure is syntactically correct and 0 "
 "otherwise."
 msgstr ""
+"B<ASN1_TIME_check>() renvoie B<1> si la structure est correcte d’un point de "
+"vue syntaxique et B<0> sinon."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:123
@@ -1355,6 +1444,9 @@ msgid ""
 "ASN1_TIME_print() returns 1 if the time is successfully printed out and 0 if "
 "an error occurred (I/O error or invalid time format)."
 msgstr ""
+"B<ASN1_TIME_print>() renvoie B<1> si le temps est affiché correctement et "
+"B<0> si une erreur est survenue (erreur d’entrée et sortie ou format d’heure "
+"incorrect)."
 
 #. type: textblock
 #: C/crypto/ASN1_TIME_set.pod:126
@@ -1362,6 +1454,9 @@ msgid ""
 "ASN1_TIME_diff() returns 1 for sucess and 0 for failure. It can fail if the "
 "pass ASN1_TIME structure has invalid syntax for example."
 msgstr ""
+"B<ASN1_TIME_diff>() renvoie B<1> en cas de réussite et B<0> en cas d’échec. "
+"Elle peut échouer si la structure B<ASN1_TIME> passée a par exemple une "
+"syntaxe incorrecte."
 
 #. type: textblock
 #: C/crypto/ASN1_generate_nconf.pod:5
