@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-06 17:00-0400\n"
-"PO-Revision-Date: 2015-05-06 15:21-0400\n"
+"PO-Revision-Date: 2015-05-10 14:41-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -1390,17 +1390,8 @@ msgstr ""
 " B<void OPENSSL_no_config(void);>\n"
 "\n"
 
-# NOTE: s/conf/config/
 #. type: textblock
 #: C/crypto/OPENSSL_config.pod:16
-#, fuzzy
-#| msgid ""
-#| "OPENSSL_config() configures OpenSSL using the standard B<openssl.cnf> "
-#| "configuration file name using B<config_name>. If B<config_name> is NULL "
-#| "then the default name B<openssl_conf> will be used. Any errors are "
-#| "ignored. Further calls to OPENSSL_config() will have no effect. The "
-#| "configuration file format is documented in the L<conf(5)|conf(5)> manual "
-#| "page."
 msgid ""
 "OPENSSL_config() configures OpenSSL using the standard B<openssl.cnf> "
 "configuration file name using B<config_name>. If B<config_name> is NULL then "
@@ -1410,10 +1401,10 @@ msgid ""
 msgstr ""
 "B<OPENSSL_config>() configure OpenSSL avec le fichier de configuration "
 "standard B<openssl.cnf> en utilisant I<config_name>. Si I<config_name> est "
-"B<NULL>, alors le nom par défaut B<openssl_conf> sera utilisé. Toutes les "
-"erreurs seront ignorées. Les appels suivants d’B<OPENSSL_config>() n’auront "
-"aucun effet. Le format du fichier de configuration est documenté dans la "
-"page de manuel L<B<config>(5)|config(5)>."
+"B<NULL>, alors le fichier indiqué dans la variable d’environnement "
+"B<OPENSSL_CONF> sera utilisé, et si elle n’est pas définie, un emplacement "
+"par défaut du système sera utilisé. Les erreurs sont ignorées "
+"silencieusement. Plusieurs appels n’ont aucun effet."
 
 #. type: textblock
 #: C/crypto/OPENSSL_config.pod:23
@@ -1441,6 +1432,14 @@ msgid ""
 "should instead call CONF_modules_load() during initialization (that is "
 "before starting any threads)."
 msgstr ""
+"La fonction B<OPENSSL_config>() est conçue comme une fonction très simple à "
+"« appeler et oublier ». C’est cependant B<bien> mieux que rien. Les "
+"applications nécessitant un contrôle plus fin de leur fonctionnalité de "
+"configuration devraient utiliser les fonctions de configuration comme "
+"B<CONF_load_modules>() directement. Cette fonction est obsolète est son "
+"utilisation est à éviter. Les applications devraient plutôt utiliser "
+"B<CONF_load_modules>() lors de l’initialisation (c’est-à-dire avant de "
+"commencer un nouveau processus léger)."
 
 #. type: textblock
 #: C/crypto/OPENSSL_config.pod:37
@@ -1540,9 +1539,9 @@ msgid ""
 "initialization, but can be manipulated afterwards to modify crypto library "
 "behaviour. For the moment of this writing following bits are significant:"
 msgstr ""
-"La valeur renvoyée par OPENSSL_ia32cap_loc() est l'adresse d'une variable "
-"qui contient les capacité d'un processeur IA-32 sous la forme d'un vecteur "
-"de bits comme elles apparaissent dans la paire de registre EDX:ECX après "
+"La valeur renvoyée par B<OPENSSL_ia32cap_loc>() est l’adresse d’une variable "
+"qui contient les capacité d'un processeur IA-32 sous la forme d’un vecteur "
+"de bits comme elles apparaissent dans le couple de registre EDX:ECX après "
 "avoir exécuté l'instruction CPUID avec la valeur d'entrée EAX=1 (consultez "
 "la note applicative d'Intel nº 241618). Naturellement, cela n'a de sens que "
 "pour les plates-formes x86 et x86_64. La variable est normalement définie "
@@ -1553,37 +1552,39 @@ msgstr ""
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:25
 msgid "bit #4 denoting presence of Time-Stamp Counter."
-msgstr ""
+msgstr "- le bit nº 4 indique la présence d'un compteur d'horodatage ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:27
 msgid "bit #19 denoting availability of CLFLUSH instruction;"
-msgstr ""
+msgstr "- le bit nº 19 indique la disponibilité d’instruction CLFLUSH ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:29
 msgid "bit #20, reserved by Intel, is used to choose among RC4 code paths;"
 msgstr ""
+"- le bit nº 20, réservé par Intel, est utilisé pour choisir parmi les "
+"chemins de code RC4 ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:31
 msgid "bit #23 denoting MMX support;"
-msgstr ""
+msgstr "- le bit nº 23 indique la prise en charge de MMX ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:33
 msgid "bit #24, FXSR bit, denoting availability of XMM registers;"
-msgstr ""
+msgstr "- le bit nº 24, bit FXSR, indique la disponibilité de registres XMM ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:35
 msgid "bit #25 denoting SSE support;"
-msgstr ""
+msgstr "- le bit nº 25 indique la prise en charge de SSE ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:37
 msgid "bit #26 denoting SSE2 support;"
-msgstr ""
+msgstr "- le bit nº 26 indique la prise en charge de SSE2 ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:39
@@ -1591,61 +1592,55 @@ msgid ""
 "bit #28 denoting Hyperthreading, which is used to distinguish cores with "
 "shared cache;"
 msgstr ""
+"- le bit nº 28 indique l'Hyperthreading, utilisé pour distinguer les cœurs "
+"avec cache partagé ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:42
 msgid "bit #30, reserved by Intel, denotes specifically Intel CPUs;"
-msgstr ""
+msgstr "- le bit nº 30, réservé par Intel, est propre aux processeurs Intel ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:44
 msgid "bit #33 denoting availability of PCLMULQDQ instruction;"
-msgstr ""
+msgstr "- le bit nº 33 indique la disponibilité d’instruction PCLMULQDQ ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:46
 msgid "bit #41 denoting SSSE3, Supplemental SSE3, support;"
 msgstr ""
+"- le bit nº 41 indique la prise en charge de SSSE3, supplément à SSE3 ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:48
 msgid "bit #43 denoting AMD XOP support (forced to zero on non-AMD CPUs);"
 msgstr ""
+"- le bit nº 43 indique la prise en charge de XOP d’AMD (forcé à zéro sur les "
+"processeurs non AMD) ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:50
 msgid "bit #57 denoting AES-NI instruction set extension;"
-msgstr ""
+msgstr "- le bit nº 57 indique l’extension de jeu d’instruction AES-NI ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:52
 msgid "bit #59, OSXSAVE bit, denoting availability of YMM registers;"
 msgstr ""
+"- le bit nº 59, bit OSXSAVE, indique la disponibilité de registres YMM ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:54
 msgid "bit #60 denoting AVX extension;"
-msgstr ""
+msgstr "- le bit nº 60 indique l’extension AVX ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:56
 msgid "bit #62 denoting availability of RDRAND instruction;"
-msgstr ""
+msgstr "- le bit nº 62 indique la disponibilité d’instruction RDRAND."
 
 #. type: textblock
 #: C/crypto/OPENSSL_ia32cap.pod:60
-#, fuzzy
-#| msgid ""
-#| "For example, clearing bit #26 at run-time disables high-performance SSE2 "
-#| "code present in the crypto library. You might have to do this if target "
-#| "OpenSSL application is executed on SSE2 capable CPU, but under control of "
-#| "OS which does not support SSE2 extentions. Even though you can manipulate "
-#| "the value programmatically, you most likely will find it more appropriate "
-#| "to set up an environment variable with the same name prior starting "
-#| "target application, e.g. on Intel P4 processor 'env "
-#| "OPENSSL_ia32cap=0x12900010 apps/openssl', to achieve same effect without "
-#| "modifying the application source code. Alternatively you can reconfigure "
-#| "the toolkit with no-sse2 option and recompile."
 msgid ""
 "For example, clearing bit #26 at run-time disables high-performance SSE2 "
 "code present in the crypto library, while clearing bit #24 disables SSE2 "
@@ -1660,16 +1655,19 @@ msgid ""
 "modifying the application source code. Alternatively you can reconfigure the "
 "toolkit with no-sse2 option and recompile."
 msgstr ""
-"Par exemple, la suppression du bit nº 26 à l'exécution désactivera "
+"Par exemple, la suppression du bit nº 26 à l’exécution désactive "
 "l'utilisation du code optimisé pour SSE2 dans la bibliothèque "
-"cryptographique. Vous pouvez avoir besoin de faire cela si la cible est un "
-"CPU SSE2, mais que le système d'exploitation ne gère pas les extensions "
-"SSE2. Même s'il est possible de modifier la valeur par programmation, il "
-"sera sûrement plus simple de définir une variable d'environnement du même "
-"nom avant d'exécuter l'application, par exemple avec un processeur Intel P4 "
-"« env OPENSSL_ia32cap=0x12900010 apps/openssl », pour obtenir le même "
-"résultat sans avoir à modifier le code source de l'application. Vous pouvez "
-"également reconfigurer la boîte à outils avec l'option no-sse2 et recompiler."
+"cryptographique, alors que la suppression du bit nº 24 désactive le code "
+"SSE2 agissant sur la banque de registre XMM 128 bits. Cette dernière "
+"manipulation peut être utile si la cible est un CPU SSE2, mais que le "
+"système d'exploitation n’active pas les registres XMM. Même si la valeur "
+"peut être modifiée par programmation, définir une variable d'environnement "
+"du même nom sera avant d’exécuter l’application est probablement mieux "
+"approprié (par exemple, avec un processeur Intel P4, « env "
+"OPENSSL_ia32cap=0x16980010 apps/openssl », ou encore mieux, « env "
+"OPENSSL_ia32cap=~0x1000000 apps/openssl » pour obtenir le même résultat sans "
+"avoir à modifier le code source de l'application). Vous pouvez sinon "
+"reconfigurer la boîte à outils avec l’option no-sse2 et recompiler."
 
 #. type: textblock
 #: C/crypto/OPENSSL_ia32cap.pod:73
@@ -1680,6 +1678,12 @@ msgid ""
 "decision on whether or not expensive countermeasures against cache-timing "
 "attacks are applied, most notably in AES assembler module."
 msgstr ""
+"La suppression du bit nº 28 est moins intuitive. En réalité, ce n’est pas "
+"copié directement de la sortie de CPUID, mais ajusté pour indiquer si le "
+"cache de données est vraiment partagé ou non entre les cœurs logiques. Cela "
+"affecte alors la décision d’appliquer ou non des contre-mesures coûteuses "
+"contre les attaques temporelles de cache, en particulier sur le module "
+"assembleur AES."
 
 #. type: textblock
 #: C/crypto/OPENSSL_ia32cap.pod:80
@@ -1687,32 +1691,39 @@ msgid ""
 "The vector is further extended with EBX value returned by CPUID with EAX=7 "
 "and ECX=0 as input. Following bits are significant:"
 msgstr ""
+"Le vecteur est ensuite étendu avec le valeur EBX renvoyée par CPUID avec "
+"EAX=7 et ECX=0 en entrée. Les bits suivants sont significatifs :"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:85
 msgid "bit #64+3 denoting availability of BMI1 instructions, e.g. ANDN;"
 msgstr ""
+"- le bit nº 64+3 indique la disponibilité d’instructions BMI1, par exemple "
+"ANDN ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:87
 msgid "bit #64+5 denoting availability of AVX2 instructions;"
-msgstr ""
+msgstr "- le bit nº 64+5 indique la disponibilité d’instructions AVX2 ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:89
 msgid ""
 "bit #64+8 denoting availability of BMI2 instructions, e.g. MUXL and RORX;"
 msgstr ""
+"- le bit nº 64+8 indique la disponibilité d’instructions BMI2, par exemple "
+"MUXL et RORX ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:92
 msgid "bit #64+18 denoting availability of RDSEED instruction;"
-msgstr ""
+msgstr "- le bit nº 64+18 indique la disponibilité d’instruction RDSEED ;"
 
 #. type: =item
 #: C/crypto/OPENSSL_ia32cap.pod:94
 msgid "bit #64+19 denoting availability of ADCX and ADOX instructions;"
 msgstr ""
+"- le bit nº 64+19 indique la disponibilité d’instructions ADCX et ADOX."
 
 #. type: textblock
 #: C/crypto/OPENSSL_instrument_bus.pod:5
@@ -1720,6 +1731,8 @@ msgid ""
 "OPENSSL_instrument_bus, OPENSSL_instrument_bus2 - instrument references to "
 "memory bus"
 msgstr ""
+"OPENSSL_instrument_bus, OPENSSL_instrument_bus2 - Instrumenter les "
+"références au bus mémoire"
 
 #. type: verbatim
 #: C/crypto/OPENSSL_instrument_bus.pod:9
@@ -1731,6 +1744,11 @@ msgid ""
 " #endif\n"
 "\n"
 msgstr ""
+"B< #ifdef OPENSSL_CPUID_OBJ>\n"
+" B<size_t OPENSSL_instrument_bus (int *>I<vector>B<, size_t> I<num>B<);>\n"
+" B<size_t OPENSSL_instrument_bus2(int *>I<vector>B<, size_t> I<num>B<, size_t> I<max>B<);>\n"
+" B<#endif>\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/OPENSSL_instrument_bus.pod:16
@@ -1745,6 +1763,16 @@ msgid ""
 "means that B<vector[num]> should be zeroed upon invocation (if you want to "
 "retrieve actual probe values)."
 msgstr ""
+"De façon empirique, les délais de références à la mémoire primaire sont "
+"soumises à des variations irrégulières, apparemment non déterministes. Les "
+"sous-routines en question instrumentent ces références dans le but de "
+"rassembler de l’entropie pour le générateur de nombres aléatoires. De façon "
+"à le lier au bus, une instruction « flush cache line » est utilisée entre "
+"les mesures. De plus, des mesures sont ajoutées aux éléments I<vector> de "
+"façon atomique ou imbriquée, ce qui devrait contribuer à ajouter du bruit "
+"aux systèmes multiprocesseurs. Cela signifie également que "
+"I<vector>B<[>I<num>B<]> devrait être vidée lors de l’appel (si le but est de "
+"récupérer les véritables valeurs de mesure)."
 
 #. type: textblock
 #: C/crypto/OPENSSL_instrument_bus.pod:26
@@ -1752,6 +1780,8 @@ msgid ""
 "OPENSSL_instrument_bus performs B<num> probes and records the number of "
 "oscillator cycles every probe took."
 msgstr ""
+"B<OPENSSL_instrument_bus>() réalise I<num> mesures et enregistre le nombre "
+"de cycles oscillatoires pris par chaque mesure."
 
 #. type: textblock
 #: C/crypto/OPENSSL_instrument_bus.pod:29
@@ -1762,6 +1792,12 @@ msgid ""
 "in attempt to fill the B<vector[num]>, with B<max> value of 0 meaning \"as "
 "many as it takes.\""
 msgstr ""
+"B<OPENSSL_instrument_bus2>() de son côté B<accumule> les mesures "
+"consécutives avec la même valeur, c’est-à-dire de façon à enregistrer la "
+"durée des périodes quand les valeurs de mesure semblait déterministes. La "
+"sous-routine réalise au plus I<max> mesures en essayant de remplir le "
+"I<vector>B<[>I<num>B<]>, avec la valeur I<max> à B<0> signifiant « autant "
+"que nécessaire »."
 
 #. type: textblock
 #: C/crypto/OPENSSL_instrument_bus.pod:37
@@ -1771,11 +1807,16 @@ msgid ""
 "available on current platform. For reference, on x86 'flush cache line' was "
 "introduced with the SSE2 extensions."
 msgstr ""
+"Une valeur de retour nulle indique que le processeur n’est pas capable de "
+"réaliser la comparaison, parce que le compteur d’oscillations ou « flush "
+"cache line » ne sont pas disponibles sur la plate-forme actuelle. Pour "
+"référence, sur x86, « flush cache line » a été introduit avec les extensions "
+"SSE2."
 
 #. type: textblock
 #: C/crypto/OPENSSL_instrument_bus.pod:42
 msgid "Otherwise number of recorded values is returned."
-msgstr ""
+msgstr "Sinon, le nombre de valeurs enregistrées est renvoyé."
 
 #. type: textblock
 #: C/crypto/OPENSSL_load_builtin_modules.pod:5
