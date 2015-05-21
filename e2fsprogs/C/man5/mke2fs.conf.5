@@ -2,7 +2,7 @@
 .\" Copyright 2006 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH mke2fs.conf 5 "May 2015" "E2fsprogs version 1.42.13"
+.TH mke2fs.conf 5 "May 2015" "E2fsprogs version 1.43-WIP"
 .SH NAME
 mke2fs.conf \- Configuration file for mke2fs
 .SH DESCRIPTION
@@ -316,6 +316,25 @@ whose subsections define the
 .I base_features
 relation, only the last will be used by
 .BR mke2fs (8).
+.TP
+.I errors
+Change the behavior of the kernel code when errors are detected.
+In all cases, a filesystem error will cause
+.BR e2fsck (8)
+to check the filesystem on the next boot.
+.I errors
+can be one of the following:
+.RS 1.2i
+.TP 1.2i
+.B continue
+Continue normal execution.
+.TP
+.B remount-ro
+Remount filesystem read-only.
+.TP
+.B panic
+Cause a kernel panic.
+.RE
 .TP
 .I features
 This relation specifies a comma-separated list of features edit
