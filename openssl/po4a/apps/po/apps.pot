@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-05-05 17:54-0400\n"
+"POT-Creation-Date: 2015-06-13 15:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgid "config - OpenSSL CONF library configuration files"
 msgstr ""
 
 #. type: =head1
-#: C/apps/config.pod:10 C/apps/c_rehash.pod:19 C/apps/dgst.pod:34 C/apps/enc.pod:34 C/apps/nseq.pod:14 C/apps/ocsp.pod:57 C/apps/passwd.pod:21 C/apps/req.pod:52 C/apps/sess_id.pod:19 C/apps/speed.pod:37 C/apps/spkac.pod:22 C/apps/ts.pod:51 C/apps/tsget.pod:24 C/apps/verify.pod:36 C/apps/version.pod:18
+#: C/apps/config.pod:10 C/apps/c_rehash.pod:19 C/apps/dgst.pod:34 C/apps/enc.pod:34 C/apps/nseq.pod:14 C/apps/ocsp.pod:58 C/apps/passwd.pod:21 C/apps/req.pod:52 C/apps/sess_id.pod:19 C/apps/speed.pod:37 C/apps/spkac.pod:22 C/apps/ts.pod:51 C/apps/tsget.pod:24 C/apps/verify.pod:37 C/apps/version.pod:18
 msgid "DESCRIPTION"
 msgstr ""
 
@@ -462,7 +462,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/config.pod:212 C/apps/dgst.pod:191 C/apps/enc.pod:163 C/apps/nseq.pod:53 C/apps/ocsp.pod:328 C/apps/req.pod:595 C/apps/sess_id.pod:131 C/apps/spkac.pod:113 C/apps/version.pod:56
+#: C/apps/config.pod:212 C/apps/dgst.pod:191 C/apps/enc.pod:163 C/apps/nseq.pod:53 C/apps/ocsp.pod:333 C/apps/req.pod:595 C/apps/sess_id.pod:131 C/apps/spkac.pod:113 C/apps/version.pod:56
 msgid "NOTES"
 msgstr ""
 
@@ -506,7 +506,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/config.pod:235 C/apps/dgst.pod:177 C/apps/enc.pod:292 C/apps/nseq.pod:43 C/apps/ocsp.pod:345 C/apps/passwd.pod:74 C/apps/req.pod:501 C/apps/spkac.pod:91 C/apps/ts.pod:458 C/apps/tsget.pod:138
+#: C/apps/config.pod:235 C/apps/dgst.pod:177 C/apps/enc.pod:292 C/apps/nseq.pod:43 C/apps/ocsp.pod:350 C/apps/passwd.pod:74 C/apps/req.pod:501 C/apps/spkac.pod:91 C/apps/ts.pod:458 C/apps/tsget.pod:138
 msgid "EXAMPLES"
 msgstr ""
 
@@ -624,13 +624,137 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: textblock
+#: C/apps/config.pod:280
+msgid "Simple OpenSSL library configuration example to enter FIPS mode:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:282 C/apps/config.pod:299
+#, no-wrap
+msgid ""
+" # Default appname: should match \"appname\" parameter (if any)\n"
+" # supplied to CONF_modules_load_file et al.\n"
+" openssl_conf = openssl_conf_section\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:286
+#, no-wrap
+msgid ""
+" [openssl_conf_section]\n"
+" # Configuration module list\n"
+" alg_section = evp_sect\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:290
+#, no-wrap
+msgid ""
+" [evp_sect]\n"
+" # Set to \"yes\" to enter FIPS mode if supported\n"
+" fips_mode = yes\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:294
+msgid ""
+"Note: in the above example you will get an error in non FIPS capable "
+"versions of OpenSSL."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:297
+msgid ""
+"More complex OpenSSL library configuration. Add OID and don't enter FIPS "
+"mode:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:303
+#, no-wrap
+msgid ""
+" [openssl_conf_section]\n"
+" # Configuration module list\n"
+" alg_section = evp_sect\n"
+" oid_section = new_oids\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:308
+#, no-wrap
+msgid ""
+" [evp_sect]\n"
+" # This will have no effect as FIPS mode is off by default.\n"
+" # Set to \"yes\" to enter FIPS mode, if supported\n"
+" fips_mode = no\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:313
+#, no-wrap
+msgid ""
+" [new_oids]\n"
+" # New OID, just short name\n"
+" newoid1 = 1.2.3.4.1\n"
+" # New OID shortname and long name\n"
+" newoid2 = New OID 2 long name, 1.2.3.4.2\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:319
+msgid ""
+"The above examples can be used with with any application supporting library "
+"configuration if \"openssl_conf\" is modified to match the appropriate "
+"\"appname\"."
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:322
+msgid ""
+"For example if the second sample file above is saved to \"example.cnf\" then "
+"the command line:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:325
+#, no-wrap
+msgid ""
+" OPENSSL_CONF=example.cnf openssl asn1parse -genstr OID:1.2.3.4.1\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:327
+msgid "will output:"
+msgstr ""
+
+#. type: verbatim
+#: C/apps/config.pod:329
+#, no-wrap
+msgid ""
+"    0:d=0  hl=2 l=   4 prim: OBJECT            :newoid1\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: C/apps/config.pod:331
+msgid "showing that the OID \"newoid1\" has been added as \"1.2.3.4.1\"."
+msgstr ""
+
 #. type: =head1
-#: C/apps/config.pod:280 C/apps/enc.pod:323 C/apps/nseq.pod:65 C/apps/req.pod:655 C/apps/sess_id.pod:143 C/apps/ts.pod:554 C/apps/verify.pod:409
+#: C/apps/config.pod:333 C/apps/enc.pod:323 C/apps/nseq.pod:65 C/apps/req.pod:655 C/apps/sess_id.pod:143 C/apps/ts.pod:554 C/apps/verify.pod:418
 msgid "BUGS"
 msgstr ""
 
 #. type: textblock
-#: C/apps/config.pod:282
+#: C/apps/config.pod:335
 msgid ""
 "Currently there is no way to include characters using the octal B<\\nnn> "
 "form. Strings are all null terminated so nulls cannot form part of the "
@@ -638,26 +762,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/config.pod:286
+#: C/apps/config.pod:339
 msgid ""
 "The escaping isn't quite right: if you want to use sequences like B<\\n> you "
 "can't use any quote escaping on the same line."
 msgstr ""
 
 #. type: textblock
-#: C/apps/config.pod:289
+#: C/apps/config.pod:342
 msgid ""
 "Files are loaded in a single pass. This means that an variable expansion "
 "will only work if the variables referenced are defined earlier in the file."
 msgstr ""
 
 #. type: =head1
-#: C/apps/config.pod:293 C/apps/c_rehash.pod:110 C/apps/req.pod:672 C/apps/sess_id.pod:147 C/apps/spkac.pod:129 C/apps/ts.pod:588 C/apps/tsget.pod:189 C/apps/verify.pod:424
+#: C/apps/config.pod:346 C/apps/c_rehash.pod:110 C/apps/req.pod:672 C/apps/sess_id.pod:147 C/apps/spkac.pod:129 C/apps/ts.pod:588 C/apps/tsget.pod:189 C/apps/verify.pod:433
 msgid "SEE ALSO"
 msgstr ""
 
 #. type: textblock
-#: C/apps/config.pod:295
+#: C/apps/config.pod:348
 msgid "L<x509(1)|x509(1)>, L<req(1)|req(1)>, L<ca(1)|ca(1)>"
 msgstr ""
 
@@ -957,7 +1081,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/dgst.pod:76 C/apps/enc.pod:49 C/apps/nseq.pod:30 C/apps/ocsp.pod:70 C/apps/req.pod:85 C/apps/sess_id.pod:46 C/apps/spkac.pod:37
+#: C/apps/dgst.pod:76 C/apps/enc.pod:49 C/apps/nseq.pod:30 C/apps/ocsp.pod:71 C/apps/req.pod:85 C/apps/sess_id.pod:46 C/apps/spkac.pod:37
 msgid "B<-out filename>"
 msgstr ""
 
@@ -1888,7 +2012,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/nseq.pod:21 C/apps/req.pod:58 C/apps/spkac.pod:28 C/apps/verify.pod:40
+#: C/apps/nseq.pod:21 C/apps/req.pod:58 C/apps/spkac.pod:28 C/apps/verify.pod:41
 msgid "COMMAND OPTIONS"
 msgstr ""
 
@@ -1987,24 +2111,24 @@ msgid ""
 "[B<-no_certs>] [B<-req_text>] [B<-resp_text>] [B<-text>] [B<-reqout file>] "
 "[B<-respout file>] [B<-reqin file>] [B<-respin file>] [B<-nonce>] "
 "[B<-no_nonce>] [B<-url URL>] [B<-host host:n>] [B<-path>] [B<-CApath dir>] "
-"[B<-CAfile file>] [B<-VAfile file>] [B<-validity_period n>] [B<-status_age "
-"n>] [B<-noverify>] [B<-verify_other file>] [B<-trust_other>] [B<-no_intern>] "
-"[B<-no_signature_verify>] [B<-no_cert_verify>] [B<-no_chain>] "
-"[B<-no_cert_checks>] [B<-no_explicit>] [B<-port num>] [B<-index file>] "
-"[B<-CA file>] [B<-rsigner file>] [B<-rkey file>] [B<-rother file>] "
-"[B<-resp_no_certs>] [B<-nmin n>] [B<-ndays n>] [B<-resp_key_id>] "
-"[B<-nrequest n>] [B<-md5|-sha1|...>]"
+"[B<-CAfile file>] [B<-no_alt_chains>]] [B<-VAfile file>] [B<-validity_period "
+"n>] [B<-status_age n>] [B<-noverify>] [B<-verify_other file>] "
+"[B<-trust_other>] [B<-no_intern>] [B<-no_signature_verify>] "
+"[B<-no_cert_verify>] [B<-no_chain>] [B<-no_cert_checks>] [B<-no_explicit>] "
+"[B<-port num>] [B<-index file>] [B<-CA file>] [B<-rsigner file>] [B<-rkey "
+"file>] [B<-rother file>] [B<-resp_no_certs>] [B<-nmin n>] [B<-ndays n>] "
+"[B<-resp_key_id>] [B<-nrequest n>] [B<-md5|-sha1|...>]"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:59
+#: C/apps/ocsp.pod:60
 msgid ""
 "The Online Certificate Status Protocol (OCSP) enables applications to "
 "determine the (revocation) state of an identified certificate (RFC 2560)."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:62
+#: C/apps/ocsp.pod:63
 msgid ""
 "The B<ocsp> command performs many common OCSP tasks. It can be used to print "
 "out requests and responses, create requests and send queries to an OCSP "
@@ -2012,22 +2136,22 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/ocsp.pod:66
+#: C/apps/ocsp.pod:67
 msgid "OCSP CLIENT OPTIONS"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:72
+#: C/apps/ocsp.pod:73
 msgid "specify output filename, default is standard output."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:74
+#: C/apps/ocsp.pod:75
 msgid "B<-issuer filename>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:76
+#: C/apps/ocsp.pod:77
 msgid ""
 "This specifies the current issuer certificate. This option can be used "
 "multiple times. The certificate specified in B<filename> must be in PEM "
@@ -2035,12 +2159,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:80
+#: C/apps/ocsp.pod:81
 msgid "B<-cert filename>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:82
+#: C/apps/ocsp.pod:83
 msgid ""
 "Add the certificate B<filename> to the request. The issuer certificate is "
 "taken from the previous B<issuer> option, or an error occurs if no issuer "
@@ -2048,12 +2172,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:86
+#: C/apps/ocsp.pod:87
 msgid "B<-serial num>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:88
+#: C/apps/ocsp.pod:89
 msgid ""
 "Same as the B<cert> option except the certificate with serial number B<num> "
 "is added to the request. The serial number is interpreted as a decimal "
@@ -2062,12 +2186,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:93
+#: C/apps/ocsp.pod:94
 msgid "B<-signer filename>, B<-signkey filename>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:95
+#: C/apps/ocsp.pod:96
 msgid ""
 "Sign the OCSP request using the certificate specified in the B<signer> "
 "option and the private key specified by the B<signkey> option. If the "
@@ -2077,22 +2201,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:101
+#: C/apps/ocsp.pod:102
 msgid "B<-sign_other filename>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:103
+#: C/apps/ocsp.pod:104
 msgid "Additional certificates to include in the signed request."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:105
+#: C/apps/ocsp.pod:106
 msgid "B<-nonce>, B<-no_nonce>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:107
+#: C/apps/ocsp.pod:108
 msgid ""
 "Add an OCSP nonce extension to a request or disable OCSP nonce addition.  "
 "Normally if an OCSP request is input using the B<respin> option no nonce is "
@@ -2102,32 +2226,32 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:113
+#: C/apps/ocsp.pod:114
 msgid "B<-req_text>, B<-resp_text>, B<-text>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:115
+#: C/apps/ocsp.pod:116
 msgid "print out the text form of the OCSP request, response or both respectively."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:117
+#: C/apps/ocsp.pod:118
 msgid "B<-reqout file>, B<-respout file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:119
+#: C/apps/ocsp.pod:120
 msgid "write out the DER encoded certificate request or response to B<file>."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:121
+#: C/apps/ocsp.pod:122
 msgid "B<-reqin file>, B<-respin file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:123
+#: C/apps/ocsp.pod:124
 msgid ""
 "read OCSP request or response file from B<file>. These option are ignored if "
 "OCSP request or response creation is implied by other options (for example "
@@ -2135,24 +2259,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:127
+#: C/apps/ocsp.pod:128
 msgid "B<-url responder_url>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:129
+#: C/apps/ocsp.pod:130
 msgid ""
 "specify the responder URL. Both HTTP and HTTPS (SSL/TLS) URLs can be "
 "specified."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:131
+#: C/apps/ocsp.pod:132
 msgid "B<-host hostname:port>, B<-path pathname>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:133
+#: C/apps/ocsp.pod:134
 msgid ""
 "if the B<host> option is present then the OCSP request is sent to the host "
 "B<hostname> on port B<port>. B<path> specifies the HTTP path name to use or "
@@ -2160,34 +2284,44 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:137
+#: C/apps/ocsp.pod:138
 msgid "B<-timeout seconds>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:139
+#: C/apps/ocsp.pod:140
 msgid "connection timeout to the OCSP responder in seconds"
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:141
+#: C/apps/ocsp.pod:142
 msgid "B<-CAfile file>, B<-CApath pathname>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:143
+#: C/apps/ocsp.pod:144
 msgid ""
 "file or pathname containing trusted CA certificates. These are used to "
 "verify the signature on the OCSP response."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:146
+#: C/apps/ocsp.pod:147 C/apps/verify.pod:128
+msgid "B<-no_alt_chains>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:149
+msgid "See L<B<verify>|verify(1)> manual page for details."
+msgstr ""
+
+#. type: =item
+#: C/apps/ocsp.pod:151
 msgid "B<-verify_other file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:148
+#: C/apps/ocsp.pod:153
 msgid ""
 "file containing additional certificates to search when attempting to locate "
 "the OCSP response signing certificate. Some responders omit the actual "
@@ -2196,12 +2330,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:153
+#: C/apps/ocsp.pod:158
 msgid "B<-trust_other>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:155
+#: C/apps/ocsp.pod:160
 msgid ""
 "the certificates specified by the B<-verify_other> option should be "
 "explicitly trusted and no additional checks will be performed on them. This "
@@ -2210,24 +2344,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:160
+#: C/apps/ocsp.pod:165
 msgid "B<-VAfile file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:162
+#: C/apps/ocsp.pod:167
 msgid ""
 "file containing explicitly trusted responder certificates. Equivalent to the "
 "B<-verify_other> and B<-trust_other> options."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:165 C/apps/passwd.pod:59
+#: C/apps/ocsp.pod:170 C/apps/passwd.pod:59
 msgid "B<-noverify>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:167
+#: C/apps/ocsp.pod:172
 msgid ""
 "don't attempt to verify the OCSP response signature or the nonce "
 "values. This option will normally only be used for debugging since it "
@@ -2235,12 +2369,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:171
+#: C/apps/ocsp.pod:176
 msgid "B<-no_intern>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:173
+#: C/apps/ocsp.pod:178
 msgid ""
 "ignore certificates contained in the OCSP response when searching for the "
 "signers certificate. With this option the signers certificate must be "
@@ -2248,12 +2382,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:177
+#: C/apps/ocsp.pod:182
 msgid "B<-no_signature_verify>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:179
+#: C/apps/ocsp.pod:184
 msgid ""
 "don't check the signature on the OCSP response. Since this option tolerates "
 "invalid signatures on OCSP responses it will normally only be used for "
@@ -2261,12 +2395,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:182
+#: C/apps/ocsp.pod:187
 msgid "B<-no_cert_verify>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:184
+#: C/apps/ocsp.pod:189
 msgid ""
 "don't verify the OCSP response signers certificate at all. Since this option "
 "allows the OCSP response to be signed by any certificate it should only be "
@@ -2274,36 +2408,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:188
+#: C/apps/ocsp.pod:193
 msgid "B<-no_chain>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:190
+#: C/apps/ocsp.pod:195
 msgid ""
 "do not use certificates in the response as additional untrusted CA "
 "certificates."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:193
+#: C/apps/ocsp.pod:198
 msgid "B<-no_explicit>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:195
+#: C/apps/ocsp.pod:200
 msgid ""
 "do not explicitly trust the root CA if it is set to be trusted for OCSP "
 "signing."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:197
+#: C/apps/ocsp.pod:202
 msgid "B<-no_cert_checks>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:199
+#: C/apps/ocsp.pod:204
 msgid ""
 "don't perform any additional checks on the OCSP response signers "
 "certificate.  That is do not make any checks to see if the signers "
@@ -2312,12 +2446,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:204
+#: C/apps/ocsp.pod:209
 msgid "B<-validity_period nsec>, B<-status_age age>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:206
+#: C/apps/ocsp.pod:211
 msgid ""
 "these options specify the range of times, in seconds, which will be "
 "tolerated in an OCSP response. Each certificate status response includes a "
@@ -2330,7 +2464,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:214
+#: C/apps/ocsp.pod:219
 msgid ""
 "If the B<notAfter> time is omitted from a response then this means that new "
 "status information is immediately available. In this case the age of the "
@@ -2339,36 +2473,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:219
+#: C/apps/ocsp.pod:224
 msgid "B<-md5|-sha1|-sha256|-ripemod160|...>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:221
+#: C/apps/ocsp.pod:226
 msgid ""
 "this option sets digest algorithm to use for certificate identification in "
 "the OCSP request. By default SHA-1 is used."
 msgstr ""
 
 #. type: =head1
-#: C/apps/ocsp.pod:226
+#: C/apps/ocsp.pod:231
 msgid "OCSP SERVER OPTIONS"
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:230
+#: C/apps/ocsp.pod:235
 msgid "B<-index indexfile>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:232
+#: C/apps/ocsp.pod:237
 msgid ""
 "B<indexfile> is a text index file in B<ca> format containing certificate "
 "revocation information."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:235
+#: C/apps/ocsp.pod:240
 msgid ""
 "If the B<index> option is specified the B<ocsp> utility is in responder "
 "mode, otherwise it is in client mode. The request(s) the responder processes "
@@ -2378,107 +2512,107 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:240
+#: C/apps/ocsp.pod:245
 msgid ""
 "If the B<index> option is present then the B<CA> and B<rsigner> options must "
 "also be present."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:243
+#: C/apps/ocsp.pod:248
 msgid "B<-CA file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:245
+#: C/apps/ocsp.pod:250
 msgid "CA certificate corresponding to the revocation information in B<indexfile>."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:247
+#: C/apps/ocsp.pod:252
 msgid "B<-rsigner file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:249
+#: C/apps/ocsp.pod:254
 msgid "The certificate to sign OCSP responses with."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:251
+#: C/apps/ocsp.pod:256
 msgid "B<-rother file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:253
+#: C/apps/ocsp.pod:258
 msgid "Additional certificates to include in the OCSP response."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:255
+#: C/apps/ocsp.pod:260
 msgid "B<-resp_no_certs>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:257
+#: C/apps/ocsp.pod:262
 msgid "Don't include any certificates in the OCSP response."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:259
+#: C/apps/ocsp.pod:264
 msgid "B<-resp_key_id>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:261
+#: C/apps/ocsp.pod:266
 msgid ""
 "Identify the signer certificate using the key ID, default is to use the "
 "subject name."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:263
+#: C/apps/ocsp.pod:268
 msgid "B<-rkey file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:265
+#: C/apps/ocsp.pod:270
 msgid ""
 "The private key to sign OCSP responses with: if not present the file "
 "specified in the B<rsigner> option is used."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:268
+#: C/apps/ocsp.pod:273
 msgid "B<-port portnum>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:270
+#: C/apps/ocsp.pod:275
 msgid ""
 "Port to listen for OCSP requests on. The port may also be specified using "
 "the B<url> option."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:273
+#: C/apps/ocsp.pod:278
 msgid "B<-nrequest number>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:275
+#: C/apps/ocsp.pod:280
 msgid ""
 "The OCSP server will exit after receiving B<number> requests, default "
 "unlimited."
 msgstr ""
 
 #. type: =item
-#: C/apps/ocsp.pod:277
+#: C/apps/ocsp.pod:282
 msgid "B<-nmin minutes>, B<-ndays days>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:279
+#: C/apps/ocsp.pod:284
 msgid ""
 "Number of minutes or days when fresh revocation information is available: "
 "used in the B<nextUpdate> field. If neither option is present then the "
@@ -2487,24 +2621,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/ocsp.pod:285
+#: C/apps/ocsp.pod:290
 msgid "OCSP Response verification."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:287
+#: C/apps/ocsp.pod:292
 msgid "OCSP Response follows the rules specified in RFC2560."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:289
+#: C/apps/ocsp.pod:294
 msgid ""
 "Initially the OCSP responder certificate is located and the signature on the "
 "OCSP request checked using the responder certificate's public key."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:292
+#: C/apps/ocsp.pod:297
 msgid ""
 "Then a normal certificate verify is performed on the OCSP responder "
 "certificate building up a certificate chain in the process. The locations of "
@@ -2514,21 +2648,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:298
+#: C/apps/ocsp.pod:303
 msgid ""
 "If the initial verify fails then the OCSP verify process halts with an "
 "error."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:301
+#: C/apps/ocsp.pod:306
 msgid ""
 "Otherwise the issuing CA certificate in the request is compared to the OCSP "
 "responder certificate: if there is a match then the OCSP verify succeeds."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:304
+#: C/apps/ocsp.pod:309
 msgid ""
 "Otherwise the OCSP responder certificate's CA is checked against the issuing "
 "CA certificate in the request. If there is a match and the OCSPSigning "
@@ -2537,7 +2671,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:309
+#: C/apps/ocsp.pod:314
 msgid ""
 "Otherwise, if B<-no_explicit> is B<not> set the root CA of the OCSP "
 "responders CA is checked to see if it is trusted for OCSP signing. If it is "
@@ -2545,12 +2679,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:313
+#: C/apps/ocsp.pod:318
 msgid "If none of these checks is successful then the OCSP verify fails."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:315
+#: C/apps/ocsp.pod:320
 msgid ""
 "What this effectively means if that if the OCSP responder certificate is "
 "authorised directly by the CA it is issuing revocation information about "
@@ -2558,7 +2692,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:319
+#: C/apps/ocsp.pod:324
 msgid ""
 "If the OCSP responder is a \"global responder\" which can give details about "
 "multiple CAs and has its own separate certificate chain then its root CA can "
@@ -2566,7 +2700,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:323
+#: C/apps/ocsp.pod:328
 #, no-wrap
 msgid ""
 " openssl x509 -in ocspCA.pem -addtrust OCSPSigning -out trustedCA.pem\n"
@@ -2574,14 +2708,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:325
+#: C/apps/ocsp.pod:330
 msgid ""
 "Alternatively the responder certificate itself can be explicitly trusted "
 "with the B<-VAfile> option."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:330
+#: C/apps/ocsp.pod:335
 msgid ""
 "As noted, most of the verify options are for testing or debugging purposes.  "
 "Normally only the B<-CApath>, B<-CAfile> and (if the responder is a 'global "
@@ -2589,7 +2723,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:334
+#: C/apps/ocsp.pod:339
 msgid ""
 "The OCSP server is only useful for test and demonstration purposes: it is "
 "not really usable as a full OCSP responder. It contains only a very simple "
@@ -2600,19 +2734,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:342
+#: C/apps/ocsp.pod:347
 msgid ""
 "It is possible to run the B<ocsp> application in responder mode via a CGI "
 "script using the B<respin> and B<respout> options."
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:347
+#: C/apps/ocsp.pod:352
 msgid "Create an OCSP request and write it to a file:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:349
+#: C/apps/ocsp.pod:354
 #, no-wrap
 msgid ""
 " openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem -reqout req.der\n"
@@ -2620,14 +2754,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:351
+#: C/apps/ocsp.pod:356
 msgid ""
 "Send a query to an OCSP responder with URL http://ocsp.myhost.com/ save the "
 "response to a file and print it out in text form"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:354
+#: C/apps/ocsp.pod:359
 #, no-wrap
 msgid ""
 " openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem \\\n"
@@ -2636,12 +2770,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:357
+#: C/apps/ocsp.pod:362
 msgid "Read in an OCSP response and print out text form:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:359
+#: C/apps/ocsp.pod:364
 #, no-wrap
 msgid ""
 " openssl ocsp -respin resp.der -text\n"
@@ -2649,7 +2783,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:361
+#: C/apps/ocsp.pod:366
 msgid ""
 "OCSP server on port 8888 using a standard B<ca> configuration, and a "
 "separate responder certificate. All requests and responses are printed to a "
@@ -2657,7 +2791,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:364
+#: C/apps/ocsp.pod:369
 #, no-wrap
 msgid ""
 " openssl ocsp -index demoCA/index.txt -port 8888 -rsigner rcert.pem -CA "
@@ -2667,12 +2801,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:367
+#: C/apps/ocsp.pod:372
 msgid "As above but exit after processing one request:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:369
+#: C/apps/ocsp.pod:374
 #, no-wrap
 msgid ""
 " openssl ocsp -index demoCA/index.txt -port 8888 -rsigner rcert.pem -CA "
@@ -2682,12 +2816,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:372
+#: C/apps/ocsp.pod:377
 msgid "Query status information using internally generated request:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:374
+#: C/apps/ocsp.pod:379
 #, no-wrap
 msgid ""
 " openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA "
@@ -2697,19 +2831,30 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/ocsp.pod:377
+#: C/apps/ocsp.pod:382
 msgid ""
 "Query status information using request read from a file, write response to a "
 "second file."
 msgstr ""
 
 #. type: verbatim
-#: C/apps/ocsp.pod:380
+#: C/apps/ocsp.pod:385
 #, no-wrap
 msgid ""
 " openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA "
 "demoCA/cacert.pem\n"
 "     -reqin req.der -respout resp.der\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: C/apps/ocsp.pod:388 C/apps/verify.pod:437 C/apps/version.pod:61
+msgid "HISTORY"
+msgstr ""
+
+#. type: textblock
+#: C/apps/ocsp.pod:390 C/apps/verify.pod:439
+msgid "The -no_alt_chains options was first added to OpenSSL 1.0.2b."
 msgstr ""
 
 #. type: textblock
@@ -3063,7 +3208,7 @@ msgid ""
 "B<file>, the algorithm is determined by the parameters. B<algname:file> use "
 "algorithm B<algname> and parameter file B<file>: the two algorithms must "
 "match or an error occurs. B<algname> just uses algorithm B<algname>, and "
-"parameters, if necessary should be specified via B<-pkeyopt> parameter."
+"parameters, if neccessary should be specified via B<-pkeyopt> parameter."
 msgstr ""
 
 #. type: textblock
@@ -3374,7 +3519,7 @@ msgid "non-interactive mode."
 msgstr ""
 
 #. type: =item
-#: C/apps/req.pod:313 C/apps/verify.pod:93
+#: C/apps/req.pod:313 C/apps/verify.pod:94
 msgid "B<-verbose>"
 msgstr ""
 
@@ -4014,7 +4159,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/req.pod:615 C/apps/verify.pod:237
+#: C/apps/req.pod:615 C/apps/verify.pod:246
 msgid "DIAGNOSTICS"
 msgstr ""
 
@@ -6014,22 +6159,22 @@ msgid ""
 "[B<-check_ss_sig>] [B<-crlfile file>] [B<-crl_check>] [B<-crl_check_all>] "
 "[B<-policy_check>] [B<-explicit_policy>] [B<-inhibit_any>] [B<-inhibit_map>] "
 "[B<-x509_strict>] [B<-extended_crl>] [B<-use_deltas>] [B<-policy_print>] "
-"[B<-untrusted file>] [B<-help>] [B<-issuer_checks>] [B<-verbose>] [B<->] "
-"[certificates]"
+"[B<-no_alt_chains>] [B<-untrusted file>] [B<-help>] [B<-issuer_checks>] "
+"[B<-verbose>] [B<->] [certificates]"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:38
+#: C/apps/verify.pod:39
 msgid "The B<verify> command verifies certificate chains."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:44
+#: C/apps/verify.pod:45
 msgid "B<-CApath directory>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:46
+#: C/apps/verify.pod:47
 msgid ""
 "A directory of trusted certificates. The certificates should have names of "
 "the form: hash.0 or have symbolic links to them of this form (\"hash\" is "
@@ -6039,19 +6184,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:52
+#: C/apps/verify.pod:53
 msgid ""
 "B<-CAfile file> A file of trusted certificates. The file should contain "
 "multiple certificates in PEM format concatenated together."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:56
+#: C/apps/verify.pod:57
 msgid "B<-attime timestamp>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:58
+#: C/apps/verify.pod:59
 msgid ""
 "Perform validation checks using time specified by B<timestamp> and not "
 "current system time. B<timestamp> is the number of seconds since 01.01.1970 "
@@ -6059,58 +6204,58 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:62 C/apps/verify.pod:161
+#: C/apps/verify.pod:63 C/apps/verify.pod:170
 msgid "B<-check_ss_sig>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:64 C/apps/verify.pod:163
+#: C/apps/verify.pod:65 C/apps/verify.pod:172
 msgid ""
 "Verify the signature on the self-signed root CA. This is disabled by default "
 "because it doesn't add any security."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:67
+#: C/apps/verify.pod:68
 msgid "B<-crlfile file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:69
+#: C/apps/verify.pod:70
 msgid "File containing one or more CRL's (in PEM format) to load."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:71 C/apps/verify.pod:131
+#: C/apps/verify.pod:72 C/apps/verify.pod:140
 msgid "B<-crl_check>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:73 C/apps/verify.pod:133
+#: C/apps/verify.pod:74 C/apps/verify.pod:142
 msgid ""
 "Checks end entity certificate validity by attempting to look up a valid "
 "CRL.  If a valid CRL cannot be found an error occurs."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:76
+#: C/apps/verify.pod:77
 msgid "B<-untrusted file>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:78
+#: C/apps/verify.pod:79
 msgid ""
 "A file of untrusted certificates. The file should contain multiple "
 "certificates in PEM format concatenated together."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:81
+#: C/apps/verify.pod:82
 msgid "B<-purpose purpose>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:83
+#: C/apps/verify.pod:84
 msgid ""
 "The intended use for the certificate. If this option is not specified, "
 "B<verify> will not consider certificate purpose during chain verification.  "
@@ -6120,27 +6265,27 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:89
+#: C/apps/verify.pod:90
 msgid "B<-help>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:91
+#: C/apps/verify.pod:92
 msgid "Print out a usage message."
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:95
+#: C/apps/verify.pod:96
 msgid "Print extra information about the operations being performed."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:97
+#: C/apps/verify.pod:98
 msgid "B<-issuer_checks>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:99
+#: C/apps/verify.pod:100
 msgid ""
 "Print out diagnostics relating to searches for the issuer certificate of the "
 "current certificate. This shows why each candidate issuer certificate was "
@@ -6150,12 +6295,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:105
+#: C/apps/verify.pod:106
 msgid "B<-policy arg>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:107
+#: C/apps/verify.pod:108
 msgid ""
 "Enable policy processing and add B<arg> to the user-initial-policy-set (see "
 "RFC5280). The policy B<arg> can be an object name an OID in numeric form.  "
@@ -6163,74 +6308,84 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:111
+#: C/apps/verify.pod:112
 msgid "B<-policy_check>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:113
+#: C/apps/verify.pod:114
 msgid "Enables certificate policy processing."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:115
+#: C/apps/verify.pod:116
 msgid "B<-explicit_policy>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:117
+#: C/apps/verify.pod:118
 msgid "Set policy variable require-explicit-policy (see RFC5280)."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:119
+#: C/apps/verify.pod:120
 msgid "B<-inhibit_any>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:121
+#: C/apps/verify.pod:122
 msgid "Set policy variable inhibit-any-policy (see RFC5280)."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:123
+#: C/apps/verify.pod:124
 msgid "B<-inhibit_map>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:125
+#: C/apps/verify.pod:126
 msgid "Set policy variable inhibit-policy-mapping (see RFC5280)."
 msgstr ""
 
-#. type: =item
-#: C/apps/verify.pod:127
-msgid "B<-policy_print>"
-msgstr ""
-
 #. type: textblock
-#: C/apps/verify.pod:129
-msgid "Print out diagnostics related to policy processing."
+#: C/apps/verify.pod:130
+msgid ""
+"When building a certificate chain, if the first certificate chain found is "
+"not trusted, then OpenSSL will continue to check to see if an alternative "
+"chain can be found that is trusted. With this option that behaviour is "
+"suppressed so that only the first chain found is ever used. Using this "
+"option will force the behaviour to match that of previous OpenSSL versions."
 msgstr ""
 
 #. type: =item
 #: C/apps/verify.pod:136
-msgid "B<-crl_check_all>"
+msgid "B<-policy_print>"
 msgstr ""
 
 #. type: textblock
 #: C/apps/verify.pod:138
+msgid "Print out diagnostics related to policy processing."
+msgstr ""
+
+#. type: =item
+#: C/apps/verify.pod:145
+msgid "B<-crl_check_all>"
+msgstr ""
+
+#. type: textblock
+#: C/apps/verify.pod:147
 msgid ""
 "Checks the validity of B<all> certificates in the chain by attempting to "
 "look up valid CRLs."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:141
+#: C/apps/verify.pod:150
 msgid "B<-ignore_critical>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:143
+#: C/apps/verify.pod:152
 msgid ""
 "Normally if an unhandled critical extension is present which is not "
 "supported by OpenSSL the certificate is rejected (as required by RFC5280).  "
@@ -6238,46 +6393,46 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:147
+#: C/apps/verify.pod:156
 msgid "B<-x509_strict>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:149
+#: C/apps/verify.pod:158
 msgid ""
 "For strict X.509 compliance, disable non-compliant workarounds for broken "
 "certificates."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:152
+#: C/apps/verify.pod:161
 msgid "B<-extended_crl>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:154
+#: C/apps/verify.pod:163
 msgid ""
 "Enable extended CRL features such as indirect CRLs and alternate CRL signing "
 "keys."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:157
+#: C/apps/verify.pod:166
 msgid "B<-use_deltas>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:159
+#: C/apps/verify.pod:168
 msgid "Enable support for delta CRLs."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:166
+#: C/apps/verify.pod:175
 msgid "B<->"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:168
+#: C/apps/verify.pod:177
 msgid ""
 "Indicates the last option. All arguments following this are assumed to be "
 "certificate files. This is useful if the first certificate filename begins "
@@ -6285,12 +6440,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:172
+#: C/apps/verify.pod:181
 msgid "B<certificates>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:174
+#: C/apps/verify.pod:183
 msgid ""
 "One or more certificates to verify. If no certificates are given, B<verify> "
 "will attempt to read a certificate from standard input. Certificates must be "
@@ -6298,12 +6453,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: C/apps/verify.pod:180
+#: C/apps/verify.pod:189
 msgid "VERIFY OPERATION"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:182
+#: C/apps/verify.pod:191
 msgid ""
 "The B<verify> program uses the same functions as the internal SSL and S/MIME "
 "verification, therefore this description applies to these verify operations "
@@ -6311,7 +6466,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:186
+#: C/apps/verify.pod:195
 msgid ""
 "There is one crucial difference between the verify operations performed by "
 "the B<verify> program: wherever possible an attempt is made to continue "
@@ -6321,12 +6476,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:192
+#: C/apps/verify.pod:201
 msgid "The verify operation consists of a number of separate steps."
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:194
+#: C/apps/verify.pod:203
 msgid ""
 "Firstly a certificate chain is built up starting from the supplied "
 "certificate and ending in the root CA. It is an error if the whole chain "
@@ -6336,7 +6491,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:200
+#: C/apps/verify.pod:209
 msgid ""
 "The process of 'looking up the issuers certificate' itself involves a number "
 "of steps. In versions of OpenSSL before 0.9.5a the first certificate whose "
@@ -6351,7 +6506,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:211
+#: C/apps/verify.pod:220
 msgid ""
 "The lookup first looks in the list of untrusted certificates and if no match "
 "is found the remaining lookups are from the trusted certificates. The root "
@@ -6361,7 +6516,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:217
+#: C/apps/verify.pod:226
 msgid ""
 "The second operation is to check every untrusted certificate's extensions "
 "for consistency with the supplied purpose. If the B<-purpose> option is not "
@@ -6373,7 +6528,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:224
+#: C/apps/verify.pod:233
 msgid ""
 "The third operation is to check the trust settings on the root CA. The root "
 "CA should be trusted for the supplied purpose. For compatibility with "
@@ -6382,7 +6537,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:229
+#: C/apps/verify.pod:238
 msgid ""
 "The final operation is to check the validity of the certificate chain. The "
 "validity period is checked against the current system time and the notBefore "
@@ -6391,21 +6546,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:234
+#: C/apps/verify.pod:243
 msgid ""
 "If all operations complete successfully then certificate is considered "
 "valid. If any operation fails then the certificate is not valid."
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:239
+#: C/apps/verify.pod:248
 msgid ""
 "When a verify operation fails the output messages can be somewhat "
 "cryptic. The general form of the error message is:"
 msgstr ""
 
 #. type: verbatim
-#: C/apps/verify.pod:242
+#: C/apps/verify.pod:251
 #, no-wrap
 msgid ""
 " server.pem: /C=AU/ST=Queensland/O=CryptSoft Pty Ltd/CN=Test CA (1024 bit)\n"
@@ -6414,7 +6569,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:245
+#: C/apps/verify.pod:254
 msgid ""
 "The first line contains the name of the certificate being verified followed "
 "by the subject name of the certificate. The second line contains the error "
@@ -6425,7 +6580,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:252
+#: C/apps/verify.pod:261
 msgid ""
 "An exhaustive list of the error codes and messages is shown below, this also "
 "includes the name of the error code as defined in the header file x509_vfy.h "
@@ -6434,46 +6589,46 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:259
+#: C/apps/verify.pod:268
 msgid "B<0 X509_V_OK: ok>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:261
+#: C/apps/verify.pod:270
 msgid "the operation was successful."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:263
+#: C/apps/verify.pod:272
 msgid "B<2 X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT: unable to get issuer certificate>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:265
+#: C/apps/verify.pod:274
 msgid ""
 "the issuer certificate of a looked up certificate could not be found. This "
 "normally means the list of trusted certificates is not complete."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:268
+#: C/apps/verify.pod:277
 msgid "B<3 X509_V_ERR_UNABLE_TO_GET_CRL: unable to get certificate CRL>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:270
+#: C/apps/verify.pod:279
 msgid "the CRL of a certificate could not be found."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:272
+#: C/apps/verify.pod:281
 msgid ""
 "B<4 X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE: unable to decrypt "
 "certificate's signature>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:274
+#: C/apps/verify.pod:283
 msgid ""
 "the certificate signature could not be decrypted. This means that the actual "
 "signature value could not be determined rather than it not matching the "
@@ -6481,14 +6636,14 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:278
+#: C/apps/verify.pod:287
 msgid ""
 "B<5 X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE: unable to decrypt CRL's "
 "signature>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:280
+#: C/apps/verify.pod:289
 msgid ""
 "the CRL signature could not be decrypted: this means that the actual "
 "signature value could not be determined rather than it not matching the "
@@ -6496,269 +6651,269 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:283
+#: C/apps/verify.pod:292
 msgid ""
 "B<6 X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY: unable to decode issuer "
 "public key>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:285
+#: C/apps/verify.pod:294
 msgid "the public key in the certificate SubjectPublicKeyInfo could not be read."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:287
+#: C/apps/verify.pod:296
 msgid "B<7 X509_V_ERR_CERT_SIGNATURE_FAILURE: certificate signature failure>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:289 C/apps/verify.pod:293
+#: C/apps/verify.pod:298 C/apps/verify.pod:302
 msgid "the signature of the certificate is invalid."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:291
+#: C/apps/verify.pod:300
 msgid "B<8 X509_V_ERR_CRL_SIGNATURE_FAILURE: CRL signature failure>"
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:295
+#: C/apps/verify.pod:304
 msgid "B<9 X509_V_ERR_CERT_NOT_YET_VALID: certificate is not yet valid>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:297
+#: C/apps/verify.pod:306
 msgid ""
 "the certificate is not yet valid: the notBefore date is after the current "
 "time."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:299
+#: C/apps/verify.pod:308
 msgid "B<10 X509_V_ERR_CERT_HAS_EXPIRED: certificate has expired>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:301
+#: C/apps/verify.pod:310
 msgid ""
 "the certificate has expired: that is the notAfter date is before the current "
 "time."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:303
+#: C/apps/verify.pod:312
 msgid "B<11 X509_V_ERR_CRL_NOT_YET_VALID: CRL is not yet valid>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:305
+#: C/apps/verify.pod:314
 msgid "the CRL is not yet valid."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:307
+#: C/apps/verify.pod:316
 msgid "B<12 X509_V_ERR_CRL_HAS_EXPIRED: CRL has expired>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:309
+#: C/apps/verify.pod:318
 msgid "the CRL has expired."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:311
+#: C/apps/verify.pod:320
 msgid ""
 "B<13 X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD: format error in "
 "certificate's notBefore field>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:313
+#: C/apps/verify.pod:322
 msgid "the certificate notBefore field contains an invalid time."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:315
+#: C/apps/verify.pod:324
 msgid ""
 "B<14 X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD: format error in certificate's "
 "notAfter field>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:317
+#: C/apps/verify.pod:326
 msgid "the certificate notAfter field contains an invalid time."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:319
+#: C/apps/verify.pod:328
 msgid ""
 "B<15 X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD: format error in CRL's "
 "lastUpdate field>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:321
+#: C/apps/verify.pod:330
 msgid "the CRL lastUpdate field contains an invalid time."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:323
+#: C/apps/verify.pod:332
 msgid ""
 "B<16 X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD: format error in CRL's "
 "nextUpdate field>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:325
+#: C/apps/verify.pod:334
 msgid "the CRL nextUpdate field contains an invalid time."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:327
+#: C/apps/verify.pod:336
 msgid "B<17 X509_V_ERR_OUT_OF_MEM: out of memory>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:329
+#: C/apps/verify.pod:338
 msgid "an error occurred trying to allocate memory. This should never happen."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:331
+#: C/apps/verify.pod:340
 msgid "B<18 X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT: self signed certificate>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:333
+#: C/apps/verify.pod:342
 msgid ""
 "the passed certificate is self signed and the same certificate cannot be "
 "found in the list of trusted certificates."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:336
+#: C/apps/verify.pod:345
 msgid ""
 "B<19 X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN: self signed certificate in "
 "certificate chain>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:338
+#: C/apps/verify.pod:347
 msgid ""
 "the certificate chain could be built up using the untrusted certificates but "
 "the root could not be found locally."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:341
+#: C/apps/verify.pod:350
 msgid ""
 "B<20 X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY: unable to get local "
 "issuer certificate>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:343
+#: C/apps/verify.pod:352
 msgid ""
 "the issuer certificate could not be found: this occurs if the issuer "
 "certificate of an untrusted certificate cannot be found."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:346
+#: C/apps/verify.pod:355
 msgid ""
 "B<21 X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first "
 "certificate>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:348
+#: C/apps/verify.pod:357
 msgid ""
 "no signatures could be verified because the chain contains only one "
 "certificate and it is not self signed."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:351
+#: C/apps/verify.pod:360
 msgid "B<22 X509_V_ERR_CERT_CHAIN_TOO_LONG: certificate chain too long>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:353
+#: C/apps/verify.pod:362
 msgid ""
 "the certificate chain length is greater than the supplied maximum "
 "depth. Unused."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:355
+#: C/apps/verify.pod:364
 msgid "B<23 X509_V_ERR_CERT_REVOKED: certificate revoked>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:357
+#: C/apps/verify.pod:366
 msgid "the certificate has been revoked."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:359
+#: C/apps/verify.pod:368
 msgid "B<24 X509_V_ERR_INVALID_CA: invalid CA certificate>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:361
+#: C/apps/verify.pod:370
 msgid ""
 "a CA certificate is invalid. Either it is not a CA or its extensions are not "
 "consistent with the supplied purpose."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:364
+#: C/apps/verify.pod:373
 msgid "B<25 X509_V_ERR_PATH_LENGTH_EXCEEDED: path length constraint exceeded>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:366
+#: C/apps/verify.pod:375
 msgid "the basicConstraints pathlength parameter has been exceeded."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:368
+#: C/apps/verify.pod:377
 msgid "B<26 X509_V_ERR_INVALID_PURPOSE: unsupported certificate purpose>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:370
+#: C/apps/verify.pod:379
 msgid "the supplied certificate cannot be used for the specified purpose."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:372
+#: C/apps/verify.pod:381
 msgid "B<27 X509_V_ERR_CERT_UNTRUSTED: certificate not trusted>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:374
+#: C/apps/verify.pod:383
 msgid "the root CA is not marked as trusted for the specified purpose."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:376
+#: C/apps/verify.pod:385
 msgid "B<28 X509_V_ERR_CERT_REJECTED: certificate rejected>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:378
+#: C/apps/verify.pod:387
 msgid "the root CA is marked to reject the specified purpose."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:380
+#: C/apps/verify.pod:389
 msgid "B<29 X509_V_ERR_SUBJECT_ISSUER_MISMATCH: subject issuer mismatch>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:382
+#: C/apps/verify.pod:391
 msgid ""
 "the current candidate issuer certificate was rejected because its subject "
 "name did not match the issuer name of the current certificate. Only "
@@ -6766,14 +6921,14 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:386
+#: C/apps/verify.pod:395
 msgid ""
 "B<30 X509_V_ERR_AKID_SKID_MISMATCH: authority and subject key identifier "
 "mismatch>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:388
+#: C/apps/verify.pod:397
 msgid ""
 "the current candidate issuer certificate was rejected because its subject "
 "key identifier was present and did not match the authority key identifier "
@@ -6782,14 +6937,14 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:392
+#: C/apps/verify.pod:401
 msgid ""
 "B<31 X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH: authority and issuer serial "
 "number mismatch>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:394
+#: C/apps/verify.pod:403
 msgid ""
 "the current candidate issuer certificate was rejected because its issuer "
 "name and serial number was present and did not match the authority key "
@@ -6798,31 +6953,31 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:398
+#: C/apps/verify.pod:407
 msgid ""
 "B<32 X509_V_ERR_KEYUSAGE_NO_CERTSIGN:key usage does not include certificate "
 "signing>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:400
+#: C/apps/verify.pod:409
 msgid ""
 "the current candidate issuer certificate was rejected because its keyUsage "
 "extension does not permit certificate signing."
 msgstr ""
 
 #. type: =item
-#: C/apps/verify.pod:403
+#: C/apps/verify.pod:412
 msgid "B<50 X509_V_ERR_APPLICATION_VERIFICATION: application verification failure>"
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:405
+#: C/apps/verify.pod:414
 msgid "an application specific error. Unused."
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:411
+#: C/apps/verify.pod:420
 msgid ""
 "Although the issuer checks are a considerable improvement over the old "
 "technique they still suffer from limitations in the underlying X509_LOOKUP "
@@ -6833,14 +6988,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:417
+#: C/apps/verify.pod:426
 msgid ""
 "Previous versions of OpenSSL assume certificates with matching subject name "
 "are identical and mishandled them."
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:420
+#: C/apps/verify.pod:429
 msgid ""
 "Previous versions of this documentation swapped the meaning of the "
 "B<X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT> and B<20 "
@@ -6848,7 +7003,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: C/apps/verify.pod:426
+#: C/apps/verify.pod:435
 msgid "L<x509(1)|x509(1)>"
 msgstr ""
 
@@ -6922,11 +7077,6 @@ msgstr ""
 msgid ""
 "The output of B<openssl version -a> would typically be used when sending in "
 "a bug report."
-msgstr ""
-
-#. type: =head1
-#: C/apps/version.pod:61
-msgid "HISTORY"
 msgstr ""
 
 #. type: textblock
