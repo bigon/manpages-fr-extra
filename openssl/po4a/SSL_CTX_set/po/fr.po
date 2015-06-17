@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-06 17:00-0400\n"
-"PO-Revision-Date: 2015-05-05 18:07-0400\n"
+"PO-Revision-Date: 2015-05-15 06:35+0200\n"
 "Last-Translator: Jean-Paul Guillonneau <guillonneau.jeanpaul@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -49,6 +49,10 @@ msgid ""
 "SSL_set1_curves_list, SSL_get1_curves, SSL_get_shared_curve, "
 "SSL_CTX_set_ecdh_auto, SSL_set_ecdh_auto - EC supported curve functions"
 msgstr ""
+"SSL_CTX_set1_curves, SSL_CTX_set1_curves_list, SSL_set1_curves, "
+"SSL_set1_curves_list, SSL_get1_curves, SSL_get_shared_curve, "
+"SSL_CTX_set_ecdh_auto, SSL_set_ecdh_auto - Fonctions de courbes elliptiques "
+"prises en charge"
 
 #. type: =head1
 #: C/ssl/SSL_CTX_set1_curves.pod:9 C/ssl/SSL_CTX_set1_verify_cert_store.pod:11
@@ -102,66 +106,50 @@ msgstr ""
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set1_curves.pod:13
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
-#| " int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int SSL_CTX_set1_curves(SSL_CTX *ctx, int *clist, int clistlen);\n"
 " int SSL_CTX_set1_curves_list(SSL_CTX *ctx, char *list);\n"
 "\n"
 msgstr ""
-"B< int SSL_CTX_set_cipher_list(SSL_CTX *>I<ctx>B<, const char *>I<str>B<);>\n"
-" B<int SSL_set_cipher_list(SSL *>I<ssl>B<, const char *>I<str>B<);>\n"
+"B< int SSL_CTX_set1_curves(SSL_CTX *>I<ctx>B<, int *>I<clist>B<, int> I<clistlen>B<);>\n"
+" B<int SSL_CTX_set1_curves_list(SSL_CTX *>I<ctx>B<, char *>I<list>B<);>\n"
 "\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set1_curves.pod:16
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
-#| " int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int SSL_set1_curves(SSL *ssl, int *clist, int clistlen);\n"
 " int SSL_set1_curves_list(SSL *ssl, char *list);\n"
 "\n"
 msgstr ""
-"B< int SSL_CTX_set_cipher_list(SSL_CTX *>I<ctx>B<, const char *>I<str>B<);>\n"
-" B<int SSL_set_cipher_list(SSL *>I<ssl>B<, const char *>I<str>B<);>\n"
+"B< int SSL_CTX_set1_curves(SSL *>I<ssl>B<, int *>I<clist>B<, int> I<clistlen>B<);>\n"
+" B<int SSL_CTX_set1_curves_list(SSL *>I<ssl>B<, char *>I<list>B<);>\n"
 "\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set1_curves.pod:19
-#, fuzzy, no-wrap
-#| msgid ""
-#| " long SSL_CTX_get_mode(SSL_CTX *ctx);\n"
-#| " long SSL_get_mode(SSL *ssl);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int SSL_get1_curves(SSL *ssl, int *curves);\n"
 " int SSL_get_shared_curve(SSL *s, int n);\n"
 "\n"
 msgstr ""
-"B< long SSL_CTX_get_mode(SSL_CTX *>I<ctx>B<);>\n"
-" B<long SSL_get_mode(SSL *>I<ssl>B<);>\n"
+"B< int SSL_get1_curves(SSL *>I<ssl>B<, int *>I<curves>B<);>\n"
+" B<int SSL_get_shared_curve(SSL *s, int> I<n>B<);>\n"
 "\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set1_curves.pod:22
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);\n"
-#| " int SSL_set_cipher_list(SSL *ssl, const char *str);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int SSL_CTX_set_ecdh_auto(SSL_CTX *ctx, int onoff);\n"
 " int SSL_set_ecdh_auto(SSL *s, int onoff);\n"
 "\n"
 msgstr ""
-"B< int SSL_CTX_set_cipher_list(SSL_CTX *>I<ctx>B<, const char *>I<str>B<);>\n"
-" B<int SSL_set_cipher_list(SSL *>I<ssl>B<, const char *>I<str>B<);>\n"
+"B< int SSL_CTX_set_ecdh_auto(SSL_CTX *>I<ctx>B<, int> I<onoff>B<);>\n"
+" B<int SSL_set_ecdh_auto(SSL *s, int> I<onoff>B<);>\n"
 "\n"
 
 #. type: =head1
@@ -198,6 +186,12 @@ msgid ""
 "supported curves extension. For a TLS server the curves are used to "
 "determine the set of shared curves."
 msgstr ""
+"B<SSL_CTX_set1_curves>() définit les courbes elliptiques prises en charge "
+"pour I<ctx> à I<clistlen> courbes dans le tableau I<clist>. Le tableau est "
+"constitué de tous les identifiants de courbe dans l’ordre de préférence. "
+"Pour un client TLS, les courbes sont utilisées directement dans l’extension "
+"prise en charge. Pour un serveur TLS, les courbes sont utilisées pour "
+"déterminer l’ensemble des courbes partagées."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:33
@@ -206,6 +200,10 @@ msgid ""
 "B<list>. The string is a colon separated list of curve NIDs or names, for "
 "example \"P-521:P-384:P-256\"."
 msgstr ""
+"B<SSL_CTX_set1_curves_list>() définit les courbes prises en charge pour "
+"I<ctx> dans la chaîne I<list>. La chaîne est constituée d’une liste de noms "
+"ou identifiants séparés par des deux points, par exemple « P-521:P-384:"
+"P-256 »."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:37
@@ -213,6 +211,9 @@ msgid ""
 "SSL_set1_curves() and SSL_set1_curves_list() are similar except they set "
 "supported curves for the SSL structure B<ssl>."
 msgstr ""
+"B<SSL_set1_curves>() et B<SSL_set1_curves_list>() sont similaires aux "
+"précédentes sauf qu’elles définissent les courbes prises en charge pour les "
+"structures SSL I<ssl>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:40
@@ -224,6 +225,13 @@ msgid ""
 "of a set of curve NIDs in preference order. It can return zero if the client "
 "did not send a supported curves extension."
 msgstr ""
+"B<SSL_get1_curves>() renvoie l’ensemble des courbes prises en charge par un "
+"client dans l’extension des courbes prises en charge. Elle renvoie le nombre "
+"total de courbes prises en charge. Le paramètre I<curves> peut être NULL "
+"pour simplement renvoyer le nombre de courbes dans le but d’allouer de la "
+"mémoire. Le tableau I<curves> est sous la forme d’un ensemble d’identifiants "
+"de courbe dans un ordre préférentiel. Elle peut renvoyer B<0> si le client "
+"ne renvoie pas d’extension de courbes prises en charge."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:48
@@ -234,6 +242,12 @@ msgid ""
 "will only be interested in the first shared curve so B<n> is normally set to "
 "zero. If the value B<n> is out of range, NID_undef is returned."
 msgstr ""
+"B<SSL_get_shared_curve>() renvoie I<n> courbes partagées pour un SSL du côté "
+"serveur I<ssl>. Si I<n> est égal à B<-1>, alors le nombre total de courbes "
+"partagées est renvoyé, et peut valoir zéro. Autrement que pour des buts de "
+"diagnostic, la plupart des applications ne seront intéressées que par la "
+"première courbe partagée, aussi I<n> est normalement réglé à zéro. Si la "
+"valeur de I<n> est hors limites, NID_undef est renvoyé."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:55
@@ -243,13 +257,16 @@ msgid ""
 "highest preference curve is automatically used for ECDH temporary keys used "
 "during key exchange."
 msgstr ""
+"B<SSL_CTX_set_ecdh_auto>() et B<SSL_set_ecdh_auto>() règlent la sélection "
+"automatique de courbes pour le serveur I<ctx> ou I<ssl> à I<onoff>. Si "
+"I<onoff> vaut B<1>, alors la courbe de plus haute préférence est "
+"automatiquement employée pour les clefs temporaires ECDH utilisées durant "
+"l’échange de clefs."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:60
-#, fuzzy
-#| msgid "Note: all these functions are implemented using macros."
 msgid "All these functions are implemented as macros."
-msgstr "Note : toutes ces fonctions sont implémentées en utilisant des macros."
+msgstr "Toutes ces fonctions sont implémentées en utilisant des macros."
 
 #. type: =head1
 #: C/ssl/SSL_CTX_set1_curves.pod:62
@@ -283,6 +300,10 @@ msgid ""
 "configuration purposes either on a command line or in a file it should "
 "consider using the SSL_CONF interface instead of manually parsing options."
 msgstr ""
+"Si une application désire utiliser plusieurs de ces fonctions pour des "
+"besoins de configuration, soit en ligne de commande ou avec un fichier, "
+"l’utilisation de l’interface SSL_CONF est à préférer à l’analyse manuelle "
+"des options."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:68
@@ -294,6 +315,13 @@ msgid ""
 "a function such as SSL_CTX_set_ecdh_tmp(). Newer applications should just "
 "call:"
 msgstr ""
+"Les fonctions B<SSL_CTX_set_ecdh_auto>() et B<SSL_set_ecdh_auto>() peuvent "
+"être utilisées pour qu’un serveur choisisse toujours la courbe la plus "
+"appropriée pour un client. Dans ce cas, les paramètres temporaires ECDH "
+"définis par le serveur seront outrepassés. Les versions précédentes "
+"d’OpenSSL pouvaient effectivement seulement utiliser une seule courbe ECDH "
+"définie en employant une fonction telle que B<SSL_CTX_set_ecdh_tmp>(). Les "
+"nouvelles applications doivent juste appeler :"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set1_curves.pod:75
@@ -302,6 +330,8 @@ msgid ""
 " SSL_CTX_set_ecdh_auto(ctx, 1);\n"
 "\n"
 msgstr ""
+" SSL_CTX_set_ecdh_auto(ctx, 1);\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:77
@@ -309,6 +339,8 @@ msgid ""
 "and they will automatically support ECDH using the most appropriate shared "
 "curve."
 msgstr ""
+"et elles prendront en charge ECDH automatiquement en utilisant la courbe "
+"partagée la plus adéquate."
 
 #. type: =head1
 #: C/ssl/SSL_CTX_set1_curves.pod:80
@@ -341,11 +373,15 @@ msgid ""
 "SSL_set1_curves_list(), SSL_CTX_set_ecdh_auto() and SSL_set_ecdh_auto()  "
 "return 1 for success and 0 for failure."
 msgstr ""
+"B<SSL_CTX_set1_curves>(), B<SSL_CTX_set1_curves_list>(), "
+"B<SSL_set1_curves>(), B<SSL_set1_curves_list>(), B<SSL_CTX_set_ecdh_auto>() "
+"et B<SSL_set_ecdh_auto>() renvoient B<1> en cas de réussite et B<0> lors "
+"d’un échec."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:86
 msgid "SSL_get1_curves() returns the number of curves, which may be zero."
-msgstr ""
+msgstr "B<SSL_get1_curves>() renvoie le nombre de courbes, pouvant être zéro."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:88
@@ -354,6 +390,9 @@ msgid ""
 "there is no shared curve B<n>; or the total number of shared curves if B<n> "
 "is -1."
 msgstr ""
+"B<SSL_get_shared_curve>() renvoie l’identifiant de la courbe partagée I<n> "
+"ou NID_undef s’il n’existe pas de courbe partagée I<n>; ou le nombre total "
+"de courbes partagées si I<n> vaut B<-1>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:92
@@ -361,6 +400,8 @@ msgid ""
 "When called on a client B<ssl>, SSL_get_shared_curve() has no meaning and "
 "returns -1."
 msgstr ""
+"Lorsqu’appelée sur un client I<ssl>, B<SSL_get_shared_curve>() ne signifie "
+"rien et renvoie B<-1>."
 
 #. type: =head1
 #: C/ssl/SSL_CTX_set1_curves.pod:95
@@ -388,7 +429,7 @@ msgstr "VOIR AUSSI"
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:97
 msgid "L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>"
-msgstr ""
+msgstr "L<B<SSL_CTX_add_extra_chain_cert>(3)|SSL_CTX_add_extra_chain_cert(3)>"
 
 #. type: =head1
 #: C/ssl/SSL_CTX_set1_curves.pod:99
@@ -405,10 +446,8 @@ msgstr "HISTORIQUE"
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_curves.pod:101
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:89
-#, fuzzy
-#| msgid "This function was introduced in OpenSSL 0.9.8h"
 msgid "These functions were first added to OpenSSL 1.0.2."
-msgstr "Cette fonction a été introduite dans OpenSSL 0.9.8h"
+msgstr "Ces fonctions ont été introduites dans OpenSSL 1.0.2"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:5
@@ -419,16 +458,15 @@ msgid ""
 "SSL_set0_chain_cert_store, SSL_set1_chain_cert_store - set certificate "
 "verification or chain store"
 msgstr ""
+"SSL_CTX_set0_verify_cert_store, SSL_CTX_set1_verify_cert_store, "
+"SSL_CTX_set0_chain_cert_store, SSL_CTX_set1_chain_cert_store, "
+"SSL_set0_verify_cert_store, SSL_set1_verify_cert_store, "
+"SSL_set0_chain_cert_store, SSL_set1_chain_cert_store - Définir le stockage "
+"des vérifications de chaîne ou certificat"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:15
-#, fuzzy, no-wrap
-#| msgid ""
-#| " void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);\n"
-#| " void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *list);\n"
-#| " int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *cacert);\n"
-#| " int SSL_add_client_CA(SSL *ssl, X509 *cacert);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int SSL_CTX_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
 " int SSL_CTX_set1_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
@@ -436,21 +474,15 @@ msgid ""
 " int SSL_CTX_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
 "\n"
 msgstr ""
-"B< void SSL_CTX_set_client_CA_list(SSL_CTX *>I<ctx>B<, STACK_OF(X509_NAME)*>I<liste>B<);>\n"
-" B<void SSL_set_client_CA_list(SSL *>I<s>B<, STACK_OF(X509_NAME) *>I<liste>B<);>\n"
-" B<int SSL_CTX_add_client_CA(SSL_CTX *>I<ctx>B<, X509 *>I<ca_cert>B<);>\n"
-" B<int SSL_add_client_CA(SSL *>I<ssl>B<, X509 *>I<ca_cert>B<);>\n"
+"B< int SSL_CTX_set0_verify_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
+" B<int SSL_CTX_set1_verify_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
+" B<int SSL_CTX_set0_chain_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
+" B<int SSL_CTX_set1_chain_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
 "\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:20
-#, fuzzy, no-wrap
-#| msgid ""
-#| " void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);\n"
-#| " void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *list);\n"
-#| " int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *cacert);\n"
-#| " int SSL_add_client_CA(SSL *ssl, X509 *cacert);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int SSL_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
 " int SSL_set1_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
@@ -458,37 +490,31 @@ msgid ""
 " int SSL_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);\n"
 "\n"
 msgstr ""
-"B< void SSL_CTX_set_client_CA_list(SSL_CTX *>I<ctx>B<, STACK_OF(X509_NAME)*>I<liste>B<);>\n"
-" B<void SSL_set_client_CA_list(SSL *>I<s>B<, STACK_OF(X509_NAME) *>I<liste>B<);>\n"
-" B<int SSL_CTX_add_client_CA(SSL_CTX *>I<ctx>B<, X509 *>I<ca_cert>B<);>\n"
-" B<int SSL_add_client_CA(SSL *>I<ssl>B<, X509 *>I<ca_cert>B<);>\n"
+"B< int SSL_set0_verify_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
+" B<int SSL_set1_verify_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
+" B<int SSL_set0_chain_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
+" B<int SSL_set1_chain_cert_store(SSL_CTX *>I<ctx>B<, X509_STORE *>I<st>B<);>\n"
 "\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:27
-#, fuzzy
-#| msgid ""
-#| "SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - manipulate X509 "
-#| "certificate verification storage"
 msgid ""
 "SSL_CTX_set0_verify_cert_store() and SSL_CTX_set1_verify_cert_store()  set "
 "the certificate store used for certificate verification to B<st>."
 msgstr ""
-"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - Manipuler le stockage de "
-"vérification de certificats X509"
+"B<SSL_CTX_set0_verify_cert_store>() et B<SSL_CTX_set1_verify_cert_store>() "
+"définissent le stockage de certificats utilisé pour leur vérification à "
+"I<st>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:30
-#, fuzzy
-#| msgid ""
-#| "SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - manipulate X509 "
-#| "certificate verification storage"
 msgid ""
 "SSL_CTX_set0_chain_cert_store() and SSL_CTX_set1_chain_cert_store()  set the "
 "certificate store used for certificate chain building to B<st>."
 msgstr ""
-"SSL_CTX_set_cert_store, SSL_CTX_get_cert_store - Manipuler le stockage de "
-"vérification de certificats X509"
+"B<SSL_CTX_set0_chain_cert_store>() et B<SSL_CTX_set1_chain_cert_store>() "
+"définissent le stockage de certificats utilisé pour la construction de "
+"chaîne de certificats à I<st>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:33
@@ -497,6 +523,9 @@ msgid ""
 "SSL_set0_chain_cert_store() and SSL_set1_chain_cert_store() are similar "
 "except they apply to SSL structure B<ssl>."
 msgstr ""
+"B<SSL_set0_verify_cert_store>(), B<SSL_set1_verify_cert_store>(), "
+"B<SSL_set0_chain_cert_store>() et B<SSL_set1_chain_cert_store>() sont "
+"similaires sauf qu’elles s’appliquent à une structure SSL I<ssl>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:37
@@ -507,6 +536,11 @@ msgid ""
 "reference counts and the supplied store B<MUST NOT> be freed after the "
 "operation."
 msgstr ""
+"Toutes ces fonctions sont mises en œuvre avec des macros. Celles contenant "
+"un B<1> incrémentent le compteur de références du stockage fourni, afin que "
+"celui-ci soit libéré à un certain moment après l’opération. Celles contenant "
+"un B<0> n’incrémentent point le compteur et le stockage fourni B<ne doit "
+"pas> être libéré après l’opération."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:45
@@ -515,6 +549,10 @@ msgid ""
 "SSL structures when SSL_new() is called. As a result SSL structures will not "
 "be affected if the parent SSL_CTX store pointer is set to a new value."
 msgstr ""
+"Les pointeurs de stockage associés avec une structure SSL_CTX sont copiés "
+"dans n’importe quelle structure SSL quand B<SSL_new>() est appelée. Par "
+"conséquent, les structures SSL ne seront pas affectées si le pointeur de "
+"stockage SSL_CTX parent est défini à une nouvelle valeur."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:49
@@ -524,11 +562,17 @@ msgid ""
 "the server's certificate chain and a SSL/TLS server will use it to verify "
 "any client certificate chain."
 msgstr ""
+"Le stockage de vérification est utilisé pour vérifier la chaîne de "
+"certificats envoyée par le pair : c’est-à-dire, un client SSL/TLS utilisera "
+"le stockage de vérification pour vérifier la chaîne de certificats du "
+"serveur et un serveur SSL/TLS l’utilisera pour vérifier n’importe quelle "
+"chaîne de certificats de client."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:54
 msgid "The chain store is used to build the certificate chain."
 msgstr ""
+"Le stockage de chaînes est utilisé pour construire la chaîne de certificats."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:56
@@ -539,6 +583,11 @@ msgid ""
 "L<SSL_CTX_add_extra_chain_cert(3)|SSL_CTX_add_extra_chain_cert(3)>) then "
 "automatic chain building is disabled."
 msgstr ""
+"Si le mode B<SSL_MODE_NO_AUTO_CHAIN> est utilisé ou une chaîne de "
+"certificats est déjà configurée (par exemple en utilisant des fonctions "
+"telles que L<B<SSL_CTX_add1_chain_cert>(3)|SSL_CTX_add1_chain_cert(3)> ou "
+"L<B<SSL_CTX_add_extra_chain_cert>(3)|SSL_CTX_add_extra_chain_cert(3)>), "
+"alors la construction automatique de chaîne est désactivée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:62
@@ -546,6 +595,8 @@ msgid ""
 "If the mode B<SSL_MODE_NO_AUTO_CHAIN> is set then automatic chain building "
 "is disabled."
 msgstr ""
+"Si le mode B<SSL_MODE_NO_AUTO_CHAIN> est utilisé, alors la construction "
+"automatique de chaîne est désactivée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:65
@@ -554,11 +605,15 @@ msgid ""
 "with the parent SSL_CTX is used instead to retain compatibility with "
 "previous versions of OpenSSL."
 msgstr ""
+"Si le stockage de chaînes ou vérifications n’est défini, alors le stockage "
+"associé avec le SSL_CTX parent est utilisé pour conserver la compatibilité "
+"avec les précédentes versions d’OpenSSL."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:71
 msgid "All these functions return 1 for success and 0 for failure."
 msgstr ""
+"Toutes ces fonctions renvoient B<1> en cas de succès et B<0> lors d’un échec."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set1_verify_cert_store.pod:75
@@ -573,35 +628,34 @@ msgid ""
 "L<SSL_CTX_build_cert_chain(3)|SSL_CTX_build_cert_chain(3)> "
 "L<SSL_build_cert_chain(3)|SSL_build_cert_chain(3)>"
 msgstr ""
+"L<B<SSL_CTX_add_extra_chain_cert>(3)|SSL_CTX_add_extra_chain_cert(3)> "
+"L<B<SSL_CTX_set0_chain>(3)|SSL_CTX_set0_chain(3)> L<B<SSL_CTX_set1_chain>(3)|"
+"SSL_CTX_set1_chain(3)> L<B<SSL_CTX_add0_chain_cert>(3)|"
+"SSL_CTX_add0_chain_cert(3)> L<B<SSL_CTX_add1_chain_cert>(3)|"
+"SSL_CTX_add1_chain_cert(3)> L<B<SSL_set0_chain>(3)|SSL_set0_chain(3)> "
+"L<B<SSL_set1_chain>(3)|SSL_set1_chain(3)> L<B<SSL_add0_chain_cert>(3)|"
+"SSL_add0_chain_cert(3)> L<B<SSL_add1_chain_cert>(3)|SSL_add1_chain_cert(3)> "
+"L<B<SSL_CTX_build_cert_chain>(3)|SSL_CTX_build_cert_chain(3)> "
+"L<B<SSL_build_cert_chain>(3)|SSL_build_cert_chain(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:5
-#, fuzzy
-#| msgid ""
-#| "SSL_CTX_set_client_cert_cb, SSL_CTX_get_client_cert_cb - handle client "
-#| "certificate callback function"
 msgid ""
 "SSL_CTX_set_cert_cb, SSL_set_cert_cb - handle certificate callback function"
 msgstr ""
-"SSL_CTX_set_client_cert_cb, SSL_CTX_get_client_cert_cb - Gestion de la "
-"fonction de rappel de certificat client."
+"SSL_CTX_set_cert_cb, SSL_set_cert_cb - Gestion de la fonction de rappel de "
+"certificat client."
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_cert_cb.pod:11
-#, fuzzy, no-wrap
-#| msgid ""
-#| " void SSL_CTX_set_client_cert_cb(SSL_CTX *ctx, int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey));\n"
-#| " int (*SSL_CTX_get_client_cert_cb(SSL_CTX *ctx))(SSL *ssl, X509 **x509, EVP_PKEY **pkey);\n"
-#| " int (*client_cert_cb)(SSL *ssl, X509 **x509, EVP_PKEY **pkey);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " void SSL_CTX_set_cert_cb(SSL_CTX *c, int (*cert_cb)(SSL *ssl, void *arg), void *arg);\n"
 " void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);\n"
 "\n"
 msgstr ""
-"B< void SSL_CTX_set_client_cert_cb(SSL_CTX *>I<ctx>B<, int (*client_cert_cb)(SSL *>I<ssl>B<, X509 **x>I<509>B<, EVP_PKEY **>I<pkey>B<));>\n"
-" B<int (*SSL_CTX_get_client_cert_cb(SSL_CTX *>I<ctx>B<))(SSL *>I<ssl>B<, X509 **>I<x509>B<, EVP_PKEY **>I<pkey>B<);>\n"
-" B<int (*client_cert_cb)(SSL *>I<ssl>B<, X509 **>I<x509>B<, EVP_PKEY **>I<pkey>B<);>\n"
+"B< void SSL_CTX_set_cert_cb(SSL_CTX *c, int (*>I<cert_cb>B<)(SSL *>I<ssl>B<, void *>I<arg>B<), void *>I<arg>B<);>\n"
+" B<void SSL_set_cert_cb(SSL *s, int (*>I<cert_cb>B<)(SSL *>I<ssl>B<, void *>I<arg>B<), void *>I<arg>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -611,6 +665,8 @@ msgid ""
 " int (*cert_cb)(SSL *ssl, void *arg);\n"
 "\n"
 msgstr ""
+"B< int (*>I<cert_cb>B<)(SSL *>I<ssl>B<, void *>I<arg>B<);>\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:18
@@ -618,32 +674,18 @@ msgid ""
 "SSL_CTX_set_cert_cb() and SSL_set_cert_cb() sets the B<cert_cb()> callback, "
 "B<arg> value is pointer which is passed to the application callback."
 msgstr ""
+"B<SSL_CTX_set_cert_cb>() et  B<SSL_set_cert_cb>() définissent la fonction de "
+"rappel B<cert_cb()>, la valeur I<arg> est un pointeur qui est transmis à la "
+"fonction de rappel de l’application."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:21
-#, fuzzy
-#| msgid "When B<client_cert_cb()> is NULL, no callback function is used."
 msgid "When B<cert_cb()> is NULL, no callback function is used."
 msgstr ""
-"Lorsque B<client_cert_cb>() est NULL, aucune fonction de rappel n’est "
-"utilisée."
+"Lorsque B<cert_cb()> est NULL, aucune fonction de rappel n’est utilisée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:23
-#, fuzzy
-#| msgid ""
-#| "client_cert_cb() is the application defined callback. If it wants to set "
-#| "a certificate, a certificate/private key combination must be set using "
-#| "the B<x509> and B<pkey> arguments and \"1\" must be returned. The "
-#| "certificate will be installed into B<ssl>, see the NOTES and BUGS "
-#| "sections.  If no certificate should be set, \"0\" has to be returned and "
-#| "no certificate will be sent. A negative return value will suspend the "
-#| "handshake and the handshake function will return immediately. "
-#| "L<SSL_get_error(3)|SSL_get_error(3)> will return "
-#| "SSL_ERROR_WANT_X509_LOOKUP to indicate, that the handshake was suspended. "
-#| "The next call to the handshake function will again lead to the call of "
-#| "client_cert_cb(). It is the job of the client_cert_cb() to store "
-#| "information about the state of the last call, if required to continue."
 msgid ""
 "cert_cb() is the application defined callback. It is called before a "
 "certificate will be used by a client or server. The callback can then "
@@ -658,19 +700,19 @@ msgid ""
 "of the cert_cb() to store information about the state of the last call, if "
 "required to continue."
 msgstr ""
-"B<client_cert_cb>() est le rappel défini par l’application. Si elle veut "
-"définir un certificat, une combinaison clef/certificat privé doit être "
-"indiquée en utilisant les arguments I<x509> et I<pkey>, et B<1> doit être "
-"renvoyé. Le certificat sera installé dans I<ssl> ; consultez les sections "
-"NOTES et BOGUES. Si aucun certificat ne doit être défini, B<0> doit être "
-"renvoyé et aucun certificat ne sera adressé. Le renvoi d’une valeur négative "
-"suspendra l’initiation de connexion et la fonction d’initiation s'arrêtera "
-"immédiatement. L<B<SSL_get_error>(3)|SSL_get_error(3)> renverra "
-"SSL_ERROR_WANT_X509_LOOKUP pour signaler que l’initiation est suspendue. Le "
-"prochain appel à la fonction d’initiation amènera de nouveau à l’appel de "
-"B<client_cert_cb>(). C’est au B<client_cert_cb>() d’emmagasiner "
-"l’information sur l’état du dernier appel, si une demande de continuation "
-"est faite."
+"B<cert_cb()> est le rappel défini par l’application. Il est employé avant "
+"qu’un certificat soit utilisé par un client ou un serveur. Le rappel peut "
+"alors inspecter la structure transmise I<ssl> et établir ou supprimer "
+"n’importe quel certificat. Si le rappel est réussi, il B<doit> renvoyer B<1> "
+"même si aucun certificat n’est établi. Un B<0> est renvoyé lors d’une erreur "
+"qui interrompt l’initiation de connexion avec une alerte d’erreur interne "
+"fatale. Le renvoi d’une valeur négative suspendra l’initiation de connexion "
+"et la fonction d’initiation s'arrêtera immédiatement. L<B<SSL_get_error>(3)|"
+"SSL_get_error(3)> renverra SSL_ERROR_WANT_X509_LOOKUP pour signaler que "
+"l’initiation est suspendue. Le prochain appel à la fonction d’initiation "
+"amènera de nouveau à l’appel de B<client_cert_cb>(). C’est au B<cert_cb>() "
+"d’emmagasiner l’information sur l’état du dernier appel, si une demande de "
+"continuation est faite."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:38
@@ -680,6 +722,10 @@ msgid ""
 "can add intermediate and optionally the root CA certificates using "
 "SSL_add1_chain_cert()."
 msgstr ""
+"Une application appellera habituellement B<SSL_use_certificate>() et "
+"B<SSL_use_PrivateKey>() pour définir les clef privée et certificat d’entité "
+"de fin. Elle peut facultativement ajouter en intermédiaire les certificats "
+"d’autorité racine en employant B<SSL_add1_chain_cert>()."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:43
@@ -687,6 +733,8 @@ msgid ""
 "It might also call SSL_certs_clear() to delete any certificates associated "
 "with the B<SSL> object."
 msgstr ""
+"Elle peut aussi appeler B<SSL_certs_clear>() pour supprimer n’importe quel "
+"certificat associé avec l’objet I<SSL>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:46
@@ -696,6 +744,10 @@ msgid ""
 "is B<always> called even is a certificate is already set so the callback can "
 "modify or delete the existing certificate."
 msgstr ""
+"La fonction de rappel de certificat remplace la (défectueuse) fonction "
+"fournie par la vieille interface client de rappel de certificat. Elle est "
+"B<toujours> appelée même si un certificat est déjà défini, ainsi le rappel "
+"peut modifier ou supprimer les certificats existants."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:51
@@ -706,6 +758,11 @@ msgid ""
 "v1.2 client which advertises support for SHA256 could receive a chain using "
 "SHA256."
 msgstr ""
+"Un rappel de plus haut niveau peut examiner les paramètres de l’initiation "
+"de connexion et définir toute chaîne appropriée. Par exemple, un ancien "
+"client ne prenant en charge que TLS v1.0 peut recevoir une chaîne de "
+"certificats signée avec SHA1, tandis qu’un client TLS v1.2 déclarant la "
+"prise en charge de SHA256 peut recevoir une chaîne utilisant SHA256."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:57
@@ -714,27 +771,23 @@ msgid ""
 "callback. So if an EC chain is set for a curve the client does not support "
 "it will B<not> be used."
 msgstr ""
+"Des contrôles de validité pour le serveur sont réalisés sur tous les "
+"certificats définis par le rappel. Aussi, si une chaîne de courbe elliptique "
+"est définie pour une courbe que le client ne prend pas en charge, elle ne "
+"sera B<pas> utilisée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_cb.pod:63
-#, fuzzy
-#| msgid ""
-#| "L<ssl(3)|ssl(3)>, L<SSL_CTX_use_certificate(3)|"
-#| "SSL_CTX_use_certificate(3)>, L<SSL_CTX_add_extra_chain_cert(3)|"
-#| "SSL_CTX_add_extra_chain_cert(3)>, L<SSL_get_client_CA_list(3)|"
-#| "SSL_get_client_CA_list(3)>, L<SSL_clear(3)|SSL_clear(3)>, L<SSL_free(3)|"
-#| "SSL_free(3)>"
 msgid ""
 "L<ssl(3)|ssl(3)>, L<SSL_use_certificate(3)|SSL_use_certificate(3)>, "
 "L<SSL_add1_chain_cert(3)|SSL_add1_chain_cert(3)>, "
 "L<SSL_get_client_CA_list(3)|SSL_get_client_CA_list(3)>, L<SSL_clear(3)|"
 "SSL_clear(3)>, L<SSL_free(3)|SSL_free(3)>"
 msgstr ""
-"L<B<ssl>(3)|ssl(3)>, L<B<SSL_CTX_use_certificate>(3)|"
-"SSL_CTX_use_certificate(3)>, L<B<SSL_CTX_add_extra_chain_cert>(3)|"
-"SSL_CTX_add_extra_chain_cert(3)>, L<B<SSL_get_client_CA_list>(3)|"
-"SSL_get_client_CA_list(3)>, L<B<SSL_clear>(3)|SSL_clear(3)>, "
-"L<B<SSL_free>(3)|SSL_free(3)>"
+"L<B<ssl>(3)|ssl(3)>, L<B<SSL_use_certificate>(3)|SSL_use_certificate(3)>, "
+"L<B<SSL_add1_chain_cert>(3)|SSL_add1_chain_cert(3)>, "
+"L<B<SSL_get_client_CA_list>(3)|SSL_get_client_CA_list(3)>, L<B<SSL_clear>(3)|"
+"SSL_clear(3)>, L<B<SSL_free>(3)|SSL_free(3)>"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_store.pod:5
@@ -820,7 +873,7 @@ msgstr ""
 "Aucune documentation détaillée du mode d'utilisation de l'objet X509_STORE "
 "n'est pour l'instant disponible. Les éléments du X509_STORE ne sont pas tous "
 "utilisés au moment de la vérification. Ainsi, par exemple, la fonction "
-"I<verify_callback>() sera écrasée par la fonction I<verify_callback>() "
+"B<verify_callback>() sera écrasée par la fonction B<verify_callback>() "
 "définie par la famille de fonctions L<B<SSL_CTX_set_verify>(3)|"
 "SSL_CTX_set_verify(3)>. Ce document devra par conséquent être mis à jour "
 "lorsque la documentation de l'objet X509_STORE et de son traitement sera "
@@ -839,6 +892,11 @@ msgid ""
 "child SSL structure. Applications wanting finer control can use functions "
 "such as SSL_CTX_set1_verify_cert_store() instead."
 msgstr ""
+"La structure X509_STORE utilisée par un SSL_CTX est employée pour vérifier "
+"les certificats de pairs et construire la chaîne de certificats ; elle est "
+"aussi partagée par toute structure SSL enfant. Les applications désirant un "
+"contrôle plus fin peuvent plutôt utiliser des fonctions telles que "
+"B<SSL_CTX_set1_verify_cert_store>()."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_cert_store.pod:54
@@ -1625,6 +1683,8 @@ msgid ""
 "SSL_CTX_add_client_custom_ext, SSL_CTX_add_server_custom_ext - custom TLS "
 "extension handling"
 msgstr ""
+"SSL_CTX_add_client_custom_ext, SSL_CTX_add_server_custom_ext - Gestion "
+"personnalisée d’extension TLS"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:11
@@ -1637,6 +1697,12 @@ msgid ""
 "\t\t\t\t   void *parse_arg);\n"
 "\n"
 msgstr ""
+"B< int SSL_CTX_add_client_custom_ext(SSL_CTX *>I<ctx>B<, unsigned int> I<ext_type>B<,>\n"
+" \t\t\t           B<custom_ext_add_cb> I<add_cb>B<,>\n"
+" \t\t\t           B<custom_ext_free_cb> I<free_cb>B<, void *>I<add_arg>B<,>\n"
+" \t\t\t           B<custom_ext_parse_cb> I<parse_cb>B<,>\n"
+" \t\t\t\t   B<void *>I<parse_arg>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:17
@@ -1649,6 +1715,12 @@ msgid ""
 "\t\t\t\t   void *parse_arg);\n"
 "\n"
 msgstr ""
+"B< int SSL_CTX_add_server_custom_ext(SSL_CTX *>I<ctx>B<, unsigned int> I<ext_type>B<,>\n"
+" \t\t\t           B<custom_ext_add_cb> I<add_cb>B<,>\n"
+" \t\t\t           B<custom_ext_free_cb> I<free_cb>B<, void *>I<add_arg>B<,>\n"
+" \t\t\t           B<custom_ext_parse_cb> I<parse_cb>B<,>\n"
+" \t\t\t\t   B<void *>I<parse_arg>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:23
@@ -1657,6 +1729,8 @@ msgid ""
 " int SSL_extension_supported(unsigned int ext_type);\n"
 "\n"
 msgstr ""
+"B< int SSL_extension_supported(unsigned int> I<ext_type>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:25
@@ -1668,6 +1742,11 @@ msgid ""
 "\t\t\t\t  void *add_arg);\n"
 "\n"
 msgstr ""
+"B< typedef int (*>I<custom_ext_add_cb>B<)(SSL *s>B<, unsigned int> I<ext_type>B<,>\n"
+" \t\t\t\t  B<const unsigned char **>I<out>B<,>\n"
+" \t\t\t\t  B<size_t *>I<outlen>B<, int *>I<al>B<,>\n"
+" \t\t\t\t  B<void *>I<add_arg>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:30
@@ -1678,6 +1757,10 @@ msgid ""
 "\t\t\t\t    void *add_arg);\n"
 "\n"
 msgstr ""
+"B< typedef void (*>I<custom_ext_free_cb>B<)(SSL *s, unsigned intB> I<ext_type>B<,>\n"
+" \t\t\t\t    B<const unsigned char *>I<out>B<,>\n"
+" \t\t\t\t    B<void *>I<add_arg>B<);>\n"
+"\n"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:34
@@ -1689,6 +1772,11 @@ msgid ""
 "\t\t\t\t    void *parse_arg);\n"
 "\n"
 msgstr ""
+"B< typedef int (*>I<custom_ext_parse_cb>B<)(SSL *s, unsigned intB> I<ext_type>B<,>\n"
+" \t\t\t\t    B<const unsigned char *>I<in>B<,>\n"
+" \t\t\t\t    B<size_t> I<inlen>B<, int *>I<al>B<,>\n"
+" \t\t\t\t    B<void *>I<parse_arg>B<);>\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:42
@@ -1697,6 +1785,9 @@ msgid ""
 "with extension type B<ext_type> and callbacks B<add_cb>, B<free_cb> and "
 "B<parse_cb>."
 msgstr ""
+"B<SSL_CTX_add_client_custom_ext>() ajoute une extension personnalisée pour "
+"un client TLS avec une extension de type I<ext_type> et les rappels "
+"I<add_cb>, I<free_cb> et I<parse_cb>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:46
@@ -1705,6 +1796,9 @@ msgid ""
 "with extension type B<ext_type> and callbacks B<add_cb>, B<free_cb> and "
 "B<parse_cb>."
 msgstr ""
+"B<SSL_CTX_add_server_custom_ext>() ajoute une extension personnalisée pour "
+"un serveur TLS avec une extension de type I<ext_type> et les rappels "
+"I<add_cb>, I<free_cb> et I<parse_cb>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:50
@@ -1712,6 +1806,8 @@ msgid ""
 "In both cases the extension type must not be handled by OpenSSL internally "
 "or an error occurs."
 msgstr ""
+"Dans les deux cas, le type d’extension ne doit pas être géré en interne par "
+"OpenSSL, sinon une erreur se produit."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:53
@@ -1720,11 +1816,13 @@ msgid ""
 "SSL_extension_supported() returns 1 if the extension B<ext_type> is handled "
 "internally by OpenSSL and 0 otherwise."
 msgstr ""
+"B<SSL_extension_supported>() renvoie B<1> si l’extension I<ext_type> est "
+"gérée en interne par OpenSSL ou autrement B<0>."
 
 #. type: =head1
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:56
 msgid "EXTENSION CALLBACKS"
-msgstr ""
+msgstr "FONCTIONS DE RAPPEL D’EXTENSION"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:58
@@ -1734,6 +1832,11 @@ msgid ""
 "B<ext_type> parameter is set to the extension type which will be added and "
 "B<add_arg> to the value set when the extension handler was added."
 msgstr ""
+"Le rappel I<add_cb> est demandé pour envoyer des données d’extension "
+"personnalisée à inclure dans ClientHello pour un client TLS ou ServerHello "
+"pour un serveur TLS. Le paramètre I<ext_type> est défini au type d’extension "
+"qui sera ajouté et le paramètre I<add_arg> à la valeur définie lorsque le "
+"gestionnaire d’extension a été ajouté."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:63
@@ -1742,12 +1845,17 @@ msgid ""
 "B<*out> to the extension data, set B<*outlen> to the length of the extension "
 "data and return 1."
 msgstr ""
+"Si l’application veut inclure l’extension I<ext_type>, elle doit définir "
+"I<*out> aux données d’extension, définir I<*outlen> à la longueur des "
+"données d’extension et renvoyer B<1>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:67
 msgid ""
 "If the B<add_cb> does not wish to include the extension it must return 0."
 msgstr ""
+"Si le rappel I<add_cb> ne veut pas inclure l’extension, il doit renvoyer "
+"B<0>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:69
@@ -1755,6 +1863,8 @@ msgid ""
 "If B<add_cb> returns -1 a fatal handshake error occurs using the TLS alert "
 "value specified in B<*al>."
 msgstr ""
+"Si le rappel I<add_cb> renvoie B<-1>, une erreur fatale d’initiation de "
+"connexion s’est produite avec un message d’alerte TLS indiqué dans I<*al>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:72
@@ -1762,6 +1872,8 @@ msgid ""
 "For clients (but not servers) if B<add_cb> is set to NULL a zero length "
 "extension is added for B<ext_type>."
 msgstr ""
+"Pour les clients (mais pas les serveurs), si I<add_cb> est défini à NULL, "
+"une extension de longueur zéro est ajoutée pour I<ext_type>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:75
@@ -1769,6 +1881,8 @@ msgid ""
 "For clients every registered B<add_cb> is always called to see if the "
 "application wishes to add an extension to ClientHello."
 msgstr ""
+"Pour les clients, chaque I<add_cb> enregistré est toujours appelé pour "
+"savoir si l’application veut ajouter une extension à ClientHello."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:78
@@ -1779,6 +1893,11 @@ msgid ""
 "corresponding extension was received in ClientHello then B<add_cb> will not "
 "be called."
 msgstr ""
+"Pour les serveurs, chaque I<add_cb> enregistré est appelé une fois, si et "
+"seulement si l’extension correspondante a été intégrée dans ClientHello, "
+"pour savoir si l’application veut ajouter l’extension à ServerHello. C’est-à-"
+"dire, sans extension correspondante dans ClientHello, I<add_cb> n’est pas "
+"appelé."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:83
@@ -1789,6 +1908,13 @@ msgid ""
 "constant (to permit use of constant data in B<add_cb>) applications may need "
 "to cast away const to free the data."
 msgstr ""
+"Si une extension est ajoutée (c’est-à-dire, I<add_cb> renvoie B<1>), "
+"I<free_cb> est appelé (s’il est défini) avec la valeur de I<out> définie par "
+"le rappel d’ajout. Il peut être utilisé pour libérer n’importe quelles "
+"données d’extension variables définies par I<add_cb>. Puisque I<out> est "
+"constant (pour permettre l’utilisation de données constantes dans "
+"I<add_cb>), les applications peuvent nécessiter de rejeter cette constance "
+"pour libérer les données."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:89
@@ -1797,6 +1923,9 @@ msgid ""
 "the extension data will come from ServerHello and for TLS servers it will "
 "come from ClientHello."
 msgstr ""
+"Le rappel I<parse_cb> reçoit des données pour des extensions TLS. Pour les "
+"clients TLS les données d’extension proviennent de ServerHello et pour les "
+"serveurs TLS de ClientHello."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:93
@@ -1804,6 +1933,8 @@ msgid ""
 "The extension data consists of B<inlen> bytes in the buffer B<in> for the "
 "extension B<extension_type>."
 msgstr ""
+"Les données d’extension consistent en I<inlen> octets dans le tampon I<in> "
+"pour l’extension I<extension_type>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:96
@@ -1812,6 +1943,9 @@ msgid ""
 "If it returns 0 or a negative value a fatal handshake error occurs using the "
 "TLS alert value specified in B<*al>."
 msgstr ""
+"Si I<parse_cb> juge les données d’extension valables, il doit renvoyer B<1>. "
+"S’il renvoie B<0> ou une valeur négative, une erreur fatale d’initiation de "
+"connexion se produit avec un message d’alerte indiqué dans I<*al>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:100
@@ -1819,6 +1953,8 @@ msgid ""
 "The buffer B<in> is a temporary internal buffer which will not be valid "
 "after the callback returns."
 msgstr ""
+"Le tampon I<in> est un tampon interne temporaire qui ne sera plus valable "
+"après le renvoi du rappel."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:105
@@ -1828,6 +1964,11 @@ msgid ""
 "be used to store the extension data received in a convenient structure or "
 "pass the extension data to be added or freed when adding extensions."
 msgstr ""
+"Les paramètres I<add_arg> et I<parse_arg> peuvent être définis à des valeurs "
+"arbitraires transmises aux rappels correspondants. Ils peuvent, par exemple "
+"servir au stockage des données d’extension reçues dans une structure "
+"appropriée ou à transmettre les données d’extension à ajouter ou libérer "
+"lors de l’ajout de l’extension."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:110
@@ -1835,6 +1976,8 @@ msgid ""
 "The B<ext_type> parameter corresponds to the B<extension_type> field of "
 "RFC5246 et al. It is B<not> a NID."
 msgstr ""
+"Le paramètre I<ext_type> correspond au champ I<extension_type> de la "
+"RFC 5246 (entre autres). Ce n’est B<pas> un identifiant (NID)."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:113
@@ -1848,6 +1991,15 @@ msgid ""
 "specifications.  This behaviour ensures that each callback is called at most "
 "once and that an application can never send unsolicited extensions."
 msgstr ""
+"Si la même extension personnalisée est reçue plusieurs fois, une alerte "
+"I<decode_error> fatale est envoyée et l’initiation de connexion échoue. Si "
+"une extension personnalisée est reçue dans ServerHello qui n’avait pas été "
+"envoyée dans ClientHello, une alerte I<unsupported_extension> est envoyée et "
+"l’initiation de connexion avorte. Le rappel I<add_cb> de ServerHello est "
+"seulement appelé si l’extension correspondante a été reçue dans ClientHello. "
+"Cela est conforme aux spécifications TLS. Ce comportement assure que chaque "
+"rappel est fait au plus une fois et qu’une application ne ne puisse envoyer "
+"une extension non sollicitée."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_custom_cli_ext.pod:124
@@ -1858,6 +2010,12 @@ msgid ""
 "extension type handled internally by OpenSSL or if an internal error occurs "
 "(for example a memory allocation failure)."
 msgstr ""
+"B<SSL_CTX_add_client_custom_ext>() et B<SSL_CTX_add_server_custom_ext>() "
+"renvoient B<1> pour un succès et B<0> pour un échec. Un échec peut se "
+"produire si un essai est fait d’ajouter plus d’une fois le même I<ext_type>, "
+"si un essai est fait d’utiliser un type d’extension utilisé en interne par "
+"OpenSSL ou si une erreur interne se produit (par exemple un échec "
+"d’allocation mémoire)."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_default_passwd_cb.pod:5
@@ -4515,21 +4673,21 @@ msgid ""
 "SSL_CTX_get_read_ahead, SSL_CTX_get_default_read_ahead, SSL_set_read_ahead, "
 "SSL_get_read_ahead - manage whether to read as many input bytes as possible"
 msgstr ""
+"SSL_CTX_set_read_ahead, SSL_CTX_set_default_read_ahead, "
+"SSL_CTX_get_read_ahead, SSL_CTX_get_default_read_ahead, SSL_set_read_ahead, "
+"SSL_get_read_ahead - Décider de la lecture d’autant d’octets d’entrée que "
+"possibles"
 
 #. type: verbatim
 #: C/ssl/SSL_CTX_set_read_ahead.pod:13
-#, fuzzy, no-wrap
-#| msgid ""
-#| " long SSL_CTX_get_mode(SSL_CTX *ctx);\n"
-#| " long SSL_get_mode(SSL *ssl);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int SSL_get_read_ahead(const SSL *s);\n"
 " void SSL_set_read_ahead(SSL *s, int yes);\n"
 "\n"
 msgstr ""
-"B< long SSL_CTX_get_mode(SSL_CTX *>I<ctx>B<);>\n"
-" B<long SSL_get_mode(SSL *>I<ssl>B<);>\n"
+"B< int SSL_get_read_ahead(const SSL *s);>\n"
+" B<void SSL_set_read_ahead(SSL *s, int> I<yes>B<);>\n"
 "\n"
 
 #. type: verbatim
@@ -4542,6 +4700,11 @@ msgid ""
 " #define SSL_CTX_set_read_ahead(ctx,m)\n"
 "\n"
 msgstr ""
+"B< #define SSL_CTX_get_default_read_ahead(ctx)>\n"
+" B<#define SSL_CTX_set_default_read_ahead(ctx,>I<m>B<)>\n"
+" B<#define SSL_CTX_get_read_ahead(ctx)>\n"
+" B<#define SSL_CTX_set_read_ahead(ctx,>I<m>B<)>\n"
+"\n"
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_read_ahead.pod:23
@@ -4555,6 +4718,15 @@ msgid ""
 "B<yes> or B<m> should be 0 to ensure reading ahead is off, or non zero "
 "otherwise."
 msgstr ""
+"B<SSL_CTX_set_read_ahead>() et B<SSL_set_read_ahead>() définissent si autant "
+"d’octets que possibles doivent être lus ou pas (pour les lectures non "
+"bloquantes). Par exemple, si I<x> octets sont demandés par OpenSSL, mais que "
+"I<y> octets sont disponibles dans le BIO en cause (où I<y> > I<x>), alors "
+"OpenSSL lira tous les I<y> octets dans son tampon (pourvu que le tampon soit "
+"suffisamment grand) si la lecture complète est activée, ou I<x> octets dans "
+"le cas contraire. Les paramètres I<yes> ou I<m> doivent être à B<0> pour "
+"être sûr que la lecture complète soit désactivée, ou différent de zéro pour "
+"le contraire."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_read_ahead.pod:31
@@ -4562,6 +4734,9 @@ msgid ""
 "SSL_CTX_set_default_read_ahead is a synonym for SSL_CTX_set_read_ahead, and "
 "SSL_CTX_get_default_read_ahead is a synonym for SSL_CTX_get_read_ahead."
 msgstr ""
+"B<SSL_CTX_set_default_read_ahead> est un synonyme de "
+"B<SSL_CTX_set_read_ahead>, et B<SSL_CTX_get_default_read_ahead> pour "
+"B<SSL_CTX_get_read_ahead>."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_read_ahead.pod:34
@@ -4569,6 +4744,8 @@ msgid ""
 "SSL_CTX_get_read_ahead() and SSL_get_read_ahead() indicate whether reading "
 "ahead has been set or not."
 msgstr ""
+"B<SSL_CTX_get_read_ahead>() et B<SSL_get_read_ahead>() précisent si la "
+"lecture complète a été activée ou non."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_read_ahead.pod:39
@@ -4576,6 +4753,9 @@ msgid ""
 "These functions have no impact when used with DTLS. The return values for "
 "SSL_CTX_get_read_head() and SSL_get_read_ahead() are undefined for DTLS."
 msgstr ""
+"Ces fonctions n’ont aucun impact si elles sont utilisées avec DTLS. Les "
+"valeurs de retour avec DTLS de B<SSL_CTX_get_read_head>() et "
+"B<SSL_get_read_ahead>() sont indéterminées."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_read_ahead.pod:44
@@ -4583,6 +4763,9 @@ msgid ""
 "SSL_get_read_ahead and SSL_CTX_get_read_ahead return 0 if reading ahead is "
 "off, and non zero otherwise."
 msgstr ""
+"B<SSL_get_read_ahead> et B<SSL_CTX_get_read_ahead> renvoient B<0> si la "
+"lecture complète est désactivée et une valeur différente de zéro dans le cas "
+"contraire."
 
 #. type: textblock
 #: C/ssl/SSL_CTX_set_read_ahead.pod:49
