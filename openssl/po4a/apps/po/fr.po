@@ -12,15 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-12-23 16:29-0400\n"
-"PO-Revision-Date: 2015-05-05 18:19-0400\n"
-"Last-Translator: Celia Boudjemai <celisou2008@gmail.com>\n"
+"PO-Revision-Date: 2015-07-03 15:48+0200\n"
+"Last-Translator: Jean-Paul Guillonneau <guillonneau.jeanpaul@free.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.5\n"
 
 #. type: =for
 #: C/apps/config.pod:4
@@ -296,6 +295,8 @@ msgstr ""
 #: C/apps/config.pod:92
 msgid "The features of each configuration module are described below."
 msgstr ""
+"Les caractéristiques de chaque module de configuration sont décrites ci-"
+"dessous."
 
 #. type: =head2
 #: C/apps/config.pod:94
@@ -589,6 +590,8 @@ msgid ""
 "This modules has the name B<alg_section> which points to a section "
 "containing algorithm commands."
 msgstr ""
+"Ce module porte le nom de B<alg_section> qui pointe vers une section "
+"contenant les commandes d’algorithme."
 
 #. type: textblock
 #: C/apps/config.pod:198
@@ -598,6 +601,11 @@ msgid ""
 "this attempt to enter FIPS mode. If the call fails or the library is not "
 "FIPS capable then an error occurs."
 msgstr ""
+"Actuellement, la seule commande d’algorithme prise en charge est "
+"B<fips_mode> dont la valeur devrait être une valeur booléenne telle que "
+"I<on> ou I<off>. Si la valeur est I<on>, cela entreprendra l’entrée en mode "
+"FIPS. Si l’appel échoue ou si la bibliothèque n’est pas compatible avec "
+"FIPS, une erreur surviendra."
 
 #. type: verbatim
 #: C/apps/config.pod:205
@@ -606,18 +614,17 @@ msgid ""
 " alg_section = evp_settings\n"
 "\n"
 msgstr ""
+" alg_section = evp_settings\n"
+"\n"
 
 #. type: verbatim
 #: C/apps/config.pod:207
-#, fuzzy, no-wrap
-#| msgid ""
-#| " [new_oids]\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " [evp_settings]\n"
 "\n"
 msgstr ""
-" [nouveaux_oid]\n"
+" [evp_settings]\n"
 "\n"
 
 #. type: verbatim
@@ -627,6 +634,8 @@ msgid ""
 " fips_mode = on\n"
 "\n"
 msgstr ""
+" fips_mode = on\n"
+"\n"
 
 #. type: =head1
 #: C/apps/config.pod:212 C/apps/dgst.pod:191 C/apps/enc.pod:163
@@ -860,10 +869,10 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/config.pod:280
-#, fuzzy
-#| msgid "config - OpenSSL CONF library configuration files"
 msgid "Simple OpenSSL library configuration example to enter FIPS mode:"
-msgstr "config - Fichiers de configuration de la bibliothèque OpenSSL CONF"
+msgstr ""
+"Exemple de configuration de la bibliothèque OpenSSL pour entrer dans le mode "
+"FIPS :"
 
 #. type: verbatim
 #: C/apps/config.pod:282 C/apps/config.pod:299
@@ -874,6 +883,10 @@ msgid ""
 " openssl_conf = openssl_conf_section\n"
 "\n"
 msgstr ""
+" # Nom_appli par défaut doit correspondre au param « nom_appli »\n"
+" # (s’il existe) fourni à CONF_modules_load_file, etc.\n"
+" openssl_conf = openssl_conf_section\n"
+"\n"
 
 #. type: verbatim
 #: C/apps/config.pod:286
@@ -884,6 +897,10 @@ msgid ""
 " alg_section = evp_sect\n"
 "\n"
 msgstr ""
+" [openssl_conf_section]\n"
+" # liste de modules de configuration\n"
+" alg_section = evp_sect\n"
+"\n"
 
 #. type: verbatim
 #: C/apps/config.pod:290
@@ -894,6 +911,10 @@ msgid ""
 " fips_mode = yes\n"
 "\n"
 msgstr ""
+" [evp_sect]\n"
+" # Défini à « yes » pour entrer dans le mode FIPS si pris en charge\n"
+" fips_mode = yes\n"
+"\n"
 
 #. type: textblock
 #: C/apps/config.pod:294
@@ -901,6 +922,8 @@ msgid ""
 "Note: in the above example you will get an error in non FIPS capable "
 "versions of OpenSSL."
 msgstr ""
+"Remarque : dans l’exemple ci-dessus, une erreur surviendra pour les versions "
+"d’OpenSSL n’acceptant pas FIPS."
 
 #. type: textblock
 #: C/apps/config.pod:297
@@ -908,6 +931,8 @@ msgid ""
 "More complex OpenSSL library configuration. Add OID and don't enter FIPS "
 "mode:"
 msgstr ""
+"Configuration de bibliothèque OpenSSL plus complexe. Ajout d’OID et ne pas "
+"entrer en mode FIPS :"
 
 #. type: verbatim
 #: C/apps/config.pod:303
@@ -919,6 +944,11 @@ msgid ""
 " oid_section = new_oids\n"
 "\n"
 msgstr ""
+" [openssl_conf_section]\n"
+" # liste de modules de configuration\n"
+" alg_section = evp_sect\n"
+" oid_section = new_oids\n"
+"\n"
 
 #. type: verbatim
 #: C/apps/config.pod:308
@@ -930,6 +960,11 @@ msgid ""
 " fips_mode = no\n"
 "\n"
 msgstr ""
+" [evp_sect]\n"
+" # Ceci sera sans effet car le mode FIPS par défaut est non activé.\n"
+" # Défini à « yes » pour entrer dans le mode FIPS si pris en charge\n"
+" fips_mode = no\n"
+"\n"
 
 #. type: verbatim
 #: C/apps/config.pod:313
@@ -942,6 +977,12 @@ msgid ""
 " newoid2 = New OID 2 long name, 1.2.3.4.2\n"
 "\n"
 msgstr ""
+" [new_oids]\n"
+" # Nouvel OID, nom court\n"
+" newoid1 = 1.2.3.4.1\n"
+" # Nouvel OID, noms court et long\n"
+" newoid2 = New OID 2 long name, 1.2.3.4.2\n"
+"\n"
 
 #. type: textblock
 #: C/apps/config.pod:319
@@ -950,6 +991,9 @@ msgid ""
 "configuration if \"openssl_conf\" is modified to match the appropriate "
 "\"appname\"."
 msgstr ""
+"Les exemples ci-dessus peuvent être utilisés avec toute application prenant "
+"en charge la configuration de bibliothèque si « openssl_conf » est modifié "
+"pour correspondre au « nom_appli » adéquat."
 
 #. type: textblock
 #: C/apps/config.pod:322
@@ -957,6 +1001,8 @@ msgid ""
 "For example if the second sample file above is saved to \"example.cnf\" then "
 "the command line:"
 msgstr ""
+"Par exemple, si le second fichier exemple ci-dessus est sauvegardé dans "
+"« example.cnf », alors la ligne de commande :"
 
 #. type: verbatim
 #: C/apps/config.pod:325
@@ -965,13 +1011,13 @@ msgid ""
 " OPENSSL_CONF=example.cnf openssl asn1parse -genstr OID:1.2.3.4.1\n"
 "\n"
 msgstr ""
+" OPENSSL_CONF=example.cnf openssl asn1parse -genstr OID:1.2.3.4.1\n"
+"\n"
 
 #. type: textblock
 #: C/apps/config.pod:327
-#, fuzzy
-#| msgid "Typical output:"
 msgid "will output:"
-msgstr "Sortie typique :"
+msgstr "produira :"
 
 #. type: verbatim
 #: C/apps/config.pod:329
@@ -980,11 +1026,13 @@ msgid ""
 "    0:d=0  hl=2 l=   4 prim: OBJECT            :newoid1\n"
 "\n"
 msgstr ""
+"    0:d=0  hl=2 l=   4 prim: OBJECT            :newoid1\n"
+"\n"
 
 #. type: textblock
 #: C/apps/config.pod:331
 msgid "showing that the OID \"newoid1\" has been added as \"1.2.3.4.1\"."
-msgstr ""
+msgstr "montrant que l’OID « newoid1 » a été ajouté en tant que « 1.2.3.4.1 »."
 
 #. type: =head1
 #: C/apps/config.pod:333 C/apps/enc.pod:323 C/apps/nseq.pod:65
@@ -1198,6 +1246,9 @@ msgid ""
 "releases before 1.0.0.  Note that current versions will not use the old "
 "style."
 msgstr ""
+"Utiliser l’ancien style de hachage (MD5 vs SHA-1) pour créer des liens pour "
+"les publications antérieures à 1.0.0. Remarquez que les versions actuelles "
+"n’utiliseront par l’ancien style."
 
 #. type: =item
 #: C/apps/c_rehash.pod:78
@@ -1220,6 +1271,8 @@ msgid ""
 "Do not remove existing links.  This is needed when keeping new and old-style "
 "links in the same directory."
 msgstr ""
+"Ne pas supprimer les liens existants. Cela est nécessaire pour garder des "
+"liens de nouveau et ancien styles dans le même répertoire."
 
 #. type: =item
 #: C/apps/c_rehash.pod:87 C/apps/tsget.pod:71 C/apps/version.pod:30
@@ -1232,6 +1285,8 @@ msgid ""
 "Print messages about old links removed and new links created.  By default, "
 "B<c_rehash> only lists each directory as it is processed."
 msgstr ""
+"Afficher les messages sur les anciens liens supprimés et les nouveaux créés. "
+"Par défaut, B<c_rehash> ne liste chaque répertoire que lorsqu’il est traité."
 
 #. type: =head1
 #: C/apps/c_rehash.pod:94
@@ -2727,20 +2782,6 @@ msgstr "ocsp - Utilitaire pour le protocole d’état de certificat en ligne"
 
 #. type: textblock
 #: C/apps/ocsp.pod:9
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<ocsp> [B<-out file>] [B<-issuer file>] [B<-cert file>] [B<-"
-#| "serial n>] [B<-signer file>] [B<-signkey file>] [B<-sign_other file>] [B<-"
-#| "no_certs>] [B<-req_text>] [B<-resp_text>] [B<-text>] [B<-reqout file>] "
-#| "[B<-respout file>] [B<-reqin file>] [B<-respin file>] [B<-nonce>] [B<-"
-#| "no_nonce>] [B<-url URL>] [B<-host host:n>] [B<-path>] [B<-CApath dir>] "
-#| "[B<-CAfile file>] [B<-VAfile file>] [B<-validity_period n>] [B<-"
-#| "status_age n>] [B<-noverify>] [B<-verify_other file>] [B<-trust_other>] "
-#| "[B<-no_intern>] [B<-no_signature_verify>] [B<-no_cert_verify>] [B<-"
-#| "no_chain>] [B<-no_cert_checks>] [B<-no_explicit>] [B<-port num>] [B<-"
-#| "index file>] [B<-CA file>] [B<-rsigner file>] [B<-rkey file>] [B<-rother "
-#| "file>] [B<-resp_no_certs>] [B<-nmin n>] [B<-ndays n>] [B<-resp_key_id>] "
-#| "[B<-nrequest n>] [B<-md5|-sha1|...>]"
 msgid ""
 "B<openssl> B<ocsp> [B<-out file>] [B<-issuer file>] [B<-cert file>] [B<-"
 "serial n>] [B<-signer file>] [B<-signkey file>] [B<-sign_other file>] [B<-"
@@ -2760,15 +2801,15 @@ msgstr ""
 "I<fichier>] [B<-sign_other> I<fichier>] [B<-no_certs>] [B<-req_text>] [B<-"
 "resp_text>] [B<-text>] [B<-reqout> I<fichier>] [B<-respout> I<fichier>] [B<-"
 "reqin> I<fichier>] [B<-respin> I<fichier>] [B<-nonce>] [B<-no_nonce>] [B<-"
-"url> I<URL>] [B<-host> I<hôte>B<:>I<n>] [B<-path> I<chemin>] [B<-CApath> "
-"I<rép>] [B<-CAfile> I<fichier>] [B<-VAfile> I<fichier>] [B<-validity_period> "
-"I<n>] [B<-status_age> I<age>] [B<-noverify>] [B<-verify_other> I<fichier>] "
-"[B<-trust_other>] [B<-no_intern>] [B<-no_signature_verify>] [B<-"
-"no_cert_verify>] [B<-no_chain>] [B<-no_cert_checks>] [B<-no_explicit>] [B<-"
-"port> I<num>] [B<-index> I<fichier>] [B<-CA> I<fichier>] [B<-rsigner> "
-"I<fichier>] [B<-rkey> I<fichier>] [B<-rother> I<fichier>] [B<-"
-"resp_no_certs>] [B<-nmin> I<n>] [B<-ndays> I<n>] [B<-resp_key_id>] [B<-"
-"nrequest> I<n>] [B<-md5>|B<-sha1>|...]"
+"url> I<URL>] [B<-host> I<hôte>B<:>I<n>] [B<-path>] [B<-CApath> I<rép>] [B<-"
+"CAfile> I<fichier>][B<-no_alt_chains>] [B<-VAfile> I<fichier>] [B<-"
+"validity_period> I<n>] [B<-status_age> I<age>] [B<-noverify>] [B<-"
+"verify_other> I<fichier>] [B<-trust_other>] [B<-no_intern>] [B<-"
+"no_signature_verify>] [B<-no_cert_verify>] [B<-no_chain>] [B<-"
+"no_cert_checks>] [B<-no_explicit>] [B<-port> I<num>] [B<-index> I<fichier>] "
+"[B<-CA> I<fichier>] [B<-rsigner> I<fichier>] [B<-rkey> I<fichier>] [B<-"
+"rother> I<fichier>] [B<-resp_no_certs>] [B<-nmin> I<n>] [B<-ndays> I<n>] [B<-"
+"resp_key_id>] [B<-nrequest> I<n>] [B<-md5>|B<-sha1>|...]"
 
 #. type: textblock
 #: C/apps/ocsp.pod:60
@@ -2999,15 +3040,14 @@ msgstr ""
 
 #. type: =item
 #: C/apps/ocsp.pod:147 C/apps/verify.pod:128
-#, fuzzy
-#| msgid "B<-no_chain>"
 msgid "B<-no_alt_chains>"
-msgstr "B<-no_chain>"
+msgstr "B<-no_alt_chains>"
 
 #. type: textblock
 #: C/apps/ocsp.pod:149
 msgid "See L<B<verify>|verify(1)> manual page for details."
 msgstr ""
+"Consultez la page de manuel L<B<verify>|verify(1)> pour plus de précisions."
 
 #. type: =item
 #: C/apps/ocsp.pod:151
@@ -3149,6 +3189,8 @@ msgid ""
 "do not explicitly trust the root CA if it is set to be trusted for OCSP "
 "signing."
 msgstr ""
+"Ne pas catégoriquement croire le certificat d’autorité racine s’il est "
+"utilisé comme autorité de confiance pour une signature OCSP."
 
 #. type: =item
 #: C/apps/ocsp.pod:202
@@ -3676,17 +3718,14 @@ msgstr ""
 
 #. type: verbatim
 #: C/apps/ocsp.pod:385
-#, fuzzy, no-wrap
-#| msgid ""
-#| " openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA demoCA/cacert.pem\n"
-#| "     -reqin req.der -respout resp.der\n"
+#, no-wrap
 msgid ""
 " openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA demoCA/cacert.pem\n"
 "     -reqin req.der -respout resp.der\n"
 "\n"
 msgstr ""
-" openssl ocsp -index demoCA/index.txt -rsigner rcert.pem \\\n"
-"\t-CA demoCA/cacert.pem -reqin dem.der -respout rep.der\n"
+" openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA demoCA/cacert.pem\n"
+"     -reqin req.der -respout resp.der\n"
 "\n"
 
 #. type: =head1
@@ -3696,10 +3735,9 @@ msgstr "HISTORIQUE"
 
 #. type: textblock
 #: C/apps/ocsp.pod:390 C/apps/verify.pod:439
-#, fuzzy
-#| msgid "The B<-d> option was added in OpenSSL 0.9.7."
 msgid "The -no_alt_chains options was first added to OpenSSL 1.0.2b."
-msgstr "L'option B<-d> a été ajoutée dans la version 0.9.7 d'OpenSSL."
+msgstr ""
+"L'option B<-no_alt_chains> a été ajoutée dans la version 1.0.2b d'OpenSSL."
 
 #. type: textblock
 #: C/apps/passwd.pod:5
@@ -4124,14 +4162,6 @@ msgstr ""
 
 #. type: textblock
 #: C/apps/req.pod:158
-#, fuzzy
-#| msgid ""
-#| "B<param:file> generates a key using the parameter file or certificate "
-#| "B<file>, the algorithm is determined by the parameters. B<algname:file> "
-#| "use algorithm B<algname> and parameter file B<file>: the two algorithms "
-#| "must match or an error occurs. B<algname> just uses algorithm B<algname>, "
-#| "and parameters, if necessary should be specified via B<-pkeyopt> "
-#| "parameter."
 msgid ""
 "B<param:file> generates a key using the parameter file or certificate "
 "B<file>, the algorithm is determined by the parameters. B<algname:file> use "
@@ -7971,15 +8001,6 @@ msgstr "verify - Utilitaire de vérification de certificats"
 
 #. type: textblock
 #: C/apps/verify.pod:9
-#, fuzzy
-#| msgid ""
-#| "B<openssl> B<verify> [B<-CApath directory>] [B<-CAfile file>] [B<-purpose "
-#| "purpose>] [B<-policy arg>] [B<-ignore_critical>] [B<-attime timestamp>] "
-#| "[B<-check_ss_sig>] [B<-crlfile file>] [B<-crl_check>] [B<-crl_check_all>] "
-#| "[B<-policy_check>] [B<-explicit_policy>] [B<-inhibit_any>] [B<-"
-#| "inhibit_map>] [B<-x509_strict>] [B<-extended_crl>] [B<-use_deltas>] [B<-"
-#| "policy_print>] [B<-untrusted file>] [B<-help>] [B<-issuer_checks>] [B<-"
-#| "verbose>] [B<->] [certificates]"
 msgid ""
 "B<openssl> B<verify> [B<-CApath directory>] [B<-CAfile file>] [B<-purpose "
 "purpose>] [B<-policy arg>] [B<-ignore_critical>] [B<-attime timestamp>] [B<-"
@@ -7994,8 +8015,9 @@ msgstr ""
 "I<horodatage>] [B<-check_ss_sig>] [B<-crlfile> I<fichier>] [B<-crl_check>] "
 "[B<-crl_check_all>] [B<-policy_check>] [B<-explicit_policy>] [B<-"
 "inhibit_any>] [B<-inhibit_map>] [B<-x509_strict>] [B<-extended_crl>] [B<-"
-"use_deltas>] [B<-policy_print>] [B<-untrusted> I<fichier>] [B<-help>] [B<-"
-"issuer_checks>] [B<-verbose>] [B<->] [I<certificats>]"
+"use_deltas>] [B<-policy_print>][B<-no_alt_chains>] [B<-untrusted> "
+"I<fichier>] [B<-help>] [B<-issuer_checks>] [B<-verbose>] [B<->] "
+"[I<certificats>]"
 
 #. type: textblock
 #: C/apps/verify.pod:39
@@ -8074,6 +8096,8 @@ msgstr "B<-crlfile> I<fichier>"
 #: C/apps/verify.pod:70
 msgid "File containing one or more CRL's (in PEM format) to load."
 msgstr ""
+"Ficher contenant une ou plusieurs listes de révocations de certificat (au "
+"format PEM)."
 
 #. type: =item
 #: C/apps/verify.pod:72 C/apps/verify.pod:140
@@ -8233,6 +8257,12 @@ msgid ""
 "suppressed so that only the first chain found is ever used. Using this "
 "option will force the behaviour to match that of previous OpenSSL versions."
 msgstr ""
+"Lors de la construction d’une chaîne de certificats, si le premier "
+"certificat trouvé n’est pas de confiance, alors OpenSSL continuera à "
+"chercher si une chaîne alternative de confiance peut être trouvée. Avec "
+"cette option, ce comportement est supprimé, de telle façon que seule la "
+"première chaîne puisse être utilisée. Cette option oblige à un comportement "
+"identique aux précédentes versions d’OpenSSL."
 
 #. type: =item
 #: C/apps/verify.pod:136
