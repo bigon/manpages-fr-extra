@@ -5,12 +5,12 @@
 # Nicolas François <nicolas.francois@centraliens.net>, 2008, 2009.
 # David Prévot <david@tilapin.org>, 2012, 2014, 2015.
 # Oliver Hamm <oliver.c.hamm@gmail.com>, 2014.
-# Jean-Pierre Giraud <jean-pierregiraud@neuf.fr>, 2014.
+# Jean-Pierre Giraud <jean-pierregiraud@neuf.fr>, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-05-06 17:00-0400\n"
-"PO-Revision-Date: 2015-05-05 18:43-0400\n"
+"PO-Revision-Date: 2015-07-13 23:01+0200\n"
 "Last-Translator: Jean-Pierre Giraud <jean-pierregiraud@neuf.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -210,7 +210,8 @@ msgid ""
 " CONF_modules_load_file, CONF_modules_load - OpenSSL configuration functions\n"
 "\n"
 msgstr ""
-" CONF_modules_load_file, CONF_modules_load - Fonctions de configuration d'OpenSSL\n"
+" CONF_modules_load_file, CONF_modules_load - Fonctions de configuration "
+"d'OpenSSL\n"
 "\n"
 
 #. type: verbatim
@@ -307,6 +308,9 @@ msgid ""
 "the default section pointed to by B<openssl_conf> if B<appname> does not "
 "exist."
 msgstr ""
+"Si B<CONF_MFLAGS_DEFAULT_SECTION> est activé, et B<appname> n'est pas "
+"NULL, il utilisera la section par défaut pointée par B<openssl_conf> si "
+"B<appname> n'existe pas."
 
 #. type: textblock
 #: C/crypto/CONF_modules_load_file.pod:48
@@ -317,6 +321,11 @@ msgid ""
 "OPENSSL_add_all_algorithms() and (if the application uses libssl)  "
 "SSL_library_init()."
 msgstr ""
+"Les applications devraient appeler ces fonctions après le chargement des "
+"modules intégrés en utilisant B<OPENSSL_load_builtin_modules>(), par "
+"exemple, tous les ENGINES en utilisant B<ENGINE_load_builtin_engines>(), "
+"tous les algorithmes en utilisant B<OPENSSL_add_all_algorithms>() et (si "
+"l'application utilise libssl) B<SSL_library_init>()."
 
 #. type: textblock
 #: C/crypto/CONF_modules_load_file.pod:54
@@ -326,6 +335,11 @@ msgid ""
 "the use of a configuration file is optional and its absence is not an error: "
 "in this case B<CONF_MFLAGS_IGNORE_MISSING_FILE> would be set."
 msgstr ""
+"En utilisant B<CONF_modules_load_file>() avec les réglages appropriés, une "
+"application peut personnaliser sa configuration pour mieux répondre à "
+"ses besoins. Dans certains cas, l'utilisation d'un fichier de configuration "
+"est facultatif et son absence n'est pas une erreur : dans ce cas "
+"B<CONF_MFLAGS_IGNORE_MISSING_FILE> devrait être activé."
 
 #. type: textblock
 #: C/crypto/CONF_modules_load_file.pod:59
@@ -335,6 +349,11 @@ msgid ""
 "warning message and the application continue. In other cases an application "
 "might consider a configuration file error as fatal and exit immediately."
 msgstr ""
+"Les erreurs lors de la  configuration peuvent aussi être traitées autrement "
+"par différentes applications. Par exemple, dans certains cas, une erreur "
+"peut seulement afficher un message d'avertissement et l'application "
+"continue. Dans d'autres cas, l'application peut considérer comme fatale "
+"une erreur de ficher de configuration et se terminer immédiatement."
 
 #. type: textblock
 #: C/crypto/CONF_modules_load_file.pod:64
@@ -343,6 +362,9 @@ msgid ""
 "configuration file themselves and have finer control over how errors are "
 "treated."
 msgstr ""
+"Des applications peuvent utiliser la fonction B<CONF_modules_load>() si "
+"elles souhaitent charger elles-mêmes un fichier de configuration et avoir un "
+"contrôle plus fin sur la manière dont les erreurs sont traitées."
 
 #. type: =head1
 #: C/crypto/CONF_modules_load_file.pod:68 C/crypto/OBJ_nid2obj.pod:99
@@ -356,6 +378,8 @@ msgid ""
 "Load a configuration file and print out any errors and exit (missing file "
 "considered fatal):"
 msgstr ""
+"Charger un fichier de configuration, afficher toutes les erreurs et "
+"terminer l'application (absence de fichier considérée comme fatale) :"
 
 #. type: verbatim
 #: C/crypto/CONF_modules_load_file.pod:73
@@ -368,6 +392,12 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" if (CONF_modules_load_file(NULL, NULL, 0) <= 0) {\n"
+"    fprintf(stderr, \"FATAL: error loading configuration file\\n\");\n"
+"    ERR_print_errors_fp(stderr);\n"
+"    exit(1);\n"
+" }\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/CONF_modules_load_file.pod:79
@@ -375,6 +405,9 @@ msgid ""
 "Load default configuration file using the section indicated by \"myapp\", "
 "tolerate missing files, but exit on other errors:"
 msgstr ""
+"Charger le ficher de configuration par défaut en utilisant la section "
+"indiquée par « myapp », tolérer les fichiers manquants, mais terminer "
+"l'application si d'autres erreurs surviennent :"
 
 #. type: verbatim
 #: C/crypto/CONF_modules_load_file.pod:82
@@ -388,6 +421,13 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" if (CONF_modules_load_file(NULL, \"myapp\",\n"
+"                            CONF_MFLAGS_IGNORE_MISSING_FILE) <= 0) {\n"
+"    fprintf(stderr, \"FATAL: error loading configuration file\\n\");\n"
+"    ERR_print_errors_fp(stderr);\n"
+"    exit(1);\n"
+" }\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/CONF_modules_load_file.pod:89
@@ -395,6 +435,9 @@ msgid ""
 "Load custom configuration file and section, only print warnings on error, "
 "missing configuration file ignored:"
 msgstr ""
+"Charger la section et le fichier de configuration personnalisés, afficher "
+"seulement des avertissements en cas d'erreur, l'absence de fichier de "
+"configuration est ignorée :"
 
 #. type: verbatim
 #: C/crypto/CONF_modules_load_file.pod:92
@@ -407,11 +450,19 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" if (CONF_modules_load_file(\"/something/app.cnf\", \"myapp\",\n"
+"                            CONF_MFLAGS_IGNORE_MISSING_FILE) <= 0) {\n"
+"    fprintf(stderr, \"WARNING: error loading configuration file\\n\");\n"
+"    ERR_print_errors_fp(stderr);\n"
+" }\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/CONF_modules_load_file.pod:98
 msgid "Load and parse configuration file manually, custom error handling:"
 msgstr ""
+"Charger et analyser soi-même le fichier de configuration, "
+"traitement d'erreur personnalisé :"
 
 #. type: verbatim
 #: C/crypto/CONF_modules_load_file.pod:100
@@ -427,7 +478,8 @@ msgid ""
 " } else {\n"
 "    cnf = NCONF_new(NULL);\n"
 "    if (NCONF_load_fp(cnf, fp, &eline) == 0) {\n"
-"        fprintf(stderr, \"Error on line %ld of configuration file\\n\", eline);\n"
+"        fprintf(stderr, \"Error on line %ld of configuration file\\n\", "
+"eline);\n"
 "        ERR_print_errors_fp(stderr);\n"
 "        /* Other malformed configuration file behaviour */\n"
 "    } else if (CONF_modules_load(cnf, \"appname\", 0) <= 0) {\n"
@@ -440,6 +492,29 @@ msgid ""
 "  }\n"
 "\n"
 msgstr ""
+" FILE *fp;\n"
+" CONF *cnf = NULL;\n"
+" long eline;\n"
+" fp = fopen(\"/somepath/app.cnf\", \"r\");\n"
+" if (fp == NULL) {\n"
+"    fprintf(stderr, \"Error opening configuration file\\n\");\n"
+"    /* Other missing configuration file behaviour */\n"
+" } else {\n"
+"    cnf = NCONF_new(NULL);\n"
+"    if (NCONF_load_fp(cnf, fp, &eline) == 0) {\n"
+"        fprintf(stderr, \"Error on line %ld of configuration file\\n\", "
+"eline);\n"
+"        ERR_print_errors_fp(stderr);\n"
+"        /* Other malformed configuration file behaviour */\n"
+"    } else if (CONF_modules_load(cnf, \"appname\", 0) <= 0) {\n"
+"      fprintf(stderr, \"Error configuring application\\n\");\n"
+"      ERR_print_errors_fp(stderr);\n"
+"      /* Other configuration error behaviour */\n"
+"    }\n"
+"    fclose(fp);\n"
+"    NCONF_free(cnf);\n"
+"  }\n"
+"\n"
 
 #. type: =head1
 #: C/crypto/CONF_modules_load_file.pod:122 C/crypto/CRYPTO_set_ex_data.pod:33
@@ -1028,7 +1103,8 @@ msgid ""
 " PEM_write_bio_CMS_stream - output CMS_ContentInfo structure in PEM format.\n"
 "\n"
 msgstr ""
-" PEM_write_bio_CMS_stream - Afficher une structure CMS_ContentInfo au format PEM\n"
+" PEM_write_bio_CMS_stream - Afficher une structure CMS_ContentInfo au format "
+"PEM\n"
 "\n"
 
 #. type: verbatim
@@ -1047,10 +1123,12 @@ msgstr ""
 #: C/crypto/PEM_write_bio_CMS_stream.pod:12
 #, no-wrap
 msgid ""
-" int PEM_write_bio_CMS_stream(BIO *out, CMS_ContentInfo *cms, BIO *data, int flags);\n"
+" int PEM_write_bio_CMS_stream(BIO *out, CMS_ContentInfo *cms, BIO *data, int "
+"flags);\n"
 "\n"
 msgstr ""
-" int PEM_write_bio_CMS_stream(BIO *out, CMS_ContentInfo *cms, BIO *data, int flags);\n"
+" int PEM_write_bio_CMS_stream(BIO *out, CMS_ContentInfo *cms, BIO *data, int "
+"flags);\n"
 "\n"
 
 #. type: textblock
@@ -1177,10 +1255,12 @@ msgstr "B<PEM_write_bio_PKCS7_stream>() a été ajoutée dans OpenSSL 1.0.0"
 msgid ""
 "SSLeay_version - retrieve version/build information about OpenSSL library"
 msgstr ""
+"SSLeay_version - Récupère les informations de version et de construction "
+"sur la bibliothèque OpenSSL"
 
 #. type: verbatim
 #: C/crypto/SSLeay_version.pod:11
-#, fuzzy, no-wrap
+#, no-wrap
 #| msgid ""
 #| " const char *UI_get0_result(UI *ui, int i);\n"
 #| "\n"
@@ -1188,7 +1268,7 @@ msgid ""
 " const char *SSLeay_version(int type);\n"
 "\n"
 msgstr ""
-" const char *UI_get0_result(UI *ui, int i);\n"
+" const char *SSLeay_version(int type);\n"
 "\n"
 
 #. type: textblock
@@ -1197,28 +1277,31 @@ msgid ""
 "SSLeay_version() returns a pointer to a constant string describing the "
 "version of the OpenSSL library or giving information about the library build."
 msgstr ""
+"B<SSLeay_version>() renvoie un pointeur vers une chaîne constante "
+"décrivant la version de la bibliothèque OpenSSL ou donnant des "
+"informations sur la construction de la bibliothèque."
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:19
-#, fuzzy
 #| msgid "The following B<flags> are currently recognized:"
 msgid "The following B<type> values are supported:"
-msgstr "Les B<flags> suivants sont reconnus :"
+msgstr "Les valeurs de B<type> suivantes sont prises en charge :"
 
 #. type: =item
 #: C/crypto/SSLeay_version.pod:23
 msgid "SSLEAY_VERSION"
-msgstr ""
+msgstr "SSLEAY_VERSION"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:25
 msgid "The version of the OpenSSL library including the release date."
 msgstr ""
+"La version de la bibliothèque OpenSSL y compris la date de publication."
 
 #. type: =item
 #: C/crypto/SSLeay_version.pod:27
 msgid "SSLEAY_CFLAGS"
-msgstr ""
+msgstr "SSLEAY_CFLAGS"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:29
@@ -1227,11 +1310,14 @@ msgid ""
 "\"compiler: ...\" if available or \"compiler: information not available\" "
 "otherwise."
 msgstr ""
+"Les drapeaux du compilateur activés pour le processus de compilation "
+"sous la forme « compiler: ... » si l'information est disponible ou "
+"« compiler: information not available » autrement."
 
 #. type: =item
 #: C/crypto/SSLeay_version.pod:33
 msgid "SSLEAY_BUILT_ON"
-msgstr ""
+msgstr "SSLEAY_BUILT_ON"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:35
@@ -1239,11 +1325,13 @@ msgid ""
 "The date of the build process in the form \"built on: ...\" if available or "
 "\"built on: date not available\" otherwise."
 msgstr ""
+"La date du processus de construction sous la forme « built on: .... » si "
+"l'information est disponible ou « built on: date not available » autrement."
 
 #. type: =item
 #: C/crypto/SSLeay_version.pod:38
 msgid "SSLEAY_PLATFORM"
-msgstr ""
+msgstr "SSLEAY_PLATFORM"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:40
@@ -1251,11 +1339,14 @@ msgid ""
 "The \"Configure\" target of the library build in the form \"platform: ...\" "
 "if available or \"platform: information not available\" otherwise."
 msgstr ""
+"La cible de « Configure » de la bibliothèque construite sous la forme "
+"« platform: .... » si l'information est disponible ou « platform: "
+"information not available » autrement."
 
 #. type: =item
 #: C/crypto/SSLeay_version.pod:43
 msgid "SSLEAY_DIR"
-msgstr ""
+msgstr "SSLEAY_DIR"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:45
@@ -1263,33 +1354,35 @@ msgid ""
 "The \"OPENSSLDIR\" setting of the library build in the form \"OPENSSLDIR: "
 "\"...\"\" if available or \"OPENSSLDIR: N/A\" otherwise."
 msgstr ""
+"Le paramètre de « OPENSSLDIR » de la bibliothèque construite sous "
+"la forme « OPENSSLDIR: ... » si l'information est disponible ou "
+"« OPENSSLDIR: N/A » autrement."
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:52
-#, fuzzy
 #| msgid "The following are DES-based transformations:"
 msgid "The following return values can occur:"
-msgstr "Les transformations suivantes sont basées sur DES :"
+msgstr "Les valeurs suivantes peuvent être renvoyées :"
 
 #. type: =item
 #: C/crypto/SSLeay_version.pod:56
 msgid "\"not available\""
-msgstr ""
+msgstr "« not available »"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:58
 msgid "An invalid value for B<type> was given."
-msgstr ""
+msgstr "Une valeur incorrecte pour B<type> a été donnée."
 
 #. type: =item
 #: C/crypto/SSLeay_version.pod:60
 msgid "Pointer to constant string"
-msgstr ""
+msgstr "Pointeur vers une chaîne constante"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:62
 msgid "Textual description."
-msgstr ""
+msgstr "Description textuelle"
 
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:68 C/crypto/threads.pod:208
@@ -1299,7 +1392,7 @@ msgstr "L<crypto(3)|crypto(3)>"
 #. type: textblock
 #: C/crypto/SSLeay_version.pod:72
 msgid "B<SSLEAY_DIR> was added in OpenSSL 0.9.7."
-msgstr ""
+msgstr "B<SSLEAY_DIR> a été ajoutée dans OpenSSL 0.9.7."
 
 #. type: textblock
 #: C/crypto/blowfish.pod:5
@@ -3496,7 +3589,8 @@ msgid ""
 " int ENGINE_cmd_is_executable(ENGINE *e, int cmd);\n"
 " int ENGINE_ctrl_cmd(ENGINE *e, const char *cmd_name,\n"
 "         long i, void *p, void (*f)(void), int cmd_optional);\n"
-" int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char *arg,\n"
+" int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char "
+"*arg,\n"
 "         int cmd_optional);\n"
 "\n"
 msgstr ""
@@ -3504,7 +3598,8 @@ msgstr ""
 " int ENGINE_cmd_is_executable(ENGINE *e, int cmd);\n"
 " int ENGINE_ctrl_cmd(ENGINE *e, const char *cmd_name,\n"
 "         long i, void *p, void (*f)(void), int cmd_optional);\n"
-" int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char *arg,\n"
+" int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char "
+"*arg,\n"
 "         int cmd_optional);\n"
 "\n"
 
@@ -3559,12 +3654,16 @@ msgid ""
 " int ENGINE_set_DH(ENGINE *e, const DH_METHOD *dh_meth);\n"
 " int ENGINE_set_RAND(ENGINE *e, const RAND_METHOD *rand_meth);\n"
 " int ENGINE_set_STORE(ENGINE *e, const STORE_METHOD *rand_meth);\n"
-" int ENGINE_set_destroy_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR destroy_f);\n"
+" int ENGINE_set_destroy_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR "
+"destroy_f);\n"
 " int ENGINE_set_init_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR init_f);\n"
-" int ENGINE_set_finish_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR finish_f);\n"
+" int ENGINE_set_finish_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR "
+"finish_f);\n"
 " int ENGINE_set_ctrl_function(ENGINE *e, ENGINE_CTRL_FUNC_PTR ctrl_f);\n"
-" int ENGINE_set_load_privkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpriv_f);\n"
-" int ENGINE_set_load_pubkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpub_f);\n"
+" int ENGINE_set_load_privkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR "
+"loadpriv_f);\n"
+" int ENGINE_set_load_pubkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR "
+"loadpub_f);\n"
 " int ENGINE_set_ciphers(ENGINE *e, ENGINE_CIPHERS_PTR f);\n"
 " int ENGINE_set_digests(ENGINE *e, ENGINE_DIGESTS_PTR f);\n"
 " int ENGINE_set_flags(ENGINE *e, int flags);\n"
@@ -3580,12 +3679,16 @@ msgstr ""
 " int ENGINE_set_DH(ENGINE *e, const DH_METHOD *dh_meth);\n"
 " int ENGINE_set_RAND(ENGINE *e, const RAND_METHOD *rand_meth);\n"
 " int ENGINE_set_STORE(ENGINE *e, const STORE_METHOD *rand_meth);\n"
-" int ENGINE_set_destroy_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR destroy_f);\n"
+" int ENGINE_set_destroy_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR "
+"destroy_f);\n"
 " int ENGINE_set_init_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR init_f);\n"
-" int ENGINE_set_finish_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR finish_f);\n"
+" int ENGINE_set_finish_function(ENGINE *e, ENGINE_GEN_INT_FUNC_PTR "
+"finish_f);\n"
 " int ENGINE_set_ctrl_function(ENGINE *e, ENGINE_CTRL_FUNC_PTR ctrl_f);\n"
-" int ENGINE_set_load_privkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpriv_f);\n"
-" int ENGINE_set_load_pubkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR loadpub_f);\n"
+" int ENGINE_set_load_privkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR "
+"loadpriv_f);\n"
+" int ENGINE_set_load_pubkey_function(ENGINE *e, ENGINE_LOAD_KEY_PTR "
+"loadpub_f);\n"
 " int ENGINE_set_ciphers(ENGINE *e, ENGINE_CIPHERS_PTR f);\n"
 " int ENGINE_set_digests(ENGINE *e, ENGINE_DIGESTS_PTR f);\n"
 " int ENGINE_set_flags(ENGINE *e, int flags);\n"
@@ -3707,8 +3810,10 @@ msgstr ""
 " RSA_METHOD - pour fournir une implémentation RSA alternative\n"
 " DSA_METHOD, DH_METHOD, RAND_METHOD, ECDH_METHOD, ECDSA_METHOD,\n"
 "       STORE_METHOD - identique pour d'autres API d'OpenSSL\n"
-" EVP_CIPHER - potentiellement plusieurs algorithmes de chiffrement (indexé par 'nid')\n"
-" EVP_DIGEST - potentiellement plusieurs algorithmes de hachage (indexé par 'nid')\n"
+" EVP_CIPHER - potentiellement plusieurs algorithmes de chiffrement (indexé "
+"par 'nid')\n"
+" EVP_DIGEST - potentiellement plusieurs algorithmes de hachage (indexé par "
+"'nid')\n"
 " key-loading - chargement des clés EVP_PKEY publiques/privées\n"
 "\n"
 
@@ -4218,12 +4323,13 @@ msgstr ""
 "     /* le moteur n'est pas disponible */\n"
 "     return;\n"
 " if(!ENGINE_init(e)) {\n"
-"     /* le moteur n'a pas pu être initialisé, libérer « e » */\n"
+"     /* le moteur n'a pas pu être initialisé, libérer « e » */\n"
 "     ENGINE_free(e);\n"
 "     return;\n"
 " }\n"
 " if(!ENGINE_set_default_RSA(e))\n"
-"     /* Ceci devrait uniquement se produire quand « e » ne peut être initialisé, mais la déclaration précédente suggère qu'il l'a été. */\n"
+"     /* Ceci devrait uniquement se produire quand « e » ne peut être\n"
+"      * initialisé, mais la déclaration précédente suggère qu'il l'a été. */\n"
 "     abort();\n"
 " ENGINE_set_default_DSA(e);\n"
 " ENGINE_set_default_ciphers(e);\n"
@@ -4264,7 +4370,8 @@ msgid ""
 msgstr ""
 " /* Charger et rendre visible tous les paquets ENGINE dans la mémoire. */\n"
 " ENGINE_load_builtin_engines();\n"
-" /* Enregistrer tous les paquets pour tous les algorithmes qu'ils implémentent collectivement */\n"
+" /* Enregistrer tous les paquets pour tous les algorithmes qu'ils "
+"implémentent collectivement */\n"
 " ENGINE_register_all_complete();\n"
 "\n"
 
@@ -4412,7 +4519,8 @@ msgid ""
 "         ENGINE_free(e);\n"
 "         return 0;\n"
 "     }\n"
-"     /* ENGINE_init() returned a functional reference, so free the structural\n"
+"     /* ENGINE_init() returned a functional reference, so free the "
+"structural\n"
 "      * reference from ENGINE_by_id(). */\n"
 "     ENGINE_free(e);\n"
 "     while(post_num--) {\n"
@@ -4450,7 +4558,8 @@ msgstr ""
 "         ENGINE_free(e);\n"
 "         return 0;\n"
 "     }\n"
-"     /* ENGINE_init() a renvoyé une référence fonctionnelle, il faut donc libérer la référence structurelle d'ENGINE_by_id(). */\n"
+"     /* ENGINE_init() a renvoyé une référence fonctionnelle, il faut donc "
+"libérer la référence structurelle d'ENGINE_by_id(). */\n"
 "     ENGINE_free(e);\n"
 "     while(post_num--) {\n"
 "         if(!ENGINE_ctrl_cmd_string(e, post_cmds[0], post_cmds[1], 0)) {\n"
@@ -4597,7 +4706,8 @@ msgstr ""
 " si aucun gestionnaire ctrl() n'est fourni ;\n"
 "     ENGINE_HAS_CTRL_FUNCTION renvoie FALSE (zero),\n"
 "     toutes les autres commandes échouent.\n"
-" si un gestionnaire ctrl() a été fourni mais aucun tableau de commandes de contrôle n'a été fourni ;\n"
+" si un gestionnaire ctrl() a été fourni mais aucun tableau de commandes de "
+"contrôle n'a été fourni ;\n"
 "     ENGINE_HAS_CTRL_FUNCTION renvoie TRUE,\n"
 "     toutes les autres commandes échouent.\n"
 " si un gestionnaire ctrl() et un tableau de commandes ont été fournis ;\n"
@@ -5160,12 +5270,14 @@ msgstr ""
 #, no-wrap
 msgid ""
 " void lh_<type>_doall(LHASH_OF(<type> *table, LHASH_DOALL_FN_TYPE func);\n"
-" void lh_<type>_doall_arg(LHASH_OF(<type> *table, LHASH_DOALL_ARG_FN_TYPE func,\n"
+" void lh_<type>_doall_arg(LHASH_OF(<type> *table, LHASH_DOALL_ARG_FN_TYPE "
+"func,\n"
 "          <type2>, <type2> *arg);\n"
 "\n"
 msgstr ""
 " void lh_<type>_doall(LHASH_OF(<type> *table, LHASH_DOALL_FN_TYPE func);\n"
-" void lh_<type>_doall_arg(LHASH_OF(<type> *table, LHASH_DOALL_ARG_FN_TYPE func,\n"
+" void lh_<type>_doall_arg(LHASH_OF(<type> *table, LHASH_DOALL_ARG_FN_TYPE "
+"func,\n"
 "          <type2>, <type2> *arg);\n"
 "\n"
 
@@ -5344,7 +5456,8 @@ msgid ""
 " could be defined as follows;\n"
 "\n"
 msgstr ""
-" Un exemple de table de hachage qui stocke (des pointeurs vers) des structures du type « STUFF » pourrait être défini comme suit :\n"
+" Un exemple de table de hachage qui stocke (des pointeurs vers) des \n"
+" structures du type « STUFF » pourrait être défini comme suit :\n"
 "\n"
 
 #. type: verbatim
@@ -5361,23 +5474,27 @@ msgid ""
 " /* ... */\n"
 " int main(int argc, char *argv[]) {\n"
 "         /* Create the new hash table using the hash/compare wrappers */\n"
-"         LHASH_OF(STUFF) *hashtable = lh_STUFF_new(LHASH_HASH_FN(STUFF_hash),\n"
+"         LHASH_OF(STUFF) *hashtable = lh_STUFF_new(LHASH_HASH_FN(STUFF_hash),"
+"\n"
 "                                   LHASH_COMP_FN(STUFF_cmp));\n"
 "\t /* ... */\n"
 " }\n"
 "\n"
 msgstr ""
-" /* Calcule la valeur de hachage de « tohash » (implémenté ailleurs) */\n"
+" /* Calcule la valeur de hachage de « tohash » (implémenté ailleurs) */\n"
 " unsigned long STUFF_hash(const STUFF *tohash);\n"
-" /* Ordonne « arg1 » et « arg2 » (implémenté ailleurs) */\n"
+" /* Ordonne « arg1 » et « arg2 » (implémenté ailleurs) */\n"
 " int stuff_cmp(const STUFF *arg1, const STUFF *arg2);\n"
-" /* Crée un emballage de fonction ayant un type sûr pour utilisation interne dans LHASH */\n"
+" /* Crée un emballage de fonction ayant un type sûr pour utilisation interne "
+"dans LHASH */\n"
 " static IMPLEMENT_LHASH_HASH_FN(stuff, STUFF);\n"
 " static IMPLEMENT_LHASH_COMP_FN(stuff, STUFF);\n"
 " /* ... */\n"
 " int main(int argc, char *argv[]) {\n"
-"         /* Crée une nouvelle table de hachage en utilisant les emballages de hachage/comparaison */\n"
-"         LHASH_OF(STUFF) *hashtable = lh_STUFF_new(LHASH_HASH_FN(STUFF_hash),\n"
+"         /* Crée une nouvelle table de hachage en utilisant les emballages de "
+"hachage/comparaison */\n"
+"         LHASH_OF(STUFF) *hashtable = lh_STUFF_new(LHASH_HASH_FN(STUFF_hash),"
+"\n"
 "                                   LHASH_COMP_FN(STUFF_cmp));\n"
 "\t /* ... */\n"
 " }\n"
@@ -5462,12 +5579,15 @@ msgid ""
 " lh_STUFF_free(hashtable);\n"
 "\n"
 msgstr ""
-" /* Nettoie les resources qui appartiennent à « a » (ceci est implémenté ailleurs) */\n"
+" /* Nettoie les resources qui appartiennent à « a » (ceci est implémenté "
+"ailleurs) */\n"
 " void STUFF_cleanup_doall(STUFF *a);\n"
-" /* implémentation d'un prototype compatible d'emballage pour \"STUFF_cleanup » */\n"
+" /* implémentation d'un prototype compatible d'emballage pour "
+"\"STUFF_cleanup » */\n"
 " IMPLEMENT_LHASH_DOALL_FN(STUFF_cleanup, STUFF)\n"
 "         /* ... puis plus tard dans le code ... */\n"
-" /* pour lancer « STUFF_cleanup » sur toutes les entrées dans la table de hachage ... */\n"
+" /* pour lancer « STUFF_cleanup » sur toutes les entrées dans la table de "
+"hachage ... */\n"
 " lh_STUFF_doall(hashtable, LHASH_DOALL_FN(STUFF_cleanup));\n"
 " /* Puis le hachage de la table peut être désalloué */\n"
 " lh_STUFF_free(hashtable);\n"
@@ -5531,9 +5651,11 @@ msgid ""
 "                    logging_bio);\n"
 " \n"
 msgstr ""
-" /* Imprime l'objet « a » dans « output bit » (cela est implémenté ailleurs) */\n"
+" /* Imprime l'objet « a » dans « output bit » (cela est implémenté ailleurs) "
+"*/\n"
 " void STUFF_print_doall_arg(const STUFF *a, BIO *output_bio);\n"
-" /* implémentation d'un prototype compatible d'emballage pour « STUFF_print » */\n"
+" /* implémentation d'un prototype compatible d'emballage pour « STUFF_print » "
+"*/\n"
 " static IMPLEMENT_LHASH_DOALL_ARG_FN(STUFF, const STUFF, BIO)\n"
 "         /* ... puis plus tard dans le code ... */\n"
 " /* Imprimer toute la table de hachage dans un BIO particulier */\n"
@@ -6336,12 +6458,14 @@ msgstr ""
 #: C/crypto/pem.pod:25
 #, no-wrap
 msgid ""
-" int PEM_write_bio_PKCS8PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,\n"
+" int PEM_write_bio_PKCS8PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER "
+"*enc,\n"
 "\t\t\t\t\tchar *kstr, int klen,\n"
 "\t\t\t\t\tpem_password_cb *cb, void *u);\n"
 "\n"
 msgstr ""
-" int PEM_write_bio_PKCS8PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,\n"
+" int PEM_write_bio_PKCS8PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER "
+"*enc,\n"
 "\t\t\t\t\tchar *kstr, int klen,\n"
 "\t\t\t\t\tpem_password_cb *cb, void *u);\n"
 "\n"
@@ -6664,10 +6788,12 @@ msgstr ""
 #: C/crypto/pem.pod:108
 #, no-wrap
 msgid ""
-" DSA *PEM_read_bio_DSAparams(BIO *bp, DSA **x, pem_password_cb *cb, void *u);\n"
+" DSA *PEM_read_bio_DSAparams(BIO *bp, DSA **x, pem_password_cb *cb, void "
+"*u);\n"
 "\n"
 msgstr ""
-" DSA *PEM_read_bio_DSAparams(BIO *bp, DSA **x, pem_password_cb *cb, void *u);\n"
+" DSA *PEM_read_bio_DSAparams(BIO *bp, DSA **x, pem_password_cb *cb, void "
+"*u);\n"
 "\n"
 
 #. type: verbatim
@@ -6784,10 +6910,12 @@ msgstr ""
 #: C/crypto/pem.pod:132
 #, no-wrap
 msgid ""
-" X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void *u);\n"
+" X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void "
+"*u);\n"
 "\n"
 msgstr ""
-" X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void *u);\n"
+" X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void "
+"*u);\n"
 "\n"
 
 #. type: verbatim
@@ -6908,10 +7036,12 @@ msgstr ""
 #: C/crypto/pem.pod:161
 #, no-wrap
 msgid ""
-" PKCS7 *PEM_read_bio_PKCS7(BIO *bp, PKCS7 **x, pem_password_cb *cb, void *u);\n"
+" PKCS7 *PEM_read_bio_PKCS7(BIO *bp, PKCS7 **x, pem_password_cb *cb, void "
+"*u);\n"
 "\n"
 msgstr ""
-" PKCS7 *PEM_read_bio_PKCS7(BIO *bp, PKCS7 **x, pem_password_cb *cb, void *u);\n"
+" PKCS7 *PEM_read_bio_PKCS7(BIO *bp, PKCS7 **x, pem_password_cb *cb, void "
+"*u);\n"
 "\n"
 
 #. type: verbatim
@@ -6976,10 +7106,12 @@ msgstr ""
 #: C/crypto/pem.pod:177
 #, no-wrap
 msgid ""
-" int PEM_write_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp, NETSCAPE_CERT_SEQUENCE *x);\n"
+" int PEM_write_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp, NETSCAPE_CERT_SEQUENCE "
+"*x);\n"
 "\n"
 msgstr ""
-" int PEM_write_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp, NETSCAPE_CERT_SEQUENCE *x);\n"
+" int PEM_write_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp, NETSCAPE_CERT_SEQUENCE "
+"*x);\n"
 "\n"
 
 #. type: verbatim
@@ -7149,7 +7281,7 @@ msgid ""
 msgstr ""
 "Les fonctions B<DSAparams> traitent les paramètres DSA en utilisant une "
 "structure DSA. Les paramètres sont chiffrés en utilisant une structure "
-"foobar."
+"Dss-Parms telle que définie dans la RFC2459."
 
 #. type: textblock
 #: C/crypto/pem.pod:244
@@ -7478,13 +7610,15 @@ msgstr ""
 #: C/crypto/pem.pod:364
 #, no-wrap
 msgid ""
-" if (!PEM_write_bio_PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, NULL))\n"
+" if (!PEM_write_bio_PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, "
+"NULL))\n"
 "\t{\n"
 "\t/* Error */\n"
 "\t}\n"
 "\n"
 msgstr ""
-" if (!PEM_write_bio_PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, NULL))\n"
+" if (!PEM_write_bio_PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, "
+"NULL))\n"
 "\t{\n"
 "\t/* Erreur */\n"
 "\t}\n"
@@ -7503,13 +7637,15 @@ msgstr ""
 #: C/crypto/pem.pod:372
 #, no-wrap
 msgid ""
-" if (!PEM_write_bio_PKCS8PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, \"hello\"))\n"
+" if (!PEM_write_bio_PKCS8PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, "
+"\"hello\"))\n"
 "\t{\n"
 "\t/* Error */\n"
 "\t}\n"
 "\n"
 msgstr ""
-" if (!PEM_write_bio_PKCS8PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, \"hello\"))\n"
+" if (!PEM_write_bio_PKCS8PrivateKey(bp, key, EVP_des_ede3_cbc(), NULL, 0, 0, "
+"\"hello\"))\n"
 "\t{\n"
 "\t/* Erreur */\n"
 "\t}\n"
@@ -8094,6 +8230,11 @@ msgid ""
 "SHA256_Final, SHA384, SHA384_Init, SHA384_Update, SHA384_Final, SHA512, "
 "SHA512_Init, SHA512_Update, SHA512_Final - Secure Hash Algorithm"
 msgstr ""
+"SHA1, SHA1_Init, SHA1_Update, SHA1_Final, SHA224, SHA224_Init, "
+"SHA224_Update, SHA224_Final, SHA256, SHA256_Init, SHA256_Update, "
+"SHA256_Final, SHA384, SHA384_Init, SHA384_Update, SHA384_Final, SHA512, "
+"SHA512_Init, SHA512_Update, SHA512_Final - Algorithme de hachage "
+"sécurisé (« Secure Hash Algorithm »)"
 
 #. type: verbatim
 #: C/crypto/sha.pod:12
@@ -8206,7 +8347,6 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/sha.pod:53
-#, fuzzy
 #| msgid ""
 #| "SHA1() computes the SHA-1 message digest of the B<n> bytes at B<d> and "
 #| "places it in B<md> (which must have space for SHA_DIGEST_LENGTH == 20 "
@@ -8221,7 +8361,8 @@ msgstr ""
 "SHA1() calcule le condensé de message SHA-1 des B<n> octets de B<d> et le "
 "place dans B<md> (qui doit avoir de la place pour SHA_DIGEST_LENGTH == "
 "20 octets de sortie). Si B<md> est NULL, le condensé est placé dans un "
-"tableau statique."
+"tableau statique. Note : le réglage de B<md> à NULL n'est B<pas à fil "
+"sécurisé>."
 
 #. type: textblock
 #: C/crypto/sha.pod:61
@@ -8258,6 +8399,15 @@ msgid ""
 "SHA1() function above, the SHA224(), SHA256(), SHA384() and SHA512() "
 "functions are not thread safe if B<md> is NULL."
 msgstr ""
+"Les familles de fonctions SHA224, SHA256, SHA384 et SHA512 opèrent de la "
+"même façon que les fonctions SHA1. Notez que SHA224 et SHA256 utilisent un "
+"objet B<SHA256_CTX> à la place de B<SHA_CTX>. SHA384 et SHA512 utilisent "
+"B<SHA512_CTX>. Le tampon B<md> doit avoir de la place pour la sortie de "
+"la variante de SHA utilisée (définie par SHA224_DIGEST_LENGTH, "
+"SHA256_DIGEST_LENGTH, SHA384_DIGEST_LENGTH et SHA512_DIGEST_LENGTH). "
+"Notez aussi que, comme pour la fonction SHA1() vue plus haut, les fonctions "
+"SHA224(), SHA256(), SHA384() et SHA512() ne sont pas à fil sécurisé si "
+"B<md> est NULL."
 
 #. type: textblock
 #: C/crypto/sha.pod:78
@@ -8270,17 +8420,16 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/sha.pod:83
-#, fuzzy
 #| msgid "MD2(), MD4(), and MD5() return pointers to the hash value."
 msgid ""
 "SHA1(), SHA224(), SHA256(), SHA384() and SHA512() return a pointer to the "
 "hash value."
 msgstr ""
-"MD2(), MD4() et MD5 () renvoient un pointeur vers la valeur de hachage."
+"SHA1(), SHA224(), SHA256(), SHA384() et SHA512() renvoient un pointeur vers "
+"la valeur de hachage."
 
 #. type: textblock
 #: C/crypto/sha.pod:86
-#, fuzzy
 #| msgid ""
 #| "SHA1_Init(), SHA1_Update() and SHA1_Final() return 1 for success, 0 "
 #| "otherwise."
@@ -8288,12 +8437,12 @@ msgid ""
 "SHA1_Init(), SHA1_Update() and SHA1_Final() and equivalent SHA224, SHA256, "
 "SHA384 and SHA512 functions return 1 for success, 0 otherwise."
 msgstr ""
-"SHA1_Init(), SHA1_Update() et SHA1_Final() renvoient 1 en cas de succès et 0 "
-"sinon."
+"B<SHA1_Init>(), B<SHA1_Update>() et B<SHA1_Final>() et les fonctions "
+"équivalentes SHA224, SHA256, SHA384 et SHA512 renvoient B<1> en cas "
+"de succès et B<0> sinon."
 
 #. type: textblock
 #: C/crypto/sha.pod:91
-#, fuzzy
 #| msgid ""
 #| "SHA: US Federal Information Processing Standard FIPS PUB 180 (Secure Hash "
 #| "Standard), SHA-1: US Federal Information Processing Standard FIPS PUB "
@@ -8302,9 +8451,8 @@ msgid ""
 "US Federal Information Processing Standard FIPS PUB 180-4 (Secure Hash "
 "Standard), ANSI X9.30"
 msgstr ""
-"SHA : US Federal Information Processing Standard FIPS PUB 180 (Secure Hash "
-"Standard), SHA-1: US Federal Information Processing Standard FIPS PUB 180-1 "
-"(Secure Hash Standard), ANSI X9.30"
+"US Federal Information Processing Standard FIPS PUB 180-1 (Secure Hash "
+"Standard), ANSI X9.30"
 
 #. type: textblock
 #: C/crypto/sha.pod:97
@@ -8370,7 +8518,8 @@ msgstr ""
 "         void *ptr;\n"
 "         unsigned long val;\n"
 "         } CRYPTO_THREADID;\n"
-" /* Utilisez seulement CRYPTO_THREADID_set_[numeric|pointer]() à l'intérieur des rétroactions */\n"
+" /* Utilisez seulement CRYPTO_THREADID_set_[numeric|pointer]() à l'intérieur "
+"des rétroactions */\n"
 " void CRYPTO_THREADID_set_numeric(CRYPTO_THREADID *id, unsigned long val);\n"
 " void CRYPTO_THREADID_set_pointer(CRYPTO_THREADID *id, void *ptr);\n"
 " int CRYPTO_THREADID_set_callback(void (*threadid_func)(CRYPTO_THREADID *));\n"
@@ -8879,10 +9028,12 @@ msgid ""
 "\tchar *result_buf, int minsize, int maxsize, const char *test_buf);\n"
 " int UI_dup_verify_string(UI *ui, const char *prompt, int flags,\n"
 "\tchar *result_buf, int minsize, int maxsize, const char *test_buf);\n"
-" int UI_add_input_boolean(UI *ui, const char *prompt, const char *action_desc,\n"
+" int UI_add_input_boolean(UI *ui, const char *prompt, const char "
+"*action_desc,\n"
 "\tconst char *ok_chars, const char *cancel_chars,\n"
 "\tint flags, char *result_buf);\n"
-" int UI_dup_input_boolean(UI *ui, const char *prompt, const char *action_desc,\n"
+" int UI_dup_input_boolean(UI *ui, const char *prompt, const char "
+"*action_desc,\n"
 "\tconst char *ok_chars, const char *cancel_chars,\n"
 "\tint flags, char *result_buf);\n"
 " int UI_add_info_string(UI *ui, const char *text);\n"
@@ -8899,10 +9050,12 @@ msgstr ""
 "\tchar *result_buf, int minsize, int maxsize, const char *test_buf);\n"
 " int UI_dup_verify_string(UI *ui, const char *prompt, int flags,\n"
 "\tchar *result_buf, int minsize, int maxsize, const char *test_buf);\n"
-" int UI_add_input_boolean(UI *ui, const char *prompt, const char *action_desc,\n"
+" int UI_add_input_boolean(UI *ui, const char *prompt, const char "
+"*action_desc,\n"
 "\tconst char *ok_chars, const char *cancel_chars,\n"
 "\tint flags, char *result_buf);\n"
-" int UI_dup_input_boolean(UI *ui, const char *prompt, const char *action_desc,\n"
+" int UI_dup_input_boolean(UI *ui, const char *prompt, const char "
+"*action_desc,\n"
 "\tconst char *ok_chars, const char *cancel_chars,\n"
 "\tint flags, char *result_buf);\n"
 " int UI_add_info_string(UI *ui, const char *text);\n"
@@ -8920,7 +9073,8 @@ msgid ""
 " #define UI_INPUT_FLAG_DEFAULT_PWD\t0x02\n"
 "\n"
 msgstr ""
-" /* Voici les drapeaux disponibles. Ils peuvent être ajoutés ensemble avec OR */\n"
+" /* Voici les drapeaux disponibles. Ils peuvent être ajoutés ensemble avec OR "
+"*/\n"
 " #define UI_INPUT_FLAG_ECHO\t\t0x01\n"
 " #define UI_INPUT_FLAG_DEFAULT_PWD\t0x02\n"
 "\n"
@@ -9359,11 +9513,13 @@ msgstr ""
 #, no-wrap
 msgid ""
 " int des_read_pw_string(char *buf,int length,const char *prompt,int verify);\n"
-" int des_read_pw(char *buf,char *buff,int size,const char *prompt,int verify);\n"
+" int des_read_pw(char *buf,char *buff,int size,const char *prompt,int "
+"verify);\n"
 "\n"
 msgstr ""
 " int des_read_pw_string(char *buf,int length,const char *prompt,int verify);\n"
-" int des_read_pw(char *buf,char *buff,int size,const char *prompt,int verify);\n"
+" int des_read_pw(char *buf,char *buff,int size,const char *prompt,int "
+"verify);\n"
 "\n"
 
 #. type: textblock
