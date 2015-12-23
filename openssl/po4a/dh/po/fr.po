@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
-"POT-Creation-Date: 2015-05-05 17:54-0400\n"
+"POT-Creation-Date: 2015-12-23 16:29-0400\n"
 "PO-Revision-Date: 2015-05-05 18:50-0400\n"
 "Last-Translator: David Prévot <david@tilapin.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -56,8 +56,8 @@ msgstr ""
 #. type: =head1
 #: C/apps/dhparam.pod:25 C/crypto/DH_generate_key.pod:15
 #: C/crypto/DH_generate_parameters.pod:22 C/crypto/DH_get_ex_new_index.pod:20
-#: C/crypto/DH_new.pod:15 C/crypto/DH_set_method.pod:23
-#: C/crypto/DH_size.pod:13 C/crypto/dh.pod:41
+#: C/crypto/DH_new.pod:15 C/crypto/DH_set_method.pod:23 C/crypto/DH_size.pod:13
+#: C/crypto/dh.pod:41
 msgid "DESCRIPTION"
 msgstr "DESCRIPTION"
 
@@ -185,20 +185,25 @@ msgstr "B<-2>, B<-5>"
 
 #. type: textblock
 #: C/apps/dhparam.pod:74
+#, fuzzy
+#| msgid ""
+#| "The generator to use, either 2 or 5. 2 is the default. If present then "
+#| "the input file is ignored and parameters are generated instead."
 msgid ""
-"The generator to use, either 2 or 5. 2 is the default. If present then the "
-"input file is ignored and parameters are generated instead."
+"The generator to use, either 2 or 5. If present then the input file is "
+"ignored and parameters are generated instead. If not present but B<numbits> "
+"is present, parameters are generated with the default generator 2."
 msgstr ""
 "Le générateur à utiliser, soit 2 ou 5, le défaut étant 2. Si présent, le "
 "fichier d'entrée est ignoré et les paramètres sont générés à la place."
 
 #. type: =item
-#: C/apps/dhparam.pod:77
+#: C/apps/dhparam.pod:79
 msgid "B<-rand> I<file(s)>"
 msgstr "B<-rand> I<fichier(s)>"
 
 #. type: textblock
-#: C/apps/dhparam.pod:79
+#: C/apps/dhparam.pod:81
 msgid ""
 "a file or files containing random data used to seed the random number "
 "generator, or an EGD socket (see L<RAND_egd(3)|RAND_egd(3)>).  Multiple "
@@ -212,17 +217,24 @@ msgstr ""
 "pour Windows, « B<,> » pour OpenVMS et « B<:> » pour tous les autres."
 
 #. type: =item
-#: C/apps/dhparam.pod:85
+#: C/apps/dhparam.pod:87
 msgid "I<numbits>"
 msgstr "I<nombrebits>"
 
 #. type: textblock
-#: C/apps/dhparam.pod:87
+#: C/apps/dhparam.pod:89
+#, fuzzy
+#| msgid ""
+#| "this option specifies that a parameter set should be generated of size "
+#| "I<numbits>. It must be the last option. If not present then a value of "
+#| "512 is used. If this option is present then the input file is ignored and "
+#| "parameters are generated instead."
 msgid ""
 "this option specifies that a parameter set should be generated of size "
-"I<numbits>. It must be the last option. If not present then a value of 512 "
-"is used. If this option is present then the input file is ignored and "
-"parameters are generated instead."
+"I<numbits>. It must be the last option. If this option is present then the "
+"input file is ignored and parameters are generated instead. If this option "
+"is not present but a generator (B<-2> or B<-5>) is present, parameters are "
+"generated with a default length of 2048 bits."
 msgstr ""
 "Cette option indique qu'un jeu de paramètres de taille B<nombrebits> doit "
 "être généré. Cette option doit être placée en dernier. Si elle n'est pas "
@@ -230,33 +242,33 @@ msgstr ""
 "fichier d'entrée est ignoré et des paramètres sont générés à la place."
 
 #. type: =item
-#: C/apps/dhparam.pod:92
+#: C/apps/dhparam.pod:95
 msgid "B<-noout>"
 msgstr "B<-noout>"
 
 #. type: textblock
-#: C/apps/dhparam.pod:94
+#: C/apps/dhparam.pod:97
 msgid ""
 "this option inhibits the output of the encoded version of the parameters."
 msgstr "Cette option empêche la sortie des paramètres en version encodée."
 
 #. type: =item
-#: C/apps/dhparam.pod:96
+#: C/apps/dhparam.pod:99
 msgid "B<-text>"
 msgstr "B<-text>"
 
 #. type: textblock
-#: C/apps/dhparam.pod:98
+#: C/apps/dhparam.pod:101
 msgid "this option prints out the DH parameters in human readable form."
 msgstr "Cette option affiche les paramètres DH sous forme lisible."
 
 #. type: =item
-#: C/apps/dhparam.pod:100
+#: C/apps/dhparam.pod:103
 msgid "B<-C>"
 msgstr "B<-C>"
 
 #. type: textblock
-#: C/apps/dhparam.pod:102
+#: C/apps/dhparam.pod:105
 msgid ""
 "this option converts the parameters into C code. The parameters can then be "
 "loaded by calling the B<get_dh>I<numbits>B<()> function."
@@ -266,12 +278,12 @@ msgstr ""
 "B<get_dh>I<nombrebits>B<()>."
 
 #. type: =item
-#: C/apps/dhparam.pod:105
+#: C/apps/dhparam.pod:108
 msgid "B<-engine id>"
 msgstr "B<-engine> I<id>"
 
 #. type: textblock
-#: C/apps/dhparam.pod:107
+#: C/apps/dhparam.pod:110
 msgid ""
 "specifying an engine (by its unique B<id> string) will cause B<dhparam> to "
 "attempt to obtain a functional reference to the specified engine, thus "
@@ -284,12 +296,12 @@ msgstr ""
 "défaut pour tous les algorithmes disponibles."
 
 #. type: =head1
-#: C/apps/dhparam.pod:114
+#: C/apps/dhparam.pod:117
 msgid "WARNINGS"
 msgstr "AVERTISSEMENTS"
 
 #. type: textblock
-#: C/apps/dhparam.pod:116
+#: C/apps/dhparam.pod:119
 msgid ""
 "The program B<dhparam> combines the functionality of the programs B<dh> and "
 "B<gendh> in previous versions of OpenSSL and SSLeay. The B<dh> and B<gendh> "
@@ -302,20 +314,20 @@ msgstr ""
 "d'autres fonctions dans des versions à venir d'OpenSSL."
 
 #. type: =head1
-#: C/apps/dhparam.pod:121 C/crypto/DH_generate_parameters.pod:56
+#: C/apps/dhparam.pod:124 C/crypto/DH_generate_parameters.pod:56
 #: C/crypto/DH_set_method.pod:100
 msgid "NOTES"
 msgstr "NOTES"
 
 #. type: textblock
-#: C/apps/dhparam.pod:123
+#: C/apps/dhparam.pod:126
 msgid "PEM format DH parameters use the header and footer lines:"
 msgstr ""
 "Le format PEM des paramètres DH utilise les lignes suivantes au début et à "
 "la fin :"
 
 #. type: verbatim
-#: C/apps/dhparam.pod:125
+#: C/apps/dhparam.pod:128
 #, no-wrap
 msgid ""
 " -----BEGIN DH PARAMETERS-----\n"
@@ -327,7 +339,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: C/apps/dhparam.pod:128
+#: C/apps/dhparam.pod:131
 msgid ""
 "OpenSSL currently only supports the older PKCS#3 DH, not the newer X9.42 DH."
 msgstr ""
@@ -335,22 +347,22 @@ msgstr ""
 "le DH X9.42 plus récent."
 
 #. type: textblock
-#: C/apps/dhparam.pod:131
+#: C/apps/dhparam.pod:134
 msgid "This program manipulates DH parameters not keys."
 msgstr "Ce programme manipule les paramètres DH, et non les clefs."
 
 #. type: =head1
-#: C/apps/dhparam.pod:133 C/crypto/DH_generate_parameters.pod:64
+#: C/apps/dhparam.pod:136 C/crypto/DH_generate_parameters.pod:64
 msgid "BUGS"
 msgstr "BOGUES"
 
 #. type: textblock
-#: C/apps/dhparam.pod:135
+#: C/apps/dhparam.pod:138
 msgid "There should be a way to generate and manipulate DH keys."
 msgstr "Il devrait y avoir un moyen de générer et de manipuler des clefs DH."
 
 #. type: =head1
-#: C/apps/dhparam.pod:137 C/crypto/DH_generate_key.pod:41
+#: C/apps/dhparam.pod:140 C/crypto/DH_generate_key.pod:41
 #: C/crypto/DH_generate_parameters.pod:69 C/crypto/DH_get_ex_new_index.pod:27
 #: C/crypto/DH_new.pod:30 C/crypto/DH_set_method.pod:110
 #: C/crypto/DH_size.pod:25 C/crypto/dh.pod:68
@@ -358,12 +370,12 @@ msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: textblock
-#: C/apps/dhparam.pod:139
+#: C/apps/dhparam.pod:142
 msgid "L<dsaparam(1)|dsaparam(1)>"
 msgstr "L<dsaparam(1)|dsaparam(1)>"
 
 #. type: =head1
-#: C/apps/dhparam.pod:141 C/crypto/DH_generate_key.pod:45
+#: C/apps/dhparam.pod:144 C/crypto/DH_generate_key.pod:45
 #: C/crypto/DH_generate_parameters.pod:74 C/crypto/DH_get_ex_new_index.pod:31
 #: C/crypto/DH_new.pod:36 C/crypto/DH_set_method.pod:114
 #: C/crypto/DH_size.pod:29
@@ -371,7 +383,7 @@ msgid "HISTORY"
 msgstr "HISTORIQUE"
 
 #. type: textblock
-#: C/apps/dhparam.pod:143
+#: C/apps/dhparam.pod:146
 msgid ""
 "The B<dhparam> command was added in OpenSSL 0.9.5.  The B<-dsaparam> option "
 "was added in OpenSSL 0.9.6."
