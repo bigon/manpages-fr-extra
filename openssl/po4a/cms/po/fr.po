@@ -1,13 +1,13 @@
 # French translations for the openssl package
-# Copyright (C) 2012, 2013 Debian French l10n team <debian-l10n-french@lists.debian.org>.
+# Copyright (C) 2012, 2013, 2015 Debian French l10n team <debian-l10n-french@lists.debian.org>.
 # This file is distributed under the same license as the openssl package.
 #
-# David Prévot <david@tilapin.org>, 2012, 2013.
+# David Prévot <david@tilapin.org>, 2012, 2013, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssl\n"
 "POT-Creation-Date: 2015-12-23 16:29-0400\n"
-"PO-Revision-Date: 2012-10-13 10:47-0400\n"
+"PO-Revision-Date: 2015-12-31 14:23-0400\n"
 "Last-Translator: none yet\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -15,6 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 2.0\n"
 
 #. type: =head1
 #: C/apps/cms.pod:3 C/crypto/CMS_add0_cert.pod:3
@@ -2868,25 +2869,17 @@ msgstr ""
 
 #. type: verbatim
 #: C/crypto/CMS_get0_type.pod:5
-#, fuzzy, no-wrap
-#| msgid ""
-#| " CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType - get and set CMS content types\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType, CMS_get0_content - get and set CMS content types and content\n"
 "\n"
 msgstr ""
-" CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType - Obtenir et définir les types de contenu CMS\n"
+" CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType, CMS_get0_content - Obtenir et définir les types et le contenu de contenu CMS\n"
 "\n"
 
 #. type: verbatim
 #: C/crypto/CMS_get0_type.pod:11
-#, fuzzy, no-wrap
-#| msgid ""
-#| " const ASN1_OBJECT *CMS_get0_type(CMS_ContentInfo *cms);\n"
-#| " int CMS_set1_eContentType(CMS_ContentInfo *cms, const ASN1_OBJECT *oid);\n"
-#| " const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " const ASN1_OBJECT *CMS_get0_type(CMS_ContentInfo *cms);\n"
 " int CMS_set1_eContentType(CMS_ContentInfo *cms, const ASN1_OBJECT *oid);\n"
@@ -2897,6 +2890,7 @@ msgstr ""
 " const ASN1_OBJECT *CMS_get0_type(CMS_ContentInfo *cms);\n"
 " int CMS_set1_eContentType(CMS_ContentInfo *cms, const ASN1_OBJECT *oid);\n"
 " const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);\n"
+" ASN1_OCTET_STRING **CMS_get0_content(CMS_ContentInfo *cms);\n"
 "\n"
 
 # NOTE: s/and/an/
@@ -2949,22 +2943,16 @@ msgstr ""
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:35
-#, fuzzy
-#| msgid ""
-#| "As the B<0> implies CMS_get0_type() and CMS_get0_eContentType() return "
-#| "internal pointers which should B<not> be freed up. "
-#| "CMS_set1_eContentType() copies the supplied OID and it B<should> be freed "
-#| "up after use."
 msgid ""
 "As the B<0> implies CMS_get0_type(), CMS_get0_eContentType() and "
 "CMS_get0_content() return internal pointers which should B<not> be freed "
 "up.  CMS_set1_eContentType() copies the supplied OID and it B<should> be "
 "freed up after use."
 msgstr ""
-"Comme le B<0> implique que B<CMS_get0_type>() et B<CMS_get0_eContentType>() "
-"renvoient des pointeurs internes qui ne devraient B<pas> être libérés, "
-"B<CMS_set1_eContentType>() copie l'OID fourni et il B<devrait> être libéré "
-"après utilisation."
+"Comme le B<0> implique que B<CMS_get0_type>(), B<CMS_get0_eContentType>() et "
+"B<CMS_get0_content>() renvoient des pointeurs internes qui ne devraient "
+"B<pas> être libérés, B<CMS_set1_eContentType>() copie l'OID fourni et il "
+"B<devrait> être libéré après utilisation."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:40
@@ -3003,6 +2991,8 @@ msgid ""
 "The return value of CMS_get0_content() is a pointer to the "
 "B<ASN1_OCTET_STRING> content pointer. That means that for example:"
 msgstr ""
+"La valeur de retour de B<CMS_get0_content>() est un pointeur vers le "
+"pointeur de contenu B<ASN1_OCTET_STRING>. Cela signifie que par exemple :"
 
 #. type: verbatim
 #: C/crypto/CMS_get0_type.pod:54
@@ -3011,6 +3001,8 @@ msgid ""
 " ASN1_OCTET_STRING **pconf = CMS_get0_content(cms);\n"
 "\n"
 msgstr ""
+" ASN1_OCTET_STRING **pconf = CMS_get0_content(cms);\n"
+"\n"
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:56
@@ -3020,6 +3012,11 @@ msgid ""
 "structure using this function. Applications usually will not need to modify "
 "the embedded content as it is normally set by higher level functions."
 msgstr ""
+"B<*pconf> pourrait être NULL si aucun contenu n’est embarqué. Les "
+"applications peuvent lire, modifier ou créer le contenu embarqué dans une "
+"structure B<CMS_ContentInfo> utilisant cette fonction. Les applications "
+"n’auront généralement pas besoin de modifier le contenu embarqué car il est "
+"normalement défini par des fonctions de plus haut niveau."
 
 #. type: textblock
 #: C/crypto/CMS_get0_type.pod:63
