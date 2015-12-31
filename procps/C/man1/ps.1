@@ -4,7 +4,7 @@
 .\" Quick hack conversion by Albert Cahalan, 1998.
 .\" Licensed under version 2 of the Gnu General Public License.
 .\"
-.TH PS 1 "December 2011" "procps-ng" "User Commands"
+.TH PS 1 "July 2014" "procps-ng" "User Commands"
 .\"
 .\" To render this page:
 .\"    groff -t -b -man -X -P-resolution -P100 -Tps ps.1 &
@@ -143,7 +143,7 @@ Print only the process IDs of syslogd:
 .B ps\ \-C\ syslogd\ \-o\ pid=
 .TP
 Print only the name of PID 42:
-.B ps\ \-p\ 42\ \-o\ comm=
+.B ps\ \-q\ 42\ \-o\ comm=
 .PP
 .PP
 .\" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -254,7 +254,7 @@ Select by session OR by effective group name.  Selection by session is
 specified by many standards, but selection by effective group is the logical
 behavior that several other operating systems use.  This
 .B ps
-will select by session when the list is completely numeric (as\ sessions\
+will select by session when the list is completely numeric (as sessions
 are).  Group ID numbers will work only when some group names are also
 specified.  See the
 .B \-s
@@ -304,6 +304,31 @@ process\ ID in
 .IR pidlist .
 That is, it selects processes that are children of those listed in
 .IR pidlist .
+.TP
+.BI q \ pidlist
+Select by process ID (quick mode).  Identical to
+.B \-q
+and
+.BR \-\-quick\-pid .
+.TP
+.BI \-q \ pidlist
+Select by PID (quick mode).  This selects the processes whose process ID numbers appear in
+.IR pidlist .
+With this option \fBps\fR reads the necessary info only
+for the pids listed in the \fIpidlist\fR and doesn't apply
+additional filtering rules. The order of pids is unsorted
+and preserved. No additional selection options, sorting
+and forest type listings are allowed in this mode.
+Identical to
+.B q
+and
+.BR \-\-quick\-pid .
+.TP
+.BI  \-\-quick\-pid \ pidlist
+Select by process\ ID (quick mode).  Identical to
+.B \-q
+and
+.BR q .
 .TP
 .BI \-s \ sesslist
 Select by session ID.  This selects the processes with a session ID specified
@@ -849,7 +874,10 @@ S
 interruptible sleep (waiting for an event to complete)
 .TP
 T
-stopped, either by a job control signal or because it is being traced
+stopped by job control signal
+.TP
+t
+stopped by debugger during the tracing
 .TP
 W
 paging (not valid since the 2.6.xx kernel)
@@ -1188,6 +1216,11 @@ cumulative CPU time, "[DD\-]hh:mm:ss" format.  (alias
 .BR time ).
 T}
 
+drs	DRS	T{
+data resident set size, the amount of physical memory devoted to other than
+executable code.
+T}
+
 egid	EGID	T{
 effective group ID number of the process as a decimal integer.  (alias
 .BR gid ).
@@ -1316,7 +1349,8 @@ time the command started.  See also
 T}
 
 lsession	SESSION	T{
-displays login session identifier of a process.
+displays the login session identifier of a process,
+if systemd support has been included.
 T}
 
 lwp	LWP	T{
@@ -1328,7 +1362,8 @@ for additional information.
 T}
 
 machine	MACHINE	T{
-displays machine name for processes assigned to VM or container.
+displays the machine name for processes assigned to VM or container,
+if systemd support has been included.
 T}
 
 maj_flt	MAJFLT	T{
@@ -1374,7 +1409,8 @@ if you want the kernel function name).  Running tasks will display a dash
 T}
 
 ouid	OWNER	T{
-displays the Unix user identifier of the owner of the session of a process.
+displays the Unix user identifier of the owner of the session of a process,
+if systemd support has been included.
 T}
 
 pcpu	%CPU	T{
@@ -1470,7 +1506,7 @@ and the field width permits, or a decimal representation otherwise.
 T}
 
 rss	RSS	T{
-resident set size, the non\-swapped physical memory that a task has used (in\
+resident set size, the non\-swapped physical memory that a task has used (in
 kiloBytes).  (alias
 .BR rssize , \ rsz ).
 T}
@@ -1518,7 +1554,9 @@ displayed as 0, 1, 2, 3, 4, and 5.
 T}
 
 seat	SEAT	T{
-displays login session identifier of a process.
+displays the identifier associated with all hardware devices assigned
+to a specific workplace,
+if systemd support has been included.
 T}
 
 sess	SESS	T{
@@ -1583,7 +1621,8 @@ rough!
 T}
 
 slice	SLICE	T{
-displays slice unit which a process belongs to.
+displays the slice unit which a process belongs to,
+if systemd support has been included.
 T}
 
 spid	SPID	T{
@@ -1683,7 +1722,7 @@ number of kernel threads owned by the process.
 T}
 
 tid	TID	T{
-the unique number representing a dispatacable entity (alias
+the unique number representing a dispatchable entity (alias
 .BR lwp , \ spid ).
 This value may also appear as: a process ID (pid); a process group ID (pgrp);
 a session ID for the session leader (sid); a thread group ID for the thread
@@ -1704,6 +1743,10 @@ T}
 tpgid	TPGID	T{
 ID of the foreground process group on the tty (terminal) that the process is
 connected to, or \-1 if the process is not connected to a tty.
+T}
+
+trs	TRS	T{
+text resident set size, the amount of physical memory devoted to executable code.
 T}
 
 tt	TT	T{
@@ -1745,7 +1788,8 @@ see
 T}
 
 unit	UNIT	T{
-displays systemd unit which a process belongs to.
+displays unit which a process belongs to,
+if systemd support has been included.
 T}
 
 user	USER	T{
@@ -1764,7 +1808,8 @@ Unique inode number describing the namespace the process belongs to. See namespa
 T}
 
 uunit	UUNIT	T{
-displays systemd user unit which a process belongs to.
+displays user unit which a process belongs to,
+if systemd support has been included.
 T}
 
 vsize	VSZ	T{
