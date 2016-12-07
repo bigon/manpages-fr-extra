@@ -5,6 +5,7 @@ SUBDIRS=at \
 	e2fsprogs \
 	findutils \
 	glibc grep \
+	init-system-helpers \
 	lilo \
 	most \
 	nfs-utils \
