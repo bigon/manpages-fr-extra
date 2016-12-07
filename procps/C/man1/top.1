@@ -1,7 +1,7 @@
 .ig
 . manual page for NEW and IMPROVED linux top
 .
-. Copyright (c) 2002-2014, by: James C. Warner
+. Copyright (c) 2002-2015, by: James C. Warner
 .    All rights reserved.      8921 Hilloway Road
 .                              Eden Prairie, Minnesota 55347 USA
 .
@@ -42,7 +42,7 @@
 .ds KA arrow key
 .ds KS scrolling key
 .ds MP physical memory
-.ds MS shared memory
+.ds MS swap file
 .ds MV virtual memory
 .ds NT \fBNote\fR:
 .ds PU CPU
@@ -65,10 +65,11 @@
 .ds Xc see the
 .ds XT See topic
 .ds Xt see topic
+.ds XX See `OVERVIEW, Linux Memory Types' for additional details
 .
 .\" Document /////////////////////////////////////////////////////////////
 .\" ----------------------------------------------------------------------
-.TH TOP 1 "July 2014" "procps-ng" "User Commands"
+.TH TOP 1 "July 2016" "procps-ng" "User Commands"
 .\" ----------------------------------------------------------------------
 
 .\" ----------------------------------------------------------------------
@@ -80,7 +81,6 @@ top \- display Linux processes
 .SH SYNOPSIS
 .\" ----------------------------------------------------------------------
 \*(WE \*(CL
-
 
 The traditional switches `\-' and whitespace are optional.
 
@@ -111,6 +111,10 @@ display and used when reading and writing a \*(CF.
 The remaining Table of Contents
 
 .nf
+    OVERVIEW
+       Operation
+       Startup Defaults
+       Linux Memory Types
     1. COMMAND\-LINE Options
     2. SUMMARY Display
        a. UPTIME and LOAD Averages
@@ -143,14 +147,14 @@ The remaining Table of Contents
        b. Bouncing Windows
        c. The Big Bird Window
        d. The Ol' Switcheroo
-    8. BUGS, 9. HISTORY Former top, 10. AUTHOR, 11. SEE Also
+    8. BUGS, 9. SEE Also
 .fi
 
 .\" ......................................................................
 .SS Operation
 .\" ----------------------------------------------------------------------
 When operating \*(We, the two most important keys are the help (h or ?)
-key and quit ('q') key.
+key and quit (`q') key.
 Alternatively, you could simply use the traditional interrupt key (^C)
 when you're done.
 
@@ -265,6 +269,76 @@ All are explained in detail in the sections that follow.
        z \- color/mono       On  (show colors)
 .fi
 
+.\" ......................................................................
+.SS Linux Memory Types
+.\" ----------------------------------------------------------------------
+For our purposes there are three types of memory, and one is optional.
+First is \*(MP, a limited resource where code and data must
+reside when executed or referenced.
+Next is the optional \*(MS, where modified (dirty) memory can be saved
+and later retrieved if too many demands are made on \*(MP.
+Lastly we have \*(MV, a nearly unlimited resource serving the
+following goals:
+
+.nf
+   1. abstraction, free from physical memory addresses/limits
+   2. isolation, every process in a separate address space
+   3. sharing, a single mapping can serve multiple needs
+   4. flexibility, assign a virtual address to a file
+.fi
+
+Regardless of which of these forms memory may take, all are managed as
+pages (typically 4096 bytes) but expressed by default in \*(We as
+KiB (kibibyte).
+The memory discussed under topic `2c. MEMORY Usage' deals with \*(MP
+and the \*(MS for the system as a whole.
+The memory reviewed in topic `3. FIELDS / Columns Display'
+embraces all three memory types, but for individual processes.
+
+For each such process, every memory page is restricted to a single
+quadrant from the table below.
+Both \*(MP and \*(MV can include any of the four, while the \*(MS only
+includes #1 through #3.
+The memory in quadrant #4, when modified, acts as its own dedicated \*(MS.
+
+.nf
+                              \fBPrivate\fR | \fBShared\fR
+                          \fB1\fR           |          \fB2\fR
+     \fBAnonymous\fR  . stack               |
+                . malloc()            |
+                . brk()/sbrk()        | . POSIX shm*
+                . mmap(PRIVATE, ANON) | . mmap(SHARED, ANON)
+               -----------------------+----------------------
+                . mmap(PRIVATE, fd)   | . mmap(SHARED, fd)
+   \fBFile-backed\fR  . pgms/shared libs    |
+                          \fB3\fR           |          \fB4\fR
+.fi
+
+The following may help in interpreting process level memory values displayed
+as scalable columns and discussed under topic `3a. DESCRIPTIONS of Fields'.
+
+.nf
+   %MEM \- simply RES divided by total \*(MP
+   CODE \- the `pgms' portion of quadrant \fB3\fR
+   DATA \- the entire quadrant \fB1\fR portion of VIRT plus all
+          explicit mmap file-backed pages of quadrant \fB3\fR
+   RES  \- anything occupying \*(MP which, beginning with
+          Linux-4.5, is the sum of the following three fields:
+          RSan \- quadrant \fB1\fR pages, which include any
+                 former quadrant \fB3\fR pages if modified
+          RSfd \- quadrant \fB3\fR and quadrant \fB4\fR pages
+          RSsh \- quadrant \fB2\fR pages
+   RSlk \- subset of RES which cannot be swapped out (any quadrant)
+   SHR  \- subset of RES (excludes \fB1\fR, includes all \fB2\fR & \fB4\fR, some \fB3\fR)
+   SWAP \- potentially any quadrant except \fB4\fR
+   USED \- simply the sum of RES and SWAP
+   VIRT \- everything in-use and/or reserved (all quadrants)
+.fi
+
+\*(NT Even though program images and shared libraries are considered
+\fIprivate\fR to a process, they will be accounted for as \fIshared\fR
+(SHR) by the kernel.
+
 .\" ----------------------------------------------------------------------
 .SH 1. COMMAND-LINE Options
 .\" ----------------------------------------------------------------------
@@ -272,7 +346,7 @@ The command-line syntax for \*(We consists of:
 
   \*(CL
 
-The typically mandatory switch ('\-') and even whitespace are completely
+The typically mandatory switch (`\-') and even whitespace are completely
 optional.
 
 .TP 5
@@ -290,7 +364,7 @@ limit you've set with the `\-n' \*(CO or until killed.
 \-\fBc\fR\ \ :\fICommand-line/Program-name\fR toggle \fR
 Starts \*(We with the last remembered `c' state reversed.
 Thus, if \*(We was displaying command lines, now that field will show program
-names, and visa versa.
+names, and vice versa.
 \*(XC `c' \*(CI for additional information.
 
 .TP 5
@@ -376,7 +450,7 @@ Display only processes with a user id or user name matching that given.
 The `\-u' option matches on \fI effective\fR user whereas the `\-U' option
 matches on\fI any\fR user (real, effective, saved, or filesystem).
 
-Prepending an exclamation point ('!') to the user id or name instructs top
+Prepending an exclamation point (`!') to the user id or name instructs top
 to display only processes with users not matching the one provided.
 
 The `p', `u' and `U' \*(COs are mutually exclusive.
@@ -552,10 +626,21 @@ You toggle Irix/Solaris modes with the `I' \*(CI.
 
 .TP 4
  2.\fB %MEM \*(Em Memory Usage (RES) \fR
-A task's currently used share of available \*(MP.
+A task's currently resident share of available \*(MP.
+
+\*(XX.
 
 .TP 4
- 3.\fB CGROUPS \*(Em Control Groups \fR
+ 3.\fB CGNAME \*(Em Control Group Name \fR
+The name of the control group to which a process belongs,
+or `\-' if not applicable for that process.
+
+This will typically be the last entry in the full list of control
+groups as shown under the next heading (CGROUPS).
+And as is true there, this field is also variable width.
+
+.TP 4
+ 4.\fB CGROUPS \*(Em Control Groups \fR
 The names of the control group(s) to which a process belongs,
 or `\-' if not applicable for that process.
 
@@ -576,12 +661,14 @@ Even so, such variable width fields could still suffer truncation.
 any truncated data.
 
 .TP 4
- 4.\fB CODE \*(Em Code Size (KiB) \fR
-The amount of \*(MP devoted to executable code, also known as
-the Text Resident Set size or TRS.
+ 5.\fB CODE \*(Em Code Size (KiB) \fR
+The amount of \*(MP currently devoted to executable code, also known
+as the Text Resident Set size or TRS.
+
+\*(XX.
 
 .TP 4
- 5.\fB COMMAND \*(Em Command\fB Name\fR or Command\fB Line \fR
+ 6.\fB COMMAND \*(Em Command\fB Name\fR or Command\fB Line \fR
 Display the command line used to start a task or the name of the associated
 program.
 You toggle between command\fI line\fR and\fI name\fR with `c', which is both
@@ -605,12 +692,16 @@ displayed (the `c' \*(CI.)
 any truncated data.
 
 .TP 4
- 6.\fB DATA \*(Em Data + Stack Size (KiB) \fR
-The amount of \*(MP devoted to other than executable code, also known as
-the Data Resident Set size or DRS.
+ 7.\fB DATA \*(Em Data + Stack Size (KiB) \fR
+The amount of private memory \fIreserved\fR by a process.
+It is also known as the Data Resident Set or DRS.
+Such memory may not yet be mapped to \*(MP (RES) but will always be
+included in the \*(MV (VIRT) amount.
+
+\*(XX.
 
 .TP 4
- 7.\fB ENVIRON \*(Em Environment variables \fR
+ 8.\fB ENVIRON \*(Em Environment variables \fR
 Display all of the environment variables, if any, as seen by the
 respective processes.
 These variables will be displayed in their raw native order, not the
@@ -625,21 +716,26 @@ This is especially true for this field.
 any truncated data.
 
 .TP 4
- 8.\fB Flags \*(Em Task Flags \fR
+ 9.\fB Flags \*(Em Task Flags \fR
 This column represents the task's current scheduling flags which are
 expressed in hexadecimal notation and with zeros suppressed.
 These flags are officially documented in <linux/sched.h>.
 
 .TP 4
- 9.\fB GID \*(Em Group Id \fR
+10.\fB GID \*(Em Group Id \fR
 The\fI effective\fR group ID.
 
 .TP 4
-10.\fB GROUP \*(Em Group Name \fR
+11.\fB GROUP \*(Em Group Name \fR
 The\fI effective\fR group name.
 
 .TP 4
-11.\fB NI \*(Em Nice Value \fR
+12.\fB LXC \*(Em Lxc Container Name \fR
+The name of the lxc container within which a task is running.
+If a process is not running inside a container, a dash (`\-') will be shown.
+
+.TP 4
+13.\fB NI \*(Em Nice Value \fR
 The nice value of the task.
 A negative nice value means higher priority, whereas a positive nice value
 means lower priority.
@@ -647,7 +743,19 @@ Zero in this field simply means priority will not be adjusted in determining
 a task's dispatch-ability.
 
 .TP 4
-12.\fB P \*(Em Last used \*(PU (SMP) \fR
+14.\fB OOMa \*(Em Out of Memory Adjustment Factor \fR
+The value, ranging from -1000 to +1000, added to the current out of memory
+score (OOMs) which is then used to determine which task to kill when memory
+is exhausted.
+
+.TP 4
+15.\fB OOMs \*(Em Out of Memory Score \fR
+The value, ranging from 0 to +1000, used to select task(s) to kill when memory
+is exhausted.
+Zero translates to `never kill' whereas 1000 means `always kill'.
+
+.TP 4
+16.\fB P \*(Em Last used \*(PU (SMP) \fR
 A number representing the last used processor.
 In a true SMP environment this will likely change frequently since the kernel
 intentionally uses weak affinity.
@@ -656,7 +764,7 @@ processes to change \*(PUs more often (because of the extra demand for
 \*(Pu time).
 
 .TP 4
-13.\fB PGRP \*(Em Process Group Id \fR
+17.\fB PGRP \*(Em Process Group Id \fR
 Every process is member of a unique process group which is used for
 distribution of signals and by terminals to arbitrate requests for their
 input and output.
@@ -666,7 +774,7 @@ By convention, this value equals the process ID (\*(Xa PID) of the first
 member of a process group, called the process group leader.
 
 .TP 4
-14.\fB PID \*(Em Process Id \fR
+18.\fB PID \*(Em Process Id \fR
 The task's unique process ID, which periodically wraps, though never
 restarting at zero.
 In kernel terms, it is a dispatchable entity defined by a task_struct.
@@ -677,11 +785,11 @@ a thread group ID for the thread group leader (\*(Xa TGID);
 and a TTY process group ID for the process group leader (\*(Xa TPGID).
 
 .TP 4
-15.\fB PPID \*(Em Parent Process Id \fR
+19.\fB PPID \*(Em Parent Process Id \fR
 The process ID (pid) of a task's parent.
 
 .TP 4
-16.\fB PR \*(Em Priority \fR
+20.\fB PR \*(Em Priority \fR
 The scheduling priority of the task.
 If you see `rt' in this field, it means the task is running
 under real time scheduling priority.
@@ -691,19 +799,50 @@ the operating itself was not preemptible.
 And while the 2.6 kernel can be made mostly preemptible, it is not always so.
 
 .TP 4
-17.\fB RES \*(Em Resident Memory Size (KiB) \fR
-The non-swapped \*(MP a task is using.
+21.\fB RES \*(Em Resident Memory Size (KiB) \fR
+A subset of the virtual address space (VIRT) representing the non-swapped
+\*(MP a task is currently using.
+It is also the sum of the RSan, RSfd and RSsh fields.
+
+It can include private anonymous pages, private pages mapped to files
+(including program images and shared libraries) plus shared anonymous pages.
+All such memory is backed by the \*(MS represented separately under SWAP.
+
+Lastly, this field may also include shared file-backed pages which, when
+modified, act as a dedicated \*(MS and thus will never impact SWAP.
+
+\*(XX.
 
 .TP 4
-18.\fB RUID \*(Em Real User Id \fR
+22.\fB RSan \*(Em Resident Anonymous Memory Size (KiB) \fR
+A subset of resident memory (RES) representing private pages not
+mapped to a file.
+
+.TP 4
+23.\fB RSfd \*(Em Resident File-Backed Memory Size (KiB) \fR
+A subset of resident memory (RES) representing the implicitly shared
+pages supporting program images and shared libraries.
+It also includes explicit file mappings, both private and shared.
+
+.TP 4
+24.\fB RSlk \*(Em Resident Locked Memory Size (KiB) \fR
+A subset of resident memory (RES) which cannot be swapped out.
+
+.TP 4
+25.\fB RSsh \*(Em Resident Shared Memory Size (KiB) \fR
+A subset of resident memory (RES) representing the explicitly shared
+anonymous shm*/mmap pages.
+
+.TP 4
+26.\fB RUID \*(Em Real User Id \fR
 The\fI real\fR user ID.
 
 .TP 4
-19.\fB RUSER \*(Em Real User Name \fR
+27.\fB RUSER \*(Em Real User Name \fR
 The\fI real\fR user name.
 
 .TP 4
-20.\fB S \*(Em Process Status \fR
+28.\fB S \*(Em Process Status \fR
 The status of the task which can be one of:
     \fBD\fR = uninterruptible sleep
     \fBR\fR = running
@@ -718,14 +857,16 @@ Even without a true SMP machine, you may see numerous tasks in this state
 depending on \*(We's delay interval and nice value.
 
 .TP 4
-21.\fB SHR \*(Em Shared Memory Size (KiB) \fR
-The amount of \*(MS available to a task, not all of which is
-typically resident.
-It simply reflects memory that could be potentially shared with
-other processes.
+29.\fB SHR \*(Em Shared Memory Size (KiB) \fR
+A subset of resident memory (RES) that may be used by other processes.
+It will include shared anonymous pages and shared file-backed pages.
+It also includes private pages mapped to files representing
+program images and shared libraries.
+
+\*(XX.
 
 .TP 4
-22.\fB SID \*(Em Session Id \fR
+30.\fB SID \*(Em Session Id \fR
 A session is a collection of process groups (\*(Xa PGRP),
 usually established by the login shell.
 A newly forked process joins the session of its creator.
@@ -734,11 +875,11 @@ member of the session, called the session leader, which is usually the
 login shell.
 
 .TP 4
-23.\fB SUID \*(Em Saved User Id \fR
+31.\fB SUID \*(Em Saved User Id \fR
 The\fI saved\fR user ID.
 
 .TP 4
-24.\fB SUPGIDS \*(Em Supplementary Group IDs \fR
+32.\fB SUPGIDS \*(Em Supplementary Group IDs \fR
 The IDs of any supplementary group(s) established at login or
 inherited from a task's parent.
 They are displayed in a comma delimited list.
@@ -751,7 +892,7 @@ Even so, such variable width fields could still suffer truncation.
 any truncated data.
 
 .TP 4
-25.\fB SUPGRPS \*(Em Supplementary Group Names \fR
+33.\fB SUPGRPS \*(Em Supplementary Group Names \fR
 The names of any supplementary group(s) established at login or
 inherited from a task's parent.
 They are displayed in a comma delimited list.
@@ -764,21 +905,24 @@ Even so, such variable width fields could still suffer truncation.
 any truncated data.
 
 .TP 4
-26.\fB SUSER \*(Em Saved User Name \fR
+34.\fB SUSER \*(Em Saved User Name \fR
 The\fI saved\fR user name.
 
 .TP 4
-27.\fB SWAP \*(Em Swapped Size (KiB) \fR
-The non-resident portion of a task's address space.
+35.\fB SWAP \*(Em Swapped Size (KiB) \fR
+The formerly resident portion of a task's address space written
+to the \*(MS when \*(MP becomes over committed.
+
+\*(XX.
 
 .TP 4
-28.\fB TGID \*(Em Thread Group Id \fR
+36.\fB TGID \*(Em Thread Group Id \fR
 The ID of the thread group to which a task belongs.
 It is the PID of the thread group leader.
 In kernel terms, it represents those tasks that share an mm_struct.
 
 .TP 4
-29.\fB TIME \*(Em \*(PU Time \fR
+37.\fB TIME \*(Em \*(PU Time \fR
 Total \*(PU time the task has used since it started.
 When Cumulative mode is \*O, each process is listed with the \*(Pu
 time that it and its dead children have used.
@@ -786,19 +930,19 @@ You toggle Cumulative mode with `S', which is both a \*(CO and an \*(CI.
 \*(XC `S' \*(CI for additional information regarding this mode.
 
 .TP 4
-30.\fB TIME+ \*(Em \*(PU Time, hundredths \fR
+38.\fB TIME+ \*(Em \*(PU Time, hundredths \fR
 The same as TIME, but reflecting more granularity through hundredths
 of a second.
 
 .TP 4
-31.\fB TPGID \*(Em Tty Process Group Id \fR
+39.\fB TPGID \*(Em Tty Process Group Id \fR
 The process group ID of the foreground process for the connected tty,
 or \-1 if a process is not connected to a terminal.
 By convention, this value equals the process ID (\*(Xa PID) of the
 process group leader (\*(Xa PGRP).
 
 .TP 4
-32.\fB TTY \*(Em Controlling Tty \fR
+40.\fB TTY \*(Em Controlling Tty \fR
 The name of the controlling terminal.
 This is usually the device (serial port, pty, etc.) from which the
 process was started, and which it uses for input or output.
@@ -806,45 +950,43 @@ However, a task need not be associated with a terminal, in which case
 you'll see `?' displayed.
 
 .TP 4
-33.\fB UID \*(Em User Id \fR
+41.\fB UID \*(Em User Id \fR
 The\fI effective\fR user ID of the task's owner.
 
 .TP 4
-34.\fB USED \*(Em Memory in Use (KiB) \fR
-This field represents the non-swapped \*(MP a task has used (RES) plus
-the non-resident portion of its address space (SWAP).
+42.\fB USED \*(Em Memory in Use (KiB) \fR
+This field represents the non-swapped \*(MP a task is using (RES) plus
+the swapped out portion of its address space (SWAP).
+
+\*(XX.
 
 .TP 4
-35.\fB USER \*(Em User Name \fR
+43.\fB USER \*(Em User Name \fR
 The\fI effective\fR user name of the task's owner.
 
 .TP 4
-36.\fB VIRT \*(Em Virtual Memory Size (KiB) \fR
+44.\fB VIRT \*(Em Virtual Memory Size (KiB) \fR
 The total amount of \*(MV used by the task.
 It includes all code, data and shared libraries plus pages that have been
 swapped out and pages that have been mapped but not used.
 
-.TP 4
-37.\fB WCHAN \*(Em Sleeping in Function \fR
-Depending on the availability of the kernel link map (System.map), this
-field will show the name or the address of the kernel function in which the
-task is currently sleeping.
-Running tasks will display a dash ('\-') in this column.
-
-By displaying this field, \*(We's own working set could be increased by over
-700Kb, depending on the kernel version.
-Should that occur, your only means of reducing that overhead will be to stop
-and restart \*(We.
+\*(XX.
 
 .TP 4
-38.\fB nDRT \*(Em Dirty Pages Count \fR
+45.\fB WCHAN \*(Em Sleeping in Function \fR
+This field will show the name of the kernel function in which the task
+is currently sleeping.
+Running tasks will display a dash (`\-') in this column.
+
+.TP 4
+46.\fB nDRT \*(Em Dirty Pages Count \fR
 The number of pages that have been modified since they were last
 written to \*(AS.
 Dirty pages must be written to \*(AS before the corresponding physical
 memory location can be used for some other virtual page.
 
 .TP 4
-39.\fB nMaj \*(Em Major Page Fault Count \fR
+47.\fB nMaj \*(Em Major Page Fault Count \fR
 The number of\fB major\fR page faults that have occurred for a task.
 A page fault occurs when a process attempts to read from or write to a
 virtual page that is not currently present in its address space.
@@ -852,7 +994,7 @@ A major page fault is when \*(AS access is involved in making that
 page available.
 
 .TP 4
-40.\fB nMin \*(Em Minor Page Fault count \fR
+48.\fB nMin \*(Em Minor Page Fault count \fR
 The number of\fB minor\fR page faults that have occurred for a task.
 A page fault occurs when a process attempts to read from or write to a
 virtual page that is not currently present in its address space.
@@ -860,53 +1002,52 @@ A minor page fault does not involve \*(AS access in making that
 page available.
 
 .TP 4
-41.\fB nTH \*(Em Number of Threads \fR
+48.\fB nTH \*(Em Number of Threads \fR
 The number of threads associated with a process.
 
 .TP 4
-42.\fB nsIPC \*(Em IPC namespace \fR
+50.\fB nsIPC \*(Em IPC namespace \fR
 The Inode of the namespace used to isolate interprocess communication (IPC)
 resources such as System V IPC objects and POSIX message queues.
 
 .TP 4
-43.\fB nsMNT \*(Em MNT namespace \fR
+51.\fB nsMNT \*(Em MNT namespace \fR
 The Inode of the namespace used to isolate filesystem mount points thus
 offering different views of the filesystem hierarchy.
 
 .TP 4
-44.\fB nsNET \*(Em NET namespace \fR
+52.\fB nsNET \*(Em NET namespace \fR
 The Inode of the namespace used to isolate resources such as network devices,
 IP addresses, IP routing, port numbers, etc.
 
 .TP 4
-45.\fB nsPID \*(Em PID namespace \fR
+53.\fB nsPID \*(Em PID namespace \fR
 The Inode of the namespace used to isolate process ID numbers
 meaning they need not remain unique.
-Thus, each such namespace could have its own `init' (PID #1) to
+Thus, each such namespace could have its own `init/systemd' (PID #1) to
 manage various initialization tasks and reap orphaned child processes.
 
 .TP 4
-46.\fB nsUSER \*(Em USER namespace \fR
+54.\fB nsUSER \*(Em USER namespace \fR
 The Inode of the namespace used to isolate the user and group ID numbers.
 Thus, a process could have a normal unprivileged user ID outside a user
 namespace while having a user ID of 0, with full root privileges, inside
 that namespace.
 
 .TP 4
-47.\fB nsUTS \*(Em UTS namespace \fR
+55.\fB nsUTS \*(Em UTS namespace \fR
 The Inode of the namespace used to isolate hostname and NIS domain name.
 UTS simply means "UNIX Time-sharing System".
 
 .TP 4
-48.\fB vMj \*(Em Major Page Fault Count Delta\fR
+56.\fB vMj \*(Em Major Page Fault Count Delta\fR
 The number of\fB major\fR page faults that have occurred since the
 last update (see nMaj).
 
 .TP 4
-49.\fB vMn \*(Em Minor Page Fault Count Delta\fR
+57.\fB vMn \*(Em Minor Page Fault Count Delta\fR
 The number of\fB minor\fR page faults that have occurred since the
 last update (see nMin).
-
 
 .\" ......................................................................
 .SS 3b. MANAGING Fields
@@ -1020,10 +1161,11 @@ those \*(CIs applicable to \*(AM.
 Removes restrictions on which tasks are shown.
 This command will reverse any `i' (idle tasks) and `n' (max tasks)
 commands that might be active.
-It also provides for an exit from PID monitoring, User filtering
-and Other filtering.
+It also provides for an exit from PID monitoring, User filtering,
+Other filtering and Locate processing.
 See the `\-p' \*(CO for a discussion of PID monitoring, the `U' or `u'
-\*(CIs for User filtering and the `O' or `o' \*(CIs for Other filtering.
+\*(CIs for User filtering the `O' or `o' \*(CIs for Other filtering
+and `L' or `&' \*(CIs for Locate processing.
 
 Additionally, any window that has been scrolled will be reset with
 this command.
@@ -1174,11 +1316,11 @@ This \*(CI can be used to alter the widths of the following fields:
 .nf
    \fI field  default    field  default    field  default \fR
     GID       5       GROUP     8       WCHAN    10
-    RUID      5       RUSER     8       nsIPC    10
-    SUID      5       SUSER     8       nsMNT    10
-    UID       5       USER      8       nsNET    10
+    RUID      5       LXC       8       nsIPC    10
+    SUID      5       RUSER     8       nsMNT    10
+    UID       5       SUSER     8       nsNET    10
                       TTY       8       nsPID    10
-                                        nsUSER   10
+                      USER      8       nsUSER   10
                                         nsUTS    10
 .fi
 
@@ -1267,7 +1409,7 @@ as reflected in the total label which shows either Tasks or Threads.
 
 This command serves as a 4-way toggle, cycling through these modes:
 .nf
-    1. detailed percentages by category (default)
+    1. detailed percentages by category
     2. abbreviated user/system and total % + bar graph
     3. abbreviated user/system and total % + block graph
     4. turn off task and cpu states display
@@ -1284,7 +1426,7 @@ and virtual memory.
 
 This command serves as a 4-way toggle, cycling through these modes:
 .nf
-    1. detailed percentages by memory type (default)
+    1. detailed percentages by memory type
     2. abbreviated % used/total available + bar graph
     3. abbreviated % used/total available + block graph
     4. turn off memory display
@@ -1356,7 +1498,7 @@ global `B' (bold enable) toggle.
 \ \ \ \fBb\fR\ \ :\fIBold/Reverse\fR toggle \fR
 This command will impact how the `x' and `y' toggles are displayed.
 It may also impact the \*(SA when a bar graph has been selected for \*(Pu
-states or memory usage via the 't' or 'm' toggles.
+states or memory usage via the `t' or `m' toggles.
 
 .TP 7
 \ \ \ \fBx\fR\ \ :\fIColumn-Highlight\fR toggle \fR
@@ -1439,7 +1581,7 @@ matches on\fB any\fR user (real, effective, saved, or filesystem).
 
 Thereafter, in that \*(TW only matching users will be shown, or possibly
 no processes will be shown.
-Prepending an exclamation point ('!') to the user id or name instructs top
+Prepending an exclamation point (`!') to the user id or name instructs top
 to display only processes with users not matching the one provided.
 
 Different \*(TWs can be used to filter different users.
@@ -1632,8 +1774,8 @@ as the only display element.
 .TP 7
 *\ \ \fB=\fR | \fB+\fR\ \ :\fIEqualize-(reinitialize)-Window(s) \fR
 The `=' key forces the \*(CW's \*(TD to be visible.
-It also reverses any `i' (idle tasks), `n' (max tasks), `u/U' (user filter)
-and `o/O' (other filter) commands that might be active.
+It also reverses any `i' (idle tasks), `n' (max tasks), `u/U' (user filter),
+\`o/O' (other filter) and 'L' (locate) commands that might be active.
 Also, if the window had been scrolled, it will be reset with this command.
 \*(XT 5c. SCROLLING a Window for additional information regarding vertical
 and horizontal scrolling.
@@ -1642,7 +1784,7 @@ The `+' key does the same for all windows.
 The four \*(TDs will reappear, evenly balanced.
 They will also have retained any customizations you had previously
 applied, except for the `i' (idle tasks), `n' (max tasks), `u/U'
-(user filter), `o/O' (other filter) and scrolling \*(CIs.
+(user filter), `o/O' (other filter), `L' (locate) and scrolling \*(CIs.
 
 .TP 7
 *\ \ \fBA\fR\ \ :\fIAlternate-Display-Mode\fR toggle \fR
@@ -2186,7 +2328,6 @@ The entries in the \*(We rcfile would have a number for the `.name' element and
 the `help' entry would identify a shell script you've written explaining what
 those numbered selections actually mean.
 In that way, many more choices can be made visible.
-
 .PP
 
 .\" ----------------------------------------------------------------------
@@ -2258,8 +2399,8 @@ Depending on where you applied `i', sometimes several \*(TDs are bouncing and
 sometimes it's like an accordion, as \*(We tries his best to allocate space.
 
 .IP \(bu 3
-Set each window's summary lines differently: one with no memory ('m'); another
-with no states ('t'); maybe one with nothing at all, just the message line.
+Set each window's summary lines differently: one with no memory (`m'); another
+with no states (`t'); maybe one with nothing at all, just the message line.
 Then hold down `a' or `w' and watch a variation on bouncing windows \*(Em
 hopping windows.
 
@@ -2315,43 +2456,12 @@ of travel for the command lines being shown.
 .\" ----------------------------------------------------------------------
 .SH 8. BUGS
 .\" ----------------------------------------------------------------------
-To report bugs, follow the instructions at:
-    http://www.debian.org/Bugs/Reporting
-
-.\" ----------------------------------------------------------------------
-.SH 9. HISTORY Former top
-.\" ----------------------------------------------------------------------
-The original \*(We was written by Roger Binns,
-based on Branko Lankester's <lankeste@fwi.uva.nl> ps program.
-
-Robert Nation <nation@rocket.sanders.lockheed.com>
-adapted it for the proc file system.
-
-Helmut Geyer <Helmut.Geyer@iwr.uni-heidelberg.de>
-added support for configurable fields.
-
-Plus many other individuals contributed over the years.
-
-.\" ----------------------------------------------------------------------
-.SH 10. AUTHOR
-.\" ----------------------------------------------------------------------
-This entirely new and enhanced replacement was written by:
-    Jim Warner, <james.warner@comcast.net>
-.ig
-   ( as a means to learn Linux, can you believe it? )
-   ( & he accidentally learned a little groff, too! )
-   ( then after ten years he did it all over again! )
-..
-
-With invaluable help from:
-    Craig Small, <csmall@enc.com.au>
-.\" Craig Small. <csmall-procps@enc.com.au>
-.\" Craig Small, <csmall@debian.org>
-.\" Craig Small, <csmall@small.dropbear.id.au>
-    Albert Cahalan, <albert@users.sf.net>
+Please send bug reports to
+.UR procps@freelists.org
+.UE .
 
  \" ----------------------------------------------------------------------
-.SH 11. SEE Also
+.SH 9. SEE Also
 .\" ----------------------------------------------------------------------
 .BR free (1),
 .BR ps (1),
@@ -2359,4 +2469,4 @@ With invaluable help from:
 .BR atop (1),
 .BR slabtop (1),
 .BR vmstat (8),
-.BR w (1).
+.BR w (1)

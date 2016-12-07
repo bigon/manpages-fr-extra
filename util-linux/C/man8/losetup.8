@@ -1,4 +1,4 @@
-.TH LOSETUP 8 "July 2014" "util-linux" "System Administration"
+.TH LOSETUP 8 "November 2015" "util-linux" "System Administration"
 .SH NAME
 losetup \- set up and control loop devices
 .SH SYNOPSIS
@@ -67,6 +67,11 @@ device is shown.  If no option is given, all loop devices are shown.
 .sp
 Note that the old output format (i.e. \fBlosetup -a\fR) with comma-delimited
 strings is deprecated in favour of the \fB--list\fR output format.
+.sp
+It's possible to create more independent loop devices for the same backing
+file.
+.B This setup may be dangerous, can cause data loss, corruption and overwrites.
+Use \fB\-\-nooverlap\fR to avoid this problem.
 
 .SH OPTIONS
 The \fIsize\fR and \fIoffset\fR
@@ -91,16 +96,28 @@ Detach the file or device associated with the specified loop device(s).
 .BR \-D , " \-\-detach\-all"
 Detach all associated loop devices.
 .TP
+.BR \-\-direct\-io [ =on | off ]
+Enable or disable direct I/O for the backing file.  The optional argument
+can be either \fBon\fR or \fBoff\fR.  If the argument is omitted, it defaults
+to \fBon\fR.
+.TP
 .BR \-f , " \-\-find"
 Find the first unused loop device.  If a
 .I file
 argument is present, use the found device as loop device.
 Otherwise, just print its name.
-.IP "\fB\-j, \-\-associated \fIfile\fP"
+.TP
+.BR \-L , " \-\-nooverlap"
+Check for conflicts between loop devices to avoid situation when the same
+backing file is shared between more loop devices. If the file is already used
+by another device then re-use the device rather than a new one. The option
+makes sense only with \fB\-\-find\fP.
+.TP
+.BR \-j , " \-\-associated " \fIfile
 Show the status of all loop devices associated with the given
 .IR file .
 .TP
-.IP "\fB\-J, \fB\-\-json\fP"
+.BR \-J , " \-\-json"
 Use JSON format for \fB\-\-list\fP output.
 .TP
 .BR \-l , " \-\-list"
@@ -145,7 +162,7 @@ Display help text and exit.
 
 .SH ENCRYPTION
 .B Cryptoloop is no longer supported in favor of dm-crypt.
-.B For more details see cryptsetup (8).
+.B For more details see cryptsetup(8).
 
 .SH RETURN VALUE
 .B losetup
