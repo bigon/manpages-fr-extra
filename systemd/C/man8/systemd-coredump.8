@@ -1,0 +1,113 @@
+'\" t
+.TH "SYSTEMD\-COREDUMP" "8" "" "systemd 232" "systemd-coredump"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+systemd-coredump, systemd-coredump.socket, systemd-coredump@.service \- Acquire, save and process core dumps
+.SH "SYNOPSIS"
+.PP
+/lib/systemd/systemd\-coredump
+.PP
+systemd\-coredump@\&.service
+.PP
+systemd\-coredump\&.socket
+.SH "DESCRIPTION"
+.PP
+\fBsystemd\-coredump\fR
+is a system service that can acquire core dumps from the kernel and handle them in various ways\&.
+.PP
+Core dumps can be written to the journal or saved as a file\&. Once saved they can be retrieved for further processing, for example in
+\fBgdb\fR(1)\&.
+.PP
+By default,
+\fBsystemd\-coredump\fR
+will log the core dump including a backtrace if possible to the journal and store the core dump itself in an external file in
+/var/lib/systemd/coredump\&.
+.PP
+When the kernel invokes
+\fBsystemd\-coredump\fR
+to handle a core dump, it will connect to the socket created by the
+systemd\-coredump\&.socket
+unit, which in turn will spawn a
+systemd\-coredump@\&.service
+instance to process the core dump\&. Hence
+systemd\-coredump\&.socket
+and
+systemd\-coredump@\&.service
+are helper units which do the actual processing of core dumps and are subject to normal service management\&.
+.PP
+The behavior of a specific program upon reception of a signal is governed by a few factors which are described in detail in
+\fBcore\fR(5)\&. In particular, the core dump will only be processed when the related resource limits are sufficient\&.
+.SH "CONFIGURATION"
+.PP
+For programs started by
+\fBsystemd\fR
+process resource limits can be set by directive
+\fILimitCore=\fR, see
+\fBsystemd.exec\fR(5)\&.
+.PP
+In order to be used
+\fBsystemd\-coredump\fR
+must be configured in
+\fBsysctl\fR(8)
+parameter
+\fIkernel\&.core_pattern\fR\&. The syntax of this parameter is explained in
+\fBcore\fR(5)\&. Systemd installs the file
+/usr/lib/sysctl\&.d/50\-coredump\&.conf
+which configures
+\fIkernel\&.core_pattern\fR
+accordingly\&. This file may be masked or overridden to use a different setting following normal
+\fBsysctl.d\fR(5)
+rules\&. If the sysctl configuration is modified, it must be updated in the kernel before it takes effect, see
+\fBsysctl\fR(8)
+and
+\fBsystemd-sysctl\fR(8)\&.
+.PP
+The behavior of
+\fBsystemd\-coredump\fR
+itself is configured through the configuration file
+/etc/systemd/coredump\&.conf
+and corresponding snippets
+/etc/systemd/coredump\&.conf\&.d/*\&.conf, see
+\fBcoredump.conf\fR(5)\&. A new instance of
+\fBsystemd\-coredump\fR
+is invoked upon receiving every core dump\&. Therefore, changes in these files will take effect the next time a core dump is received\&.
+.PP
+Resources used by core dump files are restricted in two ways\&. Parameters like maximum size of acquired core dumps and files can be set in files
+/etc/systemd/coredump\&.conf
+and snippets mentioned above\&. In addition the storage time of core dump files is restricted by
+\fBsystemd\-tmpfiles\fR, corresponding settings are by default in
+/usr/lib/tmpfiles\&.d/systemd\&.conf\&.
+.SH "USAGE"
+.PP
+Data stored in the journal can be viewed with
+\fBjournalctl\fR(1)
+as usual\&.
+\fBcoredumpctl\fR(1)
+can be used to retrieve saved core dumps independent of their location, to display information and to process them e\&.g\&. by passing to the GNU debugger (gdb)\&.
+.SH "SEE ALSO"
+.PP
+\fBcoredump.conf\fR(5),
+\fBcoredumpctl\fR(1),
+\fBsystemd-journald.service\fR(8),
+\fBsystemd-tmpfiles\fR(8),
+\fBcore\fR(5),
+\fBsysctl.d\fR(5),
+\fBsystemd-sysctl.service\fR(8)\&.

@@ -13,6 +13,7 @@ SUBDIRS=at \
 	procps \
 	reiser4progs reiserfsprogs \
 	startpar \
+	systemd \
 	sysvinit \
 	tar \
 	util-linux \
