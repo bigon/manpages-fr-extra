@@ -1169,11 +1169,14 @@ generally is useful only in shell pipelines\&.
 .PP
 \fINoNewPrivileges=\fR
 .RS 4
-Takes a boolean argument\&. If true, ensures that the service process and all its children can never gain new privileges\&. This option is more powerful than the respective secure bits flags (see above), as it also prohibits UID changes of any kind\&. This is the simplest and most effective way to ensure that a process and its children can never elevate privileges again\&. Defaults to false, but in the user manager instance certain settings force
-\fINoNewPrivileges=yes\fR, ignoring the value of this setting\&. Those is the case when
+Takes a boolean argument\&. If true, ensures that the service process and all its children can never gain new privileges through
+\fBexecve()\fR
+(e\&.g\&. via setuid or setgid bits, or filesystem capabilities)\&. This is the simplest and most effective way to ensure that a process and its children can never elevate privileges again\&. Defaults to false, but in the user manager instance certain settings force
+\fINoNewPrivileges=yes\fR, ignoring the value of this setting\&. This is the case when
 \fISystemCallFilter=\fR,
 \fISystemCallArchitectures=\fR,
 \fIRestrictAddressFamilies=\fR,
+\fIRestrictNamespaces=\fR,
 \fIPrivateDevices=\fR,
 \fIProtectKernelTunables=\fR,
 \fIProtectKernelModules=\fR,
@@ -1387,19 +1390,46 @@ the listed address families will be applied as blacklist, otherwise as whitelist
 system call only\&. Sockets passed into the process by other means (for example, by using socket activation with socket units, see
 \fBsystemd.socket\fR(5)) are unaffected\&. Also, sockets created with
 \fBsocketpair()\fR
-(which creates connected AF_UNIX sockets only) are unaffected\&. Note that this option has no effect on 32\-bit x86 and is ignored (but works correctly on x86\-64)\&. If running in user mode, or in system mode, but without the
+(which creates connected AF_UNIX sockets only) are unaffected\&. Note that this option has no effect on 32\-bit x86, s390, s390x, mips, mips\-le, ppc, ppc\-le, pcc64, ppc64\-le and is ignored (but works correctly on other architectures, including x86\-64)\&. If running in user mode, or in system mode, but without the
 \fBCAP_SYS_ADMIN\fR
 capability (e\&.g\&. setting
 \fIUser=nobody\fR),
 \fINoNewPrivileges=yes\fR
-is implied\&. By default, no restriction applies, all address families are accessible to processes\&. If assigned the empty string, any previous list changes are undone\&.
+is implied\&. By default, no restrictions apply, all address families are accessible to processes\&. If assigned the empty string, any previous address familiy restriction changes are undone\&. This setting does not affect commands prefixed with
+"+"\&.
 .sp
-Use this option to limit exposure of processes to remote systems, in particular via exotic network protocols\&. Note that in most cases, the local
+Use this option to limit exposure of processes to remote access, in particular via exotic and sensitive network protocols, such as
+\fBAF_PACKET\fR\&. Note that in most cases, the local
 \fBAF_UNIX\fR
 address family should be included in the configured whitelist as it is frequently used for local communication, including for
 \fBsyslog\fR(2)
-logging\&. This does not affect commands prefixed with
-"+"\&.
+logging\&.
+.RE
+.PP
+\fIRestrictNamespaces=\fR
+.RS 4
+Restricts access to Linux namespace functionality for the processes of this unit\&. For details about Linux namespaces, see
+\fBnamespaces\fR(7)\&. Either takes a boolean argument, or a space\-separated list of namespace type identifiers\&. If false (the default), no restrictions on namespace creation and switching are made\&. If true, access to any kind of namespacing is prohibited\&. Otherwise, a space\-separated list of namespace type identifiers must be specified, consisting of any combination of:
+\fBcgroup\fR,
+\fBipc\fR,
+\fBnet\fR,
+\fBmnt\fR,
+\fBpid\fR,
+\fBuser\fR
+and
+\fButs\fR\&. Any namespace type listed is made accessible to the unit\*(Aqs processes, access to namespace types not listed is prohibited (whitelisting)\&. By prepending the list with a single tilda character ("~") the effect may be inverted: only the listed namespace types will be made inaccessible, all unlisted ones are permitted (blacklisting)\&. If the empty string is assigned, the default namespace restrictions are applied, which is equivalent to false\&. Internally, this setting limits access to the
+\fBunshare\fR(2),
+\fBclone\fR(2)
+and
+\fBsetns\fR(2)
+system calls, taking the specified flags parameters into account\&. Note that \(em if this option is used \(em in addition to restricting creation and switching of the specified types of namespaces (or all of them, if true) access to the
+\fBsetns()\fR
+system call with a zero flags parameter is prohibited\&. This setting is only supported on x86, x86\-64, s390 and s390x, and enforces no restrictions on other architectures\&. If running in user mode, or in system mode, but without the
+\fBCAP_SYS_ADMIN\fR
+capability (e\&.g\&. setting
+\fIUser=\fR),
+\fINoNewPrivileges=yes\fR
+is implied\&.
 .RE
 .PP
 \fIProtectKernelModules=\fR
@@ -1473,7 +1503,14 @@ set and
 \fBshmat\fR(2)
 system calls with
 \fBSHM_EXEC\fR
-set\&. Note that this option is incompatible with programs that generate program code dynamically at runtime, such as JIT execution engines, or programs compiled making use of the code "trampoline" feature of various C compilers\&. This option improves service security, as it makes harder for software exploits to change running code dynamically\&.
+set\&. Note that this option is incompatible with programs that generate program code dynamically at runtime, such as JIT execution engines, or programs compiled making use of the code "trampoline" feature of various C compilers\&. This option improves service security, as it makes harder for software exploits to change running code dynamically\&. Note that this feature is fully available on x86\-64, and partially on x86\&. Specifically, the
+\fBshmat()\fR
+protection is not available on x86\&. If running in user mode, or in system mode, but without the
+\fBCAP_SYS_ADMIN\fR
+capability (e\&.g\&. setting
+\fIUser=\fR),
+\fINoNewPrivileges=yes\fR
+is implied\&.
 .RE
 .PP
 \fIRestrictRealtime=\fR

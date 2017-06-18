@@ -178,13 +178,7 @@ Note that this switch leaves host name, machine ID and all other settings that c
 .PP
 \fB\-x\fR, \fB\-\-ephemeral\fR
 .RS 4
-If specified, the container is run with a temporary
-"btrfs"
-snapshot of its root directory (as configured with
-\fB\-\-directory=\fR), that is removed immediately when the container terminates\&. This option is only supported if the root file system is
-"btrfs"\&. May not be specified together with
-\fB\-\-image=\fR
-or
+If specified, the container is run with a temporary snapshot of its file system that is removed immediately when the container terminates\&. May not be specified together with
 \fB\-\-template=\fR\&.
 .sp
 Note that this switch leaves host name, machine ID and all other settings that could identify the instance unmodified\&.
@@ -228,11 +222,15 @@ A GUID partition table (GPT) with a marked root partition which is mounted as th
 \m[blue]\fBDiscoverable Partitions Specification\fR\m[]\&\s-2\u[2]\d\s+2\&.
 .RE
 .sp
-Any other partitions, such as foreign partitions, swap partitions or EFI system partitions are not mounted\&. May not be specified together with
+On GPT images, if an EFI System Partition (ESP) is discovered, it is automatically mounted to
+/efi
+(or
+/boot
+as fallback) in case a directory by this name exists and is empty\&.
+.sp
+Any other partitions, such as foreign partitions or swap partitions are not mounted\&. May not be specified together with
 \fB\-\-directory=\fR,
-\fB\-\-template=\fR
-or
-\fB\-\-ephemeral\fR\&.
+\fB\-\-template=\fR\&.
 .RE
 .PP
 \fB\-a\fR, \fB\-\-as\-pid2\fR
